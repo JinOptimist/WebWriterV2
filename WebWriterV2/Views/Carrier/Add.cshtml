@@ -1,0 +1,17 @@
+﻿@model Dao.Model.Hero
+
+@{
+    ViewBag.Title = "title";
+    Layout = "../LayoutMaster.cshtml";
+}
+
+<h2>Add Hero</h2>
+
+@using (Html.BeginForm("Add", "Carrier", FormMethod.Post))
+{
+    <p>Name @Html.TextBoxFor(x => x.Name)</p>
+    <p>Description @Html.TextBoxFor(x => x.Description)</p>
+    <p>FullImgUrl @Html.TextBoxFor(x => x.FullImgUrl)</p>
+    <p>FaceImgUrl @Html.TextBoxFor(x => x.FaceImgUrl)</p>
+    <input type="submit" value="Save" />
+}

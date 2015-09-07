@@ -1,0 +1,17 @@
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\bin\Release\Dao.dll.config
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\bin\Release\Dao.dll
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\bin\Release\Dao.pdb
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\bin\Release\EntityFramework.dll
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\bin\Release\EntityFramework.SqlServer.dll
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\bin\Release\EntityFramework.xml
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\bin\Release\EntityFramework.SqlServer.xml
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\obj\Release\Dao.dll
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\obj\Release\Dao.pdb
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\bin\Release\Autofac.dll
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\bin\Release\Autofac.xml
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\obj\Release\Dao.Migrations.InitialCreate.resources
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\obj\Release\Dao.Migrations.AddDateTimewhenrecordwasaddinmybase.resources
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\obj\Release\Dao.csproj.GenerateResource.Cache
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\obj\Release\Dao.Migrations.Testmigration.resources
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\obj\Release\Dao.Migrations.Deletetestfield.resources
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\obj\Release\Dao.Migrations.AddHero.resources

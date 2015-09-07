@@ -1,0 +1,5 @@
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\VkApi\obj\Debug\VkApi.csprojResolveAssemblyReference.cache
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\VkApi\bin\Debug\VkApi.dll
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\VkApi\bin\Debug\VkApi.pdb
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\VkApi\obj\Debug\VkApi.dll
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\VkApi\obj\Debug\VkApi.pdb

@@ -1,0 +1,15 @@
+﻿@model List<Dao.Model.UserFromVk>
+
+@{
+    ViewBag.Title = "All user";
+    Layout = "../LayoutMaster.cshtml";
+}
+
+<h2>AllUser page. Max 10 users. Now @Model.Count</h2>
+
+<table>
+    @foreach (var fromVk in Model)
+    {
+        @Html.Partial("UserRow", fromVk)
+    }
+</table>

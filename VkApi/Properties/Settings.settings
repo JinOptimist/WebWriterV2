@@ -1,0 +1,33 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WebWriterV2.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="BaseApiUri" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://api.vk.com/method</Value>
+    </Setting>
+    <Setting Name="GetUserMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">users.get</Value>
+    </Setting>
+    <Setting Name="AllUsersField" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">uid,first_name,last_name,nickname,screen_name,sex,bdate,city,country,timezone,photo,photo_medium,photo_big,has_mobile,rate,contacts,education,online,counters,home_phone,mobile_phone,university,university_name,faculty,faculty_name,graduation</Value>
+    </Setting>
+    <Setting Name="GetFriendsMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">friends.get</Value>
+    </Setting>
+    <Setting Name="GetAlbumsMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">photos.getAlbums</Value>
+    </Setting>
+    <Setting Name="GetPhotosMethod" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">photos.get</Value>
+    </Setting>
+    <Setting Name="StartId" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">6174887</Value>
+    </Setting>
+    <Setting Name="DepthSearch" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="CreatePhoto" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
