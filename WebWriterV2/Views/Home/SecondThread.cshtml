@@ -1,18 +1,87 @@
-﻿@model WebWriterV2.Models.MarkViewModel
+﻿@using WebWriterV2.SecondThread
+@model WebWriterV2.Models.MarkViewModel
 
 @{
     ViewBag.Title = "SecondThread";
     Layout = "~/Views/LayoutMaster.cshtml";
 }
 
+@section Script
+{
+    <script>
+        var url = "@Url.Action("SecondThreadInfo")";
+        var currentUser = -1;
+        var isNewUser = true;
+        
+        $(document).ready(function () {
+            Update();
+        });
+
+        function Update() {
+            $.get(url).done(function (data) {
+                $("#TaskStatus").text(data.status);
+                $("#TotalUserFromDb").text(data.totalUser);
+                $("#TotalFriendFromDb").text(data.totalFriend);
+
+                if (data.currentUserId != currentUser) {
+                    $("#CurrentUserName").text(data.currentUserName);
+                    $("#CurrentUserId").text(data.currentUserId);
+                    currentUser = data.currentUserId;
+                    isNewUser = true;
+                    $("#friends").empty();
+                    $("#CurrentUserFriendCount").text(data.friends.length);
+                }
+                
+                for (var i = 0; i < data.friends.length; i++) {
+                    var friend = data.friends[i];
+
+                    var stateClass = "";
+                    switch (friend.State + '') {
+                        case '@((int)FriendState.AlreadyExist)':
+                            stateClass = '@FriendState.AlreadyExist.ToString()';
+                            break;
+                        case '@((int)FriendState.Done)':
+                            stateClass = '@FriendState.Done.ToString()';
+                            break;
+                        case '@((int)FriendState.Fail)':
+                            stateClass = '@FriendState.Fail.ToString()';
+                            break;
+                        case '@((int)FriendState.Wait)':
+                            stateClass = '@FriendState.Wait.ToString()';
+                            break;
+                    }
+
+                    var span;
+                    if (isNewUser) {
+                        span = "<span id='" + friend.VkUserId + "' class='" + stateClass + "'>" + friend.VkUserId + "</span>";
+                        $("#friends").append(span);
+                    } else {
+                        span = $("#" + friend.VkUserId);
+                        if (!span.hasClass(stateClass))
+                            span.removeClass().addClass(stateClass);
+                    }
+
+                    var count = $("#friends .@FriendState.Done.ToString()").length + $("#friends .@FriendState.AlreadyExist.ToString()").length;
+                    
+                    $("#CurrentUserSaveFriendCount").text(count);
+                }
+
+                isNewUser = false;
+            });
+
+            setTimeout(Update, 1000);
+        }
+    </script>
+}
+
 <h2>Данные со второго потока</h2>
 <p>В текущий момент в нашей базе <span id="TotalUserFromDb">@Model.TotalUserFromDb</span> пользователей и <span id="TotalFriendFromDb">@Model.TotalFriendFromDb</span> друзей</p>
 <p>Состояние потока <span id="TaskStatus">@Model.TaskStatus</span></p>
-<p>Текущий пользователь: <span id="CurrentUser">@Model.CurrentVkUser.FirstName @Model.CurrentVkUser.LastName @Model.CurrentVkUser.VkId</span></p>
+<p>
+    Текущий пользователь: <span id="CurrentUserName">Имя тут</span><span> id-</span><span id="CurrentUserId">Айдишка тут</span>
+</p>
+<p>Сохраннено <span id="CurrentUserSaveFriendCount">00</span>/<span id="CurrentUserFriendCount">00</span> друзей текущего пользователя</p>
 
-<div>
-    @foreach (var friend in Model.Friends)
-    {
-        <span class="friendId @friend.State.ToString()">@friend.VkUserId</span>
-    }
+<div id="friends">
+    
 </div>

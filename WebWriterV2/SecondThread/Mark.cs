@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using Dao.IRepository;
@@ -14,7 +15,9 @@ namespace WebWriterV2.SecondThread
 
         private static readonly Mark mark = new Mark();
 
-        private readonly Task _task;
+        private Task _task;
+
+        private CancellationTokenSource cts;
 
         private IUserRepository userRepository;
 
@@ -25,7 +28,13 @@ namespace WebWriterV2.SecondThread
                 userRepository = scope.Resolve<IUserRepository>();
             }
 
-            _task = new Task(OneStep);
+            CreateTask();
+        }
+
+        private void CreateTask()
+        {
+            cts = new CancellationTokenSource();
+            _task = new Task(() => OneStep(cts.Token), cts.Token);
         }
 
         public static Mark Instance
@@ -41,8 +50,24 @@ namespace WebWriterV2.SecondThread
             }
 
             CurrentVkUserId = startVkId;
+
+            Stop();
+            CreateTask();
             _task.Start();
             return CurrentVkUserId;
+        }
+
+        public void Stop()
+        {
+            try
+            {
+                cts.Cancel();
+            }
+            catch (Exception)
+            {
+                Logger.Info("I can't stop Second Thread");
+                throw;
+            }
         }
 
         public TaskStatus GetTaskStatus()
@@ -57,10 +82,12 @@ namespace WebWriterV2.SecondThread
         /// </summary>
         public List<FriendWithState> Friends { get; private set; }
 
-        private void OneStep()
+        private void OneStep(CancellationToken cancellationToken)
         {
             Friends = new List<FriendWithState>();
             var userFromVk = Downloader.Download(CurrentVkUserId);
+            userRepository.SaveUserFromVk(userFromVk);
+
             foreach (var friendId in userFromVk.FriendIds)
             {
                 var friendWithState = new FriendWithState
@@ -73,13 +100,14 @@ namespace WebWriterV2.SecondThread
 
             foreach (var friend in Friends)
             {
+                cancellationToken.ThrowIfCancellationRequested();
                 friend.State = DownloadUser(friend.VkUserId);
             }
 
             foreach (var friend in userFromVk.FriendIds)
             {
                 CurrentVkUserId = friend.FriendsId;
-                OneStep();
+                OneStep(cancellationToken);
             }
         }
 

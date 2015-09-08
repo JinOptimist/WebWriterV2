@@ -1,0 +1,19 @@
+﻿.AlreadyExist {
+    background-color: #ffe849;
+}
+
+.Wait {
+    background-color: #ffffff;
+}
+
+.Done {
+    background-color: #00ffab;
+}
+
+.Fail {
+    background-color: #ff4961;
+}
+
+span {
+    margin-left: 5px;
+}

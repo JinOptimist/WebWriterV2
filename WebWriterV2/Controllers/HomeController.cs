@@ -39,23 +39,35 @@ namespace WebWriterV2.Controllers
 
         public ActionResult SecondThread()
         {
-            var mark = Mark.Instance;
-            var model = new MarkViewModel
-            {
-                TaskStatus = mark.GetTaskStatus(),
-                Friends = mark.Friends,
-                CurrentVkUser = UserRepository.GetUserByVkId(mark.CurrentVkUserId),
-                TotalFriendFromDb = FriendIdRepository.CountFriendId(),
-                TotalUserFromDb = UserRepository.CountUsers()
-            };
-
+            var model = CreateMarkViewModel();
             return View(model);
+        }
+
+        public ActionResult SecondThreadInfo()
+        {
+            var model = CreateMarkViewModel();
+            return Json(new
+            {
+                state = model.TaskStatus, 
+                currentUserName = model.CurrentVkUser.FirstName + " " + model.CurrentVkUser.LastName,
+                currentUserId = model.CurrentVkUser.VkId,
+                friends = model.Friends, 
+                totalUser = model.TotalUserFromDb, 
+                totalFriend = model.TotalFriendFromDb
+            }, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult StartSecondThread(int? id)
         {
             var mark = Mark.Instance;
             mark.Start(id ?? 1);
+            return RedirectToAction("SecondThread");
+        }
+
+        public ActionResult StopSecondThread()
+        {
+            var mark = Mark.Instance;
+            mark.Stop();
             return RedirectToAction("SecondThread");
         }
 
@@ -115,6 +127,21 @@ namespace WebWriterV2.Controllers
 
                 return Json(new { isSuccessful = false, isAlreadyExists = false, content = "All very bad" }, JsonRequestBehavior.AllowGet);
             }
+        }
+
+        private MarkViewModel CreateMarkViewModel()
+        {
+            var mark = Mark.Instance;
+            var model = new MarkViewModel
+            {
+                TaskStatus = mark.GetTaskStatus(),
+                Friends = mark.Friends,
+                CurrentVkUser = UserRepository.GetUserByVkId(mark.CurrentVkUserId),
+                TotalFriendFromDb = FriendIdRepository.CountFriendId(),
+                TotalUserFromDb = UserRepository.CountUsers()
+            };
+
+            return model;
         }
     }
 }

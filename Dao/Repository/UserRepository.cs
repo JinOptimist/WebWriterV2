@@ -28,7 +28,7 @@ namespace Dao.Repository
 
         public void RemoveAllUserFromVk()
         {
-            _db.UserFromVk.RemoveRange(GetAllUserFromVk());
+            _db.UserFromVk.RemoveRange(GetAllUserFromVk(int.MaxValue));
             _db.SaveChanges();
         }
 
@@ -42,20 +42,23 @@ namespace Dao.Repository
                 return;
             }
 
-            if (userFromVk.VkId > 0 && _db.UserFromVk.Any(x=>x.VkId == userFromVk.VkId))
+            lock (_db)
             {
-                var user = _db.UserFromVk.SingleOrDefault(x => x.VkId == userFromVk.VkId);
-                userFromVk = user;
-                return;
-            }
+                if (userFromVk.VkId > 0 && _db.UserFromVk.Any(x => x.VkId == userFromVk.VkId))
+                {
+                    var user = _db.UserFromVk.SingleOrDefault(x => x.VkId == userFromVk.VkId);
+                    userFromVk = user;
+                    return;
+                }
 
-            if (userFromVk.AddedToMyBase == DateTime.MinValue)
-            {
-                userFromVk.AddedToMyBase = DateTime.Now;
-            }
+                if (userFromVk.AddedToMyBase == DateTime.MinValue)
+                {
+                    userFromVk.AddedToMyBase = DateTime.Now;
+                }
 
-            _db.UserFromVk.Add(userFromVk);
-            _db.SaveChanges();
+                _db.UserFromVk.Add(userFromVk);
+                _db.SaveChanges();
+            }
         }
 
         public bool ExistVkUser(long vkId)
