@@ -1,0 +1,18 @@
+﻿@model WebWriterV2.Models.MarkViewModel
+
+@{
+    ViewBag.Title = "SecondThread";
+    Layout = "~/Views/LayoutMaster.cshtml";
+}
+
+<h2>Данные со второго потока</h2>
+<p>В текущий момент в нашей базе <span id="TotalUserFromDb">@Model.TotalUserFromDb</span> пользователей и <span id="TotalFriendFromDb">@Model.TotalFriendFromDb</span> друзей</p>
+<p>Состояние потока <span id="TaskStatus">@Model.TaskStatus</span></p>
+<p>Текущий пользователь: <span id="CurrentUser">@Model.CurrentVkUser.FirstName @Model.CurrentVkUser.LastName @Model.CurrentVkUser.VkId</span></p>
+
+<div>
+    @foreach (var friend in Model.Friends)
+    {
+        <span class="friendId @friend.State.ToString()">@friend.VkUserId</span>
+    }
+</div>

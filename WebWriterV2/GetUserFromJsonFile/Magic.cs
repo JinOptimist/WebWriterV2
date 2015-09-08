@@ -1,26 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using Dao.Model;
-using Newtonsoft.Json.Linq;
-using WebWriterV2.Models;
 
 namespace WebWriterV2.GetUserFromJsonFile
 {
     public class Magic
     {
-        public static List<ExternalUser> DoMagic()
+        public static List<ExternalUserModel> DoMagic()
         {
-            var result = new List<ExternalUser>();
+            var result = new List<ExternalUserModel>();
 
             var files = Directory.GetFiles(@"c:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\WebWriterV2\Json\");
             foreach (var filePath in files)
             {
                 var json = File.ReadAllText(filePath);
-                var user = Deserialize<ExternalUser>(json);
+                var user = Deserialize<ExternalUserModel>(json);
                 result.Add(user);
             }
 

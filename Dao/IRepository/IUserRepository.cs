@@ -5,7 +5,9 @@ namespace Dao.IRepository
 {
     public interface IUserRepository
     {
-        UserFromVk GetUserFromVk(long id);
+        UserFromVk GetUserVk(long id);
+
+        UserFromVk GetUserByVkId(long vkId);
 
         List<UserFromVk> GetAllUserFromVk(int maxResult = 10);
 

@@ -130,13 +130,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CarrierController.cs" />
+    <Compile Include="Models\MarkViewModel.cs" />
+    <Compile Include="SecondThread\FriendWithState.cs" />
     <Compile Include="GetUserFromJsonFile\Magic.cs" />
-    <Compile Include="Models\ExternalUser.cs" />
+    <Compile Include="GetUserFromJsonFile\ExternalUserModel.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="SecondThread\FriendState.cs" />
+    <Compile Include="SecondThread\Mark.cs" />
     <Compile Include="StaticContainer.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
@@ -175,6 +179,7 @@
     <Content Include="Views\Carrier\Index.cshtml" />
     <Content Include="Views\Carrier\Profile.cshtml" />
     <Content Include="Views\Home\Count.cshtml" />
+    <Content Include="Views\Home\SecondThread.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

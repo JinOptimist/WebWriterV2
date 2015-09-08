@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using Dao.IRepository;
@@ -12,9 +11,14 @@ namespace Dao.Repository
     {
         private readonly WriterContext _db = new WriterContext();
 
-        public UserFromVk GetUserFromVk(long id)
+        public UserFromVk GetUserVk(long id)
         {
             return _db.UserFromVk.SingleOrDefault(x => x.Id == id);
+        }
+
+        public UserFromVk GetUserByVkId(long vkId)
+        {
+            return _db.UserFromVk.SingleOrDefault(x => x.VkId == vkId);
         }
 
         public List<UserFromVk> GetAllUserFromVk(int maxResult = 10)

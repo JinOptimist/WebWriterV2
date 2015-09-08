@@ -1,8 +1,8 @@
 ﻿using Dao.Model;
 
-namespace WebWriterV2.Models
+namespace WebWriterV2.GetUserFromJsonFile
 {
-    public class ExternalUser
+    public class ExternalUserModel
     {
         public long UserId { get; set; }
 

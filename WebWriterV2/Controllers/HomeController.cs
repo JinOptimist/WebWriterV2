@@ -11,27 +11,52 @@ using NLog.Config;
 using VkApi.Web;
 using WebWriterV2.GetUserFromJsonFile;
 using WebWriterV2.Models;
+using WebWriterV2.SecondThread;
 using WebWriterV2.Utility;
 
 namespace WebWriterV2.Controllers
 {
     public class HomeController : Controller
     {
-        private static readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         public IUserRepository UserRepository { get; set; }
+        public IFriendIdRepository FriendIdRepository { get; set; }
 
         public HomeController()
         {
             using (var scope = StaticContainer.Container.BeginLifetimeScope())
             {
                 UserRepository = scope.Resolve<IUserRepository>();
+                FriendIdRepository = scope.Resolve<IFriendIdRepository>();
             }
         }
 
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult SecondThread()
+        {
+            var mark = Mark.Instance;
+            var model = new MarkViewModel
+            {
+                TaskStatus = mark.GetTaskStatus(),
+                Friends = mark.Friends,
+                CurrentVkUser = UserRepository.GetUserByVkId(mark.CurrentVkUserId),
+                TotalFriendFromDb = FriendIdRepository.CountFriendId(),
+                TotalUserFromDb = UserRepository.CountUsers()
+            };
+
+            return View(model);
+        }
+
+        public ActionResult StartSecondThread(int? id)
+        {
+            var mark = Mark.Instance;
+            mark.Start(id ?? 1);
+            return RedirectToAction("SecondThread");
         }
 
         public ActionResult Count()
@@ -86,7 +111,7 @@ namespace WebWriterV2.Controllers
             }
             catch (Exception e)
             {
-                _logger.Error("DownloadUserFromVk", e);
+                Logger.Error("DownloadUserFromVk", e);
 
                 return Json(new { isSuccessful = false, isAlreadyExists = false, content = "All very bad" }, JsonRequestBehavior.AllowGet);
             }
