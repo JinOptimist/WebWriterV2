@@ -9,6 +9,12 @@ namespace Dao.IRepository
 
         UserFromVk GetUserByVkId(long vkId);
 
+        /// <summary>
+        /// Search in FriendId table
+        /// </summary>
+        /// <returns>VkId</returns>
+        long GetUnsaveUserVkId();
+
         List<UserFromVk> GetAllUserFromVk(int maxResult = 10);
 
         void RemoveAllUserFromVk();

@@ -15,3 +15,4 @@ C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\D
 C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\obj\Release\Dao.Migrations.Testmigration.resources
 C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\obj\Release\Dao.Migrations.Deletetestfield.resources
 C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\obj\Release\Dao.Migrations.AddHero.resources
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\Dao\obj\Release\Dao.csprojResolveAssemblyReference.cache

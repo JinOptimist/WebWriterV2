@@ -41,3 +41,5 @@ C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\W
 C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\WebWriterV2\bin\NLog.config
 C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\WebWriterV2\bin\NLog.dll
 C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\WebWriterV2\bin\NLog.xml
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\WebWriterV2\bin\VkApi.dll
+C:\Users\Pavel_Lvou@epam.com\Documents\Visual Studio 2013\Projects\WebWriterV2\WebWriterV2\bin\VkApi.pdb

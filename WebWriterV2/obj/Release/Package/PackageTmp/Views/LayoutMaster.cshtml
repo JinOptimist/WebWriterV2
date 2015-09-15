@@ -3,21 +3,23 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/main.css")">
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
     <title>@ViewBag.Title</title>
 
     @RenderSection("Script", false)
 </head>
 <body>
-<div>
-    @Html.ActionLink("All", "AllUser", "Home")
-    ||| @Html.ActionLink("Count", "Count", "Home")
-    ||| @Html.ActionLink("Save", "AddUser", "Home")
-    ||| @Html.ActionLink("Remove All", "RemoveAllUser", "Home")
-    ||| @Html.ActionLink("Do Magic", "DoMagic", "Home")
-    ||| @Html.ActionLink("Add Hero", "Add", "Carrier")
-    ||| @Html.ActionLink("Profile", "Profile", "Carrier")
-    @RenderBody()
-</div>
+    <div>
+        @Html.ActionLink("All", "AllUser", "Home")
+        ||| @Html.ActionLink("Second State", "SecondThread", "Home")
+        ||| <a href="@Url.Action("StartSecondThread", "Home", new {id = 1})">Second Start 1</a>
+        ||| @Html.ActionLink("Second Stop", "StopSecondThread", "Home")
+        ||| @Html.ActionLink("Add One User", "AddUser", "Home")
+        ||| @Html.ActionLink("Remove All", "RemoveAllUser", "Home")
+        ||| @Html.ActionLink("Add Hero", "Add", "Carrier")
+        ||| @Html.ActionLink("Profile", "Profile", "Carrier")
+        @RenderBody()
+    </div>
 </body>
 </html>

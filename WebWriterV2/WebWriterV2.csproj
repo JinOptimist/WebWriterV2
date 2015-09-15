@@ -148,6 +148,8 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utility\Downloader.cs" />
+    <Compile Include="Utility\FileHelper.cs" />
+    <Compile Include="Utility\SerializeHelper.cs" />
     <Compile Include="Utility\UserConverter.cs" />
   </ItemGroup>
   <ItemGroup>

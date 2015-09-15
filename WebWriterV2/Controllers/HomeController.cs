@@ -34,7 +34,7 @@ namespace WebWriterV2.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("SecondThread");
         }
 
         public ActionResult SecondThread()
@@ -46,11 +46,20 @@ namespace WebWriterV2.Controllers
         public ActionResult SecondThreadInfo()
         {
             var model = CreateMarkViewModel();
+
+            var userName = "";
+            var userId = default(long);
+            if (model.CurrentVkUser != null)
+            {
+                userName = model.CurrentVkUser.FirstName + " " + model.CurrentVkUser.LastName;
+                userId = model.CurrentVkUser.VkId;
+            }
+
             return Json(new
             {
                 state = model.TaskStatus, 
-                currentUserName = model.CurrentVkUser.FirstName + " " + model.CurrentVkUser.LastName,
-                currentUserId = model.CurrentVkUser.VkId,
+                currentUserName = userName,
+                currentUserId = userId,
                 friends = model.Friends, 
                 totalUser = model.TotalUserFromDb, 
                 totalFriend = model.TotalFriendFromDb
@@ -93,6 +102,12 @@ namespace WebWriterV2.Controllers
             return View();
         }
 
+        public ActionResult CreateBackup()
+        {
+
+            return new FilePathResult("asd","asd");
+        }
+
         [HttpPost]
         public ActionResult AddUser(UserFromVk userFromVk)
         {
@@ -123,7 +138,7 @@ namespace WebWriterV2.Controllers
             }
             catch (Exception e)
             {
-                Logger.Error("DownloadUserFromVk", e);
+                Logger.Error("Action DownloadUserFromVk. vkUserId {0}. InnerException - {1}", vkUserId, e.InnerException);
 
                 return Json(new { isSuccessful = false, isAlreadyExists = false, content = "All very bad" }, JsonRequestBehavior.AllowGet);
             }
