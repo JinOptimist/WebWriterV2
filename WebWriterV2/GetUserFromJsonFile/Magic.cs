@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
+using WebWriterV2.Utility;
 
 namespace WebWriterV2.GetUserFromJsonFile
 {
@@ -16,30 +17,11 @@ namespace WebWriterV2.GetUserFromJsonFile
             foreach (var filePath in files)
             {
                 var json = File.ReadAllText(filePath);
-                var user = Deserialize<ExternalUserModel>(json);
+                var user = SerializeHelper.Deserialize<ExternalUserModel>(json);
                 result.Add(user);
             }
 
             return result;
-        }
-
-        public static string Serialize<T>(T obj)
-        {
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
-            MemoryStream ms = new MemoryStream();
-            serializer.WriteObject(ms, obj);
-            string retVal = Encoding.UTF8.GetString(ms.ToArray());
-            return retVal;
-        }
-
-        public static T Deserialize<T>(string json)
-        {
-            T obj = Activator.CreateInstance<T>();
-            MemoryStream ms = new MemoryStream(Encoding.Unicode.GetBytes(json));
-            DataContractJsonSerializer serializer = new DataContractJsonSerializer(obj.GetType());
-            obj = (T)serializer.ReadObject(ms);
-            ms.Close();
-            return obj;
         }
     }
 }

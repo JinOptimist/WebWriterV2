@@ -21,6 +21,15 @@ namespace Dao.Repository
             return _db.UserFromVk.SingleOrDefault(x => x.VkId == vkId);
         }
 
+        public long GetUnsaveUserVkId()
+        {
+            var vkIds = _db.UserFromVk.Select(x => x.VkId);
+            var firstOrDefault = _db.FriendId.FirstOrDefault(x => !vkIds.Contains(x.FriendsId));
+            if (firstOrDefault != null)
+                return firstOrDefault.FriendsId;
+            return -1;
+        }
+
         public List<UserFromVk> GetAllUserFromVk(int maxResult = 10)
         {
             return _db.UserFromVk.Take(maxResult).ToList();
@@ -34,16 +43,16 @@ namespace Dao.Repository
 
         public void SaveUserFromVk(UserFromVk userFromVk)
         {
-            if (userFromVk.Id > 0)
-            {
-                _db.UserFromVk.Attach(userFromVk);
-                _db.Entry(userFromVk).State = EntityState.Modified;
-                _db.SaveChanges();
-                return;
-            }
-
             lock (_db)
             {
+                if (userFromVk.Id > 0)
+                {
+                    _db.UserFromVk.Attach(userFromVk);
+                    _db.Entry(userFromVk).State = EntityState.Modified;
+                    _db.SaveChanges();
+                    return;
+                }
+
                 if (userFromVk.VkId > 0 && _db.UserFromVk.Any(x => x.VkId == userFromVk.VkId))
                 {
                     var user = _db.UserFromVk.SingleOrDefault(x => x.VkId == userFromVk.VkId);

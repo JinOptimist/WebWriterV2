@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
 using Dao.IRepository;
+using Dao.Model;
 using NLog;
 using WebWriterV2.Utility;
 
@@ -66,7 +67,6 @@ namespace WebWriterV2.SecondThread
             catch (Exception)
             {
                 Logger.Info("I can't stop Second Thread");
-                throw;
             }
         }
 
@@ -77,38 +77,63 @@ namespace WebWriterV2.SecondThread
 
         public long CurrentVkUserId { get; private set; }
 
-        /// <summary>
-        /// Key = VkUserId
-        /// </summary>
         public List<FriendWithState> Friends { get; private set; }
 
         private void OneStep(CancellationToken cancellationToken)
         {
-            Friends = new List<FriendWithState>();
-            var userFromVk = Downloader.Download(CurrentVkUserId);
-            userRepository.SaveUserFromVk(userFromVk);
-
-            foreach (var friendId in userFromVk.FriendIds)
+            try
             {
-                var friendWithState = new FriendWithState
+                while (true)
                 {
-                    VkUserId = friendId.FriendsId,
-                    State = FriendState.Wait
-                };
-                Friends.Add(friendWithState);
-            }
+                    Logger.Info("Start copy new user. Id {0}, time {1}", CurrentVkUserId, DateTime.Now.ToLongTimeString());
+                    Friends = new List<FriendWithState>();
+                    UserFromVk userFromVk = new UserFromVk();
+                    try
+                    {
+                        userFromVk = Downloader.Download(CurrentVkUserId);
+                    }
+                    catch (Exception)
+                    {
+                        Logger.Error("OneStep. Can't download user from VK id {0}, time {1}", CurrentVkUserId, DateTime.Now.ToLongTimeString());
+                    }
 
-            foreach (var friend in Friends)
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-                friend.State = DownloadUser(friend.VkUserId);
-            }
+                    try
+                    {
+                        userRepository.SaveUserFromVk(userFromVk);
+                    }
+                    catch (Exception)
+                    {
+                        Logger.Error("OneStep. Can't save user to my DB id {0}, time {1}", CurrentVkUserId, DateTime.Now.ToLongTimeString());
+                    }
 
-            foreach (var friend in userFromVk.FriendIds)
-            {
-                CurrentVkUserId = friend.FriendsId;
-                OneStep(cancellationToken);
+                    if (userFromVk != null && userFromVk.FriendIds != null)
+                        foreach (var friendId in userFromVk.FriendIds)
+                        {
+                            var friendWithState = new FriendWithState
+                            {
+                                VkUserId = friendId.FriendsId,
+                                State = FriendState.Wait
+                            };
+                            Friends.Add(friendWithState);
+                        }
+
+                    foreach (var friend in Friends)
+                    {
+                        cancellationToken.ThrowIfCancellationRequested();
+                        friend.State = DownloadUser(friend.VkUserId);
+                    }
+
+                    Logger.Info("Complete copy user. Id {0}, time {1}", CurrentVkUserId, DateTime.Now.ToLongTimeString());
+
+                    cancellationToken.ThrowIfCancellationRequested();
+                    CurrentVkUserId = userRepository.GetUnsaveUserVkId();
+                }
             }
+            finally
+            {
+                Logger.Info("Second Thread was Cancel");
+            }
+            
         }
 
         private FriendState DownloadUser(long vkUserId)
@@ -127,7 +152,7 @@ namespace WebWriterV2.SecondThread
             }
             catch (Exception e)
             {
-                Logger.Error("DownloadUser", e);
+                Logger.Error("DownloadUser. Can't save or deownload. User Id-{0}. E.InnerException {1}", vkUserId, e.InnerException);
                 return FriendState.Fail;
             }
         }

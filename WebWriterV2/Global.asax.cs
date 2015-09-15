@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data.Entity;
-using System.Data.Entity.Migrations.Model;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -11,14 +6,15 @@ using System.Web.Routing;
 using Autofac;
 using Dao;
 using Dao.IRepository;
+using Dao.Migrations;
 using Dao.Repository;
-using NLog;
+using WebWriterV2.SecondThread;
 
 namespace WebWriterV2
 {
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         protected void Application_Start()
         {
@@ -39,10 +35,10 @@ namespace WebWriterV2
             
             StaticContainer.Container = builder.Build();
 
-            var _logger = LogManager.GetCurrentClassLogger();
-            _logger.Info("Statr Application");
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<WriterContext, Configuration>());
 
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<WriterContext, Dao.Migrations.Configuration>());
+            var mark = Mark.Instance;
+            mark.Start(1);
         }
     }
 }
