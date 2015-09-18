@@ -130,6 +130,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CarrierController.cs" />
+    <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Models\MarkViewModel.cs" />
     <Compile Include="SecondThread\FriendWithState.cs" />
     <Compile Include="GetUserFromJsonFile\Magic.cs" />
@@ -157,6 +158,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Content\css\main.css" />
+    <Content Include="Content\del.jpg" />
     <Content Include="Content\wait.gif" />
     <Content Include="Global.asax" />
     <Content Include="NLog.config">
@@ -183,10 +185,14 @@
     <Content Include="Views\Carrier\Profile.cshtml" />
     <Content Include="Views\Home\Count.cshtml" />
     <Content Include="Views\Home\SecondThread.cshtml" />
+    <Content Include="Views\Student\AddHtmlPage.cshtml" />
+    <Content Include="Views\StudentLayoutMaster.cshtml" />
+    <Content Include="Views\Student\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\HeroImg\" />
+    <Folder Include="html\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -13,7 +13,7 @@
     <div>
         @Html.ActionLink("All", "AllUser", "Home")
         ||| @Html.ActionLink("Second State", "SecondThread", "Home")
-        ||| <a href="@Url.Action("StartSecondThread", "Home", new {id = 1})">Second Start 1</a>
+        ||| @Html.ActionLink("Second Start", "StartSecondThread", "Home")
         ||| @Html.ActionLink("Second Stop", "StopSecondThread", "Home")
         ||| @Html.ActionLink("Add One User", "AddUser", "Home")
         ||| @Html.ActionLink("Remove All", "RemoveAllUser", "Home")

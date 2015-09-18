@@ -23,7 +23,6 @@ namespace WebWriterV2
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
             
             var builder = new ContainerBuilder();
             builder.RegisterType<UserRepository>();
@@ -37,8 +36,8 @@ namespace WebWriterV2
 
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<WriterContext, Configuration>());
 
-            var mark = Mark.Instance;
-            mark.Start(1);
+            //var mark = Mark.Instance;
+            //mark.Start();
         }
     }
 }

@@ -13,7 +13,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/27/2015 09:13:15</publishTime>
     </File>
     <File Include="bin/Dao.dll">
-      <publishTime>09/09/2015 14:06:49</publishTime>
+      <publishTime>09/15/2015 15:37:01</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/25/2015 09:11:03</publishTime>
@@ -70,13 +70,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2015 14:59:29</publishTime>
     </File>
     <File Include="bin/VkApi.dll">
-      <publishTime>09/08/2015 17:52:52</publishTime>
+      <publishTime>09/15/2015 15:37:01</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>09/09/2015 14:06:49</publishTime>
+      <publishTime>09/18/2015 14:49:00</publishTime>
     </File>
     <File Include="Content/css/main.css">
       <publishTime>09/08/2015 17:29:08</publishTime>
+    </File>
+    <File Include="Content/del.jpg">
+      <publishTime>09/18/2015 14:17:30</publishTime>
     </File>
     <File Include="Content/wait.gif">
       <publishTime>09/04/2015 12:33:53</publishTime>
@@ -289,16 +292,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/25/2015 16:07:00</publishTime>
     </File>
     <File Include="Views/LayoutMaster.cshtml">
-      <publishTime>09/08/2015 16:36:27</publishTime>
+      <publishTime>09/15/2015 15:02:58</publishTime>
     </File>
     <File Include="Views/Shared/UserRow.cshtml">
       <publishTime>08/28/2015 12:43:56</publishTime>
+    </File>
+    <File Include="Views/Student/AddHtmlPage.cshtml">
+      <publishTime>09/18/2015 14:15:45</publishTime>
+    </File>
+    <File Include="Views/Student/Index.cshtml">
+      <publishTime>09/18/2015 14:48:45</publishTime>
+    </File>
+    <File Include="Views/StudentLayoutMaster.cshtml">
+      <publishTime>09/15/2015 15:33:19</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>08/24/2015 14:59:26</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/08/2015 17:52:53</publishTime>
+      <publishTime>09/15/2015 15:37:02</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/main.css")">
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <title>@ViewBag.Title</title>
+
+    @RenderSection("Script", false)
+</head>
+<body>
+    <div>
+        @Html.ActionLink("Начальная страница", "Index", "Student")
+        ||| @Html.ActionLink("Загрузить HTML страницу", "AddHtmlPage", "Student")
+        @RenderBody()
+    </div>
+</body>
+</html>

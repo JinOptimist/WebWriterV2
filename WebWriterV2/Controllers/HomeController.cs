@@ -34,7 +34,7 @@ namespace WebWriterV2.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("SecondThread");
+            return RedirectToAction("AddHtmlPage", "Student");
         }
 
         public ActionResult SecondThread()
@@ -66,10 +66,10 @@ namespace WebWriterV2.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult StartSecondThread(int? id)
+        public ActionResult StartSecondThread()
         {
             var mark = Mark.Instance;
-            mark.Start(id ?? 1);
+            mark.Start();
             return RedirectToAction("SecondThread");
         }
 
@@ -100,12 +100,6 @@ namespace WebWriterV2.Controllers
         public ActionResult AddUser()
         {
             return View();
-        }
-
-        public ActionResult CreateBackup()
-        {
-
-            return new FilePathResult("asd","asd");
         }
 
         [HttpPost]

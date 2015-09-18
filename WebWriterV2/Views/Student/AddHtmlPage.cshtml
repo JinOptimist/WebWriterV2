@@ -1,0 +1,14 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Add your Html Page here";
+    Layout = "~/Views/StudentLayoutMaster.cshtml";
+}
+
+@using (Html.BeginForm("AddHtmlPage", "Student", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <h2>Add your Html Page here</h2>
+    <input type="file" name="file" />
+    <input type="submit" value="Save file"/>
+    <input type="hidden" name="flag" value="1"/>
+}

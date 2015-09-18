@@ -20,13 +20,13 @@ namespace WebWriterV2.SecondThread
 
         private CancellationTokenSource cts;
 
-        private IUserRepository userRepository;
+        private readonly IUserRepository _userRepository;
 
         private Mark()
         {
             using (var scope = StaticContainer.Container.BeginLifetimeScope())
             {
-                userRepository = scope.Resolve<IUserRepository>();
+                _userRepository = scope.Resolve<IUserRepository>();
             }
 
             CreateTask();
@@ -43,16 +43,14 @@ namespace WebWriterV2.SecondThread
             get { return mark; }
         }
 
-        public long Start(long startVkId)
+        public long Start()
         {
             if (_task.Status == TaskStatus.Running)
             {
                 return CurrentVkUserId;
             }
 
-            CurrentVkUserId = startVkId;
-
-            Stop();
+            Stop();//Пытаемся остановить на всякий случай :)
             CreateTask();
             _task.Start();
             return CurrentVkUserId;
@@ -85,6 +83,8 @@ namespace WebWriterV2.SecondThread
             {
                 while (true)
                 {
+                    CurrentVkUserId = _userRepository.GetUnsaveUserVkId();
+
                     Logger.Info("Start copy new user. Id {0}, time {1}", CurrentVkUserId, DateTime.Now.ToLongTimeString());
                     Friends = new List<FriendWithState>();
                     UserFromVk userFromVk = new UserFromVk();
@@ -99,7 +99,7 @@ namespace WebWriterV2.SecondThread
 
                     try
                     {
-                        userRepository.SaveUserFromVk(userFromVk);
+                        _userRepository.SaveUserFromVk(userFromVk);
                     }
                     catch (Exception)
                     {
@@ -126,14 +126,12 @@ namespace WebWriterV2.SecondThread
                     Logger.Info("Complete copy user. Id {0}, time {1}", CurrentVkUserId, DateTime.Now.ToLongTimeString());
 
                     cancellationToken.ThrowIfCancellationRequested();
-                    CurrentVkUserId = userRepository.GetUnsaveUserVkId();
                 }
             }
             finally
             {
                 Logger.Info("Second Thread was Cancel");
             }
-            
         }
 
         private FriendState DownloadUser(long vkUserId)
@@ -141,13 +139,13 @@ namespace WebWriterV2.SecondThread
             if (vkUserId == default(long) || vkUserId < 1)
                 return FriendState.Fail;
 
-            if (userRepository.ExistVkUser(vkUserId))
+            if (_userRepository.ExistVkUser(vkUserId))
                 return FriendState.AlreadyExist;
 
             try
             {
                 var myUser = Downloader.Download(vkUserId);
-                userRepository.SaveUserFromVk(myUser);
+                _userRepository.SaveUserFromVk(myUser);
                 return FriendState.Done;
             }
             catch (Exception e)
