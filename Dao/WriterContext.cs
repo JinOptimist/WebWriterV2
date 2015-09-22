@@ -18,6 +18,8 @@ namespace Dao
 
         public DbSet<Hero> Hero { get; set; }
 
+        public DbSet<StudentLogin> StudentLogin { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

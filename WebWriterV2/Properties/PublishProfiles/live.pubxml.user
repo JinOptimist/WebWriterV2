@@ -13,7 +13,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/27/2015 09:13:15</publishTime>
     </File>
     <File Include="bin/Dao.dll">
-      <publishTime>09/15/2015 15:37:01</publishTime>
+      <publishTime>09/21/2015 19:16:22</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/25/2015 09:11:03</publishTime>
@@ -73,7 +73,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/15/2015 15:37:01</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>09/18/2015 14:49:00</publishTime>
+      <publishTime>09/21/2015 19:16:22</publishTime>
     </File>
     <File Include="Content/css/main.css">
       <publishTime>09/08/2015 17:29:08</publishTime>
@@ -294,17 +294,32 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/LayoutMaster.cshtml">
       <publishTime>09/15/2015 15:02:58</publishTime>
     </File>
+    <File Include="Views/Shared/StudentFilesRow.cshtml">
+      <publishTime>09/21/2015 16:11:55</publishTime>
+    </File>
     <File Include="Views/Shared/UserRow.cshtml">
       <publishTime>08/28/2015 12:43:56</publishTime>
     </File>
     <File Include="Views/Student/AddHtmlPage.cshtml">
-      <publishTime>09/18/2015 14:15:45</publishTime>
+      <publishTime>09/18/2015 17:25:08</publishTime>
+    </File>
+    <File Include="Views/Student/AllFiles.cshtml">
+      <publishTime>09/21/2015 16:12:14</publishTime>
+    </File>
+    <File Include="Views/Student/Example.cshtml">
+      <publishTime>09/21/2015 19:08:55</publishTime>
     </File>
     <File Include="Views/Student/Index.cshtml">
-      <publishTime>09/18/2015 14:48:45</publishTime>
+      <publishTime>09/18/2015 17:38:56</publishTime>
+    </File>
+    <File Include="Views/Student/Login.cshtml">
+      <publishTime>09/21/2015 18:27:40</publishTime>
+    </File>
+    <File Include="Views/Student/MyFiles.cshtml">
+      <publishTime>09/21/2015 16:12:17</publishTime>
     </File>
     <File Include="Views/StudentLayoutMaster.cshtml">
-      <publishTime>09/15/2015 15:33:19</publishTime>
+      <publishTime>09/21/2015 18:55:09</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>08/24/2015 14:59:26</publishTime>

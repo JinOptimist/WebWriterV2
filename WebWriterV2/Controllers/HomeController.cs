@@ -2,14 +2,10 @@
 using System.Linq;
 using System.Web.Mvc;
 using Autofac;
-using CopyVk;
 using Dao.IRepository;
 using Dao.Model;
 using NLog;
-using NLog.Common;
-using NLog.Config;
 using VkApi.Web;
-using WebWriterV2.GetUserFromJsonFile;
 using WebWriterV2.Models;
 using WebWriterV2.SecondThread;
 using WebWriterV2.Utility;

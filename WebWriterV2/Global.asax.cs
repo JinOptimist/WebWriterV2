@@ -7,6 +7,7 @@ using Autofac;
 using Dao;
 using Dao.IRepository;
 using Dao.Migrations;
+using Dao.Model;
 using Dao.Repository;
 using WebWriterV2.SecondThread;
 
@@ -28,9 +29,11 @@ namespace WebWriterV2
             builder.RegisterType<UserRepository>();
             builder.RegisterType<HeroRepository>();
             builder.RegisterType<FriendIdRepository>();
+            builder.RegisterType<StudentLoginRepository>();
             builder.Register<IUserRepository>(x => x.Resolve<UserRepository>());
             builder.Register<IHeroRepository>(x => x.Resolve<HeroRepository>());
             builder.Register<IFriendIdRepository>(x => x.Resolve<FriendIdRepository>());
+            builder.Register<IStudentLoginRepository>(x => x.Resolve<StudentLoginRepository>());
             
             StaticContainer.Container = builder.Build();
 

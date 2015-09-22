@@ -11,8 +11,10 @@
 </head>
 <body>
     <div>
-        @Html.ActionLink("Начальная страница", "Index", "Student")
+        @Html.ActionLink("My Files", "MyFiles", "Student")
         ||| @Html.ActionLink("Загрузить HTML страницу", "AddHtmlPage", "Student")
+        ||| @Html.ActionLink("Login", "Login", "Student")
+        ||| @Html.ActionLink("Example", "Example", "Student")
         @RenderBody()
     </div>
 </body>

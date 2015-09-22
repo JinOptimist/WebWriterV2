@@ -1,4 +1,4 @@
-﻿@model List<string>
+﻿@model List<WebWriterV2.Models.StudentHtmlFile>
 
 @{
     ViewBag.Title = "All Student Page";
@@ -9,17 +9,17 @@
 {
     <script>
         $(document).ready(function () {
-            $(".delete").click(function() {
+            $(".delete").click(function () {
                 var isConfirm = confirm("Вы уверены что хотите удалить файл?");
                 return isConfirm;
             });
         });
-        
     </script>
 }
 
-<h2>All Student Page</h2>
-@foreach (var fileName in Model)
+<h2>Привет Босс</h2>
+
+@foreach (var student in Model)
 {
-    <p><a href="/html/@fileName">@fileName</a> <a class="delete" href="@Url.Action("RemoteHtmlPage", new { fileName })"><img src="@Url.Content("~/Content/del.jpg")" width="20" /></a></p>
+    @Html.Partial("StudentFilesRow", student)
 }

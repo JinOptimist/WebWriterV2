@@ -1,0 +1,10 @@
+﻿@model WebWriterV2.Models.StudentHtmlFile
+
+<h2>Привет @Model.StudentName</h2>
+<div>
+    <p>У тебя есть следующие файлы</p>
+    @foreach (var fileName in Model.FilesName)
+    {
+        <p><a href="/html/@Path.Combine(Model.StudentName, fileName)">@fileName</a> <a class="delete" href="@Url.Action("RemoteHtmlPage","Student", new { fileName = Path.Combine(Model.StudentName, fileName) })"><img src="@Url.Content("~/Content/del.jpg")" width="20" /></a></p>
+    }
+</div>

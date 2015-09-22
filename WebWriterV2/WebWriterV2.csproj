@@ -132,6 +132,7 @@
     <Compile Include="Controllers\CarrierController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Models\MarkViewModel.cs" />
+    <Compile Include="Models\StudentHtmlFile.cs" />
     <Compile Include="SecondThread\FriendWithState.cs" />
     <Compile Include="GetUserFromJsonFile\Magic.cs" />
     <Compile Include="GetUserFromJsonFile\ExternalUserModel.cs" />
@@ -187,7 +188,11 @@
     <Content Include="Views\Home\SecondThread.cshtml" />
     <Content Include="Views\Student\AddHtmlPage.cshtml" />
     <Content Include="Views\StudentLayoutMaster.cshtml" />
-    <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Student\MyFiles.cshtml" />
+    <Content Include="Views\Student\Example.cshtml" />
+    <Content Include="Views\Student\Login.cshtml" />
+    <Content Include="Views\Student\AllFiles.cshtml" />
+    <Content Include="Views\Shared\StudentFilesRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
