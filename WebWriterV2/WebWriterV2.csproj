@@ -158,17 +158,63 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="book\Academy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\css\home.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\del.jpg" />
+    <Content Include="Content\home\down.png" />
+    <Content Include="Content\home\download-icon.png" />
+    <Content Include="Content\home\fb2-icon.png" />
+    <Content Include="Content\home\full-screen-rev.png" />
+    <Content Include="Content\home\full-screen.png" />
+    <Content Include="Content\home\gallery.png" />
+    <Content Include="Content\home\google-play-icon.png" />
+    <Content Include="Content\home\hero\00 Ira.jpg" />
+    <Content Include="Content\home\hero\00 Ivan.jpg" />
+    <Content Include="Content\home\hero\00 Lera.jpg" />
+    <Content Include="Content\home\hero\00 Pavel.jpg" />
+    <Content Include="Content\home\hero\01 Ira 260x320.jpg" />
+    <Content Include="Content\home\hero\02 Ivan 220x320.jpg" />
+    <Content Include="Content\home\hero\03 Lera 226x320.jpg" />
+    <Content Include="Content\home\hero\04 Pavel 226x320.jpg" />
+    <Content Include="Content\home\hero\Denis v3 226x320.jpg" />
+    <Content Include="Content\home\hero\Denis v3.jpg" />
+    <Content Include="Content\home\hero\LeraS v1.jpg" />
+    <Content Include="Content\home\hero\Nata v3 3.jpg" />
+    <Content Include="Content\home\lj-icon.png" />
+    <Content Include="Content\home\rtf-icon.png" />
+    <Content Include="Content\home\txt-icon.png" />
+    <Content Include="Content\home\up.png" />
+    <Content Include="Content\home\velcome.png" />
+    <Content Include="Content\home\vk-icon.png" />
+    <Content Include="Content\home\word-icon.png" />
     <Content Include="Content\wait.gif" />
     <Content Include="Global.asax" />
     <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="book\Academy.doc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="book\Academy.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="book\Academy.epub">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="book\Academy.fb2">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="book\Academy.rtf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\galleria-1.2.9.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Web.config" />

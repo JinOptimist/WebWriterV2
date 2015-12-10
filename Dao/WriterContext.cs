@@ -6,10 +6,9 @@ namespace Dao
 {
     public class WriterContext : DbContext
     {
-        public WriterContext()
-            : base("name=WriterContext")
+        public WriterContext() : base("name=WriterContext")
         {
-            //Configuration.LazyLoadingEnabled = false;
+            //Configuration.LazyLoadingEnabled = true;
         }
 
         public DbSet<UserFromVk> UserFromVk { get; set; }

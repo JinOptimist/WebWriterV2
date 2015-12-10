@@ -12,8 +12,26 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/Autofac.dll">
       <publishTime>08/27/2015 09:13:15</publishTime>
     </File>
+    <File Include="bin/book/Academy.doc">
+      <publishTime>08/08/2013 09:33:47</publishTime>
+    </File>
+    <File Include="bin/book/Academy.docx">
+      <publishTime>07/15/2013 19:19:01</publishTime>
+    </File>
+    <File Include="bin/book/Academy.epub">
+      <publishTime>08/08/2013 10:24:25</publishTime>
+    </File>
+    <File Include="bin/book/Academy.fb2">
+      <publishTime>12/10/2015 17:47:16</publishTime>
+    </File>
+    <File Include="bin/book/Academy.rtf">
+      <publishTime>12/10/2015 17:47:29</publishTime>
+    </File>
+    <File Include="bin/book/Academy.txt">
+      <publishTime>12/10/2015 17:47:34</publishTime>
+    </File>
     <File Include="bin/Dao.dll">
-      <publishTime>09/21/2015 19:16:22</publishTime>
+      <publishTime>12/10/2015 17:41:32</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/25/2015 09:11:03</publishTime>
@@ -73,13 +91,112 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/15/2015 15:37:01</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>09/21/2015 19:16:22</publishTime>
+      <publishTime>12/10/2015 17:56:11</publishTime>
+    </File>
+    <File Include="book/Academy.doc">
+      <publishTime>08/08/2013 09:33:47</publishTime>
+    </File>
+    <File Include="book/Academy.docx">
+      <publishTime>07/15/2013 19:19:01</publishTime>
+    </File>
+    <File Include="book/Academy.epub">
+      <publishTime>08/08/2013 10:24:25</publishTime>
+    </File>
+    <File Include="book/Academy.fb2">
+      <publishTime>12/10/2015 17:47:16</publishTime>
+    </File>
+    <File Include="book/Academy.rtf">
+      <publishTime>12/10/2015 17:47:29</publishTime>
+    </File>
+    <File Include="book/Academy.txt">
+      <publishTime>12/10/2015 17:47:34</publishTime>
+    </File>
+    <File Include="Content/css/home.css">
+      <publishTime>12/10/2015 17:43:47</publishTime>
     </File>
     <File Include="Content/css/main.css">
-      <publishTime>09/08/2015 17:29:08</publishTime>
+      <publishTime>09/25/2015 16:11:20</publishTime>
     </File>
     <File Include="Content/del.jpg">
       <publishTime>09/18/2015 14:17:30</publishTime>
+    </File>
+    <File Include="Content/home/down.png">
+      <publishTime>08/08/2013 16:58:27</publishTime>
+    </File>
+    <File Include="Content/home/download-icon.png">
+      <publishTime>08/02/2014 18:23:44</publishTime>
+    </File>
+    <File Include="Content/home/fb2-icon.png">
+      <publishTime>08/08/2013 11:49:49</publishTime>
+    </File>
+    <File Include="Content/home/full-screen-rev.png">
+      <publishTime>08/08/2013 12:34:57</publishTime>
+    </File>
+    <File Include="Content/home/full-screen.png">
+      <publishTime>08/08/2013 12:35:04</publishTime>
+    </File>
+    <File Include="Content/home/gallery.png">
+      <publishTime>08/08/2013 12:32:45</publishTime>
+    </File>
+    <File Include="Content/home/google-play-icon.png">
+      <publishTime>08/08/2013 11:49:09</publishTime>
+    </File>
+    <File Include="Content/home/hero/00 Ira.jpg">
+      <publishTime>05/17/2013 20:27:39</publishTime>
+    </File>
+    <File Include="Content/home/hero/00 Ivan.jpg">
+      <publishTime>07/10/2013 15:40:38</publishTime>
+    </File>
+    <File Include="Content/home/hero/00 Lera.jpg">
+      <publishTime>05/17/2013 20:28:46</publishTime>
+    </File>
+    <File Include="Content/home/hero/00 Pavel.jpg">
+      <publishTime>05/17/2013 20:23:35</publishTime>
+    </File>
+    <File Include="Content/home/hero/01 Ira 260x320.jpg">
+      <publishTime>06/16/2013 15:31:31</publishTime>
+    </File>
+    <File Include="Content/home/hero/02 Ivan 220x320.jpg">
+      <publishTime>06/16/2013 15:31:33</publishTime>
+    </File>
+    <File Include="Content/home/hero/03 Lera 226x320.jpg">
+      <publishTime>06/16/2013 15:31:35</publishTime>
+    </File>
+    <File Include="Content/home/hero/04 Pavel 226x320.jpg">
+      <publishTime>06/16/2013 15:31:38</publishTime>
+    </File>
+    <File Include="Content/home/hero/Denis v3 226x320.jpg">
+      <publishTime>08/08/2013 09:06:52</publishTime>
+    </File>
+    <File Include="Content/home/hero/Denis v3.jpg">
+      <publishTime>08/01/2013 12:13:29</publishTime>
+    </File>
+    <File Include="Content/home/hero/LeraS v1.jpg">
+      <publishTime>08/01/2013 12:13:29</publishTime>
+    </File>
+    <File Include="Content/home/hero/Nata v3 3.jpg">
+      <publishTime>07/09/2013 14:19:56</publishTime>
+    </File>
+    <File Include="Content/home/lj-icon.png">
+      <publishTime>07/15/2013 07:43:52</publishTime>
+    </File>
+    <File Include="Content/home/rtf-icon.png">
+      <publishTime>08/08/2013 11:47:09</publishTime>
+    </File>
+    <File Include="Content/home/txt-icon.png">
+      <publishTime>07/15/2013 07:27:12</publishTime>
+    </File>
+    <File Include="Content/home/up.png">
+      <publishTime>08/08/2013 16:58:30</publishTime>
+    </File>
+    <File Include="Content/home/velcome.png">
+      <publishTime>01/07/2014 17:44:10</publishTime>
+    </File>
+    <File Include="Content/home/vk-icon.png">
+      <publishTime>08/08/2013 11:47:58</publishTime>
+    </File>
+    <File Include="Content/home/word-icon.png">
+      <publishTime>08/08/2013 11:34:41</publishTime>
     </File>
     <File Include="Content/wait.gif">
       <publishTime>09/04/2015 12:33:53</publishTime>
@@ -255,6 +372,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="packages.config">
       <publishTime>09/04/2015 14:15:35</publishTime>
     </File>
+    <File Include="Scripts/galleria-1.2.9.min.js">
+      <publishTime>03/25/2013 15:23:40</publishTime>
+    </File>
     <File Include="Scripts/jquery-2.1.4.js">
       <publishTime>08/28/2015 13:47:23</publishTime>
     </File>
@@ -274,7 +394,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/04/2015 11:24:27</publishTime>
     </File>
     <File Include="Views/Home/AddUser.cshtml">
-      <publishTime>09/04/2015 14:42:44</publishTime>
+      <publishTime>10/21/2015 16:49:46</publishTime>
     </File>
     <File Include="Views/Home/AllUser.cshtml">
       <publishTime>09/04/2015 14:51:53</publishTime>
@@ -283,7 +403,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/04/2015 15:09:32</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>08/27/2015 16:22:35</publishTime>
+      <publishTime>12/10/2015 17:56:05</publishTime>
     </File>
     <File Include="Views/Home/SecondThread.cshtml">
       <publishTime>09/08/2015 17:50:00</publishTime>
@@ -307,7 +427,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2015 16:12:14</publishTime>
     </File>
     <File Include="Views/Student/Example.cshtml">
-      <publishTime>09/21/2015 19:08:55</publishTime>
+      <publishTime>09/25/2015 16:21:59</publishTime>
     </File>
     <File Include="Views/Student/Index.cshtml">
       <publishTime>09/18/2015 17:38:56</publishTime>

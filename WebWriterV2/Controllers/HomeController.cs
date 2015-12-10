@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Web.Mvc;
 using Autofac;
@@ -9,6 +10,7 @@ using VkApi.Web;
 using WebWriterV2.Models;
 using WebWriterV2.SecondThread;
 using WebWriterV2.Utility;
+using FileStandard = System.IO.File;
 
 namespace WebWriterV2.Controllers
 {
@@ -30,7 +32,8 @@ namespace WebWriterV2.Controllers
 
         public ActionResult Index()
         {
-            return RedirectToAction("AddHtmlPage", "Student");
+            //return RedirectToAction("AddHtmlPage", "Student");
+            return View();
         }
 
         public ActionResult SecondThread()
@@ -147,6 +150,19 @@ namespace WebWriterV2.Controllers
             };
 
             return model;
+        }
+
+        public FileResult DownloadBook(string bookName)
+        {
+            var path = Path.Combine(Server.MapPath("~/book"), bookName);
+            if (!FileStandard.Exists(path))
+            {
+                return null;
+            }
+
+            var fileBytes = FileStandard.ReadAllBytes(path);
+            var fileName = Path.GetFileName(path);
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Text.RichText, fileName);
         }
     }
 }

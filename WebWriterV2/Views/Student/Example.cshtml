@@ -9,16 +9,20 @@
 {
     <script>
         $(document).ready(function() {
-            $("h3").click(function () {
-                $(this).hide(500).show(500);
+            $(".blockHeader").click(function () {
+                $(this).parent().hide(500).show(2500);
             });
 
-            $("#colorBtn").click(function () {
+            $(".main").click(function () {
+                $(".line").toggle(500);
+            });
+
+            $(".colorBtn").click(function () {
                 var color = $("#colorValue").val();
                 $("#colorValue").attr("style", "background-color: " + color);
             });
 
-            $("#imgBtn").click(function () {
+            $(".imgBtn").click(function () {
                 var imgUrl = $("#imgValue").val();
                 $("#imgContainer").attr("src", imgUrl);
             });
@@ -26,23 +30,26 @@
     </script>
 
 }
-
 <div>
-    <h3 id="main">Menu</h3>
-    <p class="line">line 1</p>
-    <p class="line">line 2</p>
-    <p class="line">line 2</p>
-</div>
+    <a class="main colorBtn imgBtn">All together</a>
 
-<div>
-    <h3 id="colorBtn">Color</h3>
-    <input id="colorValue" type="text" value="#FFF555"/>
-</div>
-
-<div>
-    <h3 id="imgBtn">Image</h3>
-    <input id="imgValue" type="text" value="http://cs624217.vk.me/v624217609/65e8/xdzHFFfB288.jpg"/>
     <div>
-        <img id="imgContainer" />
+        <h3 class="main blockHeader">Menu</h3>
+        <p class="line">line 1</p>
+        <p class="line">line 2</p>
+        <p class="line">line 2</p>
+    </div>
+
+    <div>
+        <h3 class="colorBtn blockHeader">Color</h3>
+        <input id="colorValue" type="text" value="#FFF555" />
+    </div>
+
+    <div>
+        <h3 class="imgBtn blockHeader">Image</h3>
+        <input id="imgValue" type="text" style="width: 500px;" value="http://cs624217.vk.me/v624217609/65e8/xdzHFFfB288.jpg" />
+        <div>
+            <img id="imgContainer" />
+        </div>
     </div>
 </div>
