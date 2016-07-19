@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using System.IO;
+﻿using System.IO;
 
 namespace WebWriterV2.Utility
 {
