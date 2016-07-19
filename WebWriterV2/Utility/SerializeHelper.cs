@@ -24,6 +24,6 @@ namespace WebWriterV2.Utility
             obj = (T)serializer.ReadObject(ms);
             ms.Close();
             return obj;
-        } 
+        }
     }
 }

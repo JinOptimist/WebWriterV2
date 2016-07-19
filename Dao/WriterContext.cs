@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using Dao.Migrations;
 using Dao.Model;
 
 namespace Dao
@@ -31,6 +32,11 @@ namespace Dao
             //        .MapRightKey("InstructorID")
             //        .ToTable("CourseInstructor"));
             //modelBuilder.Entity<Department>().MapToStoredProcedures();
+        }
+
+        public static void SetInitializer()
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<WriterContext, Configuration>());
         }
     }
 }

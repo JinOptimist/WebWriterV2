@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/RpgMaster.cshtml";
+}
+<div ng-controller="heroCreateController">
+    <input type="button" value="Распечатать письмо" ng-click="GetQuest()"/>
+    <input type="button" value="Осмотреть желающих стать героями" ng-click="GetHeroes()"/>
+
+    <div ng-if="quest">
+        <h3>Квест: {{quest.Name}}</h3>
+        <p><b>Описание:</b> {{quest.Desc}}</p>
+        <p><b>Прогресс</b> {{quest.Progress}}/100</p>
+        <p ng-repeat="partOfQuest in quest.PartsOfQuest">
+             {{partOfQuest.Desc}}
+        </p>
+    </div>
+
+    <div ng-if="heroes.length > 0">
+        <h2>Choose child for learning:</h2>
+        <ng-hero-info ng-repeat="hero in heroes" hero="{{hero}}"/>
+    </div>
+
+    <div ng-repeat="PartOfQuest in quest.PartsOfQuest" style="clear: both;">
+        <p ng-repeat="event in PartOfQuest.Events" ng-if="CheckRequrment(event)">{{event.Desc}}</p>
+    </div>
+
+</div>

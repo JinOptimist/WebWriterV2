@@ -1,0 +1,9 @@
+﻿div, h3 {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+.hero-block {
+    width: 200px;
+    float: left;
+    border: 1px black solid;
+}

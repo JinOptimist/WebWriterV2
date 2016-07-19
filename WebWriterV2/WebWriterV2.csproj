@@ -131,8 +131,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\CarrierController.cs" />
+    <Compile Include="Controllers\RpgController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Models\MarkViewModel.cs" />
+    <Compile Include="Models\rpg\Event.cs" />
+    <Compile Include="Models\rpg\Hero.cs" />
+    <Compile Include="Models\rpg\Quest.cs" />
     <Compile Include="Models\StudentHtmlFile.cs" />
     <Compile Include="SecondThread\FriendWithState.cs" />
     <Compile Include="GetUserFromJsonFile\Magic.cs" />
@@ -163,6 +167,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\css\home.css" />
+    <Content Include="Content\css\rpg.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\del.jpg" />
     <Content Include="Content\home\down.png" />
@@ -214,11 +219,35 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Scripts\angular-mocks.js" />
+    <None Include="Scripts\angular.intellisense.js" />
+    <Content Include="Scripts\angular.js" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
+    <Content Include="Scripts\angular\angular-animate.js" />
+    <Content Include="Scripts\angular\angular-cache.js" />
+    <Content Include="Scripts\angular\angular-route.js" />
+    <Content Include="Scripts\angular\angular-sanitize.js" />
+    <Content Include="Scripts\angular\angular.js" />
+    <Content Include="Scripts\angular\angulartics-google-analytics.js" />
+    <Content Include="Scripts\angular\angulartics-piwik.js" />
+    <Content Include="Scripts\angular\angulartics.js" />
+    <Content Include="Scripts\angular\dialogs.min.js" />
+    <Content Include="Scripts\angular\hotkeys.js" />
+    <Content Include="Scripts\angular\ng-infinite-scroll.js" />
+    <Content Include="Scripts\angular\ng-sortable.js" />
+    <Content Include="Scripts\angular\ngProgress.js" />
+    <Content Include="Scripts\angular\Sortable.js" />
+    <Content Include="Scripts\angular\ui-bootstrap.js" />
     <Content Include="Scripts\galleria-1.2.9.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
-    <Content Include="Web.config" />
+    <Content Include="Scripts\rpg\module.js" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -240,6 +269,9 @@
     <Content Include="Views\Student\Login.cshtml" />
     <Content Include="Views\Student\AllFiles.cshtml" />
     <Content Include="Views\Shared\StudentFilesRow.cshtml" />
+    <Content Include="Views\RpgMaster.cshtml" />
+    <Content Include="Views\Rpg\Index.cshtml" />
+    <Content Include="Views\Rpg\ngHeroInfo.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
