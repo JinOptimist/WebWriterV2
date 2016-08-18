@@ -6,7 +6,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>D:\Publish</_PublishTargetUrl>
+    <_PublishTargetUrl>E:\Publish</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Autofac.dll">
@@ -31,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/10/2015 17:47:34</publishTime>
     </File>
     <File Include="bin/Dao.dll">
-      <publishTime>12/10/2015 17:41:32</publishTime>
+      <publishTime>07/19/2016 22:25:30</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/25/2015 09:11:03</publishTime>
@@ -88,10 +88,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2015 14:59:29</publishTime>
     </File>
     <File Include="bin/VkApi.dll">
-      <publishTime>09/15/2015 15:37:01</publishTime>
+      <publishTime>07/19/2016 22:25:30</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>12/10/2015 17:56:11</publishTime>
+      <publishTime>07/19/2016 22:26:04</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -116,6 +116,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/css/main.css">
       <publishTime>09/25/2015 16:11:20</publishTime>
+    </File>
+    <File Include="Content/css/rpg.css">
+      <publishTime>07/19/2016 22:12:41</publishTime>
     </File>
     <File Include="Content/del.jpg">
       <publishTime>09/18/2015 14:17:30</publishTime>
@@ -370,7 +373,64 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/09/2015 13:49:57</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>09/04/2015 14:15:35</publishTime>
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular-mocks.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular.min.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular.min.js.map">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/angular-animate.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/angular-cache.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/angular-route.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/angular-sanitize.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/angular.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/angulartics-google-analytics.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/angulartics-piwik.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/angulartics.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/dialogs.min.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/hotkeys.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/ng-infinite-scroll.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/ng-sortable.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/ngProgress.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/Sortable.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Scripts/angular/ui-bootstrap.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
     </File>
     <File Include="Scripts/galleria-1.2.9.min.js">
       <publishTime>03/25/2013 15:23:40</publishTime>
@@ -383,6 +443,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Scripts/jquery-2.1.4.min.map">
       <publishTime>08/28/2015 13:47:22</publishTime>
+    </File>
+    <File Include="Scripts/rpg/module.js">
+      <publishTime>07/19/2016 22:12:41</publishTime>
     </File>
     <File Include="Views/Carrier/Add.cshtml">
       <publishTime>09/04/2015 13:59:19</publishTime>
@@ -403,7 +466,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/04/2015 15:09:32</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/10/2015 17:56:05</publishTime>
+      <publishTime>12/10/2015 17:57:58</publishTime>
     </File>
     <File Include="Views/Home/SecondThread.cshtml">
       <publishTime>09/08/2015 17:50:00</publishTime>
@@ -413,6 +476,15 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/LayoutMaster.cshtml">
       <publishTime>09/15/2015 15:02:58</publishTime>
+    </File>
+    <File Include="Views/Rpg/Index.cshtml">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Views/Rpg/ngHeroInfo.html">
+      <publishTime>07/19/2016 22:12:41</publishTime>
+    </File>
+    <File Include="Views/RpgMaster.cshtml">
+      <publishTime>07/19/2016 22:12:41</publishTime>
     </File>
     <File Include="Views/Shared/StudentFilesRow.cshtml">
       <publishTime>09/21/2015 16:11:55</publishTime>
@@ -445,7 +517,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2015 14:59:26</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/15/2015 15:37:02</publishTime>
+      <publishTime>07/19/2016 22:26:04</publishTime>
     </File>
   </ItemGroup>
 </Project>

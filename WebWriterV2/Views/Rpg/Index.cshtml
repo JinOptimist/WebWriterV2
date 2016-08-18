@@ -1,27 +1,21 @@
-﻿@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/RpgMaster.cshtml";
-}
-<div ng-controller="heroCreateController">
-    <input type="button" value="Распечатать письмо" ng-click="GetQuest()"/>
-    <input type="button" value="Осмотреть желающих стать героями" ng-click="GetHeroes()"/>
+﻿<!DOCTYPE html>
+<html ng-app="rpg">
+<head>
+    <base href="/WebWriterV2/">
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/rpg.css")">
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 
-    <div ng-if="quest">
-        <h3>Квест: {{quest.Name}}</h3>
-        <p><b>Описание:</b> {{quest.Desc}}</p>
-        <p><b>Прогресс</b> {{quest.Progress}}/100</p>
-        <p ng-repeat="partOfQuest in quest.PartsOfQuest">
-             {{partOfQuest.Desc}}
-        </p>
-    </div>
+    <script src="~/Scripts/angular/angular.js"></script>
+    <script src="~/Scripts/angular/angular-route.js"></script>
+    <script src="~/Scripts/rpg/module.js"></script>
+</head>
+<body>
+    <a href="AngularRoute/addQuest">add quest</a>
+    <a href="AngularRoute/getQuest">get quest</a>
+    <a href="AngularRoute/createHero">create hero</a>
+    <div ng-view>Loading...</div>
+</body>
+</html>
 
-    <div ng-if="heroes.length > 0">
-        <h2>Choose child for learning:</h2>
-        <ng-hero-info ng-repeat="hero in heroes" hero="{{hero}}"/>
-    </div>
 
-    <div ng-repeat="PartOfQuest in quest.PartsOfQuest" style="clear: both;">
-        <p ng-repeat="event in PartOfQuest.Events" ng-if="CheckRequrment(event)">{{event.Desc}}</p>
-    </div>
-
-</div>

@@ -14,7 +14,6 @@
         Human = 1,
         Elf = 2,
         Orc = 3,
-
     }
 
     public enum Sex

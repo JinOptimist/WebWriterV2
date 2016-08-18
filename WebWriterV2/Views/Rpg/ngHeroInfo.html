@@ -1,8 +1,7 @@
 ﻿<div class="hero-block">
     <img />
     <p>Name: {{::hero.Name}}</p>
-    <p>Sex: {{::hero.Sex == 1 ? "Муж" : "Жен" }}</p>
-    <p>Race: {{::hero.Race == 1 ? "Чел" : "Не чел"}}</p>
+    <p>Sex: {{:: GetTextSex(hero.Sex) }}</p>
+    <p>Race: {{:: GetTextRace(hero.Race)}}</p>
     <p>Background: {{::hero.Background}}</p>
-    <input type="button" value="Взять в ученики" ng-click="SelectHero(hero)"/>
 </div>

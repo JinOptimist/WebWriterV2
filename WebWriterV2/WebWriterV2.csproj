@@ -245,6 +245,7 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\rpg\module.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Rpg\CreateHero.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -272,6 +273,8 @@
     <Content Include="Views\RpgMaster.cshtml" />
     <Content Include="Views\Rpg\Index.cshtml" />
     <Content Include="Views\Rpg\ngHeroInfo.html" />
+    <Content Include="Views\Rpg\AddQuest.html" />
+    <Content Include="Views\Rpg\GetQuest.html" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

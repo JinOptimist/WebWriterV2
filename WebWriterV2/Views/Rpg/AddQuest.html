@@ -1,0 +1,63 @@
+﻿<div>
+    <form novalidate class="left">
+        <input type="submit" ng-click="submitQuest()" value="Save" />
+        <p>
+            Name: <input type="text" ng-model="quest.Name" />
+        </p>
+        <p>
+            Desc: <input type="text" ng-model="quest.Desc" />
+        </p>
+
+        <input type="button" value="Add while" ng-click="addWile()" />
+
+        <div ng-repeat="wile in quest.Wiles" class="wile">
+            <p>
+                <textarea ng-model="wile.Desc" rows="5" cols="100"></textarea>
+                <br />
+                <input type="button" value="remove" ng-click="removeWile($index)" />
+                <input type="button" value="Add while event" ng-click="addWileEvent(wile)" />
+            </p>
+            <div ng-repeat="event in wile.Events" class="event">
+                <p>
+                    RequrmentSex:
+                    <select ng-model="event.RequrmentSex" ng-options="option.value as option.name for option in SexList"></select>
+                </p>
+                <p>
+                    RequrmentRace:
+                    <select ng-model="event.RequrmentRace" ng-options="option.value as option.name for option in RaceList"></select>
+                </p>
+                <p>
+                    Desc: <input type="text" ng-model="event.Desc" />
+                </p>
+                <p>
+                    ProgressChanging: <input type="text" ng-model="event.ProgressChanging" />
+                </p>
+                <p>
+                    HeroMoneyChanging: <input type="text" ng-model="event.HeroMoneyChanging" />
+                </p>
+                <p>
+                    HeroHpChanging: <input type="text" ng-model="event.HeroHpChanging" />
+                </p>
+                <p>
+                    HeroLvlChanging: <input type="text" ng-model="event.HeroLvlChanging" />
+                </p>
+                <input type="button" value="Remove while event" ng-click="removeWileEvent(wile, $index)" />
+            </div>
+        </div>
+    </form>
+
+    <div class="quest-block" ng-if="quest">
+        <img />
+        <p>Name: {{quest.Name}}</p>
+        <p>Progress: {{quest.Progress}}</p>
+        <p>Desc: {{quest.Desc}}</p>
+        <div ng-repeat="event in quest.EventsHistory">
+            <hr />
+            <p>Desc: {{event.Desc}}</p>
+            <p>ProgressChanging: {{event.ProgressChanging}}</p>
+            <p>HeroMoneyChanging: {{event.HeroMoneyChanging}}</p>
+            <p>HeroHpChanging: {{event.HeroHpChanging}}</p>
+            <p>HeroLvlChanging: {{event.HeroLvlChanging}}</p>
+        </div>
+    </div>
+</div>

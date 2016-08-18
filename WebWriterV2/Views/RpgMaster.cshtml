@@ -1,20 +1,18 @@
 ﻿<!DOCTYPE html>
 <html ng-app="rpg">
 <head>
+    <base href="/WebWriterV2/">
     <meta name="viewport" content="width=device-width"/>
     <link rel="stylesheet" type="text/css" href="@Url.Content("~/Content/css/rpg.css")">
     <script src="~/Scripts/jquery-2.1.4.min.js"></script>
 
     <script src="~/Scripts/angular/angular.js"></script>
+    <script src="~/Scripts/angular/angular-route.js"></script>
     <script src="~/Scripts/rpg/module.js"></script>
-
-    <title>@ViewBag.Title</title>
-
-    @RenderSection("Script", false)
 </head>
 <body>
-    <div>
-        @RenderBody()
-    </div>
+<div>
+    @RenderBody()
+</div>
 </body>
 </html>

@@ -6,16 +6,14 @@ namespace WebWriterV2.Models.rpg
     {
         public string Name { get; set; }
         public string Desc { get; set; }
-        //public Effective Effective { get; set; }
         public int Progress { get; set; } = 0;// [1, 100]
-        public List<PartOfQuest> PartsOfQuest { get; set; }
+        public List<Wile> Wiles { get; set; } = new List<Wile>();
+        public List<Event> EventsHistory { get; set; } = new List<Event>();
     }
 
-    public class PartOfQuest
+    public class Wile
     {
         public string Desc { get; set; }
-        //public Race PerfectRace { get; set; }
-        //public Sex PerfectSex { get; set; }
         public List<Event> Events { get; set; }
     }
 }

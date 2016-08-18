@@ -56,11 +56,11 @@ namespace WebWriterV2.Controllers
 
             return Json(new
             {
-                state = model.TaskStatus, 
+                state = model.TaskStatus,
                 currentUserName = userName,
                 currentUserId = userId,
-                friends = model.Friends, 
-                totalUser = model.TotalUserFromDb, 
+                friends = model.Friends,
+                totalUser = model.TotalUserFromDb,
                 totalFriend = model.TotalFriendFromDb
             }, JsonRequestBehavior.AllowGet);
         }
@@ -117,7 +117,7 @@ namespace WebWriterV2.Controllers
 
         public ActionResult DownloadUserFromVk(long vkUserId)
         {
-            if (vkUserId == default(long) || vkUserId < 1)
+            if (vkUserId == default(long) || vkUserId < 1)//id 1447159 = Пучков
                 return Json(new { isSuccessful = false, isAlreadyExists = false, content = "User not found" }, JsonRequestBehavior.AllowGet);
 
             if (UserRepository.ExistVkUser(vkUserId))

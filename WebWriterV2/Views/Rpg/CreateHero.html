@@ -1,0 +1,34 @@
+﻿<div>
+    <h1>Создать героя</h1>
+    <div>
+        <input type="button" value="Prev" ng-click="prevStep()" ng-disabled="step==1"/>
+        <input type="button" value="Next" ng-click="nextStep()" ng-disabled="step==3"/>
+    </div>
+
+    <div style="float: left; width: 300px;" ng-repeat="race in RaceList" ng-if="step == 1">
+        <input id="race{{race.value}}" type="radio" name="race" ng-model="hero.race" value="{{race.value}}"/>
+        <label for="race{{race.value}}">
+            {{::race.name}}
+            <img width="100" ng-src="{{race.src}}"/>
+        </label>
+    </div>
+
+    <div style="float: left; width: 300px;" ng-repeat="sex in SexList" ng-if="step == 2">
+        <input id="race{{sex.value}}" type="radio" name="race" ng-model="hero.sex" value="{{sex.value}}"/>
+        <label for="race{{sex.value}}">
+            {{::sex.name}}
+            <img width="100" ng-src="{{sex.src}}"/>
+        </label>
+    </div>
+
+    <div style="float: left; width: 300px;" ng-if="step == 3">
+        Name <input type="text" ng-model="hero.name" />
+    </div>
+
+    <div class="hero-card">
+        <p>Карточка {{hero.name}}</p>
+        <p>Race: {{hero.race}}</p>
+        <p>Sex: {{hero.sex}}</p>
+        <p>Gold: {{hero.gold}}</p>
+    </div>
+</div>

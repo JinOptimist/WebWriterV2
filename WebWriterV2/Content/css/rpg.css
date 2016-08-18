@@ -4,6 +4,35 @@
 }
 .hero-block {
     width: 200px;
-    float: left;
+    /*float: left;*/
     border: 1px black solid;
+}
+
+.quest-block {
+    float: right;
+    border: 3px green double;
+    width: 300px;
+}
+
+.wile {
+    padding-left: 10px;
+    border-top: 3px red double;
+    height: 450px;
+}
+
+.wile .event {
+    padding-left: 20px;
+    border: 3px blueviolet double;
+    float: left;
+}
+
+.left {
+    float: left;
+}
+
+.hero-card {
+    float: right;
+    width: 300px;
+    height: 176px;
+    border: 1px blueviolet solid;
 }

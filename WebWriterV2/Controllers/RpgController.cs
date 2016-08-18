@@ -13,9 +13,30 @@ namespace WebWriterV2.Controllers
         //
         // GET: /Rpg/
 
+        public ActionResult RouteForAngular(string url)
+        {
+            return View("Index", (object)url);
+        }
+
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult AddQuest()
+        {
+            return View();
+        }
+
+        public JsonResult SaveQuest(string jsonQuest)
+        {
+            var quest = SerializeHelper.Deserialize<Quest>(jsonQuest);
+
+            return new JsonResult
+            {
+                Data = true,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
         }
 
         public JsonResult GetHeroes()
@@ -73,51 +94,51 @@ namespace WebWriterV2.Controllers
                 {
                     Name = "Убить крыс",
                     Desc = "Владелец амбара разметил заказ на убийство крыс. Отлично задание для новичка",
-                    PartsOfQuest = GeneratePartsOfQuest()
+                    Wiles = GenerateWilesForQuest()
                 }
             };
         }
 
-        private List<PartOfQuest> GeneratePartsOfQuest()
+        private List<Wile> GenerateWilesForQuest()
         {
-            var result = new List<PartOfQuest>
+            var result = new List<Wile>
             {
-                new PartOfQuest
+                new Wile
                 {
                     Desc = "У заказчика всегда была репутацию падкого на женское внимание мужика",
                     Events = new List<Event>
                     {
                         new Event
                         {
-                            ProgressPlus = 50,
+                            ProgressChanging = 50,
                             RequrmentSex = Sex.Female,
                             Desc = "Героиня легко и непренуждённо пообщалась с заказчиком, после чего смогла убедить его снизить требования к выполнению задания",
                         },
                         new Event
                         {
-                            ProgressPlus = -30,
+                            ProgressChanging = -30,
                             RequrmentSex = Sex.Male,
                             Desc = "Герой не успел и представиться как заказчик с недовольством начал указывать на недопустимость подобного поведения"
                         }
                     }
                 },
-                new PartOfQuest
+                new Wile
                 {
-                    Desc = "Слухи о предвзятости к эльфам вполне могут оказать не слухами. Орки враждуют с Эльфами уже столетия, а судя по жутким корявкам, писал его именно Орк",
+                    Desc = "В общем орков не любят со времён третьей общей войны, но порой можно встретить общины с прямо противоположным мнением",
                     Events = new List<Event>
                     {
                         new Event
                         {
-                            ProgressPlus = -30,
+                            ProgressChanging = -30,
                             RequrmentRace = Race.Elf,
-                            Desc = "С героем отказались разговаривать. Пришлось узнавать детали задания у прислуги",
+                            Desc = "Герою постоянно строили козни местные жители. Пришлось потратить много времени на поиски локации",
 
                         },
                         new Event
                         {
-                            ProgressPlus = 50,
+                            ProgressChanging = 50,
                             RequrmentRace = Race.Orc,
-                            Desc = "Героя сразу признали как своего. Ничего полезного орки рассказать не смогли, но вот снаряжения надавали отменного, что явно поможет в выполнения квеста"
+                            Desc = "Все вокруг пытались помочь Герою. Ничего полезного местные рассказать не смогли, но вот снаряжения надавали отменного, что явно помогло"
                         }
                     }
                 }
