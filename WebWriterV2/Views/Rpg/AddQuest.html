@@ -46,18 +46,5 @@
         </div>
     </form>
 
-    <div class="quest-block" ng-if="quest">
-        <img />
-        <p>Name: {{quest.Name}}</p>
-        <p>Progress: {{quest.Progress}}</p>
-        <p>Desc: {{quest.Desc}}</p>
-        <div ng-repeat="event in quest.EventsHistory">
-            <hr />
-            <p>Desc: {{event.Desc}}</p>
-            <p>ProgressChanging: {{event.ProgressChanging}}</p>
-            <p>HeroMoneyChanging: {{event.HeroMoneyChanging}}</p>
-            <p>HeroHpChanging: {{event.HeroHpChanging}}</p>
-            <p>HeroLvlChanging: {{event.HeroLvlChanging}}</p>
-        </div>
-    </div>
+    <ng-quest-info quest="quest"></ng-quest-info>
 </div>

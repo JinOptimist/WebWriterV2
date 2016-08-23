@@ -5,7 +5,7 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'views/rpg/ngHeroInfo.html'
+                templateUrl: '/views/rpg/ngHeroInfo.html'
             }
         }
     ])
@@ -14,7 +14,28 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'views/rpg/ngQuestInfo.html'
+                templateUrl: '/views/rpg/ngQuestInfo.html',
+                scope: { quest: '=' },
+                link: function (scope, element, attrs) {
+                    scope.$watch(attrs.quest, function (v) {
+                        console.log('Quest value changed, new value is: ' + v);
+                    });
+                }
+            }
+        }
+    ])
+    .directive('ngHeroCard', [
+        function () {
+            return {
+                restrict: 'E',
+                replace: true,
+                templateUrl: '/views/rpg/ngHeroCard.html',
+                scope: { hero: '=' },
+                link: function (scope, element, attrs) {
+                    scope.$watch(attrs.hero, function (v) {
+                        console.log('Hero value changed, new value is: ' + v);
+                    });
+                }
             }
         }
     ])
@@ -22,17 +43,16 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
          function ($locationProvider, $routeProvider) {
              // Routes configuration
              $routeProvider
-                 //.when('/', { redirectTo: '/test' })
                  .when('/AngularRoute/getQuest', {
-                     templateUrl: 'views/rpg/GetQuest.html',
+                     templateUrl: '/views/rpg/GetQuest.html',
                      controller: 'getQuestController'
                  })
                  .when('/AngularRoute/addQuest', {
-                     templateUrl: 'views/rpg/AddQuest.html',
+                     templateUrl: '/views/rpg/AddQuest.html',
                      controller: 'adminQuestController'
                  })
                  .when('/AngularRoute/createHero', {
-                     templateUrl: 'views/rpg/CreateHero.html',
+                     templateUrl: '/views/rpg/CreateHero.html',
                      controller: 'createHeroController'
                  });
                  //.otherwise({
@@ -67,7 +87,7 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
             $scope.GetQuest = function() {
                 $http({
                     method: 'GET',
-                    url: '/WebWriterV2/Rpg/GetRandomQuest',
+                    url: '/Rpg/GetRandomQuest',
                     headers: { 'Accept': 'application/json' }
                 }).success(function(response) {
                     $scope.quest = angular.fromJson(response);
@@ -78,7 +98,7 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
             $scope.GetHeroes = function() {
                 $http({
                     method: 'GET',
-                    url: '/WebWriterV2/Rpg/GetHeroes',
+                    url: '/Rpg/GetHeroes',
                     headers: { 'Accept': 'application/json' }
                 }).success(function(response) {
                     $scope.heroes = angular.fromJson(response);
@@ -182,7 +202,7 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
             $scope.submitQuest = function () {
                 var req = {
                     method: 'POST',
-                    url: '/WebWriterV2/Rpg/SaveQuest',
+                    url: '/Rpg/SaveQuest',
                     data: { jsonQuest: angular.toJson($scope.quest) },
                 };
                 $http(req).then(

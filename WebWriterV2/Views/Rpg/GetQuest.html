@@ -2,25 +2,12 @@
     <input type="button" value="Распечатать письмо" ng-click="GetQuest()"/>
     <input type="button" value="Осмотреть желающих стать героями" ng-click="GetHeroes()"/>
 
-    <div class="quest-block" ng-if="quest">
-        <img />
-        <p>Name: {{quest.Name}}</p>
-        <p>Progress: {{quest.Progress}}</p>
-        <p>Desc: {{quest.Desc}}</p>
-        <div ng-repeat="event in quest.EventsHistory">
-            <hr/>
-            <p>Desc: {{event.Desc}}</p>
-            <p>ProgressChanging: {{event.ProgressChanging}}</p>
-            <p>HeroMoneyChanging: {{event.HeroMoneyChanging}}</p>
-            <p>HeroHpChanging: {{event.HeroHpChanging}}</p>
-            <p>HeroLvlChanging: {{event.HeroLvlChanging}}</p>
-        </div>
-    </div>
+    <ng-quest-info quest="quest"></ng-quest-info>
 
     <div ng-if="heroes.length > 0">
         <h2>Choose child for learning:</h2>
         <div ng-repeat="hero in heroes" class="left">
-            <ng-hero-info hero="{{hero}}"></ng-hero-info>
+            <ng-hero-card hero="hero"></ng-hero-card>
             <input type="button" value="Взять в ученики" ng-click="SelectHero(hero)" />
         </div>
     </div>

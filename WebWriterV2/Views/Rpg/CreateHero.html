@@ -25,10 +25,5 @@
         Name <input type="text" ng-model="hero.name" />
     </div>
 
-    <div class="hero-card">
-        <p>Карточка {{hero.name}}</p>
-        <p>Race: {{hero.race}}</p>
-        <p>Sex: {{hero.sex}}</p>
-        <p>Gold: {{hero.gold}}</p>
-    </div>
+    <ng-hero-card hero="hero"></ng-hero-card>
 </div>

@@ -15,7 +15,7 @@
     <AssemblyName>WebWriterV2</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -245,6 +245,8 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\rpg\module.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Rpg\ngHeroCard.html" />
+    <Content Include="Views\Rpg\ngQuestInfo.html" />
     <Content Include="Views\Rpg\CreateHero.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -326,7 +328,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52079</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/WebWriterV2</IISUrl>
+          <IISUrl>http://localhost:52079/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

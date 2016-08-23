@@ -91,7 +91,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2016 22:25:30</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>07/19/2016 22:26:04</publishTime>
+      <publishTime>08/22/2016 17:30:07</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -118,7 +118,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/25/2015 16:11:20</publishTime>
     </File>
     <File Include="Content/css/rpg.css">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/18/2016 15:24:02</publishTime>
     </File>
     <File Include="Content/del.jpg">
       <publishTime>09/18/2015 14:17:30</publishTime>
@@ -445,7 +445,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/28/2015 13:47:22</publishTime>
     </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/18/2016 16:12:52</publishTime>
     </File>
     <File Include="Views/Carrier/Add.cshtml">
       <publishTime>09/04/2015 13:59:19</publishTime>
@@ -477,14 +477,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/LayoutMaster.cshtml">
       <publishTime>09/15/2015 15:02:58</publishTime>
     </File>
+    <File Include="Views/Rpg/AddQuest.html">
+      <publishTime>08/01/2016 15:29:16</publishTime>
+    </File>
+    <File Include="Views/Rpg/CreateHero.html">
+      <publishTime>08/18/2016 16:13:51</publishTime>
+    </File>
+    <File Include="Views/Rpg/GetQuest.html">
+      <publishTime>07/26/2016 13:51:52</publishTime>
+    </File>
     <File Include="Views/Rpg/Index.cshtml">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/18/2016 14:58:53</publishTime>
     </File>
     <File Include="Views/Rpg/ngHeroInfo.html">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>07/23/2016 14:48:11</publishTime>
     </File>
     <File Include="Views/RpgMaster.cshtml">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>07/26/2016 13:48:21</publishTime>
     </File>
     <File Include="Views/Shared/StudentFilesRow.cshtml">
       <publishTime>09/21/2015 16:11:55</publishTime>
@@ -517,7 +526,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2015 14:59:26</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/19/2016 22:26:04</publishTime>
+      <publishTime>08/22/2016 17:30:08</publishTime>
     </File>
   </ItemGroup>
 </Project>
