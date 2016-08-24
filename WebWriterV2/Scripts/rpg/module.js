@@ -31,10 +31,32 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
                 replace: true,
                 templateUrl: '/views/rpg/ngHeroCard.html',
                 scope: { hero: '=' },
-                link: function (scope, element, attrs) {
-                    scope.$watch(attrs.hero, function (v) {
-                        console.log('Hero value changed, new value is: ' + v);
-                    });
+                controller: function ($scope) {
+                    $scope.GetTextSex = function (sexId) {
+                        switch (sexId - 0) {
+                            case 1:
+                                return "Man";
+                            case 2:
+                                return "Woman";
+                            case 3:
+                                return "?";
+                        }
+
+                        return "?";
+                    }
+
+                    $scope.GetTextRace = function (raceId) {
+                        switch (raceId - 0) {
+                            case 1:
+                                return "Human";
+                            case 2:
+                                return "Elf";
+                            case 3:
+                                return "Orc";
+                        }
+
+                        return "?";
+                    }
                 }
             }
         }

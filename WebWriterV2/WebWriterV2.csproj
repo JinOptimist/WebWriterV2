@@ -249,6 +249,7 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\rpg\module.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Rpg\ListHeroes.html" />
     <Content Include="Views\Rpg\ngHeroCard.html" />
     <Content Include="Views\Rpg\ngQuestInfo.html" />
     <Content Include="Views\Rpg\CreateHero.html" />

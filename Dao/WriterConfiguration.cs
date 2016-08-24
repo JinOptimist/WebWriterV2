@@ -8,6 +8,6 @@ namespace Dao
         public WriterConfiguration()
         {
             SetExecutionStrategy("System.Data.SqlClient", () => new SqlAzureExecutionStrategy());
-        } 
+        }
     }
 }
