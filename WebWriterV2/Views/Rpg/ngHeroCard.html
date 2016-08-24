@@ -1,6 +1,6 @@
 ﻿<div class="hero-card">
-    <p>Карточка {{hero.Name}}</p>
+    <p>Карточка героя. <b>{{hero.Name}}</b></p>
     <p>Race: {{hero.Race}}</p>
     <p>Sex: {{hero.Sex}}</p>
-    <p>Gold: {{hero.Gold}}</p>
+    <p><span ng-if="hero.Stats" ng-repeat="stat in hero.Stats">{{stat.Name}}: {{stat.Value}}. </span></p>
 </div>

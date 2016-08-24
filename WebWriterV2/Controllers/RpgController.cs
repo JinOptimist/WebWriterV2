@@ -66,6 +66,7 @@ namespace WebWriterV2.Controllers
                     Name = "Freeman",
                     Race = Race.Human,
                     Sex = Sex.Male,
+                    Stats = GenerateStat(1),
                     Background = "Сын физика ядерщика"
                 },
                 new Hero
@@ -73,6 +74,7 @@ namespace WebWriterV2.Controllers
                     Name = "Шани",
                     Race = Race.Elf,
                     Sex = Sex.Female,
+                    Stats = GenerateStat(2),
                     Background = "Дочь проститутки"
                 },
                 new Hero
@@ -80,9 +82,20 @@ namespace WebWriterV2.Controllers
                     Name = "Огримар",
                     Race = Race.Orc,
                     Sex = Sex.Unknown,
+                    Stats = GenerateStat(3),
                     Background = "В свои 14 трижды убивал"
                 }
             };
+            return result;
+        }
+
+        private List<Stat> GenerateStat(int seed = 0)
+        {
+            var result = new List<Stat>();
+            var rnd = new Random(DateTime.Now.Millisecond + seed);
+            result.Add(new Stat {Name = StatList.Strength, Value = rnd.Next(1, 10) });
+            result.Add(new Stat { Name = StatList.Agility, Value = rnd.Next(1, 10) });
+            result.Add(new Stat { Name = StatList.Charism, Value = rnd.Next(1, 10) });
             return result;
         }
 

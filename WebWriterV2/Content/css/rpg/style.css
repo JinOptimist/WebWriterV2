@@ -1,0 +1,112 @@
+.avatar {
+    background-color: #3366CC;
+    width: 300px; /* Ширина слоя */
+    height: 480px; /* Высота блока */
+    margin: 7px; /* Значение отступов */
+}
+
+.button {
+    background-color: #0003AA;
+    width: 30px; /* Ширина слоя */
+    height: 25px; /* Высота блока */
+}
+
+.avatars-container {
+    height: 500px;
+}
+
+.total-container {
+    width: 950px;
+    margin: auto;
+}
+
+.choice {
+    background-color: #2569AA;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.active {
+    border: solid #92ff0a; /* Параметры границы */
+}
+
+.sidebar, .content, .name, .properties {
+    padding: 10px; /* Поля */
+    border: solid 1px #000; /* Параметры рамки */
+    background: #e8362e; /* Цвет фона */
+}
+
+.layout {
+    margin: 15px 0; /* Отступы сверху и снизу */
+    overflow: hidden; /* Отменяем действие float */
+    min-width: 800px; /* Минимальная ширина */
+    max-width: 1200px; /* Максимальная ширина */
+}
+
+.sidebar { /* Навигация по сайту */
+    width: 200px; /* Ширина меню */
+    float: right; /* Состыковка с другим слоем по горизонтали */
+}
+
+.content { /* Основное содержание страницы */
+    margin-right: 235px; /* Отступ слева */
+}
+
+.text {
+    text-align: center;
+    margin: 0;
+}
+
+.name {
+    width: 270px;
+    height: 280px;
+    margin: 10px;
+}
+
+.leftimg {
+    float: left;
+    margin: 7px 7px 7px 0; /* Отступы вокруг картинки */
+}
+
+.properties {
+    padding: 3px;
+}
+
+.quest {
+    height: 180px;
+    width: 460px;
+    border: solid 1px #000000;
+}
+
+.specialMarginForQuests {
+    margin: 25px auto;
+}
+
+.specialMarginForPerfomance {
+    margin: 70px 5px;
+}
+
+.arrow {
+    width: 150px;
+    height: 120px;
+    border: solid 1px #000030;
+    margin:90px 0;
+}
+
+.log {
+    width: 940px;
+    height: 350px;
+    border: solid 1px #000030;
+}
+
+
+/* Lvov */
+.avatar input {
+    display: none;
+}

@@ -169,7 +169,11 @@
     <Content Include="Content\css\home.css" />
     <Content Include="Content\css\rpg.css" />
     <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\rpg\style.css" />
     <Content Include="Content\del.jpg" />
+    <Content Include="Content\HeroImg\dragon.jpg" />
+    <Content Include="Content\HeroImg\elf.jpg" />
+    <Content Include="Content\HeroImg\gnom.jpg" />
     <Content Include="Content\home\down.png" />
     <Content Include="Content\home\download-icon.png" />
     <Content Include="Content\home\fb2-icon.png" />
@@ -272,7 +276,6 @@
     <Content Include="Views\Student\Login.cshtml" />
     <Content Include="Views\Student\AllFiles.cshtml" />
     <Content Include="Views\Shared\StudentFilesRow.cshtml" />
-    <Content Include="Views\RpgMaster.cshtml" />
     <Content Include="Views\Rpg\Index.cshtml" />
     <Content Include="Views\Rpg\ngHeroInfo.html" />
     <Content Include="Views\Rpg\AddQuest.html" />
@@ -280,7 +283,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\HeroImg\" />
     <Folder Include="html\" />
   </ItemGroup>
   <ItemGroup>

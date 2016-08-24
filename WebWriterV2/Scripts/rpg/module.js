@@ -75,11 +75,35 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
             }
         };
     })
+    .service('sharedHeroes', function () {
+        var listHeroes = [];
+        var lastId = 0;
+
+        return {
+            getListHeroes: function () {
+                return listHeroes;
+            },
+            addHero: function (newHero) {
+                if (newHero.TempId) {
+                    listHeroes = listHeroes.filter(function (obj) {
+                        return obj.TempId !== newHero.TempId;
+                    });
+                } else {
+                    newHero.TempId = ++lastId;
+                }
+
+                newHero.Sex = newHero.Sex - 0;
+                newHero.Race = newHero.Race - 0;
+
+                listHeroes.push(newHero);
+            }
+        };
+    })
     .controller('getQuestController', [
-        '$scope', "$http", "sharedQuest", //'$modal', '$route', '_', '$log',
-        function($scope, $http, sharedQuest) { //, $modal, $route, _, $log
+        '$scope', "$http", "sharedQuest", "sharedHeroes", //'$modal', '$route', '_', '$log',
+        function ($scope, $http, sharedQuest, sharedHeroes) { //, $modal, $route, _, $log
             $scope.quest = undefined; //GeneralInfo, AdditionalInfo
-            $scope.heroes = undefined;
+            $scope.heroes = sharedHeroes.getListHeroes();
             $scope.currentHero = undefined;
 
             $scope.quest = sharedQuest.getQuest();
@@ -96,13 +120,14 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
             }
 
             $scope.GetHeroes = function() {
-                $http({
-                    method: 'GET',
-                    url: '/Rpg/GetHeroes',
-                    headers: { 'Accept': 'application/json' }
-                }).success(function(response) {
-                    $scope.heroes = angular.fromJson(response);
-                });
+                //$http({
+                //    method: 'GET',
+                //    url: '/Rpg/GetHeroes',
+                //    headers: { 'Accept': 'application/json' }
+                //}).success(function(response) {
+                //    $scope.heroes = angular.fromJson(response);
+                //});
+                $scope.heroes = sharedHeroes.getListHeroes();
             }
 
             $scope.SelectHero = function(hero) {
@@ -154,10 +179,6 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
 
                 return "?";
             }
-
-            //$scope.GoTo = function() {
-            //    $location.path('createHero');
-            //}
         }
     ])
     .controller('adminQuestController', [
@@ -225,14 +246,21 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
         }
     ])
     .controller('createHeroController', [
-        '$scope', "$http",
-        function ($scope, $http) {
-            $scope.hero = {};
+        '$scope', "$http", "$location", "sharedHeroes",
+        function ($scope, $http, $location, sharedHeroes) {
+            $scope.hero = {
+                Stats: [
+                    { Name: "Strength", Value: 1 },
+                    { Name: "Agility", Value: 1 },
+                    { Name: "Charism", Value: 1 }
+                ]
+            };
             $scope.step = 1;
+            $scope.freeStat= 10;
             $scope.RaceList = [
-                            { name: "Human", value: 1, src: "https://image.freepik.com/free-icon/_318-29133.jpg" },
-                            { name: "Elf", value: 2, src: "http://1.bp.blogspot.com/-53rftQUcr-g/UQfij4gQS7I/AAAAAAAABrE/nObJ1OMCy50/s1600/AnimeArcherSilhouette.jpg" },
-                            { name: "Orc", value: 3, src: "https://www.3dbuzz.com/forum/attachment.php?attachmentid=73845&d=1377379847" }
+                            { name: "Dragon", value: 1, src: "/Content/HeroImg/dragon.jpg" },
+                            { name: "Elf", value: 2, src: "/Content/HeroImg/elf.jpg" },
+                            { name: "Gnom", value: 3, src: "/Content/HeroImg/gnom.jpg" }
             ];
 
             $scope.SexList = [
@@ -240,6 +268,19 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
                             { name: "Woman", value: 2, src: "http://innastudio.ru/userfiles/images/siluet.jpg" },
                             { name: "#$*/%", value: 3 }
             ];
+
+            $scope.addStat = function (stat) {
+                if ($scope.freeStat > 0) {
+                    stat.Value++;
+                    $scope.freeStat--;
+                }
+            };
+            $scope.minusStat = function (stat) {
+                if (stat.Value > 1) {
+                    stat.Value--;
+                    $scope.freeStat++;
+                }
+            };
 
             $scope.nextStep = function() {
                 if ($scope.step < 10) {
@@ -253,5 +294,9 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
                 }
             };
 
+            $scope.saveHero = function() {
+                sharedHeroes.addHero($scope.hero);
+                $location.path('/AngularRoute/getQuest');
+            }
         }
     ]);

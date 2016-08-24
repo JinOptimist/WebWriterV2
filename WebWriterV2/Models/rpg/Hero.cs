@@ -1,10 +1,13 @@
-﻿namespace WebWriterV2.Models.rpg
+﻿using System.Collections.Generic;
+
+namespace WebWriterV2.Models.rpg
 {
     public class Hero
     {
         public string Name { get; set; }
         public Race Race { get; set; }
         public Sex Sex { get; set; }
+        public List<Stat> Stats { get; set; }
         public string Background { get; set; }
     }
 
@@ -22,5 +25,18 @@
         Male = 1,
         Female = 2,
         Unknown = 3
+    }
+
+    public enum StatList
+    {
+        Strength = 1,
+        Agility = 2,
+        Charism = 3
+    }
+
+    public class Stat
+    {
+        public StatList Name { get; set; }
+        public int Value { get; set; }
     }
 }
