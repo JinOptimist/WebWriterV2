@@ -83,6 +83,11 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\FriendId.cs" />
     <Compile Include="Model\Hero.cs" />
+    <Compile Include="Model\Rpg\Event.cs" />
+    <Compile Include="Model\Rpg\Hero.cs" />
+    <Compile Include="Model\Rpg\Quest.cs" />
+    <Compile Include="Model\Rpg\Skill.cs" />
+    <Compile Include="Model\Rpg\Thing.cs" />
     <Compile Include="Model\StudentLogin.cs" />
     <Compile Include="Model\UserFromVk.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

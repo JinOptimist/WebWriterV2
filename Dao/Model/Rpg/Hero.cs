@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace WebWriterV2.Models.rpg
+namespace Dao.Model.Rpg
 {
     public class Hero
     {

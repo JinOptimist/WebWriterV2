@@ -2,7 +2,7 @@ namespace Dao.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class AddStudentLogin : DbMigration
     {
         public override void Up()
@@ -17,9 +17,9 @@ namespace Dao.Migrations
                         Type = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
-            
+
         }
-        
+
         public override void Down()
         {
             DropTable("dbo.StudentLogin");

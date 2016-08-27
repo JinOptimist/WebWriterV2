@@ -1,8 +1,9 @@
 ﻿<div>
     <h1>Создать героя</h1>
     <div>
-        <input type="button" value="Prev" ng-click="prevStep()" ng-disabled="step==1"/>
-        <input type="button" value="Next" ng-click="nextStep()" ng-disabled="step==4"/>
+        <input type="button" value="Назад" ng-click="prevStep()" ng-disabled="step==1"/>
+        <input type="button" value="След" ng-click="nextStep()" ng-disabled="step==4"/>
+        <input type="button" value="Сохранить героя" ng-click="saveHero()" ng-if="step == 4"/>
     </div>
 
     <div class="total-container"  ng-if="step == 1">
@@ -38,7 +39,6 @@
 
     <div style="float: left; width: 300px;" ng-if="step == 4">
         <ng-hero-card hero="hero"></ng-hero-card>
-        <input type="button" value="Save" ng-click="saveHero()" />
     </div>
 
     <ng-hero-card hero="hero"></ng-hero-card>

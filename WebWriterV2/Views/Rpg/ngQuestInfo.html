@@ -1,14 +1,13 @@
 ﻿<div class="quest-block" ng-if="quest">
-    <img />
-    <p>Name: {{quest.Name}}</p>
-    <p>Progress: {{quest.Progress}}</p>
-    <p>Desc: {{quest.Desc}}</p>
-    <div ng-repeat="event in quest.EventsHistory">
+    <p>Карточка квеста. <b>{{quest.Name}}</b></p>
+    <p>Прогресс: {{quest.Progress}}</p>
+    <p>Описание: {{quest.Desc}}</p>
+    <!--<div ng-repeat="event in quest.EventsHistory">
         <hr />
         <p>Desc: {{event.Desc}}</p>
         <p>ProgressChanging: {{event.ProgressChanging}}</p>
         <p>HeroMoneyChanging: {{event.HeroMoneyChanging}}</p>
         <p>HeroHpChanging: {{event.HeroHpChanging}}</p>
         <p>HeroLvlChanging: {{event.HeroLvlChanging}}</p>
-    </div>
+    </div>-->
 </div>

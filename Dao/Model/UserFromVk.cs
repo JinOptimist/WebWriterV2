@@ -25,11 +25,8 @@ namespace Dao.Model
 
         public override string ToString()
         {
-            return string.Format("Inner Id:{0} VkId: {1} Name: {2} {3} Sex: {4} AddedToMyBase: {5} Friend ids: {6}",
-                Id, VkId, FirstName, LastName, Sex, AddedToMyBase.ToLongDateString(),
-                FriendIds != null && FriendIds.Any()
-                    ? FriendIds.Select(x => x.FriendsId).Select(x => x.ToString()).Aggregate((i, j) => i + " " + j)
-                    : string.Empty);
+            return
+                $"Inner Id:{Id} VkId: {VkId} Name: {FirstName} {LastName} Sex: {Sex} AddedToMyBase: {AddedToMyBase.ToLongDateString()} Friend ids: {(FriendIds != null && FriendIds.Any() ? FriendIds.Select(x => x.FriendsId).Select(x => x.ToString()).Aggregate((i, j) => i + " " + j) : string.Empty)}";
         }
     }
 

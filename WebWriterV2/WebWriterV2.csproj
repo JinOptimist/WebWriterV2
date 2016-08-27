@@ -137,6 +137,8 @@
     <Compile Include="Models\rpg\Event.cs" />
     <Compile Include="Models\rpg\Hero.cs" />
     <Compile Include="Models\rpg\Quest.cs" />
+    <Compile Include="Models\rpg\Skill.cs" />
+    <Compile Include="Models\rpg\Thing.cs" />
     <Compile Include="Models\StudentHtmlFile.cs" />
     <Compile Include="SecondThread\FriendWithState.cs" />
     <Compile Include="GetUserFromJsonFile\Magic.cs" />
@@ -249,6 +251,7 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\rpg\module.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Rpg\QuestInfo.html" />
     <Content Include="Views\Rpg\ListHeroes.html" />
     <Content Include="Views\Rpg\ngHeroCard.html" />
     <Content Include="Views\Rpg\ngQuestInfo.html" />
@@ -278,7 +281,6 @@
     <Content Include="Views\Student\AllFiles.cshtml" />
     <Content Include="Views\Shared\StudentFilesRow.cshtml" />
     <Content Include="Views\Rpg\Index.cshtml" />
-    <Content Include="Views\Rpg\ngHeroInfo.html" />
     <Content Include="Views\Rpg\AddQuest.html" />
     <Content Include="Views\Rpg\GetQuest.html" />
   </ItemGroup>

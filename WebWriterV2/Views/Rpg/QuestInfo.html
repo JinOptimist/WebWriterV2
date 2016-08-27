@@ -1,0 +1,21 @@
+﻿<div>
+    <div style="width: 400px; float: left">
+        <ng-hero-card hero="quest.Hero"></ng-hero-card>
+    </div>
+    <div style="width: 400px; float: left">
+        <ng-quest-info quest="quest"></ng-quest-info>
+    </div>
+
+
+
+    <div style="clear: both;">
+        <div ng-repeat="event in quest.EventsHistory">
+            <hr/>
+            <p>Событие: {{event.Desc}}</p>
+            <p>Причина:
+                <span ng-if="event.RequrmentRace != 0">Расс: {{getRaceWord(event.RequrmentRace)}}</span>
+                <span ng-if="event.RequrmentSex != 0">Пол: {{getSexWord(event.RequrmentSex)}}</span></p>
+            <p>Прогресс миссии: {{event.ProgressChanging}}</p>
+        </div>
+    </div>
+</div>

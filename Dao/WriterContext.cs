@@ -36,6 +36,7 @@ namespace Dao
 
         public static void SetInitializer()
         {
+            //Database.SetInitializer(new CreateDatabaseIfNotExists<WriterContext>());
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<WriterContext, Configuration>());
         }
     }

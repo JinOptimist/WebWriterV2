@@ -1,45 +1,23 @@
 ﻿<div>
-    <input type="button" value="Распечатать письмо" ng-click="GetQuest()"/>
-    <input type="button" value="Осмотреть желающих стать героями" ng-click="GetHeroes()"/>
-
-    <ng-quest-info quest="quest"></ng-quest-info>
-
     <div ng-if="heroes.length > 0">
-        <h2>Choose child for learning:</h2>
-        <div ng-repeat="hero in heroes" class="left">
-            <ng-hero-card hero="hero"></ng-hero-card>
-            <input type="button" value="Взять в ученики" ng-click="SelectHero(hero)" style="float: right;clear: both;" />
-        </div>
-    </div>
-
-    <div ng-repeat="Wile in quest.Wiles" style="clear: both;">
-        <p ng-repeat="event in Wile.Events" ng-if="CheckRequrment(event)">{{event.Desc}}</p>
-    </div>
-
-    <div class="left" ng-repeat="quest in quests">
-        <div class="name left"> <!-- hero block -->
-            <p class="text"><b>{{quest.Hero.Name}}</b></p>
-            <p>
-                <img src="../image/{{quest.Hero.Race}}" width="75" height="120" class="leftimg">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diem nonummy
-                nibh euismod tincidunt ut lacreet dolore magna aliguam erat
-                volutpat.
-            </p>
-            <div class="properties left">
-                Lorem
+        <h2>Выбери героя для похода:</h2>
+        <div style="width: 300px; float: left">
+            <div >
+                <h1>Герои</h1>
             </div>
-            <div class="properties left">
-                Lorem
-            </div>
-            <div class="properties left">
-                Lorem
+            <div ng-repeat="hero in heroes" class="left">
+                <ng-hero-card hero="hero"></ng-hero-card>
+                <input type="button" value="Выбрать героя" ng-click="SelectHero(hero)" style="float: right; clear: both;" />
             </div>
         </div>
-        <div class="quest left"> <!-- quest block -->
-            <p class="text"><b>Quest Name</b></p>
-            <p>
-                Quest Desc.
-            </p>
+        <div style="width: 300px; float: left; padding-left: 30px;">
+            <div>
+                <h1>Квесты</h1>
+            </div>
+            <div class="left" ng-repeat="quest in quests">
+                <ng-quest-info quest="quest"></ng-quest-info>
+                <input type="button" value="В поход" ng-click="goToTheQuest(quest)" style="float: right; clear: both;" />
+            </div>
         </div>
     </div>
 </div>

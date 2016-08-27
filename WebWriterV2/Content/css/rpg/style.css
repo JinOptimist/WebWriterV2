@@ -38,8 +38,8 @@
 
 .sidebar, .content, .name, .properties {
     padding: 10px; /* Поля */
-    border: solid 1px #000; /* Параметры рамки */
-    background: #e8362e; /* Цвет фона */
+    /*border: solid 1px #000;*/ /* Параметры рамки */
+    /*background: #e8362e;*/ /* Цвет фона */
 }
 
 .layout {
@@ -86,6 +86,7 @@
 
 .specialMarginForQuests {
     margin: 25px auto;
+    border: solid 1px #000;
 }
 
 .specialMarginForPerfomance {

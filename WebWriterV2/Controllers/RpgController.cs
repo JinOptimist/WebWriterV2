@@ -89,13 +89,13 @@ namespace WebWriterV2.Controllers
             return result;
         }
 
-        private List<Stat> GenerateStat(int seed = 0)
+        private Dictionary<StatType, long> GenerateStat(int seed = 0)
         {
-            var result = new List<Stat>();
+            var result = new Dictionary<StatType, long>();
             var rnd = new Random(DateTime.Now.Millisecond + seed);
-            result.Add(new Stat {Name = StatList.Strength, Value = rnd.Next(1, 10) });
-            result.Add(new Stat { Name = StatList.Agility, Value = rnd.Next(1, 10) });
-            result.Add(new Stat { Name = StatList.Charism, Value = rnd.Next(1, 10) });
+            result.Add(StatType.Strength, rnd.Next(1,10));
+            result.Add(StatType.Agility, rnd.Next(1, 10));
+            result.Add(StatType.Charism, rnd.Next(1, 10));
             return result;
         }
 

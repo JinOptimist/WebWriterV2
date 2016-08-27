@@ -10,6 +10,6 @@
 
         public virtual string FaceImgUrl { get; set; }
 
-        public virtual string FullImgUrl { get; set; } 
+        public virtual string FullImgUrl { get; set; }
     }
 }
