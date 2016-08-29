@@ -9,6 +9,8 @@ namespace WebWriterV2.Models.rpg
         public Sex Sex { get; set; }
         public string Background { get; set; }
 
+        public Location Location { get; set; } = null;
+
         public Dictionary<StatType, long> Stats { get; set; }
         public Dictionary<StatusType, long> Status { get; set; }
         public List<Thing> Inventory { get; set; }
