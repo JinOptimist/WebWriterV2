@@ -1,5 +1,5 @@
 ﻿<div>
-    <form novalidate class="left">
+    <form novalidate class="left" style="width: 1050px;">
         <input type="submit" ng-click="submitQuest()" value="Save" />
         <p>
             Name: <input type="text" ng-model="quest.Name" />
@@ -8,42 +8,44 @@
             Desc: <input type="text" ng-model="quest.Desc" />
         </p>
 
-        <input type="button" value="Add while" ng-click="addWile()" />
+        <div id="eventsGraph"></div>
 
-        <div ng-repeat="wile in quest.Wiles" class="wile">
-            <p>
-                <textarea ng-model="wile.Desc" rows="5" cols="100"></textarea>
-                <br />
-                <input type="button" value="remove" ng-click="removeWile($index)" />
-                <input type="button" value="Add while event" ng-click="addWileEvent(wile)" />
-            </p>
-            <div ng-repeat="event in wile.Events" class="event">
-                <p>
-                    RequrmentSex:
-                    <select ng-model="event.RequrmentSex" ng-options="option.value as option.name for option in SexList"></select>
-                </p>
-                <p>
-                    RequrmentRace:
-                    <select ng-model="event.RequrmentRace" ng-options="option.value as option.name for option in RaceList"></select>
-                </p>
-                <p>
-                    Desc: <input type="text" ng-model="event.Desc" />
-                </p>
-                <p>
-                    ProgressChanging: <input type="text" ng-model="event.ProgressChanging" />
-                </p>
-                <p>
-                    HeroMoneyChanging: <input type="text" ng-model="event.HeroMoneyChanging" />
-                </p>
-                <p>
-                    HeroHpChanging: <input type="text" ng-model="event.HeroHpChanging" />
-                </p>
-                <p>
-                    HeroLvlChanging: <input type="text" ng-model="event.HeroLvlChanging" />
-                </p>
-                <input type="button" value="Remove while event" ng-click="removeWileEvent(wile, $index)" />
-            </div>
-        </div>
+        <table>
+            <tr ng-repeat="level in levels">
+                <td ng-repeat="event in level.Events">
+                    <div class="event">
+                        <p>
+                            RequrmentSex:
+                            <select ng-model="event.RequrmentSex" ng-options="option.value as option.name for option in SexList"></select>
+                        </p>
+                        <p>
+                            RequrmentRace:
+                            <select ng-model="event.RequrmentRace" ng-options="option.value as option.name for option in RaceList"></select>
+                        </p>
+                        <p>
+                            <textarea ng-model="event.Desc" style="width: 90%; height: 100px;"></textarea>
+                        </p>
+                        <p>
+                            ProgressChanging: <input type="text" ng-model="event.ProgressChanging" />
+                        </p>
+                        <p>
+                            HeroMoneyChanging: <input type="text" ng-model="event.HeroMoneyChanging" />
+                        </p>
+                        <p>
+                            HeroHpChanging: <input type="text" ng-model="event.HeroHpChanging" />
+                        </p>
+                        <p>
+                            HeroLvlChanging: <input type="text" ng-model="event.HeroLvlChanging" />
+                        </p>
+                        <input type="button" value="Remove event" ng-click="removeEvent(event)" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+
+
+        <input type="button" value="Add event" ng-click="addEvent()" style="float: left; clear: both;" />
     </form>
 
     <ng-quest-info quest="quest"></ng-quest-info>

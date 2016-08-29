@@ -11,28 +11,28 @@ namespace WebWriterV2.Models.rpg
 
         public Location Location { get; set; } = null;
 
-        public Dictionary<StatType, long> Stats { get; set; }
+        public Dictionary<CharacteristicType, long> Characteristics { get; set; }
         public Dictionary<StatusType, long> Status { get; set; }
         public List<Thing> Inventory { get; set; }
     }
 
     public enum Race
     {
-        None = 0,
         Human = 1,
         Elf = 2,
         Orc = 3,
+        Gnom = 4,
+        Dragon = 5,
     }
 
     public enum Sex
     {
-        None = 0,
         Male = 1,
         Female = 2,
         Unknown = 3
     }
 
-    public enum StatType
+    public enum CharacteristicType
     {
         Strength = 1,
         Agility = 2,
@@ -41,10 +41,11 @@ namespace WebWriterV2.Models.rpg
 
     public enum StatusType
     {
-        Hp = 1,
-        Mh = 2,
+        MaxHp = 1,
+        MaxMp = 2,
         Experience = 3,
-        HandAttackPower = 4,
-        HandAttackSpeed = 5
+        CurrentHp = 4,
+        CurrentMp = 5,
+        Gold = 6
     }
 }

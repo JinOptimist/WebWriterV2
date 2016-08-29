@@ -1,13 +1,16 @@
-﻿namespace WebWriterV2.Models.rpg
+﻿using System.Collections.Generic;
+
+namespace WebWriterV2.Models.rpg
 {
     public class Skill
     {
         public string Name { get; set; }
+        public string Desc { get; set; }
 
+        public Hero Self { get; set; }
+        public Hero Target { get; set; }
 
-        // Тип умения. Атакующее, защитное...
-        // Может лучше ввести изменения состояние героя?
-        // Тогда умение будет обладать списком Эффектов по изменению состояния?
-        // В этом случае все противники так же будут героями
+        public Dictionary<StatusType, long> SelfChanging { get; set; }
+        public Dictionary<StatusType, long> TargetChanging { get; set; }
     }
 }

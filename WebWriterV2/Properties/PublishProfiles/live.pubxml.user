@@ -31,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/10/2015 17:47:34</publishTime>
     </File>
     <File Include="bin/Dao.dll">
-      <publishTime>08/25/2016 21:44:29</publishTime>
+      <publishTime>08/29/2016 13:27:28</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/25/2015 09:11:03</publishTime>
@@ -91,7 +91,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2016 22:25:30</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>08/25/2016 21:44:29</publishTime>
+      <publishTime>08/29/2016 13:27:28</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -120,8 +120,11 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/css/rpg.css">
       <publishTime>08/25/2016 20:04:11</publishTime>
     </File>
+    <File Include="Content/css/rpg/michi.css">
+      <publishTime>08/29/2016 10:53:22</publishTime>
+    </File>
     <File Include="Content/css/rpg/style.css">
-      <publishTime>08/25/2016 21:18:39</publishTime>
+      <publishTime>08/28/2016 13:17:58</publishTime>
     </File>
     <File Include="Content/del.jpg">
       <publishTime>09/18/2015 14:17:30</publishTime>
@@ -212,6 +215,30 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/home/word-icon.png">
       <publishTime>08/08/2013 11:34:41</publishTime>
+    </File>
+    <File Include="Content/rpg/dragon.jpg">
+      <publishTime>08/24/2016 11:01:09</publishTime>
+    </File>
+    <File Include="Content/rpg/elf.jpg">
+      <publishTime>08/24/2016 11:01:09</publishTime>
+    </File>
+    <File Include="Content/rpg/gnom.jpg">
+      <publishTime>08/24/2016 11:01:09</publishTime>
+    </File>
+    <File Include="Content/rpg/human.jpg">
+      <publishTime>08/28/2016 12:55:46</publishTime>
+    </File>
+    <File Include="Content/rpg/man.jpg">
+      <publishTime>08/28/2016 13:22:12</publishTime>
+    </File>
+    <File Include="Content/rpg/orc.jpg">
+      <publishTime>08/28/2016 12:56:38</publishTime>
+    </File>
+    <File Include="Content/rpg/unknown.jpg">
+      <publishTime>08/28/2016 13:29:44</publishTime>
+    </File>
+    <File Include="Content/rpg/woman.jpg">
+      <publishTime>08/28/2016 13:28:04</publishTime>
     </File>
     <File Include="Content/wait.gif">
       <publishTime>09/04/2015 12:33:53</publishTime>
@@ -444,6 +471,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/angular/ui-bootstrap.js">
       <publishTime>07/19/2016 22:12:41</publishTime>
     </File>
+    <File Include="Scripts/dracula_graffle.js">
+      <publishTime>08/29/2016 12:57:25</publishTime>
+    </File>
+    <File Include="Scripts/dracula_graph.js">
+      <publishTime>08/29/2016 12:57:25</publishTime>
+    </File>
     <File Include="Scripts/galleria-1.2.9.min.js">
       <publishTime>03/25/2013 15:23:40</publishTime>
     </File>
@@ -456,8 +489,14 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/jquery-2.1.4.min.map">
       <publishTime>08/28/2015 13:47:22</publishTime>
     </File>
+    <File Include="Scripts/raphael-min.js">
+      <publishTime>08/29/2016 12:57:25</publishTime>
+    </File>
+    <File Include="Scripts/rpg/graph.js">
+      <publishTime>08/29/2016 13:21:41</publishTime>
+    </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>08/25/2016 21:40:44</publishTime>
+      <publishTime>08/29/2016 13:26:43</publishTime>
     </File>
     <File Include="Views/Carrier/Add.cshtml">
       <publishTime>09/04/2015 13:59:19</publishTime>
@@ -490,31 +529,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/15/2015 15:02:58</publishTime>
     </File>
     <File Include="Views/Rpg/AddQuest.html">
-      <publishTime>08/23/2016 18:37:45</publishTime>
+      <publishTime>08/29/2016 13:05:43</publishTime>
     </File>
     <File Include="Views/Rpg/CreateHero.html">
-      <publishTime>08/25/2016 21:37:37</publishTime>
+      <publishTime>08/29/2016 13:25:43</publishTime>
     </File>
     <File Include="Views/Rpg/GetQuest.html">
       <publishTime>08/25/2016 21:44:14</publishTime>
     </File>
     <File Include="Views/Rpg/Index.cshtml">
-      <publishTime>08/25/2016 21:37:44</publishTime>
+      <publishTime>08/29/2016 12:59:10</publishTime>
     </File>
     <File Include="Views/Rpg/ListHeroes.html">
       <publishTime>08/25/2016 21:36:17</publishTime>
     </File>
     <File Include="Views/Rpg/ngHeroCard.html">
-      <publishTime>08/25/2016 21:36:11</publishTime>
+      <publishTime>08/29/2016 09:31:43</publishTime>
     </File>
     <File Include="Views/Rpg/ngHeroInfo.html">
       <publishTime>07/23/2016 14:48:11</publishTime>
     </File>
     <File Include="Views/Rpg/ngQuestInfo.html">
-      <publishTime>08/25/2016 21:35:55</publishTime>
+      <publishTime>08/29/2016 12:18:37</publishTime>
     </File>
     <File Include="Views/Rpg/QuestInfo.html">
-      <publishTime>08/25/2016 21:35:44</publishTime>
+      <publishTime>08/29/2016 12:18:23</publishTime>
     </File>
     <File Include="Views/RpgMaster.cshtml">
       <publishTime>07/26/2016 13:48:21</publishTime>

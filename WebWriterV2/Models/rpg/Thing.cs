@@ -6,6 +6,6 @@ namespace WebWriterV2.Models.rpg
     {
         public Hero Owner { get; set; }
 
-        public Dictionary<StatType, int> Effects { get; set; }
+        public Dictionary<CharacteristicType, int> Effects { get; set; }
     }
 }

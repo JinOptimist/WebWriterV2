@@ -14,5 +14,7 @@ namespace WebWriterV2.Models.rpg
         public Point Coordinate { get; set; }
 
         public List<Hero> HeroesInLocation { get; set; } = new List<Hero>();
+
+        public Guild Guild { get; set; } = null;
     }
 }

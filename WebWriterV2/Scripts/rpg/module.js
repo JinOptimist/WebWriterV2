@@ -1,14 +1,5 @@
 
 angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
-    .directive('ngHeroInfo', [
-        function() {
-            return {
-                restrict: 'E',
-                replace: true,
-                templateUrl: '/views/rpg/ngHeroInfo.html'
-            }
-        }
-    ])
     .directive('ngQuestInfo', [
         function() {
             return {
@@ -72,18 +63,26 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
              $locationProvider.html5Mode(true);
          }
     ])
-    .service('sharedQuest', function () {
+    .service('sharedQuest', ['$http', function ($http) {
         var curentQuest = {};
+
+        $http({
+            method: 'GET',
+            url: '/Rpg/GetRandomQuest',
+            headers: { 'Accept': 'application/json' }
+        }).success(function (response) {
+            curentQuest = angular.fromJson(response);
+        });
 
         return {
             getQuest: function () {
                 return curentQuest;
             },
-            setQuest: function(value) {
+            setQuest: function (value) {
                 curentQuest = value;
             }
         };
-    })
+    }])
     .service('sharedHeroes', function () {
         var listHeroes = [
             {
@@ -91,7 +90,7 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
                 Name: "Mage",
                 Race: "1",
                 Sex: "1",
-                Stats: [
+                Characteristics: [
                     { Name: "Strength", Value: 3 },
                     { Name: "Agility", Value: 3 },
                     { Name: "Charism", Value: 7 }
@@ -102,7 +101,7 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
                 Name: "Warrior",
                 Race: "3",
                 Sex: "2",
-                Stats: [
+                Characteristics: [
                     { Name: "Strength", Value: 13 },
                     { Name: "Agility", Value: 3 },
                     { Name: "Charism", Value: 7 }
@@ -110,10 +109,10 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
             },
             {
                 TempId: 1,
-                Name: "Elf",
+                Name: "Thief",
                 Race: "2",
                 Sex: "2",
-                Stats: [
+                Characteristics: [
                     { Name: "Strength", Value: 2 },
                     { Name: "Agility", Value: 8 },
                     { Name: "Charism", Value: 3 }
@@ -144,14 +143,19 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
     })
     .service('raceService', function () {
         var raceList = [
-                            { name: "Human/Dragon", value: 1, src: "/Content/HeroImg/dragon.jpg" },
-                            { name: "Elf", value: 2, src: "/Content/HeroImg/elf.jpg" },
-                            { name: "Orc/Gnom", value: 3, src: "/Content/HeroImg/gnom.jpg" }
+                            { name: "Human", value: 1, src: "/Content/rpg/human.jpg" },
+                            { name: "Elf", value: 2, src: "/Content/rpg/elf.jpg" },
+                            { name: "Orc", value: 3, src: "/Content/rpg/orc.jpg" },
+                            { name: "Dragon", value: 4, src: "/Content/rpg/dragon.jpg" },
+                            { name: "Gnom", value: 5, src: "/Content/rpg/gnom.jpg" }
         ];
 
         return {
             getRaceList: function () {
-                return raceList;
+                var copyRace = raceList.map(function(value) {
+                    return angular.copy(value);
+                });
+                return copyRace;//clone array
             },
             getRaceWord: function (raceValue) {
                 var filtered = raceList.filter(function (race) { return race.value == raceValue });
@@ -163,14 +167,17 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
     })
     .service('sexService', function () {
         var sexList = [
-                            { name: "Man", value: 1, src: "https://image.freepik.com/free-photo/_21005898.jpg" },
-                            { name: "Woman", value: 2, src: "http://innastudio.ru/userfiles/images/siluet.jpg" },
-                            { name: "#$*/%", value: 3 }
+                            { name: "Man", value: 1, src: "/Content/rpg/man.jpg" },
+                            { name: "Woman", value: 2, src: "/Content/rpg/woman.jpg" },
+                            { name: "Unknown", value: 3, src: "/Content/rpg/unknown.jpg" }
         ];
 
         return {
             getSexList: function () {
-                return sexList;
+                var copySex = sexList.map(function (value) {
+                    return angular.copy(value);
+                });
+                return copySex; // clone array
             },
             getSexWord: function (sexValue) {
                 var filtered = sexList.filter(function(sex) { return sex.value == sexValue });
@@ -188,15 +195,7 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
             $scope.selectHero = undefined;
 
             $scope.GetQuest = function() {
-                $http({
-                    method: 'GET',
-                    url: '/Rpg/GetRandomQuest',
-                    headers: { 'Accept': 'application/json' }
-                }).success(function(response) {
-                    var quest = angular.fromJson(response);
-                    $scope.quests.push(quest);
-                    sharedQuest.setQuest(quest);
-                });
+                $scope.quests.push(sharedQuest.getQuest());
             }
 
             $scope.GetHeroes = function() {
@@ -248,42 +247,35 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
         }
     ])
     .controller('adminQuestController', [
-        '$scope', "$http", "sharedQuest",
-        function ($scope, $http, sharedQuest) {
+        '$scope', "$http", "sharedQuest", "sexService", "raceService",
+        function ($scope, $http, sharedQuest, sexService, raceService) {
             $scope.quest = sharedQuest.getQuest();
-            //$scope.quest.Wiles = [];
-            $scope.SexList = [
-                { name: "None", value: 0 },
-                { name: "Male", value: 1 },
-                { name: "Female", value: 2 },
-                { name: "Unknown", value: 3 }
-            ];
-            $scope.RaceList = [
-                { name: "None", value: 0 },
-                { name: "Human", value: 1 },
-                { name: "Elf", value: 2 },
-                { name: "Orc", value: 3 }
-            ];
+            $scope.RaceList = [];
+            $scope.SexList = [];
+            $scope.levels = [];
 
-            $scope.addWile = function() {
-                $scope.quest.Wiles.push({
-                    Desc: "",
-                    Events: []
+            function init() {
+                var baseSexList = sexService.getSexList();
+                baseSexList.splice(0, 0, { name: "None", value: 0 });
+                $scope.SexList = baseSexList;
+
+                var baseRaceList = raceService.getRaceList();
+                baseRaceList.splice(0, 0, { name: "None", value: 0 });
+                $scope.RaceList = baseRaceList;
+
+                EventGraph.drawGraph($scope.quest.QuestEvents, 'eventsGraph', 900, 600);
+            }
+
+            init();
+
+            $scope.addEvent = function (event) {
+                $scope.quest.QuestEvents.push({
+                    Desc: event.Desc
                 });
             }
 
-            $scope.removeWile = function (index) {
-                $scope.quest.Wiles.splice(index, 1);
-            }
-
-            $scope.addWileEvent = function (wile) {
-                wile.Events.push({
-                    Desc: ""
-                });
-            }
-
-            $scope.removeWileEvent = function (wile, index) {
-                wile.Events.splice(index, 1);
+            $scope.removeWileEvent = function (index) {
+                $scope.quest.QuestEvents.splice(index, 1);
             }
 
             $scope.submitQuest = function () {
@@ -305,17 +297,13 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
                     }
                 );
             }
-
-            //$scope.GoTo = function() {
-            //    $location.path('createHero');
-            //}
         }
     ])
     .controller('createHeroController', [
         '$scope', "$http", "$location", "sharedHeroes", "raceService", "sexService",
         function ($scope, $http, $location, sharedHeroes, raceService, sexService) {
             $scope.hero = {
-                Stats: [
+                Characteristics: [
                     { Name: "Strength", Value: 1 },
                     { Name: "Agility", Value: 1 },
                     { Name: "Charism", Value: 1 }
@@ -367,6 +355,38 @@ angular.module('rpg', ['ngRoute']) //, ['common', 'search', 'masha', 'ui.ace']
             '$scope', "$http", "$location", "sharedQuest", "raceService", "sexService",
             function ($scope, $http, $location, sharedQuest, raceService, sexService) {
                 $scope.quest = sharedQuest.getQuest();
+
+                processQuest();
+                function processQuest() {
+                    var quest = $scope.quest;
+                    quest.Effective = 0;
+                    var hero = $scope.quest.Hero;
+                    var events = quest.QuestEvents;
+
+                    var parentEvent = null;
+                    var possibleEvent;
+                    do {
+                        possibleEvent = events.filter(function(event) {
+                            if (event.ParentEvents == null && parentEvent == null)
+                                return true;
+                            if (event.ParentEvents == null || parentEvent == null)
+                                return false;
+                            var thisEventHasCorretParrent = event.ParentEvents.some(function(x) {
+                                return x.Id == parentEvent.Id;
+                            });
+                            if (!thisEventHasCorretParrent)
+                                return false;
+                            return (event.RequrmentSex == null || event.RequrmentSex == 0 || event.RequrmentSex == hero.Sex)
+                                && (event.RequrmentRace == null || event.RequrmentRace == 0 || event.RequrmentRace == hero.Race);
+                        });
+                        if (possibleEvent.length > 0) {
+                            var currentEvent = possibleEvent[0];
+                            parentEvent = currentEvent;
+                            quest.EventsHistory.push(currentEvent);
+                            quest.Effective += currentEvent.ProgressChanging;
+                        }
+                    } while (possibleEvent.length > 0)
+                }
 
                 $scope.getRaceWord = raceService.getRaceWord;
                 $scope.getSexWord = sexService.getSexWord;

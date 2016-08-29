@@ -5,6 +5,10 @@
     margin: 7px; /* Значение отступов */
 }
 
+.avatar img {
+    max-width: 300px;
+}
+
 .button {
     background-color: #0003AA;
     width: 30px; /* Ширина слоя */
@@ -16,7 +20,7 @@
 }
 
 .total-container {
-    width: 950px;
+    /*width: 950px;*/
     margin: auto;
 }
 

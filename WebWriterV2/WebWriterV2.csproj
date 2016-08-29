@@ -171,13 +171,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\css\home.css" />
-    <Content Include="Content\css\rpg.css" />
     <Content Include="Content\css\main.css" />
+    <Content Include="Content\css\rpg\michi.css" />
     <Content Include="Content\css\rpg\style.css" />
     <Content Include="Content\del.jpg" />
-    <Content Include="Content\HeroImg\dragon.jpg" />
-    <Content Include="Content\HeroImg\elf.jpg" />
-    <Content Include="Content\HeroImg\gnom.jpg" />
     <Content Include="Content\home\down.png" />
     <Content Include="Content\home\download-icon.png" />
     <Content Include="Content\home\fb2-icon.png" />
@@ -204,6 +201,14 @@
     <Content Include="Content\home\velcome.png" />
     <Content Include="Content\home\vk-icon.png" />
     <Content Include="Content\home\word-icon.png" />
+    <Content Include="Content\rpg\dragon.jpg" />
+    <Content Include="Content\rpg\elf.jpg" />
+    <Content Include="Content\rpg\gnom.jpg" />
+    <Content Include="Content\rpg\human.jpg" />
+    <Content Include="Content\rpg\man.jpg" />
+    <Content Include="Content\rpg\orc.jpg" />
+    <Content Include="Content\rpg\unknown.jpg" />
+    <Content Include="Content\rpg\woman.jpg" />
     <Content Include="Content\wait.gif" />
     <Content Include="Global.asax" />
     <Content Include="NLog.config">
@@ -248,9 +253,13 @@
     <Content Include="Scripts\angular\ngProgress.js" />
     <Content Include="Scripts\angular\Sortable.js" />
     <Content Include="Scripts\angular\ui-bootstrap.js" />
+    <Content Include="Scripts\dracula_graffle.js" />
+    <Content Include="Scripts\dracula_graph.js" />
     <Content Include="Scripts\galleria-1.2.9.min.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
+    <Content Include="Scripts\raphael-min.js" />
+    <Content Include="Scripts\rpg\graph.js" />
     <Content Include="Scripts\rpg\module.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Rpg\QuestInfo.html" />

@@ -83,11 +83,6 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\FriendId.cs" />
     <Compile Include="Model\Hero.cs" />
-    <Compile Include="Model\Rpg\Event.cs" />
-    <Compile Include="Model\Rpg\Hero.cs" />
-    <Compile Include="Model\Rpg\Quest.cs" />
-    <Compile Include="Model\Rpg\Skill.cs" />
-    <Compile Include="Model\Rpg\Thing.cs" />
     <Compile Include="Model\StudentLogin.cs" />
     <Compile Include="Model\UserFromVk.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -122,6 +117,9 @@
     <EmbeddedResource Include="Migrations\201509211321528_Add StudentLogin.resx">
       <DependentUpon>201509211321528_Add StudentLogin.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\Rpg\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
