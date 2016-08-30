@@ -141,6 +141,7 @@
     <Compile Include="Models\rpg\Quest.cs" />
     <Compile Include="Models\rpg\Skill.cs" />
     <Compile Include="Models\rpg\Thing.cs" />
+    <Compile Include="Models\rpg\TrainingRoom.cs" />
     <Compile Include="Models\StudentHtmlFile.cs" />
     <Compile Include="SecondThread\FriendWithState.cs" />
     <Compile Include="GetUserFromJsonFile\Magic.cs" />
@@ -204,6 +205,7 @@
     <Content Include="Content\rpg\dragon.jpg" />
     <Content Include="Content\rpg\elf.jpg" />
     <Content Include="Content\rpg\gnom.jpg" />
+    <Content Include="Content\rpg\coin.png" />
     <Content Include="Content\rpg\human.jpg" />
     <Content Include="Content\rpg\man.jpg" />
     <Content Include="Content\rpg\orc.jpg" />
@@ -234,9 +236,6 @@
     </None>
     <Content Include="Scripts\angular-mocks.js" />
     <None Include="Scripts\angular.intellisense.js" />
-    <Content Include="Scripts\angular.js" />
-    <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\angular\angular-animate.js" />
     <Content Include="Scripts\angular\angular-cache.js" />
@@ -253,6 +252,7 @@
     <Content Include="Scripts\angular\ngProgress.js" />
     <Content Include="Scripts\angular\Sortable.js" />
     <Content Include="Scripts\angular\ui-bootstrap.js" />
+    <Content Include="Scripts\angular\underscore-min.js" />
     <Content Include="Scripts\dracula_graffle.js" />
     <Content Include="Scripts\dracula_graph.js" />
     <Content Include="Scripts\galleria-1.2.9.min.js" />
@@ -262,10 +262,11 @@
     <Content Include="Scripts\rpg\graph.js" />
     <Content Include="Scripts\rpg\module.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Rpg\Guild.html" />
     <Content Include="Views\Rpg\QuestInfo.html" />
     <Content Include="Views\Rpg\ListHeroes.html" />
-    <Content Include="Views\Rpg\ngHeroCard.html" />
-    <Content Include="Views\Rpg\ngQuestInfo.html" />
+    <Content Include="Views\Rpg\directives\ngHeroCard.html" />
+    <Content Include="Views\Rpg\directives\ngQuestInfo.html" />
     <Content Include="Views\Rpg\CreateHero.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

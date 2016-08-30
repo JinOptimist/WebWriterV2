@@ -1,0 +1,22 @@
+﻿<div>
+    <h1>Гильдия: {{guild.Name}}</h1>
+    <div class="guild-card">
+        <h3>Кратко о гильдии</h3>
+        {{guild.Desc}}
+        <p>gold: {{guild.Gold}} <img src="/Content/rpg/coin.png" style="width: 20px;"/> </p>
+        <p>Influence: {{guild.Influence}}</p>
+        <p>ready hero: {{guild.Heroes.length}}</p>
+        <p>completed quest: 8</p>
+    </div>
+
+    <div class="guild-card">
+        <h3>Ваши Герои</h3>
+        <ng-hero-card hero="hero" ng-repeat="hero in guild.Heroes"></ng-hero-card>
+    </div>
+    <div class="guild-card">
+        Блок доступных квестов
+    </div>
+    <div class="guild-card">
+        Лист тренировочных комнат
+    </div>
+</div>

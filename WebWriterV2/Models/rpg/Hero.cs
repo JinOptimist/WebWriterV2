@@ -18,18 +18,18 @@ namespace WebWriterV2.Models.rpg
 
     public enum Race
     {
-        Human = 1,
-        Elf = 2,
-        Orc = 3,
-        Gnom = 4,
-        Dragon = 5,
+        Человек = 1,
+        Эльф = 2,
+        Орк = 3,
+        Гном = 4,
+        Дракон = 5,
     }
 
     public enum Sex
     {
-        Male = 1,
-        Female = 2,
-        Unknown = 3
+        Муж = 1,
+        Жен = 2,
+        Скрывает = 3
     }
 
     public enum CharacteristicType

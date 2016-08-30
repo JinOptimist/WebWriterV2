@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace WebWriterV2.Models.rpg
 {
@@ -11,7 +8,8 @@ namespace WebWriterV2.Models.rpg
 
         public string Desc { get; set; }
 
-        public long Influence { get; set; } = 0;
+        public long Gold { get; set; } = 0; // Main resource
+        public long Influence { get; set; } = 0;// Second resource
 
         public Location Location { get; set; }
 

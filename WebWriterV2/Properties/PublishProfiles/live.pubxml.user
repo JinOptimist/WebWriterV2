@@ -91,7 +91,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2016 22:25:30</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>08/29/2016 13:27:28</publishTime>
+      <publishTime>08/29/2016 18:07:41</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -471,6 +471,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/angular/ui-bootstrap.js">
       <publishTime>07/19/2016 22:12:41</publishTime>
     </File>
+    <File Include="Scripts/angular/underscore-min.js">
+      <publishTime>08/29/2016 17:40:17</publishTime>
+    </File>
     <File Include="Scripts/dracula_graffle.js">
       <publishTime>08/29/2016 12:57:25</publishTime>
     </File>
@@ -496,7 +499,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2016 13:21:41</publishTime>
     </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>08/29/2016 13:26:43</publishTime>
+      <publishTime>08/29/2016 17:58:27</publishTime>
     </File>
     <File Include="Views/Carrier/Add.cshtml">
       <publishTime>09/04/2015 13:59:19</publishTime>
@@ -538,7 +541,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/25/2016 21:44:14</publishTime>
     </File>
     <File Include="Views/Rpg/Index.cshtml">
-      <publishTime>08/29/2016 12:59:10</publishTime>
+      <publishTime>08/29/2016 17:40:42</publishTime>
     </File>
     <File Include="Views/Rpg/ListHeroes.html">
       <publishTime>08/25/2016 21:36:17</publishTime>

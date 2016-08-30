@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
 
 namespace WebWriterV2.Models.rpg
 {
@@ -15,7 +13,7 @@ namespace WebWriterV2.Models.rpg
         public Sex? RequrmentSex { get; set; } = null;
         public Race? RequrmentRace { get; set; } = null;
         public List<Skill> RequrmentSkill { get; set; } = null;
-        //not null
+        //not null attr
         public Location RequrmentLocation { get; set; }
         //public Dictionary<CharacteristicType, long> RequrmentCharacteristics { get; set; }
 

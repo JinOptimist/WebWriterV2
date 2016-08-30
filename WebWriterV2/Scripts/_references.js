@@ -15,6 +15,7 @@
 /// <reference path="angular/ng-sortable.js" />
 /// <reference path="angular/sortable.js" />
 /// <reference path="angular/ui-bootstrap.js" />
+/// <reference path="angular/underscore-min.js" />
 /// <reference path="angular-mocks.js" />
 /// <reference path="dracula_graffle.js" />
 /// <reference path="dracula_graph.js" />
