@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace WebWriterV2.Models.rpg
 {
-    public class Skill
+    public class Skill : BaseModel
     {
         public string Name { get; set; }
         public string Desc { get; set; }

@@ -34,6 +34,20 @@ angular.module('rpg', ['ngRoute', 'underscore']) //, ['common', 'search', 'masha
             }
         }
     ])
+    .directive('ngGuild', [
+        function () {
+            return {
+                restrict: 'E',
+                replace: true,
+                templateUrl: '/views/rpg/directives/ngGuild.html',
+                scope: { guild: '=' },
+                controller: ['$scope', function ($scope) {
+                    //$scope.GetTextSex = sexService.getSexWord;
+                    //$scope.GetTextRace = raceService.getRaceWord;
+                }]
+            }
+        }
+    ])
     .constant('_',
         window._
     )

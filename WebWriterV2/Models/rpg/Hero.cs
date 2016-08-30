@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace WebWriterV2.Models.rpg
 {
-    public class Hero
+    public class Hero : BaseModel
     {
         public string Name { get; set; }
         public Race Race { get; set; }

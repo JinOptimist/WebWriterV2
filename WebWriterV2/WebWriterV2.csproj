@@ -53,6 +53,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="NLog, Version=4.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <HintPath>..\packages\NLog.4.1.0\lib\net40\NLog.dll</HintPath>
       <Private>True</Private>
@@ -83,9 +87,6 @@
     <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http">
       <Private>True</Private>
@@ -139,6 +140,7 @@
     <Compile Include="Models\rpg\Hero.cs" />
     <Compile Include="Models\rpg\Location.cs" />
     <Compile Include="Models\rpg\Quest.cs" />
+    <Compile Include="Models\rpg\BaseModel.cs" />
     <Compile Include="Models\rpg\Skill.cs" />
     <Compile Include="Models\rpg\Thing.cs" />
     <Compile Include="Models\rpg\TrainingRoom.cs" />
@@ -262,6 +264,7 @@
     <Content Include="Scripts\rpg\graph.js" />
     <Content Include="Scripts\rpg\module.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Rpg\directives\ngGuild.html" />
     <Content Include="Views\Rpg\Guild.html" />
     <Content Include="Views\Rpg\QuestInfo.html" />
     <Content Include="Views\Rpg\ListHeroes.html" />

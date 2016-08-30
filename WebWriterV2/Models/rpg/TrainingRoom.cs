@@ -1,6 +1,9 @@
-﻿namespace WebWriterV2.Models.rpg
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace WebWriterV2.Models.rpg
 {
-    public class TrainingRoom
+    public class TrainingRoom : BaseModel
     {
         public string Name { get; set; }
 

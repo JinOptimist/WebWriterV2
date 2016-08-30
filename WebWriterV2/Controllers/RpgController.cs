@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using WebWriterV2.Models.rpg;
 using WebWriterV2.Utility;
 

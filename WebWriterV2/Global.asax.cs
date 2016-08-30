@@ -6,6 +6,7 @@ using Autofac;
 using Dao;
 using Dao.IRepository;
 using Dao.Repository;
+using Newtonsoft.Json;
 
 namespace WebWriterV2
 {
