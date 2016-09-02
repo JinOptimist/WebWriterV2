@@ -1,0 +1,23 @@
+﻿<div>
+    <h1>Экран путушествия: </h1>
+
+    <div>
+        <b>{{quest.RootEvent.Name}}</b>
+        {{quest.RootEvent.Desc}}
+    </div>
+    <div>
+        Варинат
+        <p ng-repeat="event in quest.RootEvent.ChildrenEvents">
+            {{event.Name}}
+        </p>
+    </div>
+
+    <div>
+        Герой: {{quest.Executor.Name}}
+        <p>Его состояние</p>
+    </div>
+    <div>
+        Квест: {{quest.Name}}
+        <p>Его состояние</p>
+    </div>
+</div>

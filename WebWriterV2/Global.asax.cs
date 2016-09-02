@@ -23,14 +23,12 @@ namespace WebWriterV2
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             var builder = new ContainerBuilder();
-            builder.RegisterType<UserRepository>();
-            builder.RegisterType<HeroRepository>();
-            builder.RegisterType<FriendIdRepository>();
-            builder.RegisterType<StudentLoginRepository>();
-            builder.Register<IUserRepository>(x => x.Resolve<UserRepository>());
-            builder.Register<IHeroRepository>(x => x.Resolve<HeroRepository>());
-            builder.Register<IFriendIdRepository>(x => x.Resolve<FriendIdRepository>());
-            builder.Register<IStudentLoginRepository>(x => x.Resolve<StudentLoginRepository>());
+            /* ************** RPG ************** */
+            builder.RegisterType<QuestRepository>();
+            builder.RegisterType<EventRepository>();
+            builder.Register<IQuestRepository>(x => x.Resolve<QuestRepository>());
+            builder.Register<IEventRepository>(x => x.Resolve<EventRepository>());
+
 
             StaticContainer.Container = builder.Build();
 

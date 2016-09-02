@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using WebWriterV2.Models.rpg;
+using Dao.Model;
+//using WebWriterV2.Models.rpg;
+using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.RpgUtility
 {
@@ -28,7 +30,7 @@ namespace WebWriterV2.RpgUtility
                 Desc = "Старая развалюха в которую страшно зайти. Не удивительно что только самые отчаяные оборванцы осмеливаются искать тут дом",
                 HeroesInLocation = GetHeroes()
             };
-            //guild.Location = location;
+            guild.Location = location;
 
             return guild;
         }
@@ -83,16 +85,18 @@ namespace WebWriterV2.RpgUtility
                 {
                     Name = "Убить крыс",
                     Desc = "Владелец амбара разметил заказ на убийство крыс. Отлично задание для новичка",
-                    QuestEvents = GenerateEventsForQuest()
+                    RootEvent = GenerateEventsForQuest(),
+                    Effective = 0,
                 }
             };
         }
 
-        public static List<Event> GenerateEventsForQuest()
+        public static Event GenerateEventsForQuest()
         {
             // Tips
             // Desc = "У заказчика всегда была репутацию падкого на женское внимание мужика",
             // Desc = "В общем орков не любят со времён третьей общей войны, но порой можно встретить общины с прямо противоположным мнением",
+
             var lvl0Event0 = new Event
             {
                 Name = "Начало",
@@ -104,7 +108,6 @@ namespace WebWriterV2.RpgUtility
             var lvl1Event1 = new Event
             {
                 Name = "Баба заигрывает",
-                ParentEvents = new List<Event>() { lvl0Event0 },
                 ProgressChanging = 50,
                 RequrmentSex = Sex.Жен,
                 Desc =
@@ -113,7 +116,6 @@ namespace WebWriterV2.RpgUtility
             var lvl1Event2 = new Event
             {
                 Name = "Мужика послали",
-                ParentEvents = new List<Event>() { lvl0Event0 },
                 ProgressChanging = -30,
                 RequrmentSex = Sex.Муж,
                 Desc =
@@ -122,7 +124,6 @@ namespace WebWriterV2.RpgUtility
             var lvl1Event3 = new Event
             {
                 Name = "Скрытен работает",
-                ParentEvents = new List<Event>() { lvl0Event0 },
                 ProgressChanging = 10,
                 RequrmentSex = Sex.Скрывает,
                 Desc =
@@ -132,7 +133,6 @@ namespace WebWriterV2.RpgUtility
             var lvl1Event4 = new Event
             {
                 Name = "Перевёл дыхание",
-                ParentEvents = new List<Event> { lvl1Event1, lvl1Event2, lvl1Event3 },
                 ProgressChanging = 10,
                 Desc = "Получив все необходимые детали, герой уже было решил отправиться на прямую к амбару в котором были замечены крысы, но вспомнил наставления учителя. \"Что мы говорим основному квесту? Не сегодня\" и решил ещё день побродить по окрестностям в поисках приключений для своей мягкой точки",
             };
@@ -140,7 +140,6 @@ namespace WebWriterV2.RpgUtility
             var lvl2Event1 = new Event
             {
                 Name = "Эльфу сложней",
-                ParentEvents = new List<Event>() { lvl1Event4 },
                 ProgressChanging = -30,
                 RequrmentRace = Race.Эльф,
                 Desc =
@@ -149,7 +148,6 @@ namespace WebWriterV2.RpgUtility
             var lvl2Event2 = new Event
             {
                 Name = "Орку легче",
-                ParentEvents = new List<Event>() { lvl1Event4 },
                 ProgressChanging = 50,
                 RequrmentRace = Race.Орк,
                 Desc =
@@ -158,7 +156,6 @@ namespace WebWriterV2.RpgUtility
             var lvl2Event3 = new Event
             {
                 Name = "Человеку пофиг",
-                ParentEvents = new List<Event>() { lvl1Event4 },
                 ProgressChanging = 0,
                 Desc = "Пользы от бесцельно проведённого дня было мало, зато герой успокаивал себя мыслью, что точно не пропустил возможных приключений. Возможно в следующий раз ему повезёт больше"
             };
@@ -166,34 +163,16 @@ namespace WebWriterV2.RpgUtility
             var lvl3Event0 = new Event
             {
                 Name = "Конец",
-                ParentEvents = new List<Event> { lvl2Event1, lvl2Event2, lvl2Event3 },
                 ProgressChanging = 30,
                 Desc = "Герой нашёл злосчастных крыс и безжалостно уничтожил всех кого смог догнать",
             };
 
-            var result = new List<Event>
-            {
-                lvl0Event0,
+            lvl0Event0.AddChildrenEvents(lvl1Event1, lvl1Event2, lvl1Event3);
+            lvl1Event4.AddParentsEvents(lvl1Event1, lvl1Event2, lvl1Event3);
+            lvl1Event4.AddChildrenEvents(lvl2Event1, lvl2Event2, lvl2Event3);
+            lvl3Event0.AddParentsEvents(lvl2Event1, lvl2Event2, lvl2Event3);
 
-                lvl1Event1,
-                lvl1Event2,
-                lvl1Event3,
-                lvl1Event4,
-
-                lvl2Event1,
-                lvl2Event2,
-                lvl2Event3,
-
-                lvl3Event0
-            };
-
-            var id = 1;
-            foreach (var myEvent in result)
-            {
-                myEvent.Id = id++;
-            }
-
-            return result;
+            return lvl0Event0;
         }
 
         public static List<Skill> GenerateSkills()

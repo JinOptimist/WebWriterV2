@@ -79,6 +79,10 @@ angular.module('rpg', ['ngRoute', 'underscore']) //, ['common', 'search', 'masha
                      templateUrl: '/views/rpg/QuestInfo.html',
                      controller: 'questInfoController'
                  })
+                 .when('/AngularRoute/travel', {
+                     templateUrl: '/views/rpg/Travel.html',
+                     controller: 'travelController'
+                 })
                  .otherwise({
                      redirectTo: '/AngularRoute/guild'
                  });
@@ -106,7 +110,7 @@ angular.module('rpg', ['ngRoute', 'underscore']) //, ['common', 'search', 'masha
             raceService.setList(raceList);
         });
     }])
-    .service('sharedQuest', ['$http', '$q', function ($http, $q) {
+    .service('questService', ['$http', '$q', function ($http, $q) {
         var currentQuest = null;
 
         var questPromise = $q(function (resolve, reject) {
@@ -311,11 +315,11 @@ angular.module('rpg', ['ngRoute', 'underscore']) //, ['common', 'search', 'masha
         };
     }])
     .controller('getQuestController', [
-        '$scope', "$http", "$location", "sharedQuest", "sharedHeroes", "sexService", "raceService",
-        function ($scope, $http, $location, sharedQuest, sharedHeroes, sexService, raceService) { //, $modal, $route, _, $log
+        '$scope', "$http", "$location", "questService", "sharedHeroes", "sexService", "raceService",
+        function ($scope, $http, $location, questService, sharedHeroes, sexService, raceService) { //, $modal, $route, _, $log
             $scope.quests = []; //GeneralInfo, AdditionalInfo
 
-            sharedQuest.getQuestPromise.then(function (result) {
+            questService.getQuestPromise.then(function (result) {
                 $scope.quests.push(result);
             });
 
@@ -323,13 +327,6 @@ angular.module('rpg', ['ngRoute', 'underscore']) //, ['common', 'search', 'masha
             $scope.selectHero = undefined;
 
             $scope.GetHeroes = function () {
-                //$http({
-                //    method: 'GET',
-                //    url: '/Rpg/GetHeroes',
-                //    headers: { 'Accept': 'application/json' }
-                //}).success(function(response) {
-                //    $scope.heroes = angular.fromJson(response);
-                //});
                 $scope.heroes = sharedHeroes.getListHeroes();
             }
 
@@ -359,7 +356,7 @@ angular.module('rpg', ['ngRoute', 'underscore']) //, ['common', 'search', 'masha
                         }
                     });
                 });
-                sharedQuest.setQuest(quest);
+                questService.setQuest(quest);
                 $location.path("/AngularRoute/questInfo");
             }
 
@@ -369,9 +366,9 @@ angular.module('rpg', ['ngRoute', 'underscore']) //, ['common', 'search', 'masha
         }
     ])
     .controller('adminQuestController', [
-        '$scope', "$http", "sharedQuest", "sexService", "raceService",
-        function ($scope, $http, sharedQuest, sexService, raceService) {
-            $scope.quest = {}//sharedQuest.getQuest();}
+        '$scope', "$http", "questService", "sexService", "raceService",
+        function ($scope, $http, questService, sexService, raceService) {
+            $scope.quest = {}//questService.getQuest();}
 
             $scope.RaceList = [];
             $scope.SexList = [];
@@ -389,7 +386,7 @@ angular.module('rpg', ['ngRoute', 'underscore']) //, ['common', 'search', 'masha
                 EventGraph.drawGraph($scope.quest.QuestEvents, 'eventsGraph', 900, 600);
             }
 
-            sharedQuest.getQuestPromise.then(function (result) {
+            questService.getQuestPromise.then(function (result) {
                 $scope.quest = result;
                 init();
             });
@@ -486,10 +483,19 @@ angular.module('rpg', ['ngRoute', 'underscore']) //, ['common', 'search', 'masha
             });
         }
     ])
+    .controller('travelController', [
+        '$scope', "questService",
+        function ($scope, questService) {
+            $scope.quest = {};
+            questService.getQuestPromise.then(function (quest) {
+                $scope.quest = quest;
+            });
+        }
+    ])
     .controller('questInfoController', [
-            '$scope', "$http", "$location", "sharedQuest", "raceService", "sexService",
-            function ($scope, $http, $location, sharedQuest, raceService, sexService) {
-                $scope.quest = sharedQuest.getQuest();
+            '$scope', "$http", "$location", "questService", "raceService", "sexService",
+            function ($scope, $http, $location, questService, raceService, sexService) {
+                $scope.quest = questService.getQuest();
 
                 processQuest();
                 function processQuest() {

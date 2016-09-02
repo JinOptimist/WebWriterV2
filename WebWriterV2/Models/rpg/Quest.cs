@@ -22,7 +22,12 @@ namespace WebWriterV2.Models.rpg
 
         public Hero Executor { get; set; }
 
-        public List<Event> QuestEvents { get; set; } = new List<Event>();
+        public Event RootEvent { get; set; }
+
+        /// <summary>
+        /// Список подзказок. Подсказки можно покупать, что бы узнать о том что тебя ждёт
+        /// </summary>
+        public List<string> Tips { get; set; } = new List<string>();
 
         /// <summary>
         /// Подзадача которая сейчас выполняется героем
@@ -31,3 +36,4 @@ namespace WebWriterV2.Models.rpg
         public List<Event> History { get; set; } = new List<Event>();
     }
 }
+

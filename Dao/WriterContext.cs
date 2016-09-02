@@ -12,19 +12,16 @@ namespace Dao
             //Configuration.LazyLoadingEnabled = true;
         }
 
-        public DbSet<UserFromVk> UserFromVk { get; set; }
+        public DbSet<Quest> Quest { get; set; }
 
-        public DbSet<FriendId> FriendId { get; set; }
-
-        public DbSet<Hero> Hero { get; set; }
-
-        public DbSet<StudentLogin> StudentLogin { get; set; }
+        public DbSet<Event> Event { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            modelBuilder.Entity<UserFromVk>().HasMany(u => u.FriendIds).WithRequired(t => t.UserFromVk);
+            modelBuilder.Entity<Event>().HasMany(u => u.ChildrenEvents).WithMany(t => t.ParentEvents);
+            modelBuilder.Entity<Event>().HasMany(u => u.ChildrenEvents).WithMany(t => t.ParentEvents);
 
             //modelBuilder.Entity<Course>()
             //    .HasMany(c => c.Instructors).WithMany(i => i.Courses)

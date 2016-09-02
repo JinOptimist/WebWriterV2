@@ -53,8 +53,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="NLog, Version=4.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
@@ -131,10 +131,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\CarrierController.cs" />
     <Compile Include="Controllers\RpgController.cs" />
-    <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Models\MarkViewModel.cs" />
     <Compile Include="Models\rpg\Event.cs" />
     <Compile Include="Models\rpg\Guild.cs" />
     <Compile Include="Models\rpg\Hero.cs" />
@@ -144,28 +141,20 @@
     <Compile Include="Models\rpg\Skill.cs" />
     <Compile Include="Models\rpg\Thing.cs" />
     <Compile Include="Models\rpg\TrainingRoom.cs" />
-    <Compile Include="Models\StudentHtmlFile.cs" />
     <Compile Include="RpgUtility\GenerateData.cs" />
-    <Compile Include="SecondThread\FriendWithState.cs" />
-    <Compile Include="GetUserFromJsonFile\Magic.cs" />
-    <Compile Include="GetUserFromJsonFile\ExternalUserModel.cs" />
+    <Compile Include="RpgUtility\QuestCreatHelper.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="SecondThread\FriendState.cs" />
-    <Compile Include="SecondThread\Mark.cs" />
     <Compile Include="StaticContainer.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VkUtility\Downloader.cs" />
     <Compile Include="VkUtility\FileHelper.cs" />
     <Compile Include="VkUtility\SerializeHelper.cs" />
-    <Compile Include="VkUtility\UserConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -266,6 +255,7 @@
     <Content Include="Scripts\rpg\module.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Rpg\directives\ngGuild.html" />
+    <Content Include="Views\Rpg\Travel.html" />
     <Content Include="Views\Rpg\Guild.html" />
     <Content Include="Views\Rpg\QuestInfo.html" />
     <Content Include="Views\Rpg\ListHeroes.html" />
@@ -284,18 +274,6 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
-    <Content Include="Views\Carrier\Add.cshtml" />
-    <Content Include="Views\Carrier\Index.cshtml" />
-    <Content Include="Views\Carrier\Profile.cshtml" />
-    <Content Include="Views\Home\Count.cshtml" />
-    <Content Include="Views\Home\SecondThread.cshtml" />
-    <Content Include="Views\Student\AddHtmlPage.cshtml" />
-    <Content Include="Views\StudentLayoutMaster.cshtml" />
-    <Content Include="Views\Student\MyFiles.cshtml" />
-    <Content Include="Views\Student\Example.cshtml" />
-    <Content Include="Views\Student\Login.cshtml" />
-    <Content Include="Views\Student\AllFiles.cshtml" />
-    <Content Include="Views\Shared\StudentFilesRow.cshtml" />
     <Content Include="Views\Rpg\Index.cshtml" />
     <Content Include="Views\Rpg\AddQuest.html" />
     <Content Include="Views\Rpg\GetQuest.html" />
@@ -303,23 +281,17 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="html\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\PublishProfiles\live.pubxml" />
-    <Content Include="Views\Home\AllUser.cshtml" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="Views\Home\AddUser.cshtml" />
-    <Content Include="Views\LayoutMaster.cshtml" />
-    <Content Include="Views\Shared\UserRow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dao\Dao.csproj">

@@ -1,15 +1,62 @@
-﻿namespace Dao.Model
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+
+namespace Dao.Model
 {
-    public class Hero
+    public class Hero : BaseModel
     {
-        public virtual long Id { get; set; }
+        [Required]
+        public string Name { get; set; }
 
-        public virtual string Name { get; set; }
+        [Required]
+        public Race Race { get; set; }
 
-        public virtual string Description { get; set; }
+        [Required]
+        public Sex Sex { get; set; }
 
-        public virtual string FaceImgUrl { get; set; }
+        public string Background { get; set; }
 
-        public virtual string FullImgUrl { get; set; }
+        [Required]
+        public Location Location { get; set; } = null;
+
+        public Dictionary<CharacteristicType, long> Characteristics { get; set; }
+
+        public Dictionary<StatusType, long> Status { get; set; }
+
+        public List<Thing> Inventory { get; set; }
+    }
+
+    public enum Race
+    {
+        Человек = 1,
+        Эльф = 2,
+        Орк = 3,
+        Гном = 4,
+        Дракон = 5,
+    }
+
+    public enum Sex
+    {
+        Муж = 1,
+        Жен = 2,
+        Скрывает = 3
+    }
+
+    public enum CharacteristicType
+    {
+        Strength = 1,
+        Agility = 2,
+        Charism = 3
+    }
+
+    public enum StatusType
+    {
+        MaxHp = 1,
+        MaxMp = 2,
+        Experience = 3,
+        CurrentHp = 4,
+        CurrentMp = 5,
+        Gold = 6,
+        Dodge = 7,
     }
 }

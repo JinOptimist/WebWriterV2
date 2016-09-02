@@ -1,23 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using System.Web;
-using System.Web.Http;
 using System.Web.Mvc;
+using Autofac;
+using Dao.IRepository;
 using Newtonsoft.Json;
+using NLog;
 using WebWriterV2.Models.rpg;
 using WebWriterV2.RpgUtility;
 using WebWriterV2.VkUtility;
-
-using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.Controllers
 {
     public class RpgController : Controller
     {
-        //
-        // GET: /Rpg/
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        private static readonly JsonSerializerSettings JsonSettings
+            = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
+
+        public IQuestRepository QuestRepository { get; set; }
+        public IEventRepository EventRepository { get; set; }
+
+        public RpgController()
+        {
+            using (var scope = StaticContainer.Container.BeginLifetimeScope())
+            {
+                QuestRepository = scope.Resolve<IQuestRepository>();
+                EventRepository = scope.Resolve<IEventRepository>();
+            }
+        }
 
         public ActionResult RouteForAngular(string url)
         {
@@ -56,7 +67,7 @@ namespace WebWriterV2.Controllers
 
             return new JsonResult
             {
-                Data = Newtonsoft.Json.JsonConvert.SerializeObject(listNameValue),
+                Data = JsonConvert.SerializeObject(listNameValue),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -85,7 +96,7 @@ namespace WebWriterV2.Controllers
         {
             return new JsonResult
             {
-                Data = SerializeHelper.Serialize(GenerateData.GetQuests().First()),
+                Data = JsonConvert.SerializeObject(GenerateData.GetQuests().First(), JsonSettings),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -94,7 +105,24 @@ namespace WebWriterV2.Controllers
         {
             return new JsonResult
             {
-                Data = SerializeHelper.Serialize(GenerateData.GetGuild()),
+                Data = JsonConvert.SerializeObject(GenerateData.GetGuild(), JsonSettings),
+                //Data = SerializeHelper.Serialize(GenerateData.GetGuild()),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+
+        public JsonResult Test(int id)
+        {
+
+            //var quest = GenerateData.GetQuests().FirstOrDefault();
+            //QuestRepository.Save(quest);
+
+            EventRepository.RemoveEventAndHisChildren(id);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject("+"),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
