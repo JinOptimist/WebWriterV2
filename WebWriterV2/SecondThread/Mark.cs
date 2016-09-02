@@ -6,7 +6,7 @@ using Autofac;
 using Dao.IRepository;
 using Dao.Model;
 using NLog;
-using WebWriterV2.Utility;
+using WebWriterV2.VkUtility;
 
 namespace WebWriterV2.SecondThread
 {

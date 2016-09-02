@@ -16,5 +16,7 @@ namespace WebWriterV2.Models.rpg
         public Location Location { get; set; }
 
         public List<Hero> Heroes { get; set; } = new List<Hero>();
+
+        public List<TrainingRoom> TrainingRooms { get; set; } = new List<TrainingRoom>();
     }
 }

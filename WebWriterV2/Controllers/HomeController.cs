@@ -9,7 +9,7 @@ using NLog;
 using VkApi.Web;
 using WebWriterV2.Models;
 using WebWriterV2.SecondThread;
-using WebWriterV2.Utility;
+using WebWriterV2.VkUtility;
 using FileStandard = System.IO.File;
 
 namespace WebWriterV2.Controllers

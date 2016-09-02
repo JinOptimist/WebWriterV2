@@ -48,6 +48,7 @@ namespace WebWriterV2.Models.rpg
         Experience = 3,
         CurrentHp = 4,
         CurrentMp = 5,
-        Gold = 6
+        Gold = 6,
+        Dodge = 7,
     }
 }

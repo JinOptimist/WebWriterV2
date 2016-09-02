@@ -15,6 +15,11 @@
     </div>
 
     <div class="block300 padding10 left">
-        Лист тренировочных комнат
+        Блок доступных тренировочных комнат
+        <div ng-repeat="room in guild.TrainingRooms" class="traning-room">
+            <p>Название комнаты: {{room.Name}}</p>
+            <p>Цена: {{room.Price}}</p>
+            <p>{{room.School}}</p>
+        </div>
     </div>
 </div>

@@ -145,6 +145,7 @@
     <Compile Include="Models\rpg\Thing.cs" />
     <Compile Include="Models\rpg\TrainingRoom.cs" />
     <Compile Include="Models\StudentHtmlFile.cs" />
+    <Compile Include="RpgUtility\GenerateData.cs" />
     <Compile Include="SecondThread\FriendWithState.cs" />
     <Compile Include="GetUserFromJsonFile\Magic.cs" />
     <Compile Include="GetUserFromJsonFile\ExternalUserModel.cs" />
@@ -161,10 +162,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utility\Downloader.cs" />
-    <Compile Include="Utility\FileHelper.cs" />
-    <Compile Include="Utility\SerializeHelper.cs" />
-    <Compile Include="Utility\UserConverter.cs" />
+    <Compile Include="VkUtility\Downloader.cs" />
+    <Compile Include="VkUtility\FileHelper.cs" />
+    <Compile Include="VkUtility\SerializeHelper.cs" />
+    <Compile Include="VkUtility\UserConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />

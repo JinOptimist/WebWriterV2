@@ -2,7 +2,7 @@
 using Dao.Model;
 using VkApi.Web;
 
-namespace WebWriterV2.Utility
+namespace WebWriterV2.VkUtility
 {
     public static class Downloader
     {

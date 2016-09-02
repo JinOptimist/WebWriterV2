@@ -23,5 +23,6 @@ namespace WebWriterV2.Models.rpg
         Fire = 1,
         Cold = 2,
         Seduction = 3, // Соблазнение, Совращение
+        Base = 4, // Удар, укланени, Блок щитом
     }
 }

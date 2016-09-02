@@ -1,12 +1,9 @@
 ﻿using System;
 using System.IO;
-using System.IO.Ports;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Web.Http;
-using Newtonsoft.Json;
 
-namespace WebWriterV2.Utility
+namespace WebWriterV2.VkUtility
 {
     public static class SerializeHelper
     {
