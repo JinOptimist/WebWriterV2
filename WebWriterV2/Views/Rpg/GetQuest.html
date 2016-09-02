@@ -5,9 +5,9 @@
             <div >
                 <h1>Герои</h1>
             </div>
-            <div ng-repeat="hero in VkHeroes" class="left">
-                <ng-hero-card VkHero="VkVkHero"></ng-VkVkHero-card>
-                <input type="button" value="Выбрать героя" ng-click="SelectHero(VkVkHero)" style="float: right; clear: both;" />
+            <div ng-repeat="hero in heroes" class="left">
+                <ng-hero-card hero="hero"></ng-hero-card>
+                <input type="button" value="Выбрать героя" ng-click="SelectHero(hero)" style="float: right; clear: both;" />
             </div>
         </div>
         <div style="width: 300px; float: left; padding-left: 30px;">

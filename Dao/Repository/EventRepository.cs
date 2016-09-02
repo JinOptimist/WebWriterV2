@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Dao.IRepository;
 using Dao.Model;
@@ -7,32 +8,31 @@ namespace Dao.Repository
 {
     public class EventRepository : BaseRepository<Event>, IEventRepository
     {
+        public Event GetWithParentAndChildren(long id)
+        {
+            return Entity.Include(x => x.ChildrenEvents).Include(x => x.ParentEvents).FirstOrDefault(x => x.Id == id);
+        }
+
         public void RemoveEventAndHisChildren(Event currentEvent)
         {
-            var a = currentEvent.ChildrenEvents;
-            var b = currentEvent.ParentEvents;
-            var l1 = Entity.Where(x => x.ParentEvents != null && x.ParentEvents.Contains(currentEvent));
-            var l2 = Entity.Where(x => x.ChildrenEvents != null && x.ChildrenEvents.Contains(currentEvent));
+            if (currentEvent.ChildrenEvents == null)
+                currentEvent = GetWithParentAndChildren(currentEvent.Id);
 
-            var childrenEvents = new List<Event>();
-            if (currentEvent.ChildrenEvents != null)
-                foreach (var childrenEvent in currentEvent.ChildrenEvents)
-                    childrenEvent.ParentEvents.Remove(currentEvent);
-
-            foreach (var childrenEvent in childrenEvents)
+            var childrenEvents = currentEvent?.ChildrenEvents.ToList();
+            if (childrenEvents != null)
             {
-                childrenEvent.ParentEvents.Remove(currentEvent);
-                Save(childrenEvent);
+                foreach (var childrenEvent in childrenEvents)
+                {
+                    childrenEvent.ParentEvents.Remove(currentEvent);
+                    Save(childrenEvent);
+                }
             }
-
-            Db.SaveChanges();
-
-            currentEvent.ParentEvents = null;
-            Db.SaveChanges();
 
             Entity.Remove(currentEvent);
             Db.SaveChanges();
 
+            if (childrenEvents == null)
+                return;
             foreach (var childrenEvent in childrenEvents)
             {
                 RemoveEventAndHisChildren(childrenEvent);
@@ -41,8 +41,13 @@ namespace Dao.Repository
 
         public void RemoveEventAndHisChildren(long id)
         {
-            var currentEvent = Get(id);
+            var currentEvent = GetWithParentAndChildren(id);
             RemoveEventAndHisChildren(currentEvent);
+        }
+
+        public List<Event> GetEvents(long questId)
+        {
+            return Entity.Include(x => x.ParentEvents).Where(x => x.Quest.Id == questId).ToList();
         }
     }
 }

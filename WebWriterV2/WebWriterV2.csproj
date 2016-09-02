@@ -252,6 +252,8 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\raphael-min.js" />
     <Content Include="Scripts\rpg\graph.js" />
+    <Content Include="Scripts\rpg\services.js" />
+    <Content Include="Scripts\rpg\directives.js" />
     <Content Include="Scripts\rpg\module.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Rpg\directives\ngGuild.html" />

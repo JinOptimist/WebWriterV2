@@ -60,6 +60,10 @@
     <Compile Include="Migrations\201609021653250_InitRpg.Designer.cs">
       <DependentUpon>201609021653250_InitRpg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609021936437_AddQuestForEvent.cs" />
+    <Compile Include="Migrations\201609021936437_AddQuestForEvent.Designer.cs">
+      <DependentUpon>201609021936437_AddQuestForEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Event.cs" />
@@ -85,6 +89,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201609021653250_InitRpg.resx">
       <DependentUpon>201609021653250_InitRpg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609021936437_AddQuestForEvent.resx">
+      <DependentUpon>201609021936437_AddQuestForEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

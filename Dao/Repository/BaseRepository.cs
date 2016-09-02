@@ -48,6 +48,8 @@ namespace Dao.Repository
 
         public void Remove(T baseModel)
         {
+            if (baseModel == null)
+                return;
             Entity.Remove(baseModel);
             Db.SaveChanges();
         }

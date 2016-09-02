@@ -2,22 +2,15 @@
     <h1>Экран путушествия: </h1>
 
     <div>
-        <b>{{quest.RootEvent.Name}}</b>
-        {{quest.RootEvent.Desc}}
+        <b>{{currentEvent.Name}}</b>
+        {{currentEvent.Desc}}
     </div>
     <div>
-        Варинат
-        <p ng-repeat="event in quest.RootEvent.ChildrenEvents">
-            {{event.Name}}
-        </p>
+        <span ng-repeat="event in ways"> * <a href="#" ng-click="chooseEvent(event)">{{event.Name}}</a> </span>
     </div>
 
     <div>
-        Герой: {{quest.Executor.Name}}
-        <p>Его состояние</p>
-    </div>
-    <div>
-        Квест: {{quest.Name}}
-        <p>Его состояние</p>
+        <ng-quest-info quest="quest"></ng-quest-info>
+        <ng-hero-card hero="quest.Executor" style="clear: both;"></ng-hero-card>
     </div>
 </div>

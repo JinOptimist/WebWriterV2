@@ -77,21 +77,22 @@ namespace WebWriterV2.RpgUtility
             return result;
         }
 
-        public static List<Quest> GetQuests()
+        public static Quest GetQuest()
         {
-            return new List<Quest>
+
+            var quest = new Quest
             {
-                new Quest
-                {
-                    Name = "Убить крыс",
-                    Desc = "Владелец амбара разметил заказ на убийство крыс. Отлично задание для новичка",
-                    RootEvent = GenerateEventsForQuest(),
-                    Effective = 0,
-                }
+                Name = "Убить крыс",
+                Desc = "Владелец амбара разметил заказ на убийство крыс. Отлично задание для новичка",
+                Effective = 0,
             };
+            var rootEvent = GenerateEventsForQuest(quest);
+            quest.RootEvent = rootEvent;
+
+            return quest;
         }
 
-        public static Event GenerateEventsForQuest()
+        public static Event GenerateEventsForQuest(Quest quest)
         {
             // Tips
             // Desc = "У заказчика всегда была репутацию падкого на женское внимание мужика",
@@ -171,6 +172,21 @@ namespace WebWriterV2.RpgUtility
             lvl1Event4.AddParentsEvents(lvl1Event1, lvl1Event2, lvl1Event3);
             lvl1Event4.AddChildrenEvents(lvl2Event1, lvl2Event2, lvl2Event3);
             lvl3Event0.AddParentsEvents(lvl2Event1, lvl2Event2, lvl2Event3);
+            var list = new List<Event>();
+            list.Add(lvl0Event0);
+
+            list.Add(lvl1Event1);
+            list.Add(lvl1Event2);
+            list.Add(lvl1Event3);
+            list.Add(lvl1Event4);
+
+            list.Add(lvl2Event1);
+            list.Add(lvl2Event2);
+            list.Add(lvl2Event3);
+
+            list.Add(lvl3Event0);
+
+            list.ForEach(x => x.Quest = quest);
 
             return lvl0Event0;
         }

@@ -3,9 +3,10 @@ using System.Linq;
 using System.Web.Mvc;
 using Autofac;
 using Dao.IRepository;
+using Dao.Model;
 using Newtonsoft.Json;
 using NLog;
-using WebWriterV2.Models.rpg;
+//using WebWriterV2.Models.rpg;
 using WebWriterV2.RpgUtility;
 using WebWriterV2.VkUtility;
 
@@ -75,6 +76,7 @@ namespace WebWriterV2.Controllers
         public JsonResult SaveQuest(string jsonQuest)
         {
             var quest = SerializeHelper.Deserialize<Quest>(jsonQuest);
+            QuestRepository.Save(quest);
 
             return new JsonResult
             {
@@ -92,11 +94,12 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult GetRandomQuest()
+        public JsonResult GetQuest(long id)
         {
+            var quest = QuestRepository.GetWithRootEvent(id);
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(GenerateData.GetQuests().First(), JsonSettings),
+                Data = JsonConvert.SerializeObject(quest, JsonSettings),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -111,18 +114,65 @@ namespace WebWriterV2.Controllers
             };
         }
 
-
-        public JsonResult Test(int id)
+        public JsonResult RemoveQuest(long id)
         {
-
-            //var quest = GenerateData.GetQuests().FirstOrDefault();
-            //QuestRepository.Save(quest);
-
-            EventRepository.RemoveEventAndHisChildren(id);
+            var result = true;
+            try
+            {
+                var quest = QuestRepository.GetWithRootEvent(id);
+                var eventRoot = quest?.RootEvent;
+                if (eventRoot != null)
+                    EventRepository.RemoveEventAndHisChildren(eventRoot.Id);
+                QuestRepository.Remove(quest);
+            }
+            catch (Exception e)
+            {
+                result = false;
+            }
 
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject("+"),
+                Data = JsonConvert.SerializeObject(result),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult GetAllEvents(long questId)
+        {
+            var events = EventRepository.GetEvents(questId);
+            foreach (var @event in events)
+            {
+                @event.ChildrenEvents = null;
+            }
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(events),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult GetEventChildren(long id)
+        {
+            var events = EventRepository.GetWithParentAndChildren(id);
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(events, JsonSettings),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult InitQuest()
+        {
+            var quests = QuestRepository.GetAll();
+            if (quests.Count == 0)
+            {
+                var quest = GenerateData.GetQuest();
+                QuestRepository.Save(quest);
+            }
+
+            return new JsonResult
+            {
+                Data = quests.Count > 0 ? "Уже существует" : "Добавили",
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

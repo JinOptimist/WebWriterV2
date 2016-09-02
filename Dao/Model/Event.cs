@@ -26,5 +26,7 @@ namespace Dao.Model
         [Description("Add this value to total summ of quest effective")]
         public double ProgressChanging { get; set; } = 0;
         //public Dictionary<StatusType, long> CharacteristicsChanging { get; set; }
+
+        public Quest Quest { get; set; }
     }
 }
