@@ -86,13 +86,13 @@ namespace WebWriterV2.RpgUtility
                 Desc = "Владелец амбара разметил заказ на убийство крыс. Отлично задание для новичка",
                 Effective = 0,
             };
-            var rootEvent = GenerateEventsForQuest(quest);
-            quest.RootEvent = rootEvent;
+
+            GenerateEventsForQuest(quest);
 
             return quest;
         }
 
-        public static Event GenerateEventsForQuest(Quest quest)
+        public static void GenerateEventsForQuest(Quest quest)
         {
             // Tips
             // Desc = "У заказчика всегда была репутацию падкого на женское внимание мужика",
@@ -186,9 +186,10 @@ namespace WebWriterV2.RpgUtility
 
             list.Add(lvl3Event0);
 
-            list.ForEach(x => x.Quest = quest);
 
-            return lvl0Event0;
+            list.ForEach(x => x.Quest = quest);
+            quest.AllEvents = list;
+            quest.RootEvent = lvl0Event0;
         }
 
         public static List<Skill> GenerateSkills()

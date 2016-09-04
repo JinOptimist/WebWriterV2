@@ -7,13 +7,13 @@ namespace Dao.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class RpgInit : IMigrationMetadata
+    public sealed partial class EventManyToMany : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RpgInit));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(EventManyToMany));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609040852460_RpgInit"; }
+            get { return "201609040927268_EventManyToMany"; }
         }
         
         string IMigrationMetadata.Source

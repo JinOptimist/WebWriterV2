@@ -12,7 +12,7 @@ namespace Dao.Model
         [Required]
         public string Desc { get; set; }
 
-        //public List<Event> ParentEvents { get; set; }
+        public List<Event> ParentEvents { get; set; }
 
         public List<Event> ChildrenEvents { get; set; }
 

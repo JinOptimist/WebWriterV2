@@ -56,9 +56,13 @@
     <Compile Include="IRepository\IBaseRepository.cs" />
     <Compile Include="IRepository\IEventRepository.cs" />
     <Compile Include="IRepository\IQuestRepository.cs" />
-    <Compile Include="Migrations\201609040852460_RpgInit.cs" />
-    <Compile Include="Migrations\201609040852460_RpgInit.Designer.cs">
-      <DependentUpon>201609040852460_RpgInit.cs</DependentUpon>
+    <Compile Include="Migrations\201609040925310_RpgInit.cs" />
+    <Compile Include="Migrations\201609040925310_RpgInit.Designer.cs">
+      <DependentUpon>201609040925310_RpgInit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609040927268_EventManyToMany.cs" />
+    <Compile Include="Migrations\201609040927268_EventManyToMany.Designer.cs">
+      <DependentUpon>201609040927268_EventManyToMany.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
@@ -83,8 +87,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609040852460_RpgInit.resx">
-      <DependentUpon>201609040852460_RpgInit.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609040925310_RpgInit.resx">
+      <DependentUpon>201609040925310_RpgInit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609040927268_EventManyToMany.resx">
+      <DependentUpon>201609040927268_EventManyToMany.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

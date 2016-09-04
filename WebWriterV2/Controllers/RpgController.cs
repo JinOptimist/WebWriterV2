@@ -119,11 +119,12 @@ namespace WebWriterV2.Controllers
             var result = true;
             try
             {
-                var quest = QuestRepository.GetWithRootEvent(id);
-                var eventRoot = quest?.RootEvent;
-                if (eventRoot != null)
-                    EventRepository.RemoveEventAndHisChildren(eventRoot.Id);
-                QuestRepository.Remove(quest);
+                //var quest = QuestRepository.GetWithRootEvent(id);
+                //var eventRoot = quest?.RootEvent;
+                //if (eventRoot != null)
+                //    EventRepository.Remove(eventRoot.Id);
+
+                QuestRepository.Remove(id);
             }
             catch (Exception e)
             {

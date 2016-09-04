@@ -24,7 +24,8 @@ namespace Dao
 
             modelBuilder.Entity<Quest>().HasOptional(x => x.RootEvent).WithOptionalPrincipal().WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Event>().HasMany(u => u.ChildrenEvents).WithOptional().WillCascadeOnDelete(false);
+            modelBuilder.Entity<Event>().HasMany(u => u.ChildrenEvents).WithMany(x => x.ParentEvents);
+            //modelBuilder.Entity<Event>().HasMany(u => u.ChildrenEvents).WithOptional();
 
             //.Map(x => x.MapLeftKey("Id").MapRightKey("Id"));
             //modelBuilder.Entity<Event>().HasMany(u => u.ParentEvents).WithMany(t => t.ChildrenEvents);

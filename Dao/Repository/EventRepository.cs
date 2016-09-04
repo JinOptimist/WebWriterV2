@@ -8,41 +8,35 @@ namespace Dao.Repository
 {
     public class EventRepository : BaseRepository<Event>, IEventRepository
     {
-        public Event GetWithParentAndChildren(long id)
+        /// <summary>
+        /// Special realization for cascade deleting
+        /// </summary>
+        /// <param name="currentEvent"></param>
+        public new void Remove(Event currentEvent)
         {
-            return Entity.Include(x => x.ChildrenEvents).FirstOrDefault(x => x.Id == id);
+            if (currentEvent.ChildrenEvents == null)
+                currentEvent = GetWithParentAndChildren(currentEvent.Id);
+
+            if (!currentEvent.ChildrenEvents.Any())
+            {
+                base.Remove(currentEvent);
+                return;
+            }
+
+            var forDelete = currentEvent.ChildrenEvents.ToList();
+            forDelete.ForEach(eve => Remove(eve));
+            base.Remove(currentEvent);
         }
 
-        public void RemoveEventAndHisChildren(Event currentEvent)
-        {
-            //if (currentEvent.ChildrenEvents == null)
-            //    currentEvent = GetWithParentAndChildren(currentEvent.Id);
-
-            //var childrenEvents = currentEvent?.ChildrenEvents.ToList();
-            //if (childrenEvents != null)
-            //{
-            //    foreach (var childrenEvent in childrenEvents)
-            //    {
-            //        childrenEvent.ParentEvents.Remove(currentEvent);
-            //        Save(childrenEvent);
-            //    }
-            //}
-
-            //Entity.Remove(currentEvent);
-            //Db.SaveChanges();
-
-            //if (childrenEvents == null)
-            //    return;
-            //foreach (var childrenEvent in childrenEvents)
-            //{
-            //    RemoveEventAndHisChildren(childrenEvent);
-            //}
-        }
-
-        public void RemoveEventAndHisChildren(long id)
+        public new void Remove(long id)
         {
             var currentEvent = GetWithParentAndChildren(id);
-            RemoveEventAndHisChildren(currentEvent);
+            Remove(currentEvent);
+        }
+
+        public Event GetWithParentAndChildren(long id)
+        {
+            return Entity.Include(x => x.ChildrenEvents).Include(x => x.ParentEvents).FirstOrDefault(x => x.Id == id);
         }
 
         public List<Event> GetEvents(long questId)
