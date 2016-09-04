@@ -12,11 +12,11 @@ var EventGraph = (function () {
 
         for (i = 0; i < events.length; i++) {
             event = events[i];
-            if (event.ParentEvents == null)
+            if (event.ChildrenEvents == null)
                 continue;
-            for (var j = 0; j < event.ParentEvents.length; j++) {
-                var parent = event.ParentEvents[j];
-                graph.addEdge(parent.Id, event.Id, {
+            for (var j = 0; j < event.ChildrenEvents.length; j++) {
+                var child = event.ChildrenEvents[j];
+                graph.addEdge(child, event.Id, {
                     fill: event.ProgressChanging > 0 ? "green" : "red",
                     label: 'Effective: ' + event.ProgressChanging
                 });

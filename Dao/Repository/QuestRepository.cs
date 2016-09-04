@@ -8,7 +8,13 @@ namespace Dao.Repository
 {
     public class QuestRepository : BaseRepository<Quest>, IQuestRepository
     {
-        private EventRepository EventRepository = new EventRepository();
+        private EventRepository EventRepository;
+
+        public QuestRepository(WriterContext db) : base(db)
+        {
+            EventRepository = new EventRepository(db);
+        }
+        
         public Quest GetWithRootEvent(long id)
         {
             return Entity.Include(x => x.RootEvent).FirstOrDefault(x => x.Id == id);

@@ -133,14 +133,6 @@
   <ItemGroup>
     <Compile Include="Controllers\RpgController.cs" />
     <Compile Include="Models\rpg\Event.cs" />
-    <Compile Include="Models\rpg\Guild.cs" />
-    <Compile Include="Models\rpg\Hero.cs" />
-    <Compile Include="Models\rpg\Location.cs" />
-    <Compile Include="Models\rpg\Quest.cs" />
-    <Compile Include="Models\rpg\BaseModel.cs" />
-    <Compile Include="Models\rpg\Skill.cs" />
-    <Compile Include="Models\rpg\Thing.cs" />
-    <Compile Include="Models\rpg\TrainingRoom.cs" />
     <Compile Include="RpgUtility\GenerateData.cs" />
     <Compile Include="RpgUtility\QuestCreatHelper.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

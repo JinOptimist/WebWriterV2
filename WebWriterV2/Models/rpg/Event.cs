@@ -1,23 +1,26 @@
-﻿using System;
+﻿using Dao.Model;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.Serialization;
 
 namespace WebWriterV2.Models.rpg
 {
-    public class Event : BaseModel
+    public class FrontEvent
     {
+        public FrontEvent(Event eventDb)
+        {
+            Id = eventDb.Id;
+            Name = eventDb.Name;
+            Desc = eventDb.Desc;
+            ChildrenEvents = eventDb.ChildrenEvents.Select(x => x.Id).ToList();
+            ProgressChanging = eventDb.ProgressChanging;
+        }
+
+        public long Id { get; set; }
         public string Name { get; set; }
         public string Desc { get; set; }
-
-        public List<Event> ChildrenEvents { get; set; } = new List<Event>();
-
-        public Sex? RequrmentSex { get; set; } = null;
-        public Race? RequrmentRace { get; set; } = null;
-        public List<Skill> RequrmentSkill { get; set; } = null;
-        //not null attr
-        public Location RequrmentLocation { get; set; }
-        //public Dictionary<CharacteristicType, long> RequrmentCharacteristics { get; set; }
-
+        public List<long> ChildrenEvents { get; set; } = new List<long>();
         public double ProgressChanging { get; set; } = 0;
     }
 }

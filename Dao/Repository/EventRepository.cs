@@ -8,6 +8,10 @@ namespace Dao.Repository
 {
     public class EventRepository : BaseRepository<Event>, IEventRepository
     {
+        public EventRepository(WriterContext db) : base(db)
+        {
+        }
+
         /// <summary>
         /// Special realization for cascade deleting
         /// </summary>
@@ -41,9 +45,14 @@ namespace Dao.Repository
             return Entity.Include(x => x.ChildrenEvents).Include(x => x.ParentEvents).FirstOrDefault(x => x.Id == id);
         }
 
-        public List<Event> GetEvents(long questId)
+        public Event GetWithChildren(long id)
         {
-            return Entity.Where(x => x.Quest.Id == questId).ToList();
+            return Entity.Include(x => x.ChildrenEvents).FirstOrDefault(x => x.Id == id);
+        }
+
+        public List<Event> GetEventsWithChildren(long questId)
+        {
+            return Entity.Include(x => x.ChildrenEvents).Where(x => x.Quest.Id == questId).ToList();
         }
     }
 }

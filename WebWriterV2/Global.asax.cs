@@ -22,12 +22,24 @@ namespace WebWriterV2
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
+            var context = new WriterContext();
+            var aaa = new TypedParameter(typeof(WriterContext), context);
             var builder = new ContainerBuilder();
             /* ************** RPG ************** */
-            builder.RegisterType<QuestRepository>();
-            builder.RegisterType<EventRepository>();
-            builder.Register<IQuestRepository>(x => x.Resolve<QuestRepository>());
-            builder.Register<IEventRepository>(x => x.Resolve<EventRepository>());
+
+            builder.RegisterType<QuestRepository>()
+                .As<IQuestRepository>()
+                .WithParameter(new TypedParameter(typeof(WriterContext), context));
+
+            builder.RegisterType<EventRepository>()
+                .As<IEventRepository>()
+                .WithParameter(new TypedParameter(typeof(WriterContext), context));
+
+
+            //builder.RegisterType<QuestRepository>();
+            //builder.RegisterType<EventRepository>();
+            //builder.Register<IQuestRepository>(x => x.Resolve<QuestRepository>());
+            //builder.Register<IEventRepository>(x => x.Resolve<EventRepository>());
 
 
             StaticContainer.Container = builder.Build();

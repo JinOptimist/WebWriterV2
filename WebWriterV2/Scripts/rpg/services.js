@@ -38,7 +38,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
 
             $http({
                 method: 'GET',
-                url: '/Rpg/GetQuest?id=3',
+                url: '/Rpg/GetOneQuest',
                 headers: { 'Accept': 'application/json' }
             }).success(function (response) {
                 currentQuest = angular.fromJson(response);
