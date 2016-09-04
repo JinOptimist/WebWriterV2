@@ -101,7 +101,7 @@ namespace WebWriterV2.RpgUtility
             var lvl0Event0 = new Event
             {
                 Name = "Начало",
-                ParentEvents = null,
+                //ParentEvents = null,
                 ProgressChanging = 30,
                 Desc =
                     "Герой по не опытности целый день плутал по городу в поисках торговца, который сделал заказ на убийство крыс",

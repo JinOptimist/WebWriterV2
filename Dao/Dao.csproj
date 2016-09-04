@@ -56,13 +56,9 @@
     <Compile Include="IRepository\IBaseRepository.cs" />
     <Compile Include="IRepository\IEventRepository.cs" />
     <Compile Include="IRepository\IQuestRepository.cs" />
-    <Compile Include="Migrations\201609021653250_InitRpg.cs" />
-    <Compile Include="Migrations\201609021653250_InitRpg.Designer.cs">
-      <DependentUpon>201609021653250_InitRpg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609021936437_AddQuestForEvent.cs" />
-    <Compile Include="Migrations\201609021936437_AddQuestForEvent.Designer.cs">
-      <DependentUpon>201609021936437_AddQuestForEvent.cs</DependentUpon>
+    <Compile Include="Migrations\201609040852460_RpgInit.cs" />
+    <Compile Include="Migrations\201609040852460_RpgInit.Designer.cs">
+      <DependentUpon>201609040852460_RpgInit.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
@@ -87,11 +83,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609021653250_InitRpg.resx">
-      <DependentUpon>201609021653250_InitRpg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609021936437_AddQuestForEvent.resx">
-      <DependentUpon>201609021936437_AddQuestForEvent.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609040852460_RpgInit.resx">
+      <DependentUpon>201609040852460_RpgInit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

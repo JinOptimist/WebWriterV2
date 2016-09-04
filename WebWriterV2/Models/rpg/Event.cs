@@ -9,7 +9,7 @@ namespace WebWriterV2.Models.rpg
         public string Name { get; set; }
         public string Desc { get; set; }
 
-        public List<Event> ParentEvents { get; set; } = new List<Event>();
+        public List<Event> ChildrenEvents { get; set; } = new List<Event>();
 
         public Sex? RequrmentSex { get; set; } = null;
         public Race? RequrmentRace { get; set; } = null;

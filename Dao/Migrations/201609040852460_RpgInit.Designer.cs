@@ -7,13 +7,13 @@ namespace Dao.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddQuestForEvent : IMigrationMetadata
+    public sealed partial class RpgInit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddQuestForEvent));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RpgInit));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609021936437_AddQuestForEvent"; }
+            get { return "201609040852460_RpgInit"; }
         }
         
         string IMigrationMetadata.Source

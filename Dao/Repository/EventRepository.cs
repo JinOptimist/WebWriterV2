@@ -10,33 +10,33 @@ namespace Dao.Repository
     {
         public Event GetWithParentAndChildren(long id)
         {
-            return Entity.Include(x => x.ChildrenEvents).Include(x => x.ParentEvents).FirstOrDefault(x => x.Id == id);
+            return Entity.Include(x => x.ChildrenEvents).FirstOrDefault(x => x.Id == id);
         }
 
         public void RemoveEventAndHisChildren(Event currentEvent)
         {
-            if (currentEvent.ChildrenEvents == null)
-                currentEvent = GetWithParentAndChildren(currentEvent.Id);
+            //if (currentEvent.ChildrenEvents == null)
+            //    currentEvent = GetWithParentAndChildren(currentEvent.Id);
 
-            var childrenEvents = currentEvent?.ChildrenEvents.ToList();
-            if (childrenEvents != null)
-            {
-                foreach (var childrenEvent in childrenEvents)
-                {
-                    childrenEvent.ParentEvents.Remove(currentEvent);
-                    Save(childrenEvent);
-                }
-            }
+            //var childrenEvents = currentEvent?.ChildrenEvents.ToList();
+            //if (childrenEvents != null)
+            //{
+            //    foreach (var childrenEvent in childrenEvents)
+            //    {
+            //        childrenEvent.ParentEvents.Remove(currentEvent);
+            //        Save(childrenEvent);
+            //    }
+            //}
 
-            Entity.Remove(currentEvent);
-            Db.SaveChanges();
+            //Entity.Remove(currentEvent);
+            //Db.SaveChanges();
 
-            if (childrenEvents == null)
-                return;
-            foreach (var childrenEvent in childrenEvents)
-            {
-                RemoveEventAndHisChildren(childrenEvent);
-            }
+            //if (childrenEvents == null)
+            //    return;
+            //foreach (var childrenEvent in childrenEvents)
+            //{
+            //    RemoveEventAndHisChildren(childrenEvent);
+            //}
         }
 
         public void RemoveEventAndHisChildren(long id)
@@ -47,7 +47,7 @@ namespace Dao.Repository
 
         public List<Event> GetEvents(long questId)
         {
-            return Entity.Include(x => x.ParentEvents).Where(x => x.Quest.Id == questId).ToList();
+            return Entity.Where(x => x.Quest.Id == questId).ToList();
         }
     }
 }

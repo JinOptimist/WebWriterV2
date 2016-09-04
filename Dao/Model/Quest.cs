@@ -28,11 +28,13 @@ namespace Dao.Model
         [Description("Список подсказок. Подсказки можно покупать, что бы узнать о том что тебя ждёт")]
         public List<string> Tips { get; set; } = new List<string>();
 
-        [Description("Подзадача которая сейчас выполняется героем")]
-        public Event CurentEvent { get; set; }
+        //[Description("Подзадача которая сейчас выполняется героем")]
+        //public Event CurentEvent { get; set; }
 
-        [Description("Список уже пройденных подзадача, чьи эффекты были премененны на героя и квест в целом")]
-        public List<Event> History { get; set; } = new List<Event>();
+        //[Description("Список уже пройденных подзадача, чьи эффекты были премененны на героя и квест в целом")]
+        //public List<Event> History { get; set; } = new List<Event>();
+
+        public List<Event> AllEvents { get; set; }
     }
 }
 

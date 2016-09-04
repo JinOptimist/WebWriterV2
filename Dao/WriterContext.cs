@@ -20,7 +20,11 @@ namespace Dao
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            modelBuilder.Entity<Event>().HasMany(u => u.ChildrenEvents).WithMany(t => t.ParentEvents);
+            modelBuilder.Entity<Quest>().HasMany(u => u.AllEvents).WithRequired(x => x.Quest).WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Quest>().HasOptional(x => x.RootEvent).WithOptionalPrincipal().WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Event>().HasMany(u => u.ChildrenEvents).WithOptional().WillCascadeOnDelete(false);
 
             //.Map(x => x.MapLeftKey("Id").MapRightKey("Id"));
             //modelBuilder.Entity<Event>().HasMany(u => u.ParentEvents).WithMany(t => t.ChildrenEvents);
