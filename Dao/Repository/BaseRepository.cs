@@ -8,7 +8,7 @@ namespace Dao.Repository
 {
     public class BaseRepository<T> : IBaseRepository<T> where T : BaseModel
     {
-        public readonly WriterContext Db = new WriterContext();
+        public readonly WriterContext Db = ContextForRepository.Context;
         public readonly DbSet<T> Entity;
 
         public BaseRepository()

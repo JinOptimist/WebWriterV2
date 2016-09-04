@@ -16,6 +16,9 @@ namespace Dao.Repository
 
         public new void Remove(Quest quest)
         {
+            if (quest == null)
+                return;
+
             if (quest.RootEvent == null)
                 quest = GetWithRootEvent(quest.Id);
 

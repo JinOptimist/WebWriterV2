@@ -14,6 +14,8 @@ namespace Dao.Repository
         /// <param name="currentEvent"></param>
         public new void Remove(Event currentEvent)
         {
+            if (currentEvent == null)
+                return;
             if (currentEvent.ChildrenEvents == null)
                 currentEvent = GetWithParentAndChildren(currentEvent.Id);
 
