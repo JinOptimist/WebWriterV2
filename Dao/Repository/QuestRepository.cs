@@ -8,16 +8,21 @@ namespace Dao.Repository
 {
     public class QuestRepository : BaseRepository<Quest>, IQuestRepository
     {
-        private EventRepository EventRepository;
+        private readonly EventRepository _eventRepository;
 
         public QuestRepository(WriterContext db) : base(db)
         {
-            EventRepository = new EventRepository(db);
+            _eventRepository = new EventRepository(db);
         }
-        
+
         public Quest GetWithRootEvent(long id)
         {
             return Entity.Include(x => x.RootEvent).FirstOrDefault(x => x.Id == id);
+        }
+
+        public List<Quest> GetAllWithRootEvent()
+        {
+            return Entity.Include(x => x.RootEvent).ToList();
         }
 
         public new void Remove(Quest quest)
@@ -30,7 +35,7 @@ namespace Dao.Repository
 
             if (quest.RootEvent != null)
             {
-                EventRepository.Remove(quest.RootEvent);
+                _eventRepository.Remove(quest.RootEvent);
                 quest = Get(quest.Id);
             }
 

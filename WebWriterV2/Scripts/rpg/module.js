@@ -224,20 +224,19 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
         function ($scope, questService, eventService) {
             //$scope.hero = sharedHeroes.getListHeroes();
             $scope.quest = questService.getQuest();
+            $scope.quest.Effective = 0;
             $scope.currentEvent = $scope.quest.RootEvent;
             $scope.ways = {};
-            eventService.getEventChildrenPromise($scope.quest.RootEvent.Id).then(function (result) {
-                $scope.ways = result.ChildrenEvents;
-                $scope.quest.Effective = $scope.quest.RootEvent.ProgressChanging;
-            });
 
-            $scope.chooseEvent = function(event) {
-                eventService.getEventChildrenPromise(event.Id).then(function (result) {
-                    $scope.currentEvent = result;
+            $scope.chooseEvent = function (eventId) {
+                eventService.getEventChildrenPromise(eventId).then(function (result) {
                     $scope.ways = result.ChildrenEvents;
-                    $scope.quest.Effective += event.ProgressChanging;
+                    $scope.quest.Effective += result.ProgressChanging;
+                    $scope.currentEvent = result;
                 });
-            }
+            };
+
+            $scope.chooseEvent($scope.quest.RootEvent.Id);
         }
     ])
     .controller('questInfoController', [

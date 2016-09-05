@@ -26,8 +26,6 @@ namespace WebWriterV2.Controllers
 
         public RpgController()
         {
-            var _context = new WriterContext();
-
             using (var scope = StaticContainer.Container.BeginLifetimeScope())
             {
                 QuestRepository = scope.Resolve<IQuestRepository>();
@@ -110,7 +108,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult GetOneQuest()
         {
-            var quest = QuestRepository.GetAll().FirstOrDefault();
+            var quest = QuestRepository.GetAllWithRootEvent().FirstOrDefault();
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(quest, JsonSettings),
@@ -160,7 +158,7 @@ namespace WebWriterV2.Controllers
         public JsonResult GetAllEvents(long questId)
         {
             var events = EventRepository.GetEventsWithChildren(questId);
-            var frontEvents = events.Select(x => new FrontEvent(x));
+            var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(frontEvents),
@@ -170,10 +168,11 @@ namespace WebWriterV2.Controllers
 
         public JsonResult GetEventChildren(long id)
         {
-            var events = EventRepository.GetWithChildren(id);
+            var eventFromDb = EventRepository.GetWithChildren(id);
+            var frontEvents = new FrontEvent(eventFromDb);
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(events, JsonSettings),
+                Data = JsonConvert.SerializeObject(frontEvents),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

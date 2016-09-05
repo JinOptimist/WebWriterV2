@@ -16,7 +16,7 @@ var EventGraph = (function () {
                 continue;
             for (var j = 0; j < event.ChildrenEvents.length; j++) {
                 var child = event.ChildrenEvents[j];
-                graph.addEdge(child, event.Id, {
+                graph.addEdge(child.Id, event.Id, {
                     fill: event.ProgressChanging > 0 ? "green" : "red",
                     label: 'Effective: ' + event.ProgressChanging
                 });

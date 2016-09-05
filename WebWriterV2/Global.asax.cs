@@ -23,7 +23,6 @@ namespace WebWriterV2
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             var context = new WriterContext();
-            var aaa = new TypedParameter(typeof(WriterContext), context);
             var builder = new ContainerBuilder();
             /* ************** RPG ************** */
 

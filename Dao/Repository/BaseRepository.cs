@@ -16,7 +16,7 @@ namespace Dao.Repository
 
         public readonly WriterContext Db;// = ContextForRepository.Context;
         public readonly DbSet<T> Entity;
-        
+
         public void Save(T model)
         {
             if (model.Id > 0)

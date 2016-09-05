@@ -13,14 +13,14 @@ namespace WebWriterV2.Models.rpg
             Id = eventDb.Id;
             Name = eventDb.Name;
             Desc = eventDb.Desc;
-            ChildrenEvents = eventDb.ChildrenEvents.Select(x => x.Id).ToList();
+            ChildrenEvents = eventDb.ChildrenEvents?.Select(x => new FrontEvent(x)).ToList();
             ProgressChanging = eventDb.ProgressChanging;
         }
 
         public long Id { get; set; }
         public string Name { get; set; }
         public string Desc { get; set; }
-        public List<long> ChildrenEvents { get; set; } = new List<long>();
+        public List<FrontEvent> ChildrenEvents { get; set; }
         public double ProgressChanging { get; set; } = 0;
     }
 }
