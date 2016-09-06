@@ -30,33 +30,28 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
     .service('questService', ['$http', '$q', function ($http, $q) {
         var currentQuest = null;
 
-        var questPromise = $q(function (resolve, reject) {
-            if (currentQuest) {
-                resolve(currentQuest);
-                return;
-            }
-
-            $http({
-                method: 'GET',
-                url: '/Rpg/GetOneQuest',
-                headers: { 'Accept': 'application/json' }
-            }).success(function (response) {
-                currentQuest = angular.fromJson(response);
-                resolve(currentQuest);
-            },
-            function () {
-                reject(Error("Sorry :( we have fail"));
-            });
-        });
-
         return {
             getQuest: function () {
-                return currentQuest;
+                var deferred = $q.defer();
+                if (currentQuest) {
+                    deferred.resolve(currentQuest);
+                    return deferred.promise;
+                }
+
+                $http({
+                        method: 'GET',
+                        url: '/Rpg/GetOneQuest',
+                        headers: { 'Accept': 'application/json' }
+                    })
+                    .success(function(response) {
+                            currentQuest = angular.fromJson(response);
+                            deferred.resolve(currentQuest);
+                        });
+                return deferred.promise;
             },
             setQuest: function (value) {
                 currentQuest = value;
-            },
-            getQuestPromise: questPromise
+            }
         };
     }])
     .service('eventService', ['$http', '$q', function ($http, $q) {
@@ -99,65 +94,36 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             getAllEvents: getAllEvents
         };
     }])
-
-    .service('sharedHeroes', function () {
-        var listHeroes = [
-            {
-                TempId: 0,
-                Name: "Mage",
-                Race: "1",
-                Sex: "1",
-                Characteristics: [
-                    { Name: "Strength", Value: 3 },
-                    { Name: "Agility", Value: 3 },
-                    { Name: "Charism", Value: 7 }
-                ]
-            },
-            {
-                TempId: 1,
-                Name: "Warrior",
-                Race: "3",
-                Sex: "2",
-                Characteristics: [
-                    { Name: "Strength", Value: 13 },
-                    { Name: "Agility", Value: 3 },
-                    { Name: "Charism", Value: 7 }
-                ]
-            },
-            {
-                TempId: 1,
-                Name: "Thief",
-                Race: "2",
-                Sex: "2",
-                Characteristics: [
-                    { Name: "Strength", Value: 2 },
-                    { Name: "Agility", Value: 8 },
-                    { Name: "Charism", Value: 3 }
-                ]
-            }
-        ];
-        var lastId = 3;
-
+    .service('sharedHeroes', ['$http', '$q', function ($http, $q) {
+        var listHeroes = null;
         return {
             getListHeroes: function () {
-                return listHeroes;
-            },
-            addHero: function (newHero) {
-                if (newHero.TempId) {
-                    listHeroes = listHeroes.filter(function (obj) {
-                        return obj.TempId !== newHero.TempId;
-                    });
-                } else {
-                    newHero.TempId = ++lastId;
+                var deferred = $q.defer();
+
+                if (listHeroes) {
+                    deferred.resolve(listHeroes);
+                    return deferred.promise;
                 }
 
+                $http({
+                        method: 'GET',
+                        url: '/Rpg/GetHeroes',
+                        headers: { 'Accept': 'application/json' }
+                    })
+                    .success(function(response) {
+                            listHeroes = angular.fromJson(response);
+                            deferred.resolve(listHeroes);
+                        });
+                return deferred.promise;
+            },
+            addHero: function (newHero) {
                 newHero.Sex = newHero.Sex - 0;
                 newHero.Race = newHero.Race - 0;
 
                 listHeroes.push(newHero);
             }
         };
-    })
+    }])
     .service('raceService', ['_', function (_) {
         var raceList = [];
 

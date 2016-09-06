@@ -37,6 +37,7 @@ namespace WebWriterV2.RpgUtility
 
         public static List<Hero> GetHeroes()
         {
+            //skill count 8
             var result = new List<Hero>
             {
                 new Hero
@@ -45,7 +46,8 @@ namespace WebWriterV2.RpgUtility
                     Race = Race.Человек,
                     Sex = Sex.Муж,
                     Characteristics = GenerateStat(1),
-                    Background = "Сын физика ядерщика"
+                    Background = "Сын физика ядерщика",
+                    Skills = new List<Skill> {GenerateSkills()[1], GenerateSkills()[2]}
                 },
                 new Hero
                 {
@@ -53,7 +55,8 @@ namespace WebWriterV2.RpgUtility
                     Race = Race.Эльф,
                     Sex = Sex.Жен,
                     Characteristics = GenerateStat(2),
-                    Background = "Дочь проститутки"
+                    Background = "Дочь проститутки",
+                    Skills = new List<Skill> {GenerateSkills()[3], GenerateSkills()[4]}
                 },
                 new Hero
                 {
@@ -61,19 +64,20 @@ namespace WebWriterV2.RpgUtility
                     Race = Race.Орк,
                     Sex = Sex.Скрывает,
                     Characteristics = GenerateStat(3),
-                    Background = "В свои 14 трижды убивал"
+                    Background = "В свои 14 трижды убивал",
+                    Skills = new List<Skill> {GenerateSkills()[5], GenerateSkills()[6], GenerateSkills()[7]}
                 }
             };
             return result;
         }
 
-        public static Dictionary<CharacteristicType, long> GenerateStat(int seed = 0)
+        public static List<Characteristic> GenerateStat(int seed = 0)
         {
-            var result = new Dictionary<CharacteristicType, long>();
+            var result = new List<Characteristic>();
             var rnd = new Random(DateTime.Now.Millisecond + seed);
-            result.Add(CharacteristicType.Strength, rnd.Next(1, 10));
-            result.Add(CharacteristicType.Agility, rnd.Next(1, 10));
-            result.Add(CharacteristicType.Charism, rnd.Next(1, 10));
+            result.Add(new Characteristic { CharacteristicType = CharacteristicType.Strength, Number = rnd.Next(1, 10) });
+            result.Add(new Characteristic { CharacteristicType = CharacteristicType.Agility, Number = rnd.Next(1, 10) });
+            result.Add(new Characteristic { CharacteristicType = CharacteristicType.Charism, Number = rnd.Next(1, 10) });
             return result;
         }
 
@@ -200,67 +204,71 @@ namespace WebWriterV2.RpgUtility
             skills.Add(new Skill
             {
                 Name = "Fire ball",
+                Desc = "Fire ball",
                 School = SkillSchool.Fire,
-                SelfChanging = new Dictionary<StatusType, long> { { StatusType.CurrentMp, -4 } },
-                TargetChanging = new Dictionary<StatusType, long> { { StatusType.CurrentHp, -6 } },
+                SelfChanging = new List<State> { new State { StateType = StateType.CurrentMp, Number = -4 } },
+                TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -6 }}
             });
 
             skills.Add(new Skill
             {
                 Name = "Pyro blast",
+                Desc = "Pyro blast",
                 School = SkillSchool.Fire,
-                SelfChanging = new Dictionary<StatusType, long> { { StatusType.CurrentMp, -10 } },
-                TargetChanging = new Dictionary<StatusType, long> { { StatusType.CurrentHp, -10 } },
+                SelfChanging = new List<State> { new State { StateType = StateType.CurrentMp, Number = -10 }},
+                TargetChanging = new List<State> { new State{ StateType = StateType.CurrentHp, Number = -10 } },
             });
 
             /* ************ Cold ************ */
             skills.Add(new Skill
             {
                 Name = "Ice spear",
+                Desc = "Ice spear",
                 School = SkillSchool.Cold,
-                SelfChanging = new Dictionary<StatusType, long> { { StatusType.CurrentMp, -2 } },
-                TargetChanging = new Dictionary<StatusType, long> { { StatusType.CurrentHp, -3 } },
+                SelfChanging = new List<State> { new State {StateType = StateType.CurrentMp, Number = -2 } },
+                TargetChanging = new List<State> { new State{StateType = StateType.CurrentHp, Number = -3 } },
             });
 
             skills.Add(new Skill
             {
                 Name = "Ice armor",
+                Desc = "Ice armor",
                 School = SkillSchool.Cold,
-                SelfChanging = new Dictionary<StatusType, long> { { StatusType.CurrentMp, -4 } },
-                TargetChanging = new Dictionary<StatusType, long> { { StatusType.CurrentHp, 10 } },
+                SelfChanging = new List<State> { new State{StateType = StateType.CurrentMp, Number = -4 } },
+                TargetChanging = new List<State> { new State {StateType = StateType.CurrentHp, Number = 10 } },
             });
 
             /* ************ Seduction ************ */
             skills.Add(new Skill
             {
                 Name = "69",
+                Desc = "No question, please. It's working and that all what you need to know",
                 School = SkillSchool.Seduction,
-                Desc = "No question, please. It's working and that all what you need to know"
             });
 
             /* ************ Base ************ */
             skills.Add(new Skill
             {
                 Name = "Удар рукой",
+                Desc = "Что может быть проще?",
                 School = SkillSchool.Base,
-                TargetChanging = new Dictionary<StatusType, long> { { StatusType.CurrentHp, -2 } },
-                Desc = "No question, please. It's working and that all what you need to know"
+                TargetChanging = new List<State> { new State{ StateType = StateType.CurrentHp,Number = -2 } },
             });
 
             skills.Add(new Skill
             {
                 Name = "Блок щитом",
+                Desc = "Кто хочет жить, использует щит",
                 School = SkillSchool.Base,
-                TargetChanging = new Dictionary<StatusType, long> { { StatusType.CurrentHp, -2 } },
-                Desc = "Не знаю как."
+                TargetChanging = new List<State> {new State { StateType = StateType.CurrentHp, Number = -2 } },
             });
 
             skills.Add(new Skill
             {
                 Name = "Уворот",
+                Desc = "Для тех кто хочет умереть красиво",
                 School = SkillSchool.Base,
-                TargetChanging = new Dictionary<StatusType, long> { { StatusType.CurrentHp, -2 } },
-                Desc = "Не знаю как."
+                TargetChanging = new List<State> { new State{StateType = StateType.CurrentHp, Number = -2 } },
             });
 
             return skills;

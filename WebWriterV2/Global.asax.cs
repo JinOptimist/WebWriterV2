@@ -34,6 +34,14 @@ namespace WebWriterV2
                 .As<IEventRepository>()
                 .WithParameter(new TypedParameter(typeof(WriterContext), context));
 
+            builder.RegisterType<HeroRepository>()
+                .As<IHeroRepository>()
+                .WithParameter(new TypedParameter(typeof(WriterContext), context));
+
+            builder.RegisterType<SkillRepository>()
+                .As<ISkillRepository>()
+                .WithParameter(new TypedParameter(typeof(WriterContext), context));
+
 
             //builder.RegisterType<QuestRepository>();
             //builder.RegisterType<EventRepository>();

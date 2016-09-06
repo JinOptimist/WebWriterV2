@@ -1,6 +1,6 @@
 ﻿<div>
     <h1>Гильдия: {{guild.Name}}</h1>
-
+    Name = {{quest.EnumValueName}}
     <div class="block300 padding10 left">
         <ng-guild guild="guild"></ng-guild>
     </div>
@@ -11,7 +11,7 @@
     </div>
 
     <div class="block300 padding10 left">
-        Блок доступных квестов
+        <ng-quest-info quest="quest" ng-repeat="quest in quests"></ng-quest-info>
     </div>
 
     <div class="block300 padding10 left">

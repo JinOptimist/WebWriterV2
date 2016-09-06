@@ -7,6 +7,7 @@ namespace Dao.Model
     {
         [Required]
         public string Name { get; set; }
+        public string Background { get; set; }
 
         [Required]
         public Race Race { get; set; }
@@ -14,16 +15,16 @@ namespace Dao.Model
         [Required]
         public Sex Sex { get; set; }
 
-        public string Background { get; set; }
+        //[Required]
+        //public Location Location { get; set; }
 
-        [Required]
-        public Location Location { get; set; } = null;
+        public List<Characteristic> Characteristics { get; set; }
 
-        public Dictionary<CharacteristicType, long> Characteristics { get; set; }
+        public List<State> State { get; set; }
 
-        public Dictionary<StatusType, long> Status { get; set; }
+        public List<Skill> Skills { get; set; }
 
-        public List<Thing> Inventory { get; set; }
+        //public List<Thing> Inventory { get; set; }
     }
 
     public enum Race
@@ -49,7 +50,7 @@ namespace Dao.Model
         Charism = 3
     }
 
-    public enum StatusType
+    public enum StateType
     {
         MaxHp = 1,
         MaxMp = 2,
@@ -58,5 +59,6 @@ namespace Dao.Model
         CurrentMp = 5,
         Gold = 6,
         Dodge = 7,
+        Trust = 8,
     }
 }

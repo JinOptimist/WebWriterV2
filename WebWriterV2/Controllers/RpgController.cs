@@ -10,7 +10,7 @@ using NLog;
 using WebWriterV2.RpgUtility;
 using WebWriterV2.VkUtility;
 using Dao;
-using WebWriterV2.Models.rpg;
+using WebWriterV2.FrontModels;
 
 namespace WebWriterV2.Controllers
 {
@@ -21,15 +21,19 @@ namespace WebWriterV2.Controllers
         private static readonly JsonSerializerSettings JsonSettings
             = new JsonSerializerSettings { PreserveReferencesHandling = PreserveReferencesHandling.Objects };
 
-        public IQuestRepository QuestRepository { get; set; }
         public IEventRepository EventRepository { get; set; }
+        public IQuestRepository QuestRepository { get; set; }
+        public IHeroRepository HeroRepository { get; set; }
+        public ISkillRepository SkillRepository { get; set; }
 
         public RpgController()
         {
             using (var scope = StaticContainer.Container.BeginLifetimeScope())
             {
-                QuestRepository = scope.Resolve<IQuestRepository>();
                 EventRepository = scope.Resolve<IEventRepository>();
+                QuestRepository = scope.Resolve<IQuestRepository>();
+                HeroRepository = scope.Resolve<IHeroRepository>();
+                SkillRepository = scope.Resolve<ISkillRepository>();
             }
         }
 
@@ -54,7 +58,7 @@ namespace WebWriterV2.Controllers
 
             return new JsonResult
             {
-                Data = Newtonsoft.Json.JsonConvert.SerializeObject(listNameValue),
+                Data = JsonConvert.SerializeObject(listNameValue),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -75,11 +79,34 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult SaveQuest(string jsonQuest)
-        {
-            var quest = SerializeHelper.Deserialize<Quest>(jsonQuest);
-            QuestRepository.Save(quest);
 
+
+        public JsonResult GetGuildInfo()
+        {
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(GenerateData.GetGuild(), JsonSettings),
+                //Data = SerializeHelper.Serialize(GenerateData.GetGuild()),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        /* ************** Hero ************** */
+        public JsonResult GetHeroes()
+        {
+            var heroes = HeroRepository.GetAll();
+            var frontHeroes = heroes.Select(x => new FrontHero(x)).ToList();
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(frontHeroes),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveAllHeroes()
+        {
+            var h = HeroRepository.GetAll();
+            h.ForEach(HeroRepository.Remove);
             return new JsonResult
             {
                 Data = true,
@@ -87,28 +114,44 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult GetHeroes()
+        /* ************** Skill ************** */
+        public JsonResult GetSkill(SkillSchool skillSchool)
         {
+            var skillsFromDb = SkillRepository.GetBySchool(skillSchool);
+            var frontSkill = skillsFromDb.Select(x => new FrontSkill(x));
             return new JsonResult
             {
-                Data = SerializeHelper.Serialize(GenerateData.GetHeroes()),
+                Data = SerializeHelper.Serialize(frontSkill),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 
+        public JsonResult GetSkills()
+        {
+            var skillsFromDb = SkillRepository.GetAll();
+            var frontSkill = skillsFromDb.Select(x => new FrontSkill(x));
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(frontSkill),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveAllSkills()
+        {
+            var skillsFromDb = SkillRepository.GetAll();
+            skillsFromDb.ForEach(SkillRepository.Remove);
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(true),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        /* ************** Quest ************** */
         public JsonResult GetQuest(long id)
         {
             var quest = QuestRepository.GetWithRootEvent(id);
-            return new JsonResult
-            {
-                Data = JsonConvert.SerializeObject(quest, JsonSettings),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult GetOneQuest()
-        {
-            var quest = QuestRepository.GetAllWithRootEvent().FirstOrDefault();
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(quest, JsonSettings),
@@ -126,12 +169,12 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult GetGuildInfo()
+        public JsonResult GetOneQuest()
         {
+            var quest = QuestRepository.GetAllWithRootEvent().FirstOrDefault();
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(GenerateData.GetGuild(), JsonSettings),
-                //Data = SerializeHelper.Serialize(GenerateData.GetGuild()),
+                Data = JsonConvert.SerializeObject(quest, JsonSettings),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -155,6 +198,19 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult SaveQuest(string jsonQuest)
+        {
+            var quest = SerializeHelper.Deserialize<Quest>(jsonQuest);
+            QuestRepository.Save(quest);
+
+            return new JsonResult
+            {
+                Data = true,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        /* ************** Event ************** */
         public JsonResult GetAllEvents(long questId)
         {
             var events = EventRepository.GetEventsWithChildren(questId);
@@ -177,7 +233,8 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult InitQuest()
+        /* ************** Init Db ************** */
+        public JsonResult Init()
         {
             var quests = QuestRepository.GetAll();
             if (quests.Count == 0)
@@ -186,9 +243,28 @@ namespace WebWriterV2.Controllers
                 QuestRepository.Save(quest);
             }
 
+            var skills = SkillRepository.GetAll();
+            if (skills.Count == 0)
+            {
+                SkillRepository.Save(GenerateData.GenerateSkills());
+            }
+
+            var heroes = HeroRepository.GetAll();
+            if (heroes.Count == 0)
+            {
+                HeroRepository.Save(GenerateData.GetHeroes());
+            }
+
+            var answer = new
+            {
+                quests = quests.Count > 0 ? "Уже существует" : "Добавили",
+                heroes = heroes.Count > 0 ? "Уже существует" : "Добавили",
+                skills = skills.Count > 0 ? "Уже существует" : "Добавили",
+            };
+
             return new JsonResult
             {
-                Data = quests.Count > 0 ? "Уже существует" : "Добавили",
+                Data = answer,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

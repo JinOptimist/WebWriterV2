@@ -20,8 +20,8 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                      templateUrl: '/views/rpg/GetQuest.html',
                      controller: 'getQuestController'
                  })
-                 .when('/AngularRoute/addQuest', {
-                     templateUrl: '/views/rpg/AddQuest.html',
+                 .when('/AngularRoute/createQuest', {
+                     templateUrl: '/views/rpg/CreateQuest.html',
                      controller: 'adminQuestController'
                  })
                  .when('/AngularRoute/createHero', {
@@ -53,7 +53,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
         function ($scope, $http, $location, questService, sharedHeroes, sexService, raceService) { //, $modal, $route, _, $log
             $scope.quests = []; //GeneralInfo, AdditionalInfo
 
-            questService.getQuestPromise.then(function (result) {
+            questService.getQuest().then(function(result) {
                 $scope.quests.push(result);
             });
 
@@ -102,7 +102,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
     .controller('adminQuestController', [
         '$scope', '$http', 'questService', 'sexService', 'raceService', 'eventService',
         function ($scope, $http, questService, sexService, raceService, eventService) {
-            $scope.quest = {}//questService.getQuest();}
+            $scope.quest = {};
 
             $scope.RaceList = [];
             $scope.SexList = [];
@@ -122,7 +122,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 });
             }
 
-            questService.getQuestPromise.then(function (result) {
+            questService.getQuest().then(function (result) {
                 $scope.quest = result;
                 init();
             });
@@ -207,25 +207,36 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
     .controller('listHeroesController', [
         '$scope', '$http', '$location', 'sharedHeroes', 'raceService', 'sexService',
         function ($scope, $http, $location, sharedHeroes, raceService, sexService) {
-            $scope.heroes = sharedHeroes.getListHeroes();
+            $scope.heroes = [];
+
+            sharedHeroes.getListHeroes().then(function (result) {
+                $scope.heroes = result;
+            });
         }
     ])
     .controller('guildController', [
-        '$scope', 'guildService',
-        function ($scope, guildService) {
+        '$scope', 'guildService', 'questService',
+        function ($scope, guildService, questService) {
             $scope.guild = {};
             guildService.getGuildPromise.then(function(guild) {
                 $scope.guild = guild;
             });
+
+            $scope.quest = questService.test();
         }
     ])
     .controller('travelController', [
         '$scope', 'questService', 'eventService',
         function ($scope, questService, eventService) {
             //$scope.hero = sharedHeroes.getListHeroes();
-            $scope.quest = questService.getQuest();
-            $scope.quest.Effective = 0;
-            $scope.currentEvent = $scope.quest.RootEvent;
+            $scope.quest = {};
+            questService.getQuest().then(function(result) {
+                $scope.quest = result;
+                $scope.quest.Effective = 0;
+                $scope.currentEvent = $scope.quest.RootEvent;
+                $scope.chooseEvent($scope.quest.RootEvent.Id);
+            });
+
             $scope.ways = {};
 
             $scope.chooseEvent = function (eventId) {
@@ -235,14 +246,15 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                     $scope.currentEvent = result;
                 });
             };
-
-            $scope.chooseEvent($scope.quest.RootEvent.Id);
         }
     ])
     .controller('questInfoController', [
             '$scope', '$http', '$location', 'questService', 'raceService', 'sexService',
             function ($scope, $http, $location, questService, raceService, sexService) {
-                $scope.quest = questService.getQuest();
+                $scope.quest = {};
+                questService.getQuest().then(function (result) {
+                    $scope.quest = result;
+                });
 
                 processQuest();
                 function processQuest() {

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * @license AngularJS v1.4.8
  * (c) 2010-2015 Google, Inc. http://angularjs.org
  * License: MIT
@@ -22836,18 +22836,18 @@ function classDirective(name, selector) {
        <hr>
        <p ng-class="style">Using String Syntax</p>
        <input type="text" ng-model="style"
-              placeholder="Type: bold strike red" aria-label="Type: bold strike red">
+              placeholder="Type: bold strike red" aria-label="StateType: bold strike red">
        <hr>
        <p ng-class="[style1, style2, style3]">Using Array Syntax</p>
        <input ng-model="style1"
-              placeholder="Type: bold, strike or red" aria-label="Type: bold, strike or red"><br>
+              placeholder="Type: bold, strike or red" aria-label="StateType: bold, strike or red"><br>
        <input ng-model="style2"
-              placeholder="Type: bold, strike or red" aria-label="Type: bold, strike or red 2"><br>
+              placeholder="Type: bold, strike or red" aria-label="StateType: bold, strike or red 2"><br>
        <input ng-model="style3"
-              placeholder="Type: bold, strike or red" aria-label="Type: bold, strike or red 3"><br>
+              placeholder="Type: bold, strike or red" aria-label="StateType: bold, strike or red 3"><br>
        <hr>
        <p ng-class="[style4, {orange: warning}]">Using Array and Map Syntax</p>
-       <input ng-model="style4" placeholder="Type: bold, strike" aria-label="Type: bold, strike"><br>
+       <input ng-model="style4" placeholder="Type: bold, strike" aria-label="StateType: bold, strike"><br>
        <label><input type="checkbox" ng-model="warning"> warning (apply "orange" class)</label>
      </file>
      <file name="style.css">

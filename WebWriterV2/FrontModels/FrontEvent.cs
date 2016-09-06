@@ -1,13 +1,15 @@
-﻿using Dao.Model;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
+using Dao.Model;
 
-namespace WebWriterV2.Models.rpg
+namespace WebWriterV2.FrontModels
 {
     public class FrontEvent
     {
+        public FrontEvent()
+        {
+        }
+
         public FrontEvent(Event eventDb)
         {
             Id = eventDb.Id;

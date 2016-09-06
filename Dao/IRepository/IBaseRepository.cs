@@ -7,6 +7,8 @@ namespace Dao.IRepository
     {
         void Save(T baseModel);
 
+        void Save(List<T> baseModels);
+
         List<T> GetAll();
 
         T Get(long id);

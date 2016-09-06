@@ -30,7 +30,12 @@ angular.module('directives', ['services', 'underscore']) //, ['common', 'search'
                 controller: ['$scope', 'raceService', 'sexService', function ($scope, raceService, sexService) {
                     $scope.GetTextSex = sexService.getSexWord;
                     $scope.GetTextRace = raceService.getRaceWord;
-                }]
+                }],
+                link: function (scope, element, attrs) {
+                    scope.$watch(attrs.hero, function (v) {
+                        console.log('Hero value changed, new value is: ' + v);
+                    });
+                }
             }
         }
     ])

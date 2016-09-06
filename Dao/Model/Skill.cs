@@ -11,14 +11,11 @@ namespace Dao.Model
         [Required]
         public string Desc { get; set; }
 
-        public Hero Self { get; set; }
-        public Hero Target { get; set; }
-
         [Required]
         public SkillSchool School { get; set; }
 
-        public Dictionary<StatusType, long> SelfChanging { get; set; }
-        public Dictionary<StatusType, long> TargetChanging { get; set; }
+        public List<State> SelfChanging { get; set; }
+        public List<State> TargetChanging { get; set; }
     }
 
     public enum SkillSchool

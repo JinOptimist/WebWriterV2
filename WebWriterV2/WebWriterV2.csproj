@@ -132,7 +132,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\RpgController.cs" />
-    <Compile Include="Models\rpg\Event.cs" />
+    <Compile Include="FrontModels\FrontEvent.cs" />
+    <Compile Include="FrontModels\FrontHero.cs" />
+    <Compile Include="FrontModels\FronEnum.cs" />
+    <Compile Include="FrontModels\FrontSkill.cs" />
+    <Compile Include="RpgUtility\EnumHelper.cs" />
     <Compile Include="RpgUtility\GenerateData.cs" />
     <Compile Include="RpgUtility\QuestCreatHelper.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -248,6 +252,7 @@
     <Content Include="Scripts\rpg\directives.js" />
     <Content Include="Scripts\rpg\module.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Rpg\CreateQuest.html" />
     <Content Include="Views\Rpg\directives\ngGuild.html" />
     <Content Include="Views\Rpg\Travel.html" />
     <Content Include="Views\Rpg\Guild.html" />
@@ -269,7 +274,6 @@
     <Content Include="Views\Web.config" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <Content Include="Views\Rpg\Index.cshtml" />
-    <Content Include="Views\Rpg\AddQuest.html" />
     <Content Include="Views\Rpg\GetQuest.html" />
   </ItemGroup>
   <ItemGroup>

@@ -31,6 +31,11 @@ namespace Dao.Repository
             Db.SaveChanges();
         }
 
+        public void Save(List<T> baseModels)
+        {
+            baseModels.ForEach(Save);
+        }
+
         public List<T> GetAll()
         {
             return Entity.ToList();
