@@ -25,7 +25,7 @@ namespace Dao.Repository
             return Entity.Include(x => x.RootEvent).ToList();
         }
 
-        public new void Remove(Quest quest)
+        public override void Remove(Quest quest)
         {
             if (quest == null)
                 return;
@@ -42,7 +42,7 @@ namespace Dao.Repository
             base.Remove(quest);
         }
 
-        public new void Remove(long id)
+        public override void Remove(long id)
         {
             var quest = GetWithRootEvent(id);
             Remove(quest);

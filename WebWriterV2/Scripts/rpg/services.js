@@ -51,6 +51,9 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             },
             setQuest: function (value) {
                 currentQuest = value;
+            },
+            setExecutor: function (executor) {
+                currentQuest.Executor = executor;
             }
         };
     }])
@@ -236,5 +239,22 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 currentGuild = value;
             },
             getGuildPromise: guildPromise
+        };
+    }])
+    .service('traningRoomService', ['$http', '$q', '_', function ($http, $q, _) {
+        var currentRoom = null;
+        var currentHero = null;
+
+        return {
+            getRoom: function () {
+                return currentRoom;
+            },
+            getHero: function () {
+                return currentHero;
+            },
+            chooseRoom: function (selectedRoom, hero) {
+                currentRoom = selectedRoom;
+                currentHero = hero;
+            }
         };
     }]);

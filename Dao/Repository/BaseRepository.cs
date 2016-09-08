@@ -17,7 +17,12 @@ namespace Dao.Repository
         public readonly WriterContext Db;// = ContextForRepository.Context;
         public readonly DbSet<T> Entity;
 
-        public void Save(T model)
+        public virtual bool Exist(T baseModel)
+        {
+            return Entity.Any(x => x == baseModel);
+        }
+
+        public virtual void Save(T model)
         {
             if (model.Id > 0)
             {
@@ -31,33 +36,43 @@ namespace Dao.Repository
             Db.SaveChanges();
         }
 
-        public void Save(List<T> baseModels)
+        public virtual void Save(List<T> baseModels)
         {
             baseModels.ForEach(Save);
         }
 
-        public List<T> GetAll()
+        public virtual List<T> GetAll()
         {
             return Entity.ToList();
         }
 
-        public T Get(long id)
+        public virtual T Get(long id)
         {
             return Entity.FirstOrDefault(x => x.Id == id);
         }
 
-        public void Remove(long id)
+        public virtual List<T> GetList(IEnumerable<long> ids)
+        {
+            return Entity.Where(x => ids.Contains(x.Id)).ToList();
+        }
+
+        public virtual void Remove(long id)
         {
             Entity.Remove(Get(id));
             Db.SaveChanges();
         }
 
-        public void Remove(T baseModel)
+        public virtual void Remove(T baseModel)
         {
             if (baseModel == null)
                 return;
             Entity.Remove(baseModel);
             Db.SaveChanges();
+        }
+
+        public virtual void Remove(List<T> models)
+        {
+            models.ForEach(Remove);
         }
     }
 }

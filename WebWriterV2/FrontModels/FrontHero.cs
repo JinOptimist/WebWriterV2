@@ -7,7 +7,7 @@ using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontHero
+    public class FrontHero : BaseFront
     {
         public FrontHero()
         {
@@ -15,15 +15,16 @@ namespace WebWriterV2.FrontModels
 
         public FrontHero(Hero hero)
         {
+            Id = hero.Id;
             Name = hero.Name;
             Background = hero.Background;
-            Race = EnumHelper.GetFronEnum(typeof(Race), (long)hero.Race);
-            Sex = EnumHelper.GetFronEnum(typeof(Sex), (long)hero.Sex);
+            Race = new FronEnum(hero.Race);
+            Sex = new FronEnum(hero.Sex);
 
             Characteristics = new List<FronEnumPlusValue>();
             foreach (var characteristic in hero.Characteristics)
             {
-                var frontEnum = EnumHelper.GetFronEnum(typeof(CharacteristicType), (long)characteristic.CharacteristicType);
+                var frontEnum = new FronEnum(characteristic.CharacteristicType);
                 Characteristics.Add(new FronEnumPlusValue(frontEnum, characteristic.Number));
             }
 

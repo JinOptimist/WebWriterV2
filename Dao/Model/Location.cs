@@ -13,6 +13,7 @@ namespace Dao.Model
         public string Desc { get; set; }
 
         [Required(ErrorMessage = "Coordinate this location")]
+        //TODO change
         public Point Coordinate { get; set; }
 
         [Description("Heroes who there are in current place")]

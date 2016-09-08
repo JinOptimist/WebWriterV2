@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using Dao.Model;
-using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontSkill
+    public class FrontSkill : BaseFront
     {
         public FrontSkill()
         {
@@ -15,17 +11,18 @@ namespace WebWriterV2.FrontModels
 
         public FrontSkill(Skill skill)
         {
+            Id = skill.Id;
             Name = skill.Name;
             Desc = skill.Desc;
 
-            School = EnumHelper.GetFronEnum(typeof (SkillSchool), (long) skill.School);
+            School = new FronEnum(skill.School);
 
             SelfChanging = new List<FronEnumPlusValue>();
             if (skill.SelfChanging != null)
             {
                 foreach (var state in skill.SelfChanging)
                 {
-                    var fronEnum = EnumHelper.GetFronEnum(typeof (StateType), (long) state.StateType);
+                    var fronEnum = new FronEnum(state.StateType);
                     var number = state.Number;
                     SelfChanging.Add(new FronEnumPlusValue(fronEnum, number));
                 }
@@ -36,7 +33,7 @@ namespace WebWriterV2.FrontModels
             {
                 foreach (var state in skill.TargetChanging)
                 {
-                    var fronEnum = EnumHelper.GetFronEnum(typeof(StateType), (long)state.StateType);
+                    var fronEnum = new FronEnum(state.StateType);
                     var number = state.Number;
                     TargetChanging.Add(new FronEnumPlusValue(fronEnum, number));
                 }
@@ -45,13 +42,8 @@ namespace WebWriterV2.FrontModels
 
         public string Name { get; set; }
         public string Desc { get; set; }
-        // название статус значения и степень её изменения
-        // пример
-        // мана -4
         public List<FronEnumPlusValue> SelfChanging { get; set; }
-        //жизни -6
         public List<FronEnumPlusValue> TargetChanging { get; set; }
-
         public FronEnum School { get; set; }
     }
 }

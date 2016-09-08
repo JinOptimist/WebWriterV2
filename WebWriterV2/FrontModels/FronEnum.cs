@@ -9,6 +9,21 @@ namespace WebWriterV2.FrontModels
 {
     public class FronEnum
     {
+        public FronEnum()
+        {
+        }
+
+        public FronEnum(object enumValue)
+        {
+            var type = enumValue.GetType();
+            if (!type.IsEnum)
+                throw new ArgumentException("FrontEnum only for a Enum");
+
+            EnumType = type.FullName;
+            Name = Enum.GetName(type, enumValue);
+            Value = (int)Enum.ToObject(type, enumValue);
+        }
+
         public string EnumType { get; set; }
 
         public string Name { get; set; }

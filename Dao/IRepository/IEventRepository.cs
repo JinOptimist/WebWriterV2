@@ -10,5 +10,7 @@ namespace Dao.IRepository
         Event GetWithChildren(long id);
 
         List<Event> GetEventsWithChildren(long questId);
+
+        List<Event> GetRootEvents();
     }
 }

@@ -5,6 +5,8 @@ namespace Dao.IRepository
 {
     public interface IBaseRepository<T>
     {
+        bool Exist(T baseModel);
+
         void Save(T baseModel);
 
         void Save(List<T> baseModels);
@@ -13,8 +15,12 @@ namespace Dao.IRepository
 
         T Get(long id);
 
+        List<T> GetList(IEnumerable<long> ids);
+
         void Remove(long id);
 
         void Remove(T baseModel);
+
+        void Remove(List<T> models);
     }
 }

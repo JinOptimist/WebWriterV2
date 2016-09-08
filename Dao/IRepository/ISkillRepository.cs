@@ -6,6 +6,10 @@ namespace Dao.IRepository
 {
     public interface ISkillRepository : IBaseRepository<Skill>
     {
+        Skill GetByName(string skillName);
+
         List<Skill> GetBySchool(SkillSchool skillSchool);
+
+        Dictionary<SkillSchool, List<Skill>> GetBySchools(List<SkillSchool> skillSchool);
     }
 }

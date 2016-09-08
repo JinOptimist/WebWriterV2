@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using Autofac;
@@ -10,6 +11,7 @@ using NLog;
 using WebWriterV2.RpgUtility;
 using WebWriterV2.VkUtility;
 using Dao;
+using Dao.Repository;
 using WebWriterV2.FrontModels;
 
 namespace WebWriterV2.Controllers
@@ -25,16 +27,27 @@ namespace WebWriterV2.Controllers
         public IQuestRepository QuestRepository { get; set; }
         public IHeroRepository HeroRepository { get; set; }
         public ISkillRepository SkillRepository { get; set; }
+        public IGuildRepository GuildRepository { get; set; }
+
+        private readonly WriterContext _context;
 
         public RpgController()
         {
-            using (var scope = StaticContainer.Container.BeginLifetimeScope())
-            {
-                EventRepository = scope.Resolve<IEventRepository>();
-                QuestRepository = scope.Resolve<IQuestRepository>();
-                HeroRepository = scope.Resolve<IHeroRepository>();
-                SkillRepository = scope.Resolve<ISkillRepository>();
-            }
+            _context = new WriterContext();
+
+            EventRepository = new EventRepository(_context);
+            QuestRepository = new QuestRepository(_context);
+            HeroRepository = new HeroRepository(_context);
+            SkillRepository = new SkillRepository(_context);
+            GuildRepository = new GuildRepository(_context);
+
+            //using (var scope = StaticContainer.Container.BeginLifetimeScope())
+            //{
+            //    EventRepository = scope.Resolve<IEventRepository>();
+            //    QuestRepository = scope.Resolve<IQuestRepository>();
+            //    HeroRepository = scope.Resolve<IHeroRepository>();
+            //    SkillRepository = scope.Resolve<ISkillRepository>();
+            //}
         }
 
         public ActionResult RouteForAngular(string url)
@@ -79,14 +92,39 @@ namespace WebWriterV2.Controllers
             };
         }
 
-
-
+        /* ************** Guild ************** */
         public JsonResult GetGuildInfo()
         {
+            var guildFromDb = GuildRepository.GetAll().First();
+            var schools = guildFromDb.TrainingRooms.Select(x => x.School).ToList();
+            var heroes = HeroRepository.GetList(guildFromDb.Heroes.Select(x => x.Id));
+            guildFromDb.Heroes = heroes;
+            var skillsBySchool = SkillRepository.GetBySchools(schools);
+            var frontGuild = new FrontGuild(guildFromDb, skillsBySchool);
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(GenerateData.GetGuild(), JsonSettings),
-                //Data = SerializeHelper.Serialize(GenerateData.GetGuild()),
+                Data = JsonConvert.SerializeObject(frontGuild),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult QuestCompleted(int guildId, int gold)
+        {
+            var answer = "+";
+            try
+            {
+                var guild = GuildRepository.Get(guildId);
+                guild.Gold += gold;
+                GuildRepository.Save(guild);
+            }
+            catch (Exception e)
+            {
+                answer = e.Message;
+            }
+
+            return new JsonResult
+            {
+                Data = answer,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -110,6 +148,28 @@ namespace WebWriterV2.Controllers
             return new JsonResult
             {
                 Data = true,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult AddSkillToHero(int heroId, int skillId)
+        {
+            var answer = "+";
+            try
+            {
+                var hero = HeroRepository.Get(heroId);
+                var skill = SkillRepository.Get(skillId);
+                hero.Skills.Add(skill);
+                HeroRepository.Save(hero);
+            }
+            catch (Exception e)
+            {
+                answer = e.Message;
+            }
+
+            return new JsonResult
+            {
+                Data = answer,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -237,29 +297,45 @@ namespace WebWriterV2.Controllers
         public JsonResult Init()
         {
             var quests = QuestRepository.GetAll();
-            if (quests.Count == 0)
+            if (!quests.Any())
             {
                 var quest = GenerateData.GetQuest();
                 QuestRepository.Save(quest);
             }
 
             var skills = SkillRepository.GetAll();
-            if (skills.Count == 0)
+            if (!skills.Any())
             {
                 SkillRepository.Save(GenerateData.GenerateSkills());
             }
 
             var heroes = HeroRepository.GetAll();
-            if (heroes.Count == 0)
+            if (!heroes.Any())
             {
-                HeroRepository.Save(GenerateData.GetHeroes());
+                heroes = GenerateData.GetHeroes();
+                foreach (var hero in heroes)
+                {
+                    var skillsFromDb = hero.Skills.Select(skill => SkillRepository.GetByName(skill.Name)).ToList();
+                    hero.Skills = skillsFromDb;
+                }
+
+                HeroRepository.Save(heroes);
+            }
+
+            var guilds = GuildRepository.GetAll();
+            if (!guilds.Any())
+            {
+                var guild = GenerateData.GetGuild();
+                guild.Heroes = heroes;
+                GuildRepository.Save(guild);
             }
 
             var answer = new
             {
-                quests = quests.Count > 0 ? "Уже существует" : "Добавили",
-                heroes = heroes.Count > 0 ? "Уже существует" : "Добавили",
-                skills = skills.Count > 0 ? "Уже существует" : "Добавили",
+                quests = quests.Any() ? "Уже существует" : "Добавили",
+                heroes = heroes.Any() ? "Уже существует" : "Добавили",
+                skills = skills.Any() ? "Уже существует" : "Добавили",
+                guilds = guilds.Any() ? "Уже существует" : "Добавили",
             };
 
             return new JsonResult
@@ -267,6 +343,29 @@ namespace WebWriterV2.Controllers
                 Data = answer,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+        }
+
+        public JsonResult ReInit()
+        {
+            var guilds = GuildRepository.GetAll();
+            GuildRepository.Remove(guilds);
+
+            var events = EventRepository.GetRootEvents();
+            EventRepository.Remove(events);
+
+            var quests = QuestRepository.GetAll();
+            QuestRepository.Remove(quests);
+
+            var heroes = HeroRepository.GetAll();
+            HeroRepository.Remove(heroes);
+
+            return Init();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _context.Dispose();
+            base.Dispose(disposing);
         }
     }
 }

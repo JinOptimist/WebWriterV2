@@ -16,10 +16,6 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                      templateUrl: '/views/rpg/Guild.html',
                      controller: 'guildController'
                  })
-                 .when('/AngularRoute/getQuest', {
-                     templateUrl: '/views/rpg/GetQuest.html',
-                     controller: 'getQuestController'
-                 })
                  .when('/AngularRoute/createQuest', {
                      templateUrl: '/views/rpg/CreateQuest.html',
                      controller: 'adminQuestController'
@@ -40,6 +36,10 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                      templateUrl: '/views/rpg/Travel.html',
                      controller: 'travelController'
                  })
+                 .when('/AngularRoute/traningRoom', {
+                     templateUrl: '/views/rpg/TraningRoom.html',
+                     controller: 'traningRoomController'
+                 })
                  .otherwise({
                      redirectTo: '/AngularRoute/guild'
                  });
@@ -47,57 +47,6 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
              // Uses HTLM5 history API for navigation
              $locationProvider.html5Mode(true);
          }
-    ])
-    .controller('getQuestController', [
-        '$scope', '$http', '$location', 'questService', 'sharedHeroes', 'sexService', 'raceService',
-        function ($scope, $http, $location, questService, sharedHeroes, sexService, raceService) { //, $modal, $route, _, $log
-            $scope.quests = []; //GeneralInfo, AdditionalInfo
-
-            questService.getQuest().then(function(result) {
-                $scope.quests.push(result);
-            });
-
-            $scope.heroes = [];
-            $scope.selectHero = undefined;
-
-            $scope.GetHeroes = function () {
-                $scope.heroes = sharedHeroes.getListHeroes();
-            }
-
-            $scope.GetHeroes();
-
-            $scope.SelectHero = function (hero) {
-                $scope.selectHero = hero;
-            }
-
-            var checkRequrment = function (event) {
-                if (!$scope.selectHero)
-                    return false;
-                var valid = $scope.selectHero.Sex == event.RequrmentSex || event.RequrmentSex == 0;
-                valid = valid && ($scope.selectHero.Race == event.RequrmentRace || event.RequrmentRace == 0);
-                return valid;
-            }
-
-            $scope.goToTheQuest = function (quest) {
-                quest.Progress = 0;
-                quest.Executor = $scope.selectHero;
-                quest.EventsHistory = [];
-                angular.forEach(quest.Wiles, function (wile) {
-                    angular.forEach(wile.Events, function (event) {
-                        if (checkRequrment(event)) {
-                            quest.EventsHistory.push(event);
-                            quest.Progress += event.ProgressChanging;
-                        }
-                    });
-                });
-                questService.setQuest(quest);
-                $location.path('/AngularRoute/travel');
-            }
-
-            $scope.GetTextSex = sexService.getSexWord;
-
-            $scope.GetTextRace = raceService.getRaceWord;
-        }
     ])
     .controller('adminQuestController', [
         '$scope', '$http', 'questService', 'sexService', 'raceService', 'eventService',
@@ -117,7 +66,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 baseRaceList.splice(0, 0, { name: 'None', value: 0 });
                 $scope.RaceList = baseRaceList;
 
-                eventService.getAllEvents($scope.quest.Id).then(function(result) {
+                eventService.getAllEvents($scope.quest.Id).then(function (result) {
                     EventGraph.drawGraph(result, 'eventsGraph', 900, 600);
                 });
             }
@@ -215,22 +164,44 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
         }
     ])
     .controller('guildController', [
-        '$scope', 'guildService', 'questService',
-        function ($scope, guildService, questService) {
+        '$scope', '$location', 'guildService', 'questService', 'traningRoomService',
+        function ($scope, $location, guildService, questService, traningRoomService) {
             $scope.guild = {};
-            guildService.getGuildPromise.then(function(guild) {
+            guildService.getGuildPromise.then(function (guild) {
                 $scope.guild = guild;
             });
 
-            $scope.quest = questService.test();
+            questService.getQuest().then(function (result) {
+                $scope.quest = result;
+            });
+
+            $scope.currentHero = {};
+            $scope.selectHero = function (hero) {
+                $scope.currentHero = hero;
+            }
+
+            $scope.goToQuest = function (quest) {
+                questService.setExecutor($scope.currentHero);
+                $location.path('/AngularRoute/travel');
+            }
+
+            $scope.goToTrain = function (room) {
+                if (!$scope.currentHero) {
+                    alert("Hero doesn't chosen");
+                    return;
+                }
+
+                traningRoomService.chooseRoom(room, $scope.currentHero);
+                $location.path('/AngularRoute/traningRoom');
+            }
         }
     ])
     .controller('travelController', [
-        '$scope', 'questService', 'eventService',
-        function ($scope, questService, eventService) {
+        '$scope', '$http', '$location', 'questService', 'eventService', 'guildService',
+        function ($scope, $http, $location, questService, eventService, guildService) {
             //$scope.hero = sharedHeroes.getListHeroes();
             $scope.quest = {};
-            questService.getQuest().then(function(result) {
+            questService.getQuest().then(function (result) {
                 $scope.quest = result;
                 $scope.quest.Effective = 0;
                 $scope.currentEvent = $scope.quest.RootEvent;
@@ -246,6 +217,67 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                     $scope.currentEvent = result;
                 });
             };
+
+            $scope.endQuest = function () {
+                $scope.waiting = true;
+                var guild = guildService.getGuild();
+                var guildId = guild.Id;
+
+                var url = '/Rpg/QuestCompleted?guildId=' + guildId + '&gold=' + $scope.quest.Effective;
+                $http({
+                        method: 'GET',
+                        url: url,
+                        headers: { 'Accept': 'application/json' }
+                    })
+                    .then(function(response) {
+                        if (response.data == "+") {
+                            guild.Gold += $scope.quest.Effective;
+                            guildService.setGuild(guild);
+                            $location.path('/AngularRoute/guild');
+                        } else {
+                            alert(response);
+                        }
+                        $scope.waiting = false;
+                    },function() {
+                        alert("Hero want relax. Wait and try again");
+                        $scope.waiting = false;
+                    });
+
+            }
+        }
+    ])
+    .controller('traningRoomController', [
+        '$scope', '$http', 'traningRoomService',
+        function ($scope, $http, traningRoomService) {
+            $scope.room = traningRoomService.getRoom();
+            $scope.hero = traningRoomService.getHero();
+            $scope.waiting = false;
+
+            $scope.currentSkill = {};
+            $scope.selectSkill = function (skill) {
+                $scope.currentSkill = skill;
+            }
+
+            $scope.addSkill = function () {
+                $scope.waiting = true;
+                var url = '/Rpg/AddSkillToHero?heroId=' + $scope.hero.Id + '&skillId=' + $scope.currentSkill.Id;
+                $http({
+                    method: 'GET',
+                    url: url,
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .success(function (response) {
+                        if (response == "+") {
+                            $scope.hero.Skills.push($scope.currentSkill);
+                        } else {
+                            alert(response);
+                        }
+                        $scope.waiting = false;
+                    }).fail(function () {
+                        alert("Training was failed. Try again");
+                        $scope.waiting = false;
+                    });
+            }
         }
     ])
     .controller('questInfoController', [

@@ -16,7 +16,7 @@ namespace Dao.Repository
         /// Special realization for cascade deleting
         /// </summary>
         /// <param name="currentEvent"></param>
-        public new void Remove(Event currentEvent)
+        public override void Remove(Event currentEvent)
         {
             if (currentEvent == null)
                 return;
@@ -34,7 +34,7 @@ namespace Dao.Repository
             base.Remove(currentEvent);
         }
 
-        public new void Remove(long id)
+        public override void Remove(long id)
         {
             var currentEvent = GetWithParentAndChildren(id);
             Remove(currentEvent);
@@ -53,6 +53,11 @@ namespace Dao.Repository
         public List<Event> GetEventsWithChildren(long questId)
         {
             return Entity.Include(x => x.ChildrenEvents).Where(x => x.Quest.Id == questId).ToList();
+        }
+
+        public List<Event> GetRootEvents()
+        {
+            return Entity.Where(x => x.Quest != null).ToList();
         }
     }
 }

@@ -20,15 +20,5 @@ namespace WebWriterV2.RpgUtility
         {
             return Enum.GetName(type, value);
         }
-
-        public static FronEnum GetFronEnum(Type type, long enumValue)
-        {
-            return new FronEnum
-            {
-                EnumType = type.FullName,
-                Name = Enum.GetName(type, enumValue),
-                Value = enumValue,
-            };
-        }
     }
 }

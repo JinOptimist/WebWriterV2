@@ -6,7 +6,6 @@ using Autofac;
 using Dao;
 using Dao.IRepository;
 using Dao.Repository;
-using Newtonsoft.Json;
 
 namespace WebWriterV2
 {
@@ -22,25 +21,32 @@ namespace WebWriterV2
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            var context = new WriterContext();
             var builder = new ContainerBuilder();
             /* ************** RPG ************** */
 
-            builder.RegisterType<QuestRepository>()
-                .As<IQuestRepository>()
-                .WithParameter(new TypedParameter(typeof(WriterContext), context));
+            //builder.RegisterType<QuestRepository>()
+            //    .As<IQuestRepository>()
+            //    .WithParameter(new TypedParameter(typeof(WriterContext), StaticContainer.Context));
 
-            builder.RegisterType<EventRepository>()
-                .As<IEventRepository>()
-                .WithParameter(new TypedParameter(typeof(WriterContext), context));
+            //builder.RegisterType<EventRepository>()
+            //    .As<IEventRepository>()
+            //    .WithParameter(new TypedParameter(typeof(WriterContext), StaticContainer.Context));
 
-            builder.RegisterType<HeroRepository>()
-                .As<IHeroRepository>()
-                .WithParameter(new TypedParameter(typeof(WriterContext), context));
+            //builder.RegisterType<HeroRepository>()
+            //    .As<IHeroRepository>()
+            //    .WithParameter(new TypedParameter(typeof(WriterContext), StaticContainer.Context));
 
-            builder.RegisterType<SkillRepository>()
-                .As<ISkillRepository>()
-                .WithParameter(new TypedParameter(typeof(WriterContext), context));
+            //builder.RegisterType<SkillRepository>()
+            //    .As<ISkillRepository>()
+            //    .WithParameter(new TypedParameter(typeof(WriterContext), StaticContainer.Context));
+
+            builder.RegisterType<QuestRepository>().As<IQuestRepository>();
+
+            builder.RegisterType<EventRepository>().As<IEventRepository>();
+
+            builder.RegisterType<HeroRepository>().As<IHeroRepository>();
+
+            builder.RegisterType<SkillRepository>().As<ISkillRepository>();
 
 
             //builder.RegisterType<QuestRepository>();
@@ -52,9 +58,6 @@ namespace WebWriterV2
             StaticContainer.Container = builder.Build();
 
             WriterContext.SetInitializer();
-
-            //var mark = Mark.Instance;
-            //mark.Start();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace WebWriterV2.RpgUtility
                 Guild = guild,
                 Name = "Разваливающаяся платина",
                 Desc = "Старая развалюха в которую страшно зайти. Не удивительно что только самые отчаяные оборванцы осмеливаются искать тут дом",
-                HeroesInLocation = GetHeroes()
+                //HeroesInLocation = GetHeroes()
             };
             guild.Location = location;
 

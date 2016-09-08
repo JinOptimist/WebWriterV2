@@ -9,7 +9,7 @@ namespace Dao
     {
         public WriterContext() : base("name=WriterContext")
         {
-            Configuration.LazyLoadingEnabled = true;
+            //Configuration.LazyLoadingEnabled = true;
         }
 
         public DbSet<Quest> Quest { get; set; }
@@ -25,6 +25,11 @@ namespace Dao
             modelBuilder.Entity<Quest>().HasOptional(x => x.RootEvent).WithOptionalPrincipal().WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Event>().HasMany(u => u.ChildrenEvents).WithMany(x => x.ParentEvents);
+            modelBuilder.Entity<Event>().HasMany(u => u.RequrmentSkill).WithMany();
+
+            modelBuilder.Entity<Hero>().HasMany(u => u.Skills).WithMany();
+            modelBuilder.Entity<Hero>().HasMany(u => u.State).WithMany();
+
             //modelBuilder.Entity<Event>().HasMany(u => u.ChildrenEvents).WithOptional();
 
             //.Map(x => x.MapLeftKey("Id").MapRightKey("Id"));

@@ -35,11 +35,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net40\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net40\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -56,6 +56,7 @@
     <Compile Include="ContextForRepository.cs" />
     <Compile Include="IRepository\IBaseRepository.cs" />
     <Compile Include="IRepository\IEventRepository.cs" />
+    <Compile Include="IRepository\IGuildRepository.cs" />
     <Compile Include="IRepository\IHeroRepository.cs" />
     <Compile Include="IRepository\ISkillRepository.cs" />
     <Compile Include="IRepository\IQuestRepository.cs" />
@@ -83,6 +84,10 @@
     <Compile Include="Migrations\201609061642104_AddStateAndCharacteristic.Designer.cs">
       <DependentUpon>201609061642104_AddStateAndCharacteristic.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609081313356_SkillRefactoring.cs" />
+    <Compile Include="Migrations\201609081313356_SkillRefactoring.Designer.cs">
+      <DependentUpon>201609081313356_SkillRefactoring.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\State.cs" />
@@ -98,6 +103,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\EventRepository.cs" />
+    <Compile Include="Repository\GuildRepository.cs" />
     <Compile Include="Repository\HeroRepository.cs" />
     <Compile Include="Repository\SkillRepository.cs" />
     <Compile Include="Repository\QuestRepository.cs" />
@@ -127,6 +133,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609061642104_AddStateAndCharacteristic.resx">
       <DependentUpon>201609061642104_AddStateAndCharacteristic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609081313356_SkillRefactoring.resx">
+      <DependentUpon>201609081313356_SkillRefactoring.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

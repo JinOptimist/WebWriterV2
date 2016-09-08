@@ -1,25 +1,31 @@
 ﻿<div>
-    <h1>Гильдия: {{guild.Name}}</h1>
-    Name = {{quest.EnumValueName}}
+    <h1>Главный экран</h1>
     <div class="block300 padding10 left">
+        <h3>Гильдия</h3>
         <ng-guild guild="guild"></ng-guild>
     </div>
 
     <div class="block300 padding10 left">
         <h3>Ваши Герои</h3>
-        <ng-hero-card hero="hero" ng-repeat="hero in guild.Heroes"></ng-hero-card>
+        <div ng-repeat="hero in guild.Heroes">
+            <ng-hero-card hero="hero"></ng-hero-card>
+            <input type="button" value="Выбрать" ng-click="selectHero(hero)"/>
+        </div>
     </div>
 
     <div class="block300 padding10 left">
-        <ng-quest-info quest="quest" ng-repeat="quest in quests"></ng-quest-info>
+        <h3>Квесты</h3>
+        <ng-quest-info quest="quest"></ng-quest-info>
+        <input type="button" value="Отправить {{currentHero.Name}} на квест" ng-click="goToQuest(quest)" />
     </div>
 
     <div class="block300 padding10 left">
-        Блок доступных тренировочных комнат
+        <h3>Тренировочных комнат</h3>
         <div ng-repeat="room in guild.TrainingRooms" class="traning-room">
             <p>Название комнаты: {{room.Name}}</p>
-            <p>Цена: {{room.Price}}</p>
-            <p>{{room.School}}</p>
+            <p>Доступная школа: {{room.School.Name}}</p>
+            <p>Цена улучшения: {{room.Price}}</p>
+            <input type="button" value="Отправить {{currentHero.Name}} тренироваться" ng-click="goToTrain(room)"/>
         </div>
     </div>
 </div>

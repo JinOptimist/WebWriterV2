@@ -137,3 +137,7 @@
     width: 300px;
     border: 1px #006400 solid;
 }
+
+.wait {
+    background: red;
+}
