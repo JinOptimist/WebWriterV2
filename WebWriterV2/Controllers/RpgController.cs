@@ -306,7 +306,8 @@ namespace WebWriterV2.Controllers
             var skills = SkillRepository.GetAll();
             if (!skills.Any())
             {
-                SkillRepository.Save(GenerateData.GenerateSkills());
+                var generateSkills = GenerateData.GenerateSkills();
+                SkillRepository.Save(generateSkills);
             }
 
             var heroes = HeroRepository.GetAll();

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -15,11 +16,13 @@ namespace Dao.Repository
 
         public override void Save(Skill skill)
         {
-            if (skill.Id > 0 && Exist(skill))
+            var skillByName = GetByName(skill.Name);
+            if (skillByName != null && skillByName.Id != skill.Id)
             {
-                //if we try update existin skill
-                base.Save(skill);
+                throw new DuplicateNameException("Skill cann't has duplication in name");
             }
+
+            base.Save(skill);
             //ignore if we try add new skill with skill
         }
 
