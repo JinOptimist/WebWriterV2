@@ -9,6 +9,10 @@
         <span ng-repeat="event in ways"> * <a href="#" ng-click="chooseEvent(event.Id)">{{event.Name}}</a> </span>
     </div>
 
+    <div>
+         <a href="#" ng-click="batle()">Go to battle</a>
+    </div>
+
     <div ng-if="!ways || ways.length == 0">
         Квест завершён.
         <a href="#" ng-click="endQuest()">Собрать награду</a>

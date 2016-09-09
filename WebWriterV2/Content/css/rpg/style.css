@@ -1,3 +1,8 @@
+p {
+    margin: 0;
+    padding: 0;
+}
+
 .avatar {
     background-color: #3366CC;
     width: 300px; /* Ширина слоя */
@@ -141,3 +146,53 @@
 .wait {
     background: red;
 }
+
+.skill {
+    margin: 0;
+    padding: 0 5px;
+}
+
+.skill.Fire {
+    border: 2px red solid;
+}
+
+.skill.Base {
+    border: 1px grey solid;
+}
+
+.skill.Cold {
+    border: 2px #0003aa solid;
+}
+
+/*  Health and Mana bar  */
+.main-bar {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 200px;
+  height: 20px;
+  padding: 5px;
+  background: #ddd;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  position: relative;
+}
+.main-bar .bar {
+  height: 10px;
+  position: relative;
+  transition: width .5s linear;
+}
+
+.health-bar .bar {
+  background: #c54;
+  width: 100%;
+}
+
+.mana-bar .bar {
+  background: #000080;
+  width: 100%;
+}
+
+
+/* END Health and Mana bar  */

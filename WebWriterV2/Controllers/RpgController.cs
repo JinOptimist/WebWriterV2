@@ -174,6 +174,17 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult GetEnemy()
+        {
+            var heroes = HeroRepository.GetAll();
+            var frontHero = new FrontHero(heroes.LastOrDefault());
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(frontHero),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         /* ************** Skill ************** */
         public JsonResult GetSkill(SkillSchool skillSchool)
         {
@@ -204,6 +215,17 @@ namespace WebWriterV2.Controllers
             return new JsonResult
             {
                 Data = SerializeHelper.Serialize(true),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult GetSkillEffect(long skillId)
+        {
+            var skillsFromDb = SkillRepository.Get(skillId);
+            var frontSkill = new FrontSkill(skillsFromDb);
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(frontSkill),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

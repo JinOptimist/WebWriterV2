@@ -89,7 +89,6 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             });
         }
 
-
         return {
             getEventChildrenPromise: function (currentEventId) {
                 return getPromise(currentEventId);
@@ -97,10 +96,11 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             getAllEvents: getAllEvents
         };
     }])
-    .service('sharedHeroes', ['$http', '$q', function ($http, $q) {
+    .service('heroService', ['$http', '$q', function ($http, $q) {
         var listHeroes = null;
+        var selectedHero = null;
         return {
-            getListHeroes: function () {
+            loadListHeroes: function () {
                 var deferred = $q.defer();
 
                 if (listHeroes) {
@@ -124,6 +124,26 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 newHero.Race = newHero.Race - 0;
 
                 listHeroes.push(newHero);
+            },
+            selectHero: function(hero) {
+                selectedHero = hero;
+            },
+            getSelectedHero: function () {
+                return selectedHero;
+            },
+            loadEnemy: function() {
+                var deferred = $q.defer();
+
+                $http({
+                        method: 'GET',
+                        url: '/Rpg/GetEnemy',
+                        headers: { 'Accept': 'application/json' }
+                    })
+                    .success(function(response) {
+                        var enemy = angular.fromJson(response);
+                        deferred.resolve(enemy);
+                    });
+                return deferred.promise;
             }
         };
     }])
@@ -257,4 +277,36 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 currentHero = hero;
             }
         };
-    }]);
+    }])
+    .service('skillService', ['$http', '$q', '_', function ($http, $q, _) {
+
+        return {
+            loadSkillEffect: function (skillId) {
+                return $q(function (resolve, reject) {
+                    $http({
+                        method: 'GET',
+                        url: '/Rpg/GetSkillEffect?skillId=' + skillId,
+                        headers: { 'Accept': 'application/json' }
+                    }).success(function (response) {
+                        resolve(angular.fromJson(response));
+                    },
+                    function () {
+                        reject(Error("Sorry :( we have fail"));
+                    });
+                });
+            },
+            notEnough: function (hero, skill) {
+                for (var i = 0; i < skill.SelfChanging.length; i++) {
+                    var selfChange = skill.SelfChanging[i];
+                    var stat = _.where(hero.State, { Value: selfChange.Value });
+                    if (stat && stat.length > 0)
+                        if (stat[0].Number + selfChange.Number < 1) {
+                            return "Not enough " + stat[0].Name;
+                        }
+                }
+
+                return null;
+            }
+        };
+    }])
+;

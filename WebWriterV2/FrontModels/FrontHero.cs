@@ -28,11 +28,12 @@ namespace WebWriterV2.FrontModels
                 Characteristics.Add(new FronEnumPlusValue(frontEnum, characteristic.Number));
             }
 
-            Status = new List<FronEnumPlusValue>();
-            //foreach (var state in hero.State)
-            //{
-            //    Status.Add(EnumHelper.GetFronEnum(typeof(StateType), (long)state.Type), state.Number);
-            //}
+            State = new List<FronEnumPlusValue>();
+            foreach (var state in hero.State)
+            {
+                var fronEnum = new FronEnum(state.StateType);
+                State.Add(new FronEnumPlusValue(fronEnum, state.Number));
+            }
 
             Skills = hero.Skills.Select(x => new FrontSkill(x)).ToList();
         }
@@ -43,7 +44,7 @@ namespace WebWriterV2.FrontModels
         public FronEnum Sex { get; set; }
 
         public List<FronEnumPlusValue> Characteristics { get; set; }
-        public List<FronEnumPlusValue> Status { get; set; }
+        public List<FronEnumPlusValue> State { get; set; }
 
         public List<FrontSkill> Skills { get; set; }
     }

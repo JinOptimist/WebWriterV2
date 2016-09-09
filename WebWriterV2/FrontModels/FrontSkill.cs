@@ -12,7 +12,7 @@ namespace WebWriterV2.FrontModels
         public FrontSkill(Skill skill)
         {
             Id = skill.Id;
-            Name = skill.Name;
+            Name = skill.Name.Replace(' ', '\u00a0');
             Desc = skill.Desc;
 
             School = new FronEnum(skill.School);

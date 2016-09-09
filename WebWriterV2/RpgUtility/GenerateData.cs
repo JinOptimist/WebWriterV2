@@ -38,36 +38,54 @@ namespace WebWriterV2.RpgUtility
         public static List<Hero> GetHeroes()
         {
             //skill count 8
+            var skills = GenerateSkills();
+            var freeman = new Hero
+            {
+                Name = "Freeman",
+                Race = Race.Человек,
+                Sex = Sex.Муж,
+                Characteristics = GenerateStat(1),
+                Background = "Сын физика ядерщика",
+                Skills = new List<Skill>()
+            };
+            freeman.Skills.AddRange(skills.Where(x => x.School == SkillSchool.Base));
+            freeman.Skills.Add(GenerateSkills()[0]);
+            freeman.Skills.Add(GenerateSkills()[1]);
+            freeman.SetDefaultState();
+
+            var shani = new Hero
+            {
+                Name = "Шани",
+                Race = Race.Эльф,
+                Sex = Sex.Жен,
+                Characteristics = GenerateStat(2),
+                Background = "Дочь проститутки",
+                Skills = new List<Skill>()
+            };
+            shani.Skills.AddRange(skills.Where(x => x.School == SkillSchool.Base));
+            shani.Skills.Add(GenerateSkills()[3]);
+            shani.Skills.Add(GenerateSkills()[4]);
+            shani.SetDefaultState();
+
+            var ogrimar = new Hero
+            {
+                Name = "Огримар",
+                Race = Race.Орк,
+                Sex = Sex.Скрывает,
+                Characteristics = GenerateStat(3),
+                Background = "В свои 14 трижды убивал",
+                Skills = new List<Skill>()
+            };
+            ogrimar.Skills.AddRange(skills.Where(x => x.School == SkillSchool.Base));
+            ogrimar.SetDefaultState();
+
             var result = new List<Hero>
             {
-                new Hero
-                {
-                    Name = "Freeman",
-                    Race = Race.Человек,
-                    Sex = Sex.Муж,
-                    Characteristics = GenerateStat(1),
-                    Background = "Сын физика ядерщика",
-                    Skills = new List<Skill> {GenerateSkills()[1], GenerateSkills()[2]}
-                },
-                new Hero
-                {
-                    Name = "Шани",
-                    Race = Race.Эльф,
-                    Sex = Sex.Жен,
-                    Characteristics = GenerateStat(2),
-                    Background = "Дочь проститутки",
-                    Skills = new List<Skill> {GenerateSkills()[3], GenerateSkills()[4]}
-                },
-                new Hero
-                {
-                    Name = "Огримар",
-                    Race = Race.Орк,
-                    Sex = Sex.Скрывает,
-                    Characteristics = GenerateStat(3),
-                    Background = "В свои 14 трижды убивал",
-                    Skills = new List<Skill> {GenerateSkills()[5], GenerateSkills()[6], GenerateSkills()[7]}
-                }
+                freeman,
+                shani,
+                ogrimar
             };
+
             return result;
         }
 
@@ -207,7 +225,7 @@ namespace WebWriterV2.RpgUtility
                 Desc = "Fire ball",
                 School = SkillSchool.Fire,
                 SelfChanging = new List<State> { new State { StateType = StateType.CurrentMp, Number = -4 } },
-                TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -6 }}
+                TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -6 } }
             });
 
             skills.Add(new Skill
@@ -215,8 +233,8 @@ namespace WebWriterV2.RpgUtility
                 Name = "Pyro blast",
                 Desc = "Pyro blast",
                 School = SkillSchool.Fire,
-                SelfChanging = new List<State> { new State { StateType = StateType.CurrentMp, Number = -10 }},
-                TargetChanging = new List<State> { new State{ StateType = StateType.CurrentHp, Number = -10 } },
+                SelfChanging = new List<State> { new State { StateType = StateType.CurrentMp, Number = -10 } },
+                TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -10 } },
             });
 
             /* ************ Cold ************ */
@@ -225,8 +243,8 @@ namespace WebWriterV2.RpgUtility
                 Name = "Ice spear",
                 Desc = "Ice spear",
                 School = SkillSchool.Cold,
-                SelfChanging = new List<State> { new State {StateType = StateType.CurrentMp, Number = -2 } },
-                TargetChanging = new List<State> { new State{StateType = StateType.CurrentHp, Number = -3 } },
+                SelfChanging = new List<State> { new State { StateType = StateType.CurrentMp, Number = -2 } },
+                TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -3 } },
             });
 
             skills.Add(new Skill
@@ -234,8 +252,8 @@ namespace WebWriterV2.RpgUtility
                 Name = "Ice armor",
                 Desc = "Ice armor",
                 School = SkillSchool.Cold,
-                SelfChanging = new List<State> { new State{StateType = StateType.CurrentMp, Number = -4 } },
-                TargetChanging = new List<State> { new State {StateType = StateType.CurrentHp, Number = 10 } },
+                SelfChanging = new List<State> { new State { StateType = StateType.CurrentMp, Number = -4 } },
+                TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = 10 } },
             });
 
             /* ************ Seduction ************ */
@@ -252,7 +270,7 @@ namespace WebWriterV2.RpgUtility
                 Name = "Удар рукой",
                 Desc = "Что может быть проще?",
                 School = SkillSchool.Base,
-                TargetChanging = new List<State> { new State{ StateType = StateType.CurrentHp,Number = -2 } },
+                TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -2 } },
             });
 
             skills.Add(new Skill
@@ -260,7 +278,7 @@ namespace WebWriterV2.RpgUtility
                 Name = "Блок щитом",
                 Desc = "Кто хочет жить, использует щит",
                 School = SkillSchool.Base,
-                TargetChanging = new List<State> {new State { StateType = StateType.CurrentHp, Number = -2 } },
+                TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -2 } },
             });
 
             skills.Add(new Skill
@@ -268,7 +286,7 @@ namespace WebWriterV2.RpgUtility
                 Name = "Уворот",
                 Desc = "Для тех кто хочет умереть красиво",
                 School = SkillSchool.Base,
-                TargetChanging = new List<State> { new State{StateType = StateType.CurrentHp, Number = -2 } },
+                TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -2 } },
             });
 
             return skills;

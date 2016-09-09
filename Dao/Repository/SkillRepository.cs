@@ -14,6 +14,11 @@ namespace Dao.Repository
         {
         }
 
+        public override Skill Get(long id)
+        {
+            return Entity.Include(x => x.SelfChanging).Include(x => x.TargetChanging).FirstOrDefault(x => x.Id == id);
+        }
+
         public override void Save(Skill skill)
         {
             var skillByName = GetByName(skill.Name);

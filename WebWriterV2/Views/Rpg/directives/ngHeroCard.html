@@ -1,7 +1,19 @@
 ﻿<div class="hero-card">
-    <p>Карточка героя <b>{{hero.Name}}</b></p>
-    <p>Раса: {{hero.Race.Name}}</p>
-    <p>Пол: {{hero.Sex.Name}}</p>
-    <p><span ng-if="hero.Characteristics" ng-repeat="stat in hero.Characteristics">{{stat.Name}}: {{stat.Number}} | </span></p>
-    <p>Умения: <span ng-if="hero.Skills" ng-repeat="skill in hero.Skills" alt="{{::skill.School.Name}}">{{::skill.Name}} | </span></p>
+    <p>
+        <b>{{hero.Name}}</b> {{hero.Race.Name}} {{hero.Sex.Name}}
+    </p>
+    <div class="main-bar health-bar">
+        <div class="bar" ng-style="hero.healthWidth"></div>
+    </div>
+    <div class="main-bar mana-bar">
+        <div class="bar" ng-style="hero.manaWidth"></div>
+    </div>
+    <hr/>
+    <p><span ng-if="hero.State" ng-repeat="state in hero.State">{{state.Name}}: {{state.Number}} | </span></p>
+    <p><span ng-if="hero.Characteristics" ng-repeat="characteristic in hero.Characteristics">{{characteristic.Name}}: {{characteristic.Number}} | </span></p>
+    <hr />
+    <p>
+        <b>Умения</b>:
+        <span class="skill {{::skill.School.Name}}" ng-if="hero.Skills" ng-repeat="skill in hero.Skills"> {{::skill.Name}}</span>
+    </p>
 </div>

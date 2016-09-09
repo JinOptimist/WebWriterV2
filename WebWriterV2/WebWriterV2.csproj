@@ -139,6 +139,7 @@
     <Compile Include="FrontModels\FronEnum.cs" />
     <Compile Include="FrontModels\FrontTrainingRoom.cs" />
     <Compile Include="FrontModels\FrontSkill.cs" />
+    <Compile Include="RpgUtility\StateHelper.cs" />
     <Compile Include="RpgUtility\EnumHelper.cs" />
     <Compile Include="RpgUtility\GenerateData.cs" />
     <Compile Include="RpgUtility\QuestCreatHelper.cs" />
@@ -258,6 +259,7 @@
     <Content Include="Views\Rpg\CreateQuest.html" />
     <Content Include="Views\Rpg\directives\ngGuild.html" />
     <Content Include="Views\Rpg\TraningRoom.html" />
+    <Content Include="Views\Rpg\Battle.html" />
     <Content Include="Views\Rpg\Travel.html" />
     <Content Include="Views\Rpg\Guild.html" />
     <Content Include="Views\Rpg\QuestInfo.html" />

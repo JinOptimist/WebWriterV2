@@ -32,8 +32,7 @@ angular.module('directives', ['services', 'underscore']) //, ['common', 'search'
                     $scope.GetTextRace = raceService.getRaceWord;
                 }],
                 link: function (scope, element, attrs) {
-                    scope.$watch(attrs.hero, function (v) {
-                        console.log('Hero value changed, new value is: ' + v);
+                    scope.$watch(attrs.hero, function (newVal, oldVal) {
                     });
                 }
             }
