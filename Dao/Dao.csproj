@@ -90,6 +90,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
+    <Compile Include="Model\SkillSchool.cs" />
     <Compile Include="Model\State.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\Characteristic.cs" />

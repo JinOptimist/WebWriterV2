@@ -22,11 +22,11 @@ namespace Dao.Model
         public List<State> TargetChanging { get; set; }
     }
 
-    public enum SkillSchool
-    {
-        Fire = 1,
-        Cold = 2,
-        Seduction = 3, // Соблазнение, Совращение
-        Base = 4, // Удар, укланени, Блок щитом
-    }
+    //public enum SkillSchool
+    //{
+    //    Fire = 1,
+    //    Cold = 2,
+    //    Seduction = 3, // Соблазнение, Совращение
+    //    Base = 4, // Удар, укланени, Блок щитом
+    //}
 }

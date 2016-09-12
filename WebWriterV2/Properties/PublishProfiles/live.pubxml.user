@@ -10,124 +10,124 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Autofac.dll">
-      <publishTime>08/27/2015 09:13:15</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="bin/book/Academy.doc">
-      <publishTime>08/08/2013 09:33:47</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="bin/book/Academy.docx">
-      <publishTime>07/15/2013 19:19:01</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="bin/book/Academy.epub">
-      <publishTime>08/08/2013 10:24:25</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="bin/book/Academy.fb2">
-      <publishTime>12/10/2015 17:47:16</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="bin/book/Academy.rtf">
-      <publishTime>12/10/2015 17:47:29</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="bin/book/Academy.txt">
-      <publishTime>12/10/2015 17:47:34</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="bin/Dao.dll">
-      <publishTime>09/08/2016 21:32:04</publishTime>
+      <publishTime>09/11/2016 17:53:20</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
-      <publishTime>08/25/2015 09:11:03</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="bin/EntityFramework.SqlServer.dll">
-      <publishTime>08/25/2015 09:11:03</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Infrastructure.dll">
-      <publishTime>08/24/2015 14:59:28</publishTime>
+      <publishTime>08/21/2016 20:20:45</publishTime>
     </File>
     <File Include="bin/Microsoft.Web.Mvc.FixedDisplayModes.dll">
-      <publishTime>08/24/2015 14:59:29</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
       <publishTime>03/14/2016 21:30:06</publishTime>
     </File>
     <File Include="bin/NLog.config">
-      <publishTime>09/09/2015 13:49:57</publishTime>
+      <publishTime>08/27/2016 11:35:17</publishTime>
     </File>
     <File Include="bin/NLog.dll">
-      <publishTime>09/04/2015 14:15:28</publishTime>
+      <publishTime>08/21/2016 20:20:45</publishTime>
     </File>
     <File Include="bin/System.Net.Http.dll">
-      <publishTime>07/09/2013 11:04:48</publishTime>
+      <publishTime>08/21/2016 20:20:45</publishTime>
     </File>
     <File Include="bin/System.Net.Http.Formatting.dll">
-      <publishTime>08/24/2015 14:59:29</publishTime>
+      <publishTime>08/21/2016 20:20:45</publishTime>
     </File>
     <File Include="bin/System.Net.Http.WebRequest.dll">
       <publishTime>07/09/2013 11:04:48</publishTime>
     </File>
     <File Include="bin/System.Web.Helpers.dll">
-      <publishTime>08/24/2015 14:59:28</publishTime>
+      <publishTime>08/21/2016 20:20:45</publishTime>
     </File>
     <File Include="bin/System.Web.Http.dll">
-      <publishTime>08/24/2015 14:59:30</publishTime>
+      <publishTime>08/21/2016 20:20:45</publishTime>
     </File>
     <File Include="bin/System.Web.Http.WebHost.dll">
-      <publishTime>08/24/2015 14:59:30</publishTime>
+      <publishTime>08/21/2016 20:20:45</publishTime>
     </File>
     <File Include="bin/System.Web.Mvc.dll">
-      <publishTime>08/24/2015 14:59:29</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="bin/System.Web.Razor.dll">
-      <publishTime>08/24/2015 14:59:28</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.Deployment.dll">
-      <publishTime>08/24/2015 14:59:28</publishTime>
+      <publishTime>08/21/2016 20:20:45</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.dll">
-      <publishTime>08/24/2015 14:59:29</publishTime>
+      <publishTime>08/21/2016 20:20:45</publishTime>
     </File>
     <File Include="bin/System.Web.WebPages.Razor.dll">
-      <publishTime>08/24/2015 14:59:29</publishTime>
+      <publishTime>08/21/2016 20:20:45</publishTime>
     </File>
     <File Include="bin/VkApi.dll">
-      <publishTime>07/19/2016 22:25:30</publishTime>
+      <publishTime>09/04/2016 13:24:16</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>09/08/2016 21:32:04</publishTime>
+      <publishTime>09/11/2016 17:53:21</publishTime>
     </File>
     <File Include="book/Academy.doc">
-      <publishTime>08/08/2013 09:33:47</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="book/Academy.docx">
-      <publishTime>07/15/2013 19:19:01</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="book/Academy.epub">
-      <publishTime>08/08/2013 10:24:25</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="book/Academy.fb2">
-      <publishTime>12/10/2015 17:47:16</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="book/Academy.rtf">
-      <publishTime>12/10/2015 17:47:29</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="book/Academy.txt">
-      <publishTime>12/10/2015 17:47:34</publishTime>
+      <publishTime>08/21/2016 20:20:44</publishTime>
     </File>
     <File Include="Content/css/home.css">
-      <publishTime>12/10/2015 17:43:47</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/css/main.css">
-      <publishTime>09/25/2015 16:11:20</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/css/rpg.css">
       <publishTime>08/25/2016 20:04:11</publishTime>
     </File>
     <File Include="Content/css/rpg/michi.css">
-      <publishTime>08/29/2016 10:53:22</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Content/css/rpg/style.css">
-      <publishTime>09/08/2016 19:27:54</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Content/del.jpg">
-      <publishTime>09/18/2015 14:17:30</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/HeroImg/dragon.jpg">
       <publishTime>08/24/2016 11:01:09</publishTime>
@@ -139,115 +139,118 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2016 11:01:09</publishTime>
     </File>
     <File Include="Content/home/down.png">
-      <publishTime>08/08/2013 16:58:27</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/download-icon.png">
-      <publishTime>08/02/2014 18:23:44</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/fb2-icon.png">
-      <publishTime>08/08/2013 11:49:49</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/full-screen-rev.png">
-      <publishTime>08/08/2013 12:34:57</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/full-screen.png">
-      <publishTime>08/08/2013 12:35:04</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/gallery.png">
-      <publishTime>08/08/2013 12:32:45</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/google-play-icon.png">
-      <publishTime>08/08/2013 11:49:09</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/hero/00 Ira.jpg">
-      <publishTime>05/17/2013 20:27:39</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/hero/00 Ivan.jpg">
-      <publishTime>07/10/2013 15:40:38</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/hero/00 Lera.jpg">
-      <publishTime>05/17/2013 20:28:46</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/hero/00 Pavel.jpg">
-      <publishTime>05/17/2013 20:23:35</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/hero/01 Ira 260x320.jpg">
-      <publishTime>06/16/2013 15:31:31</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/hero/02 Ivan 220x320.jpg">
-      <publishTime>06/16/2013 15:31:33</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/hero/03 Lera 226x320.jpg">
-      <publishTime>06/16/2013 15:31:35</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/hero/04 Pavel 226x320.jpg">
-      <publishTime>06/16/2013 15:31:38</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/hero/Denis v3 226x320.jpg">
-      <publishTime>08/08/2013 09:06:52</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/hero/Denis v3.jpg">
-      <publishTime>08/01/2013 12:13:29</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/hero/LeraS v1.jpg">
-      <publishTime>08/01/2013 12:13:29</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/hero/Nata v3 3.jpg">
-      <publishTime>07/09/2013 14:19:56</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/lj-icon.png">
-      <publishTime>07/15/2013 07:43:52</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/rtf-icon.png">
-      <publishTime>08/08/2013 11:47:09</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/txt-icon.png">
-      <publishTime>07/15/2013 07:27:12</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/up.png">
-      <publishTime>08/08/2013 16:58:30</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/velcome.png">
-      <publishTime>01/07/2014 17:44:10</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/vk-icon.png">
-      <publishTime>08/08/2013 11:47:58</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/home/word-icon.png">
-      <publishTime>08/08/2013 11:34:41</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/rpg/coin.png">
-      <publishTime>08/30/2016 19:16:51</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Content/rpg/dragon.jpg">
-      <publishTime>08/24/2016 11:01:09</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Content/rpg/elf.jpg">
-      <publishTime>08/24/2016 11:01:09</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Content/rpg/gnom.jpg">
-      <publishTime>08/24/2016 11:01:09</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Content/rpg/human.jpg">
-      <publishTime>08/28/2016 12:55:46</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
+    </File>
+    <File Include="Content/rpg/icon.png">
+      <publishTime>09/10/2016 10:38:58</publishTime>
     </File>
     <File Include="Content/rpg/man.jpg">
-      <publishTime>08/28/2016 13:22:12</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Content/rpg/orc.jpg">
-      <publishTime>08/28/2016 12:56:38</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Content/rpg/unknown.jpg">
-      <publishTime>08/28/2016 13:29:44</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Content/rpg/woman.jpg">
-      <publishTime>08/28/2016 13:28:04</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Content/wait.gif">
-      <publishTime>09/04/2015 12:33:53</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>08/24/2015 14:59:26</publishTime>
+      <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Json/10594375.txt">
       <publishTime>08/21/2015 14:52:13</publishTime>
@@ -412,13 +415,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/21/2015 14:50:05</publishTime>
     </File>
     <File Include="NLog.config">
-      <publishTime>09/09/2015 13:49:57</publishTime>
+      <publishTime>08/27/2016 11:35:17</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>09/02/2016 14:01:04</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Scripts/angular-mocks.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/27/2016 11:35:17</publishTime>
     </File>
     <File Include="Scripts/angular.js">
       <publishTime>07/19/2016 22:12:41</publishTime>
@@ -430,85 +433,85 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2016 22:12:41</publishTime>
     </File>
     <File Include="Scripts/angular/angular-animate.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/angular-cache.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/angular-route.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/angular-sanitize.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/angular.js">
-      <publishTime>09/06/2016 19:37:28</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Scripts/angular/angulartics-google-analytics.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/angulartics-piwik.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/angulartics.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/dialogs.min.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/hotkeys.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/ng-infinite-scroll.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/ng-sortable.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/ngProgress.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/Sortable.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>08/21/2016 20:22:06</publishTime>
     </File>
     <File Include="Scripts/angular/ui-bootstrap.js">
-      <publishTime>09/08/2016 11:19:22</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Scripts/angular/underscore-min.js">
-      <publishTime>08/29/2016 17:40:17</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Scripts/dracula_graffle.js">
-      <publishTime>08/29/2016 12:57:25</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Scripts/dracula_graph.js">
-      <publishTime>08/29/2016 12:57:25</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Scripts/galleria-1.2.9.min.js">
-      <publishTime>09/08/2016 11:19:22</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Scripts/jquery-2.1.4.js">
-      <publishTime>09/08/2016 11:19:22</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Scripts/jquery-2.1.4.min.js">
-      <publishTime>09/08/2016 11:19:22</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Scripts/jquery-2.1.4.min.map">
-      <publishTime>08/28/2015 13:47:22</publishTime>
+      <publishTime>08/21/2016 20:25:20</publishTime>
     </File>
     <File Include="Scripts/raphael-min.js">
-      <publishTime>08/29/2016 12:57:25</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Scripts/rpg/directives.js">
-      <publishTime>09/06/2016 16:51:23</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Scripts/rpg/graph.js">
-      <publishTime>09/05/2016 13:42:08</publishTime>
+      <publishTime>09/10/2016 10:58:08</publishTime>
     </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>09/08/2016 21:14:16</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Scripts/rpg/services.js">
-      <publishTime>09/08/2016 20:59:37</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Views/Carrier/Add.cshtml">
       <publishTime>09/04/2015 13:59:19</publishTime>
@@ -543,32 +546,35 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Rpg/AddQuest.html">
       <publishTime>09/04/2016 14:44:10</publishTime>
     </File>
+    <File Include="Views/Rpg/Battle.html">
+      <publishTime>09/10/2016 10:20:56</publishTime>
+    </File>
     <File Include="Views/Rpg/CreateHero.html">
-      <publishTime>09/06/2016 19:18:42</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Views/Rpg/CreateQuest.html">
-      <publishTime>09/05/2016 09:10:10</publishTime>
+      <publishTime>09/10/2016 11:08:01</publishTime>
     </File>
     <File Include="Views/Rpg/directives/ngGuild.html">
-      <publishTime>09/08/2016 20:41:30</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Views/Rpg/directives/ngHeroCard.html">
-      <publishTime>09/06/2016 19:57:23</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Views/Rpg/directives/ngQuestInfo.html">
-      <publishTime>09/01/2016 19:06:14</publishTime>
+      <publishTime>09/03/2016 09:07:52</publishTime>
     </File>
     <File Include="Views/Rpg/GetQuest.html">
       <publishTime>08/27/2016 11:50:11</publishTime>
     </File>
     <File Include="Views/Rpg/Guild.html">
-      <publishTime>09/08/2016 20:48:58</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Views/Rpg/Index.cshtml">
-      <publishTime>09/08/2016 10:25:13</publishTime>
+      <publishTime>09/10/2016 10:49:35</publishTime>
     </File>
     <File Include="Views/Rpg/ListHeroes.html">
-      <publishTime>09/06/2016 17:08:46</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Views/Rpg/ngHeroCard.html">
       <publishTime>08/29/2016 09:31:43</publishTime>
@@ -580,13 +586,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2016 12:18:37</publishTime>
     </File>
     <File Include="Views/Rpg/QuestInfo.html">
-      <publishTime>09/02/2016 20:49:05</publishTime>
+      <publishTime>08/27/2016 11:50:11</publishTime>
     </File>
     <File Include="Views/Rpg/TraningRoom.html">
-      <publishTime>09/08/2016 19:27:37</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Views/Rpg/Travel.html">
-      <publishTime>09/08/2016 21:02:38</publishTime>
+      <publishTime>09/10/2016 10:20:56</publishTime>
     </File>
     <File Include="Views/RpgMaster.cshtml">
       <publishTime>07/26/2016 13:48:21</publishTime>
@@ -619,10 +625,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/21/2015 18:55:09</publishTime>
     </File>
     <File Include="Views/Web.config">
-      <publishTime>08/23/2016 18:19:42</publishTime>
+      <publishTime>08/27/2016 11:50:11</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/08/2016 21:17:25</publishTime>
+      <publishTime>09/04/2016 13:28:28</publishTime>
     </File>
   </ItemGroup>
 </Project>

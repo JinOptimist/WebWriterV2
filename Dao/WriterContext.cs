@@ -30,20 +30,8 @@ namespace Dao
             modelBuilder.Entity<Hero>().HasMany(u => u.Skills).WithMany();
             modelBuilder.Entity<Hero>().HasMany(u => u.State).WithMany();
 
-            //modelBuilder.Entity<Event>().HasMany(u => u.ChildrenEvents).WithOptional();
-
-            //.Map(x => x.MapLeftKey("Id").MapRightKey("Id"));
-            //modelBuilder.Entity<Event>().HasMany(u => u.ParentEvents).WithMany(t => t.ChildrenEvents);
-
-            //modelBuilder.Entity<Event>().Map(configuration => configuration.MapInheritedProperties())
-
-
-            //modelBuilder.Entity<Course>()
-            //    .HasMany(c => c.Instructors).WithMany(i => i.Courses)
-            //    .Map(t => t.MapLeftKey("CourseID")
-            //        .MapRightKey("InstructorID")
-            //        .ToTable("CourseInstructor"));
-            //modelBuilder.Entity<Department>().MapToStoredProcedures();
+            modelBuilder.Entity<Skill>().HasRequired(u => u.School).WithMany();
+            modelBuilder.Entity<TrainingRoom>().HasRequired(u => u.School).WithMany();
         }
 
         public static void SetInitializer()

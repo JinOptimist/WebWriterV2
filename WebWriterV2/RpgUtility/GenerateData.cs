@@ -216,6 +216,12 @@ namespace WebWriterV2.RpgUtility
 
         public static List<Skill> GenerateSkills()
         {
+            var schools = GenerateSchools();
+            var baseSchool = schools[0];
+            var coldSchool = schools[1];
+            var fireSchool = schools[2];
+            var niceSchool = schools[3];
+
             var skills = new List<Skill>();
 
             /* ************ Fire ************ */
@@ -223,7 +229,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Fire ball",
                 Desc = "Fire ball",
-                School = SkillSchool.Fire,
+                School = fireSchool,
                 SelfChanging = new List<State> { new State { StateType = StateType.CurrentMp, Number = -4 } },
                 TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -6 } }
             });
@@ -232,7 +238,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Pyro blast",
                 Desc = "Pyro blast",
-                School = SkillSchool.Fire,
+                School = fireSchool,
                 SelfChanging = new List<State> { new State { StateType = StateType.CurrentMp, Number = -10 } },
                 TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -10 } },
             });
@@ -242,7 +248,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Ice spear",
                 Desc = "Ice spear",
-                School = SkillSchool.Cold,
+                School = coldSchool,
                 SelfChanging = new List<State> { new State { StateType = StateType.CurrentMp, Number = -2 } },
                 TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -3 } },
             });
@@ -251,7 +257,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Ice armor",
                 Desc = "Ice armor",
-                School = SkillSchool.Cold,
+                School = coldSchool,
                 SelfChanging = new List<State> { new State { StateType = StateType.CurrentMp, Number = -4 } },
                 TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = 10 } },
             });
@@ -261,7 +267,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "69",
                 Desc = "No question, please. It's working and that all what you need to know",
-                School = SkillSchool.Seduction,
+                School = niceSchool,
             });
 
             /* ************ Base ************ */
@@ -269,7 +275,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Удар рукой",
                 Desc = "Что может быть проще?",
-                School = SkillSchool.Base,
+                School = baseSchool,
                 TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -2 } },
             });
 
@@ -277,7 +283,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Блок щитом",
                 Desc = "Кто хочет жить, использует щит",
-                School = SkillSchool.Base,
+                School = baseSchool,
                 TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -2 } },
             });
 
@@ -285,7 +291,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Уворот",
                 Desc = "Для тех кто хочет умереть красиво",
-                School = SkillSchool.Base,
+                School = baseSchool,
                 TargetChanging = new List<State> { new State { StateType = StateType.CurrentHp, Number = -2 } },
             });
 
@@ -325,6 +331,37 @@ namespace WebWriterV2.RpgUtility
             });
 
             return rooms;
+        }
+
+        public static List<SkillSchool> GenerateSchools()
+        {
+            var schools = new List<SkillSchool>();
+
+            schools.Add(new SkillSchool
+            {
+                Name = "Базовые умения",
+                Desc = "Доступны всем по умолчанию. Ну разве что кроме совсем 'одарённых'"
+            });
+
+            schools.Add(new SkillSchool
+            {
+                Name = "Школа льда",
+                Desc = "Охладись и начинай"
+            });
+
+            schools.Add(new SkillSchool
+            {
+                Name = "Школа пламени",
+                Desc = "Для тех кто любит зажигать"
+            });
+
+            schools.Add(new SkillSchool
+            {
+                Name = "Соблазнения",
+                Desc = "Всё то что поможет вам убедить людей, без грубой силой"
+            });
+
+            return schools;
         }
     }
 }

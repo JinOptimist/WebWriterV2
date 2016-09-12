@@ -195,6 +195,7 @@
     <Content Include="Content\home\vk-icon.png" />
     <Content Include="Content\home\word-icon.png" />
     <Content Include="Content\rpg\dragon.jpg" />
+    <Content Include="Content\rpg\icon.png" />
     <Content Include="Content\rpg\elf.jpg" />
     <Content Include="Content\rpg\gnom.jpg" />
     <Content Include="Content\rpg\coin.png" />

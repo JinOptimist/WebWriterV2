@@ -7,7 +7,9 @@ var EventGraph = (function () {
         var event, i;
         for (i = 0; i < events.length; i++) {
             event = events[i];
-            graph.addNode(event.Id, { label: event.Name });
+            graph.addNode(event.Id, {
+                label: event.Name,
+            });
         }
 
         for (i = 0; i < events.length; i++) {
@@ -16,9 +18,12 @@ var EventGraph = (function () {
                 continue;
             for (var j = 0; j < event.ChildrenEvents.length; j++) {
                 var child = event.ChildrenEvents[j];
-                graph.addEdge(child.Id, event.Id, {
-                    fill: event.ProgressChanging > 0 ? "green" : "red",
-                    label: 'Effective: ' + event.ProgressChanging
+                var color = event.ProgressChanging > 0 ? "green" : "red";
+                graph.addEdge(event.Id, child.Id, {
+                    fill: color,
+                    stroke: color,
+                    label: 'Effective: ' + event.ProgressChanging,
+                    directed: true,
                 });
             }
         }
