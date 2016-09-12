@@ -8,18 +8,18 @@ namespace Dao.Model
     public class Location : BaseModel
     {
         [Required]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public string Desc { get; set; }
+        public virtual string Desc { get; set; }
 
         [Required(ErrorMessage = "Coordinate this location")]
         //TODO change
-        public Point Coordinate { get; set; }
+        public virtual Point Coordinate { get; set; }
 
         [Description("Heroes who there are in current place")]
-        public List<Hero> HeroesInLocation { get; set; }
+        public virtual List<Hero> HeroesInLocation { get; set; }
 
         [Description("Guild who owns current location. Can be null")]
-        public Guild Guild { get; set; } = null;
+        public virtual Guild Guild { get; set; } = null;
     }
 }

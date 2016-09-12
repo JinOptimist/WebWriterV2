@@ -133,6 +133,7 @@
   <ItemGroup>
     <Compile Include="Controllers\RpgController.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
+    <Compile Include="FrontModels\FrontQuest.cs" />
     <Compile Include="FrontModels\FrontEvent.cs" />
     <Compile Include="FrontModels\FrontGuild.cs" />
     <Compile Include="FrontModels\FrontHero.cs" />

@@ -10,16 +10,16 @@ namespace Dao.Model
         [Required]
         [Index(IsUnique = true)]
         [MaxLength(120)]//unique constraint can not be big
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         [Required]
-        public string Desc { get; set; }
+        public virtual string Desc { get; set; }
 
         [Required]
-        public SkillSchool School { get; set; }
+        public virtual SkillSchool School { get; set; }
 
-        public List<State> SelfChanging { get; set; }
-        public List<State> TargetChanging { get; set; }
+        public virtual List<State> SelfChanging { get; set; }
+        public virtual List<State> TargetChanging { get; set; }
     }
 
     //public enum SkillSchool

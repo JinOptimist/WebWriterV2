@@ -39,14 +39,14 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 }
 
                 $http({
-                        method: 'GET',
-                        url: '/Rpg/GetOneQuest',
-                        headers: { 'Accept': 'application/json' }
-                    })
-                    .success(function(response) {
-                            currentQuest = angular.fromJson(response);
-                            deferred.resolve(currentQuest);
-                        });
+                    method: 'GET',
+                    url: '/Rpg/GetOneQuest',
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .success(function (response) {
+                        currentQuest = angular.fromJson(response);
+                        deferred.resolve(currentQuest);
+                    });
                 return deferred.promise;
             },
             setQuest: function (value) {
@@ -99,6 +99,19 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
     .service('heroService', ['$http', '$q', function ($http, $q) {
         var listHeroes = null;
         var selectedHero = null;
+        var defaultHero = {
+            Characteristics: [
+                    { Name: 'Strength', Value: 1, Number: 1 },
+                    { Name: 'Agility', Value: 2, Number: 1 },
+                    { Name: 'Charism', Value: 3, Number: 1 }
+            ],
+            State: [
+                { Name: 'MaxHp', Value: 1, Number: 1 },
+                { Name: 'MaxMp', Value: 2, Number: 1 },
+                { Name: 'CurrentHp', Value: 4, Number: 1 },
+                { Name: 'CurrentMp', Value: 5, Number: 1 },
+            ]
+        };
         return {
             loadListHeroes: function () {
                 var deferred = $q.defer();
@@ -109,14 +122,27 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 }
 
                 $http({
-                        method: 'GET',
-                        url: '/Rpg/GetHeroes',
-                        headers: { 'Accept': 'application/json' }
-                    })
-                    .success(function(response) {
-                            listHeroes = angular.fromJson(response);
-                            deferred.resolve(listHeroes);
-                        });
+                    method: 'GET',
+                    url: '/Rpg/GetHeroes',
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .success(function (response) {
+                        listHeroes = angular.fromJson(response);
+                        deferred.resolve(listHeroes);
+                    });
+                return deferred.promise;
+            },
+            removeHero: function (hero) {
+                var deferred = $q.defer();
+
+                $http({
+                    method: 'GET',
+                    url: '/Rpg/RemoveHero?id=' + hero.Id,
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .success(function (response) {
+                        deferred.resolve(response);
+                    });
                 return deferred.promise;
             },
             addHero: function (newHero) {
@@ -125,25 +151,38 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
 
                 listHeroes.push(newHero);
             },
-            selectHero: function(hero) {
+            saveHero: function (newHero) {
+                $http({
+                    method: 'GET',
+                    url: '/Rpg/SaveHero?jsonHero=' + angular.toJson(newHero),
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .success(function (response) {
+                        deferred.resolve(response);
+                    });
+            },
+            selectHero: function (hero) {
                 selectedHero = hero;
             },
             getSelectedHero: function () {
                 return selectedHero;
             },
-            loadEnemy: function() {
+            loadEnemy: function () {
                 var deferred = $q.defer();
 
                 $http({
-                        method: 'GET',
-                        url: '/Rpg/GetEnemy',
-                        headers: { 'Accept': 'application/json' }
-                    })
-                    .success(function(response) {
+                    method: 'GET',
+                    url: '/Rpg/GetEnemy',
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .success(function (response) {
                         var enemy = angular.fromJson(response);
                         deferred.resolve(enemy);
                     });
                 return deferred.promise;
+            },
+            getDefaultHero: function () {
+                return defaultHero;
             }
         };
     }])
@@ -152,7 +191,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
 
         function updateRaceList(newList) {
             _.each(newList, function (item) {
-                switch (item.value) {
+                switch (item.Value) {
                     case 1:
                         item.src = "/Content/rpg/human.jpg";
                         break;
@@ -196,7 +235,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
 
         function updateSexList(newList) {
             _.each(newList, function (item) {
-                switch (item.value) {
+                switch (item.Value) {
                     case 1:
                         item.src = "/Content/rpg/man.jpg";
                         break;

@@ -7,7 +7,7 @@ using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontHero : BaseFront
+    public class FrontHero : BaseFront<Hero>
     {
         public FrontHero()
         {
@@ -47,5 +47,29 @@ namespace WebWriterV2.FrontModels
         public List<FronEnumPlusValue> State { get; set; }
 
         public List<FrontSkill> Skills { get; set; }
+        public override Hero ToDbModel()
+        {
+            var hero = new Hero
+            {
+                Name = Name,
+                Background = Background,
+                Sex = (Sex)Sex.Value,
+                Race = (Race)Race.Value,
+                State = State.Select(fronEnumPlusValue => new State
+                {
+                    Number = fronEnumPlusValue.Number,
+                    StateType = (StateType) fronEnumPlusValue.Value
+                }).ToList(),
+                Characteristics = Characteristics.Select(x=> new Characteristic
+                {
+                    Number = x.Number,
+                    CharacteristicType = (CharacteristicType) x.Value
+                }).ToList(),
+                Skills = new List<Skill>()
+            };
+
+
+            return hero;
+        }
     }
 }

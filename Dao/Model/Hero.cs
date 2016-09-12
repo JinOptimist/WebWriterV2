@@ -6,23 +6,25 @@ namespace Dao.Model
     public class Hero : BaseModel
     {
         [Required]
-        public string Name { get; set; }
-        public string Background { get; set; }
+        public virtual string Name { get; set; }
+        public virtual string Background { get; set; }
 
         [Required]
-        public Race Race { get; set; }
+        public virtual Race Race { get; set; }
 
         [Required]
-        public Sex Sex { get; set; }
+        public virtual Sex Sex { get; set; }
 
         //[Required]
         //public Location Location { get; set; }
 
-        public List<Characteristic> Characteristics { get; set; }
+        public virtual List<Characteristic> Characteristics { get; set; }
 
-        public List<State> State { get; set; }
+        public virtual List<State> State { get; set; }
 
-        public List<Skill> Skills { get; set; }
+        public virtual List<Skill> Skills { get; set; }
+
+        public virtual Guild Guild { get; set; }
 
         //public List<Thing> Inventory { get; set; }
     }
@@ -41,13 +43,6 @@ namespace Dao.Model
         Муж = 1,
         Жен = 2,
         Скрывает = 3
-    }
-
-    public enum CharacteristicType
-    {
-        Strength = 1,
-        Agility = 2,
-        Charism = 3
     }
 
     public enum StateType

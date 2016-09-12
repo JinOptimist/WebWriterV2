@@ -12,9 +12,9 @@ namespace Dao
             //Configuration.LazyLoadingEnabled = true;
         }
 
-        public DbSet<Quest> Quest { get; set; }
+        //public DbSet<Quest> Quest { get; set; }
 
-        public DbSet<Event> Event { get; set; }
+        //public DbSet<Event> Event { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -30,8 +30,10 @@ namespace Dao
             modelBuilder.Entity<Hero>().HasMany(u => u.Skills).WithMany();
             modelBuilder.Entity<Hero>().HasMany(u => u.State).WithMany();
 
-            modelBuilder.Entity<Skill>().HasRequired(u => u.School).WithMany();
-            modelBuilder.Entity<TrainingRoom>().HasRequired(u => u.School).WithMany();
+            modelBuilder.Entity<Skill>().HasOptional(u => u.School).WithMany();
+            modelBuilder.Entity<TrainingRoom>().HasOptional(u => u.School).WithMany();
+
+            modelBuilder.Entity<Guild>().HasMany(u => u.Heroes).WithOptional(x => x.Guild);
         }
 
         public static void SetInitializer()

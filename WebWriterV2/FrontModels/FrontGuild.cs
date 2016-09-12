@@ -4,7 +4,7 @@ using Dao.Model;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontGuild : BaseFront
+    public class FrontGuild : BaseFront<Guild>
     {
         public FrontGuild()
         {
@@ -34,5 +34,11 @@ namespace WebWriterV2.FrontModels
         public List<FrontHero> Heroes { get; set; }
 
         public List<FrontTrainingRoom> TrainingRooms { get; set; }
+
+        public override Guild ToDbModel()
+        {
+            var guild = new Guild();
+            return guild;
+        }
     }
 }

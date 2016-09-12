@@ -8,10 +8,10 @@
 
     <div class="total-container"  ng-if="step == 1">
         <div class="avatars-container left">
-            <div class="avatar left" ng-repeat="race in RaceList" ng-class="hero.Race == race.value ? 'active' : ''">
-                <input id="race{{race.value}}" type="radio" name="race" ng-model="hero.Race" value="{{race.value}}"/>
-                <label for="race{{race.value}}">
-                    <img ng-src="{{::race.src}}" alt="{{::race.name}}">
+            <div class="avatar left" ng-repeat="race in RaceList" ng-class="hero.Race.Value == race.Value ? 'active' : ''">
+                <input id="race{{race.Value}}" type="radio" name="race" value="{{race.Value}}"/>
+                <label for="race{{race.Value}}" ng-click="selectRace(race)">
+                    <img ng-src="{{::race.src}}" alt="{{::race.Name}}">
                 </label>
             </div>
         </div>
@@ -19,20 +19,20 @@
 
     <div class="total-container" ng-if="step == 2">
         <div class="avatars-container left">
-            <div class="avatar left" ng-repeat="sex in SexList" ng-class="hero.Sex == sex.value ? 'active' : ''">
-                <input id="race{{sex.value}}" type="radio" name="race" ng-model="hero.Sex" value="{{sex.value}}"/>
-                <label for="race{{sex.value}}">
-                    <img ng-src="{{::sex.src}}" alt="{{::sex.name}}">
+            <div class="avatar left" ng-repeat="sex in SexList" ng-class="hero.Sex.Value == sex.Value ? 'active' : ''">
+                <input id="race{{sex.Value}}" type="radio" name="race" value="{{sex.Value}}"/>
+                <label for="race{{sex.Value}}" ng-click="selectSex(sex)">
+                    <img ng-src="{{::sex.src}}" alt="{{::sex.Name}}">
                 </label>
             </div>
         </div>
     </div>
 
     <div style="float: left; width: 300px;" ng-if="step == 3">
-        Name <input type="text" ng-model="hero.EnumValueName"/>
+        Name <input type="text" ng-model="hero.Name"/>
         <div>
             <p>Free stat: {{freeStat}}</p>
-            <p ng-repeat="stat in hero.Characteristics">{{stat.Name}}: {{stat.Value}} <a href="#" ng-click="addStat(stat)">+</a>/<a href="#" ng-click="minusStat(stat)">-</a>
+            <p ng-repeat="stat in hero.Characteristics">{{stat.Name}}: {{stat.Number}} <a href="#" ng-click="addStat(stat)">+</a>/<a href="#" ng-click="minusStat(stat)">-</a>
             </p>
         </div>
     </div>

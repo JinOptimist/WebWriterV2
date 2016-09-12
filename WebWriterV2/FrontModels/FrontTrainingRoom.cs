@@ -4,7 +4,7 @@ using Dao.Model;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontTrainingRoom
+    public class FrontTrainingRoom:BaseFront<TrainingRoom>
     {
         public FrontTrainingRoom()
         {
@@ -12,15 +12,21 @@ namespace WebWriterV2.FrontModels
 
         public FrontTrainingRoom(TrainingRoom room, IEnumerable<Skill> skills)
         {
+            Id = room.Id;
             Name = room.Name;
-            School = new FronEnum(room.School);
+            School = room.School;
             Skills = skills.Select(skill => new FrontSkill(skill)).ToList();
         }
 
         public string Name { get; set; }
 
-        public FronEnum School { get; set; }
+        public SkillSchool School { get; set; }
 
         public List<FrontSkill> Skills { get; set; }
+
+        public override TrainingRoom ToDbModel()
+        {
+            return new TrainingRoom();
+        }
     }
 }

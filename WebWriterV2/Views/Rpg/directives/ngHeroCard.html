@@ -1,13 +1,15 @@
-﻿<div class="hero-card">
+﻿<div class="hero-card">{{recalc()}}
     <p>
         <b>{{hero.Name}}</b> {{hero.Race.Name}} {{hero.Sex.Name}}
     </p>
     <div class="main-bar health-bar">
         <div class="bar" ng-style="hero.healthWidth"></div>
     </div>
+    Hp {{Hp()}}/{{MaxHp()}}
     <div class="main-bar mana-bar">
         <div class="bar" ng-style="hero.manaWidth"></div>
     </div>
+    Mp {{Mp()}}/{{MaxMp()}}
     <hr/>
     <p><span ng-if="hero.State" ng-repeat="state in hero.State">{{state.Name}}: {{state.Number}} | </span></p>
     <p><span ng-if="hero.Characteristics" ng-repeat="characteristic in hero.Characteristics">{{characteristic.Name}}: {{characteristic.Number}} | </span></p>

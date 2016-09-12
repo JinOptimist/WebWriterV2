@@ -7,24 +7,24 @@ namespace Dao.Model
     public class Guild : BaseModel
     {
         [Required]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         [Required]
-        public string Desc { get; set; }
+        public virtual string Desc { get; set; }
 
         [Required]
         [Description("Main resource")]
-        public long Gold { get; set; }
+        public virtual long Gold { get; set; }
 
         [Required]
         [Description("Second resource")]
-        public long Influence { get; set; }
+        public virtual long Influence { get; set; }
 
         [Required]
         public Location Location { get; set; }
 
-        public List<Hero> Heroes { get; set; }
+        public virtual List<Hero> Heroes { get; set; }
 
-        public List<TrainingRoom> TrainingRooms { get; set; }
+        public virtual List<TrainingRoom> TrainingRooms { get; set; }
     }
 }

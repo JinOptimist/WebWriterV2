@@ -9,8 +9,10 @@
         <h3>Ваши Герои</h3>
         <div ng-repeat="hero in guild.Heroes">
             <ng-hero-card hero="hero"></ng-hero-card>
+            <input type="button" value="Отчислить" ng-click="deleteHero(hero, $index)"/>
             <input type="button" value="Выбрать" ng-click="selectHero(hero)"/>
         </div>
+        <input type="button" value="Нанять ещё одного" ng-click="createHero()" />
     </div>
 
     <div class="block300 padding10 left">

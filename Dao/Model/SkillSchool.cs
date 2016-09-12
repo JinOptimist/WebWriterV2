@@ -10,8 +10,8 @@ namespace Dao.Model
         [Required]
         [Index(IsUnique = true)]
         [MaxLength(120)]//unique constraint can not be big
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public string Desc { get; set; }
+        public virtual string Desc { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dao.Model;
 
@@ -43,6 +44,8 @@ namespace WebWriterV2.RpgUtility
                         ChangeOneState(hero, StateType.Gold, 20);
                         break;
                     }
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             switch (hero.Race)

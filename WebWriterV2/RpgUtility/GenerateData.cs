@@ -10,16 +10,16 @@ namespace WebWriterV2.RpgUtility
 {
     public static class GenerateData
     {
-        public static Guild GetGuild()
+        public static Guild GetGuild(List<Hero> heroes, List<SkillSchool> skillSchools)
         {
             var guild = new Guild
             {
                 Name = "Пьяный Бобры",
                 Desc = "Основанна стареющим, но некогда велики воином, трижды спасшим мир, два двыжды убившим саму смерть ну и так по мелочи подвигов",
-                Heroes = GetHeroes(),
+                Heroes = heroes,
                 Influence = 10,
                 Gold = 954,
-                TrainingRooms = GenerateTrainingRooms().Where(x => x.School == SkillSchool.Cold).ToList()
+                TrainingRooms = GenerateTrainingRooms(skillSchools).Where(x=>x.School.Name == "Школа льда").ToList()
             };
 
             var location = new Location
@@ -35,10 +35,10 @@ namespace WebWriterV2.RpgUtility
             return guild;
         }
 
-        public static List<Hero> GetHeroes()
+        public static List<Hero> GetHeroes(List<Skill> skills)
         {
-            //skill count 8
-            var skills = GenerateSkills();
+            var baseSkills = skills.Where(x=>x.School.Name == "Базовые умения").ToList();
+
             var freeman = new Hero
             {
                 Name = "Freeman",
@@ -48,9 +48,9 @@ namespace WebWriterV2.RpgUtility
                 Background = "Сын физика ядерщика",
                 Skills = new List<Skill>()
             };
-            freeman.Skills.AddRange(skills.Where(x => x.School == SkillSchool.Base));
-            freeman.Skills.Add(GenerateSkills()[0]);
-            freeman.Skills.Add(GenerateSkills()[1]);
+            freeman.Skills.AddRange(baseSkills);
+            freeman.Skills.Add(skills[0]);
+            freeman.Skills.Add(skills[1]);
             freeman.SetDefaultState();
 
             var shani = new Hero
@@ -62,9 +62,9 @@ namespace WebWriterV2.RpgUtility
                 Background = "Дочь проститутки",
                 Skills = new List<Skill>()
             };
-            shani.Skills.AddRange(skills.Where(x => x.School == SkillSchool.Base));
-            shani.Skills.Add(GenerateSkills()[3]);
-            shani.Skills.Add(GenerateSkills()[4]);
+            shani.Skills.AddRange(baseSkills);
+            shani.Skills.Add(skills[3]);
+            shani.Skills.Add(skills[4]);
             shani.SetDefaultState();
 
             var ogrimar = new Hero
@@ -76,7 +76,7 @@ namespace WebWriterV2.RpgUtility
                 Background = "В свои 14 трижды убивал",
                 Skills = new List<Skill>()
             };
-            ogrimar.Skills.AddRange(skills.Where(x => x.School == SkillSchool.Base));
+            ogrimar.Skills.AddRange(baseSkills);
             ogrimar.SetDefaultState();
 
             var result = new List<Hero>
@@ -214,13 +214,12 @@ namespace WebWriterV2.RpgUtility
             quest.RootEvent = lvl0Event0;
         }
 
-        public static List<Skill> GenerateSkills()
+        public static List<Skill> GenerateSkills(List<SkillSchool> schools)
         {
-            var schools = GenerateSchools();
-            var baseSchool = schools[0];
-            var coldSchool = schools[1];
-            var fireSchool = schools[2];
-            var niceSchool = schools[3];
+            var baseSchool = schools.FirstOrDefault(x=>x.Name == "Базовые умения");
+            var coldSchool = schools.FirstOrDefault(x=>x.Name == "Школа льда");
+            var fireSchool = schools.FirstOrDefault(x => x.Name == "Школа пламени");
+            var niceSchool = schools.FirstOrDefault(x => x.Name == "Соблазнения");
 
             var skills = new List<Skill>();
 
@@ -298,35 +297,40 @@ namespace WebWriterV2.RpgUtility
             return skills;
         }
 
-        public static List<TrainingRoom> GenerateTrainingRooms()
+        public static List<TrainingRoom> GenerateTrainingRooms(List<SkillSchool> schools)
         {
+            var baseSchool = schools.FirstOrDefault(x => x.Name == "Базовые умения");
+            var coldSchool = schools.FirstOrDefault(x=>x.Name == "Школа льда");
+            var fireSchool = schools.FirstOrDefault(x => x.Name == "Школа пламени");
+            var niceSchool = schools.FirstOrDefault(x => x.Name == "Соблазнения");
+
             var rooms = new List<TrainingRoom>();
 
             rooms.Add(new TrainingRoom
             {
                 Name = "Жаровня",
-                School = SkillSchool.Fire,
+                School = fireSchool,
                 Price = 300
             });
 
             rooms.Add(new TrainingRoom
             {
                 Name = "Холодильник",
-                School = SkillSchool.Cold,
+                School = coldSchool,
                 Price = 120
             });
 
             rooms.Add(new TrainingRoom
             {
                 Name = "Бар",
-                School = SkillSchool.Seduction,
+                School = niceSchool,
                 Price = 500
             });
 
             rooms.Add(new TrainingRoom
             {
                 Name = "Комната посвящения",
-                School = SkillSchool.Base,
+                School = baseSchool,
                 Price = 10
             });
 

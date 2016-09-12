@@ -4,7 +4,7 @@ using Dao.Model;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontEvent
+    public class FrontEvent : BaseFront<Event>
     {
         public FrontEvent()
         {
@@ -19,10 +19,15 @@ namespace WebWriterV2.FrontModels
             ProgressChanging = eventDb.ProgressChanging;
         }
 
-        public long Id { get; set; }
         public string Name { get; set; }
         public string Desc { get; set; }
         public List<FrontEvent> ChildrenEvents { get; set; }
-        public double ProgressChanging { get; set; } = 0;
+        public double ProgressChanging { get; set; }
+
+        public override Event ToDbModel()
+        {
+            var a = new Event();
+            return a;
+        }
     }
 }

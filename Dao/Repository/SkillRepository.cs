@@ -16,7 +16,11 @@ namespace Dao.Repository
 
         public override Skill Get(long id)
         {
-            return Entity.Include(x => x.SelfChanging).Include(x => x.TargetChanging).FirstOrDefault(x => x.Id == id);
+            return Entity
+                .Include(x => x.SelfChanging)
+                .Include(x => x.TargetChanging)
+                .Include(x => x.School)
+                .FirstOrDefault(x => x.Id == id);
         }
 
         public override void Save(Skill skill)
@@ -43,7 +47,7 @@ namespace Dao.Repository
 
         public List<Skill> GetBySchool(SkillSchool skillSchool)
         {
-            return Entity.Where(x => x.School == skillSchool).ToList();
+            return Entity.Where(x => x.School.Id == skillSchool.Id).ToList();
         }
 
         public Dictionary<SkillSchool, List<Skill>> GetBySchools(List<SkillSchool> skillSchool)

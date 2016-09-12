@@ -56,6 +56,9 @@
     <Compile Include="ContextForRepository.cs" />
     <Compile Include="IRepository\IBaseRepository.cs" />
     <Compile Include="IRepository\IEventRepository.cs" />
+    <Compile Include="IRepository\IStateRepository.cs" />
+    <Compile Include="IRepository\ITrainingRoomRepository.cs" />
+    <Compile Include="IRepository\ISkillSchoolRepository.cs" />
     <Compile Include="IRepository\IGuildRepository.cs" />
     <Compile Include="IRepository\IHeroRepository.cs" />
     <Compile Include="IRepository\ISkillRepository.cs" />
@@ -88,6 +91,10 @@
     <Compile Include="Migrations\201609081313356_SkillRefactoring.Designer.cs">
       <DependentUpon>201609081313356_SkillRefactoring.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609121229468_AddSeparateSchoolTable.cs" />
+    <Compile Include="Migrations\201609121229468_AddSeparateSchoolTable.Designer.cs">
+      <DependentUpon>201609121229468_AddSeparateSchoolTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\SkillSchool.cs" />
@@ -104,6 +111,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\EventRepository.cs" />
+    <Compile Include="Repository\StateRepository.cs" />
+    <Compile Include="Repository\TrainingRoomRepository.cs" />
+    <Compile Include="Repository\SkillSchoolRepository.cs" />
     <Compile Include="Repository\GuildRepository.cs" />
     <Compile Include="Repository\HeroRepository.cs" />
     <Compile Include="Repository\SkillRepository.cs" />
@@ -137,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609081313356_SkillRefactoring.resx">
       <DependentUpon>201609081313356_SkillRefactoring.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609121229468_AddSeparateSchoolTable.resx">
+      <DependentUpon>201609121229468_AddSeparateSchoolTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

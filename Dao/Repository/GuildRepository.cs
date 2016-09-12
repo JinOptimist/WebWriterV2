@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using Dao.IRepository;
@@ -20,7 +21,7 @@ namespace Dao.Repository
 
         public override List<Guild> GetAll()
         {
-            return Entity.Include(x => x.Heroes).Include(x => x.TrainingRooms).ToList();
+            return Entity.ToList();
         }
     }
 }

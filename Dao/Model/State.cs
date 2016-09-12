@@ -7,9 +7,9 @@ namespace Dao.Model
     public class State : BaseModel
     {
         [Required]
-        public StateType StateType { get; set; }
+        public virtual StateType StateType { get; set; }
 
         [Required]
-        public long Number { get; set; }
+        public virtual long Number { get; set; }
     }
 }

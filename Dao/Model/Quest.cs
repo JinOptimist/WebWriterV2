@@ -7,26 +7,26 @@ namespace Dao.Model
     public class Quest : BaseModel
     {
         [Required]
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
         [Required]
-        public string Desc { get; set; }
+        public virtual string Desc { get; set; }
 
         [Required]
         [Description("[1.0 = 100%] Эффективность с которой был выполнен квест. При закрытие квеста, умножаем базовую награду на этот коэффицент")]
-        public double Effective { get; set; } = 0;
+        public virtual double Effective { get; set; } = 0;
 
-        [Description("Базовая награда. Меняет статус героя, добавляя ему опыт, деньги, жизни и т.д.")]
-        public Dictionary<CharacteristicType, int> Result { get; set; }
+        //[Description("Базовая награда. Меняет статус героя, добавляя ему опыт, деньги, жизни и т.д.")]
+        //public virtual Dictionary<CharacteristicType, int> Result { get; set; }
 
-        public Hero Executor { get; set; }
+        public virtual Hero Executor { get; set; }
 
         [Required]
         [Description("Стартовый эвент")]
-        public Event RootEvent { get; set; }
+        public virtual Event RootEvent { get; set; }
 
         [Description("Список подсказок. Подсказки можно покупать, что бы узнать о том что тебя ждёт")]
-        public List<string> Tips { get; set; } = new List<string>();
+        public virtual List<string> Tips { get; set; } = new List<string>();
 
         //[Description("Подзадача которая сейчас выполняется героем")]
         //public Event CurentEvent { get; set; }
@@ -34,7 +34,7 @@ namespace Dao.Model
         //[Description("Список уже пройденных подзадача, чьи эффекты были премененны на героя и квест в целом")]
         //public List<Event> History { get; set; } = new List<Event>();
 
-        public List<Event> AllEvents { get; set; }
+        public virtual List<Event> AllEvents { get; set; }
     }
 }
 

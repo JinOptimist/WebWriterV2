@@ -115,13 +115,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
     .controller('createHeroController', [
         '$scope', '$http', '$location', 'heroService', 'raceService', 'sexService',
         function($scope, $http, $location, heroService, raceService, sexService) {
-            $scope.hero = {
-                Characteristics: [
-                    { Name: 'Strength', Value: 1 },
-                    { Name: 'Agility', Value: 1 },
-                    { Name: 'Charism', Value: 1 }
-                ]
-            };
+            $scope.hero = heroService.getDefaultHero();
             $scope.step = 1;
             $scope.freeStat = 10;
             $scope.RaceList = raceService.getRaceList();
@@ -129,21 +123,19 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
 
             $scope.addStat = function(stat) {
                 if ($scope.freeStat > 0) {
-                    stat.Value++;
+                    stat.Number++;
                     $scope.freeStat--;
                 }
             };
             $scope.minusStat = function(stat) {
-                if (stat.Value > 1) {
-                    stat.Value--;
+                if (stat.Number > 1) {
+                    stat.Number--;
                     $scope.freeStat++;
                 }
             };
 
             $scope.nextStep = function() {
-                if ($scope.step < 10) {
-                    $scope.step++;
-                }
+                $scope.step++;
             };
 
             $scope.prevStep = function() {
@@ -152,9 +144,17 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 }
             };
 
+            $scope.selectRace = function(race) {
+                $scope.hero.Race = race;
+            }
+
+            $scope.selectSex = function (sex) {
+                $scope.hero.Sex = sex;
+            }
+
             $scope.saveHero = function() {
-                heroService.addHero($scope.hero);
-                $location.path('/AngularRoute/getQuest');
+                heroService.saveHero($scope.hero);
+                $location.path('/AngularRoute/guild');
             }
         }
     ])
@@ -169,8 +169,8 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
         }
     ])
     .controller('guildController', [
-        '$scope', '$location', 'guildService', 'questService', 'traningRoomService',
-        function($scope, $location, guildService, questService, traningRoomService) {
+        '$scope', '$location', 'guildService', 'questService', 'traningRoomService','heroService',
+        function ($scope, $location, guildService, questService, traningRoomService, heroService) {
             $scope.guild = {};
             guildService.getGuildPromise.then(function(guild) {
                 $scope.guild = guild;
@@ -183,6 +183,16 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             $scope.currentHero = {};
             $scope.selectHero = function(hero) {
                 $scope.currentHero = hero;
+            }
+
+            $scope.deleteHero = function (hero, index) {
+                heroService.removeHero(hero).then(function () {
+                    $scope.guild.Heroes.splice(index, 1);
+                });
+            }
+
+            $scope.createHero = function() {
+                $location.path('/AngularRoute/createHero');
             }
 
             $scope.goToQuest = function(quest) {
@@ -409,7 +419,6 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                     alert(hero.Name + ' is dead');
                     $scope.battleEnd = true;
                 }
-
 
                 hero.healthWidth = { 'width': hpPercent + '%' };
                 hero.manaWidth = { 'width': mpPercent + '%' };

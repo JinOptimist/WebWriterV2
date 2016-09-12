@@ -3,7 +3,7 @@ using Dao.Model;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontSkill : BaseFront
+    public class FrontSkill : BaseFront<Skill>
     {
         public FrontSkill()
         {
@@ -14,8 +14,7 @@ namespace WebWriterV2.FrontModels
             Id = skill.Id;
             Name = skill.Name.Replace(' ', '\u00a0');
             Desc = skill.Desc;
-
-            School = new FronEnum(skill.School);
+            School = skill.School;
 
             SelfChanging = new List<FronEnumPlusValue>();
             if (skill.SelfChanging != null)
@@ -44,6 +43,10 @@ namespace WebWriterV2.FrontModels
         public string Desc { get; set; }
         public List<FronEnumPlusValue> SelfChanging { get; set; }
         public List<FronEnumPlusValue> TargetChanging { get; set; }
-        public FronEnum School { get; set; }
+        public SkillSchool School { get; set; }
+        public override Skill ToDbModel()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

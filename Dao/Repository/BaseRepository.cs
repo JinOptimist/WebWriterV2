@@ -11,7 +11,7 @@ namespace Dao.Repository
         public BaseRepository(WriterContext db)
         {
             Db = db;
-            Entity = Db.Set(typeof(T)).Cast<T>();
+            Entity = Db.Set<T>();
         }
 
         public readonly WriterContext Db;// = ContextForRepository.Context;
