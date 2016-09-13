@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dao.Model;
 
@@ -26,7 +27,7 @@ namespace WebWriterV2.FrontModels
 
         public override TrainingRoom ToDbModel()
         {
-            return new TrainingRoom();
+            throw new NotImplementedException();
         }
     }
 }

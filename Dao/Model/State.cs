@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dao.Model
 {
@@ -10,6 +8,18 @@ namespace Dao.Model
         public virtual StateType StateType { get; set; }
 
         [Required]
-        public virtual long Number { get; set; }
+        public long Number { get; set; }
     }
+
+    //public enum StateType
+    //{
+    //    MaxHp = 1,
+    //    MaxMp = 2,
+    //    Experience = 3,
+    //    CurrentHp = 4,
+    //    CurrentMp = 5,
+    //    Gold = 6,
+    //    Dodge = 7,
+    //    Trust = 8,
+    //}
 }

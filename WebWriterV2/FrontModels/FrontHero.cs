@@ -21,20 +21,8 @@ namespace WebWriterV2.FrontModels
             Race = new FronEnum(hero.Race);
             Sex = new FronEnum(hero.Sex);
 
-            Characteristics = new List<FronEnumPlusValue>();
-            foreach (var characteristic in hero.Characteristics)
-            {
-                var frontEnum = new FronEnum(characteristic.CharacteristicType);
-                Characteristics.Add(new FronEnumPlusValue(frontEnum, characteristic.Number));
-            }
-
-            State = new List<FronEnumPlusValue>();
-            foreach (var state in hero.State)
-            {
-                var fronEnum = new FronEnum(state.StateType);
-                State.Add(new FronEnumPlusValue(fronEnum, state.Number));
-            }
-
+            Characteristics = hero.Characteristics.Select(x => new FrontCharacteristic(x)).ToList();
+            State = hero.State.Select(x => new FrontState(x)).ToList();
             Skills = hero.Skills.Select(x => new FrontSkill(x)).ToList();
         }
 
@@ -43,8 +31,8 @@ namespace WebWriterV2.FrontModels
         public FronEnum Race { get; set; }
         public FronEnum Sex { get; set; }
 
-        public List<FronEnumPlusValue> Characteristics { get; set; }
-        public List<FronEnumPlusValue> State { get; set; }
+        public List<FrontCharacteristic> Characteristics { get; set; }
+        public List<FrontState> State { get; set; }
 
         public List<FrontSkill> Skills { get; set; }
         public override Hero ToDbModel()
@@ -55,19 +43,10 @@ namespace WebWriterV2.FrontModels
                 Background = Background,
                 Sex = (Sex)Sex.Value,
                 Race = (Race)Race.Value,
-                State = State.Select(fronEnumPlusValue => new State
-                {
-                    Number = fronEnumPlusValue.Number,
-                    StateType = (StateType) fronEnumPlusValue.Value
-                }).ToList(),
-                Characteristics = Characteristics.Select(x=> new Characteristic
-                {
-                    Number = x.Number,
-                    CharacteristicType = (CharacteristicType) x.Value
-                }).ToList(),
-                Skills = new List<Skill>()
+                State = State.Select(x => x.ToDbModel()).ToList(),
+                Characteristics = Characteristics.Select(x => x.ToDbModel()).ToList(),
+                Skills = Skills.Select(x => x.ToDbModel()).ToList()
             };
-
 
             return hero;
         }

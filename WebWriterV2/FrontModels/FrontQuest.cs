@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dao.Model;
 
@@ -26,8 +27,7 @@ namespace WebWriterV2.FrontModels
 
         public override Quest ToDbModel()
         {
-            var quest = new Quest();
-            return quest;
+            throw new NotImplementedException();
         }
     }
 }

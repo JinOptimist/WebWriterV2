@@ -13,10 +13,10 @@ namespace Dao.Model
         public virtual long Number { get; set; }
     }
 
-    public enum CharacteristicType
-    {
-        Strength = 1,
-        Agility = 2,
-        Charism = 3
-    }
+    //public enum CharacteristicType
+    //{
+    //    Strength = 1,
+    //    Agility = 2,
+    //    Charism = 3
+    //}
 }

@@ -44,16 +44,4 @@ namespace Dao.Model
         Жен = 2,
         Скрывает = 3
     }
-
-    public enum StateType
-    {
-        MaxHp = 1,
-        MaxMp = 2,
-        Experience = 3,
-        CurrentHp = 4,
-        CurrentMp = 5,
-        Gold = 6,
-        Dodge = 7,
-        Trust = 8,
-    }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Dao.Model;
 
@@ -26,8 +27,7 @@ namespace WebWriterV2.FrontModels
 
         public override Event ToDbModel()
         {
-            var a = new Event();
-            return a;
+            throw new NotImplementedException();
         }
     }
 }

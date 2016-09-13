@@ -29,7 +29,11 @@ namespace WebWriterV2.Controllers
         public IGuildRepository GuildRepository { get; set; }
         public ISkillSchoolRepository SkillSchoolRepository { get; set; }
         public ITrainingRoomRepository TrainingRoomRepository { get; set; }
+        public ICharacteristicRepository CharacteristicRepository { get; set; }
+        public ICharacteristicTypeRepository CharacteristicTypeRepository { get; set; }
         public IStateRepository StateRepository { get; set; }
+        public IStateTypeRepository StateTypeRepository { get; set; }
+
 
         public RpgController()
         {
@@ -40,7 +44,10 @@ namespace WebWriterV2.Controllers
             GuildRepository = new GuildRepository(_context);
             SkillSchoolRepository = new SkillSchoolRepository(_context);
             TrainingRoomRepository = new TrainingRoomRepository(_context);
+            CharacteristicRepository = new CharacteristicRepository(_context);
+            CharacteristicTypeRepository = new CharacteristicTypeRepository(_context);
             StateRepository = new StateRepository(_context);
+            StateTypeRepository = new StateTypeRepository(_context);
 
             //using (var scope = StaticContainer.Container.BeginLifetimeScope())
             //{
@@ -316,7 +323,7 @@ namespace WebWriterV2.Controllers
         /* ************** Event ************** */
         public JsonResult GetAllEvents(long questId)
         {
-            var events = EventRepository.GetEventsWithChildren(questId);
+            var events = EventRepository.GetByQuest(questId);
             var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
             return new JsonResult
             {
@@ -327,7 +334,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult GetEventChildren(long id)
         {
-            var eventFromDb = EventRepository.GetWithChildren(id);
+            var eventFromDb = EventRepository.Get(id);
             var frontEvents = new FrontEvent(eventFromDb);
             return new JsonResult
             {
@@ -339,6 +346,7 @@ namespace WebWriterV2.Controllers
         /* ************** Init Db ************** */
         public JsonResult Init()
         {
+            /* Создаём Квесты (Event внутри) */
             var quests = QuestRepository.GetAll();
             if (!quests.Any())
             {
@@ -346,6 +354,21 @@ namespace WebWriterV2.Controllers
                 QuestRepository.Save(quest);
             }
 
+            /* Создаём StateType */
+            var stateTypes = StateTypeRepository.GetAll();
+            if (!stateTypes.Any())
+            {
+                stateTypes = GenerateData.GenerateStateTypes();
+                StateTypeRepository.Save(stateTypes);
+            }
+
+            /* Создаём CharacteristicType */
+            var characteristicTypes = CharacteristicTypeRepository.GetAll();
+            if (!characteristicTypes.Any())
+            {
+                characteristicTypes = GenerateData.GenerateCharacteristicType(stateTypes);
+                CharacteristicTypeRepository.Save(characteristicTypes);
+            }
 
             /* Создаём Школы умений */
             var skillSchools = SkillSchoolRepository.GetAll();
@@ -360,7 +383,7 @@ namespace WebWriterV2.Controllers
             var skills = SkillRepository.GetAll();
             if (!skills.Any())
             {
-                skills = GenerateData.GenerateSkills(skillSchools);
+                skills = GenerateData.GenerateSkills(skillSchools, stateTypes);
                 SkillRepository.Save(skills);
             }
 
@@ -369,7 +392,7 @@ namespace WebWriterV2.Controllers
             var heroExist = heroes.Any();
             if (!heroExist)
             {
-                heroes = GenerateData.GetHeroes(skills);
+                heroes = GenerateData.GetHeroes(skills, characteristicTypes, stateTypes);
                 HeroRepository.Save(heroes);
             }
 
@@ -405,11 +428,20 @@ namespace WebWriterV2.Controllers
             var states = StateRepository.GetAll();
             StateRepository.Remove(states);
 
+            var characteristicTypes = CharacteristicTypeRepository.GetAll();
+            CharacteristicTypeRepository.Remove(characteristicTypes);
+
+            var characteristic = CharacteristicRepository.GetAll();
+            CharacteristicRepository.Remove(characteristic);
+
             var skills = SkillRepository.GetAll();
             SkillRepository.Remove(skills);
 
             var skillSchools = SkillSchoolRepository.GetAll();
             SkillSchoolRepository.Remove(skillSchools);
+
+            var heroes = HeroRepository.GetAll();
+            HeroRepository.Remove(heroes);
 
             var guilds = GuildRepository.GetAll();
             GuildRepository.Remove(guilds);
@@ -419,9 +451,6 @@ namespace WebWriterV2.Controllers
 
             var quests = QuestRepository.GetAll();
             QuestRepository.Remove(quests);
-
-            var heroes = HeroRepository.GetAll();
-            HeroRepository.Remove(heroes);
 
             return Init();
         }

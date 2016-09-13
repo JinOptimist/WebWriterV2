@@ -7,125 +7,119 @@ namespace WebWriterV2.RpgUtility
 {
     public static class StateHelper
     {
-        public static void SetDefaultState(this Hero hero)
+        public static void SetDefaultState(this Hero hero, List<StateType> stateTypes)
         {
+            var maxHp = stateTypes.First(x => x.Name == GenerateData.MaxHp);
+            var hp = stateTypes.First(x => x.Name == GenerateData.Hp);
+            var maxMp = stateTypes.First(x => x.Name == GenerateData.MaxMp);
+            var mp = stateTypes.First(x => x.Name == GenerateData.Mp);
+
+            var gold = stateTypes.First(x => x.Name == GenerateData.Gold);
+            var dodge = stateTypes.First(x => x.Name == GenerateData.Dodge);
+
+            /* Set zeroes */
             hero.State = new List<State>
             {
-                new State {StateType = StateType.MaxHp, Number = 0},
-                new State {StateType = StateType.MaxMp, Number = 0},
-                new State {StateType = StateType.Dodge, Number = 0},
-                new State {StateType = StateType.Gold, Number = 0}
+                new State {StateType = maxHp, Number = 0},
+                new State {StateType = maxMp, Number = 0},
+                new State {StateType = dodge, Number = 0},
+                new State {StateType = gold, Number = 0}
             };
 
+            /* Set Race specification */
+            switch (hero.Race)
+            {
+                case Race.Человек:
+                    {
+                        ChangeOneState(hero, maxHp, 5);
+                        ChangeOneState(hero, maxMp, 5);
+                        ChangeOneState(hero, dodge, 5);
+                        ChangeOneState(hero, gold, 10);
+                        break;
+                    }
+                case Race.Эльф:
+                    {
+                        ChangeOneState(hero, maxHp, 2);
+                        ChangeOneState(hero, maxMp, 10);
+                        ChangeOneState(hero, dodge, 15);
+                        ChangeOneState(hero, gold, 10);
+                        break;
+                    }
+                case Race.Орк:
+                    {
+                        ChangeOneState(hero, maxHp, 20);
+                        ChangeOneState(hero, maxMp, -5);
+                        ChangeOneState(hero, dodge, -5);
+                        ChangeOneState(hero, gold, 0);
+                        break;
+                    }
+                case Race.Гном:
+                    {
+                        ChangeOneState(hero, maxHp, 10);
+                        ChangeOneState(hero, maxMp, -5);
+                        ChangeOneState(hero, dodge, -5);
+                        ChangeOneState(hero, gold, 50);
+                        break;
+                    }
+                case Race.Дракон:
+                    {
+                        ChangeOneState(hero, maxHp, 20);
+                        ChangeOneState(hero, maxMp, 2);
+                        ChangeOneState(hero, dodge, 0);
+                        ChangeOneState(hero, gold, 100);
+                        break;
+                    }
+                default:
+                    {
+                        ChangeOneState(hero, maxHp, 5);
+                        ChangeOneState(hero, maxMp, 5);
+                        ChangeOneState(hero, dodge, 5);
+                        ChangeOneState(hero, gold, 5);
+                        break;
+                    }
+            }
 
+            /* Set Sex specification */
             switch (hero.Sex)
             {
                 case Sex.Жен:
                     {
-                        ChangeOneState(hero, StateType.MaxHp, 5);
-                        ChangeOneState(hero, StateType.MaxMp, 10);
-                        ChangeOneState(hero, StateType.Dodge, 10);
-                        ChangeOneState(hero, StateType.Gold, 10);
+                        ChangeOneState(hero, maxHp, 5);
+                        ChangeOneState(hero, maxMp, 10);
+                        ChangeOneState(hero, dodge, 10);
+                        ChangeOneState(hero, gold, 10);
                         break;
                     }
                 case Sex.Муж:
                     {
-                        ChangeOneState(hero, StateType.MaxHp, 10);
-                        ChangeOneState(hero, StateType.MaxMp, 5);
-                        ChangeOneState(hero, StateType.Dodge, 5);
-                        ChangeOneState(hero, StateType.Gold, 5);
+                        ChangeOneState(hero, maxHp, 10);
+                        ChangeOneState(hero, maxMp, 5);
+                        ChangeOneState(hero, dodge, 5);
+                        ChangeOneState(hero, gold, 5);
                         break;
                     }
                 case Sex.Скрывает:
                     {
-                        ChangeOneState(hero, StateType.MaxHp, 7);
-                        ChangeOneState(hero, StateType.MaxMp, 7);
-                        ChangeOneState(hero, StateType.Dodge, 15);
-                        ChangeOneState(hero, StateType.Gold, 20);
+                        ChangeOneState(hero, maxHp, 7);
+                        ChangeOneState(hero, maxMp, 7);
+                        ChangeOneState(hero, dodge, 15);
+                        ChangeOneState(hero, gold, 20);
                         break;
                     }
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
-            switch (hero.Race)
-            {
-                case Race.Человек:
-                    {
-                        ChangeOneState(hero, StateType.MaxHp, 5);
-                        ChangeOneState(hero, StateType.MaxMp, 5);
-                        ChangeOneState(hero, StateType.Dodge, 5);
-                        ChangeOneState(hero, StateType.Gold, 10);
-                        break;
-                    }
-                case Race.Эльф:
-                    {
-                        ChangeOneState(hero, StateType.MaxHp, 2);
-                        ChangeOneState(hero, StateType.MaxMp, 10);
-                        ChangeOneState(hero, StateType.Dodge, 15);
-                        ChangeOneState(hero, StateType.Gold, 10);
-                        break;
-                    }
-                case Race.Орк:
-                    {
-                        ChangeOneState(hero, StateType.MaxHp, 20);
-                        ChangeOneState(hero, StateType.MaxMp, -5);
-                        ChangeOneState(hero, StateType.Dodge, -5);
-                        ChangeOneState(hero, StateType.Gold, 0);
-                        break;
-                    }
-                case Race.Гном:
-                    {
-                        ChangeOneState(hero, StateType.MaxHp, 10);
-                        ChangeOneState(hero, StateType.MaxMp, -5);
-                        ChangeOneState(hero, StateType.Dodge, -5);
-                        ChangeOneState(hero, StateType.Gold, 50);
-                        break;
-                    }
-                case Race.Дракон:
-                    {
-                        ChangeOneState(hero, StateType.MaxHp, 20);
-                        ChangeOneState(hero, StateType.MaxMp, 2);
-                        ChangeOneState(hero, StateType.Dodge, 0);
-                        ChangeOneState(hero, StateType.Gold, 100);
-                        break;
-                    }
-                default:
-                    {
-                        ChangeOneState(hero, StateType.MaxHp, 5);
-                        ChangeOneState(hero, StateType.MaxMp, 5);
-                        ChangeOneState(hero, StateType.Dodge, 5);
-                        ChangeOneState(hero, StateType.Gold, 5);
-                        break;
-                    }
-            }
-
             foreach (var characteristic in hero.Characteristics)
             {
-                switch (characteristic.CharacteristicType)
-                {
-                    case CharacteristicType.Strength:
-                        {
-                            ChangeOneState(hero, StateType.MaxHp, characteristic.Number * 2);
-                            break;
-                        }
-                    case CharacteristicType.Agility:
-                        {
-                            ChangeOneState(hero, StateType.Dodge, characteristic.Number * 2);
-                            break;
-                        }
-                    case CharacteristicType.Charism:
-                        {
-                            ChangeOneState(hero, StateType.Gold, characteristic.Number * 2);
-                            break;
-                        }
-                }
+                characteristic.CharacteristicType.EffectState.ForEach(x=>ChangeOneState(hero, x.StateType, x.Number));
             }
 
-            var maxHp = hero.State.First(x => x.StateType == StateType.MaxHp).Number;
-            var maxMp = hero.State.First(x => x.StateType == StateType.MaxMp).Number;
-            hero.State.Add(new State { StateType = StateType.CurrentHp, Number = maxHp });
-            hero.State.Add(new State { StateType = StateType.CurrentMp, Number = maxMp });
+            var maxHpNumber = hero.State.First(x => x.StateType == maxHp).Number;
+            var maxMpNumber = hero.State.First(x => x.StateType == maxMp).Number;
+
+            hero.State.Add(new State { StateType = hp, Number = maxHpNumber });
+            hero.State.Add(new State { StateType = mp, Number = maxMpNumber });
         }
 
         public static void ChangeOneState(this Hero hero, StateType stateType, long addingNumber)

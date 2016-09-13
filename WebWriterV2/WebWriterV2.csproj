@@ -133,11 +133,14 @@
   <ItemGroup>
     <Compile Include="Controllers\RpgController.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
+    <Compile Include="FrontModels\FrontState.cs" />
+    <Compile Include="FrontModels\FrontCharacteristicType.cs" />
     <Compile Include="FrontModels\FrontQuest.cs" />
     <Compile Include="FrontModels\FrontEvent.cs" />
     <Compile Include="FrontModels\FrontGuild.cs" />
     <Compile Include="FrontModels\FrontHero.cs" />
     <Compile Include="FrontModels\FronEnum.cs" />
+    <Compile Include="FrontModels\FrontCharacteristic.cs" />
     <Compile Include="FrontModels\FrontTrainingRoom.cs" />
     <Compile Include="FrontModels\FrontSkill.cs" />
     <Compile Include="RpgUtility\StateHelper.cs" />

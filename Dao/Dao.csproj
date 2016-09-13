@@ -56,6 +56,9 @@
     <Compile Include="ContextForRepository.cs" />
     <Compile Include="IRepository\IBaseRepository.cs" />
     <Compile Include="IRepository\IEventRepository.cs" />
+    <Compile Include="IRepository\ICharacteristicTypeRepository.cs" />
+    <Compile Include="IRepository\ICharacteristicRepository.cs" />
+    <Compile Include="IRepository\IStateTypeRepository.cs" />
     <Compile Include="IRepository\IStateRepository.cs" />
     <Compile Include="IRepository\ITrainingRoomRepository.cs" />
     <Compile Include="IRepository\ISkillSchoolRepository.cs" />
@@ -95,9 +98,19 @@
     <Compile Include="Migrations\201609121229468_AddSeparateSchoolTable.Designer.cs">
       <DependentUpon>201609121229468_AddSeparateSchoolTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201609131359294_HellTypeStateAndChara.cs" />
+    <Compile Include="Migrations\201609131359294_HellTypeStateAndChara.Designer.cs">
+      <DependentUpon>201609131359294_HellTypeStateAndChara.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609131414106_RemoveParentEventFromEvent.cs" />
+    <Compile Include="Migrations\201609131414106_RemoveParentEventFromEvent.Designer.cs">
+      <DependentUpon>201609131414106_RemoveParentEventFromEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
+    <Compile Include="Model\CharacteristicType.cs" />
     <Compile Include="Model\SkillSchool.cs" />
+    <Compile Include="Model\StateType.cs" />
     <Compile Include="Model\State.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\Characteristic.cs" />
@@ -111,6 +124,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\EventRepository.cs" />
+    <Compile Include="Repository\CharacteristicTypeRepository.cs" />
+    <Compile Include="Repository\CharacteristicRepository.cs" />
+    <Compile Include="Repository\StateTypeRepository.cs" />
     <Compile Include="Repository\StateRepository.cs" />
     <Compile Include="Repository\TrainingRoomRepository.cs" />
     <Compile Include="Repository\SkillSchoolRepository.cs" />
@@ -150,6 +166,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609121229468_AddSeparateSchoolTable.resx">
       <DependentUpon>201609121229468_AddSeparateSchoolTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609131359294_HellTypeStateAndChara.resx">
+      <DependentUpon>201609131359294_HellTypeStateAndChara.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609131414106_RemoveParentEventFromEvent.resx">
+      <DependentUpon>201609131414106_RemoveParentEventFromEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -21,7 +21,7 @@ namespace Dao.Repository
             if (currentEvent == null)
                 return;
             if (currentEvent.ChildrenEvents == null)
-                currentEvent = GetWithParentAndChildren(currentEvent.Id);
+                currentEvent = Get(currentEvent.Id);
 
             if (!currentEvent.ChildrenEvents.Any())
             {
@@ -30,29 +30,19 @@ namespace Dao.Repository
             }
 
             var forDelete = currentEvent.ChildrenEvents.ToList();
-            forDelete.ForEach(eve => Remove(eve));
+            forDelete.ForEach(Remove);
             base.Remove(currentEvent);
         }
 
         public override void Remove(long id)
         {
-            var currentEvent = GetWithParentAndChildren(id);
+            var currentEvent = Get(id);
             Remove(currentEvent);
         }
 
-        public Event GetWithParentAndChildren(long id)
+        public List<Event> GetByQuest(long questId)
         {
-            return Entity.Include(x => x.ChildrenEvents).Include(x => x.ParentEvents).FirstOrDefault(x => x.Id == id);
-        }
-
-        public Event GetWithChildren(long id)
-        {
-            return Entity.Include(x => x.ChildrenEvents).FirstOrDefault(x => x.Id == id);
-        }
-
-        public List<Event> GetEventsWithChildren(long questId)
-        {
-            return Entity.Include(x => x.ChildrenEvents).Where(x => x.Quest.Id == questId).ToList();
+            return Entity.Where(x => x.Quest.Id == questId).ToList();
         }
 
         public List<Event> GetRootEvents()
