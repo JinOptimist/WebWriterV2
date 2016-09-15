@@ -12,37 +12,33 @@ namespace WebWriterV2.FrontModels
         public FrontSkill(Skill skill)
         {
             Id = skill.Id;
-            Name = skill.Name.Replace(' ', '\u00a0');
+            Name = skill.Name.Replace(' ', '\u00a0');// u00a0 == &nbsp;
             Desc = skill.Desc;
             School = skill.School;
 
-            SelfChanging = new List<FronEnumPlusValue>();
+            SelfChanging = new List<FrontState>();
             if (skill.SelfChanging != null)
             {
                 foreach (var state in skill.SelfChanging)
                 {
-                    var fronEnum = new FronEnum(state.StateType);
-                    var number = state.Number;
-                    SelfChanging.Add(new FronEnumPlusValue(fronEnum, number));
+                    SelfChanging.Add(new FrontState(state));
                 }
             }
 
-            TargetChanging = new List<FronEnumPlusValue>();
+            TargetChanging = new List<FrontState>();
             if (skill.TargetChanging != null)
             {
                 foreach (var state in skill.TargetChanging)
                 {
-                    var fronEnum = new FronEnum(state.StateType);
-                    var number = state.Number;
-                    TargetChanging.Add(new FronEnumPlusValue(fronEnum, number));
+                    TargetChanging.Add(new FrontState(state));
                 }
             }
         }
 
         public string Name { get; set; }
         public string Desc { get; set; }
-        public List<FronEnumPlusValue> SelfChanging { get; set; }
-        public List<FronEnumPlusValue> TargetChanging { get; set; }
+        public List<FrontState> SelfChanging { get; set; }
+        public List<FrontState> TargetChanging { get; set; }
         public SkillSchool School { get; set; }
         public override Skill ToDbModel()
         {

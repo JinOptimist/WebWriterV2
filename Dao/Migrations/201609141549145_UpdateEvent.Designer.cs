@@ -7,13 +7,13 @@ namespace Dao.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class RemoveParentEventFromEvent : IMigrationMetadata
+    public sealed partial class UpdateEvent : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(RemoveParentEventFromEvent));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateEvent));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609131414106_RemoveParentEventFromEvent"; }
+            get { return "201609141549145_UpdateEvent"; }
         }
         
         string IMigrationMetadata.Source

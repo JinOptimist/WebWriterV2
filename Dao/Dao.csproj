@@ -102,9 +102,13 @@
     <Compile Include="Migrations\201609131359294_HellTypeStateAndChara.Designer.cs">
       <DependentUpon>201609131359294_HellTypeStateAndChara.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201609131414106_RemoveParentEventFromEvent.cs" />
-    <Compile Include="Migrations\201609131414106_RemoveParentEventFromEvent.Designer.cs">
-      <DependentUpon>201609131414106_RemoveParentEventFromEvent.cs</DependentUpon>
+    <Compile Include="Migrations\201609141549145_UpdateEvent.cs" />
+    <Compile Include="Migrations\201609141549145_UpdateEvent.Designer.cs">
+      <DependentUpon>201609141549145_UpdateEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201609151446467_Way7ToFixEvent.cs" />
+    <Compile Include="Migrations\201609151446467_Way7ToFixEvent.Designer.cs">
+      <DependentUpon>201609151446467_Way7ToFixEvent.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
@@ -170,8 +174,11 @@
     <EmbeddedResource Include="Migrations\201609131359294_HellTypeStateAndChara.resx">
       <DependentUpon>201609131359294_HellTypeStateAndChara.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609131414106_RemoveParentEventFromEvent.resx">
-      <DependentUpon>201609131414106_RemoveParentEventFromEvent.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201609141549145_UpdateEvent.resx">
+      <DependentUpon>201609141549145_UpdateEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201609151446467_Way7ToFixEvent.resx">
+      <DependentUpon>201609151446467_Way7ToFixEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

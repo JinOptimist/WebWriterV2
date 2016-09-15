@@ -21,7 +21,6 @@ namespace Dao.Model
 
         public virtual Hero Executor { get; set; }
 
-        [Required]
         [Description("Стартовый эвент")]
         public virtual Event RootEvent { get; set; }
 

@@ -12,7 +12,7 @@ namespace Dao.Model
         [Required]
         public virtual string Desc { get; set; }
 
-        //public virtual List<Event> ParentEvents { get; set; }
+        public virtual List<Event> ParentEvents { get; set; }
 
         public virtual List<Event> ChildrenEvents { get; set; }
 
@@ -28,5 +28,6 @@ namespace Dao.Model
         //public Dictionary<StateType, long> CharacteristicsChanging { get; set; }
 
         public virtual Quest Quest { get; set; }
+        public virtual Quest ForRootQuest { get; set; }
     }
 }
