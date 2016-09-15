@@ -21,6 +21,11 @@ namespace WebWriterV2.RpgUtility
         public const string Agility = "Ловкость";
         public const string Charism = "Красота";
 
+        public const string SchoolBaseSkillName = "Базовые умения";
+        public const string SchoolColdSkillName = "Школа льда";
+        public const string SchoolFireSkillName = "Школа пламени";
+        public const string SchoolNiceSkillName = "Соблазнения";
+
         public static Guild GetGuild(List<Hero> heroes, List<SkillSchool> skillSchools)
         {
             var guild = new Guild
@@ -48,7 +53,7 @@ namespace WebWriterV2.RpgUtility
 
         public static List<Hero> GetHeroes(List<Skill> skills, List<CharacteristicType> characteristicTypes, List<StateType> stateTypes)
         {
-            var baseSkills = skills.Where(x => x.School.Name == "Базовые умения").ToList();
+            var baseSkills = skills.Where(x => x.School.Name == SchoolBaseSkillName).ToList();
 
             var freeman = new Hero
             {
@@ -433,29 +438,40 @@ namespace WebWriterV2.RpgUtility
 
             schools.Add(new SkillSchool
             {
-                Name = "Базовые умения",
+                Name = SchoolBaseSkillName,
                 Desc = "Доступны всем по умолчанию. Ну разве что кроме совсем 'одарённых'"
             });
 
             schools.Add(new SkillSchool
             {
-                Name = "Школа льда",
+                Name = SchoolColdSkillName,
                 Desc = "Охладись и начинай"
             });
 
             schools.Add(new SkillSchool
             {
-                Name = "Школа пламени",
+                Name = SchoolFireSkillName,
                 Desc = "Для тех кто любит зажигать"
             });
 
             schools.Add(new SkillSchool
             {
-                Name = "Соблазнения",
+                Name = SchoolNiceSkillName,
                 Desc = "Всё то что поможет вам убедить людей, без грубой силой"
             });
 
             return schools;
+        }
+
+        public static Hero GetDefaultHero(List<StateType> stateTypes, List<CharacteristicType> characteristicTypes, List<Skill> skills)
+        {
+            var hero = new Hero();
+
+            hero.State = stateTypes.Select(x => new State { Number = 1, StateType = x }).ToList();
+            hero.Characteristics = characteristicTypes.Select(x => new Characteristic { Number = 1, CharacteristicType = x }).ToList();
+            hero.Skills = skills;
+
+            return hero;
         }
     }
 }

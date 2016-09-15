@@ -34,7 +34,6 @@ namespace WebWriterV2.Controllers
         public IStateRepository StateRepository { get; set; }
         public IStateTypeRepository StateTypeRepository { get; set; }
 
-
         public RpgController()
         {
             EventRepository = new EventRepository(_context);
@@ -203,6 +202,23 @@ namespace WebWriterV2.Controllers
         {
             var heroes = HeroRepository.GetAll();
             var frontHero = new FrontHero(heroes.LastOrDefault());
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(frontHero),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult GetDefaultHero()
+        {
+            var stateTypes = StateTypeRepository.GetAll();
+            var characteristicTypes = CharacteristicTypeRepository.GetAll();
+
+            var skillSchool = SkillSchoolRepository.GetByName(GenerateData.SchoolBaseSkillName);
+            var skills = SkillRepository.GetBySchool(skillSchool);
+
+            var hero = GenerateData.GetDefaultHero(stateTypes, characteristicTypes, skills);
+            var frontHero = new FrontHero(hero);
             return new JsonResult
             {
                 Data = SerializeHelper.Serialize(frontHero),

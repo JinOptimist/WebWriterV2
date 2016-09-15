@@ -1,4 +1,5 @@
-﻿using Dao.IRepository;
+﻿using System.Linq;
+using Dao.IRepository;
 using Dao.Model;
 
 namespace Dao.Repository
@@ -7,6 +8,11 @@ namespace Dao.Repository
     {
         public SkillSchoolRepository(WriterContext db) : base(db)
         {
+        }
+
+        public SkillSchool GetByName(string name)
+        {
+            return Entity.FirstOrDefault(x => x.Name == name);
         }
     }
 }

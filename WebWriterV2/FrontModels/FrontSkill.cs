@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Dao.Model;
 
 namespace WebWriterV2.FrontModels
@@ -42,7 +43,16 @@ namespace WebWriterV2.FrontModels
         public SkillSchool School { get; set; }
         public override Skill ToDbModel()
         {
-            throw new System.NotImplementedException();
+            var skill = new Skill
+            {
+                Id = Id,
+                Name = Name,
+                Desc = Desc,
+                School = null,
+                SelfChanging = SelfChanging.Select(x=>x.ToDbModel()).ToList(),
+                TargetChanging = TargetChanging.Select(x => x.ToDbModel()).ToList(),
+            };
+            return skill;
         }
     }
 }

@@ -121,16 +121,33 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             $scope.RaceList = raceService.getRaceList();
             $scope.SexList = sexService.getSexList();
 
+            function updateState(stateChanges, positive) {
+                var heroState = $scope.hero.State;
+
+                var curStat = heroState.find(function (hState) {
+                    return hState.StateType.Id == stateChanges.StateType.Id;
+                });
+                curStat.Number += stateChanges.Number * positive;
+            }
+
             $scope.addStat = function(stat) {
                 if ($scope.freeStat > 0) {
                     stat.Number++;
                     $scope.freeStat--;
+
+                    _.each(stat.CharacteristicType.State, function(effState) {
+                        updateState(effState, 1);
+                    });
                 }
             };
             $scope.minusStat = function(stat) {
                 if (stat.Number > 1) {
                     stat.Number--;
                     $scope.freeStat++;
+
+                    _.each(stat.CharacteristicType.State, function (effState) {
+                        updateState(effState, -1);
+                    });
                 }
             };
 
@@ -146,6 +163,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
 
             $scope.selectRace = function(race) {
                 $scope.hero.Race = race;
+
             }
 
             $scope.selectSex = function (sex) {

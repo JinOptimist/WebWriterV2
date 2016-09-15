@@ -32,7 +32,8 @@
         Name <input type="text" ng-model="hero.Name"/>
         <div>
             <p>Free stat: {{freeStat}}</p>
-            <p ng-repeat="stat in hero.Characteristics">{{stat.Name}}: {{stat.Number}} <a href="#" ng-click="addStat(stat)">+</a>/<a href="#" ng-click="minusStat(stat)">-</a>
+            <p ng-repeat="stat in hero.Characteristics">
+                {{stat.CharacteristicType.Name}}: {{stat.Number}} <a href="#" ng-click="addStat(stat)">+</a>/<a href="#" ng-click="minusStat(stat)">-</a>
             </p>
         </div>
     </div>

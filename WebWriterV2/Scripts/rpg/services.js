@@ -8,7 +8,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
     .constant('_',
         window._
     )
-    .run(['$http', 'sexService', 'raceService', function ($http, sexService, raceService) {
+    .run(['$http', 'sexService', 'raceService', 'heroService', function ($http, sexService, raceService, heroService) {
         $http({
             method: 'GET',
             url: '/Rpg/GetListSex',
@@ -25,6 +25,15 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         }).success(function (response) {
             var raceList = angular.fromJson(response);
             raceService.setList(raceList);
+        });
+
+        $http({
+            method: 'GET',
+            url: '/Rpg/GetDefaultHero',
+            headers: { 'Accept': 'application/json' }
+        }).success(function (rawHero) {
+            var hero = angular.fromJson(rawHero);
+            heroService.setDefaultHero(hero);
         });
     }])
     .service('questService', ['$http', '$q', function ($http, $q) {
@@ -99,19 +108,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
     .service('heroService', ['$http', '$q', function ($http, $q) {
         var listHeroes = null;
         var selectedHero = null;
-        var defaultHero = {
-            Characteristics: [
-                    { Name: 'Strength', Value: 1, Number: 1 },
-                    { Name: 'Agility', Value: 2, Number: 1 },
-                    { Name: 'Charism', Value: 3, Number: 1 }
-            ],
-            State: [
-                { Name: 'MaxHp', Value: 1, Number: 1 },
-                { Name: 'MaxMp', Value: 2, Number: 1 },
-                { Name: 'CurrentHp', Value: 4, Number: 1 },
-                { Name: 'CurrentMp', Value: 5, Number: 1 },
-            ]
-        };
+        var defaultHero = {};
         return {
             loadListHeroes: function () {
                 var deferred = $q.defer();
@@ -153,8 +150,9 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             },
             saveHero: function (newHero) {
                 $http({
-                    method: 'GET',
-                    url: '/Rpg/SaveHero?jsonHero=' + angular.toJson(newHero),
+                    method: 'POST',
+                    url: '/Rpg/SaveHero',
+                    data: { jsonHero: angular.toJson(newHero) },
                     headers: { 'Accept': 'application/json' }
                 })
                     .success(function (response) {
@@ -183,6 +181,9 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             },
             getDefaultHero: function () {
                 return defaultHero;
+            },
+            setDefaultHero: function (hero) {
+                defaultHero = hero;
             }
         };
     }])

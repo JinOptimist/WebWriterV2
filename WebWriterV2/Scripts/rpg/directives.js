@@ -28,10 +28,10 @@ angular.module('directives', ['services', 'underscore']) //, ['common', 'search'
                 templateUrl: '/views/rpg/directives/ngHeroCard.html',
                 scope: { hero: '=' },
                 controller: ['$scope', 'raceService', 'sexService', function ($scope, raceService, sexService) {
-                    var maxHpValue = 1;
-                    var maxMpValue = 2;
-                    var currentHpValue = 4;
-                    var currentMpValue = 5;
+                    var maxHpStateName = "MaxHp";
+                    var maxMpStateName = "MaxMp";
+                    var hpStateName = "Hp";
+                    var mpStateName = "Mp";
 
                     $scope.GetTextSex = sexService.getSexWord;
                     $scope.GetTextRace = raceService.getRaceWord;
@@ -42,17 +42,24 @@ angular.module('directives', ['services', 'underscore']) //, ['common', 'search'
                         return '';
                     };
 
-                    $scope.Hp = function() {
-                        return _.where($scope.hero.State, { Value: currentHpValue })[0].Number;
+                    function getState(stateName) {
+                        var currentState = _.find($scope.hero.State, function(state) {
+                            return state.StateType.Name == stateName;
+                        });
+                        return currentState.Number;
+                    }
+
+                    $scope.Hp = function () {
+                        return getState(hpStateName);
                     }
                     $scope.MaxHp = function () {
-                        return _.where($scope.hero.State, { Value: maxHpValue })[0].Number;
+                        return getState(maxHpStateName);
                     }
                     $scope.Mp = function () {
-                        return _.where($scope.hero.State, { Value: currentMpValue })[0].Number;
+                        return getState(mpStateName);
                     }
                     $scope.MaxMp = function () {
-                        return _.where($scope.hero.State, { Value: maxMpValue })[0].Number;
+                        return getState(maxMpStateName);
                     }
 
                     $scope.recalculateState = function () {

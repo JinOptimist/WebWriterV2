@@ -11,8 +11,8 @@
     </div>
     Mp {{Mp()}}/{{MaxMp()}}
     <hr/>
-    <p><span ng-if="hero.State" ng-repeat="state in hero.State">{{state.Name}}: {{state.Number}} | </span></p>
-    <p><span ng-if="hero.Characteristics" ng-repeat="characteristic in hero.Characteristics">{{characteristic.Name}}: {{characteristic.Number}} | </span></p>
+    <p><span ng-if="hero.State" ng-repeat="state in hero.State">{{state.StateType.Name}}: {{state.Number}} | </span></p>
+    <p><span ng-if="hero.Characteristics" ng-repeat="characteristic in hero.Characteristics">{{characteristic.CharacteristicType.Name}}: {{characteristic.Number}} | </span></p>
     <hr />
     <p>
         <b>Умения</b>:
