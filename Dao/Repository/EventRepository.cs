@@ -20,24 +20,31 @@ namespace Dao.Repository
         {
             if (currentEvent == null)
                 return;
-            if (currentEvent.ChildrenEvents == null)
-                currentEvent = Get(currentEvent.Id);
+            currentEvent.ChildrenEvents = currentEvent.ChildrenEvents ?? new List<Event>();
 
-            if (!currentEvent.ChildrenEvents.Any())
+            if (currentEvent.ChildrenEvents.Any())
             {
-                base.Remove(currentEvent);
+                var forDelete = currentEvent.ChildrenEvents.ToList();
+                forDelete.ForEach(Remove);
+            }
+
+            var isDetached = Db.Entry(currentEvent).State == EntityState.Detached;
+            if (isDetached)
+            {
                 return;
             }
 
-            var forDelete = currentEvent.ChildrenEvents.ToList();
-            forDelete.ForEach(Remove);
-            base.Remove(currentEvent);
-        }
+            currentEvent.ChildrenEvents = null;
+            Save(currentEvent);
 
-        public override void Remove(long id)
-        {
-            var currentEvent = Get(id);
-            Remove(currentEvent);
+            var pe = currentEvent.ParentEvents.ToList();
+            foreach (var someEvent in pe)
+            {
+                someEvent.ChildrenEvents.Remove(currentEvent);
+                Save(someEvent);
+            }
+
+            base.Remove(currentEvent);
         }
 
         public List<Event> GetByQuest(long questId)

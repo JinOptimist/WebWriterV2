@@ -23,26 +23,41 @@ namespace Dao.Repository
 
         public override void Save(Skill skill)
         {
+            var isDetached = true;
             var skillByName = GetByName(skill.Name);
             if (skillByName != null && skillByName.Id != skill.Id)
             {
                 throw new DuplicateNameException("Skill cann't has duplication in name");
             }
 
+            skill.SelfChanging = skill.SelfChanging ?? new List<State>();
             foreach (var state in skill.SelfChanging)
             {
-                state.StateType = new StateType { Id = state.StateType.Id };
-                _stateTypeRepository.Entity.Attach(state.StateType);
+                isDetached = _stateTypeRepository.Db.Entry(state.StateType).State == EntityState.Detached;
+                if (isDetached)
+                {
+                    state.StateType = new StateType { Id = state.StateType.Id };
+                    _stateTypeRepository.Entity.Attach(state.StateType);
+                }
             }
 
+            skill.TargetChanging = skill.TargetChanging ?? new List<State>();
             foreach (var state in skill.TargetChanging)
             {
-                state.StateType = new StateType { Id = state.StateType.Id };
-                _stateTypeRepository.Entity.Attach(state.StateType);
+                isDetached = _stateTypeRepository.Db.Entry(state.StateType).State == EntityState.Detached;
+                if (isDetached)
+                {
+                    state.StateType = new StateType { Id = state.StateType.Id };
+                    _stateTypeRepository.Entity.Attach(state.StateType);
+                }
             }
 
-            skill.School = new SkillSchool { Id = skill.School.Id };
-            _skillSchoolRepository.Entity.Attach(skill.School);
+            isDetached = _skillSchoolRepository.Db.Entry(skill.School).State == EntityState.Detached;
+            if (isDetached)
+            {
+                skill.School = new SkillSchool { Id = skill.School.Id };
+                _skillSchoolRepository.Entity.Attach(skill.School);
+            }
 
             base.Save(skill);
             //ignore if we try add new skill with skill

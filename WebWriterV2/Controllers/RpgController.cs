@@ -493,11 +493,11 @@ namespace WebWriterV2.Controllers
             var states = StateRepository.GetAll();
             StateRepository.Remove(states);
 
-            var characteristicTypes = CharacteristicTypeRepository.GetAll();
-            CharacteristicTypeRepository.Remove(characteristicTypes);
-
             var characteristic = CharacteristicRepository.GetAll();
             CharacteristicRepository.Remove(characteristic);
+
+            var characteristicTypes = CharacteristicTypeRepository.GetAll();
+            CharacteristicTypeRepository.Remove(characteristicTypes);
 
             var skills = SkillRepository.GetAll();
             SkillRepository.Remove(skills);

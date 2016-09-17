@@ -9,22 +9,16 @@ namespace WebWriterV2.RpgUtility
     {
         public static void SetDefaultState(this Hero hero, List<StateType> stateTypes)
         {
-            var maxHp = stateTypes.First(x => x.Name == GenerateData.MaxHp);
             var hp = stateTypes.First(x => x.Name == GenerateData.Hp);
-            var maxMp = stateTypes.First(x => x.Name == GenerateData.MaxMp);
+            var maxHp = stateTypes.First(x => x.Name == GenerateData.MaxHp);
             var mp = stateTypes.First(x => x.Name == GenerateData.Mp);
+            var maxMp = stateTypes.First(x => x.Name == GenerateData.MaxMp);
 
             var gold = stateTypes.First(x => x.Name == GenerateData.Gold);
             var dodge = stateTypes.First(x => x.Name == GenerateData.Dodge);
 
             /* Set zeroes */
-            hero.State = new List<State>
-            {
-                new State {StateType = maxHp, Number = 0},
-                new State {StateType = maxMp, Number = 0},
-                new State {StateType = dodge, Number = 0},
-                new State {StateType = gold, Number = 0}
-            };
+            hero.State = stateTypes.Select(stateType => new State { StateType = stateType, Number = 0 }).ToList();
 
             /* Set Race specification */
             switch (hero.Race)
@@ -112,14 +106,14 @@ namespace WebWriterV2.RpgUtility
 
             foreach (var characteristic in hero.Characteristics)
             {
-                characteristic.CharacteristicType.EffectState.ForEach(x=>ChangeOneState(hero, x.StateType, x.Number));
+                characteristic.CharacteristicType.EffectState.ForEach(x => ChangeOneState(hero, x.StateType, x.Number));
             }
 
             var maxHpNumber = hero.State.First(x => x.StateType == maxHp).Number;
             var maxMpNumber = hero.State.First(x => x.StateType == maxMp).Number;
 
-            hero.State.Add(new State { StateType = hp, Number = maxHpNumber });
-            hero.State.Add(new State { StateType = mp, Number = maxMpNumber });
+            hero.State.First(x => x.StateType == hp).Number = maxHpNumber;
+            hero.State.First(x => x.StateType == mp).Number = maxMpNumber;
         }
 
         public static void ChangeOneState(this Hero hero, StateType stateType, long addingNumber)
