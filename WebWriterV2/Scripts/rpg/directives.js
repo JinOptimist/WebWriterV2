@@ -43,6 +43,8 @@ angular.module('directives', ['services', 'underscore']) //, ['common', 'search'
                     };
 
                     function getState(stateName) {
+                        if (!$scope.hero.State)
+                            return -1;
                         var currentState = _.find($scope.hero.State, function(state) {
                             return state.StateType.Name == stateName;
                         });

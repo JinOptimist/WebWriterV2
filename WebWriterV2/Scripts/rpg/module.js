@@ -13,6 +13,12 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
         function($locationProvider, $routeProvider) {
             // Routes configuration
             $routeProvider
+                /* admin */
+                .when('/AngularRoute/adminSkill', {
+                    templateUrl: '/views/rpg/adminSkill.html',
+                    controller: 'adminSkillController'
+                })
+                /* front */
                 .when('/AngularRoute/guild', {
                     templateUrl: '/views/rpg/Guild.html',
                     controller: 'guildController'
@@ -112,10 +118,91 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             }
         }
     ])
+    .controller('adminSkillController', [
+                 '$scope', 'skillService', 'stateService',
+        function ($scope, skillService, stateService) {
+            $scope.skills = [];
+            $scope.newSkill = {
+                SelfChanging: [],
+                TargetChanging: []
+            };
+            $scope.skillSchools = [];
+            $scope.stateType = [];
+            $scope.characteristicType = [];
+
+            skillService.loadAll().then(function (skills) {
+                $scope.skills = skills;
+            });
+
+            skillService.loadSkillsSchool().then(function (skillSchools) {
+                $scope.skillSchools = _.map(skillSchools, function(school) {
+                    return {
+                        name: school.Name,
+                        value: school
+                    };
+                });
+            });
+
+            stateService.loadAllTypes().then(function (stateTypes) {
+                $scope.stateType = _.map(stateTypes, function (stateType) {
+                    return {
+                        name: stateType.Name,
+                        value: stateType
+                    };
+                });
+            });
+
+            $scope.addState = function (source, item) {
+                var copied = {};
+                angular.copy(item, copied);
+                source.push(copied);
+            }
+
+            $scope.removeState = function (source, index) {
+                source.splice(index, 1);
+            }
+
+            $scope.saveSkill = function() {
+                skillService.saveSkill($scope.newSkill).then(function(skill) {
+                    var copied = {};
+                    angular.copy(skill, copied);
+                    $scope.skills.push(copied);
+                });
+            }
+
+            $scope.removeSkill = function (skill) {
+                skillService.removeSkill(skill).then(function () {
+                    var index = $scope.skills.indexOf(skill);
+                    $scope.skills.splice(index, 1);
+                });
+            }
+        }
+    ])
+    .controller('adminStateController', [
+        '$scope', '$http', 'skillService', 'sexService', 'raceService',
+        function ($scope, $http, skillService, sexService, raceService) {
+            $scope.states = [];
+
+
+        }
+    ])
+    .controller('adminCharacteristicController', [
+        '$scope', '$http', 'skillService', 'sexService', 'raceService',
+        function ($scope, $http, skillService, sexService, raceService) {
+            $scope.characteristics = [];
+
+
+        }
+    ])
     .controller('createHeroController', [
-        '$scope', '$http', '$location', 'heroService', 'raceService', 'sexService',
-        function($scope, $http, $location, heroService, raceService, sexService) {
-            $scope.hero = heroService.getDefaultHero();
+        '$scope', '$http', '$location', 'heroService', 'raceService', 'sexService','guildService',
+        function ($scope, $http, $location, heroService, raceService, sexService, guildService) {
+            //$scope.hero = heroService.getDefaultHero();
+            heroService.loadDefaultHero().then(function (defHero) {
+                $scope.hero = defHero;
+            });
+
+
             $scope.step = 1;
             $scope.freeStat = 10;
             $scope.RaceList = raceService.getRaceList();
@@ -163,7 +250,6 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
 
             $scope.selectRace = function(race) {
                 $scope.hero.Race = race;
-
             }
 
             $scope.selectSex = function (sex) {
@@ -171,8 +257,13 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             }
 
             $scope.saveHero = function() {
-                heroService.saveHero($scope.hero);
-                $location.path('/AngularRoute/guild');
+                heroService.saveHero($scope.hero).then(function (savedHero) {
+                    var guild = guildService.getGuild();
+                    guild.Heroes.push(angular.fromJson(savedHero));
+                    guildService.setGuild(guild);
+
+                    $location.path('/AngularRoute/guild');
+                });
             }
         }
     ])
@@ -385,9 +476,9 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             $scope.useSkill = function (self, target, skill) {
                 skillService.loadSkillEffect(skill.Id).then(function (fullSkill) {
 
-                    var notEnough = skillService.notEnough(self, fullSkill);
-                    if (notEnough) {
-                        alert(notEnough);
+                    var isEnough = skillService.isEnough(self, fullSkill);
+                    if (isEnough) {
+                        alert(isEnough);
                         return;
                     }
 

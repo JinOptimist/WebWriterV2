@@ -1,0 +1,56 @@
+﻿<div>
+    <div class="content">
+        <div class="specialMarginForQuests">
+            <h1 class="text">
+                Умения
+            </h1>
+        </div>
+        <div class="border1px">
+            Добавить скилл
+            <p>Название: <input type="text" ng-hero="newSkill.Name"/></p>
+            <p>Школа:
+                <select ng-hero="newSkill.School" ng-options="option.value as option.name for option in skillSchools"></select>
+            </p>
+            <p>Описание: <textarea ng-hero="newSkill.Desc"></textarea></p>
+            <p>
+                Герой:
+                <span ng-repeat="state in newSkill.SelfChanging">
+                    {{state.StateType.Name}}: {{state.Number}} <input type="button" value="-" ng-click="removeState(newSkill.SelfChanging, $index)"/>
+                </span>
+
+                <select ng-hero="someStateForMe.StateType" ng-options="option.value as option.name for option in stateType"></select>
+                : <input type="text" ng-hero="someStateForMe.Number"/>
+                <input type="button" value="Добавить эффект на себя" ng-click="addState(newSkill.SelfChanging, someStateForMe)"/>
+            </p>
+            <p>
+                Цель:
+                <span ng-repeat="state in newSkill.TargetChanging">
+                    {{state.StateType.Name}}: {{state.Number}} <input type="button" value="-" ng-click="removeState(newSkill.TargetChanging, $index)" />
+                </span>
+
+                <select ng-hero="someStateForThem.StateType" ng-options="option.value as option.name for option in stateType"></select>
+                : <input type="text" ng-hero="someStateForThem.Number" />
+                <input type="button" value="Добавить эффект на себя" ng-click="addState(newSkill.TargetChanging, someStateForThem)" />
+            </p>
+            <input type="button" value="Добавить" ng-click="saveSkill()"/>
+        </div>
+        <div ng-repeat="skill in skills" class="block300 left border1px padding10">
+            <p>Название: {{skill.Name}}</p>
+            <p>Школа: {{skill.School.Name}}</p>
+            <p>Описание: {{skill.Desc}}</p>
+            <p>
+                Герой:
+                <span ng-repeat="state in skill.SelfChanging">
+                    {{state.StateType.Name}}: {{state.Number}}
+                </span>
+            </p>
+            <p>
+                Цель:
+                <span ng-repeat="state in skill.TargetChanging">
+                    {{state.StateType.Name}}: {{state.Number}}
+                </span>
+            </p>
+            <input type="button" value="Удалить" ng-click="removeSkill(skill)"/>
+        </div>
+    </div>
+</div>

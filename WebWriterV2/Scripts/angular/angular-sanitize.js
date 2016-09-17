@@ -83,7 +83,7 @@ var $sanitizeMinErr = angular.$$minErr('$sanitize');
            }]);
      </script>
      <div ng-controller="ExampleController">
-        Snippet: <textarea ng-model="snippet" cols="60" rows="3"></textarea>
+        Snippet: <textarea ng-hero="snippet" cols="60" rows="3"></textarea>
        <table>
          <tr>
            <td>Directive</td>
@@ -136,8 +136,8 @@ var $sanitizeMinErr = angular.$$minErr('$sanitize');
      });
 
      it('should update', function() {
-       element(by.model('snippet')).clear();
-       element(by.model('snippet')).sendKeys('new <b onclick="alert(1)">text</b>');
+       element(by.hero('snippet')).clear();
+       element(by.hero('snippet')).sendKeys('new <b onclick="alert(1)">text</b>');
        expect(element(by.css('#bind-html-with-sanitize div')).getInnerHtml()).
          toBe('new <b>text</b>');
        expect(element(by.css('#bind-html-with-trust div')).getInnerHtml()).toBe(
@@ -563,7 +563,7 @@ angular.module('ngSanitize', []).provider('$sanitize', $SanitizeProvider);
            }]);
        </script>
        <div ng-controller="ExampleController">
-       Snippet: <textarea ng-model="snippet" cols="60" rows="3"></textarea>
+       Snippet: <textarea ng-hero="snippet" cols="60" rows="3"></textarea>
        <table>
          <tr>
            <td>Filter</td>
@@ -611,8 +611,8 @@ angular.module('ngSanitize', []).provider('$sanitize', $SanitizeProvider);
        });
 
        it('should update', function() {
-         element(by.model('snippet')).clear();
-         element(by.model('snippet')).sendKeys('new http://link.');
+         element(by.hero('snippet')).clear();
+         element(by.hero('snippet')).sendKeys('new http://link.');
          expect(element(by.id('linky-filter')).element(by.binding('snippet | linky')).getText()).
              toBe('new http://link.');
          expect(element.all(by.css('#linky-filter a')).count()).toEqual(1);

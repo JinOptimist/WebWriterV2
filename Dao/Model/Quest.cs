@@ -7,14 +7,14 @@ namespace Dao.Model
     public class Quest : BaseModel
     {
         [Required]
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public virtual string Desc { get; set; }
+        public string Desc { get; set; }
 
         [Required]
         [Description("[1.0 = 100%] Эффективность с которой был выполнен квест. При закрытие квеста, умножаем базовую награду на этот коэффицент")]
-        public virtual double Effective { get; set; } = 0;
+        public double Effective { get; set; } = 0;
 
         //[Description("Базовая награда. Меняет статус героя, добавляя ему опыт, деньги, жизни и т.д.")]
         //public virtual Dictionary<CharacteristicType, int> Result { get; set; }

@@ -10,7 +10,7 @@ namespace Dao.Model
         public virtual CharacteristicType CharacteristicType { get; set; }
 
         [Required]
-        public virtual long Number { get; set; }
+        public long Number { get; set; }
     }
 
     //public enum CharacteristicType

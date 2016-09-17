@@ -1357,7 +1357,7 @@ mod.directive('infiniteScroll', [
 
     /**
 	 * @typedef   {Object}        ngSortEvent
-	 * @property  {*}             model      List item
+	 * @property  {*}             hero      List item
 	 * @property  {Object|Array}  models     List of items
 	 * @property  {number}        oldIndex   before sort
 	 * @property  {number}        newIndex   after sort

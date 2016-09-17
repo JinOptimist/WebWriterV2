@@ -121,6 +121,10 @@ p {
     width: 300px;
 }
 
+.border1px {
+    border: 1px #ccc solid;
+}
+
 .padding10 {
     padding: 10px;
 }

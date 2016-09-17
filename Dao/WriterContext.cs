@@ -28,6 +28,7 @@ namespace Dao
 
             modelBuilder.Entity<Hero>().HasMany(u => u.Skills).WithMany();
             modelBuilder.Entity<Hero>().HasMany(u => u.State).WithOptional().WillCascadeOnDelete(true);
+            modelBuilder.Entity<Hero>().HasMany(u => u.Characteristics).WithOptional().WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Skill>().HasOptional(u => u.School).WithMany();
 

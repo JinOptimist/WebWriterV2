@@ -10,6 +10,8 @@ namespace Dao.IRepository
 
         List<Skill> GetBySchool(SkillSchool skillSchool);
 
+        List<Skill> GetBySchoolName(string schoolName);
+
         Dictionary<SkillSchool, List<Skill>> GetBySchools(List<SkillSchool> skillSchool);
     }
 }

@@ -144,13 +144,15 @@ namespace WebWriterV2.Controllers
         {
             var frontHero = SerializeHelper.Deserialize<FrontHero>(jsonHero);
             var hero = frontHero.ToDbModel();
+
             var guild = GuildRepository.GetAll().First();
             hero.Guild = guild;
+
             HeroRepository.Save(hero);
 
             return new JsonResult
             {
-                Data = true,
+                Data = SerializeHelper.Serialize(frontHero),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -241,10 +243,30 @@ namespace WebWriterV2.Controllers
         public JsonResult GetSkills()
         {
             var skillsFromDb = SkillRepository.GetAll();
-            var frontSkill = skillsFromDb.Select(x => new FrontSkill(x));
+            var frontSkills = skillsFromDb.Select(x => new FrontSkill(x)).ToList();
             return new JsonResult
             {
-                Data = SerializeHelper.Serialize(frontSkill),
+                Data = SerializeHelper.Serialize(frontSkills),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult GetSkillsSchool()
+        {
+            var skillSchools = SkillSchoolRepository.GetAll();
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(skillSchools),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveSkill(long skillId)
+        {
+            SkillRepository.Remove(skillId);
+            return new JsonResult
+            {
+                Data = true,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -271,6 +293,33 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult SaveSkill(string jsonSkill)
+        {
+            var frontSkill = SerializeHelper.Deserialize<FrontSkill>(jsonSkill);
+            var skill = frontSkill.ToDbModel();
+
+            SkillRepository.Save(skill);
+
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(new FrontSkill(skill)),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+
+        /* ************** State ************** */
+        public JsonResult GetStateTypes()
+        {
+            var stateTypes = StateTypeRepository.GetAll();
+
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(stateTypes),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         /* ************** Quest ************** */
         public JsonResult GetQuest(long id)
         {
@@ -286,7 +335,7 @@ namespace WebWriterV2.Controllers
         public JsonResult GetQuests()
         {
             var quests = QuestRepository.GetAll();
-            var frontQuests = quests.Select(x=> new FrontQuest(x)).ToList();
+            var frontQuests = quests.Select(x => new FrontQuest(x)).ToList();
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(frontQuests),

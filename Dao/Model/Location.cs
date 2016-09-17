@@ -8,9 +8,9 @@ namespace Dao.Model
     public class Location : BaseModel
     {
         [Required]
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
-        public virtual string Desc { get; set; }
+        public string Desc { get; set; }
 
         [Required(ErrorMessage = "Coordinate this location")]
         //TODO change

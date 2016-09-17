@@ -7,10 +7,10 @@ namespace Dao.Model
     public class Event : BaseModel
     {
         [Required]
-        public virtual string Name { get; set; }
+        public string Name { get; set; }
 
         [Required]
-        public virtual string Desc { get; set; }
+        public string Desc { get; set; }
 
         public virtual List<Event> ParentEvents { get; set; }
 

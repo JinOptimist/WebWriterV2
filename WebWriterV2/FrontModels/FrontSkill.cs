@@ -48,8 +48,8 @@ namespace WebWriterV2.FrontModels
                 Id = Id,
                 Name = Name,
                 Desc = Desc,
-                School = null,
-                SelfChanging = SelfChanging.Select(x=>x.ToDbModel()).ToList(),
+                School = School,
+                SelfChanging = SelfChanging.Select(x => x.ToDbModel()).ToList(),
                 TargetChanging = TargetChanging.Select(x => x.ToDbModel()).ToList(),
             };
             return skill;

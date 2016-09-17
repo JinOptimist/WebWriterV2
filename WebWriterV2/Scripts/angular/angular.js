@@ -839,10 +839,10 @@ function arrayRemove(array, value) {
  <file name="index.html">
  <div ng-controller="ExampleController">
  <form novalidate class="simple-form">
- Name: <input type="text" ng-model="user.name" /><br />
- E-mail: <input type="email" ng-model="user.email" /><br />
- Gender: <input type="radio" ng-model="user.gender" value="male" />male
- <input type="radio" ng-model="user.gender" value="female" />female<br />
+ Name: <input type="text" ng-hero="user.name" /><br />
+ E-mail: <input type="email" ng-hero="user.email" /><br />
+ Gender: <input type="radio" ng-hero="user.gender" value="male" />male
+ <input type="radio" ng-hero="user.gender" value="female" />female<br />
  <button ng-click="reset()">RESET</button>
  <button ng-click="update(user)">SAVE</button>
  </form>
@@ -1501,7 +1501,7 @@ function getNgAttribute(element, ngAttr) {
        </div>
 
        <div ng-controller="GoodController2">
-           Name: <input ng-model="name"><br />
+           Name: <input ng-hero="name"><br />
            Hello, {{name}}!
 
            <p>This renders because the controller does not fail to
@@ -5904,8 +5904,8 @@ function $BrowserProvider() {
    <example module="cacheExampleApp">
      <file name="index.html">
        <div ng-controller="CacheController">
-         <input ng-model="newCacheKey" placeholder="Key">
-         <input ng-model="newCacheValue" placeholder="Value">
+         <input ng-hero="newCacheKey" placeholder="Key">
+         <input ng-hero="newCacheValue" placeholder="Value">
          <button ng-click="put(newCacheKey, newCacheValue)">Cache</button>
 
          <p ng-if="keys.length">Cached Values</p>
@@ -6909,8 +6909,8 @@ function $TemplateCacheProvider() {
       }]);
     </script>
     <div ng-controller="GreeterController">
-      <input ng-model="name"> <br/>
-      <textarea ng-model="html"></textarea> <br/>
+      <input ng-hero="name"> <br/>
+      <textarea ng-hero="html"></textarea> <br/>
       <div compile="html"></div>
     </div>
    </file>
@@ -10146,11 +10146,11 @@ function $HttpProvider() {
 <example module="httpExample">
 <file name="index.html">
   <div ng-controller="FetchController">
-    <select ng-model="method" aria-label="Request method">
+    <select ng-hero="method" aria-label="Request method">
       <option>GET</option>
       <option>JSONP</option>
     </select>
-    <input type="text" ng-model="url" size="80" aria-label="URL" />
+    <input type="text" ng-hero="url" size="80" aria-label="URL" />
     <button id="fetchbtn" ng-click="fetch()">fetch</button><br>
     <button id="samplegetbtn" ng-click="updateModel('GET', 'http-hello.html')">Sample GET</button>
     <button id="samplejsonpbtn"
@@ -11212,7 +11212,7 @@ function $IntervalProvider() {
       * @param {number} delay Number of milliseconds between each function call.
       * @param {number=} [count=0] Number of times to repeat. If not set, or 0, will repeat
       *   indefinitely.
-      * @param {boolean=} [invokeApply=true] If set to `false` skips model dirty checking, otherwise
+      * @param {boolean=} [invokeApply=true] If set to `false` skips hero dirty checking, otherwise
       *   will invoke `fn` within the {@link ng.$rootScope.Scope#$apply $apply} block.
       * @param {...*=} Pass additional parameters to the executed function.
       * @returns {promise} A promise which will be notified on each iteration.
@@ -11293,7 +11293,7 @@ function $IntervalProvider() {
       *
       *   <div>
       *     <div ng-controller="ExampleController">
-      *       <label>Date format: <input ng-model="format"></label> <hr/>
+      *       <label>Date format: <input ng-hero="format"></label> <hr/>
       *       Current time is: <span my-current-time="format"></span>
       *       <hr/>
       *       Blood 1 : <font color='red'>{{blood_1}}</font>
@@ -12394,7 +12394,7 @@ function $LocationProvider() {
        <div ng-controller="LogController">
          <p>Reload this page with open console, enter text and hit the log button...</p>
          <label>Message:
-         <input type="text" ng-model="message" /></label>
+         <input type="text" ng-hero="message" /></label>
          <button ng-click="$log.log(message)">log</button>
          <button ng-click="$log.warn(message)">warn</button>
          <button ng-click="$log.info(message)">info</button>
@@ -14650,7 +14650,7 @@ function $ParseProvider() {
  *
  *  There are two main differences:
  *
- * - $q is integrated with the {@link ng.$rootScope.Scope} Scope model observation
+ * - $q is integrated with the {@link ng.$rootScope.Scope} Scope hero observation
  *   mechanism in angular, which means faster propagation of resolution or rejection into your
  *   models and avoiding unnecessary browser repaints, which would result in flickering UI.
  * - Q has many more features than $q, but that comes at a cost of bytes. $q is tiny, but contains
@@ -15135,13 +15135,13 @@ function $$RAFProvider() { //rAF
  * @description
  *
  * Sets the number of `$digest` iterations the scope should attempt to execute before giving up and
- * assuming that the model is unstable.
+ * assuming that the hero is unstable.
  *
  * The current default is 10 iterations.
  *
  * In complex applications it's possible that the dependencies between `$watch`s will result in
  * several digest iterations. However if an application needs more than the default 10 digest
- * iterations for its model to stabilize then you should investigate what is causing the model to
+ * iterations for its hero to stabilize then you should investigate what is causing the hero to
  * continuously change during the digest.
  *
  * Increasing the TTL could have performance implications, so you should not change it without
@@ -15158,7 +15158,7 @@ function $$RAFProvider() { //rAF
  *
  * Every application has a single root {@link ng.$rootScope.Scope scope}.
  * All other scopes are descendant scopes of the root scope. Scopes provide separation
- * between the model and the view, via a mechanism for watching the model for changes.
+ * between the hero and the view, via a mechanism for watching the hero for changes.
  * They also provide event emission/broadcast and subscription facility. See the
  * {@link guide/scope developer guide on scopes}.
  */
@@ -15311,7 +15311,7 @@ function $RootScopeProvider() {
        *
        * {@link ng.$rootScope.Scope#$destroy $destroy()} must be called on a scope when it is
        * desired for the scope and its child scopes to be permanently detached from the parent and
-       * thus stop participating in model change detection and listener notification by invoking.
+       * thus stop participating in hero change detection and listener notification by invoking.
        *
        * @param {boolean} isolate If true, then the scope does not prototypically inherit from the
        *         parent scope. The scope is isolated, as it can not see parent scope properties.
@@ -15385,7 +15385,7 @@ function $RootScopeProvider() {
        *   according to the {@link angular.equals} function. To save the value of the object for
        *   later comparison, the {@link angular.copy} function is used. This therefore means that
        *   watching complex objects will have adverse memory and performance implications.
-       * - The watch `listener` may change the model, which may trigger other `listener`s to fire.
+       * - The watch `listener` may change the hero, which may trigger other `listener`s to fire.
        *   This is achieved by rerunning the watchers until no changes are detected. The rerun
        *   iteration limit is 10 to prevent an infinite loop deadlock.
        *
@@ -15795,7 +15795,7 @@ function $RootScopeProvider() {
        * @description
        * Processes all of the {@link ng.$rootScope.Scope#$watch watchers} of the current scope and
        * its children. Because a {@link ng.$rootScope.Scope#$watch watcher}'s listener can change
-       * the model, the `$digest()` keeps calling the {@link ng.$rootScope.Scope#$watch watchers}
+       * the hero, the `$digest()` keeps calling the {@link ng.$rootScope.Scope#$watch watchers}
        * until no more listeners are firing. This means that it is possible to get into an infinite
        * loop. This function will throw `'Maximum iteration limit exceeded.'` if the number of
        * iterations exceeds 10.
@@ -16072,7 +16072,7 @@ function $RootScopeProvider() {
        * {@link ng.$exceptionHandler $exceptionHandler} service.
        *
        * __Note:__ if this function is called outside of a `$digest` cycle, a new `$digest` cycle
-       * will be scheduled. However, it is encouraged to always call code that changes the model
+       * will be scheduled. However, it is encouraged to always call code that changes the hero
        * from within an `$apply` call. That includes code evaluated via `$evalAsync`.
        *
        * @param {(string|function())=} expression An angular expression to be executed.
@@ -16953,7 +16953,7 @@ function $SceDelegateProvider() {
  * Here's an example of a binding in a privileged context:
  *
  * ```
- * <input ng-model="userHtml" aria-label="User input">
+ * <input ng-hero="userHtml" aria-label="User input">
  * <div ng-bind-html="userHtml"></div>
  * ```
  *
@@ -17243,7 +17243,7 @@ function $SceProvider() {
    * constants or objects even if not wrapped.  All such implementations fulfill this contract.
    *
    *
-   * A note on the inheritance model for SCE contexts
+   * A note on the inheritance hero for SCE contexts
    * ------------------------------------------------
    * I've used inheritance and made RESOURCE_URL wrapped types a subtype of URL wrapped types.  This
    * is purely an implementation details.
@@ -17801,11 +17801,11 @@ function $$TestabilityProvider() {
      * @name $$testability#findModels
      *
      * @description
-     * Returns an array of elements that are two-way found via ng-model to
+     * Returns an array of elements that are two-way found via ng-hero to
      * expressions matching the input.
      *
      * @param {Element} element The element root to search from.
-     * @param {string} expression The model expression to match.
+     * @param {string} expression The hero expression to match.
      * @param {boolean} opt_exactMatch If true, only returns exact matches
      *     for the expression.
      */
@@ -17813,7 +17813,7 @@ function $$TestabilityProvider() {
       var prefixes = ['ng-', 'data-ng-', 'ng\\:'];
       for (var p = 0; p < prefixes.length; ++p) {
         var attributeEquals = opt_exactMatch ? '=' : '*=';
-        var selector = '[' + prefixes[p] + 'model' + attributeEquals + '"' + expression + '"]';
+        var selector = '[' + prefixes[p] + 'hero' + attributeEquals + '"' + expression + '"]';
         var elements = element.querySelectorAll(selector);
         if (elements.length) {
           return elements;
@@ -17893,7 +17893,7 @@ function $TimeoutProvider() {
       *
       * @param {function()=} fn A function, whose execution should be delayed.
       * @param {number=} [delay=0] Delay in milliseconds.
-      * @param {boolean=} [invokeApply=true] If set to `false` skips model dirty checking, otherwise
+      * @param {boolean=} [invokeApply=true] If set to `false` skips hero dirty checking, otherwise
       *   will invoke `fn` within the {@link ng.$rootScope.Scope#$apply $apply} block.
       * @param {...*=} Pass additional parameters to the executed function.
       * @returns {Promise} Promise that will be resolved when the timeout is reached. The value this
@@ -18083,13 +18083,13 @@ function urlIsSameOrigin(requestUrl) {
            }]);
        </script>
        <div ng-controller="ExampleController">
-         <input type="text" ng-model="greeting" aria-label="greeting" />
+         <input type="text" ng-hero="greeting" aria-label="greeting" />
          <button ng-click="doGreeting(greeting)">ALERT</button>
        </div>
      </file>
      <file name="protractor.js" type="protractor">
       it('should display the greeting in the input box', function() {
-       element(by.model('greeting')).sendKeys('Hello, E2E Tests');
+       element(by.hero('greeting')).sendKeys('Hello, E2E Tests');
        // If we click the button it will block the test runner
        // element(':button').click();
       });
@@ -18387,7 +18387,7 @@ function $FilterProvider($provide) {
                                 {name:'Julie', phone:'555-8765'},
                                 {name:'Juliette', phone:'555-5678'}]"></div>
 
-       <label>Search: <input ng-model="searchText"></label>
+       <label>Search: <input ng-hero="searchText"></label>
        <table id="searchTextResults">
          <tr><th>Name</th><th>Phone</th></tr>
          <tr ng-repeat="friend in friends | filter:searchText">
@@ -18396,10 +18396,10 @@ function $FilterProvider($provide) {
          </tr>
        </table>
        <hr>
-       <label>Any: <input ng-model="search.$"></label> <br>
-       <label>Name only <input ng-model="search.name"></label><br>
-       <label>Phone only <input ng-model="search.phone"></label><br>
-       <label>Equality <input type="checkbox" ng-model="strict"></label><br>
+       <label>Any: <input ng-hero="search.$"></label> <br>
+       <label>Name only <input ng-hero="search.name"></label><br>
+       <label>Phone only <input ng-hero="search.phone"></label><br>
+       <label>Equality <input type="checkbox" ng-hero="strict"></label><br>
        <table id="searchObjResults">
          <tr><th>Name</th><th>Phone</th></tr>
          <tr ng-repeat="friendObj in friends | filter:search:strict">
@@ -18418,7 +18418,7 @@ function $FilterProvider($provide) {
        };
 
        it('should search across all fields when filtering with a string', function() {
-         var searchText = element(by.model('searchText'));
+         var searchText = element(by.hero('searchText'));
          searchText.clear();
          searchText.sendKeys('m');
          expectFriendNames(['Mary', 'Mike', 'Adam'], 'friend');
@@ -18429,14 +18429,14 @@ function $FilterProvider($provide) {
        });
 
        it('should search in specific fields when filtering with a predicate object', function() {
-         var searchAny = element(by.model('search.$'));
+         var searchAny = element(by.hero('search.$'));
          searchAny.clear();
          searchAny.sendKeys('i');
          expectFriendNames(['Mary', 'Mike', 'Julie', 'Juliette'], 'friendObj');
        });
        it('should use a equal comparison when comparator is true', function() {
-         var searchName = element(by.model('search.name'));
-         var strict = element(by.model('strict'));
+         var searchName = element(by.hero('search.name'));
+         var strict = element(by.hero('strict'));
          searchName.clear();
          searchName.sendKeys('Julie');
          strict.click();
@@ -18598,7 +18598,7 @@ function getTypeForFilter(val) {
            }]);
        </script>
        <div ng-controller="ExampleController">
-         <input type="number" ng-model="amount" aria-label="amount"> <br>
+         <input type="number" ng-hero="amount" aria-label="amount"> <br>
          default currency symbol ($): <span id="currency-default">{{amount | currency}}</span><br>
          custom currency identifier (USD$): <span id="currency-custom">{{amount | currency:"USD$"}}</span>
          no fractions (0): <span id="currency-no-fractions">{{amount | currency:"USD$":0}}</span>
@@ -18616,8 +18616,8 @@ function getTypeForFilter(val) {
            // https://github.com/angular/protractor/issues/481
            return;
          }
-         element(by.model('amount')).clear();
-         element(by.model('amount')).sendKeys('-1234');
+         element(by.hero('amount')).clear();
+         element(by.hero('amount')).sendKeys('-1234');
          expect(element(by.id('currency-default')).getText()).toBe('-$1,234.00');
          expect(element(by.id('currency-custom')).getText()).toBe('-USD$1,234.00');
          expect(element(by.id('currency-no-fractions')).getText()).toBe('-USD$1,234');
@@ -18674,7 +18674,7 @@ function currencyFilter($locale) {
            }]);
        </script>
        <div ng-controller="ExampleController">
-         <label>Enter number: <input ng-model='val'></label><br>
+         <label>Enter number: <input ng-hero='val'></label><br>
          Default formatting: <span id='number-default'>{{val | number}}</span><br>
          No fractions: <span>{{val | number:0}}</span><br>
          Negative number: <span>{{-val | number:4}}</span>
@@ -18688,8 +18688,8 @@ function currencyFilter($locale) {
        });
 
        it('should update', function() {
-         element(by.model('val')).clear();
-         element(by.model('val')).sendKeys('3374.333');
+         element(by.hero('val')).clear();
+         element(by.hero('val')).sendKeys('3374.333');
          expect(element(by.id('number-default')).getText()).toBe('3,374.333');
          expect(element(by.binding('val | number:0')).getText()).toBe('3,374');
          expect(element(by.binding('-val | number:4')).getText()).toBe('-3,374.3330');
@@ -19192,25 +19192,25 @@ var uppercaseFilter = valueFn(uppercase);
        <div ng-controller="ExampleController">
          <label>
             Limit {{numbers}} to:
-            <input type="number" step="1" ng-model="numLimit">
+            <input type="number" step="1" ng-hero="numLimit">
          </label>
          <p>Output numbers: {{ numbers | limitTo:numLimit }}</p>
          <label>
             Limit {{letters}} to:
-            <input type="number" step="1" ng-model="letterLimit">
+            <input type="number" step="1" ng-hero="letterLimit">
          </label>
          <p>Output letters: {{ letters | limitTo:letterLimit }}</p>
          <label>
             Limit {{longNumber}} to:
-            <input type="number" step="1" ng-model="longNumberLimit">
+            <input type="number" step="1" ng-hero="longNumberLimit">
          </label>
          <p>Output long number: {{ longNumber | limitTo:longNumberLimit }}</p>
        </div>
      </file>
      <file name="protractor.js" type="protractor">
-       var numLimitInput = element(by.model('numLimit'));
-       var letterLimitInput = element(by.model('letterLimit'));
-       var longNumberLimitInput = element(by.model('longNumberLimit'));
+       var numLimitInput = element(by.hero('numLimit'));
+       var letterLimitInput = element(by.hero('letterLimit'));
+       var longNumberLimitInput = element(by.hero('longNumberLimit'));
        var limitedNumbers = element(by.binding('numbers | limitTo:numLimit'));
        var limitedLetters = element(by.binding('letters | limitTo:letterLimit'));
        var limitedLongNumber = element(by.binding('longNumber | limitTo:longNumberLimit'));
@@ -19647,7 +19647,7 @@ var htmlAnchorDirective = valueFn({
  * in links and their different behaviors:
     <example>
       <file name="index.html">
-        <input ng-model="value" /><br />
+        <input ng-hero="value" /><br />
         <a id="link-1" href ng-click="value = 1">link 1</a> (link, don't reload)<br />
         <a id="link-2" href="" ng-click="value = 2">link 2</a> (link, don't reload)<br />
         <a id="link-3" ng-href="/{{'123'}}">link 3</a> (link, reload!)<br />
@@ -19658,13 +19658,13 @@ var htmlAnchorDirective = valueFn({
       <file name="protractor.js" type="protractor">
         it('should execute ng-click but not reload when href without value', function() {
           element(by.id('link-1')).click();
-          expect(element(by.model('value')).getAttribute('value')).toEqual('1');
+          expect(element(by.hero('value')).getAttribute('value')).toEqual('1');
           expect(element(by.id('link-1')).getAttribute('href')).toBe('');
         });
 
         it('should execute ng-click but not reload when href empty string', function() {
           element(by.id('link-2')).click();
-          expect(element(by.model('value')).getAttribute('value')).toEqual('2');
+          expect(element(by.hero('value')).getAttribute('value')).toEqual('2');
           expect(element(by.id('link-2')).getAttribute('href')).toBe('');
         });
 
@@ -19685,19 +19685,19 @@ var htmlAnchorDirective = valueFn({
 
         it('should execute ng-click but not reload when href empty string and name specified', function() {
           element(by.id('link-4')).click();
-          expect(element(by.model('value')).getAttribute('value')).toEqual('4');
+          expect(element(by.hero('value')).getAttribute('value')).toEqual('4');
           expect(element(by.id('link-4')).getAttribute('href')).toBe('');
         });
 
         it('should execute ng-click but not reload when no href but name specified', function() {
           element(by.id('link-5')).click();
-          expect(element(by.model('value')).getAttribute('value')).toEqual('5');
+          expect(element(by.hero('value')).getAttribute('value')).toEqual('5');
           expect(element(by.id('link-5')).getAttribute('href')).toBe(null);
         });
 
         it('should only change url when only ng-href', function() {
-          element(by.model('value')).clear();
-          element(by.model('value')).sendKeys('6');
+          element(by.hero('value')).clear();
+          element(by.hero('value')).sendKeys('6');
           expect(element(by.id('link-6')).getAttribute('href')).toMatch(/\/6$/);
 
           element(by.id('link-6')).click();
@@ -19796,13 +19796,13 @@ var htmlAnchorDirective = valueFn({
  * @example
     <example>
       <file name="index.html">
-        <label>Click me to toggle: <input type="checkbox" ng-model="checked"></label><br/>
-        <button ng-model="button" ng-disabled="checked">Button</button>
+        <label>Click me to toggle: <input type="checkbox" ng-hero="checked"></label><br/>
+        <button ng-hero="button" ng-disabled="checked">Button</button>
       </file>
       <file name="protractor.js" type="protractor">
         it('should toggle button', function() {
           expect(element(by.css('button')).getAttribute('disabled')).toBeFalsy();
-          element(by.model('checked')).click();
+          element(by.hero('checked')).click();
           expect(element(by.css('button')).getAttribute('disabled')).toBeTruthy();
         });
       </file>
@@ -19838,13 +19838,13 @@ var htmlAnchorDirective = valueFn({
  * @example
     <example>
       <file name="index.html">
-        <label>Check me to check both: <input type="checkbox" ng-model="master"></label><br/>
+        <label>Check me to check both: <input type="checkbox" ng-hero="master"></label><br/>
         <input id="checkSlave" type="checkbox" ng-checked="master" aria-label="Slave input">
       </file>
       <file name="protractor.js" type="protractor">
         it('should check both checkBoxes', function() {
           expect(element(by.id('checkSlave')).getAttribute('checked')).toBeFalsy();
-          element(by.model('master')).click();
+          element(by.hero('master')).click();
           expect(element(by.id('checkSlave')).getAttribute('checked')).toBeTruthy();
         });
       </file>
@@ -19873,13 +19873,13 @@ var htmlAnchorDirective = valueFn({
  * @example
     <example>
       <file name="index.html">
-        <label>Check me to make text readonly: <input type="checkbox" ng-model="checked"></label><br/>
+        <label>Check me to make text readonly: <input type="checkbox" ng-hero="checked"></label><br/>
         <input type="text" ng-readonly="checked" value="I'm Angular" aria-label="Readonly field" />
       </file>
       <file name="protractor.js" type="protractor">
         it('should toggle readonly attr', function() {
           expect(element(by.css('[type="text"]')).getAttribute('readonly')).toBeFalsy();
-          element(by.model('checked')).click();
+          element(by.hero('checked')).click();
           expect(element(by.css('[type="text"]')).getAttribute('readonly')).toBeTruthy();
         });
       </file>
@@ -19909,7 +19909,7 @@ var htmlAnchorDirective = valueFn({
  * @example
     <example>
       <file name="index.html">
-        <label>Check me to select: <input type="checkbox" ng-model="selected"></label><br/>
+        <label>Check me to select: <input type="checkbox" ng-hero="selected"></label><br/>
         <select aria-label="ngSelected demo">
           <option>Hello!</option>
           <option id="greet" ng-selected="selected">Greetings!</option>
@@ -19918,7 +19918,7 @@ var htmlAnchorDirective = valueFn({
       <file name="protractor.js" type="protractor">
         it('should select Greetings!', function() {
           expect(element(by.id('greet')).getAttribute('selected')).toBeFalsy();
-          element(by.model('selected')).click();
+          element(by.hero('selected')).click();
           expect(element(by.id('greet')).getAttribute('selected')).toBeTruthy();
         });
       </file>
@@ -19946,7 +19946,7 @@ var htmlAnchorDirective = valueFn({
  * @example
      <example>
        <file name="index.html">
-         <label>Check me check multiple: <input type="checkbox" ng-model="open"></label><br/>
+         <label>Check me check multiple: <input type="checkbox" ng-hero="open"></label><br/>
          <details id="details" ng-open="open">
             <summary>Show/Hide me</summary>
          </details>
@@ -19954,7 +19954,7 @@ var htmlAnchorDirective = valueFn({
        <file name="protractor.js" type="protractor">
          it('should toggle open', function() {
            expect(element(by.id('details')).getAttribute('open')).toBeFalsy();
-           element(by.model('open')).click();
+           element(by.hero('open')).click();
            expect(element(by.id('details')).getAttribute('open')).toBeTruthy();
          });
        </file>
@@ -20146,8 +20146,8 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
    * Rollback all form controls pending updates to the `$modelValue`.
    *
    * Updates may be pending by a debounced event or because the input is waiting for a some future
-   * event defined in `ng-model-options`. This method is typically needed by the reset button of
-   * a form that uses `ng-model-options` to pend updates.
+   * event defined in `ng-hero-options`. This method is typically needed by the reset button of
+   * a form that uses `ng-hero-options` to pend updates.
    */
   form.$rollbackViewValue = function() {
     forEach(controls, function(control) {
@@ -20163,7 +20163,7 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
    * Commit all form controls pending updates to the `$modelValue`.
    *
    * Updates may be pending by a debounced event or because the input is waiting for a some future
-   * event defined in `ng-model-options`. This method is rarely needed as `NgModelController`
+   * event defined in `ng-hero-options`. This method is rarely needed as `NgModelController`
    * usually handles calling this in response to input events.
    */
   form.$commitViewValue = function() {
@@ -20447,8 +20447,8 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
  * input[type=submit] (`ngClick`) *and* a submit handler on the enclosing form (`ngSubmit`)
  *
  * Any pending `ngModelOptions` changes will take place immediately when an enclosing form is
- * submitted. Note that `ngClick` events will occur before the model is updated. Use `ngSubmit`
- * to have access to the updated model.
+ * submitted. Note that `ngClick` events will occur before the hero is updated. Use `ngSubmit`
+ * to have access to the updated hero.
  *
  * ## Animation Hooks
  *
@@ -20493,7 +20493,7 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
         }
        </style>
        <form name="myForm" ng-controller="FormController" class="my-form">
-         userType: <input name="input" ng-model="userType" required>
+         userType: <input name="input" ng-hero="userType" required>
          <span class="error" ng-show="myForm.input.$error.required">Required!</span><br>
          <code>userType = {{userType}}</code><br>
          <code>myForm.input.$valid = {{myForm.input.$valid}}</code><br>
@@ -20503,7 +20503,7 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
         </form>
       </file>
       <file name="protractor.js" type="protractor">
-        it('should initialize to model', function() {
+        it('should initialize to hero', function() {
           var userType = element(by.binding('userType'));
           var valid = element(by.binding('myForm.input.$valid'));
 
@@ -20514,7 +20514,7 @@ function FormController(element, attrs, $scope, $animate, $interpolate) {
         it('should be invalid if empty', function() {
           var userType = element(by.binding('userType'));
           var valid = element(by.binding('myForm.input.$valid'));
-          var userInput = element(by.model('userType'));
+          var userInput = element(by.hero('userType'));
 
           userInput.clear();
           userInput.sendKeys('');
@@ -20687,7 +20687,7 @@ var inputType = {
          </script>
          <form name="myForm" ng-controller="ExampleController">
            <label>Single word:
-             <input type="text" name="input" ng-model="example.text"
+             <input type="text" name="input" ng-hero="example.text"
                     ng-pattern="example.word" required ng-trim="false">
            </label>
            <div role="alert">
@@ -20706,9 +20706,9 @@ var inputType = {
         <file name="protractor.js" type="protractor">
           var text = element(by.binding('example.text'));
           var valid = element(by.binding('myForm.input.$valid'));
-          var input = element(by.model('example.text'));
+          var input = element(by.hero('example.text'));
 
-          it('should initialize to model', function() {
+          it('should initialize to hero', function() {
             expect(text.getText()).toContain('guest');
             expect(valid.getText()).toContain('true');
           });
@@ -20743,10 +20743,10 @@ var inputType = {
      * modern browsers do not yet support this input type, it is important to provide cues to users on the
      * expected input format via a placeholder or label.
      *
-     * The model must always be a Date object, otherwise Angular will throw an error.
+     * The hero must always be a Date object, otherwise Angular will throw an error.
      * Invalid `Date` objects (dates whose `getTime()` is `NaN`) will be rendered as an empty string.
      *
-     * The timezone to be used to read/write the `Date` instance in the model can be defined using
+     * The timezone to be used to read/write the `Date` instance in the hero can be defined using
      * {@link ng.directive:ngModelOptions ngModelOptions}. By default, this is the timezone of the browser.
      *
      * @param {string} ngModel Assignable angular expression to data-bind to.
@@ -20783,7 +20783,7 @@ var inputType = {
        </script>
        <form name="myForm" ng-controller="DateController as dateCtrl">
           <label for="exampleInput">Pick a date in 2013:</label>
-          <input type="date" id="exampleInput" name="input" ng-model="example.value"
+          <input type="date" id="exampleInput" name="input" ng-hero="example.value"
               placeholder="yyyy-MM-dd" min="2013-01-01" max="2013-12-31" required />
           <div role="alert">
             <span class="error" ng-show="myForm.input.$error.required">
@@ -20801,7 +20801,7 @@ var inputType = {
      <file name="protractor.js" type="protractor">
         var value = element(by.binding('example.value | date: "yyyy-MM-dd"'));
         var valid = element(by.binding('myForm.input.$valid'));
-        var input = element(by.model('example.value'));
+        var input = element(by.hero('example.value'));
 
         // currently protractor/webdriver does not support
         // sending keys to all known HTML5 input controls
@@ -20814,7 +20814,7 @@ var inputType = {
           browser.executeScript(scr);
         }
 
-        it('should initialize to model', function() {
+        it('should initialize to hero', function() {
           expect(value.getText()).toContain('2013-10-22');
           expect(valid.getText()).toContain('myForm.input.$valid = true');
         });
@@ -20846,10 +20846,10 @@ var inputType = {
     * the HTML5 date input, a text element will be used. In that case, the text must be entered in a valid ISO-8601
     * local datetime format (yyyy-MM-ddTHH:mm:ss), for example: `2010-12-28T14:57:00`.
     *
-    * The model must always be a Date object, otherwise Angular will throw an error.
+    * The hero must always be a Date object, otherwise Angular will throw an error.
     * Invalid `Date` objects (dates whose `getTime()` is `NaN`) will be rendered as an empty string.
     *
-    * The timezone to be used to read/write the `Date` instance in the model can be defined using
+    * The timezone to be used to read/write the `Date` instance in the hero can be defined using
     * {@link ng.directive:ngModelOptions ngModelOptions}. By default, this is the timezone of the browser.
     *
     * @param {string} ngModel Assignable angular expression to data-bind to.
@@ -20886,7 +20886,7 @@ var inputType = {
       </script>
       <form name="myForm" ng-controller="DateController as dateCtrl">
         <label for="exampleInput">Pick a date between in 2013:</label>
-        <input type="datetime-local" id="exampleInput" name="input" ng-model="example.value"
+        <input type="datetime-local" id="exampleInput" name="input" ng-hero="example.value"
             placeholder="yyyy-MM-ddTHH:mm:ss" min="2001-01-01T00:00:00" max="2013-12-31T00:00:00" required />
         <div role="alert">
           <span class="error" ng-show="myForm.input.$error.required">
@@ -20904,7 +20904,7 @@ var inputType = {
     <file name="protractor.js" type="protractor">
       var value = element(by.binding('example.value | date: "yyyy-MM-ddTHH:mm:ss"'));
       var valid = element(by.binding('myForm.input.$valid'));
-      var input = element(by.model('example.value'));
+      var input = element(by.hero('example.value'));
 
       // currently protractor/webdriver does not support
       // sending keys to all known HTML5 input controls
@@ -20917,7 +20917,7 @@ var inputType = {
         browser.executeScript(scr);
       }
 
-      it('should initialize to model', function() {
+      it('should initialize to hero', function() {
         expect(value.getText()).toContain('2010-12-28T14:57:00');
         expect(valid.getText()).toContain('myForm.input.$valid = true');
       });
@@ -20948,12 +20948,12 @@ var inputType = {
    * Input with time validation and transformation. In browsers that do not yet support
    * the HTML5 date input, a text element will be used. In that case, the text must be entered in a valid ISO-8601
    * local time format (HH:mm:ss), for example: `14:57:00`. Model must be a Date object. This binding will always output a
-   * Date object to the model of January 1, 1970, or local date `new Date(1970, 0, 1, HH, mm, ss)`.
+   * Date object to the hero of January 1, 1970, or local date `new Date(1970, 0, 1, HH, mm, ss)`.
    *
-   * The model must always be a Date object, otherwise Angular will throw an error.
+   * The hero must always be a Date object, otherwise Angular will throw an error.
    * Invalid `Date` objects (dates whose `getTime()` is `NaN`) will be rendered as an empty string.
    *
-   * The timezone to be used to read/write the `Date` instance in the model can be defined using
+   * The timezone to be used to read/write the `Date` instance in the hero can be defined using
    * {@link ng.directive:ngModelOptions ngModelOptions}. By default, this is the timezone of the browser.
    *
    * @param {string} ngModel Assignable angular expression to data-bind to.
@@ -20990,7 +20990,7 @@ var inputType = {
      </script>
      <form name="myForm" ng-controller="DateController as dateCtrl">
         <label for="exampleInput">Pick a between 8am and 5pm:</label>
-        <input type="time" id="exampleInput" name="input" ng-model="example.value"
+        <input type="time" id="exampleInput" name="input" ng-hero="example.value"
             placeholder="HH:mm:ss" min="08:00:00" max="17:00:00" required />
         <div role="alert">
           <span class="error" ng-show="myForm.input.$error.required">
@@ -21008,7 +21008,7 @@ var inputType = {
    <file name="protractor.js" type="protractor">
       var value = element(by.binding('example.value | date: "HH:mm:ss"'));
       var valid = element(by.binding('myForm.input.$valid'));
-      var input = element(by.model('example.value'));
+      var input = element(by.hero('example.value'));
 
       // currently protractor/webdriver does not support
       // sending keys to all known HTML5 input controls
@@ -21021,7 +21021,7 @@ var inputType = {
         browser.executeScript(scr);
       }
 
-      it('should initialize to model', function() {
+      it('should initialize to hero', function() {
         expect(value.getText()).toContain('14:57:00');
         expect(valid.getText()).toContain('myForm.input.$valid = true');
       });
@@ -21053,10 +21053,10 @@ var inputType = {
     * the HTML5 week input, a text element will be used. In that case, the text must be entered in a valid ISO-8601
     * week format (yyyy-W##), for example: `2013-W02`.
     *
-    * The model must always be a Date object, otherwise Angular will throw an error.
+    * The hero must always be a Date object, otherwise Angular will throw an error.
     * Invalid `Date` objects (dates whose `getTime()` is `NaN`) will be rendered as an empty string.
     *
-    * The timezone to be used to read/write the `Date` instance in the model can be defined using
+    * The timezone to be used to read/write the `Date` instance in the hero can be defined using
     * {@link ng.directive:ngModelOptions ngModelOptions}. By default, this is the timezone of the browser.
     *
     * @param {string} ngModel Assignable angular expression to data-bind to.
@@ -21093,7 +21093,7 @@ var inputType = {
       </script>
       <form name="myForm" ng-controller="DateController as dateCtrl">
         <label>Pick a date between in 2013:
-          <input id="exampleInput" type="week" name="input" ng-model="example.value"
+          <input id="exampleInput" type="week" name="input" ng-hero="example.value"
                  placeholder="YYYY-W##" min="2012-W32"
                  max="2013-W52" required />
         </label>
@@ -21113,7 +21113,7 @@ var inputType = {
     <file name="protractor.js" type="protractor">
       var value = element(by.binding('example.value | date: "yyyy-Www"'));
       var valid = element(by.binding('myForm.input.$valid'));
-      var input = element(by.model('example.value'));
+      var input = element(by.hero('example.value'));
 
       // currently protractor/webdriver does not support
       // sending keys to all known HTML5 input controls
@@ -21126,7 +21126,7 @@ var inputType = {
         browser.executeScript(scr);
       }
 
-      it('should initialize to model', function() {
+      it('should initialize to hero', function() {
         expect(value.getText()).toContain('2013-W01');
         expect(valid.getText()).toContain('myForm.input.$valid = true');
       });
@@ -21156,12 +21156,12 @@ var inputType = {
    * the HTML5 month input, a text element will be used. In that case, the text must be entered in a valid ISO-8601
    * month format (yyyy-MM), for example: `2009-01`.
    *
-   * The model must always be a Date object, otherwise Angular will throw an error.
+   * The hero must always be a Date object, otherwise Angular will throw an error.
    * Invalid `Date` objects (dates whose `getTime()` is `NaN`) will be rendered as an empty string.
-   * If the model is not set to the first of the month, the next view to model update will set it
+   * If the hero is not set to the first of the month, the next view to hero update will set it
    * to the first of the month.
    *
-   * The timezone to be used to read/write the `Date` instance in the model can be defined using
+   * The timezone to be used to read/write the `Date` instance in the hero can be defined using
    * {@link ng.directive:ngModelOptions ngModelOptions}. By default, this is the timezone of the browser.
    *
    * @param {string} ngModel Assignable angular expression to data-bind to.
@@ -21199,7 +21199,7 @@ var inputType = {
      </script>
      <form name="myForm" ng-controller="DateController as dateCtrl">
        <label for="exampleInput">Pick a month in 2013:</label>
-       <input id="exampleInput" type="month" name="input" ng-model="example.value"
+       <input id="exampleInput" type="month" name="input" ng-hero="example.value"
           placeholder="yyyy-MM" min="2013-01" max="2013-12" required />
        <div role="alert">
          <span class="error" ng-show="myForm.input.$error.required">
@@ -21217,7 +21217,7 @@ var inputType = {
    <file name="protractor.js" type="protractor">
       var value = element(by.binding('example.value | date: "yyyy-MM"'));
       var valid = element(by.binding('myForm.input.$valid'));
-      var input = element(by.model('example.value'));
+      var input = element(by.hero('example.value'));
 
       // currently protractor/webdriver does not support
       // sending keys to all known HTML5 input controls
@@ -21230,7 +21230,7 @@ var inputType = {
         browser.executeScript(scr);
       }
 
-      it('should initialize to model', function() {
+      it('should initialize to hero', function() {
         expect(value.getText()).toContain('2013-10');
         expect(valid.getText()).toContain('myForm.input.$valid = true');
       });
@@ -21262,9 +21262,9 @@ var inputType = {
    * error if not a valid number.
    *
    * <div class="alert alert-warning">
-   * The model must always be of type `number` otherwise Angular will throw an error.
+   * The hero must always be of type `number` otherwise Angular will throw an error.
    * Be aware that a string containing a number is not enough. See the {@link ngModel:numfmt}
-   * error docs for more information and an example of how to convert your model if necessary.
+   * error docs for more information and an example of how to convert your hero if necessary.
    * </div>
    *
    * ## Issues with HTML5 constraint validation
@@ -21273,7 +21273,7 @@ var inputType = {
    * [HTML5 specification](https://html.spec.whatwg.org/multipage/forms.html#number-state-%28type=number%29),
    * `input[number]` does not work as expected with {@link ngModelOptions `ngModelOptions.allowInvalid`}.
    * If a non-number is entered in the input, the browser will report the value as an empty string,
-   * which means the view / model values in `ngModel` and subsequently the scope value
+   * which means the view / hero values in `ngModel` and subsequently the scope value
    * will also be an empty string.
    *
    *
@@ -21318,7 +21318,7 @@ var inputType = {
          </script>
          <form name="myForm" ng-controller="ExampleController">
            <label>Number:
-             <input type="number" name="input" ng-model="example.value"
+             <input type="number" name="input" ng-hero="example.value"
                     min="0" max="99" required>
           </label>
            <div role="alert">
@@ -21337,9 +21337,9 @@ var inputType = {
         <file name="protractor.js" type="protractor">
           var value = element(by.binding('example.value'));
           var valid = element(by.binding('myForm.input.$valid'));
-          var input = element(by.model('example.value'));
+          var input = element(by.hero('example.value'));
 
-          it('should initialize to model', function() {
+          it('should initialize to hero', function() {
             expect(value.getText()).toContain('12');
             expect(valid.getText()).toContain('true');
           });
@@ -21416,7 +21416,7 @@ var inputType = {
          </script>
          <form name="myForm" ng-controller="ExampleController">
            <label>URL:
-             <input type="url" name="input" ng-model="url.text" required>
+             <input type="url" name="input" ng-hero="url.text" required>
            <label>
            <div role="alert">
              <span class="error" ng-show="myForm.input.$error.required">
@@ -21435,9 +21435,9 @@ var inputType = {
         <file name="protractor.js" type="protractor">
           var text = element(by.binding('url.text'));
           var valid = element(by.binding('myForm.input.$valid'));
-          var input = element(by.model('url.text'));
+          var input = element(by.hero('url.text'));
 
-          it('should initialize to model', function() {
+          it('should initialize to hero', function() {
             expect(text.getText()).toContain('http://google.com');
             expect(valid.getText()).toContain('true');
           });
@@ -21515,7 +21515,7 @@ var inputType = {
          </script>
            <form name="myForm" ng-controller="ExampleController">
              <label>Email:
-               <input type="email" name="input" ng-model="email.text" required>
+               <input type="email" name="input" ng-hero="email.text" required>
              </label>
              <div role="alert">
                <span class="error" ng-show="myForm.input.$error.required">
@@ -21534,9 +21534,9 @@ var inputType = {
         <file name="protractor.js" type="protractor">
           var text = element(by.binding('email.text'));
           var valid = element(by.binding('myForm.input.$valid'));
-          var input = element(by.model('email.text'));
+          var input = element(by.hero('email.text'));
 
-          it('should initialize to model', function() {
+          it('should initialize to hero', function() {
             expect(text.getText()).toContain('me@example.com');
             expect(valid.getText()).toContain('true');
           });
@@ -21569,7 +21569,7 @@ var inputType = {
    *
    * @param {string} ngModel Assignable angular expression to data-bind to.
    * @param {string} value The value to which the `ngModel` expression should be set when selected.
-   *    Note that `value` only supports `string` values, i.e. the scope model needs to be a string,
+   *    Note that `value` only supports `string` values, i.e. the scope hero needs to be a string,
    *    too. Use `ngValue` if you need complex models (`number`, `object`, ...).
    * @param {string=} name Property name of the form under which the control is published.
    * @param {string=} ngChange Angular expression to be executed when input changes due to user
@@ -21595,15 +21595,15 @@ var inputType = {
          </script>
          <form name="myForm" ng-controller="ExampleController">
            <label>
-             <input type="radio" ng-model="color.name" value="red">
+             <input type="radio" ng-hero="color.name" value="red">
              Red
            </label><br/>
            <label>
-             <input type="radio" ng-model="color.name" ng-value="specialValue">
+             <input type="radio" ng-hero="color.name" ng-value="specialValue">
              Green
            </label><br/>
            <label>
-             <input type="radio" ng-model="color.name" value="blue">
+             <input type="radio" ng-hero="color.name" value="blue">
              Blue
            </label><br/>
            <tt>color = {{color.name | json}}</tt><br/>
@@ -21616,7 +21616,7 @@ var inputType = {
 
             expect(color.getText()).toContain('blue');
 
-            element.all(by.model('color.name')).get(0).click();
+            element.all(by.hero('color.name')).get(0).click();
 
             expect(color.getText()).toContain('red');
           });
@@ -21654,10 +21654,10 @@ var inputType = {
          </script>
          <form name="myForm" ng-controller="ExampleController">
            <label>Value1:
-             <input type="checkbox" ng-model="checkboxModel.value1">
+             <input type="checkbox" ng-hero="checkboxModel.value1">
            </label><br/>
            <label>Value2:
-             <input type="checkbox" ng-model="checkboxModel.value2"
+             <input type="checkbox" ng-hero="checkboxModel.value2"
                     ng-true-value="'YES'" ng-false-value="'NO'">
             </label><br/>
            <tt>value1 = {{checkboxModel.value1}}</tt><br/>
@@ -21672,8 +21672,8 @@ var inputType = {
             expect(value1.getText()).toContain('true');
             expect(value2.getText()).toContain('YES');
 
-            element(by.model('checkboxModel.value1')).click();
-            element(by.model('checkboxModel.value2')).click();
+            element(by.hero('checkboxModel.value1')).click();
+            element(by.hero('checkboxModel.value2')).click();
 
             expect(value1.getText()).toContain('false');
             expect(value2.getText()).toContain('NO');
@@ -21885,7 +21885,7 @@ function createDateInputType(type, regexp, parseDate, format) {
       if (ctrl.$isEmpty(value)) return null;
       if (regexp.test(value)) {
         // Note: We cannot read ctrl.$modelValue, as there might be a different
-        // parser/formatter in the processing chain so that the model
+        // parser/formatter in the processing chain so that the hero
         // contains some different data format!
         var parsedDate = parseDate(value, previousDate);
         if (timezone) {
@@ -22154,7 +22154,7 @@ function checkboxInputType(scope, element, attr, ctrl, $sniffer, $browser, $filt
  *
  * <div class="alert alert-warning">
  * **Note:** Not every feature offered is available for all input types.
- * Specifically, data binding and event handling via `ng-model` is unsupported for `input[file]`.
+ * Specifically, data binding and event handling via `ng-hero` is unsupported for `input[file]`.
  * </div>
  *
  * @param {string} ngModel Assignable angular expression to data-bind to.
@@ -22194,7 +22194,7 @@ function checkboxInputType(scope, element, attr, ctrl, $sniffer, $browser, $filt
          <form name="myForm">
            <label>
               User name:
-              <input type="text" name="userName" ng-model="user.name" required>
+              <input type="text" name="userName" ng-hero="user.name" required>
            </label>
            <div role="alert">
              <span class="error" ng-show="myForm.userName.$error.required">
@@ -22202,7 +22202,7 @@ function checkboxInputType(scope, element, attr, ctrl, $sniffer, $browser, $filt
            </div>
            <label>
               Last name:
-              <input type="text" name="lastName" ng-model="user.last"
+              <input type="text" name="lastName" ng-hero="user.last"
               ng-minlength="3" ng-maxlength="10">
            </label>
            <div role="alert">
@@ -22230,10 +22230,10 @@ function checkboxInputType(scope, element, attr, ctrl, $sniffer, $browser, $filt
         var lastNameValid = element(by.binding('myForm.lastName.$valid'));
         var lastNameError = element(by.binding('myForm.lastName.$error'));
         var formValid = element(by.binding('myForm.$valid'));
-        var userNameInput = element(by.model('user.name'));
-        var userLastInput = element(by.model('user.last'));
+        var userNameInput = element(by.hero('user.name'));
+        var userLastInput = element(by.hero('user.last'));
 
-        it('should initialize to model', function() {
+        it('should initialize to hero', function() {
           expect(user.getText()).toContain('{"name":"guest","last":"visitor"}');
           expect(userNameValid.getText()).toContain('true');
           expect(formValid.getText()).toContain('true');
@@ -22334,7 +22334,7 @@ var CONSTANT_VALUE_REGEXP = /^(true|false|\d+)$/;
             <label ng-repeat="name in names" for="{{name}}">
               {{name}}
               <input type="radio"
-                     ng-model="my.favorite"
+                     ng-hero="my.favorite"
                      ng-value="name"
                      id="{{name}}"
                      name="favorite">
@@ -22345,11 +22345,11 @@ var CONSTANT_VALUE_REGEXP = /^(true|false|\d+)$/;
       <file name="protractor.js" type="protractor">
         var favorite = element(by.binding('my.favorite'));
 
-        it('should initialize to model', function() {
+        it('should initialize to hero', function() {
           expect(favorite.getText()).toContain('unicorns');
         });
         it('should bind the values to the inputs', function() {
-          element.all(by.model('my.favorite')).get(0).click();
+          element.all(by.hero('my.favorite')).get(0).click();
           expect(favorite.getText()).toContain('pizza');
         });
       </file>
@@ -22410,13 +22410,13 @@ var ngValueDirective = function() {
            }]);
        </script>
        <div ng-controller="ExampleController">
-         <label>Enter name: <input type="text" ng-model="name"></label><br>
+         <label>Enter name: <input type="text" ng-hero="name"></label><br>
          Hello <span ng-bind="name"></span>!
        </div>
      </file>
      <file name="protractor.js" type="protractor">
        it('should check ng-bind', function() {
-         var nameInput = element(by.model('name'));
+         var nameInput = element(by.hero('name'));
 
          expect(element(by.binding('name')).getText()).toBe('Whirled');
          nameInput.clear();
@@ -22471,16 +22471,16 @@ var ngBindDirective = ['$compile', function($compile) {
            }]);
        </script>
        <div ng-controller="ExampleController">
-        <label>Salutation: <input type="text" ng-model="salutation"></label><br>
-        <label>Name: <input type="text" ng-model="name"></label><br>
+        <label>Salutation: <input type="text" ng-hero="salutation"></label><br>
+        <label>Name: <input type="text" ng-hero="name"></label><br>
         <pre ng-bind-template="{{salutation}} {{name}}!"></pre>
        </div>
      </file>
      <file name="protractor.js" type="protractor">
        it('should check ng-bind', function() {
          var salutationElem = element(by.binding('salutation'));
-         var salutationInput = element(by.model('salutation'));
-         var nameInput = element(by.model('name'));
+         var salutationInput = element(by.hero('salutation'));
+         var nameInput = element(by.hero('name'));
 
          expect(salutationElem.getText()).toBe('Hello World!');
 
@@ -22592,12 +22592,12 @@ var ngBindHtmlDirective = ['$sce', '$parse', '$compile', function($sce, $parse, 
  * form element or presses the return key).
  *
  * The `ngChange` expression is only evaluated when a change in the input value causes
- * a new value to be committed to the model.
+ * a new value to be committed to the hero.
  *
  * It will not be evaluated:
  * * if the value returned from the `$parsers` transformation pipeline has not changed
- * * if the input has continued to be invalid since the model will stay `null`
- * * if the model is changed programmatically and not by a change to the input value
+ * * if the input has continued to be invalid since the hero will stay `null`
+ * * if the hero is changed programmatically and not by a change to the input value
  *
  *
  * Note, this directive requires `ngModel` to be present.
@@ -22619,8 +22619,8 @@ var ngBindHtmlDirective = ['$sce', '$parse', '$compile', function($sce, $parse, 
  *         }]);
  *     </script>
  *     <div ng-controller="ExampleController">
- *       <input type="checkbox" ng-model="confirmed" ng-change="change()" id="ng-change-example1" />
- *       <input type="checkbox" ng-model="confirmed" id="ng-change-example2" />
+ *       <input type="checkbox" ng-hero="confirmed" ng-change="change()" id="ng-change-example1" />
+ *       <input type="checkbox" ng-hero="confirmed" id="ng-change-example2" />
  *       <label for="ng-change-example2">Confirmed</label><br />
  *       <tt>debug = {{confirmed}}</tt><br/>
  *       <tt>counter = {{counter}}</tt><br/>
@@ -22639,7 +22639,7 @@ var ngBindHtmlDirective = ['$sce', '$parse', '$compile', function($sce, $parse, 
  *       expect(debug.getText()).toContain('true');
  *     });
  *
- *     it('should not evaluate the expression if changing from model', function() {
+ *     it('should not evaluate the expression if changing from hero', function() {
  *       element(by.id('ng-change-example2')).click();
 
  *       expect(counter.getText()).toContain('0');
@@ -22822,33 +22822,33 @@ function classDirective(name, selector) {
      <file name="index.html">
        <p ng-class="{strike: deleted, bold: important, 'has-error': error}">Map Syntax Example</p>
        <label>
-          <input type="checkbox" ng-model="deleted">
+          <input type="checkbox" ng-hero="deleted">
           deleted (apply "strike" class)
        </label><br>
        <label>
-          <input type="checkbox" ng-model="important">
+          <input type="checkbox" ng-hero="important">
           important (apply "bold" class)
        </label><br>
        <label>
-          <input type="checkbox" ng-model="error">
+          <input type="checkbox" ng-hero="error">
           error (apply "has-error" class)
        </label>
        <hr>
        <p ng-class="style">Using String Syntax</p>
-       <input type="text" ng-model="style"
+       <input type="text" ng-hero="style"
               placeholder="Type: bold strike red" aria-label="StateType: bold strike red">
        <hr>
        <p ng-class="[style1, style2, style3]">Using Array Syntax</p>
-       <input ng-model="style1"
+       <input ng-hero="style1"
               placeholder="Type: bold, strike or red" aria-label="StateType: bold, strike or red"><br>
-       <input ng-model="style2"
+       <input ng-hero="style2"
               placeholder="Type: bold, strike or red" aria-label="StateType: bold, strike or red 2"><br>
-       <input ng-model="style3"
+       <input ng-hero="style3"
               placeholder="Type: bold, strike or red" aria-label="StateType: bold, strike or red 3"><br>
        <hr>
        <p ng-class="[style4, {orange: warning}]">Using Array and Map Syntax</p>
-       <input ng-model="style4" placeholder="Type: bold, strike" aria-label="StateType: bold, strike"><br>
-       <label><input type="checkbox" ng-model="warning"> warning (apply "orange" class)</label>
+       <input ng-hero="style4" placeholder="Type: bold, strike" aria-label="StateType: bold, strike"><br>
+       <label><input type="checkbox" ng-hero="warning"> warning (apply "orange" class)</label>
      </file>
      <file name="style.css">
        .strike {
@@ -22876,32 +22876,32 @@ function classDirective(name, selector) {
          expect(ps.first().getAttribute('class')).not.toMatch(/bold/);
          expect(ps.first().getAttribute('class')).not.toMatch(/has-error/);
 
-         element(by.model('important')).click();
+         element(by.hero('important')).click();
          expect(ps.first().getAttribute('class')).toMatch(/bold/);
 
-         element(by.model('error')).click();
+         element(by.hero('error')).click();
          expect(ps.first().getAttribute('class')).toMatch(/has-error/);
        });
 
        it('should let you toggle string example', function() {
          expect(ps.get(1).getAttribute('class')).toBe('');
-         element(by.model('style')).clear();
-         element(by.model('style')).sendKeys('red');
+         element(by.hero('style')).clear();
+         element(by.hero('style')).sendKeys('red');
          expect(ps.get(1).getAttribute('class')).toBe('red');
        });
 
        it('array example should have 3 classes', function() {
          expect(ps.get(2).getAttribute('class')).toBe('');
-         element(by.model('style1')).sendKeys('bold');
-         element(by.model('style2')).sendKeys('strike');
-         element(by.model('style3')).sendKeys('red');
+         element(by.hero('style1')).sendKeys('bold');
+         element(by.hero('style2')).sendKeys('strike');
+         element(by.hero('style3')).sendKeys('red');
          expect(ps.get(2).getAttribute('class')).toBe('bold strike red');
        });
 
        it('array with map example should have 2 classes', function() {
          expect(ps.last().getAttribute('class')).toBe('');
-         element(by.model('style4')).sendKeys('bold');
-         element(by.model('warning')).click();
+         element(by.hero('style4')).sendKeys('bold');
+         element(by.hero('warning')).click();
          expect(ps.last().getAttribute('class')).toBe('bold orange');
        });
      </file>
@@ -23175,16 +23175,16 @@ var ngCloakDirective = ngDirective({
  * <example name="ngControllerAs" module="controllerAsExample">
  *   <file name="index.html">
  *    <div id="ctrl-as-exmpl" ng-controller="SettingsController1 as settings">
- *      <label>Name: <input type="text" ng-model="settings.name"/></label>
+ *      <label>Name: <input type="text" ng-hero="settings.name"/></label>
  *      <button ng-click="settings.greet()">greet</button><br/>
  *      Contact:
  *      <ul>
  *        <li ng-repeat="contact in settings.contacts">
- *          <select ng-model="contact.type" aria-label="Contact method" id="select_{{$index}}">
+ *          <select ng-hero="contact.type" aria-label="Contact method" id="select_{{$index}}">
  *             <option>phone</option>
  *             <option>email</option>
  *          </select>
- *          <input type="text" ng-model="contact.value" aria-labelledby="select_{{$index}}" />
+ *          <input type="text" ng-hero="contact.value" aria-labelledby="select_{{$index}}" />
  *          <button ng-click="settings.clearContact(contact)">clear</button>
  *          <button ng-click="settings.removeContact(contact)" aria-label="Remove">X</button>
  *        </li>
@@ -23224,7 +23224,7 @@ var ngCloakDirective = ngDirective({
  *   <file name="protractor.js" type="protractor">
  *     it('should check controller as', function() {
  *       var container = element(by.id('ctrl-as-exmpl'));
- *         expect(container.element(by.model('settings.name'))
+ *         expect(container.element(by.hero('settings.name'))
  *           .getAttribute('value')).toBe('John Smith');
  *
  *       var firstRepeat =
@@ -23232,21 +23232,21 @@ var ngCloakDirective = ngDirective({
  *       var secondRepeat =
  *           container.element(by.repeater('contact in settings.contacts').row(1));
  *
- *       expect(firstRepeat.element(by.model('contact.value')).getAttribute('value'))
+ *       expect(firstRepeat.element(by.hero('contact.value')).getAttribute('value'))
  *           .toBe('408 555 1212');
  *
- *       expect(secondRepeat.element(by.model('contact.value')).getAttribute('value'))
+ *       expect(secondRepeat.element(by.hero('contact.value')).getAttribute('value'))
  *           .toBe('john.smith@example.org');
  *
  *       firstRepeat.element(by.buttonText('clear')).click();
  *
- *       expect(firstRepeat.element(by.model('contact.value')).getAttribute('value'))
+ *       expect(firstRepeat.element(by.hero('contact.value')).getAttribute('value'))
  *           .toBe('');
  *
  *       container.element(by.buttonText('add')).click();
  *
  *       expect(container.element(by.repeater('contact in settings.contacts').row(2))
- *           .element(by.model('contact.value'))
+ *           .element(by.hero('contact.value'))
  *           .getAttribute('value'))
  *           .toBe('yourname@example.org');
  *     });
@@ -23258,16 +23258,16 @@ var ngCloakDirective = ngDirective({
  * <example name="ngController" module="controllerExample">
  *  <file name="index.html">
  *   <div id="ctrl-exmpl" ng-controller="SettingsController2">
- *     <label>Name: <input type="text" ng-model="name"/></label>
+ *     <label>Name: <input type="text" ng-hero="name"/></label>
  *     <button ng-click="greet()">greet</button><br/>
  *     Contact:
  *     <ul>
  *       <li ng-repeat="contact in contacts">
- *         <select ng-model="contact.type" id="select_{{$index}}">
+ *         <select ng-hero="contact.type" id="select_{{$index}}">
  *            <option>phone</option>
  *            <option>email</option>
  *         </select>
- *         <input type="text" ng-model="contact.value" aria-labelledby="select_{{$index}}" />
+ *         <input type="text" ng-hero="contact.value" aria-labelledby="select_{{$index}}" />
  *         <button ng-click="clearContact(contact)">clear</button>
  *         <button ng-click="removeContact(contact)">X</button>
  *       </li>
@@ -23308,7 +23308,7 @@ var ngCloakDirective = ngDirective({
  *    it('should check controller', function() {
  *      var container = element(by.id('ctrl-exmpl'));
  *
- *      expect(container.element(by.model('name'))
+ *      expect(container.element(by.hero('name'))
  *          .getAttribute('value')).toBe('John Smith');
  *
  *      var firstRepeat =
@@ -23316,20 +23316,20 @@ var ngCloakDirective = ngDirective({
  *      var secondRepeat =
  *          container.element(by.repeater('contact in contacts').row(1));
  *
- *      expect(firstRepeat.element(by.model('contact.value')).getAttribute('value'))
+ *      expect(firstRepeat.element(by.hero('contact.value')).getAttribute('value'))
  *          .toBe('408 555 1212');
- *      expect(secondRepeat.element(by.model('contact.value')).getAttribute('value'))
+ *      expect(secondRepeat.element(by.hero('contact.value')).getAttribute('value'))
  *          .toBe('john.smith@example.org');
  *
  *      firstRepeat.element(by.buttonText('clear')).click();
  *
- *      expect(firstRepeat.element(by.model('contact.value')).getAttribute('value'))
+ *      expect(firstRepeat.element(by.hero('contact.value')).getAttribute('value'))
  *          .toBe('');
  *
  *      container.element(by.buttonText('add')).click();
  *
  *      expect(container.element(by.repeater('contact in contacts').row(2))
- *          .element(by.model('contact.value'))
+ *          .element(by.hero('contact.value'))
  *          .getAttribute('value'))
  *          .toBe('yourname@example.org');
  *    });
@@ -23904,7 +23904,7 @@ forEach(
       </script>
       <form ng-submit="submit()" ng-controller="ExampleController">
         Enter text and hit enter:
-        <input type="text" ng-model="text" name="text" />
+        <input type="text" ng-hero="text" name="text" />
         <input type="submit" id="submit" value="Submit" />
         <pre>list={{list}}</pre>
       </form>
@@ -23914,7 +23914,7 @@ forEach(
          expect(element(by.binding('list')).getText()).toBe('list=[]');
          element(by.css('#submit')).click();
          expect(element(by.binding('list')).getText()).toContain('hello');
-         expect(element(by.model('text')).getAttribute('value')).toBe('');
+         expect(element(by.hero('text')).getAttribute('value')).toBe('');
        });
        it('should ignore empty strings', function() {
          expect(element(by.binding('list')).getText()).toBe('list=[]');
@@ -23985,7 +23985,7 @@ forEach(
  * @example
    <example>
      <file name="index.html">
-      <input ng-copy="copied=true" ng-init="copied=false; value='copy me'" ng-model="value">
+      <input ng-copy="copied=true" ng-init="copied=false; value='copy me'" ng-hero="value">
       copied: {{copied}}
      </file>
    </example>
@@ -24006,7 +24006,7 @@ forEach(
  * @example
    <example>
      <file name="index.html">
-      <input ng-cut="cut=true" ng-init="cut=false; value='cut me'" ng-model="value">
+      <input ng-cut="cut=true" ng-init="cut=false; value='cut me'" ng-hero="value">
       cut: {{cut}}
      </file>
    </example>
@@ -24080,7 +24080,7 @@ forEach(
  * @example
   <example module="ngAnimate" deps="angular-animate.js" animations="true">
     <file name="index.html">
-      <label>Click me: <input type="checkbox" ng-model="checked" ng-init="checked=true" /></label><br/>
+      <label>Click me: <input type="checkbox" ng-hero="checked" ng-init="checked=true" /></label><br/>
       Show when checked:
       <span ng-if="checked" class="animate-if">
         This is removed when the checkbox is unchecked.
@@ -24209,7 +24209,7 @@ var ngIfDirective = ['$animate', function($animate) {
   <example module="includeExample" deps="angular-animate.js" animations="true">
     <file name="index.html">
      <div ng-controller="ExampleController">
-       <select ng-model="template" ng-options="t.name for t in templates">
+       <select ng-hero="template" ng-options="t.name for t in templates">
         <option value="">(blank)</option>
        </select>
        url of the template: <code>{{template.url}}</code>
@@ -24274,7 +24274,7 @@ var ngIfDirective = ['$animate', function($animate) {
       }
     </file>
     <file name="protractor.js" type="protractor">
-      var templateSelect = element(by.model('template'));
+      var templateSelect = element(by.hero('template'));
       var includeElem = element(by.css('[ng-include]'));
 
       it('should load template1.html', function() {
@@ -24541,7 +24541,7 @@ var ngInitDirective = ngDirective({
  *   tab or newline character.
  * * Otherwise whitespace around the delimiter is ignored when splitting (although it is respected
  *   when joining the list items back together) and whitespace around each list item is stripped
- *   before it is added to the model.
+ *   before it is added to the hero.
  *
  * ### Example with Validation
  *
@@ -24554,7 +24554,7 @@ var ngInitDirective = ngDirective({
  *   </file>
  *   <file name="index.html">
  *    <form name="myForm" ng-controller="ExampleController">
- *      <label>List: <input name="namesInput" ng-model="names" ng-list required></label>
+ *      <label>List: <input name="namesInput" ng-hero="names" ng-list required></label>
  *      <span role="alert">
  *        <span class="error" ng-show="myForm.namesInput.$error.required">
  *        Required!</span>
@@ -24568,12 +24568,12 @@ var ngInitDirective = ngDirective({
  *     </form>
  *   </file>
  *   <file name="protractor.js" type="protractor">
- *     var listInput = element(by.model('names'));
+ *     var listInput = element(by.hero('names'));
  *     var names = element(by.exactBinding('names'));
  *     var valid = element(by.binding('myForm.namesInput.$valid'));
  *     var error = element(by.css('span.error'));
  *
- *     it('should initialize to model', function() {
+ *     it('should initialize to hero', function() {
  *       expect(names.getText()).toContain('["morpheus","neo","trinity"]');
  *       expect(valid.getText()).toContain('true');
  *       expect(error.getCssValue('display')).toBe('none');
@@ -24593,12 +24593,12 @@ var ngInitDirective = ngDirective({
  * ### Example - splitting on newline
  * <example name="ngList-directive-newlines">
  *   <file name="index.html">
- *    <textarea ng-model="list" ng-list="&#10;" ng-trim="false"></textarea>
+ *    <textarea ng-hero="list" ng-list="&#10;" ng-trim="false"></textarea>
  *    <pre>{{ list | json }}</pre>
  *   </file>
  *   <file name="protractor.js" type="protractor">
  *     it("should split the text by newlines", function() {
- *       var listInput = element(by.model('list'));
+ *       var listInput = element(by.hero('list'));
  *       var output = element(by.binding('list | json'));
  *       listInput.sendKeys('abc\ndef\nghi');
  *       expect(output.getText()).toContain('[\n  "abc",\n  "def",\n  "ghi"\n]');
@@ -24678,7 +24678,7 @@ var ngModelMinErr = minErr('ngModel');
  * @property {*} $viewValue The actual value from the control's view. For `input` elements, this is a
  * String. See {@link ngModel.NgModelController#$setViewValue} for information about when the $viewValue
  * is set.
- * @property {*} $modelValue The value in the model that the control is bound to.
+ * @property {*} $modelValue The value in the hero that the control is bound to.
  * @property {Array.<Function>} $parsers Array of functions to execute, as a pipeline, whenever
        the control reads value from the DOM. The functions are called in array order, each passing
        its return value through to the next. The last return value is forwarded to the
@@ -24694,7 +24694,7 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
 
  *
  * @property {Array.<Function>} $formatters Array of functions to execute, as a pipeline, whenever
-       the model value changes. The functions are called in reverse array order, each passing the value through to the
+       the hero value changes. The functions are called in reverse array order, each passing the value through to the
        next. The last return value is used as the actual DOM value.
        Used to format / convert values for display in the control.
  * ```js
@@ -24707,9 +24707,9 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
  * ```
  *
  * @property {Object.<string, function>} $validators A collection of validators that are applied
- *      whenever the model value changes. The key value within the object refers to the name of the
+ *      whenever the hero value changes. The key value within the object refers to the name of the
  *      validator while the function refers to the validation operation. The validation operation is
- *      provided with the model value as an argument and must return a true or false value depending
+ *      provided with the hero value as an argument and must return a true or false value depending
  *      on the response of that validation.
  *
  * ```js
@@ -24724,9 +24724,9 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
  *
  * @property {Object.<string, function>} $asyncValidators A collection of validations that are expected to
  *      perform an asynchronous validation (e.g. a HTTP request). The validation function that is provided
- *      is expected to return a promise when it is run during the model validation process. Once the promise
+ *      is expected to return a promise when it is run during the hero validation process. Once the promise
  *      is delivered then the validation status will be set to true when fulfilled and false when rejected.
- *      When the asynchronous validators are triggered, each of the validators will run in parallel and the model
+ *      When the asynchronous validators are triggered, each of the validators will run in parallel and the hero
  *      value will only be updated once all validators have been fulfilled. As long as an asynchronous validator
  *      is unfulfilled, its key will be added to the controllers `$pending` property. Also, all asynchronous validators
  *      will only run once all synchronous validators have passed.
@@ -24752,7 +24752,7 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
  *
  * @property {Array.<Function>} $viewChangeListeners Array of functions to execute whenever the
  *     view value has changed. It is called with no arguments, and its return value is ignored.
- *     This can be used in place of additional $watches against the model value.
+ *     This can be used in place of additional $watches against the hero value.
  *
  * @property {Object} $error An object hash with all failing validator ids as keys.
  * @property {Object} $pending An object hash with all pending validator ids as keys.
@@ -24780,7 +24780,7 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
  * @example
  * ### Custom Control Example
  * This example shows how to use `NgModelController` with a custom control to achieve
- * data-binding. Notice how different directives (`contenteditable`, `ng-model`, and `required`)
+ * data-binding. Notice how different directives (`contenteditable`, `ng-hero`, and `required`)
  * collaborate together to achieve the desired result.
  *
  * `contenteditable` is an HTML5 attribute, which tells the browser to let the element
@@ -24788,7 +24788,7 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
  *
  * We are using the {@link ng.service:$sce $sce} service here and include the {@link ngSanitize $sanitize}
  * module to automatically remove "bad" content like inline event listener (e.g. `<span onclick="...">`).
- * However, as we are using `$sce` the model can still decide to provide unsafe content if it marks
+ * However, as we are using `$sce` the hero can still decide to provide unsafe content if it marks
  * that content using the `$sce` service.
  *
  * <example name="NgModelController" module="customControl" deps="angular-sanitize.js">
@@ -24811,7 +24811,7 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
             restrict: 'A', // only activate on element attribute
             require: '?ngModel', // get a hold of NgModelController
             link: function(scope, element, attrs, ngModel) {
-              if (!ngModel) return; // do nothing if no ng-model
+              if (!ngModel) return; // do nothing if no ng-hero
 
               // Specify how UI should be updated
               ngModel.$render = function() {
@@ -24824,7 +24824,7 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
               });
               read(); // initialize
 
-              // Write data to the model
+              // Write data to the hero
               function read() {
                 var html = element.html();
                 // When we clear the content editable the browser leaves a <br> behind
@@ -24841,12 +24841,12 @@ is set to `true`. The parse error is stored in `ngModel.$error.parse`.
     <file name="index.html">
       <form name="myForm">
        <div contenteditable
-            name="myWidget" ng-model="userContent"
+            name="myWidget" ng-hero="userContent"
             strip-br="true"
             required>Change me!</div>
         <span ng-show="myForm.myWidget.$error.required">Required!</span>
        <hr>
-       <textarea ng-model="userContent" aria-label="Dynamic textarea"></textarea>
+       <textarea ng-hero="userContent" aria-label="Dynamic textarea"></textarea>
       </form>
     </file>
     <file name="protractor.js" type="protractor">
@@ -24875,7 +24875,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
     function($scope, $exceptionHandler, $attr, $element, $parse, $animate, $timeout, $rootScope, $q, $interpolate) {
   this.$viewValue = Number.NaN;
   this.$modelValue = Number.NaN;
-  this.$$rawModelValue = undefined; // stores the parsed modelValue / model set from scope regardless of validity.
+  this.$$rawModelValue = undefined; // stores the parsed modelValue / hero set from scope regardless of validity.
   this.$validators = {};
   this.$asyncValidators = {};
   this.$parsers = [];
@@ -24932,17 +24932,17 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * @name ngModel.NgModelController#$render
    *
    * @description
-   * Called when the view needs to be updated. It is expected that the user of the ng-model
+   * Called when the view needs to be updated. It is expected that the user of the ng-hero
    * directive will implement this method.
    *
    * The `$render()` method is invoked in the following situations:
    *
    * * `$rollbackViewValue()` is called.  If we are rolling back the view value to the last
    *   committed value then `$render()` is called to update the input control.
-   * * The value referenced by `ng-model` is changed programmatically and both the `$modelValue` and
+   * * The value referenced by `ng-hero` is changed programmatically and both the `$modelValue` and
    *   the `$viewValue` are different from last time.
    *
-   * Since `ng-model` does not do a deep watch, `$render()` is only invoked if the values of
+   * Since `ng-hero` does not do a deep watch, `$render()` is only invoked if the values of
    * `$modelValue` and `$viewValue` are actually different from their previous value. If `$modelValue`
    * or `$viewValue` are objects (rather than a string or number) then `$render()` will not be
    * invoked if you only change a property on the objects.
@@ -25015,7 +25015,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * Sets the control to its pristine state.
    *
    * This method can be called to remove the `ng-dirty` class and set the control to its pristine
-   * state (`ng-pristine` class). A model is considered to be pristine when the control
+   * state (`ng-pristine` class). A hero is considered to be pristine when the control
    * has not been changed from when first compiled.
    */
   this.$setPristine = function() {
@@ -25033,7 +25033,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * Sets the control to its dirty state.
    *
    * This method can be called to remove the `ng-pristine` class and set the control to its dirty
-   * state (`ng-dirty` class). A model is considered to be dirty when the control has been changed
+   * state (`ng-dirty` class). A hero is considered to be dirty when the control has been changed
    * from when first compiled.
    */
   this.$setDirty = function() {
@@ -25052,8 +25052,8 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * Sets the control to its untouched state.
    *
    * This method can be called to remove the `ng-touched` class and set the control to its
-   * untouched state (`ng-untouched` class). Upon compilation, a model is set as untouched
-   * by default, however this function can be used to restore that state if the model has
+   * untouched state (`ng-untouched` class). Upon compilation, a hero is set as untouched
+   * by default, however this function can be used to restore that state if the hero has
    * already been touched by the user.
    */
   this.$setUntouched = function() {
@@ -25070,7 +25070,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * Sets the control to its touched state.
    *
    * This method can be called to remove the `ng-untouched` class and set the control to its
-   * touched state (`ng-touched` class). A model is considered to be touched when the user has
+   * touched state (`ng-touched` class). A hero is considered to be touched when the user has
    * first focused the control element and then shifted focus away from the control (blur event).
    */
   this.$setTouched = function() {
@@ -25088,19 +25088,19 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * which may be caused by a pending debounced event or because the input is waiting for a some
    * future event.
    *
-   * If you have an input that uses `ng-model-options` to set up debounced events or events such
+   * If you have an input that uses `ng-hero-options` to set up debounced events or events such
    * as blur you can have a situation where there is a period when the `$viewValue`
    * is out of synch with the ngModel's `$modelValue`.
    *
    * In this case, you can run into difficulties if you try to update the ngModel's `$modelValue`
    * programmatically before these debounced/future events have resolved/occurred, because Angular's
-   * dirty checking mechanism is not able to tell whether the model has actually changed or not.
+   * dirty checking mechanism is not able to tell whether the hero has actually changed or not.
    *
-   * The `$rollbackViewValue()` method should be called before programmatically changing the model of an
+   * The `$rollbackViewValue()` method should be called before programmatically changing the hero of an
    * input which may have such events pending. This is important in order to make sure that the
-   * input field will be updated with the new model value and any pending operations are cancelled.
+   * input field will be updated with the new hero value and any pending operations are cancelled.
    *
-   * <example name="ng-model-cancel-update" module="cancel-update-example">
+   * <example name="ng-hero-cancel-update" module="cancel-update-example">
    *   <file name="app.js">
    *     angular.module('cancel-update-example', [])
    *
@@ -25120,19 +25120,19 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    *   </file>
    *   <file name="index.html">
    *     <div ng-controller="CancelUpdateController">
-   *       <p>Try typing something in each input.  See that the model only updates when you
+   *       <p>Try typing something in each input.  See that the hero only updates when you
    *          blur off the input.
    *        </p>
    *        <p>Now see what happens if you start typing then press the Escape key</p>
    *
-   *       <form name="myForm" ng-model-options="{ updateOn: 'blur' }">
+   *       <form name="myForm" ng-hero-options="{ updateOn: 'blur' }">
    *         <p id="inputDescription1">With $rollbackViewValue()</p>
-   *         <input name="myInput1" aria-describedby="inputDescription1" ng-model="myValue"
+   *         <input name="myInput1" aria-describedby="inputDescription1" ng-hero="myValue"
    *                ng-keydown="resetWithCancel($event)"><br/>
    *         myValue: "{{ myValue }}"
    *
    *         <p id="inputDescription2">Without $rollbackViewValue()</p>
-   *         <input name="myInput2" aria-describedby="inputDescription2" ng-model="myValue"
+   *         <input name="myInput2" aria-describedby="inputDescription2" ng-hero="myValue"
    *                ng-keydown="resetWithoutCancel($event)"><br/>
    *         myValue: "{{ myValue }}"
    *       </form>
@@ -25153,22 +25153,22 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * @description
    * Runs each of the registered validators (first synchronous validators and then
    * asynchronous validators).
-   * If the validity changes to invalid, the model will be set to `undefined`,
+   * If the validity changes to invalid, the hero will be set to `undefined`,
    * unless {@link ngModelOptions `ngModelOptions.allowInvalid`} is `true`.
-   * If the validity changes to valid, it will set the model to the last available valid
+   * If the validity changes to valid, it will set the hero to the last available valid
    * `$modelValue`, i.e. either the last parsed value or the last value set from the scope.
    */
   this.$validate = function() {
-    // ignore $validate before model is initialized
+    // ignore $validate before hero is initialized
     if (isNumber(ctrl.$modelValue) && isNaN(ctrl.$modelValue)) {
       return;
     }
 
     var viewValue = ctrl.$$lastCommittedViewValue;
     // Note: we use the $$rawModelValue as $modelValue might have been
-    // set to undefined during a view -> model update that found validation
+    // set to undefined during a view -> hero update that found validation
     // errors. We can't parse the view here, since that could change
-    // the model although neither viewValue nor the model on the scope changed
+    // the hero although neither viewValue nor the hero on the scope changed
     var modelValue = ctrl.$$rawModelValue;
 
     var prevValid = ctrl.$valid;
@@ -25177,12 +25177,12 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
     var allowInvalid = ctrl.$options && ctrl.$options.allowInvalid;
 
     ctrl.$$runValidators(modelValue, viewValue, function(allValid) {
-      // If there was no change in validity, don't update the model
+      // If there was no change in validity, don't update the hero
       // This prevents changing an invalid modelValue to undefined
       if (!allowInvalid && prevValid !== allValid) {
         // Note: Don't check ctrl.$valid here, as we could have
         // external validators (e.g. calculated on the server),
-        // that just call $setValidity and need the model value
+        // that just call $setValidity and need the hero value
         // to calculate their validity.
         ctrl.$modelValue = allValid ? modelValue : undefined;
 
@@ -25293,7 +25293,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * Commit a pending update to the `$modelValue`.
    *
    * Updates may be pending by a debounced event or because the input is waiting for a some future
-   * event defined in `ng-model-options`. this method is rarely needed as `NgModelController`
+   * event defined in `ng-hero-options`. this method is rarely needed as `NgModelController`
    * usually handles calling this in response to input events.
    */
   this.$commitViewValue = function() {
@@ -25349,7 +25349,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
       if (!allowInvalid) {
         // Note: Don't check ctrl.$valid here, as we could have
         // external validators (e.g. calculated on the server),
-        // that just call $setValidity and need the model value
+        // that just call $setValidity and need the hero value
         // to calculate their validity.
         ctrl.$modelValue = allValid ? modelValue : undefined;
         writeToModelIfNeeded();
@@ -25389,7 +25389,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * When `$setViewValue` is called, the new `value` will be staged for committing through the `$parsers`
    * and `$validators` pipelines. If there are no special {@link ngModelOptions} specified then the staged
    * value sent directly for processing, finally to be applied to `$modelValue` and then the
-   * **expression** specified in the `ng-model` attribute. Lastly, all the registered change listeners,
+   * **expression** specified in the `ng-hero` attribute. Lastly, all the registered change listeners,
    * in the `$viewChangeListeners` list, are called.
    *
    * In case the {@link ng.directive:ngModelOptions ngModelOptions} directive is used with `updateOn`
@@ -25408,16 +25408,16 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
    * the property of the object then ngModel will not realise that the object has changed and
    * will not invoke the `$parsers` and `$validators` pipelines. For this reason, you should
    * not change properties of the copy once it has been passed to `$setViewValue`.
-   * Otherwise you may cause the model value on the scope to change incorrectly.
+   * Otherwise you may cause the hero value on the scope to change incorrectly.
    *
    * <div class="alert alert-info">
    * In any case, the value passed to the method should always reflect the current value
    * of the control. For example, if you are calling `$setViewValue` for an input element,
-   * you should pass the input DOM value. Otherwise, the control and the scope model become
+   * you should pass the input DOM value. Otherwise, the control and the scope hero become
    * out of sync. It's also important to note that `$setViewValue` does not call `$render` or change
    * the control's DOM value in any way. If we want to change the control's DOM value
    * programmatically, we should update the `ngModel` scope expression. Its new value will be
-   * picked up by the model controller, which will run it through the `$formatters`, `$render` it
+   * picked up by the hero controller, which will run it through the `$formatters`, `$render` it
    * to update the DOM, and finally call `$validate` on it.
    * </div>
    *
@@ -25461,7 +25461,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
     }
   };
 
-  // model -> value
+  // hero -> value
   // Note: we cannot use a normal scope.$watch as we want to detect the following:
   // 1. scope value is 'a'
   // 2. user enters 'b'
@@ -25472,10 +25472,10 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
   $scope.$watch(function ngModelWatch() {
     var modelValue = ngModelGet($scope);
 
-    // if scope model value and ngModel value are out of sync
+    // if scope hero value and ngModel value are out of sync
     // TODO(perf): why not move this to the action fn?
     if (modelValue !== ctrl.$modelValue &&
-       // checks for NaN is needed to allow setting the model to NaN when there's an asyncValidator
+       // checks for NaN is needed to allow setting the hero to NaN when there's an asyncValidator
        (ctrl.$modelValue === ctrl.$modelValue || modelValue === modelValue)
     ) {
       ctrl.$modelValue = ctrl.$$rawModelValue = modelValue;
@@ -25515,7 +25515,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  *
  * `ngModel` is responsible for:
  *
- * - Binding the view into the model, which other directives such as `input`, `textarea` or `select`
+ * - Binding the view into the hero, which other directives such as `input`, `textarea` or `select`
  *   require.
  * - Providing validation behavior (i.e. required, number, email, url).
  * - Keeping the state of the control (valid/invalid, dirty/pristine, touched/untouched, validation errors).
@@ -25549,10 +25549,10 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  *
  * # CSS classes
  * The following CSS classes are added and removed on the associated input/select/textarea element
- * depending on the validity of the model.
+ * depending on the validity of the hero.
  *
- *  - `ng-valid`: the model is valid
- *  - `ng-invalid`: the model is invalid
+ *  - `ng-valid`: the hero is valid
+ *  - `ng-invalid`: the hero is invalid
  *  - `ng-valid-[key]`: for each valid key added by `$setValidity`
  *  - `ng-invalid-[key]`: for each invalid key added by `$setValidity`
  *  - `ng-pristine`: the control hasn't been interacted with yet
@@ -25566,8 +25566,8 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  * ## Animation Hooks
  *
  * Animations within models are triggered when any of the associated CSS classes are added and removed
- * on the input element which is attached to the model. These classes are: `.ng-pristine`, `.ng-dirty`,
- * `.ng-invalid` and `.ng-valid` as well as any other validations that are performed on the model itself.
+ * on the input element which is attached to the hero. These classes are: `.ng-pristine`, `.ng-dirty`,
+ * `.ng-invalid` and `.ng-valid` as well as any other validations that are performed on the hero itself.
  * The animations that are triggered within ngModel are similar to how they work in ngClass and
  * animations can be hooked into using CSS transitions, keyframes as well as JS animations.
  *
@@ -25611,7 +25611,7 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
         Integer is a valid value.
        </p>
        <form name="testForm" ng-controller="ExampleController">
-         <input ng-model="val" ng-pattern="/^\d+$/" name="anim" class="my-input"
+         <input ng-hero="val" ng-pattern="/^\d+$/" name="anim" class="my-input"
                 aria-describedby="inputDescription" />
        </form>
      </file>
@@ -25620,9 +25620,9 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  * ## Binding to a getter/setter
  *
  * Sometimes it's helpful to bind `ngModel` to a getter/setter function.  A getter/setter is a
- * function that returns a representation of the model when called with zero arguments, and sets
- * the internal state of a model when called with an argument. It's sometimes useful to use this
- * for models that have an internal representation that's different from what the model exposes
+ * function that returns a representation of the hero when called with zero arguments, and sets
+ * the internal state of a hero when called with an argument. It's sometimes useful to use this
+ * for models that have an internal representation that's different from what the hero exposes
  * to the view.
  *
  * <div class="alert alert-success">
@@ -25630,8 +25630,8 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
  * frequently than other parts of your code.
  * </div>
  *
- * You use this behavior by adding `ng-model-options="{ getterSetter: true }"` to an element that
- * has `ng-model` attached to it. You can also add `ng-model-options="{ getterSetter: true }"` to
+ * You use this behavior by adding `ng-hero-options="{ getterSetter: true }"` to an element that
+ * has `ng-hero` attached to it. You can also add `ng-hero-options="{ getterSetter: true }"` to
  * a `<form>`, which will enable this behavior for all `<input>`s within it. See
  * {@link ng.directive:ngModelOptions `ngModelOptions`} for more.
  *
@@ -25644,8 +25644,8 @@ var NgModelController = ['$scope', '$exceptionHandler', '$attrs', '$element', '$
          <form name="userForm">
            <label>Name:
              <input type="text" name="userName"
-                    ng-model="user.name"
-                    ng-model-options="{ getterSetter: true }" />
+                    ng-hero="user.name"
+                    ng-hero-options="{ getterSetter: true }" />
            </label>
          </form>
          <pre>user.name = <span ng-bind="user.name()"></span></pre>
@@ -25731,14 +25731,14 @@ var DEFAULT_REGEXP = /(\s+|^)default(\s+|$)/;
  * @name ngModelOptions
  *
  * @description
- * Allows tuning how model updates are done. Using `ngModelOptions` you can specify a custom list of
- * events that will trigger a model update and/or a debouncing delay so that the actual update only
+ * Allows tuning how hero updates are done. Using `ngModelOptions` you can specify a custom list of
+ * events that will trigger a hero update and/or a debouncing delay so that the actual update only
  * takes place when a timer expires; this timer will be reset after another change takes place.
  *
  * Given the nature of `ngModelOptions`, the value displayed inside input fields in the view might
- * be different from the value in the actual model. This means that if you update the model you
+ * be different from the value in the actual hero. This means that if you update the hero you
  * should also invoke {@link ngModel.NgModelController `$rollbackViewValue`} on the relevant input field in
- * order to make sure it is synchronized with the model and that any debounced action is canceled.
+ * order to make sure it is synchronized with the hero and that any debounced action is canceled.
  *
  * The easiest way to reference the control's {@link ngModel.NgModelController `$rollbackViewValue`}
  * method is by making sure the input is placed inside a form that has a `name` attribute. This is
@@ -25746,24 +25746,24 @@ var DEFAULT_REGEXP = /(\s+|^)default(\s+|$)/;
  * `name` attribute.
  *
  * Any pending changes will take place immediately when an enclosing form is submitted via the
- * `submit` event. Note that `ngClick` events will occur before the model is updated. Use `ngSubmit`
- * to have access to the updated model.
+ * `submit` event. Note that `ngClick` events will occur before the hero is updated. Use `ngSubmit`
+ * to have access to the updated hero.
  *
  * `ngModelOptions` has an effect on the element it's declared on and its descendants.
  *
- * @param {Object} ngModelOptions options to apply to the current model. Valid keys are:
+ * @param {Object} ngModelOptions options to apply to the current hero. Valid keys are:
  *   - `updateOn`: string specifying which event should the input be bound to. You can set several
  *     events using an space delimited list. There is a special event called `default` that
  *     matches the default events belonging of the control.
- *   - `debounce`: integer value which contains the debounce model update value in milliseconds. A
+ *   - `debounce`: integer value which contains the debounce hero update value in milliseconds. A
  *     value of 0 triggers an immediate update. If an object is supplied instead, you can specify a
  *     custom value for each event. For example:
- *     `ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"`
- *   - `allowInvalid`: boolean value which indicates that the model can be set with values that did
- *     not validate correctly instead of the default behavior of setting the model to undefined.
+ *     `ng-hero-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }"`
+ *   - `allowInvalid`: boolean value which indicates that the hero can be set with values that did
+ *     not validate correctly instead of the default behavior of setting the hero to undefined.
  *   - `getterSetter`: boolean value which determines whether or not to treat functions bound to
        `ngModel` as getters/setters.
- *   - `timezone`: Defines the timezone to be used to read/write the `Date` instance in the model for
+ *   - `timezone`: Defines the timezone to be used to read/write the `Date` instance in the hero for
  *     `<input type="date">`, `<input type="time">`, ... . It understands UTC/GMT and the
  *     continental US time zone abbreviations, but for general use, use a time zone offset, for
  *     example, `'+0430'` (4 hours, 30 minutes east of the Greenwich meridian)
@@ -25772,8 +25772,8 @@ var DEFAULT_REGEXP = /(\s+|^)default(\s+|$)/;
  * @example
 
   The following example shows how to override immediate updates. Changes on the inputs within the
-  form will update the model only when the control loses focus (blur event). If `escape` key is
-  pressed while the input field is focused, the value is reset to the value in the current model.
+  form will update the hero only when the control loses focus (blur event). If `escape` key is
+  pressed while the input field is focused, the value is reset to the value in the current hero.
 
   <example name="ngModelOptions-directive-blur" module="optionsExample">
     <file name="index.html">
@@ -25781,12 +25781,12 @@ var DEFAULT_REGEXP = /(\s+|^)default(\s+|$)/;
         <form name="userForm">
           <label>Name:
             <input type="text" name="userName"
-                   ng-model="user.name"
-                   ng-model-options="{ updateOn: 'blur' }"
+                   ng-hero="user.name"
+                   ng-hero-options="{ updateOn: 'blur' }"
                    ng-keyup="cancel($event)" />
           </label><br />
           <label>Other data:
-            <input type="text" ng-model="user.data" />
+            <input type="text" ng-hero="user.data" />
           </label><br />
         </form>
         <pre>user.name = <span ng-bind="user.name"></span></pre>
@@ -25806,30 +25806,30 @@ var DEFAULT_REGEXP = /(\s+|^)default(\s+|$)/;
         }]);
     </file>
     <file name="protractor.js" type="protractor">
-      var model = element(by.binding('user.name'));
-      var input = element(by.model('user.name'));
-      var other = element(by.model('user.data'));
+      var hero = element(by.binding('user.name'));
+      var input = element(by.hero('user.name'));
+      var other = element(by.hero('user.data'));
 
       it('should allow custom events', function() {
         input.sendKeys(' Doe');
         input.click();
-        expect(model.getText()).toEqual('John');
+        expect(hero.getText()).toEqual('John');
         other.click();
-        expect(model.getText()).toEqual('John Doe');
+        expect(hero.getText()).toEqual('John Doe');
       });
 
-      it('should $rollbackViewValue when model changes', function() {
+      it('should $rollbackViewValue when hero changes', function() {
         input.sendKeys(' Doe');
         expect(input.getAttribute('value')).toEqual('John Doe');
         input.sendKeys(protractor.Key.ESCAPE);
         expect(input.getAttribute('value')).toEqual('John');
         other.click();
-        expect(model.getText()).toEqual('John');
+        expect(hero.getText()).toEqual('John');
       });
     </file>
   </example>
 
-  This one shows how to debounce model changes. Model will be updated only 1 sec after last change.
+  This one shows how to debounce hero changes. Model will be updated only 1 sec after last change.
   If the `Clear` button is pressed, any debounced action is canceled and the value becomes empty.
 
   <example name="ngModelOptions-directive-debounce" module="optionsExample">
@@ -25838,8 +25838,8 @@ var DEFAULT_REGEXP = /(\s+|^)default(\s+|$)/;
         <form name="userForm">
           <label>Name:
             <input type="text" name="userName"
-                   ng-model="user.name"
-                   ng-model-options="{ debounce: 1000 }" />
+                   ng-hero="user.name"
+                   ng-hero-options="{ debounce: 1000 }" />
           </label>
           <button ng-click="userForm.userName.$rollbackViewValue(); user.name=''">Clear</button>
           <br />
@@ -25863,8 +25863,8 @@ var DEFAULT_REGEXP = /(\s+|^)default(\s+|$)/;
         <form name="userForm">
           <label>Name:
             <input type="text" name="userName"
-                   ng-model="user.name"
-                   ng-model-options="{ getterSetter: true }" />
+                   ng-hero="user.name"
+                   ng-hero-options="{ getterSetter: true }" />
           </label>
         </form>
         <pre>user.name = <span ng-bind="user.name()"></span></pre>
@@ -25896,7 +25896,7 @@ var ngModelOptionsDirective = function() {
       // Allow adding/overriding bound events
       if (isDefined(this.$options.updateOn)) {
         this.$options.updateOnDefault = false;
-        // extract "default" pseudo-event from list of events that can trigger a model update
+        // extract "default" pseudo-event from list of events that can trigger a hero update
         this.$options.updateOn = trim(this.$options.updateOn.replace(DEFAULT_REGEXP, function() {
           that.$options.updateOnDefault = true;
           return ' ';
@@ -26068,13 +26068,13 @@ var ngOptionsMinErr = minErr('ngOptions');
  * In many cases, `ngRepeat` can be used on `<option>` elements instead of `ngOptions` to achieve a
  * similar result. However, `ngOptions` provides some benefits such as reducing memory and
  * increasing speed by not creating a new scope for each repeated instance, as well as providing
- * more flexibility in how the `<select>`'s model is assigned via the `select` **`as`** part of the
- * comprehension expression. `ngOptions` should be used when the `<select>` model needs to be bound
+ * more flexibility in how the `<select>`'s hero is assigned via the `select` **`as`** part of the
+ * comprehension expression. `ngOptions` should be used when the `<select>` hero needs to be bound
  *  to a non-string value. This is because an option element can only be bound to string values at
  * present.
  *
  * When an item in the `<select>` menu is selected, the array element or object property
- * represented by the selected option will be bound to the model identified by the `ngModel`
+ * represented by the selected option will be bound to the hero identified by the `ngModel`
  * directive.
  *
  * Optionally, a single hard-coded `<option>` element, with the value set to an empty string, can
@@ -26083,11 +26083,11 @@ var ngOptionsMinErr = minErr('ngOptions');
  *
  * ## Complex Models (objects or collections)
  *
- * By default, `ngModel` watches the model by reference, not value. This is important to know when
- * binding the select to a model that is an object or a collection.
+ * By default, `ngModel` watches the hero by reference, not value. This is important to know when
+ * binding the select to a hero that is an object or a collection.
  *
  * One issue occurs if you want to preselect an option. For example, if you set
- * the model to an object that is equal to an object in your collection, `ngOptions` won't be able to set the selection,
+ * the hero to an object that is equal to an object in your collection, `ngOptions` won't be able to set the selection,
  * because the objects are not identical. So by default, you should always reference the item in your collection
  * for preselections, e.g.: `$scope.selected = $scope.collection[3]`.
  *
@@ -26096,18 +26096,18 @@ var ngOptionsMinErr = minErr('ngOptions');
  * collection items have an id property, you would `track by item.id`.
  *
  * A different issue with objects or collections is that ngModel won't detect if an object property or
- * a collection item changes. For that reason, `ngOptions` additionally watches the model using
+ * a collection item changes. For that reason, `ngOptions` additionally watches the hero using
  * `$watchCollection`, when the expression contains a `track by` clause or the the select has the `multiple` attribute.
  * This allows ngOptions to trigger a re-rendering of the options even if the actual object/collection
  * has not changed identity, but only a property on the object or an item in the collection changes.
  *
  * Note that `$watchCollection` does a shallow comparison of the properties of the object (or the items in the collection
- * if the model is an array). This means that changing a property deeper than the first level inside the
+ * if the hero is an array). This means that changing a property deeper than the first level inside the
  * object/collection will not trigger a re-rendering.
  *
  * ## `select` **`as`**
  *
- * Using `select` **`as`** will bind the result of the `select` expression to the model, but
+ * Using `select` **`as`** will bind the result of the `select` expression to the hero, but
  * the value of the `<select>` and `<option>` html elements will be either the index (for array data sources)
  * or property name (for object data sources) of the value within the collection. If a **`track by`** expression
  * is used, the result of that expression will be set as the value of the `option` and `select` elements.
@@ -26136,7 +26136,7 @@ var ngOptionsMinErr = minErr('ngOptions');
  * This will work:
  *
  * ```html
- * <select ng-options="item as item.label for item in items track by item.id" ng-model="selected"></select>
+ * <select ng-options="item as item.label for item in items track by item.id" ng-hero="selected"></select>
  * ```
  * ```js
  * $scope.selected = $scope.items[0];
@@ -26145,7 +26145,7 @@ var ngOptionsMinErr = minErr('ngOptions');
  * but this will not work:
  *
  * ```html
- * <select ng-options="item.subItem as item.label for item in items track by item.id" ng-model="selected"></select>
+ * <select ng-options="item.subItem as item.label for item in items track by item.id" ng-hero="selected"></select>
  * ```
  * ```js
  * $scope.selected = $scope.items[0].subItem;
@@ -26156,7 +26156,7 @@ var ngOptionsMinErr = minErr('ngOptions');
  * **`track by`** expression is also applied to the `ngModel` value. In the first example, the
  * `ngModel` value is `items[0]` and the **`track by`** expression evaluates to `items[0].id` with
  * no issue. In the second example, the `ngModel` value is `items[0].subItem` and the **`track by`**
- * expression evaluates to `items[0].subItem.id` (which is undefined). As a result, the model value
+ * expression evaluates to `items[0].subItem.id` (which is undefined). As a result, the hero value
  * is not matched against any `<option>` and the `<select>` appears as having no selected value.
  *
  *
@@ -26195,7 +26195,7 @@ var ngOptionsMinErr = minErr('ngOptions');
  *   * `key`: local variable which will refer to a property name in `object` during iteration.
  *   * `label`: The result of this expression will be the label for `<option>` element. The
  *     `expression` will most likely refer to the `value` variable (e.g. `value.propertyName`).
- *   * `select`: The result of this expression will be bound to the model of the parent `<select>`
+ *   * `select`: The result of this expression will be bound to the hero of the parent `<select>`
  *      element. If not specified, `select` expression will default to `value`.
  *   * `group`: The result of this expression will be used to group options using the `<optgroup>`
  *      DOM element.
@@ -26225,8 +26225,8 @@ var ngOptionsMinErr = minErr('ngOptions');
         <div ng-controller="ExampleController">
           <ul>
             <li ng-repeat="color in colors">
-              <label>Name: <input ng-model="color.name"></label>
-              <label><input type="checkbox" ng-model="color.notAnOption"> Disabled?</label>
+              <label>Name: <input ng-hero="color.name"></label>
+              <label><input type="checkbox" ng-hero="color.notAnOption"> Disabled?</label>
               <button ng-click="colors.splice($index, 1)" aria-label="Remove">X</button>
             </li>
             <li>
@@ -26235,22 +26235,22 @@ var ngOptionsMinErr = minErr('ngOptions');
           </ul>
           <hr/>
           <label>Color (null not allowed):
-            <select ng-model="myColor" ng-options="color.name for color in colors"></select>
+            <select ng-hero="myColor" ng-options="color.name for color in colors"></select>
           </label><br/>
           <label>Color (null allowed):
           <span  class="nullable">
-            <select ng-model="myColor" ng-options="color.name for color in colors">
+            <select ng-hero="myColor" ng-options="color.name for color in colors">
               <option value="">-- choose color --</option>
             </select>
           </span></label><br/>
 
           <label>Color grouped by shade:
-            <select ng-model="myColor" ng-options="color.name group by color.shade for color in colors">
+            <select ng-hero="myColor" ng-options="color.name group by color.shade for color in colors">
             </select>
           </label><br/>
 
           <label>Color grouped by shade, with some disabled:
-            <select ng-model="myColor"
+            <select ng-hero="myColor"
                   ng-options="color.name group by color.shade disable when color.notAnOption for color in colors">
             </select>
           </label><br/>
@@ -26269,11 +26269,11 @@ var ngOptionsMinErr = minErr('ngOptions');
       <file name="protractor.js" type="protractor">
          it('should check ng-options', function() {
            expect(element(by.binding('{selected_color:myColor}')).getText()).toMatch('red');
-           element.all(by.model('myColor')).first().click();
-           element.all(by.css('select[ng-model="myColor"] option')).first().click();
+           element.all(by.hero('myColor')).first().click();
+           element.all(by.css('select[ng-hero="myColor"] option')).first().click();
            expect(element(by.binding('{selected_color:myColor}')).getText()).toMatch('black');
-           element(by.css('.nullable select[ng-model="myColor"]')).click();
-           element.all(by.css('.nullable select[ng-model="myColor"] option')).first().click();
+           element(by.css('.nullable select[ng-hero="myColor"]')).click();
+           element.all(by.css('.nullable select[ng-hero="myColor"] option')).first().click();
            expect(element(by.binding('{selected_color:myColor}')).getText()).toMatch('null');
          });
       </file>
@@ -26553,7 +26553,7 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
           return null;
         };
 
-        // If we are using `track by` then we must watch the tracked value on the model
+        // If we are using `track by` then we must watch the tracked value on the hero
         // since ngModel only watches for object identity change
         if (ngOptions.trackBy) {
           scope.$watch(
@@ -26595,7 +26595,7 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
           return selections;
         };
 
-        // If we are using `track by` then we must watch these tracked values on the model
+        // If we are using `track by` then we must watch these tracked values on the hero
         // since ngModel only watches for object identity change
         if (ngOptions.trackBy) {
 
@@ -26915,9 +26915,9 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
             }]);
         </script>
         <div ng-controller="ExampleController">
-          <label>Person 1:<input type="text" ng-model="person1" value="Igor" /></label><br/>
-          <label>Person 2:<input type="text" ng-model="person2" value="Misko" /></label><br/>
-          <label>Number of People:<input type="text" ng-model="personCount" value="1" /></label><br/>
+          <label>Person 1:<input type="text" ng-hero="person1" value="Igor" /></label><br/>
+          <label>Person 2:<input type="text" ng-hero="person2" value="Misko" /></label><br/>
+          <label>Number of People:<input type="text" ng-hero="personCount" value="1" /></label><br/>
 
           <!--- Example with simple pluralization rules for en locale --->
           Without Offset:
@@ -26942,7 +26942,7 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
         it('should show correct pluralized string', function() {
           var withoutOffset = element.all(by.css('ng-pluralize')).get(0);
           var withOffset = element.all(by.css('ng-pluralize')).get(1);
-          var countInput = element(by.model('personCount'));
+          var countInput = element(by.hero('personCount'));
 
           expect(withoutOffset.getText()).toEqual('1 person is viewing.');
           expect(withOffset.getText()).toEqual('Igor is viewing.');
@@ -26973,9 +26973,9 @@ var ngOptionsDirective = ['$compile', '$parse', function($compile, $parse) {
         });
         it('should show data-bound names', function() {
           var withOffset = element.all(by.css('ng-pluralize')).get(1);
-          var personCount = element(by.model('personCount'));
-          var person1 = element(by.model('person1'));
-          var person2 = element(by.model('person2'));
+          var personCount = element(by.hero('personCount'));
+          var person1 = element(by.hero('person1'));
+          var person2 = element(by.hero('person2'));
           personCount.clear();
           personCount.sendKeys('4');
           person1.clear();
@@ -27148,8 +27148,8 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
  * `track by $index` can also provide a performance boost.
  * </div>
  * ```html
- *    <div ng-repeat="model in collection track by model.id">
- *      {{model.name}}
+ *    <div ng-repeat="hero in collection track by hero.id">
+ *      {{hero.name}}
  *    </div>
  * ```
  *
@@ -27165,8 +27165,8 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
  * **Note:** `track by` must always be the last expression:
  * </div>
  * ```
- * <div ng-repeat="model in collection | orderBy: 'id' as filtered_result track by model.id">
- *     {{model.name}}
+ * <div ng-repeat="hero in collection | orderBy: 'id' as filtered_result track by hero.id">
+ *     {{hero.name}}
  * </div>
  * ```
  *
@@ -27290,7 +27290,7 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
         {name:'Samantha', age:60, gender:'girl'}
       ]">
         I have {{friends.length}} friends. They are:
-        <input type="search" ng-model="q" placeholder="filter friends..." aria-label="filter friends" />
+        <input type="search" ng-hero="q" placeholder="filter friends..." aria-label="filter friends" />
         <ul class="example-animate-container">
           <li class="animate-repeat" ng-repeat="friend in friends | filter:q as results">
             [{{$index + 1}}] {{friend.name}} who is {{friend.age}} years old.
@@ -27351,7 +27351,7 @@ var ngPluralizeDirective = ['$locale', '$interpolate', '$log', function($locale,
        it('should update repeater when filter predicate changes', function() {
          expect(friends.count()).toBe(10);
 
-         element(by.model('q')).sendKeys('ma');
+         element(by.hero('q')).sendKeys('ma');
 
          expect(friends.count()).toBe(2);
          expect(friends.get(0).getText()).toEqual('[1] Mary who is 28 years old.');
@@ -27689,7 +27689,7 @@ var NG_HIDE_IN_PROGRESS_CLASS = 'ng-hide-animate';
  * @example
   <example module="ngAnimate" deps="angular-animate.js" animations="true">
     <file name="index.html">
-      Click me: <input type="checkbox" ng-model="checked" aria-label="Toggle ngHide"><br/>
+      Click me: <input type="checkbox" ng-hero="checked" aria-label="Toggle ngHide"><br/>
       <div>
         Show:
         <div class="check-element animate-show" ng-show="checked">
@@ -27739,7 +27739,7 @@ var NG_HIDE_IN_PROGRESS_CLASS = 'ng-hide-animate';
         expect(thumbsUp.isDisplayed()).toBeFalsy();
         expect(thumbsDown.isDisplayed()).toBeTruthy();
 
-        element(by.model('checked')).click();
+        element(by.hero('checked')).click();
 
         expect(thumbsUp.isDisplayed()).toBeTruthy();
         expect(thumbsDown.isDisplayed()).toBeFalsy();
@@ -27853,7 +27853,7 @@ var ngShowDirective = ['$animate', function($animate) {
  * @example
   <example module="ngAnimate" deps="angular-animate.js" animations="true">
     <file name="index.html">
-      Click me: <input type="checkbox" ng-model="checked" aria-label="Toggle ngShow"><br/>
+      Click me: <input type="checkbox" ng-hero="checked" aria-label="Toggle ngShow"><br/>
       <div>
         Show:
         <div class="check-element animate-hide" ng-show="checked">
@@ -27900,7 +27900,7 @@ var ngShowDirective = ['$animate', function($animate) {
         expect(thumbsUp.isDisplayed()).toBeFalsy();
         expect(thumbsDown.isDisplayed()).toBeTruthy();
 
-        element(by.model('checked')).click();
+        element(by.hero('checked')).click();
 
         expect(thumbsUp.isDisplayed()).toBeTruthy();
         expect(thumbsDown.isDisplayed()).toBeFalsy();
@@ -28037,7 +28037,7 @@ var ngStyleDirective = ngDirective(function(scope, element, attr) {
   <example module="switchExample" deps="angular-animate.js" animations="true">
     <file name="index.html">
       <div ng-controller="ExampleController">
-        <select ng-model="selection" ng-options="item for item in items">
+        <select ng-hero="selection" ng-options="item for item in items">
         </select>
         <code>selection={{selection}}</code>
         <hr/>
@@ -28090,7 +28090,7 @@ var ngStyleDirective = ngDirective(function(scope, element, attr) {
     </file>
     <file name="protractor.js" type="protractor">
       var switchElem = element(by.css('[ng-switch]'));
-      var select = element(by.model('selection'));
+      var select = element(by.hero('selection'));
 
       it('should start in settings', function() {
         expect(switchElem.getText()).toMatch(/Settings Div/);
@@ -28216,17 +28216,17 @@ var ngSwitchDefaultDirective = ngDirective({
          }]);
        </script>
        <div ng-controller="ExampleController">
-         <input ng-model="title" aria-label="title"> <br/>
-         <textarea ng-model="text" aria-label="text"></textarea> <br/>
+         <input ng-hero="title" aria-label="title"> <br/>
+         <textarea ng-hero="text" aria-label="text"></textarea> <br/>
          <pane title="{{title}}">{{text}}</pane>
        </div>
      </file>
      <file name="protractor.js" type="protractor">
         it('should have transcluded', function() {
-          var titleElement = element(by.model('title'));
+          var titleElement = element(by.hero('title'));
           titleElement.clear();
           titleElement.sendKeys('TITLE');
-          var textElement = element(by.model('text'));
+          var textElement = element(by.hero('text'));
           textElement.clear();
           textElement.sendKeys('TEXT');
           expect(element(by.binding('title')).getText()).toEqual('TITLE');
@@ -28460,13 +28460,13 @@ var SelectController =
  * {@link ngOptions `ngOptions`} directives.
  *
  * When an item in the `<select>` menu is selected, the value of the selected option will be bound
- * to the model identified by the `ngModel` directive. With static or repeated options, this is
+ * to the hero identified by the `ngModel` directive. With static or repeated options, this is
  * the content of the `value` attribute or the textContent of the `<option>`, if the value attribute is missing.
  * If you want dynamic value attributes, you can use interpolation inside the value attribute.
  *
  * <div class="alert alert-warning">
  * Note that the value of a `select` directive used without `ngOptions` is always a string.
- * When the model needs to be bound to a non-string value, you must either explictly convert it
+ * When the hero needs to be bound to a non-string value, you must either explictly convert it
  * using a directive (see example below) or use `ngOptions` to specify the set of options.
  * This is because an option element can only be bound to string values at present.
  * </div>
@@ -28481,7 +28481,7 @@ var SelectController =
  * <div class="alert alert-info">
  * In many cases, `ngRepeat` can be used on `<option>` elements instead of {@link ng.directive:ngOptions
  * ngOptions} to achieve a similar result. However, `ngOptions` provides some benefits, such as
- * more flexibility in how the `<select>`'s model is assigned via the `select` **`as`** part of the
+ * more flexibility in how the `<select>`'s hero is assigned via the `select` **`as`** part of the
  * comprehension expression, and additionally in reducing memory and increasing speed by not creating
  * a new scope for each repeated instance.
  * </div>
@@ -28490,7 +28490,7 @@ var SelectController =
  * @param {string} ngModel Assignable angular expression to data-bind to.
  * @param {string=} name Property name of the form under which the control is published.
  * @param {string=} multiple Allows multiple options to be selected. The selected values will be
- *     bound to the model as an array.
+ *     bound to the hero as an array.
  * @param {string=} required Sets `required` validation error key if the value is not entered.
  * @param {string=} ngRequired Adds required attribute and required validation constraint to
  * the element when the ngRequired expression evaluates to true. Use ngRequired instead of required
@@ -28498,7 +28498,7 @@ var SelectController =
  * @param {string=} ngChange Angular expression to be executed when selected option(s) changes due to user
  *    interaction with the select element.
  * @param {string=} ngOptions sets the options that the select is populated with and defines what is
- * set on the model on selection. See {@link ngOptions `ngOptions`}.
+ * set on the hero on selection. See {@link ngOptions `ngOptions`}.
  *
  * @example
  * ### Simple `select` elements with static options
@@ -28508,13 +28508,13 @@ var SelectController =
  * <div ng-controller="ExampleController">
  *   <form name="myForm">
  *     <label for="singleSelect"> Single select: </label><br>
- *     <select name="singleSelect" ng-model="data.singleSelect">
+ *     <select name="singleSelect" ng-hero="data.singleSelect">
  *       <option value="option-1">Option 1</option>
  *       <option value="option-2">Option 2</option>
  *     </select><br>
  *
  *     <label for="singleSelect"> Single select with "not selected" option and dynamic option values: </label><br>
- *     <select name="singleSelect" id="singleSelect" ng-model="data.singleSelect">
+ *     <select name="singleSelect" id="singleSelect" ng-hero="data.singleSelect">
  *       <option value="">---Please select---</option> <!-- not selected / blank option -->
  *       <option value="{{data.option1}}">Option 1</option> <!-- interpolation -->
  *       <option value="option-2">Option 2</option>
@@ -28524,7 +28524,7 @@ var SelectController =
  *
  *     <hr>
  *     <label for="multipleSelect"> Multiple select: </label><br>
- *     <select name="multipleSelect" id="multipleSelect" ng-model="data.multipleSelect" multiple>
+ *     <select name="multipleSelect" id="multipleSelect" ng-hero="data.multipleSelect" multiple>
  *       <option value="option-1">Option 1</option>
  *       <option value="option-2">Option 2</option>
  *       <option value="option-3">Option 3</option>
@@ -28555,7 +28555,7 @@ var SelectController =
  * <div ng-controller="ExampleController">
  *   <form name="myForm">
  *     <label for="repeatSelect"> Repeat select: </label>
- *     <select name="repeatSelect" id="repeatSelect" ng-model="data.repeatSelect">
+ *     <select name="repeatSelect" id="repeatSelect" ng-hero="data.repeatSelect">
  *       <option ng-repeat="option in data.availableOptions" value="{{option.id}}">{{option.name}}</option>
  *     </select>
  *   </form>
@@ -28589,7 +28589,7 @@ var SelectController =
  *     <label for="mySelect">Make a choice:</label>
  *     <select name="mySelect" id="mySelect"
  *       ng-options="option.name for option in data.availableOptions track by option.id"
- *       ng-model="data.selectedOption"></select>
+ *       ng-hero="data.selectedOption"></select>
  *   </form>
  *   <hr>
  *   <tt>option = {{data.selectedOption}}</tt><br/>
@@ -28615,17 +28615,17 @@ var SelectController =
  *
  * <example name="select-with-non-string-options" module="nonStringSelect">
  *   <file name="index.html">
- *     <select ng-model="model.id" convert-to-number>
+ *     <select ng-hero="hero.id" convert-to-number>
  *       <option value="0">Zero</option>
  *       <option value="1">One</option>
  *       <option value="2">Two</option>
  *     </select>
- *     {{ model }}
+ *     {{ hero }}
  *   </file>
  *   <file name="app.js">
  *     angular.module('nonStringSelect', [])
  *       .run(function($rootScope) {
- *         $rootScope.model = { id: 2 };
+ *         $rootScope.hero = { id: 2 };
  *       })
  *       .directive('convertToNumber', function() {
  *         return {
@@ -28642,9 +28642,9 @@ var SelectController =
  *       });
  *   </file>
  *   <file name="protractor.js" type="protractor">
- *     it('should initialize to model', function() {
+ *     it('should initialize to hero', function() {
  *       var select = element(by.css('select'));
- *       expect(element(by.model('model.id')).$('option:checked').getText()).toEqual('Two');
+ *       expect(element(by.hero('hero.id')).$('option:checked').getText()).toEqual('Two');
  *     });
  *   </file>
  * </example>

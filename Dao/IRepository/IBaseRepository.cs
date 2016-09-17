@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using Dao.Model;
 
 namespace Dao.IRepository
 {
-    public interface IBaseRepository<T>
+    public interface IBaseRepository<T> where T : class
     {
+        WriterContext Db { get; set; }// = ContextForRepository.Context;
+        DbSet<T> Entity { get; set; }
+
         bool Exist(T baseModel);
 
         void Save(T baseModel);

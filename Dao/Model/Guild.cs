@@ -1,24 +1,27 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dao.Model
 {
     public class Guild : BaseModel
     {
         [Required]
-        public virtual string Name { get; set; }
+        [Index(IsUnique = true)]
+        [MaxLength(120)]//unique constraint can not be big
+        public string Name { get; set; }
 
         [Required]
-        public virtual string Desc { get; set; }
+        public string Desc { get; set; }
 
         [Required]
         [Description("Main resource")]
-        public virtual long Gold { get; set; }
+        public long Gold { get; set; }
 
         [Required]
         [Description("Second resource")]
-        public virtual long Influence { get; set; }
+        public long Influence { get; set; }
 
         [Required]
         public Location Location { get; set; }

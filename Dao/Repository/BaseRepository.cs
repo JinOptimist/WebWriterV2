@@ -14,8 +14,8 @@ namespace Dao.Repository
             Entity = Db.Set<T>();
         }
 
-        public readonly WriterContext Db;// = ContextForRepository.Context;
-        public readonly DbSet<T> Entity;
+        public WriterContext Db { get; set; }// = ContextForRepository.Context;
+        public DbSet<T> Entity { get; set; }
 
         public virtual bool Exist(T baseModel)
         {
@@ -58,8 +58,7 @@ namespace Dao.Repository
 
         public virtual void Remove(long id)
         {
-            Entity.Remove(Get(id));
-            Db.SaveChanges();
+            Remove(Get(id));
         }
 
         public virtual void Remove(T baseModel)

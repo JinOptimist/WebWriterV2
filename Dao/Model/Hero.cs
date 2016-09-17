@@ -6,8 +6,8 @@ namespace Dao.Model
     public class Hero : BaseModel
     {
         [Required]
-        public virtual string Name { get; set; }
-        public virtual string Background { get; set; }
+        public string Name { get; set; }
+        public string Background { get; set; }
 
         [Required]
         public virtual Race Race { get; set; }

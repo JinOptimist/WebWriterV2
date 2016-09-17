@@ -404,6 +404,7 @@ namespace WebWriterV2.RpgUtility
         public static List<CharacteristicType> GenerateCharacteristicType(List<StateType> stateTypes)
         {
             var maxHp = stateTypes.First(x => x.Name == MaxHp);
+            var hp = stateTypes.First(x => x.Name == Hp);
             var dodge = stateTypes.First(x => x.Name == Dodge);
             var gold = stateTypes.First(x => x.Name == Gold);
             var characteristicType = new List<CharacteristicType>();
@@ -412,7 +413,11 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = Strength,
                 Desc = "Чем сильней, тем тупей, шутят над орками. А те почему-то смеются и бьют себя в голову",
-                EffectState = new List<State> { new State { StateType = maxHp, Number = 5 } }
+                EffectState = new List<State>
+                {
+                    new State { StateType = maxHp, Number = 5 },
+                    new State { StateType = hp, Number = 5 }
+                }
             });
 
             characteristicType.Add(new CharacteristicType
