@@ -11,9 +11,9 @@ namespace Dao.IRepository
 
         bool Exist(T baseModel);
 
-        void Save(T baseModel);
+        T Save(T baseModel);
 
-        void Save(List<T> baseModels);
+        List<T> Save(List<T> baseModels);
 
         List<T> GetAll();
 

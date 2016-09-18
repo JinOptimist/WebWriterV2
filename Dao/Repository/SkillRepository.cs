@@ -21,7 +21,7 @@ namespace Dao.Repository
             _stateRepository = new StateRepository(db);
         }
 
-        public override void Save(Skill skill)
+        public override Skill Save(Skill skill)
         {
             var isDetached = true;
             var skillByName = GetByName(skill.Name);
@@ -60,7 +60,7 @@ namespace Dao.Repository
             }
 
             base.Save(skill);
-            //ignore if we try add new skill with skill
+            return skill;
         }
 
         public override bool Exist(Skill skill)

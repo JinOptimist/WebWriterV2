@@ -22,23 +22,24 @@ namespace Dao.Repository
             return Entity.Any(x => x == baseModel);
         }
 
-        public virtual void Save(T model)
+        public virtual T Save(T model)
         {
             if (model.Id > 0)
             {
                 Entity.Attach(model);
                 Db.Entry(model).State = EntityState.Modified;
                 Db.SaveChanges();
-                return;
+                return model;
             }
 
             Entity.Add(model);
             Db.SaveChanges();
+            return model;
         }
 
-        public virtual void Save(List<T> baseModels)
+        public virtual List<T> Save(List<T> baseModels)
         {
-            baseModels.ForEach(Save);
+            return baseModels.Select(Save).ToList();
         }
 
         public virtual List<T> GetAll()

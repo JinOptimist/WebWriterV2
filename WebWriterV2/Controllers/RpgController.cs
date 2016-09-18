@@ -149,7 +149,8 @@ namespace WebWriterV2.Controllers
             hero.Guild = guild;
 
             HeroRepository.Save(hero);
-
+            frontHero.Id = hero.Id;
+            
             return new JsonResult
             {
                 Data = SerializeHelper.Serialize(frontHero),
@@ -306,7 +307,6 @@ namespace WebWriterV2.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-
 
         /* ************** State ************** */
         public JsonResult GetStateTypes()

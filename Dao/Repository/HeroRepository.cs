@@ -23,7 +23,7 @@ namespace Dao.Repository
             _stateTypeRepository = new StateTypeRepository(db);
         }
 
-        public override void Save(Hero hero)
+        public override Hero Save(Hero hero)
         {
             var cleareSkill = hero.Skills
                 .Where(skill => _skillRepository.Db.Entry(skill).State == EntityState.Detached)
@@ -62,6 +62,7 @@ namespace Dao.Repository
             }
 
             base.Save(hero);
+            return hero;
         }
 
         public void A()
