@@ -59,8 +59,7 @@ namespace Dao.Repository
                 _skillSchoolRepository.Entity.Attach(skill.School);
             }
 
-            base.Save(skill);
-            return skill;
+            return base.Save(skill);
         }
 
         public override bool Exist(Skill skill)

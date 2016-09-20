@@ -150,7 +150,7 @@ namespace WebWriterV2.Controllers
 
             HeroRepository.Save(hero);
             frontHero.Id = hero.Id;
-            
+
             return new JsonResult
             {
                 Data = SerializeHelper.Serialize(frontHero),
@@ -319,6 +319,45 @@ namespace WebWriterV2.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+
+        /* ************** Characteristic ************** */
+        public JsonResult GetCharacteristicTypes()
+        {
+            var characteristicTypes = CharacteristicTypeRepository.GetAll();
+
+            var frontCharacteristicTypes = characteristicTypes.Select(x => new FrontCharacteristicType(x)).ToList();
+
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(frontCharacteristicTypes),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult SaveCharacteristicType(string jsonCharacteristicType)
+        {
+            var frontCharacteristicType = SerializeHelper.Deserialize<FrontCharacteristicType>(jsonCharacteristicType);
+            var characteristicType = frontCharacteristicType.ToDbModel();
+
+            CharacteristicTypeRepository.Save(characteristicType);
+
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(new FrontCharacteristicType(characteristicType)),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveCharacteristicType(long characteristicTypeId)
+        {
+            CharacteristicTypeRepository.Remove(characteristicTypeId);
+            return new JsonResult
+            {
+                Data = true,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
 
         /* ************** Quest ************** */
         public JsonResult GetQuest(long id)

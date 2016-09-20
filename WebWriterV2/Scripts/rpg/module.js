@@ -15,17 +15,21 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             $routeProvider
                 /* admin */
                 .when('/AngularRoute/adminSkill', {
-                    templateUrl: '/views/rpg/adminSkill.html',
+                    templateUrl: '/views/rpg/AdminSkill.html',
                     controller: 'adminSkillController'
+                })
+                .when('/AngularRoute/adminCharacteristic', {
+                    templateUrl: '/views/rpg/AdminCharacteristic.html',
+                    controller: 'adminCharacteristicController'
+                })
+                .when('/AngularRoute/createQuest', {
+                    templateUrl: '/views/rpg/CreateQuest.html',
+                    controller: 'adminQuestController'
                 })
                 /* front */
                 .when('/AngularRoute/guild', {
                     templateUrl: '/views/rpg/Guild.html',
                     controller: 'guildController'
-                })
-                .when('/AngularRoute/createQuest', {
-                    templateUrl: '/views/rpg/CreateQuest.html',
-                    controller: 'adminQuestController'
                 })
                 .when('/AngularRoute/createHero', {
                     templateUrl: '/views/rpg/CreateHero.html',
@@ -189,11 +193,51 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
         }
     ])
     .controller('adminCharacteristicController', [
-        '$scope', '$http', 'skillService', 'sexService', 'raceService',
-        function ($scope, $http, skillService, sexService, raceService) {
-            $scope.characteristics = [];
+        '$scope', 'characteristicService', 'stateService',
+        function ($scope, characteristicService, stateService) {
+            $scope.newCharacteristicType = {
+                State: []
+            };
+            $scope.stateType = [];
+            $scope.characteristicTypes = [];
+            characteristicService.loadAllCharacteristic().then(function(characteristics) {
+                $scope.characteristicTypes = characteristics;
+            });
 
+            stateService.loadAllTypes().then(function (stateTypes) {
+                $scope.stateType = _.map(stateTypes, function (stateType) {
+                    return {
+                        name: stateType.Name,
+                        value: stateType
+                    };
+                });
+            });
 
+            $scope.saveCharacteristicType = function () {
+                characteristicService.save($scope.newCharacteristicType).then(function (savedCharacteristicType) {
+                    var copied = {};
+                    angular.copy(savedCharacteristicType, copied);
+                    $scope.newCharacteristicType = {};
+                    $scope.characteristicTypes.push(copied);
+                });
+            }
+
+            $scope.removeCharacteristicType = function (characteristicType) {
+                characteristicService.removeCharacteristicType(characteristicType).then(function () {
+                    var index = $scope.characteristicTypes.indexOf(characteristicType);
+                    $scope.characteristicTypes.splice(index, 1);
+                });
+            }
+
+            $scope.addState = function (source, item) {
+                var copied = {};
+                angular.copy(item, copied);
+                source.push(copied);
+            }
+
+            $scope.removeState = function (source, index) {
+                source.splice(index, 1);
+            }
         }
     ])
     .controller('createHeroController', [

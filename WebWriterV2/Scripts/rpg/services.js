@@ -148,18 +148,18 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
 
                 listHeroes.push(newHero);
             },
-            getAllHeroes: function() {
+            getAllHeroes: function () {
                 return listHeroes;
             },
-            saveHero: function(newHero) {
+            saveHero: function (newHero) {
                 var deferred = $q.defer();
                 $http({
-                        method: 'POST',
-                        url: '/Rpg/SaveHero',
-                        data: { jsonHero: angular.toJson(newHero) },
-                        headers: { 'Accept': 'application/json' }
-                    })
-                    .success(function(response) {
+                    method: 'POST',
+                    url: '/Rpg/SaveHero',
+                    data: { jsonHero: angular.toJson(newHero) },
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .success(function (response) {
                         deferred.resolve(response);
                     });
 
@@ -191,7 +191,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             setDefaultHero: function (hero) {
                 defaultHero = hero;
             },
-            loadDefaultHero: function() {
+            loadDefaultHero: function () {
                 var deferred = $q.defer();
 
                 $http({
@@ -373,7 +373,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
 
                 return null;
             },
-            loadAll: function() {
+            loadAll: function () {
                 var deferred = $q.defer();
 
                 $http({
@@ -387,15 +387,15 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                     });
                 return deferred.promise;
             },
-            loadSkillsSchool: function() {
+            loadSkillsSchool: function () {
                 var deferred = $q.defer();
 
                 $http({
-                        method: 'GET',
-                        url: '/Rpg/GetSkillsSchool',
-                        headers: { 'Accept': 'application/json' }
-                    })
-                    .success(function(response) {
+                    method: 'GET',
+                    url: '/Rpg/GetSkillsSchool',
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .success(function (response) {
                         var skillSchools = angular.fromJson(response);
                         deferred.resolve(skillSchools);
                     });
@@ -405,18 +405,18 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 var deferred = $q.defer();
 
                 $http({
-                        method: 'POST',
-                        url: '/Rpg/SaveSkill',
-                        data: { jsonSkill: angular.toJson(skill) },
-                        headers: { 'Accept': 'application/json' }
-                    })
-                    .success(function(response) {
+                    method: 'POST',
+                    url: '/Rpg/SaveSkill',
+                    data: { jsonSkill: angular.toJson(skill) },
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .success(function (response) {
                         var skill = angular.fromJson(response);
                         deferred.resolve(skill);
                     });
                 return deferred.promise;
             },
-            removeSkill: function(skill) {
+            removeSkill: function (skill) {
                 var deferred = $q.defer();
 
                 $http({
@@ -452,6 +452,54 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             },
             save: function (state) {
                 return '+';
+            }
+        };
+    }])
+    .service('characteristicService', ['$http', '$q', '_', function ($http, $q, _) {
+        var characteristicTypes = [];
+        return {
+            loadAllCharacteristic: function() {
+                var deferred = $q.defer();
+
+                $http({
+                        method: 'GET',
+                        url: '/Rpg/GetCharacteristicTypes',
+                        headers: { 'Accept': 'application/json' }
+                    })
+                    .success(function(response) {
+                        characteristicTypes = angular.fromJson(response);
+                        deferred.resolve(characteristicTypes);
+                    });
+                return deferred.promise;
+            },
+            removeCharacteristicType: function (characteristicType) {
+                var deferred = $q.defer();
+
+                $http({
+                        method: 'POST',
+                        url: '/Rpg/RemoveCharacteristicType',
+                        data: { characteristicTypeId: characteristicType.Id },
+                        headers: { 'Accept': 'application/json' }
+                    })
+                    .success(function(response) {
+                        deferred.resolve(response);
+                    });
+                return deferred.promise;
+            },
+            save: function(characteristicType) {
+                var deferred = $q.defer();
+
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/SaveCharacteristicType',
+                    data: { jsonCharacteristicType: angular.toJson(characteristicType) },
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .success(function (response) {
+                        var savedCharacteristicType = angular.fromJson(response);
+                        deferred.resolve(savedCharacteristicType);
+                    });
+                return deferred.promise;
             }
         };
     }]);

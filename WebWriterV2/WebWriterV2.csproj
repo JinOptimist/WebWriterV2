@@ -261,6 +261,7 @@
     <Content Include="Scripts\rpg\directives.js" />
     <Content Include="Scripts\rpg\module.js" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Rpg\AdminCharacteristic.html" />
     <Content Include="Views\Rpg\CreateQuest.html" />
     <Content Include="Views\Rpg\directives\ngGuild.html" />
     <Content Include="Views\Rpg\AdminSkill.html" />
@@ -311,6 +312,9 @@
       <Project>{b3bc9f9b-32a0-4276-b741-a2698b72dc28}</Project>
       <Name>VkApi</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -31,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/10/2015 17:47:34</publishTime>
     </File>
     <File Include="bin/Dao.dll">
-      <publishTime>09/15/2016 21:11:00</publishTime>
+      <publishTime>09/20/2016 18:45:56</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/25/2015 09:11:03</publishTime>
@@ -91,7 +91,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2016 22:25:30</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>09/15/2016 21:11:00</publishTime>
+      <publishTime>09/20/2016 18:45:57</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -124,7 +124,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/15/2016 18:24:10</publishTime>
     </File>
     <File Include="Content/css/rpg/style.css">
-      <publishTime>09/09/2016 15:50:39</publishTime>
+      <publishTime>09/16/2016 17:25:05</publishTime>
     </File>
     <File Include="Content/del.jpg">
       <publishTime>09/18/2015 14:17:30</publishTime>
@@ -421,7 +421,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/02/2016 14:01:04</publishTime>
     </File>
     <File Include="Scripts/angular-mocks.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>09/16/2016 20:21:41</publishTime>
     </File>
     <File Include="Scripts/angular.js">
       <publishTime>07/19/2016 22:12:41</publishTime>
@@ -442,10 +442,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2016 22:12:41</publishTime>
     </File>
     <File Include="Scripts/angular/angular-sanitize.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>09/16/2016 20:21:41</publishTime>
     </File>
     <File Include="Scripts/angular/angular.js">
-      <publishTime>09/06/2016 19:37:28</publishTime>
+      <publishTime>09/16/2016 20:21:41</publishTime>
     </File>
     <File Include="Scripts/angular/angulartics-google-analytics.js">
       <publishTime>07/19/2016 22:12:41</publishTime>
@@ -463,10 +463,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2016 22:12:41</publishTime>
     </File>
     <File Include="Scripts/angular/ng-infinite-scroll.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>09/16/2016 20:21:41</publishTime>
     </File>
     <File Include="Scripts/angular/ng-sortable.js">
-      <publishTime>07/19/2016 22:12:41</publishTime>
+      <publishTime>09/16/2016 20:21:41</publishTime>
     </File>
     <File Include="Scripts/angular/ngProgress.js">
       <publishTime>07/19/2016 22:12:41</publishTime>
@@ -475,7 +475,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2016 22:12:41</publishTime>
     </File>
     <File Include="Scripts/angular/ui-bootstrap.js">
-      <publishTime>09/08/2016 11:19:22</publishTime>
+      <publishTime>09/16/2016 20:21:41</publishTime>
     </File>
     <File Include="Scripts/angular/underscore-min.js">
       <publishTime>08/29/2016 17:40:17</publishTime>
@@ -490,7 +490,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/08/2016 11:19:22</publishTime>
     </File>
     <File Include="Scripts/jquery-2.1.4.js">
-      <publishTime>09/08/2016 11:19:22</publishTime>
+      <publishTime>09/16/2016 20:21:41</publishTime>
     </File>
     <File Include="Scripts/jquery-2.1.4.min.js">
       <publishTime>09/08/2016 11:19:22</publishTime>
@@ -502,16 +502,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2016 12:57:25</publishTime>
     </File>
     <File Include="Scripts/rpg/directives.js">
-      <publishTime>09/15/2016 18:22:02</publishTime>
+      <publishTime>09/20/2016 09:08:04</publishTime>
     </File>
     <File Include="Scripts/rpg/graph.js">
       <publishTime>09/12/2016 15:16:40</publishTime>
     </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>09/15/2016 21:10:44</publishTime>
+      <publishTime>09/20/2016 18:36:14</publishTime>
     </File>
     <File Include="Scripts/rpg/services.js">
-      <publishTime>09/15/2016 20:11:37</publishTime>
+      <publishTime>09/20/2016 18:35:49</publishTime>
     </File>
     <File Include="Views/Carrier/Add.cshtml">
       <publishTime>09/04/2015 13:59:19</publishTime>
@@ -546,14 +546,20 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Rpg/AddQuest.html">
       <publishTime>09/04/2016 14:44:10</publishTime>
     </File>
+    <File Include="Views/Rpg/AdminCharacteristic.html">
+      <publishTime>09/20/2016 18:08:55</publishTime>
+    </File>
+    <File Include="Views/Rpg/AdminSkill.html">
+      <publishTime>09/20/2016 09:20:29</publishTime>
+    </File>
     <File Include="Views/Rpg/Battle.html">
       <publishTime>09/09/2016 17:29:58</publishTime>
     </File>
     <File Include="Views/Rpg/CreateHero.html">
-      <publishTime>09/15/2016 20:54:12</publishTime>
+      <publishTime>09/20/2016 09:08:04</publishTime>
     </File>
     <File Include="Views/Rpg/CreateQuest.html">
-      <publishTime>09/12/2016 15:16:40</publishTime>
+      <publishTime>09/20/2016 09:21:13</publishTime>
     </File>
     <File Include="Views/Rpg/directives/ngGuild.html">
       <publishTime>09/08/2016 20:41:30</publishTime>
@@ -568,10 +574,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/27/2016 11:50:11</publishTime>
     </File>
     <File Include="Views/Rpg/Guild.html">
-      <publishTime>09/12/2016 13:52:17</publishTime>
+      <publishTime>09/20/2016 17:28:46</publishTime>
     </File>
     <File Include="Views/Rpg/Index.cshtml">
-      <publishTime>09/12/2016 15:16:40</publishTime>
+      <publishTime>09/20/2016 17:29:50</publishTime>
     </File>
     <File Include="Views/Rpg/ListHeroes.html">
       <publishTime>09/06/2016 17:08:46</publishTime>
