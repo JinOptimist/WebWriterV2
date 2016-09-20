@@ -35,7 +35,7 @@ namespace WebWriterV2.RpgUtility
                 Heroes = heroes,
                 Influence = 10,
                 Gold = 954,
-                TrainingRooms = GenerateTrainingRooms(skillSchools).Where(x => x.School.Name == "Школа льда").ToList()
+                TrainingRooms = GenerateTrainingRooms(skillSchools).ToList()//.Where(x => x.School.Name == "Школа льда")
             };
 
             var location = new Location

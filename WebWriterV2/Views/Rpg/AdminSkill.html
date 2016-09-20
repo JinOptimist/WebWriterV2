@@ -7,19 +7,19 @@
         </div>
         <div class="border1px">
             Добавить скилл
-            <p>Название: <input type="text" ng-hero="newSkill.Name"/></p>
+            <p>Название: <input type="text" ng-model="newSkill.Name"/></p>
             <p>Школа:
-                <select ng-hero="newSkill.School" ng-options="option.value as option.name for option in skillSchools"></select>
+                <select ng-model="newSkill.School" ng-options="option.value as option.name for option in skillSchools"></select>
             </p>
-            <p>Описание: <textarea ng-hero="newSkill.Desc"></textarea></p>
+            <p>Описание: <textarea ng-model="newSkill.Desc"></textarea></p>
             <p>
                 Герой:
                 <span ng-repeat="state in newSkill.SelfChanging">
                     {{state.StateType.Name}}: {{state.Number}} <input type="button" value="-" ng-click="removeState(newSkill.SelfChanging, $index)"/>
                 </span>
 
-                <select ng-hero="someStateForMe.StateType" ng-options="option.value as option.name for option in stateType"></select>
-                : <input type="text" ng-hero="someStateForMe.Number"/>
+                <select ng-model="someStateForMe.StateType" ng-options="option.value as option.name for option in stateType"></select>
+                : <input type="text" ng-model="someStateForMe.Number"/>
                 <input type="button" value="Добавить эффект на себя" ng-click="addState(newSkill.SelfChanging, someStateForMe)"/>
             </p>
             <p>
@@ -28,8 +28,8 @@
                     {{state.StateType.Name}}: {{state.Number}} <input type="button" value="-" ng-click="removeState(newSkill.TargetChanging, $index)" />
                 </span>
 
-                <select ng-hero="someStateForThem.StateType" ng-options="option.value as option.name for option in stateType"></select>
-                : <input type="text" ng-hero="someStateForThem.Number" />
+                <select ng-model="someStateForThem.StateType" ng-options="option.value as option.name for option in stateType"></select>
+                : <input type="text" ng-model="someStateForThem.Number" />
                 <input type="button" value="Добавить эффект на себя" ng-click="addState(newSkill.TargetChanging, someStateForThem)" />
             </p>
             <input type="button" value="Добавить" ng-click="saveSkill()"/>

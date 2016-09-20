@@ -340,6 +340,11 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
     }])
     .service('skillService', ['$http', '$q', '_', function ($http, $q, _) {
         var allSkills = [];
+
+        function getState(hero, stateName) {
+            return _.find(hero.State, function (state) { return state.StateType.Name == stateName; });
+        }
+
         return {
             loadSkillEffect: function (skillId) {
                 return $q(function (resolve, reject) {
@@ -359,10 +364,10 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 // return null if ok, and stat name id you have lack
                 for (var i = 0; i < skill.SelfChanging.length; i++) {
                     var selfChange = skill.SelfChanging[i];
-                    var stat = _.where(hero.State, { Value: selfChange.Value });
-                    if (stat && stat.length > 0)
-                        if (stat[0].Number + selfChange.Number < 1) {
-                            return "Not enough " + stat[0].Name;
+                    var stat = getState(hero, selfChange.StateType.Name);//_.where(hero.State, { Value: selfChange.Value });
+                    if (stat)
+                        if (stat.Number + selfChange.Number < 1) {
+                            return "Not enough " + stat.StateType.Name;
                         }
                 }
 
@@ -391,8 +396,8 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                         headers: { 'Accept': 'application/json' }
                     })
                     .success(function(response) {
-                        var a = angular.fromJson(response);
-                        deferred.resolve(a);
+                        var skillSchools = angular.fromJson(response);
+                        deferred.resolve(skillSchools);
                     });
                 return deferred.promise;
             },
