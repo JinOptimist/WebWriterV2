@@ -2,10 +2,10 @@
     <form novalidate class="left" style="width: 1050px;">
         <input type="submit" ng-click="submitQuest()" value="Save" />
         <p>
-            Name: <input type="text" ng-hero="quest.Name" />
+            Name: <input type="text" ng-model="quest.Name" />
         </p>
         <p>
-            Desc: <textarea ng-hero="quest.Desc" style="width: 500px; height: 50px;"></textarea>
+            Desc: <textarea ng-model="quest.Desc" style="width: 500px; height: 50px;"></textarea>
         </p>
 
         <div id="eventsGraph" style="border: 1px red solid; width: 900px; height: 600px; "></div>
@@ -16,26 +16,26 @@
                     <div class="event">
                         <p>
                             RequrmentSex:
-                            <select ng-hero="event.RequrmentSex" ng-options="option.value as option.name for option in SexList"></select>
+                            <select ng-model="event.RequrmentSex" ng-options="option.value as option.name for option in SexList"></select>
                         </p>
                         <p>
                             RequrmentRace:
-                            <select ng-hero="event.RequrmentRace" ng-options="option.value as option.name for option in RaceList"></select>
+                            <select ng-model="event.RequrmentRace" ng-options="option.value as option.name for option in RaceList"></select>
                         </p>
                         <p>
-                            <textarea ng-hero="event.Desc" style="width: 90%; height: 100px;"></textarea>
+                            <textarea ng-model="event.Desc" style="width: 90%; height: 100px;"></textarea>
                         </p>
                         <p>
-                            ProgressChanging: <input type="text" ng-hero="event.ProgressChanging" />
+                            ProgressChanging: <input type="text" ng-model="event.ProgressChanging" />
                         </p>
                         <p>
-                            HeroMoneyChanging: <input type="text" ng-hero="event.HeroMoneyChanging" />
+                            HeroMoneyChanging: <input type="text" ng-model="event.HeroMoneyChanging" />
                         </p>
                         <p>
-                            HeroHpChanging: <input type="text" ng-hero="event.HeroHpChanging" />
+                            HeroHpChanging: <input type="text" ng-model="event.HeroHpChanging" />
                         </p>
                         <p>
-                            HeroLvlChanging: <input type="text" ng-hero="event.HeroLvlChanging" />
+                            HeroLvlChanging: <input type="text" ng-model="event.HeroLvlChanging" />
                         </p>
                         <input type="button" value="Remove event" ng-click="removeEvent(event)" />
                     </div>

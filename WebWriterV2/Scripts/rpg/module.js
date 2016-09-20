@@ -123,6 +123,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
         function ($scope, skillService, stateService) {
             $scope.skills = [];
             $scope.newSkill = {
+                School: {},
                 SelfChanging: [],
                 TargetChanging: []
             };
@@ -135,12 +136,13 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             });
 
             skillService.loadSkillsSchool().then(function (skillSchools) {
-                $scope.skillSchools = _.map(skillSchools, function(school) {
+                var schoolsToSelect = _.map(skillSchools, function(school) {
                     return {
                         name: school.Name,
                         value: school
                     };
                 });
+                $scope.skillSchools = schoolsToSelect;
             });
 
             stateService.loadAllTypes().then(function (stateTypes) {
@@ -198,8 +200,8 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
         '$scope', '$http', '$location', 'heroService', 'raceService', 'sexService','guildService',
         function ($scope, $http, $location, heroService, raceService, sexService, guildService) {
             //$scope.hero = heroService.getDefaultHero();
-            heroService.loadDefaultHero().then(function (defHero) {
-                $scope.hero = defHero;
+            heroService.loadDefaultHero().then(function (defaultHero) {
+                $scope.hero = defaultHero;
             });
 
 
@@ -395,14 +397,15 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                         url: url,
                         headers: { 'Accept': 'application/json' }
                     })
-                    .success(function(response) {
+                    .then(function(response) {
                         if (response == "+") {
                             $scope.hero.Skills.push($scope.currentSkill);
                         } else {
                             alert(response);
                         }
                         $scope.waiting = false;
-                    }).fail(function() {
+                    },
+                    function () {
                         alert("Training was failed. Try again");
                         $scope.waiting = false;
                     });
@@ -487,20 +490,20 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                     var stat;
                     for (var i = 0; i < fullSkill.SelfChanging.length; i++) {
                         var selfChange = fullSkill.SelfChanging[i];
-                        stat = _.where(self.State, { Value: selfChange.Value });
-                        if (stat && stat.length > 0) {
-                            stat[0].Number += selfChange.Number;
-                            $scope.report += ' his ' + stat[0].Name + ': ' + selfChange.Number + ' ';
+                        stat = getState(self, selfChange.StateType.Name);
+                        if (stat) {
+                            stat.Number += selfChange.Number;
+                            $scope.report += ' his ' + stat.StateType.Name + ': ' + selfChange.Number + ' ';
                         }
 
                     }
 
                     for (var j = 0; j < fullSkill.TargetChanging.length; j++) {
                         var targetChange = fullSkill.TargetChanging[j];
-                        stat = _.where(target.State, { Value: targetChange.Value });
-                        if (stat && stat.length > 0) {
-                            stat[0].Number += targetChange.Number;
-                            $scope.report += ' enemys' + stat[0].Name + ': ' + targetChange.Number + ' ';
+                        stat = getState(target, targetChange.StateType.Name);// _.where(target.State, { Value: targetChange.Value });
+                        if (stat) {
+                            stat.Number += targetChange.Number;
+                            $scope.report += ' enemys' + stat.StateType.Name + ': ' + targetChange.Number + ' ';
                         }
                     }
 
@@ -512,16 +515,17 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             $scope.recalculateState = function (hero) {
                 if (!hero || !hero.State)
                     return;
-                var maxHpValue = 1;
-                var maxMpValue = 2;
-                var currentHpValue = 4;
-                var currentMpValue = 5;
-                var maxHpNumber = _.where(hero.State, { Value: maxHpValue })[0].Number;
-                var currentHpNumber = _.where(hero.State, { Value: currentHpValue })[0].Number;
+                var currentHpName = "Hp";
+                var maxHpName = "MaxHp";
+                var currentMpName = "Mp";
+                var maxMpName = "MaxMp";
+
+                var maxHpNumber = getState(hero, maxHpName).Number;
+                var currentHpNumber = getState(hero, currentHpName).Number;
                 var hpPercent = Math.round(100 * currentHpNumber / maxHpNumber);
 
-                var maxMpNumber = _.where(hero.State, { Value: maxMpValue })[0].Number;
-                var currentMpNumber = _.where(hero.State, { Value: currentMpValue })[0].Number;
+                var maxMpNumber = getState(hero, maxMpName).Number;
+                var currentMpNumber = getState(hero, currentMpName).Number;
                 var mpPercent = Math.round(100 * currentMpNumber / maxMpNumber);
 
                 if (currentHpNumber < 1) {
@@ -533,5 +537,8 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 hero.manaWidth = { 'width': mpPercent + '%' };
             }
 
+            function getState(hero,stateName) {
+                return _.find(hero.State, function(state) { return state.StateType.Name == stateName; });
+            }
         }
     ]);
