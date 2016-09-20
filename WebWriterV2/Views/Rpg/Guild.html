@@ -22,7 +22,7 @@
     </div>
 
     <div class="block300 padding10 left">
-        <h3>Тренировочных комнат</h3>
+        <h3>Тренировочных комнат <a href="#" ng-click="addTrainRoom()">+</a></h3>
         <div ng-repeat="room in guild.TrainingRooms" class="traning-room">
             <p>Название комнаты: {{room.Name}}</p>
             <p>Доступная школа: {{room.School.Name}}</p>
