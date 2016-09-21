@@ -25,6 +25,8 @@ namespace Dao
 
             modelBuilder.Entity<Event>().HasMany(x => x.ChildrenEvents).WithMany(x => x.ParentEvents);
             modelBuilder.Entity<Event>().HasMany(x => x.RequrmentSkill).WithMany();
+            modelBuilder.Entity<Event>().HasMany(x => x.RequrmentCharacteristics).WithMany();
+            modelBuilder.Entity<Event>().HasMany(x => x.HeroStatesChanging).WithMany();
 
             modelBuilder.Entity<Hero>().HasMany(u => u.Skills).WithMany();
             modelBuilder.Entity<Hero>().HasMany(u => u.State).WithOptional().WillCascadeOnDelete(true);

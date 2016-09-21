@@ -1,0 +1,54 @@
+﻿<div>
+    <form novalidate class="left" style="width: 1050px;">
+        <input type="submit" ng-click="submitQuest()" value="Save" />
+        <p>
+            Name: <input type="text" ng-model="quest.Name" />
+        </p>
+        <p>
+            Desc: <textarea ng-model="quest.Desc" style="width: 500px; height: 50px;"></textarea>
+        </p>
+
+        <!--<div id="eventsGraph" style="border: 1px red solid; width: 900px; height: 600px; "></div>-->
+
+        <div class="event" ng-repeat="event in quest.AllEvents">
+            <p>
+                Name: <input type="text" ng-model="event.Name"/>
+            </p>
+            <p>
+                ProgressChanging: <input type="text" ng-model="event.ProgressChanging" />
+            </p>
+            <p>
+                Desc: <textarea ng-model="event.Desc" style="width: 500px; height: 50px;"></textarea>
+            </p>
+            <p>
+                RequrmentSex:
+                <select ng-model="event.RequrmentSex" ng-options="option.value as option.name for option in SexList"></select>
+            </p>
+            <p>
+                RequrmentRace:
+                <select ng-model="event.RequrmentRace" ng-options="option.value as option.name for option in RaceList"></select>
+            </p>
+            <p>
+                RequrmentSkill:
+                <span ng-repeat="skill in event.RequrmentSkill">{{skill.Name}} <a ng-click="removeSkill(skill)">-</a></span>
+                <select ng-model="someSkill" ng-options="option.value as option.name for option in SkillList"></select>
+                <a ng-click="addSkill()">+</a>
+            </p>
+            <p>
+                RequrmentCharacteristics:
+                <select ng-model="event.RequrmentCharacteristics" ng-options="option.value as option.name for option in CharacteristicList"></select>
+            </p>
+
+            <p>
+                Hero StatesChanged:
+                <span ng-repeat="state in HeroStatesChanging">{{state.StateType.Name}}: {{state.Number}}</span>
+            </p>
+
+            <input type="button" value="Remove event" ng-click="removeEvent(event)"/>
+        </div>
+
+        <input type="button" value="Add event" ng-click="addEvent()" style="float: left; clear: both;" />
+    </form>
+
+    <ng-quest-info quest="quest"></ng-quest-info>
+</div>

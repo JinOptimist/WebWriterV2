@@ -22,8 +22,8 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                     templateUrl: '/views/rpg/AdminCharacteristic.html',
                     controller: 'adminCharacteristicController'
                 })
-                .when('/AngularRoute/createQuest', {
-                    templateUrl: '/views/rpg/CreateQuest.html',
+                .when('/AngularRoute/adminQuest', {
+                    templateUrl: '/views/rpg/AdminQuest.html',
                     controller: 'adminQuestController'
                 })
                 /* front */

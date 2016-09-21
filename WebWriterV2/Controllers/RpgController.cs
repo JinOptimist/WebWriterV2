@@ -358,7 +358,6 @@ namespace WebWriterV2.Controllers
             };
         }
 
-
         /* ************** Quest ************** */
         public JsonResult GetQuest(long id)
         {

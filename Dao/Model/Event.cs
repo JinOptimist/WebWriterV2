@@ -19,9 +19,11 @@ namespace Dao.Model
         public virtual Sex? RequrmentSex { get; set; } = null;
         public virtual Race? RequrmentRace { get; set; } = null;
         public virtual List<Skill> RequrmentSkill { get; set; }
+        public virtual List<Characteristic> RequrmentCharacteristics { get; set; }
+        public virtual List<State> HeroStatesChanging { get; set; }
 
         public virtual Location RequrmentLocation { get; set; }
-        //public Dictionary<CharacteristicType, long> RequrmentCharacteristics { get; set; }
+
 
         [Description("Add this value to total summ of quest effective")]
         public virtual double ProgressChanging { get; set; } = 0;

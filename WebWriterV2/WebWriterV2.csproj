@@ -262,7 +262,7 @@
     <Content Include="Scripts\rpg\module.js" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Rpg\AdminCharacteristic.html" />
-    <Content Include="Views\Rpg\CreateQuest.html" />
+    <Content Include="Views\Rpg\AdminQuest.html" />
     <Content Include="Views\Rpg\directives\ngGuild.html" />
     <Content Include="Views\Rpg\AdminSkill.html" />
     <Content Include="Views\Rpg\TraningRoom.html" />

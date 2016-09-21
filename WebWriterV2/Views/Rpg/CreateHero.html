@@ -1,15 +1,15 @@
 ﻿<div>
     <h1>Создать героя</h1>
     <div>
-        <input type="button" value="Назад" ng-click="prevStep()" ng-disabled="step==1"/>
-        <input type="button" value="След" ng-click="nextStep()" ng-disabled="step==4"/>
-        <input type="button" value="Сохранить героя" ng-click="saveHero()" ng-if="step == 4"/>
+        <input type="button" value="Назад" ng-click="prevStep()" ng-disabled="step==1" />
+        <input type="button" value="След" ng-click="nextStep()" ng-disabled="step==4" />
+        <input type="button" value="Сохранить героя" ng-click="saveHero()" ng-if="step == 4" />
     </div>
 
-    <div class="total-container"  ng-if="step == 1">
+    <div class="total-container" ng-if="step == 1">
         <div class="avatars-container left">
             <div class="avatar left" ng-repeat="race in RaceList" ng-class="hero.Race.Value == race.Value ? 'active' : ''">
-                <input id="race{{race.Value}}" type="radio" name="race" value="{{race.Value}}"/>
+                <input id="race{{race.Value}}" type="radio" name="race" value="{{race.Value}}" />
                 <label for="race{{race.Value}}" ng-click="selectRace(race)">
                     <img ng-src="{{::race.src}}" alt="{{::race.Name}}">
                 </label>
@@ -20,7 +20,7 @@
     <div class="total-container" ng-if="step == 2">
         <div class="avatars-container left">
             <div class="avatar left" ng-repeat="sex in SexList" ng-class="hero.Sex.Value == sex.Value ? 'active' : ''">
-                <input id="race{{sex.Value}}" type="radio" name="race" value="{{sex.Value}}"/>
+                <input id="race{{sex.Value}}" type="radio" name="race" value="{{sex.Value}}" />
                 <label for="race{{sex.Value}}" ng-click="selectSex(sex)">
                     <img ng-src="{{::sex.src}}" alt="{{::sex.Name}}">
                 </label>
@@ -28,12 +28,16 @@
         </div>
     </div>
 
-    <div style="float: left; width: 300px;" ng-if="step == 3">
-        Name <input type="text" ng-model="hero.Name"/>
+    <div style="float: left; width: 600px;" ng-if="step == 3">
+        Имя <input type="text" ng-model="hero.Name" />
         <div>
-            <p>Free stat: {{freeStat}}</p>
+            <p>Доступно улучшений: {{freeStat}}</p>
             <p ng-repeat="stat in hero.Characteristics">
                 {{stat.CharacteristicType.Name}}: {{stat.Number}} <a href="#" ng-click="addStat(stat)">+</a>/<a href="#" ng-click="minusStat(stat)">-</a>
+                <br />
+                <span>
+                    Описание: {{stat.CharacteristicType.Desc}}
+                </span>
             </p>
         </div>
     </div>
