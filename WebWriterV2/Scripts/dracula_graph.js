@@ -92,7 +92,7 @@ Graph.Renderer.Raphael = function(element, graph, width, height) {
     this.radius = 40; /* max dimension of a node */
     this.graph = graph;
     this.mouse_in = false;
-    
+
     /*
      * Dragging
      */
@@ -156,7 +156,7 @@ Graph.Renderer.Raphael.prototype = {
     drawNode: function(node) {
         var point = this.translate([node.layoutPosX, node.layoutPosY]);
         node.point = point;
-        
+
         /* if node has already been drawn, move the nodes */
         if(node.shape) {
             var oBBox = node.shape.getBBox();
@@ -214,7 +214,7 @@ Graph.Layout.Spring.prototype = {
                 }
                 this.layoutCalcBounds();
         },
-       
+
         layoutPrepare: function() {
             for (i in this.graph.nodes) {
                     var node = this.graph.nodes[i];
@@ -223,16 +223,16 @@ Graph.Layout.Spring.prototype = {
                         node.layoutForceX = 0;
                         node.layoutForceY = 0;
                 }
-                
+
         },
-       
+
         layoutCalcBounds: function() {
                 var minx = Infinity, maxx = -Infinity, miny = Infinity, maxy = -Infinity;
 
             for (i in this.graph.nodes) {
                         var x = this.graph.nodes[i].layoutPosX;
                         var y = this.graph.nodes[i].layoutPosY;
-                                               
+
                         if(x > maxx) maxx = x;
                         if(x < minx) minx = x;
                         if(y > maxy) maxy = y;
@@ -244,7 +244,7 @@ Graph.Layout.Spring.prototype = {
                 this.graph.layoutMinY = miny;
                 this.graph.layoutMaxY = maxy;
         },
-       
+
         layoutIteration: function() {
                 // Forces on nodes due to node-node repulsions
             for (var i = 0; i < this.graph.nodelist.length; i++) {
@@ -257,9 +257,9 @@ Graph.Layout.Spring.prototype = {
                 // Forces on nodes due to edge attractions
             for (var i = 0; i < this.graph.edges.length; i++) {
                     var edge = this.graph.edges[i];
-                        this.layoutAttractive(edge);             
+                        this.layoutAttractive(edge);
                 }
-               
+
                 // Move by the given force
             for (i in this.graph.nodes) {
                     var node = this.graph.nodes[i];
@@ -271,7 +271,7 @@ Graph.Layout.Spring.prototype = {
                     if(xmove < -max) xmove = -max;
                     if(ymove > max) ymove = max;
                     if(ymove < -max) ymove = -max;
-                   
+
                     node.layoutPosX += xmove;
                     node.layoutPosY += ymove;
                     node.layoutForceX = 0;
@@ -301,7 +301,7 @@ Graph.Layout.Spring.prototype = {
         layoutAttractive: function(edge) {
                 var node1 = edge.source;
                 var node2 = edge.target;
-               
+
                 var dx = node2.layoutPosX - node1.layoutPosX;
                 var dy = node2.layoutPosY - node1.layoutPosY;
                 var d2 = dx * dx + dy * dy;
@@ -318,7 +318,7 @@ Graph.Layout.Spring.prototype = {
                 var attractiveForce = (d2 - this.k * this.k) / this.k;
                 if(edge.attraction == undefined || edge.attraction < 1) edge.attraction = 1;
                 attractiveForce *= Math.log(edge.attraction) * 0.5 + 1;
-               
+
                 node2.layoutForceX -= attractiveForce * dx / d;
                 node2.layoutForceY -= attractiveForce * dy / d;
                 node1.layoutForceX += attractiveForce * dx / d;
@@ -327,7 +327,7 @@ Graph.Layout.Spring.prototype = {
 };
 
 /*
- * usefull JavaScript extensions, 
+ * usefull JavaScript extensions,
  */
 Array.prototype.forEach = function(f) {
      var l = this.length;
@@ -355,10 +355,10 @@ Raphael.el.tooltip = function (/*txt, */tp) {
     //log(this.tp);
     this.tp.hide();
     this.hover(
-        function(event){ 
+        function(event){
             this.tp.attr({x:event.clientX,y:event.clientY}).show().toFront();
-            this.mousemove(function(event){ 
-                this.tp.attr({x:event.clientX,y:event.clientY});});}, 
+            this.mousemove(function(event){
+                this.tp.attr({x:event.clientX,y:event.clientY});});},
         function(event){
             this.tp.hide();
             this.unmousemove();

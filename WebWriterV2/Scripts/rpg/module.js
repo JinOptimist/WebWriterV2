@@ -70,16 +70,21 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
 
             $scope.RaceList = [];
             $scope.SexList = [];
-            $scope.levels = [];
+            $scope.SkillList = [];
+            $scope.CharacteristicTypeList = [];
 
             function init() {
-                var baseSexList = sexService.getSexList();
-                baseSexList.splice(0, 0, { name: 'None', value: 0 });
-                $scope.SexList = baseSexList;
+                $scope.SexList.push({ name: 'None', value: null });
+                var baseSexList = _.map(sexService.getSexList(), function (item) {
+                    return { name: item.Name, value: item.Value };
+                });
+                _.each(baseSexList, function(item) { return $scope.SexList.push(item) });
 
-                var baseRaceList = raceService.getRaceList();
-                baseRaceList.splice(0, 0, { name: 'None', value: 0 });
-                $scope.RaceList = baseRaceList;
+                $scope.RaceList.push({ name: 'None', value: null });
+                var baseRaceList = _.map(raceService.getRaceList(), function (item) {
+                    return { name: item.Name, value: item.Value };
+                });
+                _.each(baseRaceList, function (item) { return $scope.RaceList.push(item) });
 
                 eventService.getAllEvents($scope.quest.Id).then(function(result) {
                     EventGraph.drawGraph(result, 'eventsGraph', 900, 600);

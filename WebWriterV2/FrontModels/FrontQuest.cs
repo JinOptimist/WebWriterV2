@@ -27,7 +27,14 @@ namespace WebWriterV2.FrontModels
 
         public override Quest ToDbModel()
         {
-            throw new NotImplementedException();
+            return new Quest
+            {
+                Id = Id,
+                Name = Name,
+                Desc = Desc,
+                RootEvent = RootEvent.ToDbModel(),
+                AllEvents = AllEvents.Select(x=>x.ToDbModel()).ToList()
+            };
         }
     }
 }

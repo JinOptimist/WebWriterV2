@@ -15,6 +15,8 @@ namespace WebWriterV2.FrontModels
 
         public FronEnum(object enumValue)
         {
+            if (enumValue == null)
+                return;
             var type = enumValue.GetType();
             if (!type.IsEnum)
                 throw new ArgumentException("FrontEnum only for a Enum");
