@@ -67,25 +67,28 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
         '$scope', '$http', 'questService', 'sexService', 'raceService', 'eventService',
         function($scope, $http, questService, sexService, raceService, eventService) {
             $scope.quest = {};
+            $scope.currentEvent = {};
 
             $scope.RaceList = [];
             $scope.SexList = [];
             $scope.SkillList = [];
             $scope.CharacteristicTypeList = [];
 
+            $scope.SexList.push({ name: 'None', value: null });
+            sexService.loadSexList().then(function (data) {
+                _.each(data, function (item) {
+                    return $scope.SexList.push({ name: item.Name, value: item.Value });
+                });
+            });
+
+            $scope.RaceList.push({ name: 'None', value: null });
+            raceService.loadRaceList().then(function (data) {
+                _.each(data, function (item) {
+                    return $scope.RaceList.push({ name: item.Name, value: item.Value });
+                });
+            });
+
             function init() {
-                $scope.SexList.push({ name: 'None', value: null });
-                var baseSexList = _.map(sexService.getSexList(), function (item) {
-                    return { name: item.Name, value: item.Value };
-                });
-                _.each(baseSexList, function(item) { return $scope.SexList.push(item) });
-
-                $scope.RaceList.push({ name: 'None', value: null });
-                var baseRaceList = _.map(raceService.getRaceList(), function (item) {
-                    return { name: item.Name, value: item.Value };
-                });
-                _.each(baseRaceList, function (item) { return $scope.RaceList.push(item) });
-
                 eventService.getAllEvents($scope.quest.Id).then(function(result) {
                     EventGraph.drawGraph(result, 'eventsGraph', 900, 600);
                 });

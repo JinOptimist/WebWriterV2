@@ -11,24 +11,6 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
     .run(['$http', 'sexService', 'raceService', 'heroService', function ($http, sexService, raceService, heroService) {
         $http({
             method: 'GET',
-            url: '/Rpg/GetListSex',
-            headers: { 'Accept': 'application/json' }
-        }).success(function (response) {
-            var sexList = angular.fromJson(response);
-            sexService.setList(sexList);
-        });
-
-        $http({
-            method: 'GET',
-            url: '/Rpg/GetListRace',
-            headers: { 'Accept': 'application/json' }
-        }).success(function (response) {
-            var raceList = angular.fromJson(response);
-            raceService.setList(raceList);
-        });
-
-        $http({
-            method: 'GET',
             url: '/Rpg/GetDefaultHero',
             headers: { 'Accept': 'application/json' }
         }).success(function (rawHero) {
@@ -207,8 +189,8 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             }
         };
     }])
-    .service('raceService', ['_', function (_) {
-        var raceList = [];
+    .service('raceService', ['$http', '$q', '_', function ($http, $q, _) {
+        var raceList;
 
         function updateRaceList(newList) {
             _.each(newList, function (item) {
@@ -234,6 +216,24 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         }
 
         return {
+            loadRaceList: function () {
+                var deferred = $q.defer();
+                if (raceList) {
+                    deferred.resolve(raceList);
+                    return deferred.promise;
+                }
+
+                $http({
+                    method: 'GET',
+                    url: '/Rpg/GetListRace',
+                    headers: { 'Accept': 'application/json' }
+                })
+                .success(function (response) {
+                    raceList = angular.fromJson(response);
+                    deferred.resolve(raceList);
+                });
+                return deferred.promise;
+            },
             getRaceList: function () {
                 var copyRace = raceList.map(function (value) {
                     return angular.copy(value);
@@ -251,8 +251,8 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             }
         };
     }])
-    .service('sexService', ['_', function (_) {
-        var sexList = [];
+    .service('sexService', ['$http', '$q', '_', function ($http, $q, _) {
+        var sexList;
 
         function updateSexList(newList) {
             _.each(newList, function (item) {
@@ -272,6 +272,24 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         }
 
         return {
+            loadSexList: function () {
+                var deferred = $q.defer();
+                if (sexList) {
+                    deferred.resolve(sexList);
+                    return deferred.promise;
+                }
+
+                $http({
+                    method: 'GET',
+                    url: '/Rpg/GetListSex',
+                    headers: { 'Accept': 'application/json' }
+                })
+                .success(function (response) {
+                    sexList = angular.fromJson(response);
+                    deferred.resolve(sexList);
+                });
+                return deferred.promise;
+            },
             getSexList: function () {
                 var copySex = sexList.map(function (value) {
                     return angular.copy(value);
