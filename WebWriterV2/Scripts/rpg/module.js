@@ -88,21 +88,89 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 });
             });
 
-            function init() {
-                eventService.getAllEvents($scope.quest.Id).then(function(result) {
-                    EventGraph.drawGraph(result, 'eventsGraph', 900, 600);
-                });
-            }
-
             questService.getQuest().then(function(result) {
                 $scope.quest = result;
-                init();
+                reloadGraph();
             });
 
-            $scope.addEvent = function(event) {
-                $scope.quest.QuestEvents.push({
-                    Desc: event.Desc
+            $scope.updateCurrentEvent = function () {
+                //SexList.find
+                //var currentEvent = $scope.currentEvent;
+                //currentEvent.RequrmentSex = currentEvent.RequrmentSex.Value;
+
+                //ChildrenEvents
+            }
+
+            $scope.getParentEvent = function (currentEvent) {
+                if (!currentEvent)
+                    return [];
+                var parentEvent = _.filter($scope.quest.AllEvents, function(filterEvent) {
+                    return _.some(filterEvent.ChildrenEvents, function (someEvent) {
+                        return someEvent.Id === currentEvent.Id;
+                    });
                 });
+
+                return parentEvent;
+            }
+
+            $scope.removeConnectionParentEvent = function (currentEvent, parentEventId) {
+                _.each($scope.quest.AllEvents, function (filterEvent) {
+                    if (filterEvent.Id === parentEventId) {
+                        var index = _.findLastIndex(filterEvent.ChildrenEvents,
+                        {
+                            Id: currentEvent.Id
+                        });
+                        filterEvent.ChildrenEvents.splice(index, 1);
+                    }
+                });
+
+                reloadGraph();
+            }
+
+            $scope.removeConnectionChildEvent = function (currentEvent, childEventId) {
+                var index = _.findLastIndex(currentEvent.ChildrenEvents,
+                    {
+                        Id: childEventId
+                    });
+                currentEvent.ChildrenEvents.splice(index, 1);
+
+                reloadGraph();
+            }
+
+            $scope.addConnection = function (parentEvent, childEvent) {
+                parentEvent.ChildrenEvents.push(childEvent);
+
+                reloadGraph();
+            }
+
+            $scope.removeEvent = function (currentEvent) {
+                //remove all link to event
+                _.each($scope.quest.AllEvents, function(filterEvent) {
+                    var index = _.findLastIndex(filterEvent.ChildrenEvents,
+                    {
+                        Id: currentEvent.Id
+                    });
+                    if (index > -1)
+                        filterEvent.ChildrenEvents.splice(index, 1);
+                });
+
+                //remove event
+                var index = _.findLastIndex($scope.quest.AllEvents,
+                {
+                    Id: currentEvent.Id
+                });
+                $scope.quest.AllEvents.splice(index, 1);
+
+                reloadGraph();
+            }
+
+            $scope.addEvent = function () {
+                $scope.quest.AllEvents.push({
+                    Name: 'new',
+                    ChildrenEvents: []
+                });
+
+                reloadGraph();
             }
 
             $scope.removeWileEvent = function(index) {
@@ -127,6 +195,10 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                         alert('We all gonna die');
                     }
                 );
+            }
+
+            function reloadGraph() {
+                EventGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 600);
             }
         }
     ])

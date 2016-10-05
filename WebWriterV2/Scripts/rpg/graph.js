@@ -3,6 +3,8 @@ var EventGraph = (function () {
     function drawGraph(events, domElementId, width, height) {
         if (!events || !domElementId)
             return;
+        document.getElementById(domElementId).innerHTML = "";
+
         var graph = new Graph();
         var event, i;
         for (i = 0; i < events.length; i++) {
