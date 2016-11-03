@@ -446,6 +446,32 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult SaveEvent(string jsonEvent, long questId)
+        {
+            var frontEvent = SerializeHelper.Deserialize<FrontEvent>(jsonEvent);
+            Event eventModel = frontEvent.ToDbModel();
+            var quest = QuestRepository.Get(questId);
+            eventModel.Quest = quest;
+
+            var eventFromDb = EventRepository.Save(eventModel);
+            var frontEvents = new FrontEvent(eventFromDb);
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(frontEvents),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveEvent(long eventId)
+        {
+            EventRepository.Remove(eventId);
+            return new JsonResult
+            {
+                Data = true,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         /* ************** Init Db ************** */
         public JsonResult Init()
         {

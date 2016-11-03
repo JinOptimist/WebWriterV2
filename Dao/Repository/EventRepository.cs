@@ -12,6 +12,52 @@ namespace Dao.Repository
         {
         }
 
+        public override Event Save(Event model)
+        {
+            var children = model.ChildrenEvents;
+            var parents = model.ParentEvents;
+            var find = Entity.Find(model.Id);
+            if (find != null)
+            {
+                find.Update(model);
+                model = find;
+            }
+            else
+            {
+                if (model.Id > 0)
+                    Entity.Attach(model);
+                else
+                    Entity.Add(model);
+            }
+
+            if (model.ChildrenEvents != null)
+            {
+                foreach (var child in children.Where(x => model.ChildrenEvents.All(u => u.Id != x.Id)))
+                {
+                    if (Db.Entry(child).State != EntityState.Detached)
+                    {
+                        continue;
+                    }
+                    var childEvent = Entity.Find(child.Id);
+                    if (childEvent == null)
+                    {
+                        childEvent = new Event { Id = child.Id };
+                        Entity.Attach(childEvent);
+                    }
+                    model.ChildrenEvents.Add(childEvent);
+                }
+
+                var forRemove = model.ChildrenEvents.Where(x => children.All(u => u.Id != x.Id)).ToList();
+                foreach (var child in forRemove)
+                {
+                    model.ChildrenEvents.Remove(child);
+                }
+            }
+
+
+            return base.Save(model);
+        }
+
         /// <summary>
         /// Special realization for cascade deleting
         /// </summary>

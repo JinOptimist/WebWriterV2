@@ -26,11 +26,14 @@ namespace Dao.Repository
         {
             if (model.Id > 0)
             {
-                Entity.Attach(model);
+                if (Db.Entry(model).State == EntityState.Detached)
+                    Entity.Attach(model);
                 Db.Entry(model).State = EntityState.Modified;
                 Db.SaveChanges();
                 return model;
             }
+            //if (Db.Entry(model).State == EntityState.Detached)
+            //    Entity.Attach(model);
 
             Entity.Add(model);
             Db.SaveChanges();
@@ -70,9 +73,12 @@ namespace Dao.Repository
             Db.SaveChanges();
         }
 
-        public virtual void Remove(List<T> models)
+        public virtual void Remove(IEnumerable<T> models)
         {
-            models.ForEach(Remove);
+            foreach (var model in models)
+            {
+                Remove(model);
+            }
         }
     }
 }

@@ -25,6 +25,6 @@ namespace Dao.IRepository
 
         void Remove(T baseModel);
 
-        void Remove(List<T> models);
+        void Remove(IEnumerable<T> models);
     }
 }

@@ -31,5 +31,16 @@ namespace Dao.Model
 
         public virtual Quest Quest { get; set; }
         public virtual Quest ForRootQuest { get; set; }
+
+        public void Update(Event model)
+        {
+            Name = model.Name;
+            Desc = model.Desc;
+            RequrmentSex = model.RequrmentSex;
+            RequrmentRace = model.RequrmentRace;
+            ProgressChanging = model.ProgressChanging;
+            Quest = model.Quest;
+            ForRootQuest = model.ForRootQuest;
+        }
     }
 }

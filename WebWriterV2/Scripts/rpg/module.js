@@ -74,6 +74,8 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             $scope.SkillList = [];
             $scope.CharacteristicTypeList = [];
 
+            var parentNeededToSave = false;
+
             $scope.SexList.push({ name: 'None', value: null });
             sexService.loadSexList().then(function (data) {
                 _.each(data, function (item) {
@@ -88,17 +90,10 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 });
             });
 
-            questService.getQuest().then(function(result) {
-                $scope.quest = result;
-                reloadGraph();
-            });
+            reloadQuest();
 
-            $scope.updateCurrentEvent = function () {
-                //SexList.find
-                //var currentEvent = $scope.currentEvent;
-                //currentEvent.RequrmentSex = currentEvent.RequrmentSex.Value;
-
-                //ChildrenEvents
+            $scope.currentEventWasChanged = function () {
+                parentNeededToSave = false;
             }
 
             $scope.getParentEvent = function (currentEvent) {
@@ -123,7 +118,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                         filterEvent.ChildrenEvents.splice(index, 1);
                     }
                 });
-
+                parentNeededToSave = true;
                 reloadGraph();
             }
 
@@ -139,38 +134,61 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
 
             $scope.addConnection = function (parentEvent, childEvent) {
                 parentEvent.ChildrenEvents.push(childEvent);
-
+                parentNeededToSave = true;
                 reloadGraph();
             }
 
             $scope.removeEvent = function (currentEvent) {
-                //remove all link to event
-                _.each($scope.quest.AllEvents, function(filterEvent) {
-                    var index = _.findLastIndex(filterEvent.ChildrenEvents,
+                eventService.remove(currentEvent.Id).then(function (response) {
+                    //remove all link to event
+                    _.each($scope.quest.AllEvents, function (filterEvent) {
+                        var index = _.findLastIndex(filterEvent.ChildrenEvents,
+                        {
+                            Id: currentEvent.Id
+                        });
+                        if (index > -1)
+                            filterEvent.ChildrenEvents.splice(index, 1);
+                    });
+
+                    //remove event
+                    var index = _.findLastIndex($scope.quest.AllEvents,
                     {
                         Id: currentEvent.Id
                     });
-                    if (index > -1)
-                        filterEvent.ChildrenEvents.splice(index, 1);
-                });
+                    $scope.quest.AllEvents.splice(index, 1);
 
-                //remove event
-                var index = _.findLastIndex($scope.quest.AllEvents,
-                {
-                    Id: currentEvent.Id
+                    reloadGraph();
                 });
-                $scope.quest.AllEvents.splice(index, 1);
+            }
+
+            $scope.addEvent = function () {
+                var newEvent = {
+                    Name: 'new',
+                    ChildrenEvents: []
+                };
+                $scope.quest.AllEvents.push(newEvent);
+
+                $scope.currentEvent = newEvent;
 
                 reloadGraph();
             }
 
-            $scope.addEvent = function () {
-                $scope.quest.AllEvents.push({
-                    Name: 'new',
-                    ChildrenEvents: []
+            $scope.saveEvent = function (event) {
+                var questId = $scope.quest.Id;
+                eventService.save(event, questId).then(function (response) {
+                    if (parentNeededToSave) {
+                        var savedEvent = response;
+                        event.Id = savedEvent.Id;
+                        parentNeededToSave = false;
+                        var parentEvents = $scope.getParentEvent(event);
+                        var arrayPromise = parentEvents.map(function (eve) { return eventService.save(eve, questId); });
+                        Promise.all(arrayPromise).then(function() {
+                            reloadQuest();
+                        });
+                    } else {
+                        reloadQuest();
+                    }
                 });
-
-                reloadGraph();
             }
 
             $scope.removeWileEvent = function(index) {
@@ -199,6 +217,13 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
 
             function reloadGraph() {
                 EventGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 600);
+            }
+
+            function reloadQuest() {
+                questService.getQuest().then(function (result) {
+                    $scope.quest = result;
+                    reloadGraph();
+                });
             }
         }
     ])
@@ -328,11 +353,16 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 $scope.hero = defaultHero;
             });
 
-
             $scope.step = 1;
             $scope.freeStat = 10;
-            $scope.RaceList = raceService.getRaceList();
-            $scope.SexList = sexService.getSexList();
+            $scope.RaceList = [];
+            raceService.loadRaceList().then(function(raceList) {
+                $scope.RaceList = raceService.addImageToList(raceList);
+            });
+            $scope.SexList = [];
+            sexService.loadSexList().then(function(sexList) {
+                $scope.SexList = sexService.addImageToList(sexList);
+            });
 
             function updateState(stateChanges, positive) {
                 var heroState = $scope.hero.State;

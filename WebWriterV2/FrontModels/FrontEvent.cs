@@ -20,6 +20,7 @@ namespace WebWriterV2.FrontModels
             RequrmentSex = new FronEnum(eventDb.RequrmentSex);
             ChildrenEvents = eventDb.ChildrenEvents?.Select(x => new FrontEvent(x)).ToList();
             ProgressChanging = eventDb.ProgressChanging;
+            RequrmentSkill = eventDb.RequrmentSkill?.Select(x => new FrontSkill(x)).ToList();
         }
 
         public string Name { get; set; }
@@ -27,6 +28,7 @@ namespace WebWriterV2.FrontModels
         public FronEnum RequrmentRace { get; set; }
         public FronEnum RequrmentSex { get; set; }
         public List<FrontEvent> ChildrenEvents { get; set; }
+        public List<FrontSkill> RequrmentSkill { get; set; }
         public double ProgressChanging { get; set; }
 
         public override Event ToDbModel()
@@ -36,10 +38,11 @@ namespace WebWriterV2.FrontModels
                 Id = Id,
                 Name = Name,
                 Desc = Desc,
-                RequrmentRace = (Race?)RequrmentRace.Value,
-                RequrmentSex = (Sex?)RequrmentSex.Value,
+                RequrmentRace = (Race?)RequrmentRace?.Value,
+                RequrmentSex = (Sex?)RequrmentSex?.Value,
                 ChildrenEvents = ChildrenEvents.Select(x=>x.ToDbModel()).ToList(),
-                ProgressChanging = ProgressChanging
+                ProgressChanging = ProgressChanging,
+                RequrmentSkill = RequrmentSkill?.Select(x=>x.ToDbModel()).ToList()
             };
         }
     }
