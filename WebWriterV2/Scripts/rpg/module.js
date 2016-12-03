@@ -158,6 +158,9 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                     $scope.quest.AllEvents.splice(index, 1);
 
                     reloadGraph();
+                },
+                function () {
+                    alert("We can't remove event wich has child");
                 });
             }
 

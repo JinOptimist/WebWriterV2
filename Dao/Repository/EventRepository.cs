@@ -72,6 +72,11 @@ namespace Dao.Repository
             base.Remove(currentEvent);
         }
 
+        public void RemoveEventAndChildren(long currentEventId)
+        {
+            RemoveEventAndChildren(Get(currentEventId));
+        }
+
         public void RemoveEventAndChildren(Event currentEvent)
         {
             if (currentEvent == null)
@@ -82,6 +87,7 @@ namespace Dao.Repository
                 throw new Exception("You can't remove event wich has child");
             }
 
+            currentEvent.ParentEvents.ForEach(x => x.ChildrenEvents.Remove(currentEvent));
             base.Remove(currentEvent);
         }
 
@@ -140,7 +146,7 @@ namespace Dao.Repository
 
         public bool HasChild(long eventId)
         {
-            return Entity.Any(x => x.Id == eventId);
+            return Entity.Any(x => x.Id == eventId && x.ChildrenEvents.Any());
         }
     }
 }

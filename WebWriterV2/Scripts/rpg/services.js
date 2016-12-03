@@ -80,46 +80,54 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             });
         }
 
+        function save(event, questId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/SaveEvent',
+                    data: {
+                        jsonEvent: angular.toJson(event),
+                        questId: questId
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
+        function remove(eventId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/RemoveEvent',
+                    data: {
+                        eventId: eventId
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    if (response) {
+                        resolve(angular.fromJson(response));
+                    } else {
+                        reject(Error("We can't remove event wich has child"));
+                    }
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
         return {
             getEventChildrenPromise: function (currentEventId) {
                 return getPromise(currentEventId);
             },
             getAllEvents: getAllEvents,
-            save: function(event, questId) {
-                return $q(function (resolve, reject) {
-                    $http({
-                        method: 'POST',
-                        url: '/Rpg/SaveEvent',
-                        data: {
-                            jsonEvent: angular.toJson(event),
-                            questId: questId
-                        },
-                        headers: { 'Accept': 'application/json' }
-                    }).success(function (response) {
-                        resolve(angular.fromJson(response));
-                    },
-                    function () {
-                        reject(Error("Sorry :( we have fail"));
-                    });
-                });
-            },
-            remove: function (eventId) {
-                return $q(function (resolve, reject) {
-                    $http({
-                        method: 'POST',
-                        url: '/Rpg/RemoveEvent',
-                        data: {
-                            eventId: eventId
-                        },
-                        headers: { 'Accept': 'application/json' }
-                    }).success(function (response) {
-                        resolve(angular.fromJson(response));
-                    },
-                    function () {
-                        reject(Error("Sorry :( we have fail"));
-                    });
-                });
-            }
+            save: save,
+            remove: remove
         };
     }])
     .service('heroService', ['$http', '$q', function ($http, $q) {
