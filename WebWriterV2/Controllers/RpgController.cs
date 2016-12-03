@@ -426,7 +426,7 @@ namespace WebWriterV2.Controllers
         /* ************** Event ************** */
         public JsonResult GetAllEvents(long questId)
         {
-            var events = EventRepository.GetByQuest(questId);
+            var events = EventRepository.GetAllEventsByQuest(questId);
             var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
             return new JsonResult
             {
@@ -464,10 +464,15 @@ namespace WebWriterV2.Controllers
 
         public JsonResult RemoveEvent(long eventId)
         {
-            EventRepository.Remove(eventId);
+            var hasChild = EventRepository.HasChild(eventId);
+            if (!hasChild)
+            {
+                EventRepository.RemoveEventAndChildren(eventId);
+            }
+            
             return new JsonResult
             {
-                Data = true,
+                Data = !hasChild,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -575,10 +580,15 @@ namespace WebWriterV2.Controllers
             var guilds = GuildRepository.GetAll();
             GuildRepository.Remove(guilds);
 
-            var events = EventRepository.GetRootEvents();
-            EventRepository.Remove(events);
 
             var quests = QuestRepository.GetAll();
+
+            foreach (var quest in quests)
+            {
+                var events = EventRepository.GetRootEvents(quest.Id);
+                EventRepository.Remove(events);
+            }
+            
             QuestRepository.Remove(quests);
 
             return Init();

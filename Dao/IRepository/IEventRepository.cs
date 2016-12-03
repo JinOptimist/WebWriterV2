@@ -5,8 +5,18 @@ namespace Dao.IRepository
 {
     public interface IEventRepository : IBaseRepository<Event>
     {
-        List<Event> GetByQuest(long questId);
+        void RemoveWholeBranch(Event currentEvent);
 
-        List<Event> GetRootEvents();
+        void RemoveWholeBranch(long currentEventId);
+
+        void RemoveEventAndChildren(Event currentEvent);
+
+        void RemoveEventAndChildren(long currentEventId);
+
+        List<Event> GetAllEventsByQuest(long questId);
+
+        List<Event> GetRootEvents(long questId);
+
+        bool HasChild(long eventId);
     }
 }

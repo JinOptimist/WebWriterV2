@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Dao.IRepository;
@@ -58,11 +59,45 @@ namespace Dao.Repository
             return base.Save(model);
         }
 
+        public override void Remove(Event currentEvent)
+        {
+            if (currentEvent == null)
+                return;
+
+            if (HasChild(currentEvent.Id))
+            {
+                throw new Exception("You can't remove event wich has child");
+            }
+            
+            base.Remove(currentEvent);
+        }
+
+        public void RemoveEventAndChildren(Event currentEvent)
+        {
+            if (currentEvent == null)
+                return;
+
+            if (HasChild(currentEvent.Id))
+            {
+                throw new Exception("You can't remove event wich has child");
+            }
+
+            base.Remove(currentEvent);
+        }
+
         /// <summary>
         /// Special realization for cascade deleting
         /// </summary>
         /// <param name="currentEvent"></param>
-        public override void Remove(Event currentEvent)
+        public void RemoveWholeBranch(long currentEventId) {
+            RemoveWholeBranch(Get(currentEventId));
+        }
+
+        /// <summary>
+        /// Special realization for cascade deleting
+        /// </summary>
+        /// <param name="currentEvent"></param>
+        public void RemoveWholeBranch(Event currentEvent)
         {
             if (currentEvent == null)
                 return;
@@ -93,14 +128,19 @@ namespace Dao.Repository
             base.Remove(currentEvent);
         }
 
-        public List<Event> GetByQuest(long questId)
+        public List<Event> GetAllEventsByQuest(long questId)
         {
             return Entity.Where(x => x.Quest.Id == questId).ToList();
         }
 
-        public List<Event> GetRootEvents()
+        public List<Event> GetRootEvents(long questId)
         {
-            return Entity.Where(x => x.Quest != null).ToList();
+            return Entity.Where(x => x.Quest != null && x.Quest.Id == questId).ToList();
+        }
+
+        public bool HasChild(long eventId)
+        {
+            return Entity.Any(x => x.Id == eventId);
         }
     }
 }
