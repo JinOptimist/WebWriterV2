@@ -123,6 +123,7 @@
       <DependentUpon>201609211322162_EventHasChara.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\IUpdatable.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\CharacteristicType.cs" />
     <Compile Include="Model\SkillSchool.cs" />

@@ -21,28 +21,61 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
     .service('questService', ['$http', '$q', function ($http, $q) {
         var currentQuest = null;
 
-        return {
-            getQuest: function () {
-                var deferred = $q.defer();
-                if (currentQuest) {
-                    deferred.resolve(currentQuest);
-                    return deferred.promise;
-                }
-
-                $http({
-                    method: 'GET',
-                    url: '/Rpg/GetOneQuest',
-                    headers: { 'Accept': 'application/json' }
-                })
-                    .success(function (response) {
-                        currentQuest = angular.fromJson(response);
-                        deferred.resolve(currentQuest);
-                    });
+        function getQuest(questId) {
+            var deferred = $q.defer();
+            if (currentQuest) {
+                deferred.resolve(currentQuest);
                 return deferred.promise;
-            },
+            }
+
+            $http({
+                method: 'GET',
+                url: '/Rpg/GetQuest?id=' + questId,
+                headers: { 'Accept': 'application/json' }
+            })
+                .success(function (response) {
+                    currentQuest = angular.fromJson(response);
+                    deferred.resolve(currentQuest);
+                });
+            return deferred.promise;
+        }
+
+        function getQuests() {
+            var deferred = $q.defer();
+            
+            $http({
+                method: 'GET',
+                url: '/Rpg/GetQuests',
+                headers: { 'Accept': 'application/json' }
+            })
+                .success(function (response) {
+                    var quests = angular.fromJson(response);
+                    deferred.resolve(quests);
+                });
+            return deferred.promise;
+        }
+
+        function removeQuest(questId) {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'GET',
+                url: '/Rpg/RemoveQuest?id=' + questId,
+                headers: { 'Accept': 'application/json' }
+            })
+                .success(function (response) {
+                    deferred.resolve(response);
+                });
+            return deferred.promise;
+        }
+
+        return {
+            getQuests: getQuests,
+            getQuest: getQuest,
             setQuest: function (value) {
                 currentQuest = value;
             },
+            removeQuest: removeQuest,
             setExecutor: function (executor) {
                 currentQuest.Executor = executor;
             }

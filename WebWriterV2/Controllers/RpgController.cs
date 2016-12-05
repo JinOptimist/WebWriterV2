@@ -381,17 +381,6 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult GetOneQuest()
-        {
-            var quest = QuestRepository.GetAllWithRootEvent().FirstOrDefault();
-            var frontQuest = new FrontQuest(quest);
-            return new JsonResult
-            {
-                Data = JsonConvert.SerializeObject(frontQuest),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
         public JsonResult RemoveQuest(long id)
         {
             var result = true;
@@ -413,7 +402,8 @@ namespace WebWriterV2.Controllers
 
         public JsonResult SaveQuest(string jsonQuest)
         {
-            var quest = SerializeHelper.Deserialize<Quest>(jsonQuest);
+            var frontQuest = SerializeHelper.Deserialize<FrontQuest>(jsonQuest);
+            var quest = frontQuest.ToDbModel();
             QuestRepository.Save(quest);
 
             return new JsonResult

@@ -27,7 +27,10 @@ namespace Dao.Repository
             if (model.Id > 0)
             {
                 if (Db.Entry(model).State == EntityState.Detached)
+                {
+                    var a = Entity.Find(model.Id);
                     Entity.Attach(model);
+                }
                 Db.Entry(model).State = EntityState.Modified;
                 Db.SaveChanges();
                 return model;

@@ -66,7 +66,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
     .controller('adminQuestController', [
         '$scope', '$http', 'questService', 'sexService', 'raceService', 'eventService',
         function($scope, $http, questService, sexService, raceService, eventService) {
-            $scope.quest = {};
+            $scope.quest = null;
             $scope.currentEvent = {};
 
             $scope.RaceList = [];
@@ -90,7 +90,8 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 });
             });
 
-            reloadQuest();
+            //loadQuest(id);
+            loadQuests();
 
             $scope.currentEventWasChanged = function () {
                 parentNeededToSave = false;
@@ -186,10 +187,10 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                         var parentEvents = $scope.getParentEvent(event);
                         var arrayPromise = parentEvents.map(function (eve) { return eventService.save(eve, questId); });
                         Promise.all(arrayPromise).then(function() {
-                            reloadQuest();
+                            loadQuest(id);
                         });
                     } else {
-                        reloadQuest();
+                        loadQuest(id);
                     }
                 });
             }
@@ -218,16 +219,46 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 );
             }
 
+            $scope.selectQuest = function (quest) {
+                $scope.quest = quest;
+                reloadGraph();
+            }
+
+            $scope.clearActiveQuest = function () {
+                $scope.quest = null;
+            }
+
+            $scope.removeQuest = function (quest, index) {
+                questService.removeQuest(quest.Id).then(function (result) {
+                    $scope.quests.splice(index, 1);
+                    reloadGraph();
+                });
+            }
+
+            $scope.addQuest = function (q) {
+                var newQuest = {};
+                $scope.quests.push(newQuest);
+                $scope.selectQuest(newQuest);
+            }
+
             function reloadGraph() {
                 EventGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 600);
             }
 
-            function reloadQuest() {
-                questService.getQuest().then(function (result) {
+            function loadQuest(questId) {
+                questService.getQuest(questId).then(function (result) {
                     $scope.quest = result;
                     reloadGraph();
                 });
             }
+
+            function loadQuests() {
+                questService.getQuests().then(function (result) {
+                    $scope.quests = result;
+                });
+            }
+
+            loadQuests();
         }
     ])
     .controller('adminSkillController', [

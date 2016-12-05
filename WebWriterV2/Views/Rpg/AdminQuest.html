@@ -1,5 +1,14 @@
 ﻿<div>
-    <form novalidate class="left" >
+    <div>
+        <h2>Список квестов <a ng-href="#" ng-click="addQuest()">+</a></h2>
+        <p ng-repeat="quest in quests">
+            <a ng-href="#" ng-click="selectQuest(quest)">{{quest.Name}}</a>
+            <a ng-href="#" ng-click="removeQuest(quest, $index)">Удалить</a>
+        </p>
+
+        <a ng-href="#" ng-click="clearActiveQuest()">Снять выделение</a>
+    </div>
+    <form novalidate class="left" ng-if="quest">
         <input type="submit" ng-click="submitQuest()" value="Save" />
         <p>
             Name: <input type="text" ng-model="quest.Name" />
@@ -71,11 +80,12 @@
                 <input type="button" value="Remove event" ng-click="removeEvent(currentEvent)"/>
             </div>
         </div>
-        <div id="eventsGraph" style="border: 1px red solid; width: 900px; height: 600px; float: left;"></div>
-
         <div style="float: left; width: 530px">{{ currentEvent }}</div>
 
     </form>
+
+    <div id="eventsGraph" ng-show="quest" style="border: 1px red solid; width: 900px; height: 600px; float: left;"></div>
+    
 
     <!--<ng-quest-info quest="quest"></ng-quest-info>-->
 </div>

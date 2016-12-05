@@ -9,6 +9,7 @@ namespace Dao.Repository
 {
     public class EventRepository : BaseRepository<Event>, IEventRepository
     {
+        public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
         public EventRepository(WriterContext db) : base(db)
         {
         }
@@ -66,7 +67,7 @@ namespace Dao.Repository
 
             if (HasChild(currentEvent.Id))
             {
-                throw new Exception("You can't remove event wich has child");
+                throw new Exception(RemoveExceptionMessage);
             }
             
             base.Remove(currentEvent);
@@ -81,10 +82,18 @@ namespace Dao.Repository
         {
             if (currentEvent == null)
                 return;
+            currentEvent.ChildrenEvents = currentEvent.ChildrenEvents ?? new List<Event>();
 
-            if (HasChild(currentEvent.Id))
+            if (currentEvent.ChildrenEvents.Any())
             {
-                throw new Exception("You can't remove event wich has child");
+                var forDelete = currentEvent.ChildrenEvents.ToList();
+                forDelete.ForEach(RemoveEventAndChildren);
+            }
+
+            var isDetached = Db.Entry(currentEvent).State == EntityState.Detached;
+            if (isDetached)
+            {
+                return;
             }
 
             currentEvent.ParentEvents.ForEach(x => x.ChildrenEvents.Remove(currentEvent));
@@ -112,7 +121,7 @@ namespace Dao.Repository
             if (currentEvent.ChildrenEvents.Any())
             {
                 var forDelete = currentEvent.ChildrenEvents.ToList();
-                forDelete.ForEach(Remove);
+                forDelete.ForEach(RemoveWholeBranch);
             }
 
             var isDetached = Db.Entry(currentEvent).State == EntityState.Detached;
@@ -121,8 +130,11 @@ namespace Dao.Repository
                 return;
             }
 
-            currentEvent.ChildrenEvents = null;
-            Save(currentEvent);
+            if (currentEvent.ChildrenEvents.Any())
+            {
+                currentEvent.ChildrenEvents = null;
+                Save(currentEvent);
+            }
 
             var pe = currentEvent.ParentEvents.ToList();
             foreach (var someEvent in pe)

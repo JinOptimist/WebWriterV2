@@ -35,7 +35,7 @@ namespace Dao.Repository
 
             if (quest.RootEvent != null)
             {
-                _eventRepository.Remove(quest.RootEvent);
+                _eventRepository.RemoveWholeBranch(quest.RootEvent);
                 quest = Get(quest.Id);
             }
 
@@ -46,6 +46,27 @@ namespace Dao.Repository
         {
             var quest = GetWithRootEvent(id);
             Remove(quest);
+        }
+
+        public override Quest Save(Quest model)
+        {
+            var find = Entity.Find(model.Id);
+            if (find != null)
+            {
+                //TODO May be better move this method to generic repository?
+                //find.Update(model);
+
+                model = find;
+            }
+            else
+            {
+                if (model.Id > 0)
+                    Entity.Attach(model);
+                else
+                    Entity.Add(model);
+            }
+
+            return base.Save(model);
         }
     }
 }
