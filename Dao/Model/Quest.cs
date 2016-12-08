@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dao.Model
 {
-    public class Quest : BaseModel
+    public class Quest : BaseModel, IUpdatable<Quest>
     {
         [Required]
         public string Name { get; set; }
@@ -34,6 +35,24 @@ namespace Dao.Model
         //public List<Event> History { get; set; } = new List<Event>();
 
         public virtual List<Event> AllEvents { get; set; }
+
+        public void UpdateFrom(Quest model)
+        {
+            if (Id != model.Id)
+            {
+                throw new Exception($"You try update Quest model with id {Id} from model with id {Id}");
+            }
+
+            Name = model.Name;
+            Desc = model.Desc;
+            Effective = model.Effective;
+            Executor = model.Executor;
+
+            //TODO Update collection element by element
+            //RootEvent = model.RootEvent;
+            //Tips = model.Tips;
+            //AllEvents = model.AllEvents;
+        }
     }
 }
 

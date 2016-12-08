@@ -50,20 +50,12 @@ namespace Dao.Repository
 
         public override Quest Save(Quest model)
         {
-            var find = Entity.Find(model.Id);
-            if (find != null)
+            // if we try update detached model
+            if (Db.Entry(model).State == EntityState.Detached && model.Id > 0)
             {
-                //TODO May be better move this method to generic repository?
-                //find.Update(model);
-
-                model = find;
-            }
-            else
-            {
-                if (model.Id > 0)
-                    Entity.Attach(model);
-                else
-                    Entity.Add(model);
+                var modelFromDb = Get(model.Id);
+                modelFromDb.UpdateFrom(model);
+                model = modelFromDb;
             }
 
             return base.Save(model);

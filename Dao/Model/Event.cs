@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dao.Model
 {
-    public class Event : BaseModel
+    public class Event : BaseModel, IUpdatable<Event>
     {
         [Required]
         public string Name { get; set; }
@@ -32,7 +32,7 @@ namespace Dao.Model
         public virtual Quest Quest { get; set; }
         public virtual Quest ForRootQuest { get; set; }
 
-        public void Update(Event model)
+        public void UpdateFrom(Event model)
         {
             Name = model.Name;
             Desc = model.Desc;

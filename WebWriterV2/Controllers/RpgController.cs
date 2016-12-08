@@ -459,7 +459,7 @@ namespace WebWriterV2.Controllers
             {
                 EventRepository.RemoveEventAndChildren(eventId);
             }
-            
+
             return new JsonResult
             {
                 Data = !hasChild,
@@ -578,7 +578,7 @@ namespace WebWriterV2.Controllers
                 var events = EventRepository.GetRootEvents(quest.Id);
                 EventRepository.Remove(events);
             }
-            
+
             QuestRepository.Remove(quests);
 
             return Init();

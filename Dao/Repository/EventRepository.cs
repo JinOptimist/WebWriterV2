@@ -21,7 +21,7 @@ namespace Dao.Repository
             var find = Entity.Find(model.Id);
             if (find != null)
             {
-                find.Update(model);
+                find.UpdateFrom(model);
                 model = find;
             }
             else
@@ -69,7 +69,7 @@ namespace Dao.Repository
             {
                 throw new Exception(RemoveExceptionMessage);
             }
-            
+
             base.Remove(currentEvent);
         }
 

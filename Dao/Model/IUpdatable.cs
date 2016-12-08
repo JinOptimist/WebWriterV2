@@ -1,7 +1,7 @@
 ﻿namespace Dao.Model
 {
-    public interface IUpdatable
+    public interface IUpdatable<T> where T: BaseModel
     {
-        void Update(BaseModel model);
+        void UpdateFrom(T model);
     }
 }
