@@ -7,7 +7,7 @@ namespace WebWriterV2
 {
     public static class WebApiConfig
     {
-        public static void Register(HttpConfiguration config)
+        public static void Register(System.Web.Http.HttpConfiguration config)
         {
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",

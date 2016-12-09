@@ -93,7 +93,7 @@
     </xs:choice>
     <xs:attribute name="name" use="optional">
       <xs:annotation>
-        <xs:documentation>Name of the logger. May include '*' character which acts like a wildcard. Allowed forms are: *, EnumValueName, *Name, Name* and *Name*</xs:documentation>
+        <xs:documentation>Name of the logger. May include '*' character which acts like a wildcard. Allowed forms are: *, Name, *Name, Name* and *Name*</xs:documentation>
       </xs:annotation>
     </xs:attribute>
     <xs:attribute name="levels" type="NLogLevelList">
@@ -195,7 +195,7 @@
       <xs:pattern value="(|([a-zA-Z][a-zA-Z0-9_\-]*))(,([a-zA-Z][a-zA-Z0-9_\-]*))*" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:complexType name="Target" abstract="true"></xs:complexStateType>
+  <xs:complexType name="Target" abstract="true"></xs:complexType>
   <xs:complexType name="TargetRef">
     <xs:attribute name="name" type="xs:string" use="required" />
   </xs:complexType>
@@ -227,9 +227,9 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="Layout"></xs:complexStateType>
-  <xs:complexType name="Filter" abstract="true"></xs:complexStateType>
-  <xs:complexType name="TimeSource" abstract="true"></xs:complexStateType>
+  <xs:complexType name="Layout"></xs:complexType>
+  <xs:complexType name="Filter" abstract="true"></xs:complexType>
+  <xs:complexType name="TimeSource" abstract="true"></xs:complexType>
   <xs:simpleType name="SimpleLayoutAttribute">
     <xs:restriction base="xs:string">
       <xs:pattern value=".*" />
@@ -687,7 +687,7 @@
           <xs:element name="install-command" minOccurs="0" maxOccurs="unbounded" type="NLog.Targets.DatabaseCommandInfo" />
           <xs:element name="uninstall-command" minOccurs="0" maxOccurs="unbounded" type="NLog.Targets.DatabaseCommandInfo" />
           <xs:element name="commandText" minOccurs="0" maxOccurs="1" type="Layout" />
-          <xs:element name="commandType" minOccurs="0" maxOccurs="1" type="System.Data.CommandStateCharacteristicType" />
+          <xs:element name="commandType" minOccurs="0" maxOccurs="1" type="System.Data.CommandType" />
           <xs:element name="parameter" minOccurs="0" maxOccurs="unbounded" type="NLog.Targets.DatabaseParameterInfo" />
         </xs:choice>
         <xs:attribute name="name" type="xs:string">
@@ -745,7 +745,7 @@
             <xs:documentation>Text of the SQL command to be run on each log level.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="commandType" type="System.Data.CommandStateCharacteristicType">
+        <xs:attribute name="commandType" type="System.Data.CommandType">
           <xs:annotation>
             <xs:documentation>Type of the SQL command to be run on each log level.</xs:documentation>
           </xs:annotation>
@@ -753,7 +753,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="System.Data.CommandStateCharacteristicType">
+  <xs:simpleType name="System.Data.CommandType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Text" />
       <xs:enumeration value="StoredProcedure" />
@@ -762,13 +762,13 @@
   </xs:simpleType>
   <xs:complexType name="NLog.Targets.DatabaseCommandInfo">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="commandType" minOccurs="0" maxOccurs="1" type="System.Data.CommandStateCharacteristicType" />
+      <xs:element name="commandType" minOccurs="0" maxOccurs="1" type="System.Data.CommandType" />
       <xs:element name="connectionString" minOccurs="0" maxOccurs="1" type="Layout" />
       <xs:element name="ignoreFailures" minOccurs="0" maxOccurs="1" type="xs:boolean" />
       <xs:element name="parameter" minOccurs="0" maxOccurs="unbounded" type="NLog.Targets.DatabaseParameterInfo" />
       <xs:element name="text" minOccurs="0" maxOccurs="1" type="Layout" />
     </xs:choice>
-    <xs:attribute name="commandType" type="System.Data.CommandStateCharacteristicType">
+    <xs:attribute name="commandType" type="System.Data.CommandType">
       <xs:annotation>
         <xs:documentation>Type of the command.</xs:documentation>
       </xs:annotation>
@@ -1211,7 +1211,7 @@
           <xs:element name="domain" minOccurs="0" maxOccurs="1" type="xs:string" />
           <xs:element name="impersonationLevel" minOccurs="0" maxOccurs="1" type="NLog.Targets.Wrappers.SecurityImpersonationLevel" />
           <xs:element name="logOnProvider" minOccurs="0" maxOccurs="1" type="NLog.Targets.Wrappers.LogOnProviderType" />
-          <xs:element name="logOnType" minOccurs="0" maxOccurs="1" type="NLog.Targets.Wrappers.SecurityLogOnStateCharacteristicType" />
+          <xs:element name="logOnType" minOccurs="0" maxOccurs="1" type="NLog.Targets.Wrappers.SecurityLogOnType" />
           <xs:element name="password" minOccurs="0" maxOccurs="1" type="xs:string" />
           <xs:element name="revertToSelf" minOccurs="0" maxOccurs="1" type="xs:boolean" />
           <xs:element name="userName" minOccurs="0" maxOccurs="1" type="xs:string" />
@@ -1236,7 +1236,7 @@
             <xs:documentation>Type of the logon provider.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="logOnType" type="NLog.Targets.Wrappers.SecurityLogOnStateCharacteristicType">
+        <xs:attribute name="logOnType" type="NLog.Targets.Wrappers.SecurityLogOnType">
           <xs:annotation>
             <xs:documentation>Logon Type.</xs:documentation>
           </xs:annotation>
@@ -1267,12 +1267,12 @@
       <xs:enumeration value="Delegation" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="NLog.Targets.Wrappers.LogOnProviderStateCharacteristicType">
+  <xs:simpleType name="NLog.Targets.Wrappers.LogOnProviderType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Default" />
     </xs:restriction>
   </xs:simpleType>
-  <xs:simpleType name="NLog.Targets.Wrappers.SecurityLogOnStateCharacteristicType">
+  <xs:simpleType name="NLog.Targets.Wrappers.SecurityLogOnType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="Interactive" />
       <xs:enumeration value="Network" />
@@ -1851,7 +1851,7 @@
           <xs:element name="categoryName" minOccurs="0" maxOccurs="1" type="xs:string" />
           <xs:element name="counterHelp" minOccurs="0" maxOccurs="1" type="xs:string" />
           <xs:element name="counterName" minOccurs="0" maxOccurs="1" type="xs:string" />
-          <xs:element name="counterType" minOccurs="0" maxOccurs="1" type="System.Diagnostics.PerformanceCounterStateCharacteristicType" />
+          <xs:element name="counterType" minOccurs="0" maxOccurs="1" type="System.Diagnostics.PerformanceCounterType" />
           <xs:element name="instanceName" minOccurs="0" maxOccurs="1" type="xs:string" />
         </xs:choice>
         <xs:attribute name="name" type="xs:string">
@@ -1879,7 +1879,7 @@
             <xs:documentation>Name of the performance counter.</xs:documentation>
           </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="counterType" type="System.Diagnostics.PerformanceCounterStateCharacteristicType">
+        <xs:attribute name="counterType" type="System.Diagnostics.PerformanceCounterType">
           <xs:annotation>
             <xs:documentation>Performance counter type.</xs:documentation>
           </xs:annotation>
@@ -1892,7 +1892,7 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:simpleType name="System.Diagnostics.PerformanceCounterStateCharacteristicType">
+  <xs:simpleType name="System.Diagnostics.PerformanceCounterType">
     <xs:restriction base="xs:string">
       <xs:enumeration value="NumberOfItems32" />
       <xs:enumeration value="NumberOfItems64" />
