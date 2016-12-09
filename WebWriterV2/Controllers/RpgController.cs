@@ -439,8 +439,10 @@ namespace WebWriterV2.Controllers
         public JsonResult SaveEvent(string jsonEvent, long questId)
         {
             var frontEvent = SerializeHelper.Deserialize<FrontEvent>(jsonEvent);
-            Event eventModel = frontEvent.ToDbModel();
+            var eventModel = frontEvent.ToDbModel();
             var quest = QuestRepository.Get(questId);
+            if (quest.RootEvent == null)
+                quest.RootEvent = eventModel;
             eventModel.Quest = quest;
 
             var eventFromDb = EventRepository.Save(eventModel);

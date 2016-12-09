@@ -39,6 +39,7 @@ namespace Dao.Model
             RequrmentSex = model.RequrmentSex;
             RequrmentRace = model.RequrmentRace;
             ProgressChanging = model.ProgressChanging;
+
             Quest = model.Quest;
             ForRootQuest = model.ForRootQuest;
         }

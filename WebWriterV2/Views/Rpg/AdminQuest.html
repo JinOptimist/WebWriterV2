@@ -8,7 +8,7 @@
 
         <a ng-href="#" ng-click="clearActiveQuest()">Снять выделение</a>
     </div>
-    <form novalidate class="left" ng-if="quest">
+    <form novalidate class="left" ng-if="quest" style="width: 600px;">
         <input type="submit" ng-click="submitQuest()" value="Save" />
         <p>
             Name: <input type="text" ng-model="quest.Name" />
@@ -84,8 +84,8 @@
 
     </form>
 
-    <div id="eventsGraph" ng-show="quest" style="border: 1px red solid; width: 900px; height: 600px; float: left;"></div>
-    
+    <div id="eventsGraph" style="border: 1px red solid; width: 900px; height: 600px; float: left;"></div>
+
 
     <!--<ng-quest-info quest="quest"></ng-quest-info>-->
 </div>
