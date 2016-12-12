@@ -26,6 +26,10 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                     templateUrl: '/views/rpg/AdminQuest.html',
                     controller: 'adminQuestController'
                 })
+                .when('/AngularRoute/admin/quest/:questId/event/:eventId?', {
+                    templateUrl: '/views/rpg/admin/Event.html',
+                    controller: 'adminEventGeneralController'
+                })
                 .when('/AngularRoute/admin/quest/:questId?', {
                     templateUrl: '/views/rpg/admin/Quest.html',
                     controller: 'adminQuestGeneralController'
@@ -280,24 +284,14 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             init();
 
             $scope.selectQuest = function (quest) {
-                $scope.wait = true;
                 window.location.href = '/AngularRoute/admin/quest/' + quest.Id;
-                //$scope.quest = quest;
-                //$location.path('/AngularRoute/admin/quest/' + quest.Id).replace();
-                //init();
-                //setTimeout(init, 100);
-                //$route.silent('/AngularRoute/admin/quest/' + quest.Id);
-                //setTimeout(function ($location) { $location.path('/AngularRoute/admin/quest/' + quest.Id) }, 1);
-                //loadQuest(quest.Id);
             }
 
             $scope.saveQuest = function () {
-                var req = {
-                    method: 'POST',
-                    url: '/Rpg/SaveQuest',
-                    data: { jsonQuest: angular.toJson($scope.quest) },
-                };
-                $http(req).then(
+                var editor = CKEDITOR.instances.desc;
+                var text = editor.getData();
+                $scope.quest.Desc = text;
+                questService.saveQuest($scope.quest).then(
                     function (response) {
                         if (response.data)
                             alert('Save completed');
@@ -312,16 +306,21 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             }
 
             $scope.removeQuest = function (quest, index) {
-                if (confirm('Are sure? You try delte whole qeust: ' + quest.Name))
+                if (confirm('Are you sure? You try delete whole event: ' + quest.Name))
                     questService.removeQuest(quest.Id).then(function (result) {
                         $scope.quests.splice(index, 1);
                     });
+            }
+
+            $scope.goToEvent = function (quest) {
+                window.location.href = '/AngularRoute/admin/quest/' + quest.Id + '/event/';
             }
 
             function loadQuest(questId) {
                 questService.getQuest(questId).then(function (result) {
                     $scope.quest = result;
                     $scope.wait = false;
+                    CKEDITOR.replace('desc');
                 });
             }
 
@@ -336,6 +335,95 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 if (questId)
                     loadQuest(questId);
                 loadQuests();
+            }
+        }
+    ])
+    .controller('adminEventGeneralController', [
+        '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService',
+        function ($scope, $http, $routeParams, $location, eventService, questService, raceService) {
+            $scope.event = null;
+            $scope.quest = null;
+            $scope.events = [];
+            $scope.wait = true;
+            var questId = $routeParams.questId;
+
+            init();
+
+            $scope.addEvent = function () {
+                var editor = CKEDITOR.instances.desc;
+                editor.setData('');
+
+                $scope.event = {
+                    Name: 'new',
+                    ProgressChanging: 0,
+                    Desc: '',
+                    ChildrenEvents: []
+                };
+            }
+
+            $scope.selectEvent = function (event) {
+                $scope.wait = true;
+                window.location.href = '/AngularRoute/admin/quest/' + questId + '/event/' + event.Id;
+            }
+
+            $scope.saveEvent = function () {
+                var editor = CKEDITOR.instances.desc;
+                var text = editor.getData();
+                $scope.event.Desc = text;
+
+                eventService.save($scope.event, questId).then(
+                    function (response) {
+                        if (response)
+                            alert('Save completed');
+                        else {
+                            alert('Some go wrong');
+                        }
+                    },
+                    function () {
+                        alert('We all gonna die');
+                    }
+                );
+            }
+
+            $scope.removeEvent = function (event, index) {
+                if (confirm('Are you sure? You try delete whole event: ' + event.Name))
+                    eventService.remove(event.Id).then(function (result) {
+                        $scope.events.splice(index, 1);
+                    });
+            }
+
+            $scope.goToQuest = function () {
+                window.location.href = '/AngularRoute/admin/quest/' + $scope.quest.Id;
+            }
+
+            function loadEvent(eventId) {
+                eventService.getEvent(eventId).then(function (result) {
+                    $scope.event = result;
+                    $scope.wait = false;
+                    CKEDITOR.replace('desc');
+                });
+            }
+
+            function loadQuest(questId) {
+                questService.getQuest(questId).then(function (result) {
+                    $scope.quest = result;
+                    $scope.wait = false;
+                    CKEDITOR.replace('desc');
+                });
+            }
+
+            function loadEvents() {
+                eventService.getEvents($routeParams.questId).then(function (result) {
+                    $scope.events = result;
+                });
+            }
+
+            function init() {
+                var eventId = $routeParams.eventId;
+                if (eventId)
+                    loadEvent(eventId);
+                loadEvents();
+                loadQuest(questId);
             }
         }
     ])
@@ -609,7 +697,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             $scope.ways = {};
 
             $scope.chooseEvent = function(eventId) {
-                eventService.getEventChildrenPromise(eventId).then(function(result) {
+                eventService.getEvent(eventId).then(function (result) {
                     $scope.ways = result.ChildrenEvents;
                     $scope.quest.Effective += result.ProgressChanging;
                     $scope.currentEvent = result;

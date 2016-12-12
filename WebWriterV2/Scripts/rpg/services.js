@@ -21,6 +21,21 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
     .service('questService', ['$http', '$q', function ($http, $q) {
         var currentQuest = null;
 
+        function saveQuest(quest) {
+            var deferred = $q.defer();
+
+            var request = {
+                method: 'POST',
+                url: '/Rpg/SaveQuest',
+                data: { jsonQuest: angular.toJson(quest) }
+            };
+
+            $http(request)
+                .success(function (response) {
+                    deferred.resolve(response);
+                });
+        }
+
         function getQuest(questId) {
             var deferred = $q.defer();
             if (currentQuest) {
@@ -42,7 +57,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
 
         function getQuests() {
             var deferred = $q.defer();
-            
+
             $http({
                 method: 'GET',
                 url: '/Rpg/GetQuests',
@@ -70,6 +85,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         }
 
         return {
+            saveQuest: saveQuest,
             getQuests: getQuests,
             getQuest: getQuest,
             setQuest: function (value) {
@@ -82,11 +98,11 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         };
     }])
     .service('eventService', ['$http', '$q', function ($http, $q) {
-        function getPromise(currentEventId) {
+        function getEvent(currentEventId) {
             return $q(function (resolve, reject) {
                 $http({
                     method: 'GET',
-                    url: '/Rpg/GetEventChildren?id=' + currentEventId,
+                    url: '/Rpg/GetEvent?id=' + currentEventId,
                     headers: { 'Accept': 'application/json' }
                 }).success(function (response) {
                     var event = angular.fromJson(response);
@@ -98,11 +114,11 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             });
         }
 
-        function getAllEvents(questId) {
+        function getEvents(questId) {
             return $q(function (resolve, reject) {
                 $http({
                     method: 'GET',
-                    url: '/Rpg/GetAllEvents?questId=' + questId,
+                    url: '/Rpg/GetEvents?questId=' + questId,
                     headers: { 'Accept': 'application/json' }
                 }).success(function (response) {
                     resolve(angular.fromJson(response));
@@ -155,10 +171,8 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         }
 
         return {
-            getEventChildrenPromise: function (currentEventId) {
-                return getPromise(currentEventId);
-            },
-            getAllEvents: getAllEvents,
+            getEvent: getEvent,
+            getEvents: getEvents,
             save: save,
             remove: remove
         };

@@ -414,7 +414,7 @@ namespace WebWriterV2.Controllers
         }
 
         /* ************** Event ************** */
-        public JsonResult GetAllEvents(long questId)
+        public JsonResult GetEvents(long questId)
         {
             var events = EventRepository.GetAllEventsByQuest(questId);
             var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
@@ -425,13 +425,13 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult GetEventChildren(long id)
+        public JsonResult GetEvent(long id)
         {
             var eventFromDb = EventRepository.Get(id);
-            var frontEvents = new FrontEvent(eventFromDb);
+            var frontEvent = new FrontEvent(eventFromDb);
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(frontEvents),
+                Data = JsonConvert.SerializeObject(frontEvent),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

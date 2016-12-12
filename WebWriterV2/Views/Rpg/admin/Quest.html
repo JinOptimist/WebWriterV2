@@ -1,20 +1,27 @@
 ﻿<div>
-    {{wait}}
     <div style="float: right; width: 300px;">
         <h2>Список квестов <!--<a ng-href="#" ng-click="addQuest()">+</a>--> </h2>
         <p ng-repeat="questItem in quests">
             <!--<a ng-href="/AngularRoute/admin/quest/{{questItem.Id}}">{{questItem.Name}}</a>-->
             <a ng-href="#" ng-click="selectQuest(questItem)">{{questItem.Name}}</a>
-            <a ng-href="#" ng-click="removeQuest(questItem, $index)">Удалить</a>
+            <a ng-href="#" ng-click="removeQuest(questItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
         </p>
+
+        <div ng-if="quest">
+            <h2>Список евентов</h2>
+            <p>
+                <a ng-href="#" ng-click="goToEvent(quest)">События</a>
+            </p>
+        </div>
     </div>
-    <form novalidate class="left" ng-if="quest" style="width: 600px;">
+
+    <form ng-show="quest" novalidate class="left" style="width: 600px;">
         <input type="submit" ng-click="saveQuest()" value="Save"/>
         <p>
             Name: <input type="text" ng-model="quest.Name"/>
         </p>
         <p>
-            Desc: <textarea ng-model="quest.Desc" style="width: 500px; height: 50px;"></textarea>
+            Desc: <textarea id="desc" ng-model="quest.Desc"></textarea>
         </p>
     </form>
 
