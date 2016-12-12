@@ -440,10 +440,11 @@ namespace WebWriterV2.Controllers
         {
             var frontEvent = SerializeHelper.Deserialize<FrontEvent>(jsonEvent);
             var eventModel = frontEvent.ToDbModel();
-            var quest = QuestRepository.Get(questId);
-            if (quest.RootEvent == null)
-                quest.RootEvent = eventModel;
-            eventModel.Quest = quest;
+
+            if (eventModel.Id == 0)
+            {
+                eventModel.Quest = QuestRepository.Get(questId);
+            }
 
             var eventFromDb = EventRepository.Save(eventModel);
             var frontEvents = new FrontEvent(eventFromDb);

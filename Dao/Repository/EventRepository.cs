@@ -16,46 +16,29 @@ namespace Dao.Repository
 
         public override Event Save(Event model)
         {
-            var children = model.ChildrenEvents;
-            var parents = model.ParentEvents;
-            var find = Entity.Find(model.Id);
-            if (find != null)
+            var children = model.ChildrenEvents.ToList();
+
+            // if we try update detached model
+            if (Db.Entry(model).State == EntityState.Detached && model.Id > 0)
             {
-                find.UpdateFrom(model);
-                model = find;
-            }
-            else
-            {
-                if (model.Id > 0)
-                    Entity.Attach(model);
-                else
-                    Entity.Add(model);
+                var modelFromDb = Entity.Find(model.Id);
+                modelFromDb.UpdateFrom(model);
+                model = modelFromDb;
             }
 
-            if (model.ChildrenEvents != null)
-            {
-                foreach (var child in children.Where(x => model.ChildrenEvents.All(u => u.Id != x.Id)))
-                {
-                    if (Db.Entry(child).State != EntityState.Detached)
-                    {
-                        continue;
-                    }
-                    var childEvent = Entity.Find(child.Id);
-                    if (childEvent == null)
-                    {
-                        childEvent = new Event { Id = child.Id };
-                        Entity.Attach(childEvent);
-                    }
-                    model.ChildrenEvents.Add(childEvent);
-                }
+            
+            children.ForEach(x => model.ChildrenEvents.Remove(x));
 
-                var forRemove = model.ChildrenEvents.Where(x => children.All(u => u.Id != x.Id)).ToList();
-                foreach (var child in forRemove)
-                {
-                    model.ChildrenEvents.Remove(child);
-                }
+            foreach (var child in children)
+            {
+                var addedChild = Entity.Find(child.Id) ?? child;
+                model.ChildrenEvents.Add(addedChild);
             }
 
+            if (model.Quest.RootEvent == null)
+            {
+                model.Quest.RootEvent = model;
+            }
 
             return base.Save(model);
         }

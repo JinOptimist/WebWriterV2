@@ -17,8 +17,11 @@
 
     <div class="block300 padding10 left">
         <h3>Квесты</h3>
-        <ng-quest-info quest="quest"></ng-quest-info>
-        <input type="button" value="Отправить {{currentHero.Name}} на квест" ng-click="goToQuest(quest)" />
+        <div ng-repeat="quest in quests">
+            <ng-quest-info quest="quest"></ng-quest-info>
+            <input type="button" value="Отправить {{currentHero.Name}} на квест" ng-click="goToQuest(quest)" />
+        </div>
+        
     </div>
 
     <div class="block300 padding10 left">

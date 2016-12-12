@@ -11,14 +11,16 @@ namespace WebWriterV2.FrontModels
         {
         }
 
-        public FrontEvent(Event eventDb)
+        public FrontEvent(Event eventDb, int deep = 0)
         {
             Id = eventDb.Id;
             Name = eventDb.Name;
             Desc = eventDb.Desc;
             RequrmentRace = new FronEnum(eventDb.RequrmentRace);
             RequrmentSex = new FronEnum(eventDb.RequrmentSex);
-            ChildrenEvents = eventDb.ChildrenEvents?.Select(x => new FrontEvent(x)).ToList();
+            ChildrenEvents = deep < 2
+                ? ChildrenEvents = eventDb.ChildrenEvents?.Select(x => new FrontEvent(x, ++deep)).ToList()
+                : ChildrenEvents = new List<FrontEvent>();
             ProgressChanging = eventDb.ProgressChanging;
             RequrmentSkill = eventDb.RequrmentSkill?.Select(x => new FrontSkill(x)).ToList();
         }
@@ -40,9 +42,9 @@ namespace WebWriterV2.FrontModels
                 Desc = Desc,
                 RequrmentRace = (Race?)RequrmentRace?.Value,
                 RequrmentSex = (Sex?)RequrmentSex?.Value,
-                ChildrenEvents = ChildrenEvents.Select(x=>x.ToDbModel()).ToList(),
+                ChildrenEvents = ChildrenEvents.Select(x => x.ToDbModel()).ToList(),
                 ProgressChanging = ProgressChanging,
-                RequrmentSkill = RequrmentSkill?.Select(x=>x.ToDbModel()).ToList()
+                RequrmentSkill = RequrmentSkill?.Select(x => x.ToDbModel()).ToList()
             };
         }
     }

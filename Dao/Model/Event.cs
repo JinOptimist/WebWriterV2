@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Dao.Model
 {
@@ -13,7 +15,6 @@ namespace Dao.Model
         public string Desc { get; set; }
 
         public virtual List<Event> ParentEvents { get; set; }
-
         public virtual List<Event> ChildrenEvents { get; set; }
 
         public virtual Sex? RequrmentSex { get; set; } = null;
@@ -24,7 +25,6 @@ namespace Dao.Model
 
         public virtual Location RequrmentLocation { get; set; }
 
-
         [Description("Add this value to total summ of quest effective")]
         public virtual double ProgressChanging { get; set; } = 0;
         //public Dictionary<StateType, long> CharacteristicsChanging { get; set; }
@@ -34,14 +34,28 @@ namespace Dao.Model
 
         public void UpdateFrom(Event model)
         {
+            if (Id != model.Id)
+                throw new Exception($"You try update Event with Id: {model.Id} from Event with id {Id}");
             Name = model.Name;
             Desc = model.Desc;
-            RequrmentSex = model.RequrmentSex;
             RequrmentRace = model.RequrmentRace;
+            RequrmentSex = model.RequrmentSex;
             ProgressChanging = model.ProgressChanging;
-
             Quest = model.Quest;
             ForRootQuest = model.ForRootQuest;
+
+            //model.RequrmentSkill = RequrmentSkill?.Select(x => x.ToDbModel()).ToList();
+
+            //var forRemove = ChildrenEvents.Where(x => model.ChildrenEvents.All(u => u.Id != x.Id)).ToList();
+            //foreach (var child in forRemove)
+            //{
+            //    ChildrenEvents.Remove(child);
+            //}
+
+            //foreach (var child in model.ChildrenEvents.Where(x => ChildrenEvents.All(u => u.Id != x.Id)))
+            //{
+            //    ChildrenEvents.Add(child);
+            //}
         }
     }
 }

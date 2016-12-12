@@ -65,7 +65,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
     ])
     .controller('adminQuestController', [
         '$scope', '$http', 'questService', 'sexService', 'raceService', 'eventService',
-        function($scope, $http, questService, sexService, raceService, eventService) {
+        function ($scope, $http, questService, sexService, raceService, eventService) {
             $scope.quest = null;
             $scope.currentEvent = {};
 
@@ -76,22 +76,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
 
             var parentNeededToSave = false;
 
-            $scope.SexList.push({ name: 'None', value: null });
-            sexService.loadSexList().then(function (data) {
-                _.each(data, function (item) {
-                    return $scope.SexList.push({ name: item.Name, value: item.Value });
-                });
-            });
-
-            $scope.RaceList.push({ name: 'None', value: null });
-            raceService.loadRaceList().then(function (data) {
-                _.each(data, function (item) {
-                    return $scope.RaceList.push({ name: item.Name, value: item.Value });
-                });
-            });
-
-            //loadQuest(id);
-            loadQuests();
+            init();
 
             $scope.currentEventWasChanged = function () {
                 parentNeededToSave = false;
@@ -180,6 +165,9 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             $scope.saveEvent = function (event) {
                 var questId = $scope.quest.Id;
                 eventService.save(event, questId).then(function (response) {
+                    updateEvent(event, response);
+                    $scope.currentEvent = response;
+                    alert('Event save +');
                     if (parentNeededToSave) {
                         var savedEvent = response;
                         event.Id = savedEvent.Id;
@@ -187,10 +175,10 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                         var parentEvents = $scope.getParentEvent(event);
                         var arrayPromise = parentEvents.map(function (eve) { return eventService.save(eve, questId); });
                         Promise.all(arrayPromise).then(function() {
-                            loadQuest(id);
+                            reloadGraph();
                         });
                     } else {
-                        loadQuest(id);
+                        reloadGraph();
                     }
                 });
             }
@@ -221,6 +209,8 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
 
             $scope.selectQuest = function (quest) {
                 $scope.quest = quest;
+                if ($scope.quest.AllEvents && $scope.quest.AllEvents.length > 0)
+                    $scope.currentEvent = $scope.quest.AllEvents[0];
                 reloadGraph();
             }
 
@@ -229,16 +219,22 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             }
 
             $scope.removeQuest = function (quest, index) {
-                questService.removeQuest(quest.Id).then(function (result) {
-                    $scope.quests.splice(index, 1);
-                    reloadGraph();
-                });
+                if (confirm('Are sure? You try delte whole qeust: ' + quest.Name))
+                    questService.removeQuest(quest.Id).then(function (result) {
+                        $scope.quests.splice(index, 1);
+                        reloadGraph();
+                    });
             }
 
             $scope.addQuest = function (q) {
                 var newQuest = {};
                 $scope.quests.push(newQuest);
                 $scope.selectQuest(newQuest);
+            }
+
+            function updateEvent(oldEvent, newEvent) {
+                var index = $scope.quest.AllEvents.findIndex(function (e) { return e === oldEvent; })
+                $scope.quest.AllEvents[index] = newEvent;
             }
 
             function reloadGraph() {
@@ -258,7 +254,23 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 });
             }
 
-            loadQuests();
+            function init() {
+                $scope.SexList.push({ name: 'None', value: null });
+                sexService.loadSexList().then(function (data) {
+                    _.each(data, function (item) {
+                        return $scope.SexList.push({ name: item.Name, value: item.Value });
+                    });
+                });
+
+                $scope.RaceList.push({ name: 'None', value: null });
+                raceService.loadRaceList().then(function (data) {
+                    _.each(data, function (item) {
+                        return $scope.RaceList.push({ name: item.Name, value: item.Value });
+                    });
+                });
+
+                loadQuests();
+            }
         }
     ])
     .controller('adminSkillController', [
@@ -471,15 +483,20 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
         '$scope', '$location', 'guildService', 'questService', 'traningRoomService','heroService',
         function ($scope, $location, guildService, questService, traningRoomService, heroService) {
             $scope.guild = {};
-            guildService.getGuildPromise.then(function(guild) {
-                $scope.guild = guild;
-            });
-
-            questService.getQuest().then(function(result) {
-                $scope.quest = result;
-            });
-
             $scope.currentHero = {};
+            $scope.quests = [];
+
+            init();
+            function init() {
+                guildService.getGuildPromise.then(function (guild) {
+                    $scope.guild = guild;
+                });
+
+                questService.getQuests().then(function (result) {
+                    $scope.quests = result;
+                });
+            }
+            
             $scope.selectHero = function(hero) {
                 $scope.currentHero = hero;
             }
@@ -495,6 +512,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             }
 
             $scope.goToQuest = function(quest) {
+                questService.setQuest(quest);
                 questService.setExecutor($scope.currentHero);
                 $location.path('/AngularRoute/travel');
             }
