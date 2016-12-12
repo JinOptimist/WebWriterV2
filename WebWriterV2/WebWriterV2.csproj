@@ -248,13 +248,13 @@
     <Content Include="book\Academy.rtf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Scripts\angular-mocks.js" />
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Scripts\angular-mocks.js" />
     <None Include="Scripts\angular.intellisense.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
@@ -262,7 +262,6 @@
     <Content Include="Scripts\angular\angular-cache.js" />
     <Content Include="Scripts\angular\angular-route.js" />
     <Content Include="Scripts\angular\angular-sanitize.js" />
-    <Content Include="Scripts\angular\angular.js" />
     <Content Include="Scripts\angular\angulartics-google-analytics.js" />
     <Content Include="Scripts\angular\angulartics-piwik.js" />
     <Content Include="Scripts\angular\angulartics.js" />
@@ -277,6 +276,7 @@
     <Content Include="Scripts\dracula_graffle.js" />
     <Content Include="Scripts\dracula_graph.js" />
     <Content Include="Scripts\galleria-1.2.9.min.js" />
+    <Content Include="Scripts\angular.min.js.map" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
@@ -285,11 +285,11 @@
     <Content Include="Scripts\rpg\services.js" />
     <Content Include="Scripts\rpg\directives.js" />
     <Content Include="Scripts\rpg\module.js" />
-    <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Rpg\AdminCharacteristic.html" />
     <Content Include="Views\Rpg\AdminQuest.html" />
+    <Content Include="Views\Rpg\admin\Quest.html" />
     <Content Include="Views\Rpg\directives\ngGuild.html" />
     <Content Include="Views\Rpg\AdminSkill.html" />
     <Content Include="Views\Rpg\TraningRoom.html" />

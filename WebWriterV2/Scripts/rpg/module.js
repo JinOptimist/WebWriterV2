@@ -26,6 +26,10 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                     templateUrl: '/views/rpg/AdminQuest.html',
                     controller: 'adminQuestController'
                 })
+                .when('/AngularRoute/admin/quest/:questId?', {
+                    templateUrl: '/views/rpg/admin/Quest.html',
+                    controller: 'adminQuestGeneralController'
+                })
                 /* front */
                 .when('/AngularRoute/guild', {
                     templateUrl: '/views/rpg/Guild.html',
@@ -218,13 +222,6 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 $scope.quest = null;
             }
 
-            $scope.removeQuest = function (quest, index) {
-                if (confirm('Are sure? You try delte whole qeust: ' + quest.Name))
-                    questService.removeQuest(quest.Id).then(function (result) {
-                        $scope.quests.splice(index, 1);
-                        reloadGraph();
-                    });
-            }
 
             $scope.addQuest = function (q) {
                 var newQuest = {};
@@ -269,6 +266,75 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                     });
                 });
 
+                loadQuests();
+            }
+        }
+    ])
+    .controller('adminQuestGeneralController', [
+        '$scope', '$http', '$routeParams', '$location', 'questService', 'sexService', 'raceService', 'eventService',
+        function ($scope, $http, $routeParams, $location, questService, sexService, raceService, eventService) {
+            $scope.quest = null;
+            $scope.quests = [];
+
+            $scope.wait = true;
+            init();
+
+            $scope.selectQuest = function (quest) {
+                $scope.wait = true;
+                window.location.href = '/AngularRoute/admin/quest/' + quest.Id;
+                //$scope.quest = quest;
+                //$location.path('/AngularRoute/admin/quest/' + quest.Id).replace();
+                //init();
+                //setTimeout(init, 100);
+                //$route.silent('/AngularRoute/admin/quest/' + quest.Id);
+                //setTimeout(function ($location) { $location.path('/AngularRoute/admin/quest/' + quest.Id) }, 1);
+                //loadQuest(quest.Id);
+            }
+
+            $scope.saveQuest = function () {
+                var req = {
+                    method: 'POST',
+                    url: '/Rpg/SaveQuest',
+                    data: { jsonQuest: angular.toJson($scope.quest) },
+                };
+                $http(req).then(
+                    function (response) {
+                        if (response.data)
+                            alert('Save completed');
+                        else {
+                            alert('Some go wrong');
+                        }
+                    },
+                    function () {
+                        alert('We all gonna die');
+                    }
+                );
+            }
+
+            $scope.removeQuest = function (quest, index) {
+                if (confirm('Are sure? You try delte whole qeust: ' + quest.Name))
+                    questService.removeQuest(quest.Id).then(function (result) {
+                        $scope.quests.splice(index, 1);
+                    });
+            }
+
+            function loadQuest(questId) {
+                questService.getQuest(questId).then(function (result) {
+                    $scope.quest = result;
+                    $scope.wait = false;
+                });
+            }
+
+            function loadQuests() {
+                questService.getQuests().then(function (result) {
+                    $scope.quests = result;
+                });
+            }
+
+            function init() {
+                var questId = $routeParams.questId;
+                if (questId)
+                    loadQuest(questId);
                 loadQuests();
             }
         }
@@ -496,7 +562,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                     $scope.quests = result;
                 });
             }
-            
+
             $scope.selectHero = function(hero) {
                 $scope.currentHero = hero;
             }

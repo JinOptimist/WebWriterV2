@@ -34,8 +34,6 @@ namespace Dao.Repository
                 Db.SaveChanges();
                 return model;
             }
-            //if (Db.Entry(model).State == EntityState.Detached)
-            //    Entity.Attach(model);
 
             Entity.Add(model);
             Db.SaveChanges();

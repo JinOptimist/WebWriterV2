@@ -26,7 +26,6 @@ namespace Dao.Repository
                 model = modelFromDb;
             }
 
-            
             children.ForEach(x => model.ChildrenEvents.Remove(x));
 
             foreach (var child in children)

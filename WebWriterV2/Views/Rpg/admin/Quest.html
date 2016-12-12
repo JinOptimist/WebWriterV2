@@ -1,0 +1,22 @@
+﻿<div>
+    {{wait}}
+    <div style="float: right; width: 300px;">
+        <h2>Список квестов <!--<a ng-href="#" ng-click="addQuest()">+</a>--> </h2>
+        <p ng-repeat="questItem in quests">
+            <!--<a ng-href="/AngularRoute/admin/quest/{{questItem.Id}}">{{questItem.Name}}</a>-->
+            <a ng-href="#" ng-click="selectQuest(questItem)">{{questItem.Name}}</a>
+            <a ng-href="#" ng-click="removeQuest(questItem, $index)">Удалить</a>
+        </p>
+    </div>
+    <form novalidate class="left" ng-if="quest" style="width: 600px;">
+        <input type="submit" ng-click="saveQuest()" value="Save"/>
+        <p>
+            Name: <input type="text" ng-model="quest.Name"/>
+        </p>
+        <p>
+            Desc: <textarea ng-model="quest.Desc" style="width: 500px; height: 50px;"></textarea>
+        </p>
+    </form>
+
+    <!--<ng-quest-info quest="quest"></ng-quest-info>-->
+</div>
