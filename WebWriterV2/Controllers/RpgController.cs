@@ -473,13 +473,22 @@ namespace WebWriterV2.Controllers
         /* ************** Init Db ************** */
         public JsonResult Init()
         {
-            /* Создаём Квесты (Event внутри) */
+            /* Создаём Квесты. Чистый без евентов */
             var quests = QuestRepository.GetAll();
+            var quest = quests.FirstOrDefault();
             if (!quests.Any())
             {
-                var quest = GenerateData.GetQuest();
+                quest = GenerateData.GetQuest();
                 QuestRepository.Save(quest);
             }
+
+            /* Создаём Евенты */
+            //var events = EventRepository.GetAll();
+            //if (!events.Any())
+            //{
+            //    events = GenerateData.GenerateEventsForQuest(quest);
+            //    EventRepository.Save(events);
+            //}
 
             /* Создаём StateType */
             var stateTypes = StateTypeRepository.GetAll();

@@ -9,7 +9,12 @@ namespace WebWriterV2.RpgUtility
     {
         public static Event AddEvent(this Event parentEvent, Event addedEvent)
         {
-            parentEvent.ChildrenEvents.Add(addedEvent);
+            parentEvent.ChildrenEvents.Add(new EventLinkItem
+            {
+                From = parentEvent,
+                To = addedEvent,
+                Text = addedEvent.Name
+            });
             //addedEvent.ParentEvents.Add(parentEvent);
             return parentEvent;
         }
@@ -33,12 +38,16 @@ namespace WebWriterV2.RpgUtility
         private static void ConnecteEvent(Event parentEvent, Event childEvent)
         {
             if (parentEvent.ChildrenEvents == null)
-                parentEvent.ChildrenEvents = new List<Event>();
+                parentEvent.ChildrenEvents = new List<EventLinkItem>();
             //if (childEvent.ParentEvents == null)
             //    childEvent.ParentEvents = new List<Event>();
 
-            parentEvent.ChildrenEvents.Add(childEvent);
-            //childEvent.ParentEvents.Add(parentEvent);
+            parentEvent.ChildrenEvents.Add(new EventLinkItem
+            {
+                From = parentEvent,
+                To = childEvent,
+                Text = childEvent.Name
+            });
         }
     }
 }

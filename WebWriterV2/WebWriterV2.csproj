@@ -156,6 +156,7 @@
   <ItemGroup>
     <Compile Include="Controllers\RpgController.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
+    <Compile Include="FrontModels\FrontEventLinkItem.cs" />
     <Compile Include="FrontModels\FrontState.cs" />
     <Compile Include="FrontModels\FrontCharacteristicType.cs" />
     <Compile Include="FrontModels\FrontQuest.cs" />

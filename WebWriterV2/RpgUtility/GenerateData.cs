@@ -116,20 +116,17 @@ namespace WebWriterV2.RpgUtility
 
         public static Quest GetQuest()
         {
-
             var quest = new Quest
             {
                 Name = "Убить крыс",
                 Desc = "Владелец амбара разметил заказ на убийство крыс. Отлично задание для новичка",
                 Effective = 0,
             };
-
-            GenerateEventsForQuest(quest);
-
+            //GenerateEventsForQuest(quest);
             return quest;
         }
 
-        public static void GenerateEventsForQuest(Quest quest)
+        public static List<Event> GenerateEventsForQuest(Quest quest)
         {
             // Tips
             // Desc = "У заказчика всегда была репутацию падкого на женское внимание мужика",
@@ -205,10 +202,10 @@ namespace WebWriterV2.RpgUtility
                 Desc = "Герой нашёл злосчастных крыс и безжалостно уничтожил всех кого смог догнать",
             };
 
-            lvl0Event0.AddChildrenEvents(lvl1Event1, lvl1Event2, lvl1Event3);
-            lvl1Event4.AddParentsEvents(lvl1Event1, lvl1Event2, lvl1Event3);
-            lvl1Event4.AddChildrenEvents(lvl2Event1, lvl2Event2, lvl2Event3);
-            lvl3Event0.AddParentsEvents(lvl2Event1, lvl2Event2, lvl2Event3);
+            //lvl0Event0.AddChildrenEvents(lvl1Event1, lvl1Event2, lvl1Event3);
+            //lvl1Event4.AddParentsEvents(lvl1Event1, lvl1Event2, lvl1Event3);
+            //lvl1Event4.AddChildrenEvents(lvl2Event1, lvl2Event2, lvl2Event3);
+            //lvl3Event0.AddParentsEvents(lvl2Event1, lvl2Event2, lvl2Event3);
             var list = new List<Event>();
             list.Add(lvl0Event0);
 
@@ -223,10 +220,12 @@ namespace WebWriterV2.RpgUtility
 
             list.Add(lvl3Event0);
 
-
             list.ForEach(x => x.Quest = quest);
-            quest.AllEvents = list;
-            quest.RootEvent = lvl0Event0;
+
+            //quest.RootEvent = lvl0Event0;
+
+            return list;
+            //quest.AllEvents = list;
         }
 
         public static List<Skill> GenerateSkills(List<SkillSchool> schools, List<StateType> stateTypes)

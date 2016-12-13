@@ -14,8 +14,8 @@ namespace Dao.Model
         [Required]
         public string Desc { get; set; }
 
-        public virtual List<Event> ParentEvents { get; set; }
-        public virtual List<Event> ChildrenEvents { get; set; }
+        public virtual List<EventLinkItem> ParentEvents { get; set; }
+        public virtual List<EventLinkItem> ChildrenEvents { get; set; }
 
         public virtual Sex? RequrmentSex { get; set; } = null;
         public virtual Race? RequrmentRace { get; set; } = null;
@@ -43,19 +43,6 @@ namespace Dao.Model
             ProgressChanging = model.ProgressChanging;
             Quest = model.Quest;
             ForRootQuest = model.ForRootQuest;
-
-            //model.RequrmentSkill = RequrmentSkill?.Select(x => x.ToDbModel()).ToList();
-
-            //var forRemove = ChildrenEvents.Where(x => model.ChildrenEvents.All(u => u.Id != x.Id)).ToList();
-            //foreach (var child in forRemove)
-            //{
-            //    ChildrenEvents.Remove(child);
-            //}
-
-            //foreach (var child in model.ChildrenEvents.Where(x => ChildrenEvents.All(u => u.Id != x.Id)))
-            //{
-            //    ChildrenEvents.Add(child);
-            //}
         }
     }
 }

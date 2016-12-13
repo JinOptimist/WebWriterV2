@@ -9,14 +9,17 @@ namespace Dao.Repository
 {
     public class EventRepository : BaseRepository<Event>, IEventRepository
     {
+        private readonly EventLinkItemRepository _eventLinkItemRepository;
+
         public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
         public EventRepository(WriterContext db) : base(db)
         {
+            _eventLinkItemRepository = new EventLinkItemRepository(db);
         }
 
         public override Event Save(Event model)
         {
-            var children = model.ChildrenEvents.ToList();
+            var newChildren = model.ChildrenEvents.ToList();
 
             // if we try update detached model
             if (Db.Entry(model).State == EntityState.Detached && model.Id > 0)
@@ -26,11 +29,13 @@ namespace Dao.Repository
                 model = modelFromDb;
             }
 
-            children.ForEach(x => model.ChildrenEvents.Remove(x));
+            //TODO how it work?
+            newChildren.ForEach(x => model.ChildrenEvents.Remove(x));
 
-            foreach (var child in children)
+            foreach (var child in newChildren)
             {
-                var addedChild = Entity.Find(child.Id) ?? child;
+                //var addedChild = Entity.Find(child.Id) ?? child.Event;
+                var addedChild = _eventLinkItemRepository.Entity.Find(child.Id) ?? child;
                 model.ChildrenEvents.Add(addedChild);
             }
 
@@ -64,11 +69,11 @@ namespace Dao.Repository
         {
             if (currentEvent == null)
                 return;
-            currentEvent.ChildrenEvents = currentEvent.ChildrenEvents ?? new List<Event>();
+            currentEvent.ChildrenEvents = currentEvent.ChildrenEvents ?? new List<EventLinkItem>();
 
             if (currentEvent.ChildrenEvents.Any())
             {
-                var forDelete = currentEvent.ChildrenEvents.ToList();
+                var forDelete = currentEvent.ChildrenEvents.Select(x => x.To).ToList();
                 forDelete.ForEach(RemoveEventAndChildren);
             }
 
@@ -78,7 +83,12 @@ namespace Dao.Repository
                 return;
             }
 
-            currentEvent.ParentEvents.ForEach(x => x.ChildrenEvents.Remove(currentEvent));
+            foreach (var parentEvent in currentEvent.ParentEvents)
+            {
+                var linkItem = parentEvent.To.ChildrenEvents.FirstOrDefault(x => x.To.Id == parentEvent.To.Id);
+                parentEvent.To.ChildrenEvents.Remove(linkItem);
+            }
+            //currentEvent.ParentEvents.ForEach(x => x.Event.ChildrenEvents.Remove(currentEvent));
             base.Remove(currentEvent);
         }
 
@@ -98,11 +108,11 @@ namespace Dao.Repository
         {
             if (currentEvent == null)
                 return;
-            currentEvent.ChildrenEvents = currentEvent.ChildrenEvents ?? new List<Event>();
+            currentEvent.ChildrenEvents = currentEvent.ChildrenEvents ?? new List<EventLinkItem>();
 
             if (currentEvent.ChildrenEvents.Any())
             {
-                var forDelete = currentEvent.ChildrenEvents.ToList();
+                var forDelete = currentEvent.ChildrenEvents.Select(x => x.To).ToList();
                 forDelete.ForEach(RemoveWholeBranch);
             }
 
@@ -118,11 +128,12 @@ namespace Dao.Repository
                 Save(currentEvent);
             }
 
-            var pe = currentEvent.ParentEvents.ToList();
-            foreach (var someEvent in pe)
+            var parentEvents = currentEvent.ParentEvents.ToList();
+            foreach (var someEventLink in parentEvents)
             {
-                someEvent.ChildrenEvents.Remove(currentEvent);
-                Save(someEvent);
+                var linkItem = someEventLink.To.ChildrenEvents.FirstOrDefault(x => x.To.Id == currentEvent.Id);
+                someEventLink.To.ChildrenEvents.Remove(linkItem);
+                Save(someEventLink.To);
             }
 
             base.Remove(currentEvent);
