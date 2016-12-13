@@ -17,11 +17,18 @@
 
     <div class="block300 padding10 left">
         <h3>Квесты</h3>
-        <div ng-repeat="quest in quests">
-            <ng-quest-info quest="quest"></ng-quest-info>
+        <p>Кликни на квест что бы отправиться в путешествие</p>
+        <div ng-repeat="quest in quests" ng-click="goToQuest(quest)" style="cursor: pointer;">
+            <div class="quest-block" ng-if="quest">
+                <p>Карточка квеста. <b>{{quest.Name}}</b></p>
+                <p>Прогресс: {{quest.Effective}}</p>
+                <p>Описание:</p>
+                <div ng-bind-html="quest.Desc | trusted"></div>
+            </div>
             <input type="button" value="Отправить {{currentHero.Name}} на квест" ng-click="goToQuest(quest)" />
+            <!--<ng-quest-info quest="quest"></ng-quest-info>-->
         </div>
-        
+
     </div>
 
     <div class="block300 padding10 left">

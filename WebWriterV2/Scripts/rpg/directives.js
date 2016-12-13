@@ -4,7 +4,7 @@ underscore.factory('_', ['$window', function ($window) {
     return $window._; // assumes underscore has already been loaded on the page
 }]);
 
-angular.module('directives', ['services', 'underscore']) //, ['common', 'search', 'masha', 'ui.ace']
+angular.module('directives', ['services', 'underscore', 'ngSanitize']) //, ['common', 'search', 'masha', 'ui.ace']
     .directive('ngQuestInfo', [
         function () {
             return {

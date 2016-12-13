@@ -34,6 +34,8 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 .success(function (response) {
                     deferred.resolve(response);
                 });
+
+            return deferred.promise;
         }
 
         function getQuest(questId) {

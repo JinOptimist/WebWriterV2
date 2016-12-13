@@ -4,7 +4,7 @@ underscore.factory('_', ['$window', function ($window) {
     return $window._; // assumes underscore has already been loaded on the page
 }]);
 
-angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, ['common', 'search', 'masha', 'ui.ace']
+angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSanitize']) //, ['common', 'search', 'masha', 'ui.ace']
     .constant('_',
         window._
     )
@@ -71,6 +71,12 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
             $locationProvider.html5Mode(true);
         }
     ])
+    //Hack to publish raw HTML code with style. Use like that {{Desc | trusted}}
+    .filter('trusted', function ($sce) {
+        return function (html) {
+            return $sce.trustAsHtml(html);
+        }
+    })
     .controller('adminQuestController', [
         '$scope', '$http', 'questService', 'sexService', 'raceService', 'eventService',
         function ($scope, $http, questService, sexService, raceService, eventService) {
@@ -226,6 +232,13 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 $scope.quest = null;
             }
 
+            $scope.removeQuest = function (quest, index) {
+                if (confirm('Are you sure? You try delete whole event: ' + quest.Name))
+                    questService.removeQuest(quest.Id).then(function (result) {
+                        $scope.quests.splice(index, 1);
+                        $scope.clearActiveQuest();
+                    });
+            }
 
             $scope.addQuest = function (q) {
                 var newQuest = {};
@@ -293,7 +306,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore']) //, [
                 $scope.quest.Desc = text;
                 questService.saveQuest($scope.quest).then(
                     function (response) {
-                        if (response.data)
+                        if (response)
                             alert('Save completed');
                         else {
                             alert('Some go wrong');
