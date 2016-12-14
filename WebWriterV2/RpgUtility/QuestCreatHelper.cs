@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Dao.Model;
 
 //using WebWriterV2.Models.rpg;
@@ -9,7 +10,7 @@ namespace WebWriterV2.RpgUtility
     {
         public static Event AddEvent(this Event parentEvent, Event addedEvent)
         {
-            parentEvent.EventLinkItems.Add(new EventLinkItem
+            parentEvent.LinksFromThisEvent.Add(new EventLinkItem
             {
                 From = parentEvent,
                 To = addedEvent,
@@ -19,35 +20,40 @@ namespace WebWriterV2.RpgUtility
             return parentEvent;
         }
 
-        public static void AddChildrenEvents(this Event currentEvent, params Event[] childrenEvents)
+        public static List<EventLinkItem> AddChildrenEvents(this Event currentEvent, params Event[] childrenEvents)
         {
-            foreach (var childEvent in childrenEvents)
-            {
-                ConnecteEvent(currentEvent, childEvent);
-            }
+            return childrenEvents.Select(childEvent => ConnecteEvent(currentEvent, childEvent)).ToList();
         }
 
-        public static void AddParentsEvents(this Event currentEvent, params Event[] parentsEvents)
+        public static List<EventLinkItem> AddParentsEvents(this Event currentEvent, params Event[] parentsEvents)
         {
-            foreach (var parentEvent in parentsEvents)
-            {
-                ConnecteEvent(parentEvent, currentEvent);
-            }
+            return parentsEvents.Select(parentEvent => ConnecteEvent(parentEvent, currentEvent)).ToList();
         }
 
-        private static void ConnecteEvent(Event parentEvent, Event childEvent)
+        private static EventLinkItem ConnecteEvent(Event parentEvent, Event childEvent)
         {
-            if (parentEvent.EventLinkItems == null)
-                parentEvent.EventLinkItems = new List<EventLinkItem>();
-            //if (childEvent.ParentEvents == null)
-            //    childEvent.ParentEvents = new List<EventLinkItem>();
+            //if (parentEvent.LinksFromThisEvent == null)
+            //    parentEvent.LinksFromThisEvent = new List<EventLinkItem>();
+            //if (childEvent.LinksToThisEvent == null)
+            //    childEvent.LinksToThisEvent = new List<EventLinkItem>();
 
-            parentEvent.EventLinkItems.Add(new EventLinkItem
+            //parentEvent.LinksFromThisEvent.Add(a);
+
+
+            var eventLinkItem = new EventLinkItem
             {
                 From = parentEvent,
                 To = childEvent,
                 Text = childEvent.Name
-            });
+            };
+            return eventLinkItem;
+
+            //childEvent.LinksToThisEvent.Add(new EventLinkItem
+            //{
+            //    From = parentEvent,
+            //    To = childEvent,
+            //    Text = childEvent.Name
+            //});
 
             //childEvent.ParentEvents.Add(new EventLinkItem
             //{

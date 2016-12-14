@@ -15,7 +15,8 @@ namespace Dao.Model
         public string Desc { get; set; }
 
         //public virtual List<EventLinkItem> ParentEvents { get; set; }
-        public virtual List<EventLinkItem> EventLinkItems { get; set; }
+        public virtual List<EventLinkItem> LinksFromThisEvent { get; set; }
+        public virtual List<EventLinkItem> LinksToThisEvent { get; set; }
 
         public virtual Sex? RequrmentSex { get; set; } = null;
         public virtual Race? RequrmentRace { get; set; } = null;

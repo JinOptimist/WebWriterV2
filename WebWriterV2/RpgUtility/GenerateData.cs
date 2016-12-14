@@ -126,10 +126,12 @@ namespace WebWriterV2.RpgUtility
             return quest;
         }
 
-        public static void CreateConnectionForEvents(List<Event> events, Event currentEvent)
+        public static List<EventLinkItem> CreateConnectionForEvents(List<Event> events, Event currentEvent)
         {
             if (events.Count != GenerateEventsForQuest(null).Count)
-                return;
+                return null;
+
+            List<EventLinkItem> result = null;
 
             var lvl0Event0 = events[0];
             var lvl1Event1 = events[1];
@@ -145,21 +147,23 @@ namespace WebWriterV2.RpgUtility
             {
                 case "Начало":
                 {
-                        lvl0Event0.AddChildrenEvents(lvl1Event1, lvl1Event2, lvl1Event3);
+                        result = lvl0Event0.AddChildrenEvents(lvl1Event1, lvl1Event2, lvl1Event3);
                         break;
                 }
                 case "Перевёл дыхание":
                     {
-                        lvl1Event4.AddParentsEvents(lvl1Event1, lvl1Event2, lvl1Event3);
-                        lvl1Event4.AddChildrenEvents(lvl2Event1, lvl2Event2, lvl2Event3);
+                        result = lvl1Event4.AddParentsEvents(lvl1Event1, lvl1Event2, lvl1Event3);
+                        result.AddRange(lvl1Event4.AddChildrenEvents(lvl2Event1, lvl2Event2, lvl2Event3));
                         break;
                     }
                 case "Конец":
                     {
-                        lvl3Event0.AddParentsEvents(lvl2Event1, lvl2Event2, lvl2Event3);
+                        result = lvl3Event0.AddParentsEvents(lvl2Event1, lvl2Event2, lvl2Event3);
                         break;
                     }
             }
+
+            return result;
         }
 
         public static List<Event> GenerateEventsForQuest(Quest quest)

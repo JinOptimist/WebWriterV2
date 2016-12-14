@@ -23,6 +23,7 @@ namespace WebWriterV2.Controllers
         private readonly WriterContext _context = new WriterContext();
 
         public IEventRepository EventRepository { get; }
+        public IEventLinkItemRepository EventLinkItemRepository { get; }
         public IQuestRepository QuestRepository { get; set; }
         public IHeroRepository HeroRepository { get; set; }
         public ISkillRepository SkillRepository { get; set; }
@@ -37,6 +38,7 @@ namespace WebWriterV2.Controllers
         public RpgController()
         {
             EventRepository = new EventRepository(_context);
+            EventLinkItemRepository = new EventLinkItemRepository(_context);
             QuestRepository = new QuestRepository(_context);
             HeroRepository = new HeroRepository(_context);
             SkillRepository = new SkillRepository(_context);
@@ -491,13 +493,14 @@ namespace WebWriterV2.Controllers
                 {
                     EventRepository.Save(eve);
                 }
-                events = EventRepository.GetAll();
+                //events = EventRepository.GetAll();
 
                 /* Создаём связи между Евентами */
                 foreach (var currentEvent in events)
                 {
-                    GenerateData.CreateConnectionForEvents(events, currentEvent);
-                    EventRepository.Save(currentEvent);
+                    var eventLinkItems = GenerateData.CreateConnectionForEvents(events, currentEvent);
+                    if (eventLinkItems != null)
+                        EventLinkItemRepository.Save(eventLinkItems);
                 }
             }
 
