@@ -9,7 +9,7 @@ namespace WebWriterV2.RpgUtility
     {
         public static Event AddEvent(this Event parentEvent, Event addedEvent)
         {
-            parentEvent.ChildrenEvents.Add(new EventLinkItem
+            parentEvent.EventLinkItems.Add(new EventLinkItem
             {
                 From = parentEvent,
                 To = addedEvent,
@@ -37,17 +37,24 @@ namespace WebWriterV2.RpgUtility
 
         private static void ConnecteEvent(Event parentEvent, Event childEvent)
         {
-            if (parentEvent.ChildrenEvents == null)
-                parentEvent.ChildrenEvents = new List<EventLinkItem>();
+            if (parentEvent.EventLinkItems == null)
+                parentEvent.EventLinkItems = new List<EventLinkItem>();
             //if (childEvent.ParentEvents == null)
-            //    childEvent.ParentEvents = new List<Event>();
+            //    childEvent.ParentEvents = new List<EventLinkItem>();
 
-            parentEvent.ChildrenEvents.Add(new EventLinkItem
+            parentEvent.EventLinkItems.Add(new EventLinkItem
             {
                 From = parentEvent,
                 To = childEvent,
                 Text = childEvent.Name
             });
+
+            //childEvent.ParentEvents.Add(new EventLinkItem
+            //{
+            //    From = parentEvent,
+            //    To = childEvent,
+            //    Text = childEvent.Name
+            //});
         }
     }
 }

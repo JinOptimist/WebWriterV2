@@ -44,7 +44,7 @@
                 </p>
                 <p>
                     Children Events:
-                    <span ng-repeat="childEvent in currentEvent.ChildrenEvents">
+                    <span ng-repeat="childEvent in currentEvent.EventLinkItems">
                         | {{childEvent.Name}}<a href="#" ng-click="removeConnectionChildEvent(currentEvent, childEvent.Id)">--</a>
                     </span>
 

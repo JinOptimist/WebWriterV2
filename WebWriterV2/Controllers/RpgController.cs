@@ -482,13 +482,24 @@ namespace WebWriterV2.Controllers
                 QuestRepository.Save(quest);
             }
 
-            /* Создаём Евенты */
-            //var events = EventRepository.GetAll();
-            //if (!events.Any())
-            //{
-            //    events = GenerateData.GenerateEventsForQuest(quest);
-            //    EventRepository.Save(events);
-            //}
+            /* Создаём пустые Евенты */
+            var events = EventRepository.GetAll();
+            if (!events.Any())
+            {
+                events = GenerateData.GenerateEventsForQuest(quest);
+                foreach (var eve in events)
+                {
+                    EventRepository.Save(eve);
+                }
+                events = EventRepository.GetAll();
+
+                /* Создаём связи между Евентами */
+                foreach (var currentEvent in events)
+                {
+                    GenerateData.CreateConnectionForEvents(events, currentEvent);
+                    EventRepository.Save(currentEvent);
+                }
+            }
 
             /* Создаём StateType */
             var stateTypes = StateTypeRepository.GetAll();

@@ -132,10 +132,6 @@
     <Compile Include="Migrations\201609211322162_EventHasChara.Designer.cs">
       <DependentUpon>201609211322162_EventHasChara.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201612131342121_AddEventLinkItem.cs" />
-    <Compile Include="Migrations\201612131342121_AddEventLinkItem.Designer.cs">
-      <DependentUpon>201612131342121_AddEventLinkItem.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\CharacteristicType.cs" />
@@ -217,9 +213,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201609211322162_EventHasChara.resx">
       <DependentUpon>201609211322162_EventHasChara.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612131342121_AddEventLinkItem.resx">
-      <DependentUpon>201612131342121_AddEventLinkItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -126,6 +126,42 @@ namespace WebWriterV2.RpgUtility
             return quest;
         }
 
+        public static void CreateConnectionForEvents(List<Event> events, Event currentEvent)
+        {
+            if (events.Count != GenerateEventsForQuest(null).Count)
+                return;
+
+            var lvl0Event0 = events[0];
+            var lvl1Event1 = events[1];
+            var lvl1Event2 = events[2];
+            var lvl1Event3 = events[3];
+            var lvl1Event4 = events[4];
+            var lvl2Event1 = events[5];
+            var lvl2Event2 = events[6];
+            var lvl2Event3 = events[7];
+            var lvl3Event0 = events[8];
+
+            switch (currentEvent.Name)
+            {
+                case "Начало":
+                {
+                        lvl0Event0.AddChildrenEvents(lvl1Event1, lvl1Event2, lvl1Event3);
+                        break;
+                }
+                case "Перевёл дыхание":
+                    {
+                        lvl1Event4.AddParentsEvents(lvl1Event1, lvl1Event2, lvl1Event3);
+                        lvl1Event4.AddChildrenEvents(lvl2Event1, lvl2Event2, lvl2Event3);
+                        break;
+                    }
+                case "Конец":
+                    {
+                        lvl3Event0.AddParentsEvents(lvl2Event1, lvl2Event2, lvl2Event3);
+                        break;
+                    }
+            }
+        }
+
         public static List<Event> GenerateEventsForQuest(Quest quest)
         {
             // Tips
@@ -206,6 +242,7 @@ namespace WebWriterV2.RpgUtility
             //lvl1Event4.AddParentsEvents(lvl1Event1, lvl1Event2, lvl1Event3);
             //lvl1Event4.AddChildrenEvents(lvl2Event1, lvl2Event2, lvl2Event3);
             //lvl3Event0.AddParentsEvents(lvl2Event1, lvl2Event2, lvl2Event3);
+
             var list = new List<Event>();
             list.Add(lvl0Event0);
 
@@ -225,7 +262,6 @@ namespace WebWriterV2.RpgUtility
             //quest.RootEvent = lvl0Event0;
 
             return list;
-            //quest.AllEvents = list;
         }
 
         public static List<Skill> GenerateSkills(List<SkillSchool> schools, List<StateType> stateTypes)
