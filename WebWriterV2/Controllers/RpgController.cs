@@ -443,6 +443,17 @@ namespace WebWriterV2.Controllers
             var frontEvent = SerializeHelper.Deserialize<FrontEvent>(jsonEvent);
             var eventModel = frontEvent.ToDbModel();
 
+            var linksFromThisEvent = eventModel.LinksFromThisEvent;
+            foreach (var eventLinkItem in linksFromThisEvent)
+            {
+                EventLinkItemRepository.Save(eventLinkItem);
+            }
+            var linksToThisEvent = eventModel.LinksToThisEvent;
+            foreach (var eventLinkItem in linksToThisEvent)
+            {
+                EventLinkItemRepository.Save(eventLinkItem);
+            }
+
             if (eventModel.Id == 0)
             {
                 eventModel.Quest = QuestRepository.Get(questId);
@@ -493,9 +504,12 @@ namespace WebWriterV2.Controllers
                 {
                     EventRepository.Save(eve);
                 }
-                //events = EventRepository.GetAll();
+            }
 
-                /* Создаём связи между Евентами */
+            /* Создаём связи между Евентами */
+            var eventLinkItemsDb = EventLinkItemRepository.GetAll();
+            if (!eventLinkItemsDb.Any())
+            {
                 foreach (var currentEvent in events)
                 {
                     var eventLinkItems = GenerateData.CreateConnectionForEvents(events, currentEvent);
@@ -558,6 +572,7 @@ namespace WebWriterV2.Controllers
             {
                 skillSchools = skillSchoolsExist ? "Уже существует" : "Добавили",
                 quests = quests.Any() ? "Уже существует" : "Добавили",
+                eventLinkItemsDb = eventLinkItemsDb.Any() ? "Уже существует" : "Добавили",
                 heroes = heroExist ? "Уже существует" : "Добавили",
                 skills = skills.Any() ? "Уже существует" : "Добавили",
                 guilds = guilds.Any() ? "Уже существует" : "Добавили",

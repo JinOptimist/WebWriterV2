@@ -374,9 +374,9 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                 };
             }
 
-            $scope.selectEvent = function (event) {
+            $scope.selectEvent = function (eventId) {
                 $scope.wait = true;
-                window.location.href = '/AngularRoute/admin/quest/' + questId + '/event/' + event.Id;
+                window.location.href = '/AngularRoute/admin/quest/' + questId + '/event/' + eventId;
             }
 
             $scope.saveEvent = function () {

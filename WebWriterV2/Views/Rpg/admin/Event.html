@@ -4,13 +4,23 @@
             <a href="#" ng-click="goToQuest()">{{quest.Name}}</a> events:
         </h2>
         <p ng-repeat="eventItem in events">
-            <a ng-href="#" ng-click="selectEvent(eventItem)">{{eventItem.Name}}</a>
+            <a ng-href="#" ng-click="selectEvent(eventItem.Id)">{{eventItem.Name}}</a>
             <a ng-href="#" ng-click="removeEvent(eventItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;"/></a>
         </p>
         <a ng-href="#" ng-click="addEvent()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
     </div>
     <form ng-show="event" novalidate class="left" style="width: 600px;">
         <input type="submit" ng-click="saveEvent()" value="Save"/>
+        <h2>
+            Links to this event
+        </h2>
+        <p ng-repeat="linkItem in event.LinksToThisEvent">
+            FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.
+            <a ng-href="#" ng-click="selectEvent(linkItem.FromId)">{{linkItem.Text}}</a>
+        </p>
+        <h2>
+            Event details
+        </h2>
         <p>
             Name: <input type="text" ng-model="event.Name"/>
         </p>
@@ -19,6 +29,20 @@
         </p>
         <p>
             Desc: <textarea id="desc" ng-model="event.Desc"></textarea>
+        </p>
+        <h2>
+            Links from this event
+        </h2>
+        <p ng-repeat="linkItem in event.LinksFromThisEvent">
+            FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.
+            <!--<a ng-href="#" ng-click="selectEvent(linkItem.ToId)">{{linkItem.Text}}</a>-->
+            <input type="text" ng-value="linkItem.Text"/>
+            <a ng-href="#" ng-click="goToEditLink(linkItem)">Edit</a>
+            <a ng-href="#" ng-click="goToEditLink(linkItem)">Remove</a>
+        </p>
+        <p>
+            <select></select>
+            <input type="button" value="add fake"/>
         </p>
     </form>
 
