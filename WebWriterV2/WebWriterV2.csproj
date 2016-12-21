@@ -192,6 +192,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\add.png" />
+    <Content Include="Content\confirm.png" />
     <Content Include="Content\css\home.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\rpg\michi.css" />

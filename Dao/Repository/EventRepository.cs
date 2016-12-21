@@ -9,17 +9,17 @@ namespace Dao.Repository
 {
     public class EventRepository : BaseRepository<Event>, IEventRepository
     {
-        private readonly EventLinkItemRepository _eventLinkItemRepository;
+        //private readonly EventLinkItemRepository _eventLinkItemRepository;
 
         public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
         public EventRepository(WriterContext db) : base(db)
         {
-            _eventLinkItemRepository = new EventLinkItemRepository(db);
+
         }
 
         public override Event Save(Event model)
         {
-            var newChildren = model.LinksFromThisEvent?.ToList() ?? new List<EventLinkItem>();
+            //var newChildren = model.LinksFromThisEvent?.ToList() ?? new List<EventLinkItem>();
 
             // if we try update detached model
             var entry = Db.Entry(model);
@@ -32,20 +32,20 @@ namespace Dao.Repository
             }
 
             //TODO how it work?
-            newChildren.ForEach(x => model.LinksFromThisEvent.Remove(x));
+            //newChildren.ForEach(x => model.LinksFromThisEvent.Remove(x));
 
-            foreach (var child in newChildren)
-            {
-                var addedChild = _eventLinkItemRepository.Entity.Find(child.Id);
-                if (addedChild == null)
-                {
-                    child.From = Entity.Find(child.From.Id) ?? new Event {Id = child.From.Id};
-                    child.To = Entity.Find(child.To.Id) ?? new Event {Id = child.To.Id};
-                    addedChild = child;
-                }
+            //foreach (var child in newChildren)
+            //{
+            //    var addedChild = _eventLinkItemRepository.Entity.Find(child.Id);
+            //    if (addedChild == null)
+            //    {
+            //        child.From = Entity.Find(child.From.Id) ?? new Event {Id = child.From.Id};
+            //        child.To = Entity.Find(child.To.Id) ?? new Event {Id = child.To.Id};
+            //        addedChild = child;
+            //    }
 
-                model.LinksFromThisEvent?.Add(addedChild);
-            }
+            //    model.LinksFromThisEvent?.Add(addedChild);
+            //}
 
             if (model.Quest.RootEvent == null)
             {

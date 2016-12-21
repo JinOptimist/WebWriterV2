@@ -443,16 +443,16 @@ namespace WebWriterV2.Controllers
             var frontEvent = SerializeHelper.Deserialize<FrontEvent>(jsonEvent);
             var eventModel = frontEvent.ToDbModel();
 
-            var linksFromThisEvent = eventModel.LinksFromThisEvent;
-            foreach (var eventLinkItem in linksFromThisEvent)
-            {
-                EventLinkItemRepository.Save(eventLinkItem);
-            }
-            var linksToThisEvent = eventModel.LinksToThisEvent;
-            foreach (var eventLinkItem in linksToThisEvent)
-            {
-                EventLinkItemRepository.Save(eventLinkItem);
-            }
+            //var linksFromThisEvent = eventModel.LinksFromThisEvent;
+            //foreach (var eventLinkItem in linksFromThisEvent)
+            //{
+            //    EventLinkItemRepository.Save(eventLinkItem);
+            //}
+            //var linksToThisEvent = eventModel.LinksToThisEvent;
+            //foreach (var eventLinkItem in linksToThisEvent)
+            //{
+            //    EventLinkItemRepository.Save(eventLinkItem);
+            //}
 
             if (eventModel.Id == 0)
             {
@@ -464,6 +464,30 @@ namespace WebWriterV2.Controllers
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(frontEvents),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult SaveEventLink(string jsonEventLink)
+        {
+            var frontEvent = SerializeHelper.Deserialize<FrontEventLinkItem>(jsonEventLink);
+            var eventLinkItem = frontEvent.ToDbModel();
+
+            var linkItemFromDb = EventLinkItemRepository.Save(eventLinkItem);
+            var frontEvents = new FrontEventLinkItem(linkItemFromDb);
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(frontEvents),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveEventLink(long eventLinkId)
+        {
+            EventLinkItemRepository.Remove(eventLinkId);
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

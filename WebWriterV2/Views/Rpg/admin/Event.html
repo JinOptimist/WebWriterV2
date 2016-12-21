@@ -9,7 +9,7 @@
         </p>
         <a ng-href="#" ng-click="addEvent()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
     </div>
-    <form ng-show="event" novalidate class="left" style="width: 600px;">
+    <form name="eventForm" ng-show="event" novalidate class="left" style="width: 600px;">
         <input type="submit" ng-click="saveEvent()" value="Save"/>
         <h2>
             Links to this event
@@ -36,15 +36,15 @@
             Links from this event
         </h2>
         <p ng-repeat="linkItem in event.LinksFromThisEvent">
-            FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.
-            <!--<a ng-href="#" ng-click="selectEvent(linkItem.ToId)">{{linkItem.Text}}</a>-->
-            <input type="text" ng-value="linkItem.Text"/>
-            <a ng-href="#" ng-click="goToEditLink(linkItem)">Edit</a>
-            <a ng-href="#" ng-click="goToEditLink(linkItem)">Remove</a>
+            <!--FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.-->
+            <input name="linkItemText{{linkItem.Id}}" type="text" ng-model="linkItem.Text"
+                   class="auto-apply" ng-disabled="linkItem.disable"/>
+            <a ng-href="#" ng-click="saveEventLink(linkItem)"><img src="/Content/confirm.png" style="width: 20px; height: 20px;" /></a>
+            <a ng-href="#" ng-click="removeEventLink(event, linkItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
         </p>
         <p>
-            <select></select>
-            <input type="button" value="add fake"/>
+            <select ng-model="selectedEvent" ng-options="event as event.Name for event in events"></select>
+            <a ng-href="#" ng-click="addEventLink()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
         </p>
     </form>
 

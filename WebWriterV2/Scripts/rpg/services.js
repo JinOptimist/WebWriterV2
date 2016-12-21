@@ -150,6 +150,42 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             });
         }
 
+        function saveEventLink(eventLink) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/SaveEventLink',
+                    data: {
+                        jsonEventLink: angular.toJson(eventLink)
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
+        function removeEventLink(eventLinkId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/RemoveEventLink',
+                    data: {
+                        eventLinkId: eventLinkId
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
         function remove(eventId) {
             return $q(function (resolve, reject) {
                 $http({
@@ -176,7 +212,9 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             getEvent: getEvent,
             getEvents: getEvents,
             save: save,
-            remove: remove
+            saveEventLink: saveEventLink,
+            remove: remove,
+            removeEventLink: removeEventLink
         };
     }])
     .service('heroService', ['$http', '$q', function ($http, $q) {

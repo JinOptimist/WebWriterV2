@@ -356,6 +356,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
         function ($scope, $http, $routeParams, $location, eventService, questService, raceService) {
             $scope.event = null;
             $scope.quest = null;
+            $scope.selectedEvent = null;
             $scope.events = [];
             $scope.wait = true;
             var questId = $routeParams.questId;
@@ -396,6 +397,43 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                         alert('We all gonna die');
                     }
                 );
+            }
+
+            $scope.saveEventLink = function (eventLink) {
+                eventLink.disable = true;
+                eventService.saveEventLink(eventLink, questId).then(
+                    function (response) {
+                        if (response) {
+                            $scope.eventForm['linkItemText' + eventLink.Id].$setPristine();
+                            eventLink.disable = false;
+                            //alert('Save completed');
+                        }
+                        else {
+                            alert('Some go wrong');
+                        }
+                    },
+                    function () {
+                        alert('We all gonna die');
+                    }
+                );
+            }
+
+            $scope.addEventLink = function() {
+                var newEventLink = {
+                    Id: 0,
+                    Text: '',
+                    FromId: $scope.event.Id,
+                    ToId: $scope.selectedEvent.Id
+                };
+
+                $scope.event.LinksFromThisEvent.push(newEventLink);
+            }
+
+            $scope.removeEventLink = function (event, eventLink, index) {
+                if (confirm('Are you sure? You try delete whole event link: ' + eventLink.Text))
+                    eventService.removeEventLink(eventLink.Id).then(function (result) {
+                        event.LinksFromThisEvent.splice(index, 1);
+                    });
             }
 
             $scope.removeEvent = function (event, index) {

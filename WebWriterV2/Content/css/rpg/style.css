@@ -200,3 +200,8 @@ p {
 
 
 /* END Health and Mana bar  */
+
+/* Use Angular classes */
+.ng-dirty.auto-apply {
+    background-color: darkgrey
+}

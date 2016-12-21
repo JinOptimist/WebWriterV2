@@ -14,8 +14,13 @@ namespace Dao.Model
         [Required]
         public string Desc { get; set; }
 
-        //public virtual List<EventLinkItem> ParentEvents { get; set; }
+        /// <summary>
+        /// You must save this field separately. Use EventLinkItemRepository
+        /// </summary>
         public virtual List<EventLinkItem> LinksFromThisEvent { get; set; }
+        /// <summary>
+        /// You must save this field separately. Use EventLinkItemRepository
+        /// </summary>
         public virtual List<EventLinkItem> LinksToThisEvent { get; set; }
 
         public virtual Sex? RequrmentSex { get; set; } = null;
