@@ -635,15 +635,13 @@ namespace WebWriterV2.Controllers
             var guilds = GuildRepository.GetAll();
             GuildRepository.Remove(guilds);
 
+            var links = EventLinkItemRepository.GetAll();
+            EventLinkItemRepository.Remove(links);
+
+            var events = EventRepository.GetAll();
+            EventRepository.Remove(events);
 
             var quests = QuestRepository.GetAll();
-
-            foreach (var quest in quests)
-            {
-                var events = EventRepository.GetRootEvents(quest.Id);
-                EventRepository.Remove(events);
-            }
-
             QuestRepository.Remove(quests);
 
             return Init();

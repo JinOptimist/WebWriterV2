@@ -27,6 +27,7 @@ namespace Dao.Model
         public virtual Race? RequrmentRace { get; set; } = null;
         public virtual List<Skill> RequrmentSkill { get; set; }
         public virtual List<Characteristic> RequrmentCharacteristics { get; set; }
+
         public virtual List<State> HeroStatesChanging { get; set; }
 
         public virtual Location RequrmentLocation { get; set; }

@@ -2,7 +2,6 @@
     <div style="float: right; width: 300px;">
         <h2>Список квестов <!--<a ng-href="#" ng-click="addQuest()">+</a>--> </h2>
         <p ng-repeat="questItem in quests">
-            <!--<a ng-href="/AngularRoute/admin/quest/{{questItem.Id}}">{{questItem.Name}}</a>-->
             <a ng-href="#" ng-click="selectQuest(questItem)">{{questItem.Name}}</a>
             <a ng-href="#" ng-click="removeQuest(questItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
         </p>
@@ -10,7 +9,7 @@
         <div ng-if="quest">
             <h2>Список евентов</h2>
             <p>
-                <a ng-href="#" ng-click="goToEvent(quest)">События</a>
+                <a ng-href="#" ng-click="goToEvent(quest)">Перейти к событиям квеста "{{quest.Name}}"</a>
             </p>
         </div>
     </div>

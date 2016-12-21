@@ -352,14 +352,22 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
         }
     ])
     .controller('adminEventGeneralController', [
-        '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService',
-        function ($scope, $http, $routeParams, $location, eventService, questService, raceService) {
+        '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService', 'sexService',
+        function ($scope, $http, $routeParams, $location, eventService, questService, raceService, sexService) {
             $scope.event = null;
             $scope.quest = null;
             $scope.selectedEvent = null;
             $scope.events = [];
             $scope.wait = true;
+
+            $scope.RaceList = [];
+            $scope.SexList = [];
+            $scope.SkillList = [];
+            $scope.CharacteristicTypeList = [];
+
             var questId = $routeParams.questId;
+            var raceNoneObject = { name: 'None', value: -1 };
+            var sexNoneObject = { name: 'None', value: -1 };
 
             init();
 
@@ -387,8 +395,12 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
 
                 eventService.save($scope.event, questId).then(
                     function (response) {
-                        if (response)
-                            alert('Save completed');
+                        if (response) {
+                            $scope.eventForm.$setPristine();
+                            $scope.eventForm.eventName.$setPristine();
+                            $scope.eventForm.eventProgressChanging.$setPristine();
+                            //alert('Save completed');
+                        }
                         else {
                             alert('Some go wrong');
                         }
@@ -430,7 +442,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             }
 
             $scope.removeEventLink = function (event, eventLink, index) {
-                if (confirm('Are you sure? You try delete whole event link: ' + eventLink.Text))
+                if (confirm('Are you sure? You try delete event link: ' + eventLink.Text))
                     eventService.removeEventLink(eventLink.Id).then(function (result) {
                         event.LinksFromThisEvent.splice(index, 1);
                     });
@@ -452,6 +464,20 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                     $scope.event = result;
                     $scope.wait = false;
                     CKEDITOR.replace('desc');
+
+                    if (!$scope.event.RequrmentRace) {
+                        $scope.event.RequrmentRace = {};
+                    }
+                    if ($scope.event.RequrmentRace.Value === 0) {
+                        $scope.event.RequrmentRace.Value = raceNoneObject.value;
+                    }
+
+                    if (!$scope.event.RequrmentSex) {
+                        $scope.event.RequrmentSex = {};
+                    }
+                    if ($scope.event.RequrmentSex.Value === 0) {
+                        $scope.event.RequrmentSex.Value = sexNoneObject.value;
+                    }
                 });
             }
 
@@ -475,6 +501,20 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                     loadEvent(eventId);
                 loadEvents();
                 loadQuest(questId);
+
+                $scope.SexList.push(sexNoneObject);
+                sexService.loadSexList().then(function (data) {
+                    _.each(data, function (item) {
+                        return $scope.SexList.push({ name: item.Name, value: item.Value });
+                    });
+                });
+
+                $scope.RaceList.push(raceNoneObject);
+                raceService.loadRaceList().then(function (data) {
+                    _.each(data, function (item) {
+                        return $scope.RaceList.push({ name: item.Name, value: item.Value });
+                    });
+                });
             }
         }
     ])
