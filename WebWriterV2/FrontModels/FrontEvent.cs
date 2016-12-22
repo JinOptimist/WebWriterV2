@@ -22,6 +22,7 @@ namespace WebWriterV2.FrontModels
             LinksToThisEvent = eventDb.LinksToThisEvent?.Select(x => new FrontEventLinkItem(x)).ToList();
             ProgressChanging = eventDb.ProgressChanging;
             RequrmentSkill = eventDb.RequrmentSkill?.Select(x => new FrontSkill(x)).ToList();
+            RequrmentCharacteristics = eventDb.RequrmentCharacteristics?.Select(x => new FrontCharacteristic(x)).ToList();
         }
 
         public string Name { get; set; }
@@ -31,6 +32,7 @@ namespace WebWriterV2.FrontModels
         public List<FrontEventLinkItem> LinksFromThisEvent { get; set; }
         public List<FrontEventLinkItem> LinksToThisEvent { get; set; }
         public List<FrontSkill> RequrmentSkill { get; set; }
+        public List<FrontCharacteristic> RequrmentCharacteristics { get; set; }
         public double ProgressChanging { get; set; }
 
         public override Event ToDbModel()

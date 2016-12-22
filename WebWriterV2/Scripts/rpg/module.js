@@ -352,8 +352,8 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
         }
     ])
     .controller('adminEventGeneralController', [
-        '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService', 'sexService', 'skillService',
-        function ($scope, $http, $routeParams, $location, eventService, questService, raceService, sexService, skillService) {
+        '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService', 'sexService', 'skillService', 'characteristicService',
+        function ($scope, $http, $routeParams, $location, eventService, questService, raceService, sexService, skillService, characteristicService) {
             $scope.event = null;
             $scope.quest = null;
             $scope.selectedEvent = null;
@@ -364,13 +364,48 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             $scope.RaceList = [];
             $scope.SexList = [];
             $scope.Skills = [];
-            $scope.CharacteristicTypeList = [];
+            $scope.CharacteristicTypes = [];
 
             var questId = $routeParams.questId;
             var raceNoneObject = { name: 'None', value: -1 };
             var sexNoneObject = { name: 'None', value: -1 };
 
             init();
+
+            /* Characteristic */
+            $scope.addCharacteristic = function () {
+                var typeId = $scope.newRequrmentCharacteristicsType.Id;
+                var value = $scope.newRequrmentCharacteristicsValue;
+
+                eventService.addCharacteristic($scope.event.Id, typeId, value).then(function(data) {
+                    if (!$scope.event.RequrmentCharacteristics) {
+                        $scope.event.RequrmentCharacteristics = [];
+                    }
+
+                    $scope.event.RequrmentCharacteristics.push(data);
+                    $scope.newRequrmentCharacteristicsValue = 0;
+                });
+            }
+
+            $scope.removeCharacteristic = function (characteristicId, index) {
+                eventService.removeCharacteristic(characteristicId).then(function() {
+                    $scope.event.RequrmentCharacteristics.splice(index, 1);
+                });
+            };
+
+            $scope.availableCharacteristicTypes = function () {
+                if (!$scope.event) {
+                    return [];
+                }
+                if (!$scope.event.RequrmentCharacteristics) {
+                    $scope.event.RequrmentCharacteristics = [];
+                }
+                return $scope.CharacteristicTypes.filter(function (chara) {
+                    return !$scope.event.RequrmentCharacteristics.some(function (reqChara) {
+                        return chara.Id === reqChara.CharacteristicType.Id;
+                    });
+                });
+            }
 
             /* Skill */
             $scope.addSkill = function() {
@@ -553,6 +588,10 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                 skillService.loadAll().then(function(data) {
                     $scope.Skills = data;
                 });
+
+                characteristicService.loadAllCharacteristicType().then(function(data) {
+                    $scope.CharacteristicTypes = data;
+                });
             }
         }
     ])
@@ -634,7 +673,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             };
             $scope.stateType = [];
             $scope.characteristicTypes = [];
-            characteristicService.loadAllCharacteristic().then(function(characteristics) {
+            characteristicService.loadAllCharacteristicType().then(function (characteristics) {
                 $scope.characteristicTypes = characteristics;
             });
 

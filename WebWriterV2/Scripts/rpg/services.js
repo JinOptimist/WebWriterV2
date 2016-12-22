@@ -246,6 +246,44 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             });
         }
 
+        function addCharacteristic(eventId, characteristicTypeId, characteristicValue) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/AddCharacteristicToEvent',
+                    data: {
+                        eventId: eventId,
+                        characteristicTypeId: characteristicTypeId,
+                        characteristicValue: characteristicValue
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
+        function removeCharacteristic(characteristicId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/RemoveCharacteristicToEvent',
+                    data: {
+                        characteristicId: characteristicId
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
         return {
             getEvent: getEvent,
             getEvents: getEvents,
@@ -254,7 +292,9 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             saveEventLink: saveEventLink,
             removeEventLink: removeEventLink,
             addSkill: addSkill,
-            removeSkill: removeSkill
+            removeSkill: removeSkill,
+            addCharacteristic: addCharacteristic,
+            removeCharacteristic: removeCharacteristic
         };
     }])
     .service('heroService', ['$http', '$q', function ($http, $q) {
@@ -648,7 +688,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
     .service('characteristicService', ['$http', '$q', '_', function ($http, $q, _) {
         var characteristicTypes = [];
         return {
-            loadAllCharacteristic: function() {
+            loadAllCharacteristicType: function () {
                 var deferred = $q.defer();
 
                 $http({

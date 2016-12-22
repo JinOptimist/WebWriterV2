@@ -537,6 +537,45 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult AddCharacteristicToEvent(long eventId, long characteristicTypeId, int characteristicValue)
+        {
+            var eventFromDb = EventRepository.Get(eventId);
+            var characteristicType = CharacteristicTypeRepository.Get(characteristicTypeId);
+
+            var characteristic =
+                eventFromDb.RequrmentCharacteristics.FirstOrDefault(
+                    x => x.CharacteristicType.Id == characteristicType.Id)
+                ?? new Characteristic
+                {
+                    CharacteristicType = characteristicType
+                };
+
+            characteristic.Number = characteristicValue;
+
+            // if new
+            if (characteristic.Id < 1)
+                eventFromDb.RequrmentCharacteristics.Add(characteristic);
+            CharacteristicRepository.Save(characteristic);
+            EventRepository.Save(eventFromDb);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(characteristic),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveCharacteristicToEvent(long characteristicId)
+        {
+            CharacteristicRepository.Remove(characteristicId);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(true),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         /* ************** Init Db ************** */
         public JsonResult Init()
         {
