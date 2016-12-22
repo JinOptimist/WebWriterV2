@@ -270,9 +270,47 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             return $q(function (resolve, reject) {
                 $http({
                     method: 'POST',
-                    url: '/Rpg/RemoveCharacteristicToEvent',
+                    url: '/Rpg/RemoveCharacteristicFromEvent',
                     data: {
                         characteristicId: characteristicId
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
+        function addState(eventId, stateTypeId, stateValue) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/AddStateToEvent',
+                    data: {
+                        eventId: eventId,
+                        stateTypeId: stateTypeId,
+                        stateValue: stateValue
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
+        function removeState(stateId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/RemoveStateFromEvent',
+                    data: {
+                        stateId: stateId
                     },
                     headers: { 'Accept': 'application/json' }
                 }).success(function (response) {
@@ -294,7 +332,9 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             addSkill: addSkill,
             removeSkill: removeSkill,
             addCharacteristic: addCharacteristic,
-            removeCharacteristic: removeCharacteristic
+            removeCharacteristic: removeCharacteristic,
+            addState: addState,
+            removeState: removeState
         };
     }])
     .service('heroService', ['$http', '$q', function ($http, $q) {

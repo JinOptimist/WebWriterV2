@@ -54,11 +54,12 @@
         <h2 ng-click="stateExpand = !stateExpand">Изменения Героя при входе в Евент {{stateExpand ? "&uarr;" : "&darr;"}}</h2>
         <div ng-show="stateExpand">
             <p ng-repeat="state in event.HeroStatesChanging">
-                {{state.StateType.Name}}->{{state.Number}}
+                {{state.StateType.Name}}: {{state.Number}};
             </p>
 
-            <select ng-model="selectedSkill" ng-options="option as option.Name for option in availableSkill()"></select>
-            <a ng-click="addSkill()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+            <select ng-model="selectedState" ng-options="option as option.Name for option in availableStateTypes()"></select>
+            <input type="number" ng-model="newStateValue" ng-maxlength="9"/>
+            <a ng-click="addState()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
         </div>
         <hr />
         <h2 ng-click="eventEdit = !eventEdit">

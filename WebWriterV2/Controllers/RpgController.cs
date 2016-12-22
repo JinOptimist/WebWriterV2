@@ -553,7 +553,7 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult RemoveCharacteristicToEvent(long characteristicId)
+        public JsonResult RemoveCharacteristicFromEvent(long characteristicId)
         {
             CharacteristicRepository.Remove(characteristicId);
 
@@ -563,6 +563,46 @@ namespace WebWriterV2.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+
+        public JsonResult AddStateToEvent(long eventId, long stateTypeId, int stateValue)
+        {
+            var eventFromDb = EventRepository.Get(eventId);
+            var stateType = StateTypeRepository.Get(stateTypeId);
+
+            var state =
+                eventFromDb.HeroStatesChanging.FirstOrDefault(
+                    x => x.StateType.Id == stateType.Id)
+                ?? new State
+                {
+                    StateType = stateType
+                };
+
+            state.Number = stateValue;
+
+            // if new
+            if (state.Id < 1)
+                eventFromDb.HeroStatesChanging.Add(state);
+            StateRepository.Save(state);
+            EventRepository.Save(eventFromDb);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(state),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveStateFromEvent(long stateId)
+        {
+            StateRepository.Remove(stateId);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(true),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
 
         /* ************** Init Db ************** */
         public JsonResult Init()
