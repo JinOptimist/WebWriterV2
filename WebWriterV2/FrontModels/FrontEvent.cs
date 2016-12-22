@@ -23,6 +23,7 @@ namespace WebWriterV2.FrontModels
             ProgressChanging = eventDb.ProgressChanging;
             RequrmentSkill = eventDb.RequrmentSkill?.Select(x => new FrontSkill(x)).ToList();
             RequrmentCharacteristics = eventDb.RequrmentCharacteristics?.Select(x => new FrontCharacteristic(x)).ToList();
+            HeroStatesChanging = eventDb.HeroStatesChanging?.Select(x => new FrontState(x)).ToList();
         }
 
         public string Name { get; set; }
@@ -33,6 +34,7 @@ namespace WebWriterV2.FrontModels
         public List<FrontEventLinkItem> LinksToThisEvent { get; set; }
         public List<FrontSkill> RequrmentSkill { get; set; }
         public List<FrontCharacteristic> RequrmentCharacteristics { get; set; }
+        public List<FrontState> HeroStatesChanging { get; set; }
         public double ProgressChanging { get; set; }
 
         public override Event ToDbModel()
@@ -44,10 +46,10 @@ namespace WebWriterV2.FrontModels
                 Desc = Desc,
                 RequrmentRace = (Race?)RequrmentRace?.Value,
                 RequrmentSex = (Sex?)RequrmentSex?.Value,
-                LinksFromThisEvent = LinksFromThisEvent.Select(x => x.ToDbModel()).ToList(),
-                LinksToThisEvent = LinksToThisEvent.Select(x => x.ToDbModel()).ToList(),
+                LinksFromThisEvent = LinksFromThisEvent?.Select(x => x.ToDbModel()).ToList(),
+                LinksToThisEvent = LinksToThisEvent?.Select(x => x.ToDbModel()).ToList(),
                 ProgressChanging = ProgressChanging,
-                RequrmentSkill = RequrmentSkill?.Select(x => x.ToDbModel()).ToList()
+                //RequrmentSkill = RequrmentSkill?.Select(x => x.ToDbModel()).ToList(),
             };
         }
     }

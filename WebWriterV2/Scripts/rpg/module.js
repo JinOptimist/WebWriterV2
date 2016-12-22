@@ -372,6 +372,8 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
 
             init();
 
+            /* State */
+
             /* Characteristic */
             $scope.addCharacteristic = function () {
                 var typeId = $scope.newRequrmentCharacteristicsType.Id;
@@ -457,6 +459,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             }
 
             $scope.saveEvent = function () {
+                var isNew = !($scope.event.Id && $scope.event.Id > 0);
                 var editor = CKEDITOR.instances.desc;
                 var text = editor.getData();
                 $scope.event.Desc = text;
@@ -464,10 +467,12 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                 eventService.save($scope.event, questId).then(
                     function (response) {
                         if (response) {
-                            $scope.eventForm.$setPristine();
-                            $scope.eventForm.eventName.$setPristine();
-                            $scope.eventForm.eventProgressChanging.$setPristine();
-                            //alert('Save completed');
+                            //$scope.eventForm.$setPristine();
+                            //$scope.eventForm.eventName.$setPristine();
+                            //$scope.eventForm.eventProgressChanging.$setPristine();
+                            if (isNew) {
+                                $scope.selectEvent(response.Id);
+                            }
                         }
                         else {
                             alert('Some go wrong');
@@ -492,7 +497,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                 eventService.saveEventLink(eventLink, questId).then(
                     function (response) {
                         if (response) {
-                            $scope.eventLinkForm['linkItemText' + eventLink.Id].$setPristine();
+                            //$scope.eventLinkForm['linkItemText' + eventLink.Id].$setPristine();
                             eventLink.disable = false;
                             //alert('Save completed');
                         }
@@ -509,7 +514,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             $scope.addEventLink = function() {
                 var newEventLink = {
                     Id: 0,
-                    Text: '',
+                    Text: $scope.selectedEvent.Name,
                     FromId: $scope.event.Id,
                     ToId: $scope.selectedEvent.Id
                 };

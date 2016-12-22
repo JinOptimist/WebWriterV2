@@ -168,6 +168,14 @@ p {
     border: 2px #0003aa solid;
 }
 
+.event-edit {
+    width: 1000px;
+}
+
+.event-edit h2{
+    cursor: pointer;
+}
+
 /*  Health and Mana bar  */
 .main-bar {
   -webkit-box-sizing: border-box;
