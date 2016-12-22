@@ -131,6 +131,17 @@ namespace WebWriterV2.Controllers
         }
 
         /* ************** Hero ************** */
+        public JsonResult GetHero(long heroId)
+        {
+            var hero = HeroRepository.Get(heroId);
+            var frontHero = new FrontHero(hero);
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(frontHero),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         public JsonResult GetHeroes()
         {
             var heroes = HeroRepository.GetAll();
@@ -431,6 +442,20 @@ namespace WebWriterV2.Controllers
         {
             var eventFromDb = EventRepository.Get(id);
             var frontEvent = new FrontEvent(eventFromDb);
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(frontEvent),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult GetEventForTravel(long eventId, long heroId)
+        {
+            var eventDb = EventRepository.Get(eventId);
+            var hero = HeroRepository.Get(heroId);
+            eventDb.LinksFromThisEvent.FilterLink(hero);
+
+            var frontEvent = new FrontEvent(eventDb);
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(frontEvent),

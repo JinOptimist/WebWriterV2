@@ -1,16 +1,11 @@
-﻿<div ng-class="waiting ? 'wait' : ''">
-    <h1>Экран путушествия: </h1>
-
+﻿<div ng-class="!quest || !hero ? 'wait' : ''">
+    <h2>Экран путушествия: </h2>
     <div>
         <b>{{currentEvent.Name}}</b>
         <div ng-bind-html="currentEvent.Desc | trusted"></div>
     </div>
     <div>
-        <span ng-repeat="event in ways"> * <a href="#" ng-click="chooseEvent(event.Id)">{{event.Name}}</a> </span>
-    </div>
-
-    <div ng-if="false">
-         <a href="#" ng-click="batle()">Go to battle</a>
+        <p ng-repeat="eventLink in ways"><a href="#" ng-click="chooseEvent(eventLink.ToId)">{{eventLink.Text}}</a></p>
     </div>
 
     <div ng-if="!ways || ways.length == 0">
@@ -18,8 +13,12 @@
         <a href="#" ng-click="endQuest()">Собрать награду</a>
     </div>
 
+    <div ng-if="false">
+        <a href="#" ng-click="batle()">Go to battle</a>
+    </div>
+
     <div>
         <ng-quest-info quest="quest"></ng-quest-info>
-        <ng-hero-card hero="quest.Executor" style="clear: both;"></ng-hero-card>
+        <ng-hero-card hero="hero" style="clear: both;"></ng-hero-card>
     </div>
 </div>

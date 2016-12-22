@@ -167,6 +167,7 @@
     <Compile Include="FrontModels\FrontCharacteristic.cs" />
     <Compile Include="FrontModels\FrontTrainingRoom.cs" />
     <Compile Include="FrontModels\FrontSkill.cs" />
+    <Compile Include="RpgUtility\EventLinkHelper.cs" />
     <Compile Include="RpgUtility\StateHelper.cs" />
     <Compile Include="RpgUtility\EnumHelper.cs" />
     <Compile Include="RpgUtility\GenerateData.cs" />

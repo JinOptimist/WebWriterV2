@@ -87,7 +87,7 @@
             <div ng-show="childExpand">
                 <p ng-repeat="linkItem in event.LinksFromThisEvent">
                     <!--FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.-->
-                    <a ng-href="#" ng-click="selectEvent(linkItem.ToId)">Go to Child</a>
+                    <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}/event/{{linkItem.ToId}}" ng-click="selectEvent(linkItem.ToId)">Go to Child</a>
                     <input name="linkItemText{{linkItem.Id}}" type="text" ng-model="linkItem.Text"
                            class="auto-apply" ng-disabled="linkItem.disable" />
                     <a ng-href="#" ng-click="saveEventLink(linkItem)"><img src="/Content/confirm.png" style="width: 20px; height: 20px;" /></a>

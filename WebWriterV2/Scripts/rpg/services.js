@@ -100,6 +100,26 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         };
     }])
     .service('eventService', ['$http', '$q', function ($http, $q) {
+        function getEventForTravel(eventId, heroId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/GetEventForTravel',
+                    data: {
+                        eventId: eventId,
+                        heroId: heroId
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    var event = angular.fromJson(response);
+                    resolve(event);
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
         function getEvent(currentEventId) {
             return $q(function (resolve, reject) {
                 $http({
@@ -323,6 +343,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         }
 
         return {
+            getEventForTravel: getEventForTravel,
             getEvent: getEvent,
             getEvents: getEvents,
             save: save,
@@ -342,6 +363,22 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         var selectedHero = null;
         var defaultHero = {};
         return {
+            load: function(heroId) {
+                var deferred = $q.defer();
+                $http({
+                        method: 'POST',
+                        url: '/Rpg/GetHero',
+                        data: {
+                            heroId: heroId
+                        },
+                        headers: { 'Accept': 'application/json' }
+                    })
+                    .success(function (response) {
+                        var hero= angular.fromJson(response);
+                        deferred.resolve(hero);
+                    });
+                return deferred.promise;
+            },
             loadListHeroes: function () {
                 var deferred = $q.defer();
 

@@ -51,7 +51,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                     templateUrl: '/views/rpg/QuestInfo.html',
                     controller: 'questInfoController'
                 })
-                .when('/AngularRoute/travel', {
+                .when('/AngularRoute/travel/quest/:questId/hero/:heroId', {
                     templateUrl: '/views/rpg/Travel.html',
                     controller: 'travelController'
                 })
@@ -616,14 +616,14 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                 loadEvents();
                 loadQuest(questId);
 
-                $scope.SexList.push(sexNoneObject);
+                //$scope.SexList.push(sexNoneObject);
                 sexService.loadSexList().then(function (data) {
                     _.each(data, function (item) {
                         return $scope.SexList.push({ name: item.Name, value: item.Value });
                     });
                 });
 
-                $scope.RaceList.push(raceNoneObject);
+                //$scope.RaceList.push(raceNoneObject);
                 raceService.loadRaceList().then(function (data) {
                     _.each(data, function (item) {
                         return $scope.RaceList.push({ name: item.Name, value: item.Value });
@@ -883,9 +883,9 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             }
 
             $scope.goToQuest = function(quest) {
-                questService.setQuest(quest);
-                questService.setExecutor($scope.currentHero);
-                $location.path('/AngularRoute/travel');
+                //questService.setQuest(quest);
+                //questService.setExecutor($scope.currentHero);
+                $location.path('/AngularRoute/travel/quest/' + quest.Id + '/hero/' + $scope.currentHero.Id);
             }
 
             $scope.goToTrain = function(room) {
@@ -900,22 +900,17 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
         }
     ])
     .controller('travelController', [
-        '$scope', '$http', '$location', 'questService', 'eventService', 'guildService', 'heroService',
-        function($scope, $http, $location, questService, eventService, guildService, heroService) {
-            //$scope.hero = heroService.loadListHeroes();
+        '$scope', '$http', '$location','$routeParams', 'questService', 'eventService', 'guildService', 'heroService',
+        function($scope, $http, $location, $routeParams, questService, eventService, guildService, heroService) {
             $scope.quest = {};
-            questService.getQuest().then(function(result) {
-                $scope.quest = result;
-                $scope.quest.Effective = 0;
-                $scope.currentEvent = $scope.quest.RootEvent;
-                $scope.chooseEvent($scope.quest.RootEvent.Id);
-            });
+            $scope.hero = {};
+            $scope.ways = [];
 
-            $scope.ways = {};
+            init();
 
             $scope.chooseEvent = function(eventId) {
-                eventService.getEvent(eventId).then(function (result) {
-                    $scope.ways = result.ChildrenEvents;
+                eventService.getEventForTravel(eventId, $scope.hero.Id).then(function(result) {
+                    $scope.ways = result.LinksFromThisEvent;
                     $scope.quest.Effective += result.ProgressChanging;
                     $scope.currentEvent = result;
                 });
@@ -951,6 +946,21 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             $scope.batle = function() {
                 heroService.selectHero($scope.quest.Executor);
                 $location.path('/AngularRoute/battle');
+            }
+
+            function init() {
+                var questId = $routeParams.questId;
+                var heroId = $routeParams.heroId;
+                heroService.load(heroId).then(function(data) {
+                    $scope.hero = data;
+
+                    questService.getQuest(questId).then(function (result) {
+                        $scope.quest = result;
+                        $scope.quest.Effective = 0;
+                        $scope.currentEvent = $scope.quest.RootEvent;
+                        $scope.chooseEvent($scope.quest.RootEvent.Id);
+                    });
+                });
             }
         }
     ])
