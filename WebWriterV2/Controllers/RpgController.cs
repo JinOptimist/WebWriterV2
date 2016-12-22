@@ -507,6 +507,36 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult AddSkillToEvent(long eventId, long skillId)
+        {
+            var eventFromDb = EventRepository.Get(eventId);
+            var skill = SkillRepository.Get(skillId);
+
+            eventFromDb.RequrmentSkill.Add(skill);
+            EventRepository.Save(eventFromDb);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(true),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveSkillToEvent(long eventId, long skillId)
+        {
+            var eventFromDb = EventRepository.Get(eventId);
+            var skill = SkillRepository.Get(skillId);
+
+            eventFromDb.RequrmentSkill.Remove(skill);
+            EventRepository.Save(eventFromDb);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(true),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         /* ************** Init Db ************** */
         public JsonResult Init()
         {

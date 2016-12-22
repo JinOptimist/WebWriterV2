@@ -150,6 +150,28 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             });
         }
 
+        function remove(eventId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/RemoveEvent',
+                    data: {
+                        eventId: eventId
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    if (response) {
+                        resolve(angular.fromJson(response));
+                    } else {
+                        reject(Error("We can't remove event wich has child"));
+                    }
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
         function saveEventLink(eventLink) {
             return $q(function (resolve, reject) {
                 $http({
@@ -186,21 +208,37 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             });
         }
 
-        function remove(eventId) {
+        function addSkill(eventId, skillId) {
             return $q(function (resolve, reject) {
                 $http({
                     method: 'POST',
-                    url: '/Rpg/RemoveEvent',
+                    url: '/Rpg/AddSkillToEvent',
                     data: {
-                        eventId: eventId
+                        eventId: eventId,
+                        skillId: skillId
                     },
                     headers: { 'Accept': 'application/json' }
                 }).success(function (response) {
-                    if (response) {
-                        resolve(angular.fromJson(response));
-                    } else {
-                        reject(Error("We can't remove event wich has child"));
-                    }
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
+        function removeSkill(eventId, skillId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/RemoveSkillToEvent',
+                    data: {
+                        eventId: eventId,
+                        skillId: skillId
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
                 },
                 function () {
                     reject(Error("Sorry :( we have fail"));
@@ -212,9 +250,11 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             getEvent: getEvent,
             getEvents: getEvents,
             save: save,
-            saveEventLink: saveEventLink,
             remove: remove,
-            removeEventLink: removeEventLink
+            saveEventLink: saveEventLink,
+            removeEventLink: removeEventLink,
+            addSkill: addSkill,
+            removeSkill: removeSkill
         };
     }])
     .service('heroService', ['$http', '$q', function ($http, $q) {

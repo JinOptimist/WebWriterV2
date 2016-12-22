@@ -7,73 +7,79 @@
             <a ng-href="#" ng-click="selectEvent(eventItem.Id)">{{eventItem.Name}}</a>
             <a ng-href="#" ng-click="removeEvent(eventItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;"/></a>
         </p>
-        <a ng-href="#" ng-click="addEvent()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+        <a ng-href="#" ng-click="addEvent()"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
     </div>
-    <form name="eventForm" ng-show="event" novalidate class="left" style="width: 1000px;">
-        <input type="submit" ng-click="saveEvent()" value="Save" class="save"/>
-        <h2>
-            Links to this event
-        </h2>
-        <div>
-            <p ng-repeat="linkItem in event.LinksToThisEvent">
-                FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.
-                <a ng-href="#" ng-click="selectEvent(linkItem.FromId)">{{linkItem.Text}}</a>
-            </p>
-        </div>
+    <div ng-show="event" class="left" style="width: 1000px;">
+            <h2>
+                Links to this event
+            </h2>
+            <div>
+                <p ng-repeat="linkItem in event.LinksToThisEvent">
+                    FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.
+                    <a ng-href="#" ng-click="selectEvent(linkItem.FromId)">{{linkItem.Text}}</a>
+                </p>
+            </div>
+            <hr />
+            <h2>Условия входа в Евент</h2>
+            <div>
+                <p>
+                    RequrmentSex:
+                    <select ng-model="event.RequrmentSex.Value" ng-options="option.value as option.name for option in SexList"></select>
+                </p>
+                <p>
+                    RequrmentRace:
+                    <select ng-model="event.RequrmentRace.Value" ng-options="option.value as option.name for option in RaceList"></select>
+                </p>
+                <p>
+                    RequrmentSkill:
+                    <span ng-repeat="skill in event.RequrmentSkill">{{skill.Name}}
+                        <a ng-click="removeSkill(skill, $index)" style="cursor: pointer;"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+                    </span>
+                    <select ng-model="selectedSkill" ng-options="option as option.Name for option in availableSkill()"></select>
+                    <a ng-click="addSkill()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+                </p>
+                <p>
+                    RequrmentCharacteristics:
+                    <select ng-model="event.RequrmentCharacteristics" ng-options="option.value as option.name for option in CharacteristicList"></select>
+                </p>
+            </div>
         <hr/>
-        <h2>Условия входа в Евент</h2>
-        <div>
+        <form name="eventForm" novalidate>
+            <h2>
+                Event details
+            </h2>
+            <input type="submit" ng-click="saveEvent()" value="Save" class="save" />
             <p>
-                RequrmentSex:
-                <select ng-model="event.RequrmentSex.Value" ng-options="option.value as option.name for option in SexList"></select>
+                Name: <input type="text" ng-model="event.Name"
+                             name="eventName" class="auto-apply"/>
             </p>
             <p>
-                RequrmentRace:
-                <select ng-model="event.RequrmentRace.Value" ng-options="option.value as option.name for option in RaceList"></select>
+                ProgressChanging: <input type="text" ng-model="event.ProgressChanging"
+                                         name="eventProgressChanging" class="auto-apply"/>
             </p>
             <p>
-                RequrmentSkill:
-                <span ng-repeat="skill in event.RequrmentSkill">{{skill.Name}} <a ng-click="removeSkill(skill)">-</a></span>
-                <select ng-model="someSkill" ng-options="option.value as option.name for option in SkillList"></select>
-                <a ng-click="addSkill()">+</a>
+                Desc: <textarea id="desc" ng-model="event.Desc"></textarea>
             </p>
-            <p>
-                RequrmentCharacteristics:
-                <select ng-model="event.RequrmentCharacteristics" ng-options="option.value as option.name for option in CharacteristicList"></select>
-            </p>
-        </div>
+        </form>
         <hr/>
-        <h2>
-            Event details
-        </h2>
-        <p>
-            Name: <input type="text" ng-model="event.Name"
-                         name="eventName" class="auto-apply" />
-        </p>
-        <p>
-            ProgressChanging: <input type="text" ng-model="event.ProgressChanging"
-                                     name="eventProgressChanging" class="auto-apply" />
-        </p>
-        <p>
-            Desc: <textarea id="desc" ng-model="event.Desc"></textarea>
-        </p>
-        <hr />
-        <h2>
-            Links from this event
-        </h2>
-        <p ng-repeat="linkItem in event.LinksFromThisEvent">
-            <!--FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.-->
-            <a ng-href="#" ng-click="selectEvent(linkItem.FromId)">Здесь будет название евента</a>
-            <input name="linkItemText{{linkItem.Id}}" type="text" ng-model="linkItem.Text"
-                   class="auto-apply" ng-disabled="linkItem.disable"/>
-            <a ng-href="#" ng-click="saveEventLink(linkItem)"><img src="/Content/confirm.png" style="width: 20px; height: 20px;" /></a>
-            <a ng-href="#" ng-click="removeEventLink(event, linkItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
-        </p>
-        <p>
-            <select ng-model="selectedEvent" ng-options="event as event.Name for event in events"></select>
-            <a ng-href="#" ng-click="addEventLink()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
-        </p>
-    </form>
+        <form name="eventLinkForm" novalidate>
+            <h2>
+                Links from this event
+            </h2>
+            <p ng-repeat="linkItem in event.LinksFromThisEvent">
+                <!--FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.-->
+                <a ng-href="#" ng-click="selectEvent(linkItem.ToId)">Go to Child</a>
+                <input name="linkItemText{{linkItem.Id}}" type="text" ng-model="linkItem.Text"
+                       class="auto-apply" ng-disabled="linkItem.disable" />
+                <a ng-href="#" ng-click="saveEventLink(linkItem)"><img src="/Content/confirm.png" style="width: 20px; height: 20px;" /></a>
+                <a ng-href="#" ng-click="removeEventLink(event, linkItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+            </p>
+            <p>
+                <select ng-model="selectedEvent" ng-options="event as event.Name for event in events"></select>
+                <a ng-href="#" ng-click="addEventLink()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+            </p>
+        </form>
+    </div>
 
     <!--<ng-quest-info quest="quest"></ng-quest-info>-->
 </div>

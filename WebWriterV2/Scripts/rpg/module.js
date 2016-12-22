@@ -352,17 +352,18 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
         }
     ])
     .controller('adminEventGeneralController', [
-        '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService', 'sexService',
-        function ($scope, $http, $routeParams, $location, eventService, questService, raceService, sexService) {
+        '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService', 'sexService', 'skillService',
+        function ($scope, $http, $routeParams, $location, eventService, questService, raceService, sexService, skillService) {
             $scope.event = null;
             $scope.quest = null;
             $scope.selectedEvent = null;
+            $scope.selectedSkill = null;
             $scope.events = [];
             $scope.wait = true;
 
             $scope.RaceList = [];
             $scope.SexList = [];
-            $scope.SkillList = [];
+            $scope.Skills = [];
             $scope.CharacteristicTypeList = [];
 
             var questId = $routeParams.questId;
@@ -371,6 +372,38 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
 
             init();
 
+            /* Skill */
+            $scope.addSkill = function() {
+                eventService.addSkill($scope.event.Id, $scope.selectedSkill.Id).then(function () {
+                    if (!$scope.event.RequrmentSkill) {
+                        $scope.event.RequrmentSkill = [];
+                    }
+
+                    $scope.event.RequrmentSkill.push($scope.selectedSkill);
+                });
+            }
+
+            $scope.removeSkill = function (skill, index) {
+                eventService.removeSkill($scope.event.Id, skill.Id).then(function () {
+                    $scope.event.RequrmentSkill.splice(index, 1);
+                });
+            }
+
+            $scope.availableSkill = function () {
+                if (!$scope.event) {
+                    return [];
+                }
+                if (!$scope.event.RequrmentSkill) {
+                    $scope.event.RequrmentSkill = [];
+                }
+                return $scope.Skills.filter(function(skill) {
+                    return  !$scope.event.RequrmentSkill.some(function(reqSkill) {
+                        return skill.Id === reqSkill.Id;
+                    });
+                });
+            }
+
+            /* Event */
             $scope.addEvent = function () {
                 var editor = CKEDITOR.instances.desc;
                 editor.setData('');
@@ -411,12 +444,20 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                 );
             }
 
+            $scope.removeEvent = function (event, index) {
+                if (confirm('Are you sure? You try delete whole event: ' + event.Name))
+                    eventService.remove(event.Id).then(function (result) {
+                        $scope.events.splice(index, 1);
+                    });
+            }
+
+            /* Event Link */
             $scope.saveEventLink = function (eventLink) {
                 eventLink.disable = true;
                 eventService.saveEventLink(eventLink, questId).then(
                     function (response) {
                         if (response) {
-                            $scope.eventForm['linkItemText' + eventLink.Id].$setPristine();
+                            $scope.eventLinkForm['linkItemText' + eventLink.Id].$setPristine();
                             eventLink.disable = false;
                             //alert('Save completed');
                         }
@@ -445,13 +486,6 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                 if (confirm('Are you sure? You try delete event link: ' + eventLink.Text))
                     eventService.removeEventLink(eventLink.Id).then(function (result) {
                         event.LinksFromThisEvent.splice(index, 1);
-                    });
-            }
-
-            $scope.removeEvent = function (event, index) {
-                if (confirm('Are you sure? You try delete whole event: ' + event.Name))
-                    eventService.remove(event.Id).then(function (result) {
-                        $scope.events.splice(index, 1);
                     });
             }
 
@@ -514,6 +548,10 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                     _.each(data, function (item) {
                         return $scope.RaceList.push({ name: item.Name, value: item.Value });
                     });
+                });
+
+                skillService.loadAll().then(function(data) {
+                    $scope.Skills = data;
                 });
             }
         }
