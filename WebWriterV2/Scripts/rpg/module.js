@@ -292,8 +292,8 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
         function ($scope, $http, $routeParams, $location, questService, sexService, raceService, eventService) {
             $scope.quest = null;
             $scope.quests = [];
-
             $scope.wait = true;
+            $scope.endingEvents = [];
             init();
 
             $scope.addQuest = function() {
@@ -340,11 +340,18 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                 window.location.href = '/AngularRoute/admin/quest/' + quest.Id + '/event/';
             }
 
+            $scope.selectEvent = function (eventId) {
+                $scope.wait = true;
+                window.location.href = '/AngularRoute/admin/quest/' + $scope.quest.Id + '/event/' + eventId;
+            }
+
             function loadQuest(questId) {
                 questService.getQuest(questId).then(function (result) {
                     $scope.quest = result;
                     $scope.wait = false;
                     CKEDITOR.replace('desc');
+
+                    loadEndingEvents(questId);
                 });
             }
 
@@ -354,10 +361,18 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                 });
             }
 
+            function loadEndingEvents(questId) {
+                eventService.getEndingEvents(questId).then(function (result) {
+                    $scope.endingEvents = result;
+                });
+            }
+
             function init() {
                 var questId = $routeParams.questId;
-                if (questId)
+                if (questId) {
                     loadQuest(questId);
+                    loadEndingEvents(questId);
+                }
                 loadQuests();
             }
         }
@@ -924,6 +939,19 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                     $scope.ways = result.LinksFromThisEvent;
                     $scope.quest.Effective += result.ProgressChanging;
                     $scope.currentEvent = result;
+
+                    if (result.HeroStatesChanging) {
+                        var hero = $scope.hero;
+                        result.HeroStatesChanging.forEach(function (stateChanging) {
+                            var stateTypeId = stateChanging.StateType.Id;
+                            var number = stateChanging.Number;
+                            var heroStat = getState(hero, stateTypeId);
+                            if (heroStat) {
+                                heroStat.Number += number;
+                                setState(hero, stateTypeId, heroStat.Number);
+                            }
+                        });
+                    }
                 });
             };
 
@@ -957,6 +985,19 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             $scope.batle = function() {
                 heroService.selectHero($scope.quest.Executor);
                 $location.path('/AngularRoute/battle');
+            }
+
+            function getState(hero, stateTypeId) {
+                return _.find(hero.State, function (state) { return state.StateType.Id === stateTypeId; });
+            }
+
+            function setState(hero, stateTypeId, value) {
+                return _.find(hero.State, function(state) {
+                     if (state.StateType.Id === stateTypeId) {
+                         state.Number = value;
+                         return;
+                     }
+                });
             }
 
             function init() {
@@ -1093,7 +1134,6 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                             stat.Number += selfChange.Number;
                             $scope.report += ' his ' + stat.StateType.Name + ': ' + selfChange.Number + ' ';
                         }
-
                     }
 
                     for (var j = 0; j < fullSkill.TargetChanging.length; j++) {

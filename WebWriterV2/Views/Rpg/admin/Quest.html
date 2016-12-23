@@ -15,7 +15,7 @@
         </div>
     </div>
 
-    <form ng-show="quest" novalidate class="left" style="width: 600px;">
+    <form ng-show="quest" novalidate style="width: 1000px;">
         <input type="submit" ng-click="saveQuest()" value="Save"/>
         <p>
             Name: <input type="text" ng-model="quest.Name"/>
@@ -24,6 +24,28 @@
             Desc: <textarea id="desc" ng-model="quest.Desc"></textarea>
         </p>
     </form>
+
+    <div>
+        <h3>Всего {{quest.AllEvents.length}} Глав:</h3>
+        <p ng-repeat="event in quest.AllEvents">
+            <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}/event/{{event.Id}}" ng-click="selectEvent(event.Id)">
+                {{event.Name}}
+            </a>
+        </p>
+        <h3>Стартовая глава:</h3>
+        <p>
+            <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}/event/{{quest.RootEvent.Id}}" ng-click="selectEvent(quest.RootEvent.Id)">
+                {{quest.RootEvent.Name}}
+            </a>
+        </p>
+        <h3>На {{endingEvents.length}} главах может закончится Квест:</h3>
+        <p ng-repeat="event in endingEvents">
+            <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}/event/{{event.Id}}" ng-click="selectEvent(event.Id)">
+                {{event.Name}}
+            </a>
+        </p>
+
+    </div>
 
     <!--<ng-quest-info quest="quest"></ng-quest-info>-->
 </div>

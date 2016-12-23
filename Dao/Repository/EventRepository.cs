@@ -157,6 +157,12 @@ namespace Dao.Repository
             return Entity.Where(x => x.Quest != null && x.Quest.Id == questId).ToList();
         }
 
+        public List<Event> GetEndingEvents(long questId)
+        {
+            return Entity.Where(x => x.Quest != null && x.Quest.Id == questId
+                                     && x.LinksFromThisEvent.Count == 0).ToList();
+        }
+
         public bool HasChild(long eventId)
         {
             return Entity.Any(x => x.Id == eventId && x.LinksFromThisEvent.Any());

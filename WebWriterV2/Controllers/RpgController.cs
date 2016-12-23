@@ -428,6 +428,17 @@ namespace WebWriterV2.Controllers
         }
 
         /* ************** Event ************** */
+        public JsonResult GetEndingEvents(long questId)
+        {
+            var events = EventRepository.GetEndingEvents(questId);
+            var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(frontEvents),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         public JsonResult GetEvents(long questId)
         {
             var events = EventRepository.GetAllEventsByQuest(questId);

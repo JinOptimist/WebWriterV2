@@ -151,6 +151,21 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             });
         }
 
+        function getEndingEvents(questId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'GET',
+                    url: '/Rpg/GetEndingEvents?questId=' + questId,
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
         function save(event, questId) {
             return $q(function (resolve, reject) {
                 $http({
@@ -355,7 +370,8 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             addCharacteristic: addCharacteristic,
             removeCharacteristic: removeCharacteristic,
             addState: addState,
-            removeState: removeState
+            removeState: removeState,
+            getEndingEvents: getEndingEvents
         };
     }])
     .service('heroService', ['$http', '$q', function ($http, $q) {
