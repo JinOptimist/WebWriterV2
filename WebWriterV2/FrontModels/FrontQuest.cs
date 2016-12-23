@@ -17,7 +17,7 @@ namespace WebWriterV2.FrontModels
             Name = quest.Name;
             Desc = quest.Desc;
             RootEvent = quest.RootEvent != null ? new FrontEvent(quest.RootEvent) : null;
-            AllEvents = quest.AllEvents.Select(x => new FrontEvent(x)).ToList();
+            AllEvents = quest.AllEvents?.Select(x => new FrontEvent(x)).ToList();
         }
 
         public string Name { get; set; }

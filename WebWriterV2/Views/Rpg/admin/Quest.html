@@ -3,8 +3,9 @@
         <h2>Список квестов <!--<a ng-href="#" ng-click="addQuest()">+</a>--> </h2>
         <p ng-repeat="questItem in quests">
             <a ng-href="#" ng-click="selectQuest(questItem)">{{questItem.Name}}</a>
-            <a ng-href="#" ng-click="removeQuest(questItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+            <a ng-href="#" ng-click="removeQuest(questItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;"/></a>
         </p>
+        <a ng-href="#" ng-click="addQuest()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
 
         <div ng-if="quest">
             <h2>Список евентов</h2>

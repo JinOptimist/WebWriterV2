@@ -32,7 +32,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
 
             $http(request)
                 .success(function (response) {
-                    deferred.resolve(response);
+                    deferred.resolve(angular.fromJson(response));
                 });
 
             return deferred.promise;

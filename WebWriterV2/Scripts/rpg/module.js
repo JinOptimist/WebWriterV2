@@ -296,19 +296,30 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             $scope.wait = true;
             init();
 
+            $scope.addQuest = function() {
+                $scope.quest = {Name:'New quest Title'};
+                var editor = CKEDITOR.instances.desc;
+                editor.setData('New quest Desc');
+            }
+
             $scope.selectQuest = function (quest) {
                 window.location.href = '/AngularRoute/admin/quest/' + quest.Id;
             }
 
             $scope.saveQuest = function () {
+                var isNew = !($scope.quest.Id > 0);
                 var editor = CKEDITOR.instances.desc;
                 var text = editor.getData();
                 $scope.quest.Desc = text;
                 questService.saveQuest($scope.quest).then(
                     function (response) {
-                        if (response)
-                            alert('Save completed');
-                        else {
+                        if (response) {
+                            if (isNew) {
+                                $scope.selectQuest(response);
+                            } else {
+                                alert('Save completed');
+                            }
+                        } else {
                             alert('Some go wrong');
                         }
                     },
