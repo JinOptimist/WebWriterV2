@@ -155,6 +155,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\RpgController.cs" />
+    <Compile Include="Controllers\RubbishController.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
     <Compile Include="FrontModels\FrontEventLinkItem.cs" />
     <Compile Include="FrontModels\FrontState.cs" />
@@ -667,6 +668,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\Rpg\Index.cshtml" />
+    <Content Include="Views\Rubbish\Index.cshtml" />
     <None Include="Web.EpamPc.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

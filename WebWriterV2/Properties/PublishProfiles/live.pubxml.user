@@ -31,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/10/2015 17:47:34</publishTime>
     </File>
     <File Include="bin/Dao.dll">
-      <publishTime>12/22/2016 16:11:39</publishTime>
+      <publishTime>12/23/2016 16:31:58</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/25/2015 09:11:03</publishTime>
@@ -106,7 +106,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 16:40:11</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>12/22/2016 16:11:39</publishTime>
+      <publishTime>12/23/2016 16:31:58</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -1579,10 +1579,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>10/05/2016 16:57:52</publishTime>
     </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>12/22/2016 16:05:59</publishTime>
+      <publishTime>12/23/2016 14:26:49</publishTime>
     </File>
     <File Include="Scripts/rpg/services.js">
-      <publishTime>12/22/2016 15:52:12</publishTime>
+      <publishTime>12/23/2016 13:50:07</publishTime>
     </File>
     <File Include="Views/Carrier/Add.cshtml">
       <publishTime>09/04/2015 13:59:19</publishTime>
@@ -1621,7 +1621,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/22/2016 15:55:04</publishTime>
     </File>
     <File Include="Views/Rpg/admin/Quest.html">
-      <publishTime>12/21/2016 16:07:19</publishTime>
+      <publishTime>12/23/2016 14:30:30</publishTime>
     </File>
     <File Include="Views/Rpg/AdminCharacteristic.html">
       <publishTime>09/20/2016 18:08:55</publishTime>
@@ -1683,6 +1683,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/RpgMaster.cshtml">
       <publishTime>07/26/2016 13:48:21</publishTime>
     </File>
+    <File Include="Views/Rubbish/Index.cshtml">
+      <publishTime>12/23/2016 16:30:49</publishTime>
+    </File>
     <File Include="Views/Shared/StudentFilesRow.cshtml">
       <publishTime>09/21/2015 16:11:55</publishTime>
     </File>
@@ -1714,7 +1717,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2016 18:19:42</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/12/2016 16:40:12</publishTime>
+      <publishTime>12/23/2016 16:31:59</publishTime>
     </File>
   </ItemGroup>
 </Project>
