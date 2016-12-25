@@ -126,7 +126,8 @@ namespace WebWriterV2.RpgUtility
 
             foreach (var characteristic in hero.Characteristics)
             {
-                characteristic.CharacteristicType.EffectState.ForEach(x => AddNumberToState(hero, x.StateType, x.Number));
+                characteristic.CharacteristicType.EffectState.ForEach(state =>
+                    AddNumberToState(hero, state.StateType, state.Number * characteristic.Number));
             }
 
             var maxHpNumber = hero.State.First(x => x.StateType == maxHp).Number;

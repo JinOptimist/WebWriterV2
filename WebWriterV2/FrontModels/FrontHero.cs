@@ -48,10 +48,10 @@ namespace WebWriterV2.FrontModels
                 State = State.Select(x => x.ToDbModel()).ToList(),
                 Characteristics = Characteristics.Select(x => x.ToDbModel()).ToList(),
                 Skills = Skills.Select(x => x.ToDbModel()).ToList(),
-                Inventory = Inventory.Select(x => x.ToDbModel()).ToList()
+                Inventory = Inventory?.Select(x => x.ToDbModel()).ToList()
             };
 
-            hero.Inventory.ForEach(x => x.Hero = hero);
+            hero.Inventory?.ForEach(x => x.Hero = hero);
 
             return hero;
         }
