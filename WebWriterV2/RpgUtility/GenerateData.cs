@@ -114,7 +114,7 @@ namespace WebWriterV2.RpgUtility
             return result;
         }
 
-        public static Quest GetQuest()
+        public static Quest QuestRate()
         {
             var quest = new Quest
             {
@@ -122,49 +122,64 @@ namespace WebWriterV2.RpgUtility
                 Desc = "Владелец амбара разметил заказ на убийство крыс. Отлично задание для новичка",
                 Effective = 0,
             };
-            //GenerateEventsForQuest(quest);
+
+            quest.AllEvents = GenerateEventsForQuest(quest);
+
+            //quest.AllEvents.ForEach(x => CreateConnectionForEvents(quest.AllEvents, x));
+
             return quest;
         }
 
-        public static List<EventLinkItem> CreateConnectionForEvents(List<Event> events, Event currentEvent)
+        public static Quest QuestTower()
         {
-            if (events.Count != GenerateEventsForQuest(null).Count)
-                return null;
-
-            List<EventLinkItem> result = null;
-
-            var lvl0Event0 = events[0];
-            var lvl1Event1 = events[1];
-            var lvl1Event2 = events[2];
-            var lvl1Event3 = events[3];
-            var lvl1Event4 = events[4];
-            var lvl2Event1 = events[5];
-            var lvl2Event2 = events[6];
-            var lvl2Event3 = events[7];
-            var lvl3Event0 = events[8];
-
-            switch (currentEvent.Name)
+            var quest = new Quest
             {
-                case "Начало":
-                {
-                        result = lvl0Event0.AddChildrenEvents(lvl1Event1, lvl1Event2, lvl1Event3);
-                        break;
-                }
-                case "Перевёл дыхание":
-                    {
-                        result = lvl1Event4.AddParentsEvents(lvl1Event1, lvl1Event2, lvl1Event3);
-                        result.AddRange(lvl1Event4.AddChildrenEvents(lvl2Event1, lvl2Event2, lvl2Event3));
-                        break;
-                    }
-                case "Конец":
-                    {
-                        result = lvl3Event0.AddParentsEvents(lvl2Event1, lvl2Event2, lvl2Event3);
-                        break;
-                    }
-            }
-
-            return result;
+                Name = "Башня",
+                Desc = "<p>	В великой Башне три уровня. Зачисти их все за один заход и получишь великий Кубок&nbsp;<span style=\"background-color:#ffff00;\">(добавить возможность награды для квеста)</span></p><p>	Перед тем как отправляться убедись что готов к сражениям</p><ol>	<li>		* Ловушки которые ранят если нет умения Уворот</li>	<li>		** Клады дают деньги</li>	<li>		*** Возможность подкупа за золото или обольстить если Пол и Красота на уровне</li>	<li>		**** Открыть короткий проход при помощи Силы или Ловкости</li></ol>",
+                Effective = 0,
+            };
+            return quest;
         }
+
+        //public static List<EventLinkItem> CreateConnectionForEvents(List<Event> events, Event currentEvent)
+        //{
+        //    if (events.Count != GenerateEventsForQuest(null).Count)
+        //        return null;
+
+        //    List<EventLinkItem> result = null;
+
+        //    var lvl0Event0 = events[0];
+        //    var lvl1Event1 = events[1];
+        //    var lvl1Event2 = events[2];
+        //    var lvl1Event3 = events[3];
+        //    var lvl1Event4 = events[4];
+        //    var lvl2Event1 = events[5];
+        //    var lvl2Event2 = events[6];
+        //    var lvl2Event3 = events[7];
+        //    var lvl3Event0 = events[8];
+
+        //    switch (currentEvent.Name)
+        //    {
+        //        case "Начало":
+        //        {
+        //                result = lvl0Event0.AddChildrenEvents(lvl1Event1, lvl1Event2, lvl1Event3);
+        //                break;
+        //        }
+        //        case "Перевёл дыхание":
+        //            {
+        //                result = lvl1Event4.AddParentsEvents(lvl1Event1, lvl1Event2, lvl1Event3);
+        //                result.AddRange(lvl1Event4.AddChildrenEvents(lvl2Event1, lvl2Event2, lvl2Event3));
+        //                break;
+        //            }
+        //        case "Конец":
+        //            {
+        //                result = lvl3Event0.AddParentsEvents(lvl2Event1, lvl2Event2, lvl2Event3);
+        //                break;
+        //            }
+        //    }
+
+        //    return result;
+        //}
 
         public static List<Event> GenerateEventsForQuest(Quest quest)
         {
@@ -242,10 +257,22 @@ namespace WebWriterV2.RpgUtility
                 Desc = "Герой нашёл злосчастных крыс и безжалостно уничтожил всех кого смог догнать",
             };
 
-            //lvl0Event0.AddChildrenEvents(lvl1Event1, lvl1Event2, lvl1Event3);
-            //lvl1Event4.AddParentsEvents(lvl1Event1, lvl1Event2, lvl1Event3);
-            //lvl1Event4.AddChildrenEvents(lvl2Event1, lvl2Event2, lvl2Event3);
-            //lvl3Event0.AddParentsEvents(lvl2Event1, lvl2Event2, lvl2Event3);
+            var lvl0Event0LinksFrom = lvl0Event0.LinksFromThisEvent ?? new List<EventLinkItem>();
+            lvl0Event0.AddChildEvent(lvl1Event1);
+            lvl0Event0.AddChildEvent(lvl1Event2);
+            lvl0Event0.AddChildEvent(lvl1Event3);
+
+            lvl1Event4.AddParentEvent(lvl1Event1);
+            lvl1Event4.AddParentEvent(lvl1Event2);
+            lvl1Event4.AddParentEvent(lvl1Event3);
+
+            lvl1Event4.AddChildEvent(lvl2Event1);
+            lvl1Event4.AddChildEvent(lvl2Event2);
+            lvl1Event4.AddChildEvent(lvl2Event3);
+
+            lvl3Event0.AddParentEvent(lvl2Event1);
+            lvl3Event0.AddParentEvent(lvl2Event2);
+            lvl3Event0.AddParentEvent(lvl2Event3);
 
             var list = new List<Event>();
             list.Add(lvl0Event0);
@@ -263,7 +290,7 @@ namespace WebWriterV2.RpgUtility
 
             list.ForEach(x => x.Quest = quest);
 
-            //quest.RootEvent = lvl0Event0;
+            quest.RootEvent = lvl0Event0;
 
             return list;
         }

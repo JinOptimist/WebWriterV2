@@ -639,8 +639,7 @@ namespace WebWriterV2.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-
-
+        
         /* ************** Init Db ************** */
         public JsonResult Init()
         {
@@ -649,32 +648,35 @@ namespace WebWriterV2.Controllers
             var quest = quests.FirstOrDefault();
             if (!quests.Any())
             {
-                quest = GenerateData.GetQuest();
+                quest = GenerateData.QuestRate();
+                QuestRepository.Save(quest);
+
+                quest = GenerateData.QuestTower();
                 QuestRepository.Save(quest);
             }
 
-            /* Создаём пустые Евенты */
-            var events = EventRepository.GetAll();
-            if (!events.Any())
-            {
-                events = GenerateData.GenerateEventsForQuest(quest);
-                foreach (var eve in events)
-                {
-                    EventRepository.Save(eve);
-                }
-            }
+            ///* Создаём Евенты с текстом но без связей */
+            //var events = EventRepository.GetAll();
+            //if (!events.Any())
+            //{
+            //    events = GenerateData.GenerateEventsForQuest(quest);
+            //    foreach (var eve in events)
+            //    {
+            //        EventRepository.Save(eve);
+            //    }
+            //}
 
-            /* Создаём связи между Евентами */
-            var eventLinkItemsDb = EventLinkItemRepository.GetAll();
-            if (!eventLinkItemsDb.Any())
-            {
-                foreach (var currentEvent in events)
-                {
-                    var eventLinkItems = GenerateData.CreateConnectionForEvents(events, currentEvent);
-                    if (eventLinkItems != null)
-                        EventLinkItemRepository.Save(eventLinkItems);
-                }
-            }
+            ///* Создаём связи между Евентами */
+            //var eventLinkItemsDb = EventLinkItemRepository.GetAll();
+            //if (!eventLinkItemsDb.Any())
+            //{
+            //    foreach (var currentEvent in events)
+            //    {
+            //        var eventLinkItems = GenerateData.CreateConnectionForEvents(events, currentEvent);
+            //        if (eventLinkItems != null)
+            //            EventLinkItemRepository.Save(eventLinkItems);
+            //    }
+            //}
 
             /* Создаём StateType */
             var stateTypes = StateTypeRepository.GetAll();
@@ -730,7 +732,7 @@ namespace WebWriterV2.Controllers
             {
                 skillSchools = skillSchoolsExist ? "Уже существует" : "Добавили",
                 quests = quests.Any() ? "Уже существует" : "Добавили",
-                eventLinkItemsDb = eventLinkItemsDb.Any() ? "Уже существует" : "Добавили",
+                //eventLinkItemsDb = eventLinkItemsDb.Any() ? "Уже существует" : "Добавили",
                 heroes = heroExist ? "Уже существует" : "Добавили",
                 skills = skills.Any() ? "Уже существует" : "Добавили",
                 guilds = guilds.Any() ? "Уже существует" : "Добавили",

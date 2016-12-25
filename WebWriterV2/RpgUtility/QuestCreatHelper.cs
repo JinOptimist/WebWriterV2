@@ -8,16 +8,31 @@ namespace WebWriterV2.RpgUtility
 {
     public static class QuestCreatHelper
     {
-        public static Event AddEvent(this Event parentEvent, Event addedEvent)
+        public static void AddChildEvent(this Event currentEvent, Event addedEvent)
         {
-            parentEvent.LinksFromThisEvent.Add(new EventLinkItem
+            if (currentEvent.LinksFromThisEvent == null)
             {
-                From = parentEvent,
+                currentEvent.LinksFromThisEvent = new List<EventLinkItem>();
+            }
+            currentEvent.LinksFromThisEvent.Add(new EventLinkItem
+            {
+                From = currentEvent,
                 To = addedEvent,
                 Text = addedEvent.Name
             });
-            //addedEvent.ParentEvents.Add(parentEvent);
-            return parentEvent;
+        }
+        public static void AddParentEvent(this Event currentEvent, Event addedEvent)
+        {
+            if (currentEvent.LinksToThisEvent == null)
+            {
+                currentEvent.LinksToThisEvent = new List<EventLinkItem>();
+            }
+            currentEvent.LinksToThisEvent.Add(new EventLinkItem
+            {
+                From = addedEvent,
+                To = currentEvent,
+                Text = currentEvent.Name
+            });
         }
 
         public static List<EventLinkItem> AddChildrenEvents(this Event currentEvent, params Event[] childrenEvents)
