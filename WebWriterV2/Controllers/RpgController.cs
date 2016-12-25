@@ -643,41 +643,6 @@ namespace WebWriterV2.Controllers
         /* ************** Init Db ************** */
         public JsonResult Init()
         {
-            /* Создаём Квесты. Чистый без евентов */
-            var quests = QuestRepository.GetAll();
-            var quest = quests.FirstOrDefault();
-            if (!quests.Any())
-            {
-                quest = GenerateData.QuestRate();
-                QuestRepository.Save(quest);
-
-                quest = GenerateData.QuestTower();
-                QuestRepository.Save(quest);
-            }
-
-            ///* Создаём Евенты с текстом но без связей */
-            //var events = EventRepository.GetAll();
-            //if (!events.Any())
-            //{
-            //    events = GenerateData.GenerateEventsForQuest(quest);
-            //    foreach (var eve in events)
-            //    {
-            //        EventRepository.Save(eve);
-            //    }
-            //}
-
-            ///* Создаём связи между Евентами */
-            //var eventLinkItemsDb = EventLinkItemRepository.GetAll();
-            //if (!eventLinkItemsDb.Any())
-            //{
-            //    foreach (var currentEvent in events)
-            //    {
-            //        var eventLinkItems = GenerateData.CreateConnectionForEvents(events, currentEvent);
-            //        if (eventLinkItems != null)
-            //            EventLinkItemRepository.Save(eventLinkItems);
-            //    }
-            //}
-
             /* Создаём StateType */
             var stateTypes = StateTypeRepository.GetAll();
             if (!stateTypes.Any())
@@ -710,6 +675,40 @@ namespace WebWriterV2.Controllers
                 skills = GenerateData.GenerateSkills(skillSchools, stateTypes);
                 SkillRepository.Save(skills);
             }
+
+            /* Создаём Квесты. Чистый без евентов */
+            var quests = QuestRepository.GetAll();
+            if (!quests.Any())
+            {
+                var quest1 = GenerateData.QuestRat();
+                QuestRepository.Save(quest1);
+
+                var quest2 = GenerateData.QuestTower(characteristicTypes, stateTypes);
+                QuestRepository.Save(quest2);
+            }
+
+            ///* Создаём Евенты с текстом но без связей */
+            //var events = EventRepository.GetAll();
+            //if (!events.Any())
+            //{
+            //    events = GenerateData.GenerateEventsForQuest(quest);
+            //    foreach (var eve in events)
+            //    {
+            //        EventRepository.Save(eve);
+            //    }
+            //}
+
+            ///* Создаём связи между Евентами */
+            //var eventLinkItemsDb = EventLinkItemRepository.GetAll();
+            //if (!eventLinkItemsDb.Any())
+            //{
+            //    foreach (var currentEvent in events)
+            //    {
+            //        var eventLinkItems = GenerateData.CreateConnectionForEvents(events, currentEvent);
+            //        if (eventLinkItems != null)
+            //            EventLinkItemRepository.Save(eventLinkItems);
+            //    }
+            //}
 
             /* Создаём Героев */
             var heroes = HeroRepository.GetAll();

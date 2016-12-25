@@ -114,7 +114,7 @@ namespace WebWriterV2.RpgUtility
             return result;
         }
 
-        public static Quest QuestRate()
+        public static Quest QuestRat()
         {
             var quest = new Quest
             {
@@ -123,14 +123,12 @@ namespace WebWriterV2.RpgUtility
                 Effective = 0,
             };
 
-            quest.AllEvents = GenerateEventsForQuest(quest);
-
-            //quest.AllEvents.ForEach(x => CreateConnectionForEvents(quest.AllEvents, x));
+            quest.AllEvents = GenerateEventsForQuestRat(quest);
 
             return quest;
         }
 
-        public static Quest QuestTower()
+        public static Quest QuestTower(List<CharacteristicType> characteristicTypes, List<StateType> stateTypes)
         {
             var quest = new Quest
             {
@@ -138,50 +136,13 @@ namespace WebWriterV2.RpgUtility
                 Desc = "<p>	В великой Башне три уровня. Зачисти их все за один заход и получишь великий Кубок&nbsp;<span style=\"background-color:#ffff00;\">(добавить возможность награды для квеста)</span></p><p>	Перед тем как отправляться убедись что готов к сражениям</p><ol>	<li>		* Ловушки которые ранят если нет умения Уворот</li>	<li>		** Клады дают деньги</li>	<li>		*** Возможность подкупа за золото или обольстить если Пол и Красота на уровне</li>	<li>		**** Открыть короткий проход при помощи Силы или Ловкости</li></ol>",
                 Effective = 0,
             };
+
+            quest.AllEvents = GenerateEventsForQuestTower(quest, characteristicTypes, stateTypes);
+
             return quest;
         }
 
-        //public static List<EventLinkItem> CreateConnectionForEvents(List<Event> events, Event currentEvent)
-        //{
-        //    if (events.Count != GenerateEventsForQuest(null).Count)
-        //        return null;
-
-        //    List<EventLinkItem> result = null;
-
-        //    var lvl0Event0 = events[0];
-        //    var lvl1Event1 = events[1];
-        //    var lvl1Event2 = events[2];
-        //    var lvl1Event3 = events[3];
-        //    var lvl1Event4 = events[4];
-        //    var lvl2Event1 = events[5];
-        //    var lvl2Event2 = events[6];
-        //    var lvl2Event3 = events[7];
-        //    var lvl3Event0 = events[8];
-
-        //    switch (currentEvent.Name)
-        //    {
-        //        case "Начало":
-        //        {
-        //                result = lvl0Event0.AddChildrenEvents(lvl1Event1, lvl1Event2, lvl1Event3);
-        //                break;
-        //        }
-        //        case "Перевёл дыхание":
-        //            {
-        //                result = lvl1Event4.AddParentsEvents(lvl1Event1, lvl1Event2, lvl1Event3);
-        //                result.AddRange(lvl1Event4.AddChildrenEvents(lvl2Event1, lvl2Event2, lvl2Event3));
-        //                break;
-        //            }
-        //        case "Конец":
-        //            {
-        //                result = lvl3Event0.AddParentsEvents(lvl2Event1, lvl2Event2, lvl2Event3);
-        //                break;
-        //            }
-        //    }
-
-        //    return result;
-        //}
-
-        public static List<Event> GenerateEventsForQuest(Quest quest)
+        public static List<Event> GenerateEventsForQuestRat(Quest quest)
         {
             // Tips
             // Desc = "У заказчика всегда была репутацию падкого на женское внимание мужика",
@@ -295,6 +256,103 @@ namespace WebWriterV2.RpgUtility
             return list;
         }
 
+        public static List<Event> GenerateEventsForQuestTower(Quest quest, List<CharacteristicType> characteristicTypes, List<StateType> stateTypes)
+        {
+            // Tips
+            // Desc = "У заказчика всегда была репутацию падкого на женское внимание мужика",
+            // Desc = "В общем орков не любят со времён третьей общей войны, но порой можно встретить общины с прямо противоположным мнением",
+            var agilityType = characteristicTypes.First(x => x.Name == Agility);
+            var hpType = stateTypes.First(x => x.Name == Hp);
+
+            var event0 = new Event
+            {
+                Name = "Евент 00. Вход",
+                Desc = "Подойдя к Башне Герой осмотрел предстоящий путь. Облака скрывали вершину рукотворного чуда. Видимо информация о трёх этажах несколько преумешина. Но до входной двери ещё предстоило добраться. Башню со все сторон окружает ров заполненный водой. Через ров перекинут мост, но по большей части он разрушен. Звонкие всплески намекают, что в воде есть живность, но вот определить размеры и агресивность пока непредставляется возможным. Теоретически можно воспользоваться мостом, но несколько раз придётся перепрыгивать обрушеные части моста да и в целом данная затея предвещает множество акробатических приёмов ошибка в которых будет стоить серьёзных ушибов. С другой стороны плаванье было обязательным предметом в школе героев так что переплыть ров в наиболее узком месте более чем надёжный способ оказатся с по ту сторону проблем.",
+            };
+            var event1 = new Event
+            {
+                Name = "Евент 01. Мост",
+                Desc = "Не долго думаю Герой набрал скорость и совершил рывок вверх по мосту. Позади оказался первый провал. Несколько шагов и ещё прыжок. Казалось всё идёт по плану, но случилось невероятное, на поверхности моста оказалась лужа! Правая нога уходит в сторону, а тело продолжая подчинятся энерции движется впередё.",
+            };
+            var event2 = new Event
+            {
+                Name = "Евент 02. Мост. Удача",
+                Desc = "Сальто, потом кувырок и невероятноя гордость за себя. Вот так незамысловато разрешилась опасная ситуация на мосту. Повысив свою самооценку герой уверен направился к входу в башню",
+                RequrmentCharacteristics = new List<Characteristic> {
+                    new Characteristic { Number = 6, CharacteristicType = agilityType }
+                }
+            };
+            var event3 = new Event
+            {
+                Name = "Евент 03. Мост. Провал",
+                Desc = "Камень оказался холодным, твердым и совершенно безразличным к страданиям героя. Он даже не соизволил пошевелиться когда матерящееся лицо врезалось в него. Благо в Герои кого попало не берут. Потому не теряя достоинство, Герой несколько раз отдуши пнул виновника кровавого подтёка на щеке и удалился к входу в башню",
+                HeroStatesChanging = new List<State> {
+                    new State { Number = -5, StateType = hpType }
+                },
+            };
+            var event4 = new Event
+            {
+                Name = "Евент 04. Река",
+                Desc = "Осмотрев другой берег герой нашёл подходящее место. Сняв всё то что может промокнуть Герой смело направился в воду. Вот кто бы сомневался что на первый укус рыбы отважатся лишь посреди пути, когда пути назад не будет. Тихо ненавидя всех водоплавающих Герой добрался до другого берега с несколько меньшим количество крови в его теле чем было до входа в реку.",
+                HeroStatesChanging = new List<State> {
+                    new State { Number = -3, StateType = hpType }
+                },
+            };
+            var event5 = new Event
+            {
+                Name = "Евент 05. Вход в Башню",
+                Desc = "Герой преодолел водную преграду и смело вошёл в Башню. Какого же было его удивление когда сразу за дверью его ожидала улыбающаяся орчиха.",
+            };
+            var event6 = new Event
+            {
+                Name = "Евент 06. Первый этаж. Мирный путь",
+                Desc = "Ответив симетричной улыбкой Герой двигаясь хоть и несколько настороженно, но всё же достаточно свободно.",
+                RequrmentRace = Race.Орк,
+            };
+            var event7 = new Event
+            {
+                Name = "Евент 07. Первый этаж. Сражение",
+                Desc = "Быстрый удар Героя пришёлся по месту. Но вот о чём забыл Герой, так это то что его противник Орк. Глубокая рана конечно мешала орчихе сражаться, но всё же несколько раз она смогла задеть Героя",
+                HeroStatesChanging = new List<State> {
+                    new State { Number = -2, StateType = hpType }
+                },
+            };
+            var event8 = new Event
+            {
+                Name = "Евент 08. Второй этаж",
+                Desc = "Пожалуй, на сегодня хватит, пойду-ка я домой, а не на ваш второй этаж",
+            };
+
+            event0.AddChildEvent(event1, "Рискованные прыжки мой хлеб! Иду на мост");
+            event0.AddChildEvent(event4, "В таком пруду больших хищных рыб точно не будет! Так что лучше я вплавь отправлюсь");
+            event1.AddChildEvent(event2, "(Л-6) А сальто разве не специально для таких случаев придуманно? Ловко сделать кувырок в воздухе, подправив свою траекторию полёта руками по ходу дела.");
+            event1.AddChildEvent(event3, "Ой что это? Булыжник с огромной скоростью приближается к моей голове! Хотя нет, всё впорядке, камень находится в покое, это просто моя голова стремится в его сторону.");
+            event5.AddParentsEvents("К Башне", event2, event3, event4);
+            event5.AddChildEvent(event6, "(Орк)Мы орки отлично знаем, если правый клык при улыбке выше левого, то это дружелюбная улыбка");
+            event5.AddChildEvent(event7, "Говорят звериному оскалу можно противопоставить лишь звериный оскал. Это конечно же ложь. Внезапная смерельная атака отлично справляется с задаче умиротворения любого оскала");
+            event8.AddParentsEvents("Идём к лестнице на второй этаж", event6, event7);
+
+            var list = new List<Event>();
+
+            list.AddRange(new List<Event> {
+                event0,
+                event1,
+                event2,
+                event3,
+                event4,
+                event5,
+                event6,
+                event7,
+                event8,
+            });
+
+            list.ForEach(x => x.Quest = quest);
+
+            quest.RootEvent = event0;
+
+            return list;
+        }
+        
         public static List<Skill> GenerateSkills(List<SkillSchool> schools, List<StateType> stateTypes)
         {
             var baseSchool = schools.FirstOrDefault(x => x.Name == "Базовые умения");

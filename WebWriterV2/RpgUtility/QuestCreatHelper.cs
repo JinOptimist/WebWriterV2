@@ -8,74 +8,48 @@ namespace WebWriterV2.RpgUtility
 {
     public static class QuestCreatHelper
     {
-        public static void AddChildEvent(this Event currentEvent, Event addedEvent)
+        public static void AddChildEvent(this Event currentEvent, Event addedEvent, string text = null)
         {
-            if (currentEvent.LinksFromThisEvent == null)
+            ConnecteEvent(currentEvent, addedEvent, text);
+        }
+        public static void AddParentEvent(this Event currentEvent, Event addedEvent, string text = null)
+        {
+            ConnecteEvent(addedEvent, currentEvent, text);
+        }
+
+        public static void AddChildrenEvents(this Event currentEvent, params Event[] childrenEvents)
+        {
+            foreach(var childEvent in childrenEvents)
             {
-                currentEvent.LinksFromThisEvent = new List<EventLinkItem>();
+                ConnecteEvent(currentEvent, childEvent);
             }
-            currentEvent.LinksFromThisEvent.Add(new EventLinkItem
-            {
-                From = currentEvent,
-                To = addedEvent,
-                Text = addedEvent.Name
-            });
         }
-        public static void AddParentEvent(this Event currentEvent, Event addedEvent)
+        public static void AddParentsEvents(this Event currentEvent, string text = null, params Event[] parentsEvents)
         {
-            if (currentEvent.LinksToThisEvent == null)
+            foreach (var parentEvent in parentsEvents)
             {
-                currentEvent.LinksToThisEvent = new List<EventLinkItem>();
+                ConnecteEvent(parentEvent, currentEvent, text);
             }
-            currentEvent.LinksToThisEvent.Add(new EventLinkItem
-            {
-                From = addedEvent,
-                To = currentEvent,
-                Text = currentEvent.Name
-            });
         }
 
-        public static List<EventLinkItem> AddChildrenEvents(this Event currentEvent, params Event[] childrenEvents)
+        private static void ConnecteEvent(Event parentEvent, Event childEvent, string text = null)
         {
-            return childrenEvents.Select(childEvent => ConnecteEvent(currentEvent, childEvent)).ToList();
-        }
-
-        public static List<EventLinkItem> AddParentsEvents(this Event currentEvent, params Event[] parentsEvents)
-        {
-            return parentsEvents.Select(parentEvent => ConnecteEvent(parentEvent, currentEvent)).ToList();
-        }
-
-        private static EventLinkItem ConnecteEvent(Event parentEvent, Event childEvent)
-        {
-            //if (parentEvent.LinksFromThisEvent == null)
-            //    parentEvent.LinksFromThisEvent = new List<EventLinkItem>();
-            //if (childEvent.LinksToThisEvent == null)
-            //    childEvent.LinksToThisEvent = new List<EventLinkItem>();
-
-            //parentEvent.LinksFromThisEvent.Add(a);
-
+            if (parentEvent.LinksFromThisEvent == null)
+                parentEvent.LinksFromThisEvent = new List<EventLinkItem>();
+            if (childEvent.LinksToThisEvent == null)
+                childEvent.LinksToThisEvent = new List<EventLinkItem>();
 
             var eventLinkItem = new EventLinkItem
             {
                 From = parentEvent,
                 To = childEvent,
-                Text = childEvent.Name
+                Text = text ?? childEvent.Name
             };
-            return eventLinkItem;
 
-            //childEvent.LinksToThisEvent.Add(new EventLinkItem
-            //{
-            //    From = parentEvent,
-            //    To = childEvent,
-            //    Text = childEvent.Name
-            //});
+            parentEvent.LinksFromThisEvent.Add(eventLinkItem);
+            childEvent.LinksToThisEvent.Add(eventLinkItem);
 
-            //childEvent.ParentEvents.Add(new EventLinkItem
-            //{
-            //    From = parentEvent,
-            //    To = childEvent,
-            //    Text = childEvent.Name
-            //});
+
         }
     }
 }
