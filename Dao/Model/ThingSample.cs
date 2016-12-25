@@ -11,6 +11,10 @@ namespace Dao.Model
 
         public virtual string Desc { get; set; }
 
+        public virtual Sex RequrmentSex { get; set; }
+
+        public virtual Race RequrmentRace { get; set; }
+
         /// <summary>
         /// If true, you must destroy item after used
         /// </summary>

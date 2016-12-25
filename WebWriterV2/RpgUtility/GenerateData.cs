@@ -15,7 +15,14 @@ namespace WebWriterV2.RpgUtility
         public const string Mp = "Mp";
         public const string MaxMp = "MaxMp";
         public const string Dodge = "Dodge";
+        public const string Damage = "Damage";
+        public const string Armor = "Armor";
+
         public const string Gold = "Gold";
+
+        public const string Sword = "Меч";
+        public const string ArmorBra = "Броне лифчик";
+        public const string HealingPotion = "Лечебное зелье";
 
         public const string Strength = "Сила";
         public const string Agility = "Ловкость";
@@ -51,8 +58,16 @@ namespace WebWriterV2.RpgUtility
             return guild;
         }
 
-        public static List<Hero> GetHeroes(List<Skill> skills, List<CharacteristicType> characteristicTypes, List<StateType> stateTypes)
+        public static List<Hero> GetHeroes(List<Skill> skills, 
+            List<CharacteristicType> characteristicTypes, 
+            List<StateType> stateTypes, 
+            List<ThingSample> thingSamples)
         {
+            var swordSample = thingSamples.First(x => x.Name == Sword);
+            var armorBraSample = thingSamples.First(x => x.Name == ArmorBra);
+            var healingPotionSample = thingSamples.First(x => x.Name == HealingPotion);
+            var goldSample = thingSamples.First(x => x.Name == Gold);
+
             var baseSkills = skills.Where(x => x.School.Name == SchoolBaseSkillName).ToList();
 
             var freeman = new Hero
@@ -68,6 +83,9 @@ namespace WebWriterV2.RpgUtility
             freeman.Skills.Add(skills[0]);
             freeman.Skills.Add(skills[1]);
             freeman.SetDefaultState(stateTypes);
+            freeman.AddThingToHero(swordSample, true);
+            freeman.AddThingToHero(goldSample, 100);
+            freeman.AddThingToHero(healingPotionSample, 2);
 
             var shani = new Hero
             {
@@ -82,7 +100,10 @@ namespace WebWriterV2.RpgUtility
             shani.Skills.Add(skills[3]);
             shani.Skills.Add(skills[4]);
             shani.SetDefaultState(stateTypes);
-
+            shani.AddThingToHero(armorBraSample, true);
+            shani.AddThingToHero(goldSample, 300);
+            shani.AddThingToHero(swordSample, true);
+            
             var ogrimar = new Hero
             {
                 Name = "Огримар",
@@ -94,6 +115,9 @@ namespace WebWriterV2.RpgUtility
             };
             ogrimar.Skills.AddRange(baseSkills);
             ogrimar.SetDefaultState(stateTypes);
+            ogrimar.AddThingToHero(swordSample, true);
+            ogrimar.AddThingToHero(goldSample, 10);
+            ogrimar.AddThingToHero(healingPotionSample, 5);            
 
             var result = new List<Hero>
             {
@@ -105,6 +129,63 @@ namespace WebWriterV2.RpgUtility
             return result;
         }
 
+        public static List<ThingSample> GenerateThingSample(List<StateType> stateTypes)
+        {
+            var hp = stateTypes.First(x => x.Name == Hp);
+            var dodge = stateTypes.First(x => x.Name == Dodge);
+            var damage = stateTypes.First(x => x.Name == Damage);
+            var armor = stateTypes.First(x => x.Name == Armor);
+
+            var thingSamples = new List<ThingSample>();
+
+            thingSamples.Add(new ThingSample
+            {
+                Name = Gold,
+                Desc = "Золото, оно и в африке золото",
+            });
+
+            thingSamples.Add(new ThingSample
+            {
+                Name = Sword,
+                Desc = "Вжух и готово",
+                PassiveStates = new List<State> {
+                    new State {
+                        Number = 10,
+                        StateType = damage
+                    }
+                }
+            });
+
+            thingSamples.Add(new ThingSample
+            {
+                Name = ArmorBra,
+                Desc = "Вот хоть убей не найти эльфийку без этого важнейшего элемента одежды",
+                RequrmentRace = Race.Эльф,
+                RequrmentSex = Sex.Жен,
+                PassiveStates = new List<State> {
+                    new State {
+                        Number = 5,
+                        StateType = armor
+                    }
+                }
+            });
+
+            thingSamples.Add(new ThingSample
+            {
+                Name = HealingPotion,
+                Desc = "Выпил и дыры затягиваются сами собой. Только щекотно",
+                IsUsed = true,
+                UsingEffectState = new List<State> {
+                    new State {
+                        Number = 10,
+                        StateType = hp
+                    }
+                }
+            });
+
+            return thingSamples;
+        }
+        
         public static List<Characteristic> GenerateStat(List<CharacteristicType> characteristicTypes, int seed = 0)
         {
             var rnd = new Random(DateTime.Now.Millisecond + seed);
@@ -352,7 +433,7 @@ namespace WebWriterV2.RpgUtility
 
             return list;
         }
-        
+
         public static List<Skill> GenerateSkills(List<SkillSchool> schools, List<StateType> stateTypes)
         {
             var baseSchool = schools.FirstOrDefault(x => x.Name == "Базовые умения");
@@ -522,6 +603,18 @@ namespace WebWriterV2.RpgUtility
                 Desc = "Борис хрен попадёшь, на всегда останеться недостижимым идеалом",
             });
 
+            stateTypes.Add(new StateType
+            {
+                Name = Damage,
+                Desc = "Урон за удар. Интересно какой параметр у ВанПанчмента?",
+            });
+
+            stateTypes.Add(new StateType
+            {
+                Name = Armor,
+                Desc = "Вот попробуй пробить закованного в полный доспех парня",
+            });
+
             return stateTypes;
         }
 
@@ -530,7 +623,9 @@ namespace WebWriterV2.RpgUtility
             var maxHp = stateTypes.First(x => x.Name == MaxHp);
             var hp = stateTypes.First(x => x.Name == Hp);
             var dodge = stateTypes.First(x => x.Name == Dodge);
-            var gold = stateTypes.First(x => x.Name == Gold);
+            //var gold = stateTypes.First(x => x.Name == Gold);
+            var damage = stateTypes.First(x => x.Name == Damage);
+            var armor = stateTypes.First(x => x.Name == Armor);
             var characteristicType = new List<CharacteristicType>();
 
             characteristicType.Add(new CharacteristicType
@@ -540,7 +635,9 @@ namespace WebWriterV2.RpgUtility
                 EffectState = new List<State>
                 {
                     new State { StateType = maxHp, Number = 5 },
-                    new State { StateType = hp, Number = 5 }
+                    new State { StateType = hp, Number = 5 },
+                    new State { StateType = damage, Number = 2 },
+                    new State { StateType = armor, Number = 1 }
                 }
             });
 
@@ -548,14 +645,20 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = Agility,
                 Desc = "Удержать яйцо на иголке? Легко!",
-                EffectState = new List<State> { new State { StateType = dodge, Number = 5 } }
+                EffectState = new List<State> {
+                    new State { StateType = dodge, Number = 5 },
+                    new State { StateType = damage, Number = 1 },
+                }
             });
 
             characteristicType.Add(new CharacteristicType
             {
                 Name = Charism,
                 Desc = "Это не честно кричала некрасивая девочка, глядя как выходит за муж очередная подруга",
-                EffectState = new List<State> { new State { StateType = gold, Number = 10 } }
+                EffectState = new List<State> {
+                    //new State { StateType = gold, Number = 10 }
+                    new State { StateType = dodge, Number = 2 }
+                }
             });
 
             return characteristicType;

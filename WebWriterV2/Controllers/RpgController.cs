@@ -34,6 +34,8 @@ namespace WebWriterV2.Controllers
         public ICharacteristicTypeRepository CharacteristicTypeRepository { get; set; }
         public IStateRepository StateRepository { get; set; }
         public IStateTypeRepository StateTypeRepository { get; set; }
+        public IThingSampleRepository ThingSampleRepository { get; set; }
+        public IThingRepository ThingRepository { get; set; }
 
         public RpgController()
         {
@@ -49,6 +51,8 @@ namespace WebWriterV2.Controllers
             CharacteristicTypeRepository = new CharacteristicTypeRepository(_context);
             StateRepository = new StateRepository(_context);
             StateTypeRepository = new StateTypeRepository(_context);
+            ThingSampleRepository = new ThingSampleRepository(_context);
+            ThingRepository = new ThingRepository(_context);
 
             //using (var scope = StaticContainer.Container.BeginLifetimeScope())
             //{
@@ -134,6 +138,10 @@ namespace WebWriterV2.Controllers
         public JsonResult GetHero(long heroId)
         {
             var hero = HeroRepository.Get(heroId);
+
+            var a = hero.Inventory;
+            var b = a.FirstOrDefault();
+
             var frontHero = new FrontHero(hero);
             return new JsonResult
             {
@@ -651,6 +659,14 @@ namespace WebWriterV2.Controllers
                 StateTypeRepository.Save(stateTypes);
             }
 
+            /* Создаём ThingSamples */
+            var thingSamples = ThingSampleRepository.GetAll();
+            if (!thingSamples.Any())
+            {
+                thingSamples = GenerateData.GenerateThingSample(stateTypes);
+                ThingSampleRepository.Save(thingSamples);
+            }
+
             /* Создаём CharacteristicType */
             var characteristicTypes = CharacteristicTypeRepository.GetAll();
             if (!characteristicTypes.Any())
@@ -715,7 +731,7 @@ namespace WebWriterV2.Controllers
             var heroExist = heroes.Any();
             if (!heroExist)
             {
-                heroes = GenerateData.GetHeroes(skills, characteristicTypes, stateTypes);
+                heroes = GenerateData.GetHeroes(skills, characteristicTypes, stateTypes, thingSamples);
                 HeroRepository.Save(heroes);
             }
 
@@ -735,6 +751,7 @@ namespace WebWriterV2.Controllers
                 heroes = heroExist ? "Уже существует" : "Добавили",
                 skills = skills.Any() ? "Уже существует" : "Добавили",
                 guilds = guilds.Any() ? "Уже существует" : "Добавили",
+                thingSamples = thingSamples.Any() ? "Уже существует" : "Добавили",
             };
 
             return new JsonResult
@@ -764,6 +781,12 @@ namespace WebWriterV2.Controllers
             var skillSchools = SkillSchoolRepository.GetAll();
             SkillSchoolRepository.Remove(skillSchools);
 
+            var things = ThingRepository.GetAll();
+            ThingRepository.Remove(things);
+
+            var thingSamples = ThingSampleRepository.GetAll();
+            ThingSampleRepository.Remove(thingSamples);
+
             var heroes = HeroRepository.GetAll();
             HeroRepository.Remove(heroes);
 
@@ -778,6 +801,9 @@ namespace WebWriterV2.Controllers
 
             var quests = QuestRepository.GetAll();
             QuestRepository.Remove(quests);
+
+            var stateTypes = StateTypeRepository.GetAll();
+            StateTypeRepository.Remove(stateTypes);
 
             return Init();
         }

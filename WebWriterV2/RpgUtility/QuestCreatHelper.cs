@@ -12,6 +12,7 @@ namespace WebWriterV2.RpgUtility
         {
             ConnecteEvent(currentEvent, addedEvent, text);
         }
+
         public static void AddParentEvent(this Event currentEvent, Event addedEvent, string text = null)
         {
             ConnecteEvent(addedEvent, currentEvent, text);
@@ -24,6 +25,7 @@ namespace WebWriterV2.RpgUtility
                 ConnecteEvent(currentEvent, childEvent);
             }
         }
+
         public static void AddParentsEvents(this Event currentEvent, string text = null, params Event[] parentsEvents)
         {
             foreach (var parentEvent in parentsEvents)

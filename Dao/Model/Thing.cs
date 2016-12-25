@@ -6,9 +6,9 @@ namespace Dao.Model
 {
     public class Thing : BaseModel
     {
-        public Hero Hero { get; set; }
+        public virtual Hero Hero { get; set; }
 
-        public ThingSample ThingSample { get; set; }
+        public virtual ThingSample ThingSample { get; set; }
 
         /// <summary>
         /// If true item in use

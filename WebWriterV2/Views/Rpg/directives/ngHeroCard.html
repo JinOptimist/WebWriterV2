@@ -16,6 +16,14 @@
     <hr />
     <p>
         <b>Умения</b>:
-        <span class="skill {{::skill.School.Name}}" ng-if="hero.Skills" ng-repeat="skill in hero.Skills"> {{::skill.Name}}</span>
+        <span ng-if="hero.Skills" ng-repeat="skill in hero.Skills" class="skill {{::skill.School.Name}}"> {{::skill.Name}}</span>
+    </p>
+    <hr />
+    <p>
+        <b>Инвентарь</b>:
+        <span ng-if="hero.Skills" ng-repeat="thing in hero.Inventory" class="skill">
+            {{::thing.ThingSample.Name}}<span ng-if="!thing.ItemInUse">: {{::thing.Count}}</span>
+            <span ng-if="thing.ItemInUse">+</span>
+        </span>
     </p>
 </div>

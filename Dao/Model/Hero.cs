@@ -29,7 +29,7 @@ namespace Dao.Model
         /// <summary>
         /// Things in bag
         /// </summary>
-        public List<Thing> Inventory { get; set; }
+        public virtual List<Thing> Inventory { get; set; }
     }
 
     public enum Race

@@ -158,6 +158,8 @@
     <Compile Include="Controllers\RubbishController.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
     <Compile Include="FrontModels\FrontEventLinkItem.cs" />
+    <Compile Include="FrontModels\FrontThing.cs" />
+    <Compile Include="FrontModels\FrontThingSample.cs" />
     <Compile Include="FrontModels\FrontState.cs" />
     <Compile Include="FrontModels\FrontCharacteristicType.cs" />
     <Compile Include="FrontModels\FrontQuest.cs" />
@@ -169,6 +171,7 @@
     <Compile Include="FrontModels\FrontTrainingRoom.cs" />
     <Compile Include="FrontModels\FrontSkill.cs" />
     <Compile Include="RpgUtility\EventLinkHelper.cs" />
+    <Compile Include="RpgUtility\ThingHelper.cs" />
     <Compile Include="RpgUtility\StateHelper.cs" />
     <Compile Include="RpgUtility\EnumHelper.cs" />
     <Compile Include="RpgUtility\GenerateData.cs" />

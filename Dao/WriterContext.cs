@@ -13,7 +13,6 @@ namespace Dao
         }
 
         //public DbSet<Quest> Quest { get; set; }
-
         //public DbSet<Event> Event { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

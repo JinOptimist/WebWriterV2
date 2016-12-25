@@ -68,6 +68,8 @@
     <Compile Include="IRepository\ICharacteristicTypeRepository.cs" />
     <Compile Include="IRepository\ICharacteristicRepository.cs" />
     <Compile Include="IRepository\IEventLinkItemRepository.cs" />
+    <Compile Include="IRepository\IThingRepository.cs" />
+    <Compile Include="IRepository\IThingSampleRepository.cs" />
     <Compile Include="IRepository\IStateTypeRepository.cs" />
     <Compile Include="IRepository\IStateRepository.cs" />
     <Compile Include="IRepository\ITrainingRoomRepository.cs" />
@@ -144,6 +146,10 @@
     <Compile Include="Migrations\201612250934425_Stabilize.Designer.cs">
       <DependentUpon>201612250934425_Stabilize.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612252005298_InventoryV2.cs" />
+    <Compile Include="Migrations\201612252005298_InventoryV2.Designer.cs">
+      <DependentUpon>201612252005298_InventoryV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\CharacteristicType.cs" />
@@ -168,6 +174,8 @@
     <Compile Include="Repository\CharacteristicTypeRepository.cs" />
     <Compile Include="Repository\CharacteristicRepository.cs" />
     <Compile Include="Repository\EventLinkItemRepository.cs" />
+    <Compile Include="Repository\ThingRepository.cs" />
+    <Compile Include="Repository\ThingSampleRepository.cs" />
     <Compile Include="Repository\StateTypeRepository.cs" />
     <Compile Include="Repository\StateRepository.cs" />
     <Compile Include="Repository\TrainingRoomRepository.cs" />
@@ -235,6 +243,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612250934425_Stabilize.resx">
       <DependentUpon>201612250934425_Stabilize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612252005298_InventoryV2.resx">
+      <DependentUpon>201612252005298_InventoryV2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
