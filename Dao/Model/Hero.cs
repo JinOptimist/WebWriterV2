@@ -26,7 +26,10 @@ namespace Dao.Model
 
         public virtual Guild Guild { get; set; }
 
-        //public List<Thing> Inventory { get; set; }
+        /// <summary>
+        /// Things in bag
+        /// </summary>
+        public List<Thing> Inventory { get; set; }
     }
 
     public enum Race

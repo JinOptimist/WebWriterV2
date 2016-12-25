@@ -6,18 +6,15 @@ namespace Dao.Model
 {
     public class Thing : BaseModel
     {
-        [Required]
-        public virtual string Name { get; set; }
+        public Hero Hero { get; set; }
 
-        public virtual string Desc { get; set; }
+        public ThingSample ThingSample { get; set; }
 
-        public virtual Hero Owner { get; set; }
+        /// <summary>
+        /// If true item in use
+        /// </summary>
+        public bool ItemInUse { get; set; } = false;
 
-        [Description("Если правда, используем только OnceEffect и уничтожаем предмет")]
-        public virtual bool IsUsed { get; set; }
-
-        public virtual List<Characteristic> Changing { get; set; }
-
-        public virtual List<State> OnceEffect { get; set; }
+        public int Count { get; set; } = 1;
     }
 }

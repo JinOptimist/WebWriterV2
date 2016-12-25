@@ -136,6 +136,10 @@
     <Compile Include="Migrations\201612141142572_AddLinkFromAndLinkTo.Designer.cs">
       <DependentUpon>201612141142572_AddLinkFromAndLinkTo.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612250914284_Inventory.cs" />
+    <Compile Include="Migrations\201612250914284_Inventory.Designer.cs">
+      <DependentUpon>201612250914284_Inventory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\CharacteristicType.cs" />
@@ -152,6 +156,7 @@
     <Compile Include="Model\Quest.cs" />
     <Compile Include="Model\Skill.cs" />
     <Compile Include="Model\Thing.cs" />
+    <Compile Include="Model\ThingSample.cs" />
     <Compile Include="Model\TrainingRoom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
@@ -220,6 +225,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612141142572_AddLinkFromAndLinkTo.resx">
       <DependentUpon>201612141142572_AddLinkFromAndLinkTo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612250914284_Inventory.resx">
+      <DependentUpon>201612250914284_Inventory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -19,33 +19,14 @@ namespace Dao.Repository
 
         public override Event Save(Event model)
         {
-            //var newChildren = model.LinksFromThisEvent?.ToList() ?? new List<EventLinkItem>();
-
             // if we try update detached model
             var entry = Db.Entry(model);
-            var state = entry.State;
-            if (state == EntityState.Detached && model.Id > 0)
+            if (entry.State == EntityState.Detached && model.Id > 0)
             {
                 var modelFromDb = Entity.Find(model.Id);
                 modelFromDb.UpdateFrom(model);
                 model = modelFromDb;
             }
-
-            //TODO how it work?
-            //newChildren.ForEach(x => model.LinksFromThisEvent.Remove(x));
-
-            //foreach (var child in newChildren)
-            //{
-            //    var addedChild = _eventLinkItemRepository.Entity.Find(child.Id);
-            //    if (addedChild == null)
-            //    {
-            //        child.From = Entity.Find(child.From.Id) ?? new Event {Id = child.From.Id};
-            //        child.To = Entity.Find(child.To.Id) ?? new Event {Id = child.To.Id};
-            //        addedChild = child;
-            //    }
-
-            //    model.LinksFromThisEvent?.Add(addedChild);
-            //}
 
             if (model.Quest.RootEvent == null)
             {

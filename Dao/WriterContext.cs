@@ -33,24 +33,29 @@ namespace Dao
             modelBuilder.Entity<Hero>().HasMany(u => u.Skills).WithMany();
             modelBuilder.Entity<Hero>().HasMany(u => u.State).WithOptional().WillCascadeOnDelete(true);
             modelBuilder.Entity<Hero>().HasMany(u => u.Characteristics).WithOptional().WillCascadeOnDelete(true);
-
-            modelBuilder.Entity<Skill>().HasOptional(u => u.School).WithMany();
+            modelBuilder.Entity<Hero>().HasMany(u => u.Inventory).WithOptional(x => x.Hero);
 
             //TODO Manual remove state for SelfChanging
             //.WillCascadeOnDelete(true);
             modelBuilder.Entity<Skill>().HasMany(u => u.SelfChanging).WithOptional();
             modelBuilder.Entity<Skill>().HasMany(u => u.TargetChanging).WithOptional().WillCascadeOnDelete(true);
+            modelBuilder.Entity<Skill>().HasOptional(u => u.School).WithMany();
 
             modelBuilder.Entity<TrainingRoom>().HasOptional(u => u.School).WithMany();
 
             modelBuilder.Entity<Guild>().HasMany(u => u.Heroes).WithOptional(x => x.Guild).WillCascadeOnDelete(true);
 
-            modelBuilder.Entity<Thing>().HasMany(u => u.OnceEffect).WithOptional().WillCascadeOnDelete(true);
-            modelBuilder.Entity<Thing>().HasMany(u => u.Changing).WithOptional().WillCascadeOnDelete(true);
+            modelBuilder.Entity<ThingSample>().HasMany(u => u.PassiveCharacteristics).WithOptional();
+            modelBuilder.Entity<ThingSample>().HasMany(u => u.PassiveStates).WithOptional();
+            modelBuilder.Entity<ThingSample>().HasMany(u => u.UsingEffectCharacteristics).WithOptional();
+            modelBuilder.Entity<ThingSample>().HasMany(u => u.UsingEffectState).WithOptional();
 
-            modelBuilder.Entity<Characteristic>().HasOptional(u => u.CharacteristicType).WithMany();
+            modelBuilder.Entity<Thing>().HasOptional(u => u.ThingSample).WithMany();
+            modelBuilder.Entity<Thing>().HasOptional(u => u.Hero).WithMany(x => x.Inventory);
 
             modelBuilder.Entity<CharacteristicType>().HasMany(u => u.EffectState).WithOptional().WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Characteristic>().HasOptional(u => u.CharacteristicType).WithMany();
 
             modelBuilder.Entity<State>().HasOptional(u => u.StateType).WithMany();
         }
