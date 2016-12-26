@@ -102,10 +102,7 @@ namespace WebWriterV2.Controllers
         {
             var guild = GuildRepository.GetAll().First();
 
-            var schools = guild.TrainingRooms.Select(x => x.School).ToList();
-            var skillsBySchool = SkillRepository.GetBySchools(schools);
-
-            var frontGuild = new FrontGuild(guild, skillsBySchool);
+            var frontGuild = new FrontGuild(guild);
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(frontGuild),
@@ -202,22 +199,14 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddSkillToHero(int heroId, int skillId)
         {
-            var answer = "+";
-            try
-            {
-                var hero = HeroRepository.Get(heroId);
-                var skill = SkillRepository.Get(skillId);
-                hero.Skills.Add(skill);
-                HeroRepository.Save(hero);
-            }
-            catch (Exception e)
-            {
-                answer = e.Message;
-            }
+            var hero = HeroRepository.Get(heroId);
+            var skill = SkillRepository.Get(skillId);
+            hero.Skills.Add(skill);
+            HeroRepository.Save(hero);
 
             return new JsonResult
             {
-                Data = answer,
+                Data = SerializeHelper.Serialize(new FrontHero(hero)),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -341,6 +330,21 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        /* ************** TraningRoom ************** */
+        public JsonResult GetTraningRoom(long traningRoomId)
+        {
+            var room = TrainingRoomRepository.Get(traningRoomId);
+
+            var frontRoom = new FrontTrainingRoom(room);
+
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(frontRoom),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+
         /* ************** Characteristic ************** */
         public JsonResult GetCharacteristicTypes()
         {
@@ -447,6 +451,17 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult GetNotAvailableEvents(long questId)
+        {
+            var events = EventRepository.GetNotAvailableEvents(questId);
+            var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(frontEvents),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         public JsonResult GetEvents(long questId)
         {
             var events = EventRepository.GetAllEventsByQuest(questId);
@@ -527,15 +542,11 @@ namespace WebWriterV2.Controllers
 
         public JsonResult RemoveEvent(long eventId)
         {
-            var hasChild = EventRepository.HasChild(eventId);
-            if (!hasChild)
-            {
-                EventRepository.RemoveEventAndChildren(eventId);
-            }
+            EventRepository.Remove(eventId);
 
             return new JsonResult
             {
-                Data = !hasChild,
+                Data = true,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

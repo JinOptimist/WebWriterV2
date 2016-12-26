@@ -75,7 +75,8 @@ namespace Dao.Repository
 
         public virtual void Remove(IEnumerable<T> models)
         {
-            foreach (var model in models)
+            var copyList = models.ToList();
+            foreach (var model in copyList)
             {
                 Remove(model);
             }

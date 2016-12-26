@@ -11,7 +11,7 @@ namespace WebWriterV2.FrontModels
         {
         }
 
-        public FrontGuild(Guild guild, IDictionary<SkillSchool, List<Skill>> skillsBySchool)
+        public FrontGuild(Guild guild)
         {
             Id = guild.Id;
             Name = guild.Name;
@@ -19,7 +19,7 @@ namespace WebWriterV2.FrontModels
             Gold = guild.Gold;
             Influence = guild.Influence;
             Heroes = guild.Heroes.Select(x => new FrontHero(x)).ToList();
-            TrainingRooms = guild.TrainingRooms.Select(x => new FrontTrainingRoom(x, skillsBySchool[x.School])).ToList();
+            TrainingRooms = guild.TrainingRooms.Select(x => new FrontTrainingRoom(x)).ToList();
         }
 
         public string Name { get; set; }

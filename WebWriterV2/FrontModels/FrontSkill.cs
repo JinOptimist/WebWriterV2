@@ -15,7 +15,7 @@ namespace WebWriterV2.FrontModels
             Id = skill.Id;
             Name = skill.Name.Replace(' ', '\u00a0');// u00a0 == &nbsp;
             Desc = skill.Desc;
-            School = skill.School;
+            School = new FrontSkillSchool(skill.School, true);
 
             SelfChanging = new List<FrontState>();
             if (skill.SelfChanging != null)
@@ -40,7 +40,7 @@ namespace WebWriterV2.FrontModels
         public string Desc { get; set; }
         public List<FrontState> SelfChanging { get; set; }
         public List<FrontState> TargetChanging { get; set; }
-        public SkillSchool School { get; set; }
+        public FrontSkillSchool School { get; set; }
         public override Skill ToDbModel()
         {
             var skill = new Skill
@@ -48,7 +48,7 @@ namespace WebWriterV2.FrontModels
                 Id = Id,
                 Name = Name,
                 Desc = Desc,
-                School = School,
+                School = School.ToDbModel(),
                 SelfChanging = SelfChanging.Select(x => x.ToDbModel()).ToList(),
                 TargetChanging = TargetChanging.Select(x => x.ToDbModel()).ToList(),
             };

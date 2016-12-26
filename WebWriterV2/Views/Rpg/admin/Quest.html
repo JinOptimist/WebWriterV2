@@ -25,7 +25,16 @@
         </p>
     </form>
 
-    <div>
+    <div ng-show="quest">
+        <div ng-show="notAvailableEvents && notAvailableEvents.length > 0" style="color: red;">
+            <h3>Главы в которые невозможно попасть!</h3>
+            <p ng-repeat="event in notAvailableEvents">
+                <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}/event/{{event.Id}}" ng-click="selectEvent(event.Id)">
+                    {{event.Name}}
+                </a>
+            </p>
+        </div>
+
         <h3>Всего {{quest.AllEvents.length}} Глав:</h3>
         <p ng-repeat="event in quest.AllEvents">
             <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}/event/{{event.Id}}" ng-click="selectEvent(event.Id)">
@@ -44,7 +53,6 @@
                 {{event.Name}}
             </a>
         </p>
-
     </div>
 
     <!--<ng-quest-info quest="quest"></ng-quest-info>-->

@@ -38,7 +38,9 @@ namespace Dao
             //.WillCascadeOnDelete(true);
             modelBuilder.Entity<Skill>().HasMany(u => u.SelfChanging).WithOptional();
             modelBuilder.Entity<Skill>().HasMany(u => u.TargetChanging).WithOptional().WillCascadeOnDelete(true);
-            modelBuilder.Entity<Skill>().HasOptional(u => u.School).WithMany();
+            modelBuilder.Entity<Skill>().HasOptional(u => u.School).WithMany(x => x.Skills);
+
+            modelBuilder.Entity<SkillSchool>().HasMany(u => u.Skills).WithOptional(x => x.School);
 
             modelBuilder.Entity<TrainingRoom>().HasOptional(u => u.School).WithMany();
 

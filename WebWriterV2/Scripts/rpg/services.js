@@ -166,6 +166,21 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             });
         }
 
+        function getNotAvailableEvents(questId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'GET',
+                    url: '/Rpg/GetNotAvailableEvents?questId=' + questId,
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        } 
+
         function save(event, questId) {
             return $q(function (resolve, reject) {
                 $http({
@@ -371,13 +386,31 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             removeCharacteristic: removeCharacteristic,
             addState: addState,
             removeState: removeState,
-            getEndingEvents: getEndingEvents
+            getEndingEvents: getEndingEvents,
+            getNotAvailableEvents: getNotAvailableEvents
         };
     }])
     .service('heroService', ['$http', '$q', function ($http, $q) {
         var listHeroes = null;
         var selectedHero = null;
         var defaultHero = {};
+        function addSkill(heroId, skillId) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: '/Rpg/AddSkillToHero',
+                data: {
+                    heroId: heroId,
+                    skillId: skillId
+                },
+                headers: { 'Accept': 'application/json' }
+            })
+                .success(function (response) {
+                    var hero = angular.fromJson(response);
+                    deferred.resolve(hero);
+                });
+            return deferred.promise;
+        }
         return {
             load: function(heroId) {
                 var deferred = $q.defer();
@@ -489,7 +522,8 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                     deferred.resolve(defaultHero);
                 });
                 return deferred.promise;
-            }
+            },
+            addSkill: addSkill
         };
     }])
     .service('raceService', ['$http', '$q', '_', function ($http, $q, _) {
@@ -645,20 +679,24 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         };
     }])
     .service('traningRoomService', ['$http', '$q', '_', function ($http, $q, _) {
-        var currentRoom = null;
-        var currentHero = null;
+        function getTraningRoom(roomId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'GET',
+                    url: '/Rpg/GetTraningRoom?traningRoomId=' + roomId,
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    var event = angular.fromJson(response);
+                    resolve(event);
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
 
         return {
-            getRoom: function () {
-                return currentRoom;
-            },
-            getHero: function () {
-                return currentHero;
-            },
-            chooseRoom: function (selectedRoom, hero) {
-                currentRoom = selectedRoom;
-                currentHero = hero;
-            }
+            load: getTraningRoom
         };
     }])
     .service('skillService', ['$http', '$q', '_', function ($http, $q, _) {

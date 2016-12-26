@@ -1,13 +1,16 @@
-﻿<div ng-class="waiting ? 'wait' : ''">
+﻿<div>
     <h1>Комната {{room.Name}}</h1>
 
-    <p ng-repeat="skill in room.Skills">
+    <p ng-repeat="skill in availableSkills()">
         {{skill.Name}}
         <input type="button" value="Выбрать" ng-click="selectSkill(skill)"/>
     </p>
     <div>
         <p>Герой: {{hero.Name}}</p>
         <p>Его умения: <span ng-repeat="skill in hero.Skills">{{skill.Name}} | </span></p>
-        <p>Новое умение: {{currentSkill.Name}} <input type="button" value="Изучить" ng-click="addSkill()"/></p>
+        <p>
+            Новое умение: {{currentSkill.Name}}
+            <input type="button" value="Изучить" ng-click="addSkill()" ng-disabled="waiting || !currentSkill"/>
+        </p>
     </div>
 </div>

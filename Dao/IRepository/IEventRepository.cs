@@ -19,6 +19,8 @@ namespace Dao.IRepository
 
         List<Event> GetEndingEvents(long questId);
 
+        List<Event> GetNotAvailableEvents(long questId);
+
         bool HasChild(long eventId);
     }
 }

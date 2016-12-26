@@ -11,18 +11,18 @@ namespace WebWriterV2.FrontModels
         {
         }
 
-        public FrontTrainingRoom(TrainingRoom room, IEnumerable<Skill> skills)
+        public FrontTrainingRoom(TrainingRoom room)
         {
             Id = room.Id;
             Name = room.Name;
-            School = room.School;
-            Skills = skills.Select(skill => new FrontSkill(skill)).ToList();
+            Price = room.Price;
+            School = new FrontSkillSchool(room.School);
+            //Skills = room.School.Skills.Select(skill => new FrontSkill(skill)).ToList();
         }
 
         public string Name { get; set; }
-
-        public SkillSchool School { get; set; }
-
+        public long Price { get; set; }        
+        public FrontSkillSchool School { get; set; }
         public List<FrontSkill> Skills { get; set; }
 
         public override TrainingRoom ToDbModel()

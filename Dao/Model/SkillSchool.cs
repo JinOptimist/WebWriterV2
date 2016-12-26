@@ -13,5 +13,7 @@ namespace Dao.Model
         public virtual string Name { get; set; }
 
         public virtual string Desc { get; set; }
+
+        public virtual List<Skill> Skills { get; set; }
     }
 }

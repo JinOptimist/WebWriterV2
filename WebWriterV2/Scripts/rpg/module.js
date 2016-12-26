@@ -55,7 +55,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                     templateUrl: '/views/rpg/Travel.html',
                     controller: 'travelController'
                 })
-                .when('/AngularRoute/traningRoom', {
+                .when('/AngularRoute/traningRoom/:roomId/hero/:heroId', {
                     templateUrl: '/views/rpg/TraningRoom.html',
                     controller: 'traningRoomController'
                 })
@@ -295,6 +295,7 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             $scope.quests = [];
             $scope.wait = true;
             $scope.endingEvents = [];
+            $scope.notAvailableEvents = null;
             init();
 
             $scope.addQuest = function() {
@@ -368,11 +369,18 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                 });
             }
 
+            function loadNotAvailableEvents(questId) {
+                eventService.getNotAvailableEvents(questId).then(function (result) {
+                    $scope.notAvailableEvents = result;
+                });
+            }
+
             function init() {
                 var questId = $routeParams.questId;
                 if (questId) {
                     loadQuest(questId);
                     loadEndingEvents(questId);
+                    loadNotAvailableEvents(questId);
                 }
                 loadQuests();
             }
@@ -916,13 +924,15 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             }
 
             $scope.goToTrain = function(room) {
-                if (!$scope.currentHero) {
+                if (!$scope.currentHero || $scope.currentHero.Id < 1) {
                     alert("Hero doesn't chosen");
                     return;
                 }
 
-                traningRoomService.chooseRoom(room, $scope.currentHero);
-                $location.path('/AngularRoute/traningRoom');
+                //traningRoomService.chooseRoom(room, $scope.currentHero);
+                var url = '/AngularRoute/traningRoom/' + room.Id + '/hero/' + $scope.currentHero.Id;
+                $location.path(url);
+                window.location.href = url;
             }
         }
     ])
@@ -1018,37 +1028,61 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
         }
     ])
     .controller('traningRoomController', [
-        '$scope', '$http', 'traningRoomService',
-        function($scope, $http, traningRoomService) {
-            $scope.room = traningRoomService.getRoom();
-            $scope.hero = traningRoomService.getHero();
+        '$scope', '$http', '$routeParams', 'traningRoomService', 'heroService',
+        function($scope, $http, $routeParams, traningRoomService, heroService) {
+            $scope.room = {};//traningRoomService.getRoom();
+            $scope.hero = {}; //traningRoomService.getHero();
+            $scope.currentSkill = null;
             $scope.waiting = false;
 
-            $scope.currentSkill = {};
+            init();
+
             $scope.selectSkill = function(skill) {
                 $scope.currentSkill = skill;
             }
 
-            $scope.addSkill = function() {
+            $scope.availableSkills = function () {
+                
+                if (!$scope.room
+                    || !$scope.hero
+                    || !$scope.room.School
+                    || !$scope.room.School.Skills
+                    || !$scope.hero.Skills) {
+                    return [];
+                }
+
+                var roomSkills = $scope.room.School.Skills;
+                var heroSkills = $scope.hero.Skills;
+
+                return roomSkills.filter(function (roomSkill) {
+                    return heroSkills.every(function (heroSkill) {
+                        return roomSkill.Id != heroSkill.Id;
+                    });
+                });
+            }
+
+            $scope.addSkill = function () {
                 $scope.waiting = true;
-                var url = '/Rpg/AddSkillToHero?heroId=' + $scope.hero.Id + '&skillId=' + $scope.currentSkill.Id;
-                $http({
-                        method: 'GET',
-                        url: url,
-                        headers: { 'Accept': 'application/json' }
-                    })
-                    .then(function(response) {
-                        if (response == "+") {
-                            $scope.hero.Skills.push($scope.currentSkill);
-                        } else {
-                            alert(response);
-                        }
+                heroService.addSkill($scope.hero.Id, $scope.currentSkill.Id).then(
+                    function (response) {
+                        $scope.hero = response;
+                        $scope.currentSkill = null;
                         $scope.waiting = false;
                     },
                     function () {
                         alert("Training was failed. Try again");
                         $scope.waiting = false;
                     });
+            }
+
+            function init() {
+                traningRoomService.load($routeParams.roomId).then(function (data) {
+                    $scope.room = data;
+                });
+
+                heroService.load($routeParams.heroId).then(function (data) {
+                    $scope.hero = data;
+                });
             }
         }
     ])

@@ -9,12 +9,12 @@ namespace Dao.Repository
 {
     public class EventRepository : BaseRepository<Event>, IEventRepository
     {
-        //private readonly EventLinkItemRepository _eventLinkItemRepository;
+        private readonly Lazy<EventLinkItemRepository> _eventLinkItemRepository;
 
         public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
         public EventRepository(WriterContext db) : base(db)
         {
-
+            _eventLinkItemRepository = new Lazy<EventLinkItemRepository>(() => new EventLinkItemRepository(db));
         }
 
         public override Event Save(Event model)
@@ -41,9 +41,13 @@ namespace Dao.Repository
             if (currentEvent == null)
                 return;
 
-            if (HasChild(currentEvent.Id))
+            if (currentEvent.LinksFromThisEvent?.Any() ?? false)
             {
-                throw new Exception(RemoveExceptionMessage);
+                _eventLinkItemRepository.Value.Remove(currentEvent.LinksFromThisEvent);
+            }
+            if (currentEvent.LinksToThisEvent?.Any() ?? false)
+            {
+                _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisEvent);
             }
 
             base.Remove(currentEvent);
@@ -58,13 +62,17 @@ namespace Dao.Repository
         {
             if (currentEvent == null)
                 return;
-            currentEvent.LinksFromThisEvent = currentEvent.LinksFromThisEvent ?? new List<EventLinkItem>();
-
-            if (currentEvent.LinksFromThisEvent.Any())
+            
+            if (currentEvent.LinksFromThisEvent?.Any() ?? false)
             {
                 var forDelete = currentEvent.LinksFromThisEvent.Select(x => x.From).ToList();
-                
+                _eventLinkItemRepository.Value.Remove(currentEvent.LinksFromThisEvent);
                 forDelete.ForEach(RemoveEventAndChildren);
+            }
+
+            if (currentEvent.LinksToThisEvent.Any())
+            {
+                _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisEvent);
             }
 
             var isDetached = Db.Entry(currentEvent).State == EntityState.Detached;
@@ -148,6 +156,12 @@ namespace Dao.Repository
         public bool HasChild(long eventId)
         {
             return Entity.Any(x => x.Id == eventId && x.LinksFromThisEvent.Any());
+        }
+
+        public List<Event> GetNotAvailableEvents(long questId)
+        {
+            return Entity.Where(x => x.Quest != null && x.Quest.Id == questId
+                                     && x.LinksToThisEvent.Count == 0 && x.ForRootQuest == null).ToList();
         }
     }
 }
