@@ -252,7 +252,8 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             }
 
             function reloadGraph() {
-                EventGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 600);
+                var count = $scope.quest.AllEvents.length;
+                EventGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 200 * count / 3);
             }
 
             function loadQuest(questId) {

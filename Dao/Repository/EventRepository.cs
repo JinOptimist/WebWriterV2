@@ -63,6 +63,7 @@ namespace Dao.Repository
             if (currentEvent.LinksFromThisEvent.Any())
             {
                 var forDelete = currentEvent.LinksFromThisEvent.Select(x => x.From).ToList();
+                
                 forDelete.ForEach(RemoveEventAndChildren);
             }
 

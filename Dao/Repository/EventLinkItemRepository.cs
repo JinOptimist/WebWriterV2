@@ -10,7 +10,7 @@ namespace Dao.Repository
 
         public EventLinkItemRepository(WriterContext db) : base(db)
         {
-            _eventRepository= new EventRepository(db);
+            _eventRepository = new EventRepository(db);
         }
 
         public override EventLinkItem Save(EventLinkItem model)

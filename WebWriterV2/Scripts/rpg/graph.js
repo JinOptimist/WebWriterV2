@@ -7,6 +7,7 @@ var EventGraph = (function () {
 
         var graph = new Graph();
         var event, i;
+        // Создаём вершины графа
         for (i = 0; i < events.length; i++) {
             event = events[i];
             graph.addNode(event.Id, {
@@ -14,14 +15,15 @@ var EventGraph = (function () {
             });
         }
 
+        // Создаём грани графа
         for (i = 0; i < events.length; i++) {
             event = events[i];
-            if (event.ChildrenEvents == null)
+            if (event.LinksFromThisEvent == null)
                 continue;
-            for (var j = 0; j < event.ChildrenEvents.length; j++) {
-                var child = event.ChildrenEvents[j];
+            for (var j = 0; j < event.LinksFromThisEvent.length; j++) {
+                var linkFromThisEvent = event.LinksFromThisEvent[j];
                 var color = event.ProgressChanging > 0 ? "green" : "red";
-                graph.addEdge(event.Id, child.Id, {
+                graph.addEdge(linkFromThisEvent.FromId, linkFromThisEvent.ToId, {
                     fill: color,
                     stroke: color,
                     label: 'Effective: ' + event.ProgressChanging,

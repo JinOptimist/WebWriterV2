@@ -27,62 +27,56 @@ namespace WebWriterV2.RpgUtility
             {
                 case Race.Человек:
                     {
-                        AddNumberToState(hero, maxHp, 5);
-                        AddNumberToState(hero, maxMp, 5);
-                        AddNumberToState(hero, dodge, 5);
-                        //ChangeOneState(hero, gold, 10);
-                        AddNumberToState(hero, armor, 1);
-                        AddNumberToState(hero, damage, 5);
+                        hero.AddNumberToState(maxHp, 5);
+                        hero.AddNumberToState(maxMp, 5);
+                        hero.AddNumberToState(dodge, 5);
+                        hero.AddNumberToState(armor, 1);
+                        hero.AddNumberToState(damage, 5);
                         break;
                     }
                 case Race.Эльф:
                     {
-                        AddNumberToState(hero, maxHp, 2);
-                        AddNumberToState(hero, maxMp, 10);
-                        AddNumberToState(hero, dodge, 15);
-                        //ChangeOneState(hero, gold, 10);
-                        AddNumberToState(hero, armor, 1);
-                        AddNumberToState(hero, damage, 5);
+                        hero.AddNumberToState(maxHp, 2);
+                        hero.AddNumberToState(maxMp, 10);
+                        hero.AddNumberToState(dodge, 15);
+                        hero.AddNumberToState(armor, 1);
+                        hero.AddNumberToState(damage, 5);
                         break;
                     }
                 case Race.Орк:
                     {
-                        AddNumberToState(hero, maxHp, 20);
-                        AddNumberToState(hero, maxMp, -5);
-                        AddNumberToState(hero, dodge, -5);
-                        //ChangeOneState(hero, gold, 0);
-                        AddNumberToState(hero, armor, 1);
-                        AddNumberToState(hero, damage, 5);
+                        hero.AddNumberToState(maxHp, 20);
+                        hero.AddNumberToState(maxMp, -5);
+                        hero.AddNumberToState(dodge, -5);
+                        hero.AddNumberToState(armor, 1);
+                        hero.AddNumberToState(damage, 5);
                         break;
                     }
                 case Race.Гном:
                     {
-                        AddNumberToState(hero, maxHp, 10);
-                        AddNumberToState(hero, maxMp, -5);
-                        AddNumberToState(hero, dodge, -5);
-                        //ChangeOneState(hero, gold, 50);
-                        AddNumberToState(hero, armor, 1);
-                        AddNumberToState(hero, damage, 5);
+                        hero.AddNumberToState(maxHp, 10);
+                        hero.AddNumberToState(maxMp, -5);
+                        hero.AddNumberToState(dodge, -5);
+                        hero.AddNumberToState(armor, 1);
+                        hero.AddNumberToState(damage, 5);
                         break;
                     }
                 case Race.Дракон:
                     {
-                        AddNumberToState(hero, maxHp, 20);
-                        AddNumberToState(hero, maxMp, 2);
-                        AddNumberToState(hero, dodge, 0);
-                        //ChangeOneState(hero, gold, 100);
-                        AddNumberToState(hero, armor, 1);
-                        AddNumberToState(hero, damage, 5);
+                        hero.AddNumberToState(maxHp, 20);
+                        hero.AddNumberToState(maxMp, 2);
+                        hero.AddNumberToState(dodge, 0);
+                        hero.AddNumberToState(armor, 1);
+                        hero.AddNumberToState(damage, 5);
                         break;
                     }
                 default:
                     {
-                        AddNumberToState(hero, maxHp, 5);
-                        AddNumberToState(hero, maxMp, 5);
-                        AddNumberToState(hero, dodge, 5);
-                        //ChangeOneState(hero, gold, 5);
-                        AddNumberToState(hero, armor, 1);
-                        AddNumberToState(hero, damage, 5);
+                        hero.AddNumberToState(maxHp, 5);
+                        hero.AddNumberToState(maxMp, 5);
+                        hero.AddNumberToState(dodge, 5);
+                        hero.AddNumberToState(armor, 1);
+                        hero.AddNumberToState(damage, 5);
                         break;
                     }
             }
@@ -92,32 +86,29 @@ namespace WebWriterV2.RpgUtility
             {
                 case Sex.Жен:
                     {
-                        AddNumberToState(hero, maxHp, 5);
-                        AddNumberToState(hero, maxMp, 10);
-                        AddNumberToState(hero, dodge, 10);
-                        //ChangeOneState(hero, gold, 10);
-                        AddNumberToState(hero, armor, 1);
-                        AddNumberToState(hero, damage, 5);
+                        hero.AddNumberToState(maxHp, 5);
+                        hero.AddNumberToState(maxMp, 10);
+                        hero.AddNumberToState(dodge, 10);
+                        hero.AddNumberToState(armor, 1);
+                        hero.AddNumberToState(damage, 5);
                         break;
                     }
                 case Sex.Муж:
                     {
-                        AddNumberToState(hero, maxHp, 10);
-                        AddNumberToState(hero, maxMp, 5);
-                        AddNumberToState(hero, dodge, 5);
-                        //ChangeOneState(hero, gold, 5);
-                        AddNumberToState(hero, armor, 1);
-                        AddNumberToState(hero, damage, 5);
+                        hero.AddNumberToState(maxHp, 10);
+                        hero.AddNumberToState(maxMp, 5);
+                        hero.AddNumberToState(dodge, 5);
+                        hero.AddNumberToState(armor, 1);
+                        hero.AddNumberToState(damage, 5);
                         break;
                     }
                 case Sex.Скрывает:
                     {
-                        AddNumberToState(hero, maxHp, 7);
-                        AddNumberToState(hero, maxMp, 7);
-                        AddNumberToState(hero, dodge, 15);
-                        //ChangeOneState(hero, gold, 20);
-                        AddNumberToState(hero, armor, 1);
-                        AddNumberToState(hero, damage, 5);
+                        hero.AddNumberToState(maxHp, 7);
+                        hero.AddNumberToState(maxMp, 7);
+                        hero.AddNumberToState(dodge, 15);
+                        hero.AddNumberToState(armor, 1);
+                        hero.AddNumberToState(damage, 5);
                         break;
                     }
                 default:
@@ -127,7 +118,7 @@ namespace WebWriterV2.RpgUtility
             foreach (var characteristic in hero.Characteristics)
             {
                 characteristic.CharacteristicType.EffectState.ForEach(state =>
-                    AddNumberToState(hero, state.StateType, state.Number * characteristic.Number));
+                    hero.AddNumberToState(state.StateType, state.Number * characteristic.Number));
             }
 
             var maxHpNumber = hero.State.First(x => x.StateType == maxHp).Number;

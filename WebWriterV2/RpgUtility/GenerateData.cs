@@ -141,7 +141,7 @@ namespace WebWriterV2.RpgUtility
             thingSamples.Add(new ThingSample
             {
                 Name = Gold,
-                Desc = "Золото, оно и в африке золото",
+                Desc = "Что может быть лучше кошелька с золотыми? Мешок с золотыми!",
             });
 
             thingSamples.Add(new ThingSample
@@ -593,12 +593,6 @@ namespace WebWriterV2.RpgUtility
 
             stateTypes.Add(new StateType
             {
-                Name = Gold,
-                Desc = "Что может быть лучше кошелька с золотыми? Мешок с золотыми!",
-            });
-
-            stateTypes.Add(new StateType
-            {
                 Name = Dodge,
                 Desc = "Борис хрен попадёшь, на всегда останеться недостижимым идеалом",
             });
@@ -623,7 +617,6 @@ namespace WebWriterV2.RpgUtility
             var maxHp = stateTypes.First(x => x.Name == MaxHp);
             var hp = stateTypes.First(x => x.Name == Hp);
             var dodge = stateTypes.First(x => x.Name == Dodge);
-            //var gold = stateTypes.First(x => x.Name == Gold);
             var damage = stateTypes.First(x => x.Name == Damage);
             var armor = stateTypes.First(x => x.Name == Armor);
             var characteristicType = new List<CharacteristicType>();
