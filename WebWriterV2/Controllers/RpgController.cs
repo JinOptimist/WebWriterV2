@@ -201,8 +201,12 @@ namespace WebWriterV2.Controllers
         {
             var hero = HeroRepository.Get(heroId);
             var skill = SkillRepository.Get(skillId);
+            var guild = GuildRepository.Get(hero.Guild.Id);
             hero.Skills.Add(skill);
             HeroRepository.Save(hero);
+
+            guild.Gold -= skill.Price;
+            GuildRepository.Save(guild);
 
             return new JsonResult
             {
@@ -231,6 +235,27 @@ namespace WebWriterV2.Controllers
             var skills = SkillRepository.GetBySchool(skillSchool);
 
             var hero = GenerateData.GetDefaultHero(stateTypes, characteristicTypes, skills);
+            var frontHero = new FrontHero(hero);
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(frontHero),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RestoreHero(long heroId)
+        {
+            var hero = HeroRepository.Get(heroId);
+
+            var hp = hero.State.First(x => x.StateType.Name == GenerateData.Hp);
+            var maxHp = hero.State.First(x => x.StateType.Name == GenerateData.MaxHp);
+            var mp = hero.State.First(x => x.StateType.Name == GenerateData.Mp);
+            var maxMp = hero.State.First(x => x.StateType.Name == GenerateData.MaxMp);
+            hp.Number = maxHp.Number;
+            mp.Number = maxMp.Number;
+
+            HeroRepository.Save(hero);
+
             var frontHero = new FrontHero(hero);
             return new JsonResult
             {
@@ -330,6 +355,21 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult ChangeState(long stateId, long delta)
+        {
+            var state = StateRepository.Get(stateId);
+            state.Number += delta;
+            var fake = state.StateType;
+            StateRepository.Save(state);
+
+            var frontHero = new FrontState(state);
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(frontHero),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+        
         /* ************** TraningRoom ************** */
         public JsonResult GetTraningRoom(long traningRoomId)
         {
@@ -343,8 +383,7 @@ namespace WebWriterV2.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-
-
+        
         /* ************** Characteristic ************** */
         public JsonResult GetCharacteristicTypes()
         {

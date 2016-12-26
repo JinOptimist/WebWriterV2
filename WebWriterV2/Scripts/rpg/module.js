@@ -893,13 +893,10 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             $scope.quests = [];
 
             init();
-            function init() {
-                guildService.getGuildPromise.then(function (guild) {
-                    $scope.guild = guild;
-                });
-
-                questService.getQuests().then(function (result) {
-                    $scope.quests = result;
+            
+            $scope.restoreHero = function (hero) {
+                heroService.restoreHero(hero.Id).then(function (data) {
+                    hero = data;
                 });
             }
 
@@ -934,18 +931,28 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                 $location.path(url);
                 window.location.href = url;
             }
+
+            function init() {
+                guildService.getGuildPromise.then(function (guild) {
+                    $scope.guild = guild;
+                });
+
+                questService.getQuests().then(function (result) {
+                    $scope.quests = result;
+                });
+            }
         }
     ])
     .controller('travelController', [
-        '$scope', '$http', '$location','$routeParams', 'questService', 'eventService', 'guildService', 'heroService',
-        function($scope, $http, $location, $routeParams, questService, eventService, guildService, heroService) {
+        '$scope', '$http', '$location','$routeParams', 'questService', 'eventService', 'guildService', 'heroService', 'stateService',
+        function ($scope, $http, $location, $routeParams, questService, eventService, guildService, heroService, stateService) {
             $scope.quest = {};
             $scope.hero = {};
             $scope.ways = [];
 
             init();
 
-            $scope.chooseEvent = function(eventId) {
+            $scope.chooseEvent = function (eventId) {
                 eventService.getEventForTravel(eventId, $scope.hero.Id).then(function(result) {
                     $scope.ways = result.LinksFromThisEvent;
                     $scope.quest.Effective += result.ProgressChanging;
@@ -955,12 +962,11 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
                         var hero = $scope.hero;
                         result.HeroStatesChanging.forEach(function (stateChanging) {
                             var stateTypeId = stateChanging.StateType.Id;
-                            var number = stateChanging.Number;
                             var heroStat = getState(hero, stateTypeId);
-                            if (heroStat) {
-                                heroStat.Number += number;
-                                setState(hero, stateTypeId, heroStat.Number);
-                            }
+
+                            stateService.changeState(heroStat.Id, stateChanging.Number).then(function (savedState) {
+                                setState(hero, savedState.StateType.Id, savedState.Number);
+                            });
                         });
                     }
                 });
@@ -1042,7 +1048,6 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             }
 
             $scope.availableSkills = function () {
-                
                 if (!$scope.room
                     || !$scope.hero
                     || !$scope.room.School

@@ -1,8 +1,7 @@
 ﻿<div>
     <h1>Комната {{room.Name}}</h1>
-
     <p ng-repeat="skill in availableSkills()">
-        {{skill.Name}}
+        {{skill.Name}} ({{skill.Price}})
         <input type="button" value="Выбрать" ng-click="selectSkill(skill)"/>
     </p>
     <div>

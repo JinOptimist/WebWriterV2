@@ -15,6 +15,7 @@ namespace WebWriterV2.FrontModels
             Id = skill.Id;
             Name = skill.Name.Replace(' ', '\u00a0');// u00a0 == &nbsp;
             Desc = skill.Desc;
+            Price = skill.Price;
             School = new FrontSkillSchool(skill.School, true);
 
             SelfChanging = new List<FrontState>();
@@ -38,6 +39,7 @@ namespace WebWriterV2.FrontModels
 
         public string Name { get; set; }
         public string Desc { get; set; }
+        public int Price { get; set; }
         public List<FrontState> SelfChanging { get; set; }
         public List<FrontState> TargetChanging { get; set; }
         public FrontSkillSchool School { get; set; }

@@ -150,6 +150,10 @@
     <Compile Include="Migrations\201612252005298_InventoryV2.Designer.cs">
       <DependentUpon>201612252005298_InventoryV2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612261252312_AddPriceForSkill.cs" />
+    <Compile Include="Migrations\201612261252312_AddPriceForSkill.Designer.cs">
+      <DependentUpon>201612261252312_AddPriceForSkill.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\CharacteristicType.cs" />
@@ -246,6 +250,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612252005298_InventoryV2.resx">
       <DependentUpon>201612252005298_InventoryV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612261252312_AddPriceForSkill.resx">
+      <DependentUpon>201612261252312_AddPriceForSkill.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

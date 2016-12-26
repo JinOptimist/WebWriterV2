@@ -10,7 +10,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
     )
     .run(['$http', 'sexService', 'raceService', 'heroService', function ($http, sexService, raceService, heroService) {
         $http({
-            method: 'GET',
+            method: 'POST',
             url: '/Rpg/GetDefaultHero',
             headers: { 'Accept': 'application/json' }
         }).success(function (rawHero) {
@@ -46,7 +46,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             }
 
             $http({
-                method: 'GET',
+                method: 'POST',
                 url: '/Rpg/GetQuest?id=' + questId,
                 headers: { 'Accept': 'application/json' }
             })
@@ -61,7 +61,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             var deferred = $q.defer();
 
             $http({
-                method: 'GET',
+                method: 'POST',
                 url: '/Rpg/GetQuests',
                 headers: { 'Accept': 'application/json' }
             })
@@ -76,7 +76,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             var deferred = $q.defer();
 
             $http({
-                method: 'GET',
+                method: 'POST',
                 url: '/Rpg/RemoveQuest?id=' + questId,
                 headers: { 'Accept': 'application/json' }
             })
@@ -123,7 +123,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         function getEvent(currentEventId) {
             return $q(function (resolve, reject) {
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetEvent?id=' + currentEventId,
                     headers: { 'Accept': 'application/json' }
                 }).success(function (response) {
@@ -139,7 +139,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         function getEvents(questId) {
             return $q(function (resolve, reject) {
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetEvents?questId=' + questId,
                     headers: { 'Accept': 'application/json' }
                 }).success(function (response) {
@@ -154,7 +154,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         function getEndingEvents(questId) {
             return $q(function (resolve, reject) {
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetEndingEvents?questId=' + questId,
                     headers: { 'Accept': 'application/json' }
                 }).success(function (response) {
@@ -169,7 +169,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         function getNotAvailableEvents(questId) {
             return $q(function (resolve, reject) {
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetNotAvailableEvents?questId=' + questId,
                     headers: { 'Accept': 'application/json' }
                 }).success(function (response) {
@@ -394,6 +394,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         var listHeroes = null;
         var selectedHero = null;
         var defaultHero = {};
+
         function addSkill(heroId, skillId) {
             var deferred = $q.defer();
             $http({
@@ -411,6 +412,24 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 });
             return deferred.promise;
         }
+
+        function restoreHero(heroId, skillId) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: '/Rpg/RestoreHero',
+                data: {
+                    heroId: heroId
+                },
+                headers: { 'Accept': 'application/json' }
+            })
+                .success(function (response) {
+                    var hero = angular.fromJson(response);
+                    deferred.resolve(hero);
+                });
+            return deferred.promise;
+        }
+
         return {
             load: function(heroId) {
                 var deferred = $q.defer();
@@ -437,7 +456,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 }
 
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetHeroes',
                     headers: { 'Accept': 'application/json' }
                 })
@@ -451,7 +470,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 var deferred = $q.defer();
 
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/RemoveHero?id=' + hero.Id,
                     headers: { 'Accept': 'application/json' }
                 })
@@ -493,7 +512,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 var deferred = $q.defer();
 
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetEnemy',
                     headers: { 'Accept': 'application/json' }
                 })
@@ -513,7 +532,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 var deferred = $q.defer();
 
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetDefaultHero',
                     headers: { 'Accept': 'application/json' }
                 }).success(function (rawHero) {
@@ -523,7 +542,8 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 });
                 return deferred.promise;
             },
-            addSkill: addSkill
+            addSkill: addSkill,
+            restoreHero: restoreHero
         };
     }])
     .service('raceService', ['$http', '$q', '_', function ($http, $q, _) {
@@ -561,7 +581,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 }
 
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetListRace',
                     headers: { 'Accept': 'application/json' }
                 })
@@ -618,7 +638,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 }
 
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetListSex',
                     headers: { 'Accept': 'application/json' }
                 })
@@ -647,16 +667,10 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         };
     }])
     .service('guildService', ['$http', '$q', '_', function ($http, $q, _) {
-        var currentGuild = null;
-
+        var currentGuild;
         var guildPromise = $q(function (resolve, reject) {
-            if (currentGuild) {
-                resolve(currentGuild);
-                return;
-            }
-
             $http({
-                method: 'GET',
+                method: 'POST',
                 url: '/Rpg/GetGuildInfo',
                 headers: { 'Accept': 'application/json' }
             }).success(function (response) {
@@ -682,7 +696,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
         function getTraningRoom(roomId) {
             return $q(function (resolve, reject) {
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetTraningRoom?traningRoomId=' + roomId,
                     headers: { 'Accept': 'application/json' }
                 }).success(function (response) {
@@ -710,7 +724,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             loadSkillEffect: function (skillId) {
                 return $q(function (resolve, reject) {
                     $http({
-                        method: 'GET',
+                        method: 'POST',
                         url: '/Rpg/GetSkillEffect?skillId=' + skillId,
                         headers: { 'Accept': 'application/json' }
                     }).success(function (response) {
@@ -738,7 +752,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 var deferred = $q.defer();
 
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetSkills',
                     headers: { 'Accept': 'application/json' }
                 })
@@ -752,7 +766,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 var deferred = $q.defer();
 
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetSkillsSchool',
                     headers: { 'Accept': 'application/json' }
                 })
@@ -796,12 +810,31 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
     }])
     .service('stateService', ['$http', '$q', '_', function ($http, $q, _) {
         var states = [];
+
+        function changeState(stateId, delta) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: '/Rpg/ChangeState',
+                data: {
+                    stateId: stateId,
+                    delta: delta
+                },
+                headers: { 'Accept': 'application/json' }
+            })
+                .success(function (response) {
+                    var state = angular.fromJson(response);
+                    deferred.resolve(state);
+                });
+            return deferred.promise;
+        }
+
         return {
             loadAllTypes: function () {
                 var deferred = $q.defer();
 
                 $http({
-                    method: 'GET',
+                    method: 'POST',
                     url: '/Rpg/GetStateTypes',
                     headers: { 'Accept': 'application/json' }
                 })
@@ -813,7 +846,8 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             },
             save: function (state) {
                 return '+';
-            }
+            },
+            changeState: changeState
         };
     }])
     .service('characteristicService', ['$http', '$q', '_', function ($http, $q, _) {
@@ -823,7 +857,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 var deferred = $q.defer();
 
                 $http({
-                        method: 'GET',
+                        method: 'POST',
                         url: '/Rpg/GetCharacteristicTypes',
                         headers: { 'Accept': 'application/json' }
                     })

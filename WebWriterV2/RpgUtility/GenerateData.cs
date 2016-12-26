@@ -452,6 +452,7 @@ namespace WebWriterV2.RpgUtility
                 Name = "Fire ball",
                 Desc = "Fire ball",
                 School = fireSchool,
+                Price = 10,
                 SelfChanging = new List<State> { new State { StateType = mp, Number = -4 } },
                 TargetChanging = new List<State> { new State { StateType = hp, Number = -6 } }
             });
@@ -461,6 +462,7 @@ namespace WebWriterV2.RpgUtility
                 Name = "Pyro blast",
                 Desc = "Pyro blast",
                 School = fireSchool,
+                Price = 30,
                 SelfChanging = new List<State> { new State { StateType = mp, Number = -10 } },
                 TargetChanging = new List<State> { new State { StateType = hp, Number = -10 } },
             });
@@ -471,6 +473,7 @@ namespace WebWriterV2.RpgUtility
                 Name = "Ice spear",
                 Desc = "Ice spear",
                 School = coldSchool,
+                Price = 10,
                 SelfChanging = new List<State> { new State { StateType = mp, Number = -2 } },
                 TargetChanging = new List<State> { new State { StateType = hp, Number = -3 } },
             });
@@ -480,6 +483,7 @@ namespace WebWriterV2.RpgUtility
                 Name = "Ice armor",
                 Desc = "Ice armor",
                 School = coldSchool,
+                Price = 5,
                 SelfChanging = new List<State>
                 {
                     new State { StateType = mp, Number = -4 },
@@ -493,6 +497,7 @@ namespace WebWriterV2.RpgUtility
                 Name = "69",
                 Desc = "No question, please. It's working and that all what you need to know",
                 School = niceSchool,
+                Price = 12,
             });
 
             /* ************ Base ************ */
@@ -501,6 +506,7 @@ namespace WebWriterV2.RpgUtility
                 Name = "Удар рукой",
                 Desc = "Что может быть проще?",
                 School = baseSchool,
+                Price = 3,
                 TargetChanging = new List<State> { new State { StateType = hp, Number = -2 } },
             });
 
@@ -509,6 +515,7 @@ namespace WebWriterV2.RpgUtility
                 Name = "Блок щитом",
                 Desc = "Кто хочет жить, использует щит",
                 School = baseSchool,
+                Price = 3,
                 SelfChanging = new List<State> { new State { StateType = hp, Number = 2 } },
             });
 
@@ -517,6 +524,7 @@ namespace WebWriterV2.RpgUtility
                 Name = "Уворот",
                 Desc = "Для тех кто хочет умереть красиво",
                 School = baseSchool,
+                Price = 3,
                 SelfChanging = new List<State> { new State { StateType = hp, Number = 1 } },
             });
 
@@ -688,7 +696,9 @@ namespace WebWriterV2.RpgUtility
             return schools;
         }
 
-        public static Hero GetDefaultHero(List<StateType> stateTypes, List<CharacteristicType> characteristicTypes, List<Skill> skills)
+        public static Hero GetDefaultHero(            List<StateType> stateTypes, 
+            List<CharacteristicType> characteristicTypes, 
+            List<Skill> skills)
         {
             var hero = new Hero();
 
