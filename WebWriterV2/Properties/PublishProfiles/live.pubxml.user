@@ -31,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/10/2015 17:47:34</publishTime>
     </File>
     <File Include="bin/Dao.dll">
-      <publishTime>12/27/2016 17:16:02</publishTime>
+      <publishTime>12/27/2016 18:33:03</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/25/2015 09:11:03</publishTime>
@@ -106,7 +106,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 16:40:11</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>12/27/2016 17:26:16</publishTime>
+      <publishTime>12/27/2016 18:33:04</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -1606,10 +1606,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/27/2016 14:07:39</publishTime>
     </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>12/27/2016 17:13:38</publishTime>
+      <publishTime>12/27/2016 18:37:18</publishTime>
     </File>
     <File Include="Scripts/rpg/services.js">
-      <publishTime>12/27/2016 17:01:19</publishTime>
+      <publishTime>12/27/2016 17:32:24</publishTime>
     </File>
     <File Include="Scripts/underscore.js">
       <publishTime>12/27/2016 16:31:19</publishTime>

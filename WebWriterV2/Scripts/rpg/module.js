@@ -868,10 +868,6 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
 
             $scope.saveHero = function() {
                 heroService.saveHero($scope.hero).then(function (savedHero) {
-                    var guild = guildService.getGuild();
-                    guild.Heroes.push(angular.fromJson(savedHero));
-                    guildService.setGuild(guild);
-
                     $location.path('/AngularRoute/guild');
                 });
             }
