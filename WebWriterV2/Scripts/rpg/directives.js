@@ -72,7 +72,8 @@ angular.module('directives', ['services', 'underscore', 'ngSanitize']) //, ['com
                         var mpPercent = Math.round(100 * $scope.Mp() / $scope.MaxMp());
 
                         if ($scope.Hp() < 1) {
-                            alert($scope.hero.Name + ' is dead');
+                            //alert($scope.hero.Name + ' is dead');
+                            console.log($scope.hero.Name + ' is dead');
                         }
 
                         $scope.hero.healthWidth = { 'width': hpPercent + '%' };

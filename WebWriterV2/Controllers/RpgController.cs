@@ -18,6 +18,7 @@ namespace WebWriterV2.Controllers
 {
     public class RpgController : Controller
     {
+        private int _priceOfRestore = 5;
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly WriterContext _context = new WriterContext();
@@ -254,6 +255,11 @@ namespace WebWriterV2.Controllers
             mp.Number = maxMp.Number;
 
             HeroRepository.Save(hero);
+
+            var guildId = int.Parse(Request.Cookies["guildId"]?.Value ?? "0");
+            var guild = GuildRepository.Get(guildId);
+            guild.Gold -= _priceOfRestore;
+            GuildRepository.Save(guild);
 
             var frontHero = new FrontHero(hero);
             return new JsonResult

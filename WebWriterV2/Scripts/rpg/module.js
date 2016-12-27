@@ -919,6 +919,15 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.goToQuest = function(quest) {
                 //questService.setQuest(quest);
                 //questService.setExecutor($scope.currentHero);
+                if (!$scope.currentHero
+                    || $scope.currentHero.Id < 1) {
+                    alert('You forgot to select hero');
+                    return;
+                }
+                if (heroService.getHp($scope.currentHero) < 1) {
+                    alert('You hero is dead. How do you think he can go to quest?');
+                    return;
+                }
                 $location.path('/AngularRoute/travel/quest/' + quest.Id + '/hero/' + $scope.currentHero.Id);
             }
 
@@ -970,6 +979,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
 
                             stateService.changeState(heroStat.Id, stateChanging.Number).then(function (savedState) {
                                 setState(hero, savedState.StateType.Id, savedState.Number);
+
+                                if (heroService.getHp(hero) < 1) {
+                                    alert('Your hero is Dead! Noob!');
+                                    $location.path('/AngularRoute/guild');
+                                }
                             });
                         });
                     }

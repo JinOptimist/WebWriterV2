@@ -391,6 +391,11 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
         };
     }])
     .service('heroService', ['$http', '$q', function ($http, $q) {
+        var maxHpStateName = "MaxHp";
+        var maxMpStateName = "MaxMp";
+        var hpStateName = "Hp";
+        var mpStateName = "Mp";
+
         var listHeroes = null;
         var selectedHero = null;
         var defaultHero = {};
@@ -428,6 +433,19 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                     deferred.resolve(hero);
                 });
             return deferred.promise;
+        }
+
+        function getState(hero, stateName) {
+            if (!hero || !hero.State)
+                return -1;
+            var currentState = _.find(hero.State, function (state) {
+                return state.StateType.Name == stateName;
+            });
+            return currentState.Number;
+        }
+
+        function getHp(hero) {
+            return getState(hero, hpStateName);
         }
 
         return {
@@ -543,7 +561,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                 return deferred.promise;
             },
             addSkill: addSkill,
-            restoreHero: restoreHero
+            restoreHero: restoreHero,
+            getHp: getHp
         };
     }])
     .service('raceService', ['$http', '$q', '_', function ($http, $q, _) {
