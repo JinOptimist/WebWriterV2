@@ -7,13 +7,13 @@ namespace Dao.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class HellTypeStateAndChara : IMigrationMetadata
+    public sealed partial class RpgInitV2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(HellTypeStateAndChara));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RpgInitV2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201609131359294_HellTypeStateAndChara"; }
+            get { return "201612271529401_RpgInitV2"; }
         }
         
         string IMigrationMetadata.Source

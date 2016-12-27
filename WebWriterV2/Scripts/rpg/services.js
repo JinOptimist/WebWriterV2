@@ -707,12 +707,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
         };
 
         return {
-            getGuild: function () {
-                return currentGuild;
-            },
-            setGuild: function (value) {
-                currentGuild = value;
-            },
             loadGuild: guildPromise
         };
     }])
@@ -939,7 +933,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
 
             function response(response) {
                 // do something on success
-                var gamerId = $cookies.get('gamerId');
+                //var gamerId = $cookies.get('guildId');
                 return response;
             }
 

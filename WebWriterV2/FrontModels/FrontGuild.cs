@@ -30,7 +30,7 @@ namespace WebWriterV2.FrontModels
 
         public long Influence { get; set; }
 
-        public Location Location { get; set; }
+        //public Location Location { get; set; }
 
         public List<FrontHero> Heroes { get; set; }
 

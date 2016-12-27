@@ -101,7 +101,10 @@ namespace WebWriterV2.Controllers
         /* ************** Guild ************** */
         public JsonResult GetGuild(long guildId)
         {
-            var guild = GuildRepository.Get(guildId);
+            var guild = GuildRepository.Get(guildId)
+                // TODO Debug only!
+                ?? GuildRepository.GetAll().First();
+
             var frontGuild = new FrontGuild(guild);
             return new JsonResult
             {
@@ -115,7 +118,9 @@ namespace WebWriterV2.Controllers
             var answer = "+";
             try
             {
-                var guild = GuildRepository.Get(guildId);
+                var guild = GuildRepository.Get(guildId)
+                    // TODO Debug only!
+                    ?? GuildRepository.GetAll().First();
                 guild.Gold += gold;
                 GuildRepository.Save(guild);
             }
@@ -256,8 +261,8 @@ namespace WebWriterV2.Controllers
 
             HeroRepository.Save(hero);
 
-            var guildId = int.Parse(Request.Cookies["guildId"]?.Value ?? "0");
-            var guild = GuildRepository.Get(guildId);
+            var guild = DebugGetGuild();
+
             guild.Gold -= _priceOfRestore;
             GuildRepository.Save(guild);
 
@@ -867,6 +872,20 @@ namespace WebWriterV2.Controllers
         {
             _context.Dispose();
             base.Dispose(disposing);
+        }
+
+        private Guild DebugGetGuild()
+        {
+            var guildIdStr = Request.Cookies["guildId"]?.Value ?? "0";
+            var guildId = 0;
+            if (int.TryParse(guildIdStr, out guildId))
+            {
+                guildId = -1;
+            }
+
+            return guildId > 1
+                ? GuildRepository.Get(guildId)
+                : GuildRepository.GetAll().First();
         }
     }
 }

@@ -957,8 +957,8 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
         }
     ])
     .controller('travelController', [
-        '$scope', '$http', '$location','$routeParams', 'questService', 'eventService', 'guildService', 'heroService', 'stateService',
-        function ($scope, $http, $location, $routeParams, questService, eventService, guildService, heroService, stateService) {
+        '$scope', '$http', '$location', '$routeParams', '$cookies', 'questService', 'eventService', 'guildService', 'heroService', 'stateService',
+        function ($scope, $http, $location, $routeParams, $cookies, questService, eventService, guildService, heroService, stateService) {
             $scope.quest = {};
             $scope.hero = {};
             $scope.ways = [];
@@ -992,19 +992,16 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
 
             $scope.endQuest = function() {
                 $scope.waiting = true;
-                var guild = guildService.getGuild();
-                var guildId = guild.Id;
+                var guildId = $cookies.get('guildId');
 
                 var url = '/Rpg/QuestCompleted?guildId=' + guildId + '&gold=' + $scope.quest.Effective;
                 $http({
-                        method: 'GET',
+                        method: 'POST',
                         url: url,
                         headers: { 'Accept': 'application/json' }
                     })
                     .then(function(response) {
                         if (response.data == "+") {
-                            guild.Gold += $scope.quest.Effective;
-                            guildService.setGuild(guild);
                             $location.path('/AngularRoute/guild');
                         } else {
                             alert(response);
@@ -1014,7 +1011,6 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                         alert("Hero want relax. Wait and try again");
                         $scope.waiting = false;
                     });
-
             }
 
             $scope.batle = function() {

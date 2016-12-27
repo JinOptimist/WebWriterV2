@@ -78,81 +78,9 @@
     <Compile Include="IRepository\IHeroRepository.cs" />
     <Compile Include="IRepository\ISkillRepository.cs" />
     <Compile Include="IRepository\IQuestRepository.cs" />
-    <Compile Include="Migrations\201609040925310_RpgInit.cs" />
-    <Compile Include="Migrations\201609040925310_RpgInit.Designer.cs">
-      <DependentUpon>201609040925310_RpgInit.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609040927268_EventManyToMany.cs" />
-    <Compile Include="Migrations\201609040927268_EventManyToMany.Designer.cs">
-      <DependentUpon>201609040927268_EventManyToMany.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609061255483_AddSkills.cs" />
-    <Compile Include="Migrations\201609061255483_AddSkills.Designer.cs">
-      <DependentUpon>201609061255483_AddSkills.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609061342145_SimplestHeroAndSKill.cs" />
-    <Compile Include="Migrations\201609061342145_SimplestHeroAndSKill.Designer.cs">
-      <DependentUpon>201609061342145_SimplestHeroAndSKill.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609061610253_NoDictionaryUseList.cs" />
-    <Compile Include="Migrations\201609061610253_NoDictionaryUseList.Designer.cs">
-      <DependentUpon>201609061610253_NoDictionaryUseList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609061642104_AddStateAndCharacteristic.cs" />
-    <Compile Include="Migrations\201609061642104_AddStateAndCharacteristic.Designer.cs">
-      <DependentUpon>201609061642104_AddStateAndCharacteristic.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609081313356_SkillRefactoring.cs" />
-    <Compile Include="Migrations\201609081313356_SkillRefactoring.Designer.cs">
-      <DependentUpon>201609081313356_SkillRefactoring.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609121229468_AddSeparateSchoolTable.cs" />
-    <Compile Include="Migrations\201609121229468_AddSeparateSchoolTable.Designer.cs">
-      <DependentUpon>201609121229468_AddSeparateSchoolTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609131359294_HellTypeStateAndChara.cs" />
-    <Compile Include="Migrations\201609131359294_HellTypeStateAndChara.Designer.cs">
-      <DependentUpon>201609131359294_HellTypeStateAndChara.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609141549145_UpdateEvent.cs" />
-    <Compile Include="Migrations\201609141549145_UpdateEvent.Designer.cs">
-      <DependentUpon>201609141549145_UpdateEvent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609151446467_Way7ToFixEvent.cs" />
-    <Compile Include="Migrations\201609151446467_Way7ToFixEvent.Designer.cs">
-      <DependentUpon>201609151446467_Way7ToFixEvent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609160727537_MoreUniqueField.cs" />
-    <Compile Include="Migrations\201609160727537_MoreUniqueField.Designer.cs">
-      <DependentUpon>201609160727537_MoreUniqueField.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609160746039_UpdateHeroStat.cs" />
-    <Compile Include="Migrations\201609160746039_UpdateHeroStat.Designer.cs">
-      <DependentUpon>201609160746039_UpdateHeroStat.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201609211322162_EventHasChara.cs" />
-    <Compile Include="Migrations\201609211322162_EventHasChara.Designer.cs">
-      <DependentUpon>201609211322162_EventHasChara.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612141142572_AddLinkFromAndLinkTo.cs" />
-    <Compile Include="Migrations\201612141142572_AddLinkFromAndLinkTo.Designer.cs">
-      <DependentUpon>201612141142572_AddLinkFromAndLinkTo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612250914284_Inventory.cs" />
-    <Compile Include="Migrations\201612250914284_Inventory.Designer.cs">
-      <DependentUpon>201612250914284_Inventory.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612250934425_Stabilize.cs" />
-    <Compile Include="Migrations\201612250934425_Stabilize.Designer.cs">
-      <DependentUpon>201612250934425_Stabilize.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612252005298_InventoryV2.cs" />
-    <Compile Include="Migrations\201612252005298_InventoryV2.Designer.cs">
-      <DependentUpon>201612252005298_InventoryV2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201612261252312_AddPriceForSkill.cs" />
-    <Compile Include="Migrations\201612261252312_AddPriceForSkill.Designer.cs">
-      <DependentUpon>201612261252312_AddPriceForSkill.cs</DependentUpon>
+    <Compile Include="Migrations\201612271529401_RpgInitV2.cs" />
+    <Compile Include="Migrations\201612271529401_RpgInitV2.Designer.cs">
+      <DependentUpon>201612271529401_RpgInitV2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
@@ -197,62 +125,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201609040925310_RpgInit.resx">
-      <DependentUpon>201609040925310_RpgInit.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609040927268_EventManyToMany.resx">
-      <DependentUpon>201609040927268_EventManyToMany.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609061255483_AddSkills.resx">
-      <DependentUpon>201609061255483_AddSkills.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609061342145_SimplestHeroAndSKill.resx">
-      <DependentUpon>201609061342145_SimplestHeroAndSKill.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609061610253_NoDictionaryUseList.resx">
-      <DependentUpon>201609061610253_NoDictionaryUseList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609061642104_AddStateAndCharacteristic.resx">
-      <DependentUpon>201609061642104_AddStateAndCharacteristic.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609081313356_SkillRefactoring.resx">
-      <DependentUpon>201609081313356_SkillRefactoring.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609121229468_AddSeparateSchoolTable.resx">
-      <DependentUpon>201609121229468_AddSeparateSchoolTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609131359294_HellTypeStateAndChara.resx">
-      <DependentUpon>201609131359294_HellTypeStateAndChara.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609141549145_UpdateEvent.resx">
-      <DependentUpon>201609141549145_UpdateEvent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609151446467_Way7ToFixEvent.resx">
-      <DependentUpon>201609151446467_Way7ToFixEvent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609160727537_MoreUniqueField.resx">
-      <DependentUpon>201609160727537_MoreUniqueField.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609160746039_UpdateHeroStat.resx">
-      <DependentUpon>201609160746039_UpdateHeroStat.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201609211322162_EventHasChara.resx">
-      <DependentUpon>201609211322162_EventHasChara.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612141142572_AddLinkFromAndLinkTo.resx">
-      <DependentUpon>201612141142572_AddLinkFromAndLinkTo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612250914284_Inventory.resx">
-      <DependentUpon>201612250914284_Inventory.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612250934425_Stabilize.resx">
-      <DependentUpon>201612250934425_Stabilize.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612252005298_InventoryV2.resx">
-      <DependentUpon>201612252005298_InventoryV2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201612261252312_AddPriceForSkill.resx">
-      <DependentUpon>201612261252312_AddPriceForSkill.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201612271529401_RpgInitV2.resx">
+      <DependentUpon>201612271529401_RpgInitV2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

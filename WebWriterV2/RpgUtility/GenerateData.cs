@@ -45,22 +45,24 @@ namespace WebWriterV2.RpgUtility
                 TrainingRooms = GenerateTrainingRooms(skillSchools).ToList()//.Where(x => x.School.Name == "Школа льда")
             };
 
-            var location = new Location
-            {
-                Coordinate = new Point(0, 0),
-                Guild = guild,
-                Name = "Разваливающаяся платина",
-                Desc = "Старая развалюха в которую страшно зайти. Не удивительно что только самые отчаяные оборванцы осмеливаются искать тут дом",
-                //HeroesInLocation = GetHeroes()
-            };
-            guild.Location = location;
+            heroes.ForEach(x=>x.Guild = guild);
+
+            //var location = new Location
+            //{
+            //    Coordinate = new Point(0, 0),
+            //    Guild = guild,
+            //    Name = "Разваливающаяся платина",
+            //    Desc = "Старая развалюха в которую страшно зайти. Не удивительно что только самые отчаяные оборванцы осмеливаются искать тут дом",
+            //    //HeroesInLocation = GetHeroes()
+            //};
+            //guild.Location = location;
 
             return guild;
         }
 
-        public static List<Hero> GetHeroes(List<Skill> skills, 
-            List<CharacteristicType> characteristicTypes, 
-            List<StateType> stateTypes, 
+        public static List<Hero> GetHeroes(List<Skill> skills,
+            List<CharacteristicType> characteristicTypes,
+            List<StateType> stateTypes,
             List<ThingSample> thingSamples)
         {
             var swordSample = thingSamples.First(x => x.Name == Sword);
@@ -103,7 +105,7 @@ namespace WebWriterV2.RpgUtility
             shani.AddThingToHero(armorBraSample, true);
             shani.AddThingToHero(goldSample, 300);
             shani.AddThingToHero(swordSample, true);
-            
+
             var ogrimar = new Hero
             {
                 Name = "Огримар",
@@ -117,7 +119,7 @@ namespace WebWriterV2.RpgUtility
             ogrimar.SetDefaultState(stateTypes);
             ogrimar.AddThingToHero(swordSample, true);
             ogrimar.AddThingToHero(goldSample, 10);
-            ogrimar.AddThingToHero(healingPotionSample, 5);            
+            ogrimar.AddThingToHero(healingPotionSample, 5);
 
             var result = new List<Hero>
             {
@@ -185,7 +187,7 @@ namespace WebWriterV2.RpgUtility
 
             return thingSamples;
         }
-        
+
         public static List<Characteristic> GenerateStat(List<CharacteristicType> characteristicTypes, int seed = 0)
         {
             var rnd = new Random(DateTime.Now.Millisecond + seed);
@@ -696,8 +698,8 @@ namespace WebWriterV2.RpgUtility
             return schools;
         }
 
-        public static Hero GetDefaultHero(            List<StateType> stateTypes, 
-            List<CharacteristicType> characteristicTypes, 
+        public static Hero GetDefaultHero(            List<StateType> stateTypes,
+            List<CharacteristicType> characteristicTypes,
             List<Skill> skills)
         {
             var hero = new Hero();
