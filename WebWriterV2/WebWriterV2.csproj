@@ -264,25 +264,19 @@
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
+    <Content Include="Scripts\angular-cookies.js" />
+    <Content Include="Scripts\angular-cookies.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
+    <Content Include="Scripts\angular-cookies.min.js.map" />
+    <Content Include="Scripts\angular-route.js" />
+    <Content Include="Scripts\angular-route.min.js" />
+    <Content Include="Scripts\angular-sanitize.js" />
+    <Content Include="Scripts\angular-sanitize.min.js" />
+    <Content Include="Scripts\angular-sanitize.min.js.map" />
+    <Content Include="Scripts\angular-route.min.js.map" />
     <None Include="Scripts\angular.intellisense.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\angular\angular-animate.js" />
-    <Content Include="Scripts\angular\angular-cache.js" />
-    <Content Include="Scripts\angular\angular-route.js" />
-    <Content Include="Scripts\angular\angular-sanitize.js" />
-    <Content Include="Scripts\angular\angulartics-google-analytics.js" />
-    <Content Include="Scripts\angular\angulartics-piwik.js" />
-    <Content Include="Scripts\angular\angulartics.js" />
-    <Content Include="Scripts\angular\dialogs.min.js" />
-    <Content Include="Scripts\angular\hotkeys.js" />
-    <Content Include="Scripts\angular\ng-infinite-scroll.js" />
-    <Content Include="Scripts\angular\ng-sortable.js" />
-    <Content Include="Scripts\angular\ngProgress.js" />
-    <Content Include="Scripts\angular\Sortable.js" />
-    <Content Include="Scripts\angular\ui-bootstrap.js" />
-    <Content Include="Scripts\angular\underscore-min.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\CHANGES.html" />
     <Content Include="Scripts\ckeditor\ckeditor.asp" />
@@ -644,6 +638,9 @@
     <Content Include="Scripts\rpg\directives.js" />
     <Content Include="Scripts\rpg\module.js" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Scripts\underscore.js" />
+    <Content Include="Scripts\underscore.min.js" />
+    <Content Include="Scripts\underscore.min.map" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Rpg\AdminCharacteristic.html" />
     <Content Include="Views\Rpg\AdminQuest.html" />

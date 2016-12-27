@@ -98,10 +98,9 @@ namespace WebWriterV2.Controllers
         }
 
         /* ************** Guild ************** */
-        public JsonResult GetGuildInfo()
+        public JsonResult GetGuild(long guildId)
         {
-            var guild = GuildRepository.GetAll().First();
-
+            var guild = GuildRepository.Get(guildId);
             var frontGuild = new FrontGuild(guild);
             return new JsonResult
             {
@@ -369,7 +368,7 @@ namespace WebWriterV2.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-        
+
         /* ************** TraningRoom ************** */
         public JsonResult GetTraningRoom(long traningRoomId)
         {
@@ -383,7 +382,7 @@ namespace WebWriterV2.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-        
+
         /* ************** Characteristic ************** */
         public JsonResult GetCharacteristicTypes()
         {
@@ -697,7 +696,7 @@ namespace WebWriterV2.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-        
+
         /* ************** Init Db ************** */
         public JsonResult Init()
         {

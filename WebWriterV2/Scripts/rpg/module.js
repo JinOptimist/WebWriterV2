@@ -4,13 +4,15 @@ underscore.factory('_', ['$window', function ($window) {
     return $window._; // assumes underscore has already been loaded on the page
 }]);
 
-angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSanitize']) //, ['common', 'search', 'masha', 'ui.ace']
+angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSanitize', 'ngCookies']) //, ['common', 'search', 'masha', 'ui.ace']
     .constant('_',
         window._
     )
     .config([
-        '$locationProvider', '$routeProvider',
-        function($locationProvider, $routeProvider) {
+        '$locationProvider', '$routeProvider', '$httpProvider',
+        function($locationProvider, $routeProvider, $httpProvider) {
+            // Check login
+            $httpProvider.interceptors.push('authInterceptorService');
             // Routes configuration
             $routeProvider
                 /* admin */
@@ -886,14 +888,14 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
         }
     ])
     .controller('guildController', [
-        '$scope', '$location', 'guildService', 'questService', 'traningRoomService','heroService',
-        function ($scope, $location, guildService, questService, traningRoomService, heroService) {
+        '$scope', '$location', '$cookies', 'guildService', 'questService', 'traningRoomService','heroService',
+        function ($scope, $location, $cookies, guildService, questService, traningRoomService, heroService) {
             $scope.guild = {};
             $scope.currentHero = {};
             $scope.quests = [];
 
             init();
-            
+
             $scope.restoreHero = function (hero) {
                 heroService.restoreHero(hero.Id).then(function (data) {
                     hero = data;
@@ -933,7 +935,9 @@ angular.module('rpg', ['directives', 'services', 'ngRoute', 'underscore', 'ngSan
             }
 
             function init() {
-                guildService.getGuildPromise.then(function (guild) {
+                var guildId = $cookies.get('guildId');
+
+                guildService.loadGuild(guildId).then(function (guild) {
                     $scope.guild = guild;
                 });
 

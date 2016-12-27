@@ -4,7 +4,7 @@ underscore.factory('_', ['$window', function ($window) {
     return $window._; // assumes underscore has already been loaded on the page
 }]);
 
-angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', 'masha', 'ui.ace']
+angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
     .constant('_',
         window._
     )
@@ -179,7 +179,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                     reject(Error("Sorry :( we have fail"));
                 });
             });
-        } 
+        }
 
         function save(event, questId) {
             return $q(function (resolve, reject) {
@@ -668,19 +668,24 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
     }])
     .service('guildService', ['$http', '$q', '_', function ($http, $q, _) {
         var currentGuild;
-        var guildPromise = $q(function (resolve, reject) {
-            $http({
-                method: 'POST',
-                url: '/Rpg/GetGuildInfo',
-                headers: { 'Accept': 'application/json' }
-            }).success(function (response) {
-                currentGuild = angular.fromJson(response);
-                resolve(currentGuild);
-            },
-            function () {
-                reject(Error("Sorry :( we have fail"));
+        var guildPromise = function(guildId) {
+            return $q(function(resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/GetGuild',
+                    data: {
+                        guildId: guildId
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function(response) {
+                        currentGuild = angular.fromJson(response);
+                        resolve(currentGuild);
+                    },
+                    function() {
+                        reject(Error("Sorry :( we have fail"));
+                    });
             });
-        });
+        };
 
         return {
             getGuild: function () {
@@ -689,7 +694,7 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
             setGuild: function (value) {
                 currentGuild = value;
             },
-            getGuildPromise: guildPromise
+            loadGuild: guildPromise
         };
     }])
     .service('traningRoomService', ['$http', '$q', '_', function ($http, $q, _) {
@@ -897,4 +902,37 @@ angular.module('services', ['ngRoute', 'underscore']) //, ['common', 'search', '
                 return deferred.promise;
             }
         };
-    }]);
+    }])
+    // Login
+    .factory('authInterceptorService', ['$q', '$location', '$cookies', '_',
+        function ($q, $location, $cookies, _) {
+            function request(request) {
+                // TODO
+                //goToLogin();
+                $cookies.put('guildId', 2);
+                return request;
+            }
+
+            function requestError(rejection) {
+                // do something on error
+                return $q.reject(rejection);
+            }
+
+            function response(response) {
+                // do something on success
+                var gamerId = $cookies.get('gamerId');
+                return response;
+            }
+
+            function responseError(rejection) {
+                // do something on error
+                return $q.reject(rejection);
+            }
+
+            return {
+                request: request,
+                requestError: requestError,
+                response: response,
+                responseError: responseError
+            };
+        }]);

@@ -11,8 +11,9 @@
             <ng-hero-card hero="hero"></ng-hero-card>
             <input type="button" value="Отчислить" ng-click="deleteHero(hero, $index)"/>
             <input type="button" value="Выбрать" ng-click="selectHero(hero)"/>
-            <input type="button" value="Отправить отдохнуть (5 золота)" ng-click="restoreHero(hero)" />
+            <input type="button" value="Отправить отдохнуть (5 золота)" ng-click="restoreHero(hero)"/>
         </div>
+        <hr/>
         <input type="button" value="Нанять ещё одного" ng-click="createHero()" />
     </div>
 
@@ -29,7 +30,6 @@
             <input type="button" value="Отправить {{currentHero.Name}} на квест" ng-click="goToQuest(quest)" />
             <!--<ng-quest-info quest="quest"></ng-quest-info>-->
         </div>
-
     </div>
 
     <div class="block300 padding10 left">
