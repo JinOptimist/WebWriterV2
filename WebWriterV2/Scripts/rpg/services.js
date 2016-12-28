@@ -372,6 +372,45 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             });
         }
 
+        function addThing(eventId, thingSampleId, count) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/AddThingToEvent',
+                    data: {
+                        eventId: eventId,
+                        thingSampleId: thingSampleId,
+                        count: count
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
+        function removeThing(eventId, thingId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/RemoveThingFromEvent',
+                    data: {
+                        eventId: eventId,
+                        thingId: thingId
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
         return {
             getEventForTravel: getEventForTravel,
             getEvent: getEvent,
@@ -387,7 +426,9 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             addState: addState,
             removeState: removeState,
             getEndingEvents: getEndingEvents,
-            getNotAvailableEvents: getNotAvailableEvents
+            getNotAvailableEvents: getNotAvailableEvents,
+            addThing: addThing,
+            removeThing: removeThing
         };
     }])
     .service('heroService', ['$http', '$q', function ($http, $q) {
@@ -446,6 +487,16 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
 
         function getHp(hero) {
             return getState(hero, hpStateName);
+        }
+
+        function updateHeroState(heroOrigin, heroNew) {
+            for (var i = 0; i < heroNew.State.length; i++) {
+                var newStat = heroNew.State[i];
+                var st = heroOrigin.State.find(function (stat) {
+                    return stat.StateType.Id == newStat.StateType.Id;
+                });
+                st.Number = newStat.Number;
+            }
         }
 
         return {
@@ -562,7 +613,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             },
             addSkill: addSkill,
             restoreHero: restoreHero,
-            getHp: getHp
+            getHp: getHp,
+            updateHeroState: updateHeroState
         };
     }])
     .service('raceService', ['$http', '$q', '_', function ($http, $q, _) {
@@ -914,6 +966,23 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                     });
                 return deferred.promise;
             }
+        };
+    }])
+    .service('thingService', ['$http', '$q', '_', function ($http, $q, _) {
+        return {
+            loadAllSamples: function () {
+                var deferred = $q.defer();
+
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/GetThingSamples',
+                    headers: { 'Accept': 'application/json' }
+                })
+                    .success(function (response) {
+                        deferred.resolve(angular.fromJson(response));
+                    });
+                return deferred.promise;
+            },
         };
     }])
     // Login

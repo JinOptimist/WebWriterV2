@@ -15,6 +15,9 @@ namespace Dao.Model
         /// </summary>
         public bool ItemInUse { get; set; } = false;
 
+        /// <summary>
+        /// Can be negative. In this case, we remove the item from the inventory of the hero
+        /// </summary>
         public int Count { get; set; } = 1;
     }
 }

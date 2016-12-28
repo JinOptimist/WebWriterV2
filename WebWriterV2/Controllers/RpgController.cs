@@ -19,6 +19,7 @@ namespace WebWriterV2.Controllers
     public class RpgController : Controller
     {
         private int _priceOfRestore = 5;
+
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly WriterContext _context = new WriterContext();
@@ -349,6 +350,19 @@ namespace WebWriterV2.Controllers
             return new JsonResult
             {
                 Data = SerializeHelper.Serialize(new FrontSkill(skill)),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        /* ************** Thing ************** */
+        public JsonResult GetThingSamples()
+        {
+            var thingSamples = ThingSampleRepository.GetAll();
+            var thingSamplesFront = thingSamples.Select(x => new FrontThingSample(x)).ToList();
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(thingSamplesFront),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -708,6 +722,44 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult AddThingToEvent(long eventId, long thingSampleId, int count)
+        {
+            var eventFromDb = EventRepository.Get(eventId);
+            var thingSample = ThingSampleRepository.Get(thingSampleId);
+            var thing = new Thing
+            {
+                Count = count,
+                Hero = null,
+                ThingSample = thingSample,
+                ItemInUse = false
+            };
+
+            ThingRepository.Save(thing);
+            eventFromDb.ThingsChanges.Add(thing);
+            EventRepository.Save(eventFromDb);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(thing),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveThingFromEvent(long eventId, long thingId)
+        {
+            var eventFromDb = EventRepository.Get(eventId);
+            var thing = ThingRepository.Get(thingId);
+            eventFromDb.ThingsChanges.Remove(thing);
+            EventRepository.Save(eventFromDb);
+            ThingRepository.Remove(thing);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(true),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         /* ************** Init Db ************** */
         public JsonResult Init()
         {
@@ -763,7 +815,7 @@ namespace WebWriterV2.Controllers
                 QuestRepository.Save(quest2);
             }
 
-            ///* Создаём Евенты с текстом но без связей */
+            // Создаём Евенты с текстом но без связей
             //var events = EventRepository.GetAll();
             //if (!events.Any())
             //{
@@ -774,7 +826,7 @@ namespace WebWriterV2.Controllers
             //    }
             //}
 
-            ///* Создаём связи между Евентами */
+            // Создаём связи между Евентами
             //var eventLinkItemsDb = EventLinkItemRepository.GetAll();
             //if (!eventLinkItemsDb.Any())
             //{

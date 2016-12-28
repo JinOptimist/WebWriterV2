@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201612271529401_RpgInitV2.Designer.cs">
       <DependentUpon>201612271529401_RpgInitV2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612281025469_AddThingToEvent.cs" />
+    <Compile Include="Migrations\201612281025469_AddThingToEvent.Designer.cs">
+      <DependentUpon>201612281025469_AddThingToEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\CharacteristicType.cs" />
@@ -127,6 +131,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201612271529401_RpgInitV2.resx">
       <DependentUpon>201612271529401_RpgInitV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612281025469_AddThingToEvent.resx">
+      <DependentUpon>201612281025469_AddThingToEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

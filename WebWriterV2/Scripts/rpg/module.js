@@ -389,8 +389,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
         }
     ])
     .controller('adminEventGeneralController', [
-        '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService', 'sexService', 'skillService', 'characteristicService', 'stateService',
-        function ($scope, $http, $routeParams, $location, eventService, questService, raceService, sexService, skillService, characteristicService, stateService) {
+        '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService',
+        'sexService', 'skillService', 'characteristicService', 'stateService', 'thingService',
+        function ($scope, $http, $routeParams, $location, eventService, questService, raceService,
+            sexService, skillService, characteristicService, stateService, thingService) {
+
             $scope.event = null;
             $scope.quest = null;
             $scope.selectedEvent = null;
@@ -403,6 +406,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.Skills = [];
             $scope.CharacteristicTypes = [];
             $scope.StateTypes = [];
+            $scope.ThingSamples = [];
 
             $scope.parentExpand = true;
             $scope.reqExpand = true;
@@ -415,6 +419,41 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             var sexNoneObject = { name: 'None', value: -1 };
 
             init();
+
+            /* Thing */
+            $scope.addThing = function () {
+                var thingSampleId = $scope.selectedThingSample.Id;
+                var value = $scope.newThingSampleValue;
+
+                eventService.addThing($scope.event.Id, thingSampleId, value).then(function (data) {
+                    if (!$scope.event.ThingsChanges) {
+                        $scope.event.ThingsChanges = [];
+                    }
+
+                    $scope.event.ThingsChanges.push(data);
+                    $scope.newThingSampleValue = 0;
+                });
+            }
+
+            $scope.removeThing = function (thingId, index) {
+                eventService.removeThing($scope.event.Id, thingId).then(function () {
+                    $scope.event.ThingsChanges.splice(index, 1);
+                });
+            };
+
+            $scope.availableThingSamples = function () {
+                if (!$scope.event) {
+                    return [];
+                }
+                if (!$scope.event.ThingsChanges) {
+                    $scope.event.ThingsChanges = [];
+                }
+                return $scope.ThingSamples.filter(function (thingSample) {
+                    return !$scope.event.ThingsChanges.some(function (thing) {
+                        return thingSample.Id === thing.ThingSample.Id;
+                    });
+                });
+            }
 
             /* State */
             $scope.addState = function() {
@@ -678,6 +717,10 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 stateService.loadAllTypes().then(function(data) {
                     $scope.StateTypes = data;
                 });
+
+                thingService.loadAllSamples().then(function(data) {
+                    $scope.ThingSamples = data;
+                });
             }
         }
     ])
@@ -894,8 +937,17 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
 
             $scope.restoreHero = function (hero) {
                 heroService.restoreHero(hero.Id).then(function (data) {
-                    hero = data;
+                    heroService.updateHeroState(hero, data);
+                    $scope.guild.Gold -= 5;
                 });
+            }
+
+            $scope.hitHeroDebug = function (hero) {
+                var st = hero.State.find(function (state) {
+                    return state.StateType.Name == "Hp";
+                });
+
+                st.Number -= 5;
             }
 
             $scope.selectHero = function(hero) {
