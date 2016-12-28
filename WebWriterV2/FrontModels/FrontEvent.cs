@@ -25,6 +25,7 @@ namespace WebWriterV2.FrontModels
             RequrmentCharacteristics = eventDb.RequrmentCharacteristics?.Select(x => new FrontCharacteristic(x)).ToList();
             HeroStatesChanging = eventDb.HeroStatesChanging?.Select(x => new FrontState(x)).ToList();
             ThingsChanges = eventDb.ThingsChanges?.Select(x => new FrontThing(x)).ToList();
+            RequirementThings = eventDb.RequirementThings?.Select(x => new FrontThing(x)).ToList();
         }
 
         public string Name { get; set; }
@@ -35,8 +36,10 @@ namespace WebWriterV2.FrontModels
         public List<FrontEventLinkItem> LinksToThisEvent { get; set; }
         public List<FrontSkill> RequrmentSkill { get; set; }
         public List<FrontCharacteristic> RequrmentCharacteristics { get; set; }
-        public List<FrontState> HeroStatesChanging { get; set; }
+        public List<FrontThing> RequirementThings { get; set; }
         public List<FrontThing> ThingsChanges { get; set; }
+        public List<FrontState> HeroStatesChanging { get; set; }
+
         public double ProgressChanging { get; set; }
 
         public override Event ToDbModel()

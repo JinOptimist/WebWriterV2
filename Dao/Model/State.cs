@@ -9,6 +9,15 @@ namespace Dao.Model
 
         [Required]
         public long Number { get; set; }
+
+        public State Copy()
+        {
+            return new State
+            {
+                StateType = StateType,
+                Number = Number
+            };
+        }
     }
 
     //public enum StateType

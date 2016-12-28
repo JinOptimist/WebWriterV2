@@ -120,6 +120,26 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             });
         }
 
+        function eventChangesApplyToHero(eventId, heroId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/EventChangesApplyToHero',
+                    data: {
+                        eventId: eventId,
+                        heroId: heroId
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    var event = angular.fromJson(response);
+                    resolve(event);
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
         function getEvent(currentEventId) {
             return $q(function (resolve, reject) {
                 $http({
@@ -372,11 +392,11 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             });
         }
 
-        function addThing(eventId, thingSampleId, count) {
+        function addRequirementThing(eventId, thingSampleId, count) {
             return $q(function (resolve, reject) {
                 $http({
                     method: 'POST',
-                    url: '/Rpg/AddThingToEvent',
+                    url: '/Rpg/AddRequirementThingToEvent',
                     data: {
                         eventId: eventId,
                         thingSampleId: thingSampleId,
@@ -392,11 +412,50 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             });
         }
 
-        function removeThing(eventId, thingId) {
+        function removeRequirementThing(eventId, thingId) {
             return $q(function (resolve, reject) {
                 $http({
                     method: 'POST',
-                    url: '/Rpg/RemoveThingFromEvent',
+                    url: '/Rpg/RemoveRequirementThingFromEvent',
+                    data: {
+                        eventId: eventId,
+                        thingId: thingId
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
+        function addThingChanges(eventId, thingSampleId, count) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/AddThingChangesToEvent',
+                    data: {
+                        eventId: eventId,
+                        thingSampleId: thingSampleId,
+                        count: count
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    resolve(angular.fromJson(response));
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
+        function removeThingChanges(eventId, thingId) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/RemoveThingChangesFromEvent',
                     data: {
                         eventId: eventId,
                         thingId: thingId
@@ -412,7 +471,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
         }
 
         return {
-            getEventForTravel: getEventForTravel,
             getEvent: getEvent,
             getEvents: getEvents,
             save: save,
@@ -427,8 +485,12 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             removeState: removeState,
             getEndingEvents: getEndingEvents,
             getNotAvailableEvents: getNotAvailableEvents,
-            addThing: addThing,
-            removeThing: removeThing
+            addRequirementThing: addRequirementThing,
+            removeRequirementThing: removeRequirementThing,
+            addThingChanges: addThingChanges,
+            removeThingChanges: removeThingChanges,
+            getEventForTravel: getEventForTravel,
+            eventChangesApplyToHero: eventChangesApplyToHero
         };
     }])
     .service('heroService', ['$http', '$q', function ($http, $q) {

@@ -23,6 +23,8 @@ namespace Dao
             modelBuilder.Entity<Quest>().HasOptional(x => x.RootEvent).WithOptionalPrincipal(x => x.ForRootQuest).WillCascadeOnDelete(false);
             modelBuilder.Entity<Quest>().HasMany(u => u.AllEvents).WithRequired(x => x.Quest).WillCascadeOnDelete(false);
 
+            modelBuilder.Entity<Event>().HasMany(x => x.ThingsChanges).WithOptional();
+            modelBuilder.Entity<Event>().HasMany(x => x.RequirementThings).WithOptional();
             modelBuilder.Entity<Event>().HasMany(x => x.RequrmentSkill).WithMany();
             modelBuilder.Entity<Event>().HasMany(x => x.RequrmentCharacteristics).WithMany();
             modelBuilder.Entity<Event>().HasMany(x => x.HeroStatesChanging).WithMany();

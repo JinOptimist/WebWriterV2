@@ -19,5 +19,16 @@ namespace Dao.Model
         /// Can be negative. In this case, we remove the item from the inventory of the hero
         /// </summary>
         public int Count { get; set; } = 1;
+
+        public Thing Copy()
+        {
+            return new Thing
+            {
+                Count = Count,
+                Hero = Hero,
+                ItemInUse = ItemInUse,
+                ThingSample = ThingSample
+            };
+        }
     }
 }

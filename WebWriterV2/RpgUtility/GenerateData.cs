@@ -33,6 +33,8 @@ namespace WebWriterV2.RpgUtility
         public const string SchoolFireSkillName = "Школа пламени";
         public const string SchoolNiceSkillName = "Соблазнения";
 
+        public const string FireBall = "Fire ball";
+
         public static Guild GetGuild(List<Hero> heroes, List<SkillSchool> skillSchools)
         {
             var guild = new Guild
@@ -211,7 +213,10 @@ namespace WebWriterV2.RpgUtility
             return quest;
         }
 
-        public static Quest QuestTower(List<CharacteristicType> characteristicTypes, List<StateType> stateTypes)
+        public static Quest QuestTower(List<CharacteristicType> characteristicTypes,
+            List<StateType> stateTypes,
+            List<Skill> skills,
+            List<ThingSample> thingSamples)
         {
             var quest = new Quest
             {
@@ -220,7 +225,7 @@ namespace WebWriterV2.RpgUtility
                 Effective = 0,
             };
 
-            quest.AllEvents = GenerateEventsForQuestTower(quest, characteristicTypes, stateTypes);
+            quest.AllEvents = GenerateEventsForQuestTower(quest, characteristicTypes, stateTypes, skills, thingSamples);
 
             return quest;
         }
@@ -339,13 +344,26 @@ namespace WebWriterV2.RpgUtility
             return list;
         }
 
-        public static List<Event> GenerateEventsForQuestTower(Quest quest, List<CharacteristicType> characteristicTypes, List<StateType> stateTypes)
+        public static List<Event> GenerateEventsForQuestTower(Quest quest,
+            List<CharacteristicType> characteristicTypes,
+            List<StateType> stateTypes,
+            List<Skill> skills,
+            List<ThingSample> thingSamples)
         {
             // Tips
             // Desc = "У заказчика всегда была репутацию падкого на женское внимание мужика",
             // Desc = "В общем орков не любят со времён третьей общей войны, но порой можно встретить общины с прямо противоположным мнением",
             var agilityType = characteristicTypes.First(x => x.Name == Agility);
             var hpType = stateTypes.First(x => x.Name == Hp);
+
+            var fireBallSkill = skills.First(x => x.Name == FireBall);
+
+            var goldSample = thingSamples.First(x => x.Name == Gold);
+            var gold100 = new Thing
+            {
+                Count = 100,
+                ThingSample = goldSample
+            };
 
             var event0 = new Event
             {
@@ -392,6 +410,12 @@ namespace WebWriterV2.RpgUtility
                 Desc = "Ответив симетричной улыбкой Герой двигаясь хоть и несколько настороженно, но всё же достаточно свободно.",
                 RequrmentRace = Race.Орк,
             };
+            var event61 = new Event
+            {
+                Name = "Евент 06-1. Первый этаж. Огонь",
+                Desc = "Быстром удару Герой предпочёл внезапный огенный шар сжигающий врага. И тут ужу не играло роли кто окажется на пути безжалостного пламени. Победа была мгновенной и безкровной, лишь шипящий орк в углу.",
+                RequrmentSkill = new List<Skill> { fireBallSkill }
+            };
             var event7 = new Event
             {
                 Name = "Евент 07. Первый этаж. Сражение",
@@ -403,7 +427,8 @@ namespace WebWriterV2.RpgUtility
             var event8 = new Event
             {
                 Name = "Евент 08. Второй этаж",
-                Desc = "Пожалуй, на сегодня хватит, пойду-ка я домой, а не на ваш второй этаж",
+                Desc = "О! А вот с соточка золотых монет нашлась. Думаю для первого раза отличная награда. Так что, на сегодня хватит, пойду-ка я домой, а не на ваш второй этаж",
+                ThingsChanges = new List<Thing> { gold100 }
             };
 
             event0.AddChildEvent(event1, "Рискованные прыжки мой хлеб! Иду на мост");
@@ -412,8 +437,9 @@ namespace WebWriterV2.RpgUtility
             event1.AddChildEvent(event3, "Ой что это? Булыжник с огромной скоростью приближается к моей голове! Хотя нет, всё впорядке, камень находится в покое, это просто моя голова стремится в его сторону.");
             event5.AddParentsEvents("К Башне", event2, event3, event4);
             event5.AddChildEvent(event6, "(Орк)Мы орки отлично знаем, если правый клык при улыбке выше левого, то это дружелюбная улыбка");
+            event5.AddChildEvent(event61, "(Огенный шар) Добро... зло... Главное у кого огенный шар в рукове. Сжечь это недорозумение посмевшее стать на пути у огенного мага!");
             event5.AddChildEvent(event7, "Говорят звериному оскалу можно противопоставить лишь звериный оскал. Это конечно же ложь. Внезапная смерельная атака отлично справляется с задаче умиротворения любого оскала");
-            event8.AddParentsEvents("Идём к лестнице на второй этаж", event6, event7);
+            event8.AddParentsEvents("Идём к лестнице на второй этаж", event6, event61, event7);
 
             var list = new List<Event>();
 
@@ -425,6 +451,7 @@ namespace WebWriterV2.RpgUtility
                 event4,
                 event5,
                 event6,
+                event61,
                 event7,
                 event8,
             });
@@ -451,8 +478,8 @@ namespace WebWriterV2.RpgUtility
             /* ************ Fire ************ */
             skills.Add(new Skill
             {
-                Name = "Fire ball",
-                Desc = "Fire ball",
+                Name = FireBall,
+                Desc = FireBall,
                 School = fireSchool,
                 Price = 10,
                 SelfChanging = new List<State> { new State { StateType = mp, Number = -4 } },

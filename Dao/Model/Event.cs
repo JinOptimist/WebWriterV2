@@ -24,19 +24,23 @@ namespace Dao.Model
         /// </summary>
         public virtual List<EventLinkItem> LinksToThisEvent { get; set; }
 
+        /* Requirement */
         public virtual Sex? RequrmentSex { get; set; } = null;
         public virtual Race? RequrmentRace { get; set; } = null;
         public virtual List<Skill> RequrmentSkill { get; set; }
         public virtual List<Characteristic> RequrmentCharacteristics { get; set; }
-        public virtual List<State> HeroStatesChanging { get; set; }
+        public virtual List<Thing> RequirementThings { get; set; }
 
+        /* Changes */
+        public virtual List<State> HeroStatesChanging { get; set; }
         public virtual List<Thing> ThingsChanges { get; set; }
-        //public virtual Location RequrmentLocation { get; set; }
 
         [Description("Add this value to total summ of quest effective")]
         public virtual double ProgressChanging { get; set; } = 0;
         //public Dictionary<StateType, long> CharacteristicsChanging { get; set; }
 
+
+        //public virtual Location RequrmentLocation { get; set; }
         public virtual Quest Quest { get; set; }
         public virtual Quest ForRootQuest { get; set; }
 

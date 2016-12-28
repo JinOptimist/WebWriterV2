@@ -46,9 +46,21 @@
 
                 <select ng-model="newRequrmentCharacteristicsType"
                         ng-options="option as option.Name for option in availableCharacteristicTypes()"></select>
-                <input type="text" ng-model="newRequrmentCharacteristicsValue" />
-                <a ng-click="addCharacteristic()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+                <input type="text" ng-model="newRequrmentCharacteristicsValue"/>
+                <a ng-click="addCharacteristic()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
             </p>
+            <div>
+                RequirementThings:
+                <p ng-repeat="thing in event.RequirementThings">
+                    {{thing.ThingSample.Name}} &ge; {{thing.Count}};
+                    <a href="#" ng-click="removeRequirementThings(thing.Id, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;"/></a>
+                </p>
+
+                <select ng-model="selectedRequirementThingSample"
+                        ng-options="thingSample as thingSample.Name for thingSample in availableRequirementThingSamples()"></select>
+                <input type="number" ng-model="newRequirementThingSampleValue" ng-maxlength="9"/>
+                <a ng-click="addRequirementThing()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
+            </div>
         </div>
         <hr />
         <h2 ng-click="stateExpand = !stateExpand">Изменения Героя при входе в Евент {{stateExpand ? "&uarr;" : "&darr;"}}</h2>
@@ -69,10 +81,10 @@
                     <a href="#" ng-click="removeThing(thing.Id, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
                 </p>
 
-                <select ng-model="selectedThingSample"
+                <select ng-model="selectedThingChangesSample"
                         ng-options="thingSample as thingSample.Name for thingSample in availableThingSamples()"></select>
-                <input type="number" ng-model="newThingSampleValue" ng-maxlength="9" />
-                <a ng-click="addThing()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+                <input type="number" ng-model="newThingChangesSampleValue" ng-maxlength="9" />
+                <a ng-click="addThingsChanges()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
             </div>
         </div>
         <hr />

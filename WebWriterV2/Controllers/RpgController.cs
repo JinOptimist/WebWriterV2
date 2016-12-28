@@ -184,6 +184,10 @@ namespace WebWriterV2.Controllers
 
         public JsonResult RemoveHero(long id)
         {
+            var hero = HeroRepository.Get(id);
+            var things = hero.Inventory.ToList();
+            ThingRepository.Remove(things);
+
             HeroRepository.Remove(id);
             return new JsonResult
             {
@@ -552,11 +556,26 @@ namespace WebWriterV2.Controllers
             var eventDb = EventRepository.Get(eventId);
             var hero = HeroRepository.Get(heroId);
             eventDb.LinksFromThisEvent.FilterLink(hero);
-
             var frontEvent = new FrontEvent(eventDb);
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(frontEvent),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult EventChangesApplyToHero(long eventId, long heroId)
+        {
+            var eventDb = EventRepository.Get(eventId);
+            var hero = HeroRepository.Get(heroId);
+
+            eventDb.EventChangesApply(hero);
+
+            HeroRepository.Save(hero);
+            var frontHero = new FrontHero(hero);
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(frontHero),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -722,7 +741,45 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult AddThingToEvent(long eventId, long thingSampleId, int count)
+        public JsonResult AddRequirementThingToEvent(long eventId, long thingSampleId, int count)
+        {
+            var eventFromDb = EventRepository.Get(eventId);
+            var thingSample = ThingSampleRepository.Get(thingSampleId);
+            var thing = new Thing
+            {
+                Count = count,
+                Hero = null,
+                ThingSample = thingSample,
+                ItemInUse = false
+            };
+
+            ThingRepository.Save(thing);
+            eventFromDb.RequirementThings.Add(thing);
+            EventRepository.Save(eventFromDb);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(thing),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveRequirementThingFromEvent(long eventId, long thingId)
+        {
+            var eventFromDb = EventRepository.Get(eventId);
+            var thing = ThingRepository.Get(thingId);
+            eventFromDb.RequirementThings.Remove(thing);
+            EventRepository.Save(eventFromDb);
+            ThingRepository.Remove(thing);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(true),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult AddThingChangesToEvent(long eventId, long thingSampleId, int count)
         {
             var eventFromDb = EventRepository.Get(eventId);
             var thingSample = ThingSampleRepository.Get(thingSampleId);
@@ -745,7 +802,7 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult RemoveThingFromEvent(long eventId, long thingId)
+        public JsonResult RemoveThingChangesFromEvent(long eventId, long thingId)
         {
             var eventFromDb = EventRepository.Get(eventId);
             var thing = ThingRepository.Get(thingId);
@@ -811,7 +868,7 @@ namespace WebWriterV2.Controllers
                 var quest1 = GenerateData.QuestRat();
                 QuestRepository.Save(quest1);
 
-                var quest2 = GenerateData.QuestTower(characteristicTypes, stateTypes);
+                var quest2 = GenerateData.QuestTower(characteristicTypes, stateTypes, skills, thingSamples);
                 QuestRepository.Save(quest2);
             }
 

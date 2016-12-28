@@ -421,22 +421,22 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             init();
 
             /* Thing */
-            $scope.addThing = function () {
-                var thingSampleId = $scope.selectedThingSample.Id;
-                var value = $scope.newThingSampleValue;
+            $scope.addThingsChanges = function () {
+                var thingChangesSampleId = $scope.selectedThingChangesSample.Id;
+                var value = $scope.newThingChangesSampleValue;
 
-                eventService.addThing($scope.event.Id, thingSampleId, value).then(function (data) {
+                eventService.addThingChanges($scope.event.Id, thingChangesSampleId, value).then(function (data) {
                     if (!$scope.event.ThingsChanges) {
                         $scope.event.ThingsChanges = [];
                     }
 
                     $scope.event.ThingsChanges.push(data);
-                    $scope.newThingSampleValue = 0;
+                    $scope.newThingChangesSampleValue = 0;
                 });
             }
 
             $scope.removeThing = function (thingId, index) {
-                eventService.removeThing($scope.event.Id, thingId).then(function () {
+                eventService.removeThingChanges($scope.event.Id, thingId).then(function () {
                     $scope.event.ThingsChanges.splice(index, 1);
                 });
             };
@@ -451,6 +451,40 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 return $scope.ThingSamples.filter(function (thingSample) {
                     return !$scope.event.ThingsChanges.some(function (thing) {
                         return thingSample.Id === thing.ThingSample.Id;
+                    });
+                });
+            }
+
+            $scope.addRequirementThing = function () {
+                var requirementThingSampleId = $scope.selectedRequirementThingSample.Id;
+                var value = $scope.newRequirementThingSampleValue;
+
+                eventService.addRequirementThing($scope.event.Id, requirementThingSampleId, value).then(function (data) {
+                    if (!$scope.event.RequirementThings) {
+                        $scope.event.RequirementThings = [];
+                    }
+
+                    $scope.event.RequirementThings.push(data);
+                    $scope.newRequirementThingSampleValue = 0;
+                });
+            }
+
+            $scope.removeRequirementThing = function (requirementThingId, index) {
+                eventService.removeRequirementThing($scope.event.Id, requirementThingId).then(function () {
+                    $scope.event.RequirementThings.splice(index, 1);
+                });
+            };
+
+            $scope.availableRequirementThingSamples = function () {
+                if (!$scope.event) {
+                    return [];
+                }
+                if (!$scope.event.RequirementThings) {
+                    $scope.event.RequirementThings = [];
+                }
+                return $scope.ThingSamples.filter(function (thingSample) {
+                    return !$scope.event.RequirementThings.some(function (requirementThing) {
+                        return thingSample.Id === requirementThing.ThingSample.Id;
                     });
                 });
             }
@@ -1018,23 +1052,25 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                     $scope.ways = result.LinksFromThisEvent;
                     $scope.quest.Effective += result.ProgressChanging;
                     $scope.currentEvent = result;
+                });
 
-                    if (result.HeroStatesChanging) {
-                        var hero = $scope.hero;
-                        result.HeroStatesChanging.forEach(function (stateChanging) {
-                            var stateTypeId = stateChanging.StateType.Id;
-                            var heroStat = getState(hero, stateTypeId);
+                eventService.eventChangesApplyToHero(eventId, $scope.hero.Id).then(function (heroUpdated) {
+                    var hero = $scope.hero;
+                    heroUpdated.State.forEach(function (state) {
+                        var stateTypeId = state.StateType.Id;
+                        setState(hero, stateTypeId, state.Number);
+                        if (heroService.getHp(hero) < 1) {
+                            alert('Your hero is Dead. Noob!');
+                            $location.path('/AngularRoute/guild');
+                            return;
+                        }
+                    });
 
-                            stateService.changeState(heroStat.Id, stateChanging.Number).then(function (savedState) {
-                                setState(hero, savedState.StateType.Id, savedState.Number);
+                    hero.Inventory = [];
 
-                                if (heroService.getHp(hero) < 1) {
-                                    alert('Your hero is Dead! Noob!');
-                                    $location.path('/AngularRoute/guild');
-                                }
-                            });
-                        });
-                    }
+                    heroUpdated.Inventory.forEach(function (thing) {
+                        setThing(hero, thing.ThingSample, thing.Count);
+                    });
                 });
             };
 
@@ -1077,6 +1113,23 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                          return;
                      }
                 });
+            }
+
+            function setThing(hero, thingSample, value) {
+                var updateThing = _.find(hero.Inventory, function (thing) {
+                    if (thing.ThingSample.Id === thingSample.Id) {
+                        thing.Number = value;
+                        return true;
+                    }
+                });
+
+                if (!updateThing) {
+                    hero.Inventory.push({
+                        ItemInUse: false,
+                        Count: value,
+                        ThingSample: thingSample
+                    });
+                }
             }
 
             function init() {
