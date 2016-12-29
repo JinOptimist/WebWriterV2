@@ -176,6 +176,21 @@ p {
     cursor: pointer;
 }
 
+.wayLink{
+    border: rosybrown 2px dotted;
+    margin: 5px;
+    cursor: pointer;
+}
+.wayLink:hover {
+    border: royalblue 2px dotted;
+    background-color: rosybrown;
+
+}
+.wayLink a {
+    text-decoration: none;
+    color: #000;
+}
+
 /*  Health and Mana bar  */
 .main-bar {
   -webkit-box-sizing: border-box;

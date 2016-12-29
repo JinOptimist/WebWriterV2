@@ -1,25 +1,30 @@
 ﻿<div ng-class="!quest || !hero ? 'wait' : ''">
-    <h2>Экран путушествия: </h2>
-    <div>
-        <b>{{currentEvent.Name}}</b>
-        <div ng-bind-html="currentEvent.Desc | trusted"></div>
-    </div>
-    <div>
-        <ul>
-            <li ng-repeat="eventLink in ways"><a href="#" ng-click="chooseEvent(eventLink.ToId)">{{eventLink.Text}}</a></li>
-        </ul>
+    <div style="width: 800px; float: left;font-size: 24px">
+        <h2>Экран путушествия: </h2>
+        <div>
+            <b>{{currentEvent.Name}}</b>
+            <div ng-bind-html="currentEvent.Desc | trusted"></div>
+        </div>
+        <div>
+            <ul>
+                <li ng-repeat="eventLink in ways" class="wayLink" ng-click="chooseEvent(eventLink.ToId)">
+                    <a href="#">{{eventLink.Text}}</a>
+                </li>
+            </ul>
+        </div>
+
+        <div ng-if="!ways || ways.length == 0">
+            Квест завершён.
+            <input ng-click="endQuest()" type="button" value="Собрать награду"/>
+        </div>
+
+        <div ng-if="false">
+            <a href="#" ng-click="batle()">Go to battle</a>
+        </div>
     </div>
 
-    <div ng-if="!ways || ways.length == 0">
-        Квест завершён.
-        <a href="#" ng-click="endQuest()">Собрать награду</a>
-    </div>
 
-    <div ng-if="false">
-        <a href="#" ng-click="batle()">Go to battle</a>
-    </div>
-
-    <div>
+    <div style="float: right;">
         <ng-quest-info quest="quest"></ng-quest-info>
         <ng-hero-card hero="hero" style="clear: both;"></ng-hero-card>
     </div>
