@@ -291,8 +291,8 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
         }
     ])
     .controller('adminQuestGeneralController', [
-        '$scope', '$http', '$routeParams', '$location', 'questService', 'sexService', 'raceService', 'eventService',
-        function ($scope, $http, $routeParams, $location, questService, sexService, raceService, eventService) {
+        '$scope', '$http', '$routeParams', '$location', 'questService', 'sexService', 'raceService', 'eventService', 'CKEditorService',
+        function ($scope, $http, $routeParams, $location, questService, sexService, raceService, eventService, CKEditorService) {
             $scope.quest = null;
             $scope.quests = [];
             $scope.wait = true;
@@ -301,19 +301,21 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             init();
 
             $scope.addQuest = function() {
-                $scope.quest = {Name:'New quest Title'};
-                var editor = CKEDITOR.instances.desc;
-                editor.setData('New quest Desc');
+                $scope.quest = { Name: 'New quest Title' };
+                $scope.endingEvents = [];
+                $scope.notAvailableEvents = [];
+
+                CKEditorService.reloadEditor('desc', 'New quest Desc');
             }
 
             $scope.selectQuest = function (quest) {
-                window.location.href = '/AngularRoute/admin/quest/' + quest.Id;
+                var url = '/AngularRoute/admin/quest/' + quest.Id;
+                $location.path(url);
             }
 
             $scope.saveQuest = function () {
                 var isNew = !($scope.quest.Id > 0);
-                var editor = CKEDITOR.instances.desc;
-                var text = editor.getData();
+                var text = CKEditorService.getData('desc');
                 $scope.quest.Desc = text;
                 questService.saveQuest($scope.quest).then(
                     function (response) {
@@ -333,6 +335,17 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 );
             }
 
+            $scope.downloadQuest = function() {
+                questService.getQuest($scope.quest.Id).then(function (result) {
+                    var text = angular.toJson(result);
+                    var blob = new Blob([text]);
+                    var link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = $scope.quest.Name + '.json';
+                    link.click();
+                });
+            }
+
             $scope.removeQuest = function (quest, index) {
                 if (confirm('Are you sure? You try delete whole event: ' + quest.Name))
                     questService.removeQuest(quest.Id).then(function (result) {
@@ -341,19 +354,22 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             }
 
             $scope.goToEvent = function (quest) {
-                window.location.href = '/AngularRoute/admin/quest/' + quest.Id + '/event/';
+                var url = '/AngularRoute/admin/quest/' + quest.Id + '/event/';
+                $location.path(url);
             }
 
             $scope.selectEvent = function (eventId) {
                 $scope.wait = true;
-                window.location.href = '/AngularRoute/admin/quest/' + $scope.quest.Id + '/event/' + eventId;
+                var url = '/AngularRoute/admin/quest/' + $scope.quest.Id + '/event/' + eventId;
+                $location.path(url);
             }
 
             function loadQuest(questId) {
                 questService.getQuest(questId).then(function (result) {
                     $scope.quest = result;
                     $scope.wait = false;
-                    CKEDITOR.replace('desc');
+
+                    CKEditorService.reloadEditor('desc', $scope.quest.Desc);
 
                     loadEndingEvents(questId);
                 });
@@ -390,9 +406,9 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
     ])
     .controller('adminEventGeneralController', [
         '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService',
-        'sexService', 'skillService', 'characteristicService', 'stateService', 'thingService',
+        'sexService', 'skillService', 'characteristicService', 'stateService', 'thingService', 'CKEditorService',
         function ($scope, $http, $routeParams, $location, eventService, questService, raceService,
-            sexService, skillService, characteristicService, stateService, thingService) {
+            sexService, skillService, characteristicService, stateService, thingService, CKEditorService) {
 
             $scope.event = null;
             $scope.quest = null;
@@ -592,8 +608,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
 
             /* Event */
             $scope.addEvent = function () {
-                var editor = CKEDITOR.instances.desc;
-                editor.setData('');
+                CKEditorService.setData('desc', '');
 
                 $scope.event = {
                     Name: 'new',
@@ -605,13 +620,13 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
 
             $scope.selectEvent = function (eventId) {
                 $scope.wait = true;
-                window.location.href = '/AngularRoute/admin/quest/' + questId + '/event/' + eventId;
+                var url = '/AngularRoute/admin/quest/' + questId + '/event/' + eventId;
+                $location.path(url);
             }
 
             $scope.saveEvent = function () {
                 var isNew = !($scope.event.Id && $scope.event.Id > 0);
-                var editor = CKEDITOR.instances.desc;
-                var text = editor.getData();
+                var text = CKEditorService.getData('desc');
                 $scope.event.Desc = text;
 
                 eventService.save($scope.event, questId).then(
@@ -680,14 +695,16 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             }
 
             $scope.goToQuest = function () {
-                window.location.href = '/AngularRoute/admin/quest/' + $scope.quest.Id;
+                var url = '/AngularRoute/admin/quest/' + $scope.quest.Id;
+                $location.path(url);
             }
 
             function loadEvent(eventId) {
                 eventService.getEvent(eventId).then(function (result) {
                     $scope.event = result;
                     $scope.wait = false;
-                    CKEDITOR.replace('desc');
+
+                    CKEditorService.reloadEditor('desc', $scope.event.Desc);
 
                     if (!$scope.event.RequrmentRace) {
                         $scope.event.RequrmentRace = {};
@@ -709,7 +726,6 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 questService.getQuest(questId).then(function (result) {
                     $scope.quest = result;
                     $scope.wait = false;
-                    CKEDITOR.replace('desc');
                 });
             }
 
@@ -1022,7 +1038,6 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 //traningRoomService.chooseRoom(room, $scope.currentHero);
                 var url = '/AngularRoute/traningRoom/' + room.Id + '/hero/' + $scope.currentHero.Id;
                 $location.path(url);
-                window.location.href = url;
             }
 
             function init() {

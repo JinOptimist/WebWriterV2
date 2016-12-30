@@ -19,8 +19,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
         });
     }])
     .service('questService', ['$http', '$q', function ($http, $q) {
-        var currentQuest = null;
-
         function saveQuest(quest) {
             var deferred = $q.defer();
 
@@ -40,10 +38,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
 
         function getQuest(questId) {
             var deferred = $q.defer();
-            if (currentQuest) {
-                deferred.resolve(currentQuest);
-                return deferred.promise;
-            }
 
             $http({
                 method: 'POST',
@@ -51,8 +45,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                 headers: { 'Accept': 'application/json' }
             })
                 .success(function (response) {
-                    currentQuest = angular.fromJson(response);
-                    deferred.resolve(currentQuest);
+                    var quest = angular.fromJson(response);
+                    deferred.resolve(quest);
                 });
             return deferred.promise;
         }
@@ -90,13 +84,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             saveQuest: saveQuest,
             getQuests: getQuests,
             getQuest: getQuest,
-            setQuest: function (value) {
-                currentQuest = value;
-            },
             removeQuest: removeQuest,
-            setExecutor: function (executor) {
-                currentQuest.Executor = executor;
-            }
         };
     }])
     .service('eventService', ['$http', '$q', function ($http, $q) {
@@ -1045,6 +1033,33 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                     });
                 return deferred.promise;
             },
+        };
+    }])
+    //CKEditor
+    .service('CKEditorService', ['$http', '$q', '_', function ($http, $q, _) {
+        function reloadEditor(editorName, newData) {
+            var editor = CKEDITOR.instances[editorName];
+            if (editor) {
+                editor.destroy(true);
+            }
+            editor = CKEDITOR.replace(editorName);
+            editor.setData(newData);
+        }
+
+        function setData(editorName, data) {
+            var editor = CKEDITOR.instances[editorName];
+            editor.setData(data);
+        }
+
+        function getData(editorName) {
+            var editor = CKEDITOR.instances[editorName];
+            return editor.getData();
+        }
+
+        return {
+            reloadEditor: reloadEditor,
+            setData: setData,
+            getData: getData
         };
     }])
     // Login
