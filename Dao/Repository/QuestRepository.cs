@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Dao.IRepository;
@@ -59,6 +60,11 @@ namespace Dao.Repository
             }
 
             return base.Save(model);
+        }
+
+        public Quest GetByName(string name)
+        {
+            return Entity.FirstOrDefault(x => x.Name == name);
         }
     }
 }

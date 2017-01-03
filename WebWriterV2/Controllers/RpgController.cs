@@ -506,6 +506,29 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult ImportQuest(string jsonQuest)
+        {
+            var frontQuest = SerializeHelper.Deserialize<FrontQuest>(jsonQuest);
+            var quest = frontQuest.ToDbModel();
+
+            var questName = QuestRepository.GetByName(quest.Name);
+            if (questName == null)
+            {
+                quest.Id = 0;
+                quest.
+
+                QuestRepository.Save(quest);
+            }
+
+            
+
+            return new JsonResult
+            {
+                Data = true,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         /* ************** Event ************** */
         public JsonResult GetEndingEvents(long questId)
         {
