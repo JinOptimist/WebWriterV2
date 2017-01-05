@@ -80,11 +80,29 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             return deferred.promise;
         }
 
+        function importQuest(questJson) {
+            var deferred = $q.defer();
+
+            var request = {
+                method: 'POST',
+                url: '/Rpg/ImportQuest',
+                data: { jsonQuest: questJson }
+            };
+
+            $http(request)
+                .success(function (response) {
+                    deferred.resolve(angular.fromJson(response));
+                });
+
+            return deferred.promise;
+        }
+
         return {
             saveQuest: saveQuest,
             getQuests: getQuests,
             getQuest: getQuest,
             removeQuest: removeQuest,
+            importQuest: importQuest
         };
     }])
     .service('eventService', ['$http', '$q', function ($http, $q) {

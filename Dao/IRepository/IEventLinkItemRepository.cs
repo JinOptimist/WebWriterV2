@@ -6,5 +6,6 @@ namespace Dao.IRepository
 {
     public interface IEventLinkItemRepository : IBaseRepository<EventLinkItem>
     {
+        void RemoveDuplicates();
     }
 }

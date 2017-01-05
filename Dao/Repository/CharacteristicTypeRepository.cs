@@ -9,7 +9,7 @@ namespace Dao.Repository
     public class CharacteristicTypeRepository : BaseRepository<CharacteristicType>, ICharacteristicTypeRepository
     {
         private readonly IStateTypeRepository _stateTypeRepository;
-        private CharacteristicRepository _characteristicRepository;
+        private readonly CharacteristicRepository _characteristicRepository;
 
         public CharacteristicTypeRepository(WriterContext db) : base(db)
         {

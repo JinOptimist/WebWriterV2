@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -76,6 +77,11 @@ namespace Dao.Repository
 
         public Skill GetByName(string skillName)
         {
+            var nbsp = (char)160;// code of nbsp
+            if (skillName.Contains(nbsp))
+            {
+                throw  new Exception("You use nbsp between simple space. This is a problem");
+            }
             return Entity.FirstOrDefault(x => x.Name == skillName);
         }
 
@@ -100,6 +106,26 @@ namespace Dao.Repository
             }
 
             return result;
+        }
+
+        public Skill CheckAndSave(Skill skill)
+        {
+            var skillByName = GetByName(skill.Name);
+            if (skillByName != null && skillByName.Id != skill.Id)
+            {
+                return skillByName;
+            }
+
+            if (skill.School.Id != 0)
+                return skill;
+
+
+            var skillSchool = _skillSchoolRepository.Entity.FirstOrDefault(x => x.Name == skill.School.Name);
+            if (skillSchool != null)
+            {
+                skill.School = skillSchool;
+            }
+            return Save(skill);
         }
     }
 }

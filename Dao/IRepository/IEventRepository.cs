@@ -5,10 +5,6 @@ namespace Dao.IRepository
 {
     public interface IEventRepository : IBaseRepository<Event>
     {
-        void RemoveWholeBranch(Event currentEvent);
-
-        void RemoveWholeBranch(long currentEventId);
-
         void RemoveEventAndChildren(Event currentEvent);
 
         void RemoveEventAndChildren(long currentEventId);

@@ -6,8 +6,6 @@ namespace Dao.IRepository
 {
     public interface IQuestRepository : IBaseRepository<Quest>
     {
-        Quest GetWithRootEvent(long id);
-
         List<Quest> GetAllWithRootEvent();
 
         Quest GetByName(string name);

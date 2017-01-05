@@ -6,5 +6,6 @@ namespace Dao.IRepository
 {
     public interface IStateRepository : IBaseRepository<State>
     {
+        void CheckAndSave(State state);
     }
 }

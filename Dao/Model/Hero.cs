@@ -34,7 +34,7 @@ namespace Dao.Model
 
     public enum Race
     {
-        None = -1,
+        None = 0,
         Человек = 1,
         Эльф = 2,
         Орк = 3,
@@ -44,7 +44,7 @@ namespace Dao.Model
 
     public enum Sex
     {
-        None = -1,
+        None = 0,
         Муж = 1,
         Жен = 2,
         Скрывает = 3

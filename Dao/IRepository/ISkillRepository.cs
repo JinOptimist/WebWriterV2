@@ -13,5 +13,7 @@ namespace Dao.IRepository
         List<Skill> GetBySchoolName(string schoolName);
 
         Dictionary<SkillSchool, List<Skill>> GetBySchools(List<SkillSchool> skillSchool);
+
+        Skill CheckAndSave(Skill skill);
     }
 }

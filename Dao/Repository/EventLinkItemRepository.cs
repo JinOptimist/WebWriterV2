@@ -2,6 +2,7 @@
 using Dao.IRepository;
 using Dao.Model;
 using System;
+using System.Linq;
 
 namespace Dao.Repository
 {
@@ -27,6 +28,14 @@ namespace Dao.Repository
             }
 
             return base.Save(model);
+        }
+
+        public void RemoveDuplicates()
+        {
+            var duplicate = Entity.Where(x => true)
+                .GroupBy(x => new {x.From, x.Text, x.To})
+                .SelectMany(x => x.OrderBy(y => y.Id).Skip(1));
+            Remove(duplicate);
         }
     }
 }

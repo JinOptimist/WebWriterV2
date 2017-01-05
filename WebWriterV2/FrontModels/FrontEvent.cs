@@ -54,7 +54,12 @@ namespace WebWriterV2.FrontModels
                 LinksFromThisEvent = LinksFromThisEvent?.Select(x => x.ToDbModel()).ToList(),
                 LinksToThisEvent = LinksToThisEvent?.Select(x => x.ToDbModel()).ToList(),
                 ProgressChanging = ProgressChanging,
-                //RequrmentSkill = RequrmentSkill?.Select(x => x.ToDbModel()).ToList(),
+
+                RequrmentSkill = RequrmentSkill?.Select(x => x.ToDbModel()).ToList(),
+                RequirementThings = RequirementThings?.Select(x=>x.ToDbModel()).ToList(),
+                RequrmentCharacteristics = RequrmentCharacteristics?.Select(x=>x.ToDbModel()).ToList(),
+                ThingsChanges = ThingsChanges?.Select(x => x.ToDbModel()).ToList(),
+                HeroStatesChanging = HeroStatesChanging?.Select(x=>x.ToDbModel()).ToList()
             };
         }
     }

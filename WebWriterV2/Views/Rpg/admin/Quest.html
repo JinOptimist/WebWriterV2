@@ -17,7 +17,9 @@
 
     <form ng-show="quest" novalidate style="width: 1000px;">
         <input type="submit" ng-click="saveQuest()" value="Save"/>
-        <input type="button" ng-click="downloadQuest()" value="Export" />
+        <input type="button" ng-click="exportQuest()" value="Export"/>
+        <input type="text" ng-model="importJson"/>
+        <input type="button" ng-click="importQuest()" value="Import" />
         <p>
             Name: <input type="text" ng-model="quest.Name"/>
         </p>

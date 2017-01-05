@@ -453,7 +453,7 @@ namespace WebWriterV2.Controllers
         /* ************** Quest ************** */
         public JsonResult GetQuest(long id)
         {
-            var quest = QuestRepository.GetWithRootEvent(id);
+            var quest = QuestRepository.Get(id);
             var frontQuest = new FrontQuest(quest);
             return new JsonResult
             {
@@ -515,12 +515,111 @@ namespace WebWriterV2.Controllers
             if (questName == null)
             {
                 quest.Id = 0;
-                quest.
+                quest.Executor = null;
+                var characteristics = new List<Characteristic>();
+                var things = new List<Thing>();
+                var skills = new List<Skill>();
+                var states = new List<State>();
+                var linkItems = new List<EventLinkItem>();
+
+                foreach (var @event in quest.AllEvents)
+                {
+                    if (quest.RootEvent.Id == @event.Id)
+                    {
+                        @event.ForRootQuest = quest;
+                    }
+
+                    var eventLinkItems = @event.LinksFromThisEvent;
+                    eventLinkItems.AddRange(@event.LinksToThisEvent);
+                    foreach (var eventLinkItem in eventLinkItems)
+                    {
+                        eventLinkItem.Id = 0;
+                        eventLinkItem.To = quest.AllEvents.First(x => x.Id == eventLinkItem.To.Id);
+                        eventLinkItem.From = quest.AllEvents.First(x => x.Id == eventLinkItem.From.Id);
+                    }
+
+                    linkItems.AddRange(eventLinkItems);
+                    @event.Quest = quest;
+                }
+
+                foreach (var @event in quest.AllEvents)
+                {
+                    @event.Id = 0;
+                    characteristics.AddRange(@event.RequrmentCharacteristics ?? new List<Characteristic>());
+                    things.AddRange(@event.RequirementThings ?? new List<Thing>());
+                    things.AddRange(@event.ThingsChanges ?? new List<Thing>());
+                    skills.AddRange(@event.RequrmentSkill ?? new List<Skill>());
+                    states.AddRange(@event.HeroStatesChanging ?? new List<State>());
+                }
+
+                /* Process Things connections */
+                characteristics.AddRange(things.SelectMany(x => x.ThingSample.PassiveCharacteristics ?? new List<Characteristic>()));
+                characteristics.AddRange(things.SelectMany(x => x.ThingSample.UsingEffectCharacteristics ?? new List<Characteristic>()));
+                states.AddRange(things.SelectMany(x=>x.ThingSample.PassiveStates ?? new List<State>()));
+                states.AddRange(things.SelectMany(x => x.ThingSample.UsingEffectState ?? new List<State>()));
+
+                /* Process Skills connections */
+                states.AddRange(skills.SelectMany(x => x.SelfChanging ?? new List<State>()));
+                states.AddRange(skills.SelectMany(x => x.TargetChanging ?? new List<State>()));
+
+                /* Process Characteristics connections */
+                states.AddRange(characteristics.SelectMany(x => x.CharacteristicType.EffectState ?? new List<State>()));
+
+                foreach (var thing in things)
+                {
+                    thing.Id = 0;
+                    thing.Hero = null;
+                    thing.ThingSample.Id = 0;
+                }
+
+                foreach (var characteristic in characteristics)
+                {
+                    characteristic.Id = 0;
+                    characteristic.CharacteristicType.Id = 0;
+                }
+
+                var nbsp = (char)160;// code of nbsp
+                var sp = (char)32;// code of simple space
+
+                foreach (var skill in skills)
+                {
+                    skill.Id = 0;
+                    skill.School.Id = 0;
+
+                    var clearName = skill.Name.Replace(nbsp, sp);
+                    skill.Name = clearName;
+                }
+
+                foreach (var state in states)
+                {
+                    state.Id = 0;
+                    state.StateType.Id = 0;
+                }
+
+
+                states.ForEach(StateRepository.CheckAndSave);
+                things.ForEach(ThingRepository.CheckAndSave);
+                characteristics.ForEach(CharacteristicRepository.CheckAndSave);
+                var newSkill = skills.Select(SkillRepository.CheckAndSave).ToList();
+                foreach (var @event in quest.AllEvents)
+                {
+                    for (var i = 0; i < @event.RequrmentSkill.Count; i++)
+                    {
+                        var requrmentSkillName = @event.RequrmentSkill[i].Name;
+                        @event.RequrmentSkill[i] = newSkill.First(x => x.Name == requrmentSkillName);
+                    }
+                }
+
+                foreach (var @event in quest.AllEvents)
+                {
+                    @event.LinksFromThisEvent = new List<EventLinkItem>();
+                }
 
                 QuestRepository.Save(quest);
-            }
 
-            
+                EventLinkItemRepository.Save(linkItems);
+                EventLinkItemRepository.RemoveDuplicates();
+            }
 
             return new JsonResult
             {

@@ -6,5 +6,6 @@ namespace Dao.IRepository
 {
     public interface IThingRepository : IBaseRepository<Thing>
     {
+        void CheckAndSave(Thing thing);
     }
 }

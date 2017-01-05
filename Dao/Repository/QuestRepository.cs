@@ -16,11 +16,6 @@ namespace Dao.Repository
             _eventRepository = new EventRepository(db);
         }
 
-        public Quest GetWithRootEvent(long id)
-        {
-            return Entity.Include(x => x.RootEvent).FirstOrDefault(x => x.Id == id);
-        }
-
         public List<Quest> GetAllWithRootEvent()
         {
             return Entity.Include(x => x.RootEvent).ToList();
@@ -31,22 +26,20 @@ namespace Dao.Repository
             if (quest == null)
                 return;
 
-            if (quest.RootEvent == null)
-                quest = GetWithRootEvent(quest.Id);
-
-            if (quest.RootEvent != null)
+            foreach (var @event in quest.AllEvents)
             {
-                _eventRepository.RemoveWholeBranch(quest.RootEvent);
-                quest = Get(quest.Id);
+                @event.LinksFromThisEvent = null;
+                @event.LinksToThisEvent = null;
+                _eventRepository.Save(@event);
             }
 
-            base.Remove(quest);
-        }
+            if (quest.AllEvents.Count > 0)
+            {
+                _eventRepository.Remove(quest.AllEvents);
+            }
 
-        public override void Remove(long id)
-        {
-            var quest = GetWithRootEvent(id);
-            Remove(quest);
+            quest = Get(quest.Id);
+            base.Remove(quest);
         }
 
         public override Quest Save(Quest model)

@@ -10,11 +10,13 @@ namespace Dao.Repository
     public class EventRepository : BaseRepository<Event>, IEventRepository
     {
         private readonly Lazy<EventLinkItemRepository> _eventLinkItemRepository;
+        private readonly ThingRepository _thingRepository;
 
         public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
         public EventRepository(WriterContext db) : base(db)
         {
             _eventLinkItemRepository = new Lazy<EventLinkItemRepository>(() => new EventLinkItemRepository(db));
+            _thingRepository = new ThingRepository(db);
         }
 
         public override Event Save(Event model)
@@ -49,6 +51,14 @@ namespace Dao.Repository
             {
                 _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisEvent);
             }
+            if (currentEvent.ThingsChanges?.Any() ?? false)
+            {
+                _thingRepository.Remove(currentEvent.ThingsChanges);
+            }
+            if (currentEvent.RequirementThings?.Any() ?? false)
+            {
+                _thingRepository.Remove(currentEvent.RequirementThings);
+            }
 
             base.Remove(currentEvent);
         }
@@ -62,7 +72,7 @@ namespace Dao.Repository
         {
             if (currentEvent == null)
                 return;
-            
+
             if (currentEvent.LinksFromThisEvent?.Any() ?? false)
             {
                 var forDelete = currentEvent.LinksFromThisEvent.Select(x => x.From).ToList();
@@ -87,53 +97,6 @@ namespace Dao.Repository
             //    parentEvent.To.ChildrenEvents.Remove(linkItem);
             //}
             //currentEvent.ParentEvents.ForEach(x => x.Event.EventLinkItems.Remove(currentEvent));
-            base.Remove(currentEvent);
-        }
-
-        /// <summary>
-        /// Special realization for cascade deleting
-        /// </summary>
-        /// <param name="currentEvent"></param>
-        public void RemoveWholeBranch(long currentEventId) {
-            RemoveWholeBranch(Get(currentEventId));
-        }
-
-        /// <summary>
-        /// Special realization for cascade deleting
-        /// </summary>
-        /// <param name="currentEvent"></param>
-        public void RemoveWholeBranch(Event currentEvent)
-        {
-            if (currentEvent == null)
-                return;
-            currentEvent.LinksFromThisEvent = currentEvent.LinksFromThisEvent ?? new List<EventLinkItem>();
-
-            if (currentEvent.LinksFromThisEvent.Any())
-            {
-                var forDelete = currentEvent.LinksFromThisEvent.Select(x => x.From).ToList();
-                forDelete.ForEach(RemoveWholeBranch);
-            }
-
-            var isDetached = Db.Entry(currentEvent).State == EntityState.Detached;
-            if (isDetached)
-            {
-                return;
-            }
-
-            if (currentEvent.LinksFromThisEvent.Any())
-            {
-                currentEvent.LinksFromThisEvent = null;
-                Save(currentEvent);
-            }
-
-            //var parentEvents = currentEvent.ParentEvents.ToList();
-            //foreach (var someEventLink in parentEvents)
-            //{
-            //    var linkItem = someEventLink.To.ChildrenEvents.FirstOrDefault(x => x.To.Id == currentEvent.Id);
-            //    someEventLink.To.ChildrenEvents.Remove(linkItem);
-            //    Save(someEventLink.To);
-            //}
-
             base.Remove(currentEvent);
         }
 

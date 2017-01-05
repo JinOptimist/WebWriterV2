@@ -6,5 +6,6 @@ namespace Dao.IRepository
 {
     public interface ICharacteristicRepository : IBaseRepository<Characteristic>
     {
+        void CheckAndSave(Characteristic characteristic);
     }
 }

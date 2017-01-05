@@ -335,7 +335,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 );
             }
 
-            $scope.downloadQuest = function() {
+            $scope.exportQuest = function () {
                 questService.getQuest($scope.quest.Id).then(function (result) {
                     var text = angular.toJson(result);
                     var blob = new Blob([text]);
@@ -343,6 +343,12 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                     link.href = window.URL.createObjectURL(blob);
                     link.download = $scope.quest.Name + '.json';
                     link.click();
+                });
+            }
+
+            $scope.importQuest = function () {
+                questService.importQuest($scope.importJson).then(function () {
+                    alert('We did it!');
                 });
             }
 
@@ -431,8 +437,8 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.childExpand = true;
 
             var questId = $routeParams.questId;
-            var raceNoneObject = { name: 'None', value: -1 };
-            var sexNoneObject = { name: 'None', value: -1 };
+            var raceNoneObject = { name: 'None', value: 0 };
+            var sexNoneObject = { name: 'None', value: 0 };
 
             init();
 
@@ -608,14 +614,15 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
 
             /* Event */
             $scope.addEvent = function () {
-                CKEditorService.setData('desc', '');
-
                 $scope.event = {
                     Name: 'new',
                     ProgressChanging: 0,
                     Desc: '',
                     ChildrenEvents: []
                 };
+
+                CKEditorService.reloadEditor('desc');
+                CKEditorService.setData('desc', '');
             }
 
             $scope.selectEvent = function (eventId) {
