@@ -1,5 +1,5 @@
 ﻿<div ng-class="!quest || !hero ? 'wait' : ''">
-    <div style="width: 800px; float: left;font-size: 24px">
+    <div style="width: 800px; float: left;">
         <h2>Экран путушествия: </h2>
         <div>
             <b>{{currentEvent.Name}}</b>
@@ -13,9 +13,12 @@
             </ul>
         </div>
 
-        <div ng-if="!ways || ways.length == 0">
+        <div ng-if="(!ways || ways.length == 0) && !wait">
             Квест завершён.
             <input ng-click="endQuest()" type="button" value="Собрать награду"/>
+        </div>
+        <div ng-if="wait">
+            <img src="/Content/wait.gif"/>
         </div>
 
         <div ng-if="false">

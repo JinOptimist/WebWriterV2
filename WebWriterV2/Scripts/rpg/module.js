@@ -1075,14 +1075,17 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.quest = {};
             $scope.hero = {};
             $scope.ways = [];
+            $scope.wait = true;
 
             init();
 
             $scope.chooseEvent = function (eventId) {
+                $scope.wait = true;
                 eventService.getEventForTravel(eventId, $scope.hero.Id).then(function(result) {
                     $scope.ways = result.LinksFromThisEvent;
                     $scope.quest.Effective += result.ProgressChanging;
                     $scope.currentEvent = result;
+                    $scope.wait = false;
                 });
 
                 eventService.eventChangesApplyToHero(eventId, $scope.hero.Id).then(function (heroUpdated) {
