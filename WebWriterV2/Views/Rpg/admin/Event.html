@@ -10,15 +10,18 @@
         <a ng-href="#" ng-click="addEvent()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
     </div>
     <form ng-show="event" class="left event-edit">
-        <h2 ng-click="parentExpand = !parentExpand">Links to this event {{parentExpand ? "&uarr;" : "&darr;"}}</h2>
+        <h3 ng-click="parentExpand = !parentExpand">Откуда можно попасть в эту главу {{parentExpand ? "&uarr;" : "&darr;"}}</h3>
         <div ng-show="parentExpand">
             <p ng-repeat="linkItem in event.LinksToThisEvent">
-                FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.
-                <a ng-href="#" ng-click="selectEvent(linkItem.FromId)">{{linkItem.Text}}</a>
+                Из главы: <a ng-href="#" ng-click="selectEvent(linkItem.FromId)">{{linkItem.FromId}}</a>. С текстом перехода: {{linkItem.Text}}
+
+            </p>
+            <p ng-show="!event.LinksToThisEvent || event.LinksToThisEvent.length == 0">
+                Нет глав ссылающихся на эту главу
             </p>
         </div>
         <hr />
-        <h2 ng-click="reqExpand = !reqExpand">Условия входа в Евент {{reqExpand ? "&uarr;" : "&darr;"}}</h2>
+        <h3 ng-click="reqExpand = !reqExpand">Условия входа в главу {{reqExpand ? "&uarr;" : "&darr;"}}</h3>
         <div ng-show="reqExpand">
             <p>
                 RequrmentSex:
@@ -63,7 +66,7 @@
             </div>
         </div>
         <hr />
-        <h2 ng-click="stateExpand = !stateExpand">Изменения Героя при входе в Евент {{stateExpand ? "&uarr;" : "&darr;"}}</h2>
+        <h3 ng-click="stateExpand = !stateExpand">Изменения Героя при входе в главу {{stateExpand ? "&uarr;" : "&darr;"}}</h3>
         <div ng-show="stateExpand">
             <div>
                 <p ng-repeat="state in event.HeroStatesChanging">
@@ -88,9 +91,9 @@
             </div>
         </div>
         <hr />
-        <h2 ng-click="eventEdit = !eventEdit">
-            Event details {{eventEdit ? "&uarr;" : "&darr;"}}
-        </h2>
+        <h3 ng-click="eventEdit = !eventEdit">
+            Глава Основное {{eventEdit ? "&uarr;" : "&darr;"}}
+        </h3>
         <div ng-show="eventEdit">
             <input type="submit" ng-click="saveEvent()" value="Save" class="save" />
             <p>
@@ -107,21 +110,28 @@
         </div>
         <hr />
         <div name="eventLinkForm">
-            <h2 ng-click="childExpand = !childExpand">
-                Links from this event {{childExpand ? "&uarr;" : "&darr;"}}
-            </h2>
+            <h3 ng-click="childExpand = !childExpand">
+                Куда можно попасть из этой главы {{childExpand ? "&uarr;" : "&darr;"}}
+            </h3>
             <div ng-show="childExpand">
                 <p ng-repeat="linkItem in event.LinksFromThisEvent">
                     <!--FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.-->
-                    <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}/event/{{linkItem.ToId}}" ng-click="selectEvent(linkItem.ToId)">Go to Child</a>
+                    К главе:
+                    <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}/event/{{linkItem.ToId}}" ng-click="selectEvent(linkItem.ToId)">
+                        {{linkItem.ToId}}
+                    </a>
+                    С текстом перехода:
+                    <br/>
                     <input name="linkItemText{{linkItem.Id}}" type="text" ng-model="linkItem.Text"
-                           class="auto-apply" ng-disabled="linkItem.disable" />
-                    <a ng-href="#" ng-click="saveEventLink(linkItem)"><img src="/Content/confirm.png" style="width: 20px; height: 20px;" /></a>
-                    <a ng-href="#" ng-click="removeEventLink(event, linkItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+                           class="auto-apply" ng-disabled="linkItem.disable" style="width: 500px;"/>
+                    <a ng-href="#" ng-click="saveEventLink(linkItem)"><img src="/Content/confirm.png" style="width: 20px; height: 20px;"/></a>
+                    <a ng-href="#" ng-click="removeEventLink(event, linkItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;"/></a>
                 </p>
+                <hr/>
                 <p>
+                    Добавить переход к главе:
                     <select ng-model="selectedEvent" ng-options="event as event.Name for event in events"></select>
-                    <a ng-href="#" ng-click="addEventLink()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+                    <a ng-href="#" ng-click="addEventLink()"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
                 </p>
             </div>
         </div>

@@ -36,6 +36,26 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             return deferred.promise;
         }
 
+        function changeRootEvent(questId, eventId) {
+            var deferred = $q.defer();
+
+            var request = {
+                method: 'POST',
+                url: '/Rpg/ChangeRootEvent',
+                data: {
+                    questId: questId,
+                    eventId: eventId
+                }
+            };
+
+            $http(request)
+                .success(function (response) {
+                    deferred.resolve(angular.fromJson(response));
+                });
+
+            return deferred.promise;
+        }
+
         function getQuest(questId) {
             var deferred = $q.defer();
 
@@ -101,6 +121,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             saveQuest: saveQuest,
             getQuests: getQuests,
             getQuest: getQuest,
+            changeRootEvent: changeRootEvent,
             removeQuest: removeQuest,
             importQuest: importQuest
         };
@@ -1060,7 +1081,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             if (editor) {
                 editor.destroy(true);
             }
-            editor = CKEDITOR.replace(editorName);
+            editor = CKEDITOR.replace(editorName, {width: 1200, height: 600});
             editor.setData(newData);
         }
 

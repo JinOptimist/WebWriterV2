@@ -291,8 +291,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
         }
     ])
     .controller('adminQuestGeneralController', [
-        '$scope', '$http', '$routeParams', '$location', 'questService', 'sexService', 'raceService', 'eventService', 'CKEditorService',
-        function ($scope, $http, $routeParams, $location, questService, sexService, raceService, eventService, CKEditorService) {
+        '$scope', '$http', '$routeParams', '$location', 'questService', 'sexService', 'raceService',
+            'eventService', 'CKEditorService',
+        function ($scope, $http, $routeParams, $location, questService, sexService, raceService,
+            eventService, CKEditorService) {
+
             $scope.quest = null;
             $scope.quests = [];
             $scope.wait = true;
@@ -370,6 +373,12 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 $location.path(url);
             }
 
+            $scope.changeRootEvent = function() {
+                questService.changeRootEvent($scope.quest.Id, $scope.newRootEvent.Id).then(function (data) {
+                    $scope.quest.RootEvent = data;
+                });
+            }
+
             function loadQuest(questId) {
                 questService.getQuest(questId).then(function (result) {
                     $scope.quest = result;
@@ -430,9 +439,9 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.StateTypes = [];
             $scope.ThingSamples = [];
 
-            $scope.parentExpand = true;
-            $scope.reqExpand = true;
-            $scope.stateExpand = true;
+            $scope.parentExpand = false;
+            $scope.reqExpand = false;
+            $scope.stateExpand = false;
             $scope.eventEdit = true;
             $scope.childExpand = true;
 

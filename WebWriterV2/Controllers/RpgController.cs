@@ -628,6 +628,21 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult ChangeRootEvent(long questId, long eventId)
+        {
+            var quest = QuestRepository.Get(questId);
+            var @event = EventRepository.Get(eventId);
+            quest.RootEvent = @event;
+            QuestRepository.Save(quest);
+
+            var frontEvent = new FrontEvent(@event);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(frontEvent),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
         /* ************** Event ************** */
         public JsonResult GetEndingEvents(long questId)
         {

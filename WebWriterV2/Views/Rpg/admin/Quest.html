@@ -1,11 +1,12 @@
 ﻿<div>
     <div style="float: right; width: 300px;">
         <h2>Список квестов <!--<a ng-href="#" ng-click="addQuest()">+</a>--> </h2>
+        <a ng-href="#" ng-click="addQuest()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
         <p ng-repeat="questItem in quests">
             <a ng-href="#" ng-click="selectQuest(questItem)">{{questItem.Name}}</a>
             <a ng-href="#" ng-click="removeQuest(questItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;"/></a>
         </p>
-        <a ng-href="#" ng-click="addQuest()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+
 
         <div ng-if="quest">
             <h2>Список евентов</h2>
@@ -14,12 +15,15 @@
             </p>
         </div>
     </div>
-
+    <div ng-show="!quest">
+        <input type="button" ng-click="importQuest()" value="Import"/>
+        <br />
+        <textarea ng-model="importJson" rows="10" cols="100"></textarea>
+    </div>
     <form ng-show="quest" novalidate style="width: 1000px;">
         <input type="submit" ng-click="saveQuest()" value="Save"/>
-        <input type="button" ng-click="exportQuest()" value="Export"/>
-        <input type="text" ng-model="importJson"/>
-        <input type="button" ng-click="importQuest()" value="Import" />
+        <input type="button" ng-click="exportQuest()" value="Export" style="float: right;"/>
+
         <p>
             Name: <input type="text" ng-model="quest.Name"/>
         </p>
@@ -49,6 +53,13 @@
             <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}/event/{{quest.RootEvent.Id}}" ng-click="selectEvent(quest.RootEvent.Id)">
                 {{quest.RootEvent.Name}}
             </a>
+            <p>
+                Сменить стартовую главу:
+            </p>
+            <p>
+                <select ng-model="newRootEvent" ng-options="event as event.Name for event in quest.AllEvents"></select>
+                <input type="button" value="Set" ng-click="changeRootEvent()"/>
+            </p>
         </p>
         <h3>На {{endingEvents.length}} главах может закончится Квест:</h3>
         <p ng-repeat="event in endingEvents">
