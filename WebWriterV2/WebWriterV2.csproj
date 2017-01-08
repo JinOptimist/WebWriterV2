@@ -652,7 +652,6 @@
     <Content Include="Views\Rpg\Battle.html" />
     <Content Include="Views\Rpg\Travel.html" />
     <Content Include="Views\Rpg\Guild.html" />
-    <Content Include="Views\Rpg\QuestInfo.html" />
     <Content Include="Views\Rpg\ListHeroes.html" />
     <Content Include="Views\Rpg\directives\ngHeroCard.html" />
     <Content Include="Views\Rpg\directives\ngQuestInfo.html" />

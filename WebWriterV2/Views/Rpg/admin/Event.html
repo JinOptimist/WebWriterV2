@@ -51,7 +51,7 @@
                         ng-options="option as option.Name for option in availableCharacteristicTypes()"></select>
                 <select ng-model="newRequirementType"
                         ng-options="option as option.Name for option in RequirementTypes"></select>
-                <input type="text" ng-model="newRequirementCharacteristicsValue"/>
+                <input type="number" ng-model="newRequirementCharacteristicsValue"/>
                 <a ng-click="addCharacteristic()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
             </p>
             <div>
