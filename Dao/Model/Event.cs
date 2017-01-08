@@ -61,9 +61,9 @@ namespace Dao.Model
     public enum RequirementType
     {
         More = 1,
-        EqualsOrMore = 2,
+        MoreOrEquals = 2,
         Less = 3,
-        EqualsOrLess = 4,
+        LessOrEquals = 4,
         Exist = 5,
         NotExist = 6,
         Equals = 7

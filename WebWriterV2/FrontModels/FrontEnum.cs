@@ -7,13 +7,13 @@ using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FronEnum
+    public class FrontEnum
     {
-        public FronEnum()
+        public FrontEnum()
         {
         }
 
-        public FronEnum(object enumValue)
+        public FrontEnum(object enumValue)
         {
             if (enumValue == null)
                 return;
@@ -33,13 +33,13 @@ namespace WebWriterV2.FrontModels
         public long Value { get; set; }
     }
 
-    public class FronEnumPlusValue : FronEnum
+    public class FronEnumPlusValue : FrontEnum
     {
         public FronEnumPlusValue()
         {
         }
 
-        public FronEnumPlusValue(FronEnum fronEnum, long numer)
+        public FronEnumPlusValue(FrontEnum fronEnum, long numer)
         {
             EnumType = fronEnum.EnumType;
             Name = fronEnum.Name;

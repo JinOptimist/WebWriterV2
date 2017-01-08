@@ -75,10 +75,11 @@ namespace WebWriterV2.Controllers
             return View();
         }
 
+        /* ************** Utils for enum ************** */
         public JsonResult GetListRace()
         {
             var listRace = Enum.GetValues(typeof(Race)).Cast<Race>();
-            var listNameValue = listRace.Select(race => new FronEnum(race));
+            var listNameValue = listRace.Select(race => new FrontEnum(race));
 
             return new JsonResult
             {
@@ -90,7 +91,19 @@ namespace WebWriterV2.Controllers
         public JsonResult GetListSex()
         {
             var listSex = Enum.GetValues(typeof(Sex)).Cast<Sex>();
-            var listNameValue = listSex.Select(sex => new FronEnum(sex));
+            var listNameValue = listSex.Select(sex => new FrontEnum(sex));
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(listNameValue),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult GetListRequirementType()
+        {
+            var listRequirementType = Enum.GetValues(typeof(RequirementType)).Cast<RequirementType>();
+            var listNameValue = listRequirementType.Select(requirementType => new FrontEnum(requirementType));
 
             return new JsonResult
             {
@@ -800,7 +813,8 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult AddCharacteristicToEvent(long eventId, long characteristicTypeId, int characteristicValue)
+        public JsonResult AddCharacteristicToEvent(long eventId, long characteristicTypeId, 
+            int characteristicValue, int requirementType)
         {
             var eventFromDb = EventRepository.Get(eventId);
             var characteristicType = CharacteristicTypeRepository.Get(characteristicTypeId);
@@ -814,6 +828,7 @@ namespace WebWriterV2.Controllers
                 };
 
             characteristic.Number = characteristicValue;
+            characteristic.RequirementType = (RequirementType)requirementType;
 
             // if new
             if (characteristic.Id < 1)
@@ -821,9 +836,11 @@ namespace WebWriterV2.Controllers
             CharacteristicRepository.Save(characteristic);
             EventRepository.Save(eventFromDb);
 
+            var frontCharacteristic = new FrontCharacteristic(characteristic);
+
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(characteristic),
+                Data = JsonConvert.SerializeObject(frontCharacteristic),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

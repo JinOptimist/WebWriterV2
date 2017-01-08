@@ -66,7 +66,7 @@ namespace WebWriterV2.RpgUtility
                     var heroCharacteristic = hero.Characteristics.FirstOrDefault(
                         x => x.CharacteristicType.Id == characteristic.CharacteristicType.Id);
                     if (heroCharacteristic == null
-                        || heroCharacteristic.Number < characteristic.Number)
+                        || !CheckRequirement(heroCharacteristic.Number, characteristic.Number, characteristic.RequirementType))
                     {
                         forRemove.Add(link);
                     }
@@ -78,7 +78,7 @@ namespace WebWriterV2.RpgUtility
                     var heroThing = hero.Inventory.FirstOrDefault(
                         x => x.ThingSample.Id == thing.ThingSample.Id);
                     if (heroThing == null
-                        || heroThing.Count < thing.Count)
+                        || !CheckRequirement(heroThing.Count, thing.Count, thing.RequirementType))
                     {
                         forRemove.Add(link);
                     }
@@ -86,6 +86,51 @@ namespace WebWriterV2.RpgUtility
             }
 
             forRemove.ForEach(x => links.Remove(x));
+        }
+
+        private static bool CheckRequirement(long heroValue, long requirementValue, RequirementType? requirementType)
+        {
+            if (requirementType == null)
+            {
+                return true;
+            }
+
+            switch (requirementType)
+            {
+                case RequirementType.Equals:
+                    {
+                        return heroValue == requirementValue;
+                    }
+                case RequirementType.LessOrEquals:
+                    {
+                        return heroValue <= requirementValue;
+                    }
+                case RequirementType.MoreOrEquals:
+                    {
+                        return heroValue >= requirementValue;
+                    }
+                case RequirementType.Less:
+                    {
+                        return heroValue < requirementValue;
+                    }
+                case RequirementType.More:
+                    {
+                        return heroValue > requirementValue;
+                    }
+                case RequirementType.Exist:
+                    {
+                        return heroValue > 0;
+                    }                
+                case RequirementType.NotExist:
+                    {
+                        return heroValue < 1;
+                    }
+                default:
+                    {
+                        throw new Exception("Uknown RequirementType");
+                    }
+            }
+            
         }
     }
 }

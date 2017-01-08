@@ -16,8 +16,8 @@ namespace WebWriterV2.FrontModels
             Id = eventDb.Id;
             Name = eventDb.Name;
             Desc = eventDb.Desc;
-            RequirementRace = new FronEnum(eventDb.RequirementRace);
-            RequirementSex = new FronEnum(eventDb.RequirementSex);
+            RequirementRace = new FrontEnum(eventDb.RequirementRace);
+            RequirementSex = new FrontEnum(eventDb.RequirementSex);
             LinksFromThisEvent = eventDb.LinksFromThisEvent?.Select(x => new FrontEventLinkItem(x)).ToList();
             LinksToThisEvent = eventDb.LinksToThisEvent?.Select(x => new FrontEventLinkItem(x)).ToList();
             ProgressChanging = eventDb.ProgressChanging;
@@ -30,8 +30,8 @@ namespace WebWriterV2.FrontModels
 
         public string Name { get; set; }
         public string Desc { get; set; }
-        public FronEnum RequirementRace { get; set; }
-        public FronEnum RequirementSex { get; set; }
+        public FrontEnum RequirementRace { get; set; }
+        public FrontEnum RequirementSex { get; set; }
         public List<FrontEventLinkItem> LinksFromThisEvent { get; set; }
         public List<FrontEventLinkItem> LinksToThisEvent { get; set; }
         public List<FrontSkill> RequirementSkill { get; set; }

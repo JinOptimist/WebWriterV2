@@ -18,8 +18,8 @@ namespace WebWriterV2.FrontModels
             Id = hero.Id;
             Name = hero.Name;
             Background = hero.Background;
-            Race = new FronEnum(hero.Race);
-            Sex = new FronEnum(hero.Sex);
+            Race = new FrontEnum(hero.Race);
+            Sex = new FrontEnum(hero.Sex);
 
             Characteristics = hero.Characteristics.Select(x => new FrontCharacteristic(x)).ToList();
             State = hero.State.Select(x => new FrontState(x)).ToList();
@@ -29,8 +29,8 @@ namespace WebWriterV2.FrontModels
 
         public string Name { get; set; }
         public string Background { get; set; }
-        public FronEnum Race { get; set; }
-        public FronEnum Sex { get; set; }
+        public FrontEnum Race { get; set; }
+        public FrontEnum Sex { get; set; }
 
         public List<FrontCharacteristic> Characteristics { get; set; }
         public List<FrontState> State { get; set; }

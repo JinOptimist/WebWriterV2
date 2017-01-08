@@ -43,12 +43,14 @@
             <p>
                 RequirementCharacteristics:
                 <span ng-repeat="characteristic in event.RequirementCharacteristics">
-                    {{characteristic.CharacteristicType.Name}} &ge; {{characteristic.Number}}
+                    {{characteristic.CharacteristicType.Name}} {{characteristic.RequirementType.Name}} {{characteristic.Number}}
                     <a ng-click="removeCharacteristic(characteristic.Id)" style="cursor: pointer;"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
                 </span>
 
                 <select ng-model="newRequirementCharacteristicsType"
                         ng-options="option as option.Name for option in availableCharacteristicTypes()"></select>
+                <select ng-model="newRequirementType"
+                        ng-options="option as option.Name for option in RequirementTypes"></select>
                 <input type="text" ng-model="newRequirementCharacteristicsValue"/>
                 <a ng-click="addCharacteristic()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
             </p>

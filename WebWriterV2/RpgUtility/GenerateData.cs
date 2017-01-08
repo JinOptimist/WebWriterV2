@@ -396,7 +396,11 @@ namespace WebWriterV2.RpgUtility
                 Name = "Евент 01. Мост. Удача",
                 Desc = "Сальто, потом кувырок и невероятная гордость за себя. Вот так незамысловато разрешилась опасная ситуация на мосту. Повысив свою самооценку герой уверен направился к входу в башню",
                 RequirementCharacteristics = new List<Characteristic> {
-                    new Characteristic { Number = 6, CharacteristicType = agilityType }
+                    new Characteristic {
+                        Number = 6,
+                        CharacteristicType = agilityType,
+                        RequirementType = RequirementType.MoreOrEquals
+                    }
                 }
             };
             var event1p2 = new Event

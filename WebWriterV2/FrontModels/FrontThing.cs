@@ -16,11 +16,13 @@ namespace WebWriterV2.FrontModels
             ItemInUse = thing.ItemInUse;
             Count = thing.Count;
             ThingSample = new FrontThingSample(thing.ThingSample);
+            RequirementType = new FrontEnum(thing.RequirementType);
         }
 
         public FrontThingSample ThingSample { get; set; }
         public bool ItemInUse { get; set; }
         public int Count { get; set; }
+        public FrontEnum RequirementType { get; set; }
 
         public override Thing ToDbModel()
         {
@@ -29,7 +31,8 @@ namespace WebWriterV2.FrontModels
                 Id = Id,
                 ItemInUse = ItemInUse,
                 ThingSample = ThingSample.ToDbModel(),
-                Count = Count
+                Count = Count,
+                RequirementType = (RequirementType?)RequirementType?.Value
             };
         }
     }

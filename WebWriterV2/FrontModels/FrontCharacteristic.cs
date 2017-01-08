@@ -15,11 +15,14 @@ namespace WebWriterV2.FrontModels
             Id = characteristic.Id;
             CharacteristicType = new FrontCharacteristicType(characteristic.CharacteristicType);
             Number = characteristic.Number;
+            RequirementType = new FrontEnum(characteristic.RequirementType);
         }
 
         public FrontCharacteristicType CharacteristicType { get; set; }
 
         public long Number { get; set; }
+
+        public FrontEnum RequirementType { get; set; }
 
         public override Characteristic ToDbModel()
         {
@@ -27,7 +30,8 @@ namespace WebWriterV2.FrontModels
             {
                 Id = Id,
                 Number = Number,
-                CharacteristicType = CharacteristicType.ToDbModel()
+                CharacteristicType = CharacteristicType.ToDbModel(),
+                RequirementType = (RequirementType?)RequirementType?.Value
             };
         }
     }

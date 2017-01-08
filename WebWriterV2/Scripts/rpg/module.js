@@ -420,9 +420,9 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
         }
     ])
     .controller('adminEventGeneralController', [
-        '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService',
+        '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService', 'requirementTypeService',
         'sexService', 'skillService', 'characteristicService', 'stateService', 'thingService', 'CKEditorService',
-        function ($scope, $http, $routeParams, $location, eventService, questService, raceService,
+        function ($scope, $http, $routeParams, $location, eventService, questService, raceService, requirementTypeService,
             sexService, skillService, characteristicService, stateService, thingService, CKEditorService) {
 
             $scope.event = null;
@@ -438,6 +438,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.CharacteristicTypes = [];
             $scope.StateTypes = [];
             $scope.ThingSamples = [];
+            $scope.RequirementTypes = [];
 
             $scope.parentExpand = false;
             $scope.reqExpand = false;
@@ -559,8 +560,9 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.addCharacteristic = function () {
                 var typeId = $scope.newRequirementCharacteristicsType.Id;
                 var value = $scope.newRequirementCharacteristicsValue;
+                var requirementType = { Value: $scope.newRequirementType };
 
-                eventService.addCharacteristic($scope.event.Id, typeId, value).then(function(data) {
+                eventService.addCharacteristic($scope.event.Id, typeId, value, requirementType).then(function (data) {
                     if (!$scope.event.RequirementCharacteristics) {
                         $scope.event.RequirementCharacteristics = [];
                     }
@@ -787,6 +789,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 thingService.loadAllSamples().then(function(data) {
                     $scope.ThingSamples = data;
                 });
+
+                requirementTypeService.load().then(function (data) {
+                    $scope.RequirementTypes = data;
+                });
+                
             }
         }
     ])

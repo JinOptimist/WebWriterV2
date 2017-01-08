@@ -167,7 +167,7 @@
     <Compile Include="FrontModels\FrontEvent.cs" />
     <Compile Include="FrontModels\FrontGuild.cs" />
     <Compile Include="FrontModels\FrontHero.cs" />
-    <Compile Include="FrontModels\FronEnum.cs" />
+    <Compile Include="FrontModels\FrontEnum.cs" />
     <Compile Include="FrontModels\FrontCharacteristic.cs" />
     <Compile Include="FrontModels\FrontTrainingRoom.cs" />
     <Compile Include="FrontModels\FrontSkill.cs" />

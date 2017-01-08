@@ -343,7 +343,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             });
         }
 
-        function addCharacteristic(eventId, characteristicTypeId, characteristicValue) {
+        function addCharacteristic(eventId, characteristicTypeId, characteristicValue, requirementType) {
             return $q(function (resolve, reject) {
                 $http({
                     method: 'POST',
@@ -351,7 +351,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                     data: {
                         eventId: eventId,
                         characteristicTypeId: characteristicTypeId,
-                        characteristicValue: characteristicValue
+                        characteristicValue: characteristicValue,
+                        requirementType: requirementType.Value.Value
                     },
                     headers: { 'Accept': 'application/json' }
                 }).success(function (response) {
@@ -767,6 +768,24 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                 raceList = updateRaceList(newRaceList);
             },
             addImageToList: updateRaceList
+        };
+    }])
+    .service('requirementTypeService', ['$http', '$q', '_', function ($http, $q, _) {
+        return {
+            load: function () {
+                var deferred = $q.defer();
+
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/GetListRequirementType',
+                    headers: { 'Accept': 'application/json' }
+                })
+                .success(function (response) {
+                    var requirementTypes = angular.fromJson(response);
+                    deferred.resolve(requirementTypes);
+                });
+                return deferred.promise;
+            },
         };
     }])
     .service('sexService', ['$http', '$q', '_', function ($http, $q, _) {
