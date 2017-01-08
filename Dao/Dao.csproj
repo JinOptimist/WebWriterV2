@@ -90,6 +90,18 @@
     <Compile Include="Migrations\201612281110237_RequirementThings.Designer.cs">
       <DependentUpon>201612281110237_RequirementThings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701080921515_AddRequirementType.cs" />
+    <Compile Include="Migrations\201701080921515_AddRequirementType.Designer.cs">
+      <DependentUpon>201701080921515_AddRequirementType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701080930020_FixMistypesRequirement.cs" />
+    <Compile Include="Migrations\201701080930020_FixMistypesRequirement.Designer.cs">
+      <DependentUpon>201701080930020_FixMistypesRequirement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701080944475_FixMistypesRequirementV2.cs" />
+    <Compile Include="Migrations\201701080944475_FixMistypesRequirementV2.Designer.cs">
+      <DependentUpon>201701080944475_FixMistypesRequirementV2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\CharacteristicType.cs" />
@@ -141,6 +153,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612281110237_RequirementThings.resx">
       <DependentUpon>201612281110237_RequirementThings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701080921515_AddRequirementType.resx">
+      <DependentUpon>201701080921515_AddRequirementType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701080930020_FixMistypesRequirement.resx">
+      <DependentUpon>201701080930020_FixMistypesRequirement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701080944475_FixMistypesRequirementV2.resx">
+      <DependentUpon>201701080944475_FixMistypesRequirementV2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

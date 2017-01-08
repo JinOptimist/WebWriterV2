@@ -20,6 +20,8 @@ namespace Dao.Model
         /// </summary>
         public int Count { get; set; } = 1;
 
+        public RequirementType? RequirementType { get; set; }
+
         public Thing Copy()
         {
             return new Thing

@@ -545,10 +545,10 @@ namespace WebWriterV2.Controllers
                 foreach (var @event in quest.AllEvents)
                 {
                     @event.Id = 0;
-                    characteristics.AddRange(@event.RequrmentCharacteristics ?? new List<Characteristic>());
+                    characteristics.AddRange(@event.RequirementCharacteristics ?? new List<Characteristic>());
                     things.AddRange(@event.RequirementThings ?? new List<Thing>());
                     things.AddRange(@event.ThingsChanges ?? new List<Thing>());
-                    skills.AddRange(@event.RequrmentSkill ?? new List<Skill>());
+                    skills.AddRange(@event.RequirementSkill ?? new List<Skill>());
                     states.AddRange(@event.HeroStatesChanging ?? new List<State>());
                 }
 
@@ -603,10 +603,10 @@ namespace WebWriterV2.Controllers
                 var newSkill = skills.Select(SkillRepository.CheckAndSave).ToList();
                 foreach (var @event in quest.AllEvents)
                 {
-                    for (var i = 0; i < @event.RequrmentSkill.Count; i++)
+                    for (var i = 0; i < @event.RequirementSkill.Count; i++)
                     {
-                        var requrmentSkillName = @event.RequrmentSkill[i].Name;
-                        @event.RequrmentSkill[i] = newSkill.First(x => x.Name == requrmentSkillName);
+                        var requrmentSkillName = @event.RequirementSkill[i].Name;
+                        @event.RequirementSkill[i] = newSkill.First(x => x.Name == requrmentSkillName);
                     }
                 }
 
@@ -775,7 +775,7 @@ namespace WebWriterV2.Controllers
             var eventFromDb = EventRepository.Get(eventId);
             var skill = SkillRepository.Get(skillId);
 
-            eventFromDb.RequrmentSkill.Add(skill);
+            eventFromDb.RequirementSkill.Add(skill);
             EventRepository.Save(eventFromDb);
 
             return new JsonResult
@@ -790,7 +790,7 @@ namespace WebWriterV2.Controllers
             var eventFromDb = EventRepository.Get(eventId);
             var skill = SkillRepository.Get(skillId);
 
-            eventFromDb.RequrmentSkill.Remove(skill);
+            eventFromDb.RequirementSkill.Remove(skill);
             EventRepository.Save(eventFromDb);
 
             return new JsonResult
@@ -806,7 +806,7 @@ namespace WebWriterV2.Controllers
             var characteristicType = CharacteristicTypeRepository.Get(characteristicTypeId);
 
             var characteristic =
-                eventFromDb.RequrmentCharacteristics.FirstOrDefault(
+                eventFromDb.RequirementCharacteristics.FirstOrDefault(
                     x => x.CharacteristicType.Id == characteristicType.Id)
                 ?? new Characteristic
                 {
@@ -817,7 +817,7 @@ namespace WebWriterV2.Controllers
 
             // if new
             if (characteristic.Id < 1)
-                eventFromDb.RequrmentCharacteristics.Add(characteristic);
+                eventFromDb.RequirementCharacteristics.Add(characteristic);
             CharacteristicRepository.Save(characteristic);
             EventRepository.Save(eventFromDb);
 

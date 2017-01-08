@@ -557,22 +557,22 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
 
             /* Characteristic */
             $scope.addCharacteristic = function () {
-                var typeId = $scope.newRequrmentCharacteristicsType.Id;
-                var value = $scope.newRequrmentCharacteristicsValue;
+                var typeId = $scope.newRequirementCharacteristicsType.Id;
+                var value = $scope.newRequirementCharacteristicsValue;
 
                 eventService.addCharacteristic($scope.event.Id, typeId, value).then(function(data) {
-                    if (!$scope.event.RequrmentCharacteristics) {
-                        $scope.event.RequrmentCharacteristics = [];
+                    if (!$scope.event.RequirementCharacteristics) {
+                        $scope.event.RequirementCharacteristics = [];
                     }
 
-                    $scope.event.RequrmentCharacteristics.push(data);
-                    $scope.newRequrmentCharacteristicsValue = 0;
+                    $scope.event.RequirementCharacteristics.push(data);
+                    $scope.newRequirementCharacteristicsValue = 0;
                 });
             }
 
             $scope.removeCharacteristic = function (characteristicId, index) {
                 eventService.removeCharacteristic(characteristicId).then(function() {
-                    $scope.event.RequrmentCharacteristics.splice(index, 1);
+                    $scope.event.RequirementCharacteristics.splice(index, 1);
                 });
             };
 
@@ -580,11 +580,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 if (!$scope.event) {
                     return [];
                 }
-                if (!$scope.event.RequrmentCharacteristics) {
-                    $scope.event.RequrmentCharacteristics = [];
+                if (!$scope.event.RequirementCharacteristics) {
+                    $scope.event.RequirementCharacteristics = [];
                 }
                 return $scope.CharacteristicTypes.filter(function (charaType) {
-                    return !$scope.event.RequrmentCharacteristics.some(function (chara) {
+                    return !$scope.event.RequirementCharacteristics.some(function (chara) {
                         return charaType.Id === chara.CharacteristicType.Id;
                     });
                 });
@@ -593,17 +593,17 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             /* Skill */
             $scope.addSkill = function() {
                 eventService.addSkill($scope.event.Id, $scope.selectedSkill.Id).then(function () {
-                    if (!$scope.event.RequrmentSkill) {
-                        $scope.event.RequrmentSkill = [];
+                    if (!$scope.event.RequirementSkill) {
+                        $scope.event.RequirementSkill = [];
                     }
 
-                    $scope.event.RequrmentSkill.push($scope.selectedSkill);
+                    $scope.event.RequirementSkill.push($scope.selectedSkill);
                 });
             }
 
             $scope.removeSkill = function (skill, index) {
                 eventService.removeSkill($scope.event.Id, skill.Id).then(function () {
-                    $scope.event.RequrmentSkill.splice(index, 1);
+                    $scope.event.RequirementSkill.splice(index, 1);
                 });
             }
 
@@ -611,11 +611,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 if (!$scope.event) {
                     return [];
                 }
-                if (!$scope.event.RequrmentSkill) {
-                    $scope.event.RequrmentSkill = [];
+                if (!$scope.event.RequirementSkill) {
+                    $scope.event.RequirementSkill = [];
                 }
                 return $scope.Skills.filter(function(skillType) {
-                    return  !$scope.event.RequrmentSkill.some(function(skill) {
+                    return  !$scope.event.RequirementSkill.some(function(skill) {
                         return skillType.Id === skill.Id;
                     });
                 });
@@ -722,18 +722,18 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
 
                     CKEditorService.reloadEditor('desc', $scope.event.Desc);
 
-                    if (!$scope.event.RequrmentRace) {
-                        $scope.event.RequrmentRace = {};
+                    if (!$scope.event.RequirementRace) {
+                        $scope.event.RequirementRace = {};
                     }
-                    if ($scope.event.RequrmentRace.Value === 0) {
-                        $scope.event.RequrmentRace.Value = raceNoneObject.value;
+                    if ($scope.event.RequirementRace.Value === 0) {
+                        $scope.event.RequirementRace.Value = raceNoneObject.value;
                     }
 
-                    if (!$scope.event.RequrmentSex) {
-                        $scope.event.RequrmentSex = {};
+                    if (!$scope.event.RequirementSex) {
+                        $scope.event.RequirementSex = {};
                     }
-                    if ($scope.event.RequrmentSex.Value === 0) {
-                        $scope.event.RequrmentSex.Value = sexNoneObject.value;
+                    if ($scope.event.RequirementSex.Value === 0) {
+                        $scope.event.RequirementSex.Value = sexNoneObject.value;
                     }
                 });
             }
@@ -1269,8 +1269,8 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                         });
                         if (!thisEventHasCorretParrent)
                             return false;
-                        return (event.RequrmentSex == null || event.RequrmentSex == 0 || event.RequrmentSex == hero.Sex)
-                            && (event.RequrmentRace == null || event.RequrmentRace == 0 || event.RequrmentRace == hero.Race);
+                        return (event.RequirementSex == null || event.RequirementSex == 0 || event.RequirementSex == hero.Sex)
+                            && (event.RequirementRace == null || event.RequirementRace == 0 || event.RequirementRace == hero.Race);
                     });
                     if (possibleEvent.length > 0) {
                         var currentEvent = possibleEvent[0];

@@ -166,8 +166,8 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = ArmorBra,
                 Desc = "Вот хоть убей не найти эльфийку без этого важнейшего элемента одежды",
-                RequrmentRace = Race.Эльф,
-                RequrmentSex = Sex.Жен,
+                RequirementRace = Race.Эльф,
+                RequirementSex = Sex.Жен,
                 PassiveStates = new List<State> {
                     new State {
                         Number = 5,
@@ -250,7 +250,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Баба заигрывает",
                 ProgressChanging = 50,
-                RequrmentSex = Sex.Жен,
+                RequirementSex = Sex.Жен,
                 Desc =
                     "Героиня легко и непренуждённо пообщалась с заказчиком, после чего смогла убедить его снизить требования к выполнению задания",
             };
@@ -258,7 +258,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Мужика послали",
                 ProgressChanging = -30,
-                RequrmentSex = Sex.Муж,
+                RequirementSex = Sex.Муж,
                 Desc =
                     "Герой не успел и представиться как заказчик с недовольством начал указывать на недопустимость подобного поведения. Пришлось узнавать детали о задание у простых служащих, на что ушло в два раза больше сил и времени"
             };
@@ -266,7 +266,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Скрытен работает",
                 ProgressChanging = 10,
-                RequrmentSex = Sex.Скрывает,
+                RequirementSex = Sex.Скрывает,
                 Desc =
                     "Заказчик долго рассматривал героя, то недовольно бурча под нос, но натягивая приветливую улыбку. Тем временем вся необходимая информация была полученна и герой отправился дальше"
             };
@@ -282,7 +282,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Эльфу сложней",
                 ProgressChanging = -30,
-                RequrmentRace = Race.Эльф,
+                RequirementRace = Race.Эльф,
                 Desc =
                     "Герою постоянно строили козни местные жители. Пришлось потратить много времени и сил на убеждение в своей добропорядочности",
             };
@@ -290,7 +290,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Орку легче",
                 ProgressChanging = 50,
-                RequrmentRace = Race.Орк,
+                RequirementRace = Race.Орк,
                 Desc =
                     "Все вокруг пытались помочь Герою. Ничего полезного местные рассказать не смогли, но вот снаряжения надавали отменного, что явно помогло"
             };
@@ -395,7 +395,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Евент 01. Мост. Удача",
                 Desc = "Сальто, потом кувырок и невероятная гордость за себя. Вот так незамысловато разрешилась опасная ситуация на мосту. Повысив свою самооценку герой уверен направился к входу в башню",
-                RequrmentCharacteristics = new List<Characteristic> {
+                RequirementCharacteristics = new List<Characteristic> {
                     new Characteristic { Number = 6, CharacteristicType = agilityType }
                 }
             };
@@ -424,13 +424,13 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Евент 06. Первый этаж. Мирный путь",
                 Desc = "Ответив симметричной улыбкой Герой поздоровался и сообщил, что ему предстоят великие свершения. Несколько рыков в подтверждения серьёзности своих намерений и диалог плавно перешёл от напряжённой притирки друг к другу к задорному хвастовству у кого больше шрамов.",
-                RequrmentRace = Race.Орк,
+                RequirementRace = Race.Орк,
             };
             var event6p2 = new Event
             {
                 Name = "Евент 06. Первый этаж. Огонь",
                 Desc = "Быстрому удару Герой предпочёл внезапный огненный шар сжигающий врага. И тут ужу не играло роли кто окажется на пути безжалостного пламени. Победа была мгновенной и бескровной, лишь шипящий орк в углу.",
-                RequrmentSkill = new List<Skill> { fireBallSkill }
+                RequirementSkill = new List<Skill> { fireBallSkill }
             };
             var event6p3 = new Event
             {
@@ -464,7 +464,7 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Евент 08. Второй этаж. Ловушка. Удача",
                 Desc = "Лениво выписывая пируэты и продолжая движение вперёд, Герой продолжил отрёчённые размышления о том как сложно в современном мире найти достойное приключение для профессионального героя. Вот другое дело в старые добрые времена, когда геройствовать ходили необученные недоросли способные получить стрелой в колено на таких вот старых как мир ловушках.",
-                RequrmentSkill = new List<Skill> { evasionSkill }
+                RequirementSkill = new List<Skill> { evasionSkill }
             };
             var event8p4 = new Event
             {

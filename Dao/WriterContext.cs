@@ -25,8 +25,8 @@ namespace Dao
 
             modelBuilder.Entity<Event>().HasMany(x => x.ThingsChanges).WithOptional();
             modelBuilder.Entity<Event>().HasMany(x => x.RequirementThings).WithOptional();
-            modelBuilder.Entity<Event>().HasMany(x => x.RequrmentSkill).WithMany();
-            modelBuilder.Entity<Event>().HasMany(x => x.RequrmentCharacteristics).WithMany();
+            modelBuilder.Entity<Event>().HasMany(x => x.RequirementSkill).WithMany();
+            modelBuilder.Entity<Event>().HasMany(x => x.RequirementCharacteristics).WithMany();
             modelBuilder.Entity<Event>().HasMany(x => x.HeroStatesChanging).WithMany();
 
             modelBuilder.Entity<EventLinkItem>().HasOptional(x => x.To).WithMany(x => x.LinksToThisEvent);

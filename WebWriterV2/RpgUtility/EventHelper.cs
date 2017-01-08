@@ -45,15 +45,15 @@ namespace WebWriterV2.RpgUtility
             {
                 var destination = link.To;
                 /* Filter by Sex */
-                var failBySex = destination.RequrmentSex.HasValue
-                                && destination.RequrmentSex.Value != hero.Sex
-                                && destination.RequrmentSex.Value != Sex.None;
+                var failBySex = destination.RequirementSex.HasValue
+                                && destination.RequirementSex.Value != hero.Sex
+                                && destination.RequirementSex.Value != Sex.None;
                 /* Filter by Race */
-                var failByRace = destination.RequrmentRace.HasValue
-                                 && destination.RequrmentRace.Value != hero.Race
-                                 && destination.RequrmentRace.Value != Race.None;
+                var failByRace = destination.RequirementRace.HasValue
+                                 && destination.RequirementRace.Value != hero.Race
+                                 && destination.RequirementRace.Value != Race.None;
                 /* Filter by Skill */
-                var failBySkill = destination.RequrmentSkill.Any(skill => !hero.Skills.Contains(skill));
+                var failBySkill = destination.RequirementSkill.Any(skill => !hero.Skills.Contains(skill));
                 if (failBySex || failByRace || failBySkill)
                 {
                     forRemove.Add(link);
@@ -61,7 +61,7 @@ namespace WebWriterV2.RpgUtility
                 }
 
                 /* Filter by Characteristic */
-                foreach (var characteristic in destination.RequrmentCharacteristics)
+                foreach (var characteristic in destination.RequirementCharacteristics)
                 {
                     var heroCharacteristic = hero.Characteristics.FirstOrDefault(
                         x => x.CharacteristicType.Id == characteristic.CharacteristicType.Id);

@@ -16,8 +16,8 @@ namespace WebWriterV2.FrontModels
             Name = thingSample.Name;
             Desc = thingSample.Desc;
             IsUsed = thingSample.IsUsed;
-            RequrmentRace = new FronEnum(thingSample.RequrmentRace);
-            RequrmentSex = new FronEnum(thingSample.RequrmentSex);
+            RequirementRace = new FronEnum(thingSample.RequirementRace);
+            RequirementSex = new FronEnum(thingSample.RequirementSex);
             PassiveStates = thingSample.PassiveStates?.Select(x => new FrontState(x)).ToList();
             PassiveCharacteristics = thingSample.PassiveCharacteristics?.Select(x => new FrontCharacteristic(x)).ToList();
             UsingEffectState = thingSample.UsingEffectState?.Select(x => new FrontState(x)).ToList();
@@ -27,8 +27,8 @@ namespace WebWriterV2.FrontModels
         public string Name { get; set; }
         public string Desc { get; set; }
         public bool IsUsed { get; set; }
-        public FronEnum RequrmentRace { get; set; }
-        public FronEnum RequrmentSex { get; set; }
+        public FronEnum RequirementRace { get; set; }
+        public FronEnum RequirementSex { get; set; }
 
         public List<FrontState> PassiveStates { get; set; }
         public List<FrontCharacteristic> PassiveCharacteristics { get; set; }
@@ -43,8 +43,8 @@ namespace WebWriterV2.FrontModels
                 Name = Name,
                 Desc = Desc,
                 IsUsed = IsUsed,
-                RequrmentRace = (Race)RequrmentRace.Value,
-                RequrmentSex = (Sex)RequrmentSex.Value,
+                RequirementRace = (Race)RequirementRace.Value,
+                RequirementSex = (Sex)RequirementSex.Value,
 
                 PassiveStates = PassiveStates.Select(x=>x.ToDbModel()).ToList(),
                 PassiveCharacteristics = PassiveCharacteristics.Select(x => x.ToDbModel()).ToList(),

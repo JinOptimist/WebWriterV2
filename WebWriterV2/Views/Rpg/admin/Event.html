@@ -24,16 +24,16 @@
         <h3 ng-click="reqExpand = !reqExpand">Условия входа в главу {{reqExpand ? "&uarr;" : "&darr;"}}</h3>
         <div ng-show="reqExpand">
             <p>
-                RequrmentSex:
-                <select ng-model="event.RequrmentSex.Value" ng-options="option.value as option.name for option in SexList"></select>
+                RequirementSex:
+                <select ng-model="event.RequirementSex.Value" ng-options="option.value as option.name for option in SexList"></select>
             </p>
             <p>
-                RequrmentRace:
-                <select ng-model="event.RequrmentRace.Value" ng-options="option.value as option.name for option in RaceList"></select>
+                RequirementRace:
+                <select ng-model="event.RequirementRace.Value" ng-options="option.value as option.name for option in RaceList"></select>
             </p>
             <p>
-                RequrmentSkill:
-                <span ng-repeat="skill in event.RequrmentSkill">
+                RequirementSkill:
+                <span ng-repeat="skill in event.RequirementSkill">
                     {{skill.Name}}
                     <a ng-click="removeSkill(skill, $index)" style="cursor: pointer;"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
                 </span>
@@ -41,15 +41,15 @@
                 <a ng-click="addSkill()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
             </p>
             <p>
-                RequrmentCharacteristics:
-                <span ng-repeat="characteristic in event.RequrmentCharacteristics">
+                RequirementCharacteristics:
+                <span ng-repeat="characteristic in event.RequirementCharacteristics">
                     {{characteristic.CharacteristicType.Name}} &ge; {{characteristic.Number}}
                     <a ng-click="removeCharacteristic(characteristic.Id)" style="cursor: pointer;"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
                 </span>
 
-                <select ng-model="newRequrmentCharacteristicsType"
+                <select ng-model="newRequirementCharacteristicsType"
                         ng-options="option as option.Name for option in availableCharacteristicTypes()"></select>
-                <input type="text" ng-model="newRequrmentCharacteristicsValue"/>
+                <input type="text" ng-model="newRequirementCharacteristicsValue"/>
                 <a ng-click="addCharacteristic()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
             </p>
             <div>

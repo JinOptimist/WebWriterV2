@@ -11,12 +11,7 @@ namespace Dao.Model
 
         [Required]
         public long Number { get; set; }
-    }
 
-    //public enum CharacteristicType
-    //{
-    //    Strength = 1,
-    //    Agility = 2,
-    //    Charism = 3
-    //}
+        public RequirementType? RequirementType { get; set; }
+    }
 }

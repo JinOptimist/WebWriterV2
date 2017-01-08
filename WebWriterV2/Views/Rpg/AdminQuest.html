@@ -53,22 +53,22 @@
                     <a href="#" ng-click="addConnection(currentEvent, event2)">+</a>
                 </p>
                 <p>
-                    RequrmentSex:
-                    <select ng-model="currentEvent.RequrmentSex.Value" ng-options="option.value as option.name for option in SexList"></select>
+                    RequirementSex:
+                    <select ng-model="currentEvent.RequirementSex.Value" ng-options="option.value as option.name for option in SexList"></select>
                 </p>
                 <p>
-                    RequrmentRace:
-                    <select ng-model="currentEvent.RequrmentRace.Value" ng-options="option.value as option.name for option in RaceList"></select>
+                    RequirementRace:
+                    <select ng-model="currentEvent.RequirementRace.Value" ng-options="option.value as option.name for option in RaceList"></select>
                 </p>
                 <p>
-                    RequrmentSkill:
-                    <span ng-repeat="skill in currentEvent.RequrmentSkill">{{skill.Name}} <a ng-click="removeSkill(skill)">-</a></span>
+                    RequirementSkill:
+                    <span ng-repeat="skill in currentEvent.RequirementSkill">{{skill.Name}} <a ng-click="removeSkill(skill)">-</a></span>
                     <select ng-model="someSkill" ng-options="option.value as option.name for option in SkillList"></select>
                     <a ng-click="addSkill()">+</a>
                 </p>
                 <p>
-                    RequrmentCharacteristics:
-                    <select ng-model="currentEvent.RequrmentCharacteristics" ng-options="option.value as option.name for option in CharacteristicList"></select>
+                    RequirementCharacteristics:
+                    <select ng-model="currentEvent.RequirementCharacteristics" ng-options="option.value as option.name for option in CharacteristicList"></select>
                 </p>
 
                 <p>
