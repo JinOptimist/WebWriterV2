@@ -5,7 +5,7 @@
             <b>{{currentEvent.Name}}</b>
             <div ng-bind-html="currentEvent.Desc | trusted"></div>
         </div>
-        <div>
+        <div ng-if="!wait">
             <ul>
                 <li ng-repeat="eventLink in ways" class="wayLink" ng-click="chooseEvent(eventLink.ToId)">
                     <a href="#">{{eventLink.Text}}</a>

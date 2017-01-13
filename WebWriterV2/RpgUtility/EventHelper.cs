@@ -11,6 +11,7 @@ namespace WebWriterV2.RpgUtility
         {
             foreach (var thing in eventDb.ThingsChanges)
             {
+                hero.Inventory = hero.Inventory ?? new List<Thing>();
                 var heroThing = hero.Inventory.FirstOrDefault(x => x.ThingSample.Id == thing.ThingSample.Id);
                 if (heroThing == null)
                 {
@@ -120,7 +121,7 @@ namespace WebWriterV2.RpgUtility
                 case RequirementType.Exist:
                     {
                         return heroValue > 0;
-                    }                
+                    }
                 case RequirementType.NotExist:
                     {
                         return heroValue < 1;
@@ -130,7 +131,7 @@ namespace WebWriterV2.RpgUtility
                         throw new Exception("Uknown RequirementType");
                     }
             }
-            
+
         }
     }
 }

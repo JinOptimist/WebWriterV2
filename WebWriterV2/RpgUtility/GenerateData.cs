@@ -792,6 +792,9 @@ namespace WebWriterV2.RpgUtility
             List<CharacteristicType> characteristicTypes,
             List<Skill> skills)
         {
+            skills = skills ?? new List<Skill>();
+            characteristicTypes = characteristicTypes ?? new List<CharacteristicType>();
+
             var hero = new Hero();
 
             hero.State = stateTypes.Select(x => new State { Number = 1, StateType = x }).ToList();

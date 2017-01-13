@@ -49,9 +49,9 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                     templateUrl: '/views/rpg/ListHeroes.html',
                     controller: 'listHeroesController'
                 })
-                .when('/AngularRoute/questInfo', {
-                    templateUrl: '/views/rpg/QuestInfo.html',
-                    controller: 'questInfoController'
+                .when('/AngularRoute/listQuest', {
+                    templateUrl: '/views/rpg/ListQuest.html',
+                    controller: 'listQuestController'
                 })
                 .when('/AngularRoute/travel/quest/:questId/hero/:heroId', {
                     templateUrl: '/views/rpg/Travel.html',
@@ -793,7 +793,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 requirementTypeService.load().then(function (data) {
                     $scope.RequirementTypes = data;
                 });
-                
+
             }
         }
     ])
@@ -1087,32 +1087,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             init();
 
             $scope.chooseEvent = function (eventId) {
-                $scope.wait = true;
-                eventService.getEventForTravel(eventId, $scope.hero.Id).then(function(result) {
-                    $scope.ways = result.LinksFromThisEvent;
-                    $scope.quest.Effective += result.ProgressChanging;
-                    $scope.currentEvent = result;
-                    $scope.wait = false;
-                });
-
-                eventService.eventChangesApplyToHero(eventId, $scope.hero.Id).then(function (heroUpdated) {
-                    var hero = $scope.hero;
-                    heroUpdated.State.forEach(function (state) {
-                        var stateTypeId = state.StateType.Id;
-                        setState(hero, stateTypeId, state.Number);
-                        if (heroService.getHp(hero) < 1) {
-                            alert('Your hero is Dead. Noob!');
-                            $location.path('/AngularRoute/guild');
-                            return;
-                        }
-                    });
-
-                    hero.Inventory = [];
-
-                    heroUpdated.Inventory.forEach(function (thing) {
-                        setThing(hero, thing.ThingSample, thing.Count);
-                    });
-                });
+                if ($scope.hero.Id > 0) {
+                    chooseEventWithHero(eventId);
+                } else {
+                    chooseEventOnClientSide(eventId);
+                }
             };
 
             $scope.endQuest = function() {
@@ -1141,6 +1120,48 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.batle = function() {
                 heroService.selectHero($scope.quest.Executor);
                 $location.path('/AngularRoute/battle');
+            }
+
+            function chooseEventWithHero(eventId) {
+                $scope.wait = true;
+                eventService.getEventForTravel(eventId, $scope.hero.Id).then(function(result) {
+                    $scope.ways = result.LinksFromThisEvent;
+                    $scope.quest.Effective += result.ProgressChanging;
+                    $scope.currentEvent = result;
+                    $scope.wait = false;
+                });
+
+                eventService.eventChangesApplyToHero(eventId, $scope.hero.Id).then(function (heroUpdated) {
+                    var hero = $scope.hero;
+                    heroUpdated.State.forEach(function (state) {
+                        var stateTypeId = state.StateType.Id;
+                        setState(hero, stateTypeId, state.Number);
+                        if (heroService.getHp(hero) < 1) {
+                            alert('Your hero is Dead. Noob!');
+                            $location.path('/AngularRoute/guild');
+                            return;
+                        }
+                    });
+
+                    hero.Inventory = [];
+
+                    heroUpdated.Inventory.forEach(function (thing) {
+                        setThing(hero, thing.ThingSample, thing.Count);
+                    });
+                });
+            }
+
+            function chooseEventOnClientSide(eventId) {
+                $scope.wait = true;
+                eventService.getEventForTravelWithHero(eventId, $scope.hero).then(function (result) {
+                    var event = result.frontEvent;
+                    $scope.hero = result.frontHero;
+
+                    $scope.ways = event.LinksFromThisEvent;
+                    $scope.quest.Effective += event.ProgressChanging;
+                    $scope.currentEvent = event;
+                    $scope.wait = false;
+                });
             }
 
             function getState(hero, stateTypeId) {
@@ -1247,49 +1268,22 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             }
         }
     ])
-    .controller('questInfoController', [
+    .controller('listQuestController', [
         '$scope', '$http', '$location', 'questService', 'raceService', 'sexService',
         function($scope, $http, $location, questService, raceService, sexService) {
-            $scope.quest = {};
-            questService.getQuest().then(function(result) {
-                $scope.quest = result;
-            });
+            $scope.quests = [];
 
-            processQuest();
+            init();
 
-            function processQuest() {
-                var quest = $scope.quest;
-                quest.Effective = 0;
-                var hero = $scope.quest.Hero;
-                var events = quest.QuestEvents;
-
-                var parentEvent = null;
-                var possibleEvent;
-                do {
-                    possibleEvent = events.filter(function(event) {
-                        if (event.ParentEvents == null && parentEvent == null)
-                            return true;
-                        if (event.ParentEvents == null || parentEvent == null)
-                            return false;
-                        var thisEventHasCorretParrent = event.ParentEvents.some(function(x) {
-                            return x.Id == parentEvent.Id;
-                        });
-                        if (!thisEventHasCorretParrent)
-                            return false;
-                        return (event.RequirementSex == null || event.RequirementSex == 0 || event.RequirementSex == hero.Sex)
-                            && (event.RequirementRace == null || event.RequirementRace == 0 || event.RequirementRace == hero.Race);
-                    });
-                    if (possibleEvent.length > 0) {
-                        var currentEvent = possibleEvent[0];
-                        parentEvent = currentEvent;
-                        quest.EventsHistory.push(currentEvent);
-                        quest.Effective += currentEvent.ProgressChanging;
-                    }
-                } while (possibleEvent.length > 0)
+            $scope.goToQuest = function (quest) {
+                $location.path('/AngularRoute/travel/quest/' + quest.Id + '/hero/' + -1);
             }
 
-            $scope.getRaceWord = raceService.getRaceWord;
-            $scope.getSexWord = sexService.getSexWord;
+            function init() {
+                questService.getQuests().then(function (result) {
+                    $scope.quests = result;
+                });
+            }
         }
     ])
     .controller('battleController', [

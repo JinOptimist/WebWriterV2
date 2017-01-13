@@ -154,9 +154,13 @@ namespace WebWriterV2.Controllers
         public JsonResult GetHero(long heroId)
         {
             var hero = HeroRepository.Get(heroId);
+            if (hero == null)
+            {
+                var stateTypes = StateTypeRepository.GetAll();
+                hero = GenerateData.GetDefaultHero(stateTypes, null, null);
+            }
 
-            var a = hero.Inventory;
-            var b = a.FirstOrDefault();
+            var a = hero.Inventory?.FirstOrDefault();
 
             var frontHero = new FrontHero(hero);
             return new JsonResult
@@ -714,6 +718,24 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult GetEventForTravelWithHero(long eventId, string heroJson)
+        {
+            var eventDb = EventRepository.Get(eventId);
+            var frontHero = JsonConvert.DeserializeObject<FrontHero>(heroJson);
+            var hero = frontHero.ToDbModel();
+
+            eventDb.LinksFromThisEvent.FilterLink(hero);
+            eventDb.EventChangesApply(hero);
+
+            var frontEvent = new FrontEvent(eventDb);
+            frontHero = new FrontHero(hero);
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(new {frontEvent, frontHero}),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         public JsonResult EventChangesApplyToHero(long eventId, long heroId)
         {
             var eventDb = EventRepository.Get(eventId);
@@ -813,7 +835,7 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult AddCharacteristicToEvent(long eventId, long characteristicTypeId, 
+        public JsonResult AddCharacteristicToEvent(long eventId, long characteristicTypeId,
             int characteristicValue, int requirementType)
         {
             var eventFromDb = EventRepository.Get(eventId);

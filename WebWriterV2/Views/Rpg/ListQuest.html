@@ -1,0 +1,21 @@
+﻿<div>
+    <div class="content">
+        <div class="specialMarginForQuests">
+            <h1 class="text">
+                Квесты
+            </h1>
+        </div>
+
+        <p>Кликни на квест что бы отправиться в путешествие</p>
+        <div ng-repeat="quest in quests" ng-click="goToQuest(quest)" style="cursor: pointer;">
+            <div class="quest-block" style="float: left;" ng-if="quest">
+                <p>Карточка квеста. <b>{{quest.Name}}</b></p>
+                <p>Описание:</p>
+                <div ng-bind-html="quest.Desc | trusted"></div>
+            </div>
+            <!--<input type="button" value="Отправить {{currentHero.Name}} на квест" ng-click="goToQuest(quest)" />-->
+            <!--<ng-quest-info quest="quest" style="float: left;"></ng-quest-info>-->
+        </div>
+
+    </div>
+</div>

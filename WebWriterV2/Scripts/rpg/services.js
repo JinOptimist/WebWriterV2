@@ -147,6 +147,26 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             });
         }
 
+        function getEventForTravelWithHero(eventId, hero) {
+            return $q(function (resolve, reject) {
+                $http({
+                    method: 'POST',
+                    url: '/Rpg/GetEventForTravelWithHero',
+                    data: {
+                        eventId: eventId,
+                        heroJson: angular.toJson(hero)
+                    },
+                    headers: { 'Accept': 'application/json' }
+                }).success(function (response) {
+                    var event = angular.fromJson(response);
+                    resolve(event);
+                },
+                function () {
+                    reject(Error("Sorry :( we have fail"));
+                });
+            });
+        }
+
         function eventChangesApplyToHero(eventId, heroId) {
             return $q(function (resolve, reject) {
                 $http({
@@ -518,7 +538,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             addThingChanges: addThingChanges,
             removeThingChanges: removeThingChanges,
             getEventForTravel: getEventForTravel,
-            eventChangesApplyToHero: eventChangesApplyToHero
+            eventChangesApplyToHero: eventChangesApplyToHero,
+            getEventForTravelWithHero: getEventForTravelWithHero
         };
     }])
     .service('heroService', ['$http', '$q', function ($http, $q) {
