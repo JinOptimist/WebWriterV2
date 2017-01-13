@@ -1077,12 +1077,17 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
         }
     ])
     .controller('travelController', [
-        '$scope', '$http', '$location', '$routeParams', '$cookies', 'questService', 'eventService', 'guildService', 'heroService', 'stateService',
-        function ($scope, $http, $location, $routeParams, $cookies, questService, eventService, guildService, heroService, stateService) {
+        '$scope', '$http', '$location', '$routeParams', '$cookies', '$timeout',
+        'questService', 'eventService', 'guildService', 'heroService', 'stateService',
+        function ($scope, $http, $location, $routeParams, $cookies, $timeout,
+            questService, eventService, guildService, heroService, stateService) {
             $scope.quest = {};
             $scope.hero = {};
+            $scope.currentEvent = {};
             $scope.ways = [];
             $scope.wait = true;
+
+            $scope.changes = [];
 
             init();
 
@@ -1122,6 +1127,42 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 $location.path('/AngularRoute/battle');
             }
 
+            $scope.removeChange = function (changesId) {
+                $scope.changes = $scope.changes.filter(function (change) {
+                    return change.id !== changesId;
+                });
+            }
+
+            function alertChanges() {
+                if ($scope.currentEvent.ThingsChanges
+                    && $scope.currentEvent.ThingsChanges.length > 0) {
+                    $scope.currentEvent.ThingsChanges.forEach(function (thingChanges) {
+                        var symbol = thingChanges.Count > 0 ? '+' : '';
+                        var message = thingChanges.ThingSample.Name + ':' + symbol + thingChanges.Count;
+                        var changeId = 't' + thingChanges.Id;
+                        $scope.changes.push({ id: changeId, text: message });
+                        callRemoveChange(changeId);
+                    });
+                }
+
+                if ($scope.currentEvent.HeroStatesChanging
+                    && $scope.currentEvent.HeroStatesChanging.length > 0) {
+                    $scope.currentEvent.HeroStatesChanging.forEach(function (stateChanges) {
+                        var symbol = stateChanges.Number > 0 ? '+' : '';
+                        var message = stateChanges.StateType.Name + ':' + symbol + stateChanges.Number;
+                        var changeId = 's' + stateChanges.Id;
+                        $scope.changes.push({ id: changeId, text: message });
+                        callRemoveChange(changeId);
+                    });
+                }
+            }
+
+            function callRemoveChange(changeId) {
+                $timeout(function () {
+                    $scope.removeChange(changeId);
+                }, 5000);
+            }
+
             function chooseEventWithHero(eventId) {
                 $scope.wait = true;
                 eventService.getEventForTravel(eventId, $scope.hero.Id).then(function(result) {
@@ -1129,6 +1170,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                     $scope.quest.Effective += result.ProgressChanging;
                     $scope.currentEvent = result;
                     $scope.wait = false;
+                    alertChanges();
                 });
 
                 eventService.eventChangesApplyToHero(eventId, $scope.hero.Id).then(function (heroUpdated) {
@@ -1161,6 +1203,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                     $scope.quest.Effective += event.ProgressChanging;
                     $scope.currentEvent = event;
                     $scope.wait = false;
+                    alertChanges();
                 });
             }
 

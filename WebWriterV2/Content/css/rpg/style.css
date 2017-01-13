@@ -191,6 +191,15 @@ p {
     color: #000;
 }
 
+.event-changes-block {
+    position: absolute;
+    display: inline-block;
+    background-color: #ccc;
+    left: 50%;
+    border: 3px dotted rosybrown;
+    min-width: 200px;
+}
+
 /*  Health and Mana bar  */
 .main-bar {
   -webkit-box-sizing: border-box;
