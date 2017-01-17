@@ -2,24 +2,28 @@
     <p>
         <b>{{hero.Name}}</b> {{hero.Race.Name}} {{hero.Sex.Name}}
     </p>
-    <div class="main-bar health-bar">
+    <div class="main-bar health-bar" ng-if="MaxHp() > 0">
         <div class="bar" ng-style="hero.healthWidth"></div>
     </div>
-    Hp {{Hp()}}/{{MaxHp()}}
-    <div class="main-bar mana-bar">
+    <span ng-if="MaxHp() > 0">
+        Hp {{Hp()}}/{{MaxHp()}}
+    </span>
+    <div class="main-bar mana-bar" ng-if="MaxMp() > 0">
         <div class="bar" ng-style="hero.manaWidth"></div>
     </div>
-    Mp {{Mp()}}/{{MaxMp()}}
+    <span ng-if="MaxMp() > 0">
+        Mp {{Mp()}}/{{MaxMp()}}
+    </span>
     <hr/>
     <p><span ng-if="hero.State" ng-repeat="state in hero.State">{{state.StateType.Name}}: {{state.Number}} | </span></p>
     <p><span ng-if="hero.Characteristics" ng-repeat="characteristic in hero.Characteristics">{{characteristic.CharacteristicType.Name}}: {{characteristic.Number}} | </span></p>
     <hr />
-    <p>
+    <p ng-if="hero.Skills && hero.Skills.length > 0">
         <b>Умения</b>:
         <span ng-if="hero.Skills" ng-repeat="skill in hero.Skills" class="skill {{::skill.School.Name}}"> {{::skill.Name}}</span>
     </p>
-    <hr />
-    <p>
+    <hr ng-if="hero.Inventory && hero.Inventory.length > 0" />
+    <p ng-if="hero.Inventory && hero.Inventory.length > 0">
         <b>Инвентарь</b>:
         <span ng-if="hero.Skills" ng-repeat="thing in hero.Inventory" class="skill">
             {{::thing.ThingSample.Name}}<span ng-if="!thing.ItemInUse">: {{::thing.Count}}</span>

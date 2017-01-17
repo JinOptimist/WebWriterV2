@@ -18,7 +18,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 /* admin */
                 .when('/AngularRoute/adminSkill', {
                     templateUrl: '/views/rpg/AdminSkill.html',
-                    controller: 'adminSkillController'
+                    controller: 'adminStateController'
+                })
+                .when('/AngularRoute/adminState', {
+                    templateUrl: '/views/rpg/admin/state.html',
+                    controller: 'adminStateController'
                 })
                 .when('/AngularRoute/adminCharacteristic', {
                     templateUrl: '/views/rpg/AdminCharacteristic.html',
@@ -797,6 +801,40 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             }
         }
     ])
+    .controller('adminStateController', [
+                 '$scope', 'stateService',
+        function ($scope, stateService) {
+            $scope.states = [];
+            $scope.newStateName = '';
+            $scope.newStateDesc = '';
+
+            init();
+
+            $scope.add = function () {
+                stateService.add($scope.newStateName, $scope.newStateDesc)
+                    .then(function(data) {
+                        $scope.states.push(data);
+
+                        $scope.newStateName = '';
+                        $scope.newStateDesc = '';
+                    });
+            }
+
+            $scope.remove = function (stateId, index) {
+                stateService.remove(stateId)
+                    .then(function() {
+                        $scope.states.splice(index, 1);
+                    });
+            }
+
+            function init() {
+                stateService.loadAllTypes().then(function (states) {
+                    $scope.states = states;
+                });
+            }
+        }
+    ])
+
     .controller('adminSkillController', [
                  '$scope', 'skillService', 'stateService',
         function ($scope, skillService, stateService) {
@@ -857,14 +895,6 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                     $scope.skills.splice(index, 1);
                 });
             }
-        }
-    ])
-    .controller('adminStateController', [
-        '$scope', '$http', 'skillService', 'sexService', 'raceService',
-        function ($scope, $http, skillService, sexService, raceService) {
-            $scope.states = [];
-
-
         }
     ])
     .controller('adminCharacteristicController', [

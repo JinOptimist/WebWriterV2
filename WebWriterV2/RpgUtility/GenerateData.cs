@@ -797,8 +797,11 @@ namespace WebWriterV2.RpgUtility
 
             var hero = new Hero();
 
-            hero.State = stateTypes.Select(x => new State { Number = 1, StateType = x }).ToList();
-            hero.Characteristics = characteristicTypes.Select(x => new Characteristic { Number = 1, CharacteristicType = x }).ToList();
+            //hero.State = stateTypes.Select(x => new State { Number = 1, StateType = x }).ToList();
+            //hero.Characteristics = characteristicTypes.Select(x => new Characteristic { Number = 1, CharacteristicType = x }).ToList();
+
+            hero.State = new List<State>();
+            hero.Characteristics = new List<Characteristic>();
             hero.Skills = skills;
 
             return hero;

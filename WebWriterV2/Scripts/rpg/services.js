@@ -1028,10 +1028,43 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             return deferred.promise;
         }
 
+        function add(name, desc) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: '/Rpg/AddState',
+                data: {
+                    name: name,
+                    desc: desc
+                },
+                headers: { 'Accept': 'application/json' }
+            })
+                .success(function (response) {
+                    var state = angular.fromJson(response);
+                    deferred.resolve(state);
+                });
+            return deferred.promise;
+        }
+
+        function remove(stateId) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: '/Rpg/RemoveState',
+                data: {
+                    stateId: stateId,
+                },
+                headers: { 'Accept': 'application/json' }
+            })
+                .success(function (response) {
+                    deferred.resolve(response);
+                });
+            return deferred.promise;
+        }
+
         return {
             loadAllTypes: function () {
                 var deferred = $q.defer();
-
                 $http({
                     method: 'POST',
                     url: '/Rpg/GetStateTypes',
@@ -1043,9 +1076,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                     });
                 return deferred.promise;
             },
-            save: function (state) {
-                return '+';
-            },
+            add: add,
+            remove: remove,
             changeState: changeState
         };
     }])

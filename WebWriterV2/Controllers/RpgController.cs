@@ -67,7 +67,7 @@ namespace WebWriterV2.Controllers
 
         public ActionResult RouteForAngular(string url)
         {
-            return View("Index", (object)url);
+            return View("Index");
         }
 
         public ActionResult Index()
@@ -411,6 +411,31 @@ namespace WebWriterV2.Controllers
             return new JsonResult
             {
                 Data = SerializeHelper.Serialize(frontHero),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult AddState(string name, string desc)
+        {
+            var stateType = new StateType
+            {
+                Name = name,
+                Desc = desc
+            };
+            var savedStateType = StateTypeRepository.Save(stateType);
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(savedStateType),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveState(long stateId)
+        {
+            StateTypeRepository.Remove(stateId);
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

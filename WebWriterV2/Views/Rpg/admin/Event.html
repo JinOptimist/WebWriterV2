@@ -54,6 +54,26 @@
                 <input type="number" ng-model="newRequirementCharacteristicsValue"/>
                 <a ng-click="addCharacteristic()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
             </p>
+
+
+
+            <!--<p>
+                RequirementState:
+                <span ng-repeat="state in event.RequirementStates">
+                    {state.StateType.Name}} {state.StateType.Name}} {state.Number}}
+                    <a ng-click="removeCharacteristic(characteristic.Id)" style="cursor: pointer;"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+                </span>
+                <select ng-model="newRequirementCharacteristicsType"
+                        ng-options="option as option.Name for option in availableCharacteristicTypes()"></select>
+                <select ng-model="newRequirementType"
+                        ng-options="option as option.Name for option in RequirementTypes"></select>
+                <input type="number" ng-model="newRequirementCharacteristicsValue"/>
+                <a ng-click="addCharacteristic()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
+            </p>-->
+
+
+
+
             <div>
                 RequirementThings:
                 <p ng-repeat="thing in event.RequirementThings">

@@ -1,0 +1,16 @@
+﻿<div>
+    <div>
+        <p>
+            New state name <input type="text" ng-model="newStateName"/>
+        </p>
+        <p>
+            New state desc <textarea ng-model="newStateDesc"></textarea>
+        </p>
+        <p><input type="button" value="Add" ng-click="add()"/></p>
+    </div>
+    <div ng-repeat="state in states" class="block300 left border1px padding10">
+        <p>Имя: {{state.Name}}</p>
+        <p>Описание: {{state.Desc}}</p>
+        <p><a href="#" ng-click="remove(state.Id, $index)">УДАЛИТЬ<img src="/Content/delete.png" style="width: 20px;"/></a></p>
+    </div>
+</div>
