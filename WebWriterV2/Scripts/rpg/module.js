@@ -569,20 +569,21 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.addReqState = function () {
                 var typeId = $scope.newRequirementStatesType.Id;
                 var value = $scope.newReqStatesValue;
+                var reqType = $scope.newStateReqType.Value;
 
-                eventService.addReqState($scope.event.Id, typeId, value).then(function (data) {
-                    if (!$scope.event.HeroStatesChanging) {
-                        $scope.event.HeroStatesChanging = [];
+                eventService.addReqState($scope.event.Id, typeId, reqType, value).then(function (data) {
+                    if (!$scope.event.RequirementStates) {
+                        $scope.event.RequirementStates = [];
                     }
 
-                    $scope.event.HeroStatesChanging.push(data);
-                    $scope.newStateValue = 0;
+                    $scope.event.RequirementStates.push(data);
+                    $scope.newReqStatesValue = 0;
                 });
             }
 
             $scope.removeReqState = function (stateId, index) {
-                eventService.removeState(stateId).then(function () {
-                    $scope.event.HeroStatesChanging.splice(index, 1);
+                eventService.removeReqState(stateId).then(function () {
+                    $scope.event.RequirementStates.splice(index, 1);
                 });
             };
 
@@ -590,11 +591,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 if (!$scope.event) {
                     return [];
                 }
-                if (!$scope.event.HeroStatesChanging) {
-                    $scope.event.HeroStatesChanging = [];
+                if (!$scope.event.RequirementStates) {
+                    $scope.event.RequirementStates = [];
                 }
                 return $scope.StateTypes.filter(function (stateType) {
-                    return !$scope.event.HeroStatesChanging.some(function (state) {
+                    return !$scope.event.RequirementStates.some(function (state) {
                         return stateType.Id === state.StateType.Id;
                     });
                 });
@@ -604,7 +605,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.addCharacteristic = function () {
                 var typeId = $scope.newRequirementCharacteristicsType.Id;
                 var value = $scope.newRequirementCharacteristicsValue;
-                var requirementType = { Value: $scope.newRequirementType };
+                var requirementType = $scope.newRequirementType.Value;
 
                 eventService.addCharacteristic($scope.event.Id, typeId, value, requirementType).then(function (data) {
                     if (!$scope.event.RequirementCharacteristics) {

@@ -27,7 +27,7 @@ namespace WebWriterV2.FrontModels
             CharacteristicsChanges = eventDb.CharacteristicsChanges?.Select(x => new FrontCharacteristic(x)).ToList();
             ThingsChanges = eventDb.ThingsChanges?.Select(x => new FrontThing(x)).ToList();
             RequirementThings = eventDb.RequirementThings?.Select(x => new FrontThing(x)).ToList();
-            RequirementState = eventDb.RequirementStates?.Select(x => new FrontState(x)).ToList();
+            RequirementStates = eventDb.RequirementStates?.Select(x => new FrontState(x)).ToList();
         }
 
         public string Name { get; set; }
@@ -38,7 +38,7 @@ namespace WebWriterV2.FrontModels
         public List<FrontEventLinkItem> LinksToThisEvent { get; set; }
         public List<FrontSkill> RequirementSkill { get; set; }
         public List<FrontCharacteristic> RequirementCharacteristics { get; set; }
-        public List<FrontState> RequirementState { get; set; }
+        public List<FrontState> RequirementStates { get; set; }
         public List<FrontThing> RequirementThings { get; set; }
         public List<FrontCharacteristic> CharacteristicsChanges { get; set; }
         public List<FrontThing> ThingsChanges { get; set; }
@@ -62,7 +62,7 @@ namespace WebWriterV2.FrontModels
                 RequirementSkill = RequirementSkill?.Select(x => x.ToDbModel()).ToList(),
                 RequirementThings = RequirementThings?.Select(x => x.ToDbModel()).ToList(),
                 RequirementCharacteristics = RequirementCharacteristics?.Select(x => x.ToDbModel()).ToList(),
-                RequirementStates = RequirementState?.Select(x => x.ToDbModel()).ToList(),
+                RequirementStates = RequirementStates?.Select(x => x.ToDbModel()).ToList(),
                 CharacteristicsChanges = CharacteristicsChanges?.Select(x => x.ToDbModel()).ToList(),
                 ThingsChanges = ThingsChanges?.Select(x => x.ToDbModel()).ToList(),
                 HeroStatesChanging = HeroStatesChanging?.Select(x => x.ToDbModel()).ToList()

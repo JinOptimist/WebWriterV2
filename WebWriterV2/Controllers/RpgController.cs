@@ -970,6 +970,50 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult AddReqStateToEvent(long eventId, long stateTypeId, int reqType, int stateValue)
+        {
+            var eventFromDb = EventRepository.Get(eventId);
+            var stateType = StateTypeRepository.Get(stateTypeId);
+            var requirementType = (RequirementType) reqType;
+
+            var state =
+                eventFromDb.RequirementStates.FirstOrDefault(
+                    x => x.StateType.Id == stateType.Id)
+                ?? new State
+                {
+                    StateType = stateType
+                };
+
+            state.Number = stateValue;
+            state.RequirementType = requirementType;
+
+            // if new
+            if (state.Id < 1)
+                eventFromDb.RequirementStates.Add(state);
+            StateRepository.Save(state);
+            EventRepository.Save(eventFromDb);
+
+            var frontState = new FrontState(state);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(frontState),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveReqStateFromEvent(long stateId)
+        {
+            StateRepository.Remove(stateId);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(true),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+
         public JsonResult AddRequirementThingToEvent(long eventId, long thingSampleId, int count)
         {
             var eventFromDb = EventRepository.Get(eventId);

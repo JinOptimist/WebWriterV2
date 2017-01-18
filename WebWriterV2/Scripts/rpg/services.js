@@ -140,6 +140,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             removeCharacteristic: removeCharacteristic,
             addState: addState,
             removeState: removeState,
+            addReqState: addReqState,
+            removeReqState: removeReqState,
             getEndingEvents: getEndingEvents,
             getNotAvailableEvents: getNotAvailableEvents,
             addRequirementThing: addRequirementThing,
@@ -255,7 +257,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                 eventId: eventId,
                 characteristicTypeId: characteristicTypeId,
                 characteristicValue: characteristicValue,
-                requirementType: requirementType.Value.Value
+                requirementType: requirementType
             };
             return httpHelper.call(url, data);
         }
@@ -286,11 +288,12 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             return httpHelper.call(url, data);
         }
 
-        function addReqState(eventId, stateTypeId, stateValue) {
+        function addReqState(eventId, stateTypeId, reqType, stateValue) {
             var url = '/Rpg/AddReqStateToEvent';
             var data = {
                 eventId: eventId,
                 stateTypeId: stateTypeId,
+                reqType: reqType,
                 stateValue: stateValue
             };
             return httpHelper.call(url, data);

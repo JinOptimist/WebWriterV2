@@ -54,14 +54,11 @@
                 <input type="number" ng-model="newRequirementCharacteristicsValue"/>
                 <a ng-click="addCharacteristic()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
             </p>
-
-
-
             <p>
                 RequirementStates:
                 <span ng-repeat="state in event.RequirementStates">
-                    {state.StateType.Name}} {state.StateType.RequirementType}} {state.Number}}
-                    <a ng-click="removeReqState(state.Id)" style="cursor: pointer;"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+                    {{state.StateType.Name}} {{state.RequirementType.Name}} {{state.Number}}
+                    <a ng-click="removeReqState(state.Id, $index)" style="cursor: pointer;"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
                 </span>
                 <select ng-model="newRequirementStatesType"
                         ng-options="option as option.Name for option in availableReqStateTypes()"></select>
@@ -70,10 +67,6 @@
                 <input type="number" ng-model="newReqStatesValue"/>
                 <a ng-click="addReqState()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
             </p>
-
-
-
-
             <div>
                 RequirementThings:
                 <p ng-repeat="thing in event.RequirementThings">
