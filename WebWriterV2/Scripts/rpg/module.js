@@ -358,8 +358,10 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             }
 
             $scope.importQuest = function () {
-                questService.importQuest($scope.importJson).then(function () {
-                    alert('We did it!');
+                questService.importQuest($scope.importJson).then(function (data) {
+                    //alert('We did it!');
+                    var url = '/AngularRoute/admin/quest/' + data;
+                    $location.path(url);
                 });
             }
 

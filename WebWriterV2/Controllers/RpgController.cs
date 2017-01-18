@@ -616,10 +616,12 @@ namespace WebWriterV2.Controllers
                 {
                     @event.Id = 0;
                     characteristics.AddRange(@event.RequirementCharacteristics ?? new List<Characteristic>());
+                    characteristics.AddRange(@event.CharacteristicsChanges ?? new List<Characteristic>());
                     things.AddRange(@event.RequirementThings ?? new List<Thing>());
                     things.AddRange(@event.ThingsChanges ?? new List<Thing>());
                     skills.AddRange(@event.RequirementSkill ?? new List<Skill>());
                     states.AddRange(@event.HeroStatesChanging ?? new List<State>());
+                    states.AddRange(@event.RequirementStates ?? new List<State>());
                 }
 
                 /* Process Things connections */
@@ -693,7 +695,7 @@ namespace WebWriterV2.Controllers
 
             return new JsonResult
             {
-                Data = true,
+                Data = quest.Id,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -1012,7 +1014,6 @@ namespace WebWriterV2.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-
 
         public JsonResult AddRequirementThingToEvent(long eventId, long thingSampleId, int count)
         {
