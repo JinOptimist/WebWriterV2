@@ -13,5 +13,15 @@ namespace Dao.Model
         public long Number { get; set; }
 
         public RequirementType? RequirementType { get; set; }
+
+        public Characteristic Copy()
+        {
+            return new Characteristic
+            {
+                CharacteristicType = CharacteristicType,
+                Number = Number,
+                RequirementType = RequirementType
+            };
+        }
     }
 }

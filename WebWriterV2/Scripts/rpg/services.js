@@ -126,398 +126,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             importQuest: importQuest
         };
     }])
-    .service('eventService', ['$http', '$q', function ($http, $q) {
-        function getEventForTravel(eventId, heroId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/GetEventForTravel',
-                    data: {
-                        eventId: eventId,
-                        heroId: heroId
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    var event = angular.fromJson(response);
-                    resolve(event);
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function getEventForTravelWithHero(eventId, hero) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/GetEventForTravelWithHero',
-                    data: {
-                        eventId: eventId,
-                        heroJson: angular.toJson(hero)
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    var event = angular.fromJson(response);
-                    resolve(event);
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function eventChangesApplyToHero(eventId, heroId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/EventChangesApplyToHero',
-                    data: {
-                        eventId: eventId,
-                        heroId: heroId
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    var event = angular.fromJson(response);
-                    resolve(event);
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function getEvent(currentEventId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/GetEvent?id=' + currentEventId,
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    var event = angular.fromJson(response);
-                    resolve(event);
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function getEvents(questId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/GetEvents?questId=' + questId,
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function getEndingEvents(questId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/GetEndingEvents?questId=' + questId,
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function getNotAvailableEvents(questId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/GetNotAvailableEvents?questId=' + questId,
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function save(event, questId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/SaveEvent',
-                    data: {
-                        jsonEvent: angular.toJson(event),
-                        questId: questId
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function remove(eventId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/RemoveEvent',
-                    data: {
-                        eventId: eventId
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    if (response) {
-                        resolve(angular.fromJson(response));
-                    } else {
-                        reject(Error("We can't remove event wich has child"));
-                    }
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function saveEventLink(eventLink) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/SaveEventLink',
-                    data: {
-                        jsonEventLink: angular.toJson(eventLink)
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function removeEventLink(eventLinkId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/RemoveEventLink',
-                    data: {
-                        eventLinkId: eventLinkId
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function addSkill(eventId, skillId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/AddSkillToEvent',
-                    data: {
-                        eventId: eventId,
-                        skillId: skillId
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function removeSkill(eventId, skillId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/RemoveSkillToEvent',
-                    data: {
-                        eventId: eventId,
-                        skillId: skillId
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function addCharacteristic(eventId, characteristicTypeId, characteristicValue, requirementType) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/AddCharacteristicToEvent',
-                    data: {
-                        eventId: eventId,
-                        characteristicTypeId: characteristicTypeId,
-                        characteristicValue: characteristicValue,
-                        requirementType: requirementType.Value.Value
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function removeCharacteristic(characteristicId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/RemoveCharacteristicFromEvent',
-                    data: {
-                        characteristicId: characteristicId
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function addState(eventId, stateTypeId, stateValue) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/AddStateToEvent',
-                    data: {
-                        eventId: eventId,
-                        stateTypeId: stateTypeId,
-                        stateValue: stateValue
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function removeState(stateId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/RemoveStateFromEvent',
-                    data: {
-                        stateId: stateId
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function addRequirementThing(eventId, thingSampleId, count) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/AddRequirementThingToEvent',
-                    data: {
-                        eventId: eventId,
-                        thingSampleId: thingSampleId,
-                        count: count
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function removeRequirementThing(eventId, thingId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/RemoveRequirementThingFromEvent',
-                    data: {
-                        eventId: eventId,
-                        thingId: thingId
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function addThingChanges(eventId, thingSampleId, count) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/AddThingChangesToEvent',
-                    data: {
-                        eventId: eventId,
-                        thingSampleId: thingSampleId,
-                        count: count
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
-        function removeThingChanges(eventId, thingId) {
-            return $q(function (resolve, reject) {
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/RemoveThingChangesFromEvent',
-                    data: {
-                        eventId: eventId,
-                        thingId: thingId
-                    },
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (response) {
-                    resolve(angular.fromJson(response));
-                },
-                function () {
-                    reject(Error("Sorry :( we have fail"));
-                });
-            });
-        }
-
+    .service('eventService', ['httpHelper', function (httpHelper) {
         return {
             getEvent: getEvent,
             getEvents: getEvents,
@@ -541,6 +150,197 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             eventChangesApplyToHero: eventChangesApplyToHero,
             getEventForTravelWithHero: getEventForTravelWithHero
         };
+
+        function getEventForTravel(eventId, heroId) {
+            var url = '/Rpg/GetEventForTravel';
+            var data = {
+                eventId: eventId,
+                heroId: heroId
+            };
+            return httpHelper.call(url,data);
+        }
+
+        function getEventForTravelWithHero(eventId, hero) {
+            var url = '/Rpg/GetEventForTravelWithHero';
+            var data = {
+                eventId: eventId,
+                heroJson: angular.toJson(hero)
+            };
+            return httpHelper.call(url,data);
+        }
+
+        function eventChangesApplyToHero(eventId, heroId) {
+            var url = '/Rpg/EventChangesApplyToHero';
+            var data = {
+                eventId: eventId,
+                heroId: heroId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function getEvent(currentEventId) {
+            var url = '/Rpg/GetEvent?id=' + currentEventId;
+            return httpHelper.call(url);
+        }
+
+        function getEvents(questId) {
+            var url = '/Rpg/GetEvents?questId=' + questId;
+            return httpHelper.call(url);
+        }
+
+        function getEndingEvents(questId) {
+            var url = '/Rpg/GetEndingEvents?questId=' + questId;
+            return httpHelper.call(url);
+        }
+
+        function getNotAvailableEvents(questId) {
+            var url = '/Rpg/GetNotAvailableEvents?questId=' + questId;
+            return httpHelper.call(url);
+        }
+
+        function save(event, questId) {
+            var url = '/Rpg/SaveEvent';
+            var data = {
+                jsonEvent: angular.toJson(event),
+                questId: questId
+            };
+            return httpHelper.call(url,data);
+        }
+
+        function remove(eventId) {
+            var url = '/Rpg/RemoveEvent';
+            var data = {
+                eventId: eventId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function saveEventLink(eventLink) {
+            var url = '/Rpg/SaveEventLink';
+            var data = {
+                jsonEventLink: angular.toJson(eventLink)
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function removeEventLink(eventLinkId) {
+            var url = '/Rpg/RemoveEventLink';
+            var data = {
+                eventLinkId: eventLinkId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function addSkill(eventId, skillId) {
+            var url = '/Rpg/AddSkillToEvent';
+            var data = {
+                eventId: eventId,
+                skillId: skillId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function removeSkill(eventId, skillId) {
+            var url = '/Rpg/RemoveSkillToEvent';
+            var data = {
+                eventId: eventId,
+                skillId: skillId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function addCharacteristic(eventId, characteristicTypeId, characteristicValue, requirementType) {
+            var url = '/Rpg/AddCharacteristicToEvent';
+            var data = {
+                eventId: eventId,
+                characteristicTypeId: characteristicTypeId,
+                characteristicValue: characteristicValue,
+                requirementType: requirementType.Value.Value
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function removeCharacteristic(characteristicId) {
+            var url = '/Rpg/RemoveCharacteristicFromEvent';
+            var data = {
+                characteristicId: characteristicId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function addState(eventId, stateTypeId, stateValue) {
+            var url = '/Rpg/AddStateToEvent';
+            var data = {
+                eventId: eventId,
+                stateTypeId: stateTypeId,
+                stateValue: stateValue
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function removeState(stateId) {
+            var url = '/Rpg/RemoveStateFromEvent';
+            var data = {
+                stateId: stateId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function addReqState(eventId, stateTypeId, stateValue) {
+            var url = '/Rpg/AddReqStateToEvent';
+            var data = {
+                eventId: eventId,
+                stateTypeId: stateTypeId,
+                stateValue: stateValue
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function removeReqState(stateId) {
+            var url = '/Rpg/RemoveReqStateFromEvent';
+            var data = {
+                stateId: stateId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function addRequirementThing(eventId, thingSampleId, count) {
+            var url = '/Rpg/AddRequirementThingToEvent';
+            var data = {
+                eventId: eventId,
+                thingSampleId: thingSampleId,
+                count: count
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function removeRequirementThing(eventId, thingId) {
+            var url = '/Rpg/RemoveRequirementThingFromEvent';
+            var data = {
+                eventId: eventId,
+                thingId: thingId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function addThingChanges(eventId, thingSampleId, count) {
+            var url = '/Rpg/AddThingChangesToEvent';
+            var data = {
+                eventId: eventId,
+                thingSampleId: thingSampleId,
+                count: count
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function removeThingChanges(eventId, thingId) {
+            var url = '/Rpg/RemoveThingChangesFromEvent';
+            var data = {
+                eventId: eventId,
+                thingId: thingId
+            };
+            return httpHelper.call(url, data);
+        }
     }])
     .service('heroService', ['$http', '$q', function ($http, $q) {
         var maxHpStateName = "MaxHp";
@@ -1245,4 +1045,34 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                 response: response,
                 responseError: responseError
             };
-        }]);
+        }])
+    .service('httpHelper', ['$q', '$http', function ($q, $http) {
+        return { call: call };
+
+        function call(url, data, success, error) {
+            if (!success) {
+                success = defaultSuccess;
+            }
+            if (!error) {
+                error = defaultError;
+            }
+
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: url,
+                data: data,
+                headers: { 'Accept': 'application/json' }
+            }).success(success, error);
+
+            return deferred.promise;
+
+            function defaultSuccess(response) {
+                deferred.resolve(angular.fromJson(response));
+            }
+
+            function defaultError() {
+                deferred.reject(Error("Sorry :( we have fail"));
+            }
+        }
+    }]);

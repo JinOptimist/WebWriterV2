@@ -10,25 +10,16 @@ namespace Dao.Model
         [Required]
         public long Number { get; set; }
 
+        public RequirementType? RequirementType { get; set; }
+
         public State Copy()
         {
             return new State
             {
                 StateType = StateType,
-                Number = Number
+                Number = Number,
+                RequirementType = RequirementType
             };
         }
     }
-
-    //public enum StateType
-    //{
-    //    MaxHp = 1,
-    //    MaxMp = 2,
-    //    Experience = 3,
-    //    CurrentHp = 4,
-    //    CurrentMp = 5,
-    //    Gold = 6,
-    //    Dodge = 7,
-    //    Trust = 8,
-    //}
 }

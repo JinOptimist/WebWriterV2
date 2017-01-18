@@ -564,6 +564,42 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 });
             }
 
+
+
+            $scope.addReqState = function () {
+                var typeId = $scope.newRequirementStatesType.Id;
+                var value = $scope.newReqStatesValue;
+
+                eventService.addReqState($scope.event.Id, typeId, value).then(function (data) {
+                    if (!$scope.event.HeroStatesChanging) {
+                        $scope.event.HeroStatesChanging = [];
+                    }
+
+                    $scope.event.HeroStatesChanging.push(data);
+                    $scope.newStateValue = 0;
+                });
+            }
+
+            $scope.removeReqState = function (stateId, index) {
+                eventService.removeState(stateId).then(function () {
+                    $scope.event.HeroStatesChanging.splice(index, 1);
+                });
+            };
+
+            $scope.availableReqStateTypes = function () {
+                if (!$scope.event) {
+                    return [];
+                }
+                if (!$scope.event.HeroStatesChanging) {
+                    $scope.event.HeroStatesChanging = [];
+                }
+                return $scope.StateTypes.filter(function (stateType) {
+                    return !$scope.event.HeroStatesChanging.some(function (state) {
+                        return stateType.Id === state.StateType.Id;
+                    });
+                });
+            }
+
             /* Characteristic */
             $scope.addCharacteristic = function () {
                 var typeId = $scope.newRequirementCharacteristicsType.Id;

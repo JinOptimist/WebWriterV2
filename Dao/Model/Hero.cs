@@ -31,22 +31,4 @@ namespace Dao.Model
         /// </summary>
         public virtual List<Thing> Inventory { get; set; }
     }
-
-    public enum Race
-    {
-        None = 0,
-        Человек = 1,
-        Эльф = 2,
-        Орк = 3,
-        Гном = 4,
-        Дракон = 5,
-    }
-
-    public enum Sex
-    {
-        None = 0,
-        Муж = 1,
-        Жен = 2,
-        Скрывает = 3
-    }
 }

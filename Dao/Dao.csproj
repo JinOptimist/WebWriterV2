@@ -102,9 +102,14 @@
     <Compile Include="Migrations\201701080944475_FixMistypesRequirementV2.Designer.cs">
       <DependentUpon>201701080944475_FixMistypesRequirementV2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701181133150_AddReqStateAndCharaChanges.cs" />
+    <Compile Include="Migrations\201701181133150_AddReqStateAndCharaChanges.Designer.cs">
+      <DependentUpon>201701181133150_AddReqStateAndCharaChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\CharacteristicType.cs" />
+    <Compile Include="Model\Enums.cs" />
     <Compile Include="Model\EventLinkItem.cs" />
     <Compile Include="Model\IUpdatable.cs" />
     <Compile Include="Model\SkillSchool.cs" />
@@ -162,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701080944475_FixMistypesRequirementV2.resx">
       <DependentUpon>201701080944475_FixMistypesRequirementV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701181133150_AddReqStateAndCharaChanges.resx">
+      <DependentUpon>201701181133150_AddReqStateAndCharaChanges.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

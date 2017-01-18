@@ -37,6 +37,19 @@ namespace WebWriterV2.RpgUtility
                     heroState.Number += state.Number;
                 }
             }
+
+            foreach (var chara in eventDb.CharacteristicsChanges)
+            {
+                var characteristic = hero.Characteristics.FirstOrDefault(x => x.CharacteristicType.Id == chara.CharacteristicType.Id);
+                if (characteristic == null)
+                {
+                    hero.Characteristics.Add(chara.Copy());
+                }
+                else
+                {
+                    characteristic.Number += chara.Number;
+                }
+            }
         }
 
         public static void FilterLink(this List<EventLinkItem> links, Hero hero)
@@ -68,6 +81,18 @@ namespace WebWriterV2.RpgUtility
                         x => x.CharacteristicType.Id == characteristic.CharacteristicType.Id);
                     if (heroCharacteristic == null
                         || !CheckRequirement(heroCharacteristic.Number, characteristic.Number, characteristic.RequirementType))
+                    {
+                        forRemove.Add(link);
+                    }
+                }
+
+                /* Filter by Characteristic */
+                foreach (var state in destination.RequirementStates)
+                {
+                    var heroState = hero.State.FirstOrDefault(
+                        x => x.StateType.Id == state.StateType.Id);
+                    if (heroState == null
+                        || !CheckRequirement(heroState.Number, state.Number, state.RequirementType))
                     {
                         forRemove.Add(link);
                     }

@@ -11,12 +11,16 @@ namespace Dao.Repository
     {
         private readonly Lazy<EventLinkItemRepository> _eventLinkItemRepository;
         private readonly ThingRepository _thingRepository;
+        private readonly CharacteristicRepository _characteristicRepository;
+        private readonly StateRepository _stateRepository;
 
         public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
         public EventRepository(WriterContext db) : base(db)
         {
             _eventLinkItemRepository = new Lazy<EventLinkItemRepository>(() => new EventLinkItemRepository(db));
             _thingRepository = new ThingRepository(db);
+            _characteristicRepository = new CharacteristicRepository(db);
+            _stateRepository = new StateRepository(db);
         }
 
         public override Event Save(Event model)
@@ -55,9 +59,21 @@ namespace Dao.Repository
             {
                 _thingRepository.Remove(currentEvent.ThingsChanges);
             }
+            if (currentEvent.CharacteristicsChanges?.Any() ?? false)
+            {
+                _characteristicRepository.Remove(currentEvent.CharacteristicsChanges);
+            }
             if (currentEvent.RequirementThings?.Any() ?? false)
             {
                 _thingRepository.Remove(currentEvent.RequirementThings);
+            }
+            if (currentEvent.RequirementStates?.Any() ?? false)
+            {
+                _stateRepository.Remove(currentEvent.RequirementStates);
+            }
+            if (currentEvent.HeroStatesChanging?.Any() ?? false)
+            {
+                _stateRepository.Remove(currentEvent.HeroStatesChanging);
             }
 
             base.Remove(currentEvent);

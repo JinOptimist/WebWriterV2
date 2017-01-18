@@ -30,10 +30,12 @@ namespace Dao.Model
         public virtual List<Skill> RequirementSkill { get; set; }
         public virtual List<Characteristic> RequirementCharacteristics { get; set; }
         public virtual List<Thing> RequirementThings { get; set; }
+        public virtual List<State> RequirementStates{ get; set; }
 
         /* Changes */
-        public virtual List<State> HeroStatesChanging { get; set; }
+        public virtual List<Characteristic> CharacteristicsChanges { get; set; }
         public virtual List<Thing> ThingsChanges { get; set; }
+        public virtual List<State> HeroStatesChanging { get; set; }
 
         [Description("Add this value to total summ of quest effective")]
         public virtual double ProgressChanging { get; set; } = 0;
@@ -56,16 +58,5 @@ namespace Dao.Model
             Quest = model.Quest;
             ForRootQuest = model.ForRootQuest;
         }
-    }
-
-    public enum RequirementType
-    {
-        More = 1,
-        MoreOrEquals = 2,
-        Less = 3,
-        LessOrEquals = 4,
-        Exist = 5,
-        NotExist = 6,
-        Equals = 7
     }
 }
