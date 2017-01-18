@@ -1010,6 +1010,27 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
     .service('stateService', ['$http', '$q', '_', function ($http, $q, _) {
         var states = [];
 
+        return {
+            loadAllTypes: loadAllTypes,
+            add: add,
+            remove: remove,
+            changeState: changeState
+        };
+
+        function loadAllTypes() {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: '/Rpg/GetStateTypes',
+                headers: { 'Accept': 'application/json' }
+            })
+                .success(function (response) {
+                    states = angular.fromJson(response);
+                    deferred.resolve(states);
+                });
+            return deferred.promise;
+        }
+
         function changeState(stateId, delta) {
             var deferred = $q.defer();
             $http({
@@ -1061,25 +1082,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                 });
             return deferred.promise;
         }
-
-        return {
-            loadAllTypes: function () {
-                var deferred = $q.defer();
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/GetStateTypes',
-                    headers: { 'Accept': 'application/json' }
-                })
-                    .success(function (response) {
-                        states = angular.fromJson(response);
-                        deferred.resolve(states);
-                    });
-                return deferred.promise;
-            },
-            add: add,
-            remove: remove,
-            changeState: changeState
-        };
     }])
     .service('characteristicService', ['$http', '$q', '_', function ($http, $q, _) {
         var characteristicTypes = [];
@@ -1131,20 +1133,58 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
     }])
     .service('thingService', ['$http', '$q', '_', function ($http, $q, _) {
         return {
-            loadAllSamples: function () {
-                var deferred = $q.defer();
-
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/GetThingSamples',
-                    headers: { 'Accept': 'application/json' }
-                })
-                    .success(function (response) {
-                        deferred.resolve(angular.fromJson(response));
-                    });
-                return deferred.promise;
-            },
+            loadAllSamples: loadAllSamples,
+            add: add,
+            remove: remove,
         };
+
+        function loadAllSamples() {
+            var deferred = $q.defer();
+
+            $http({
+                method: 'POST',
+                url: '/Rpg/GetThingSamples',
+                headers: { 'Accept': 'application/json' }
+            })
+                .success(function (response) {
+                    deferred.resolve(angular.fromJson(response));
+                });
+            return deferred.promise;
+        }
+
+        function add(name, desc) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: '/Rpg/AddThing',
+                data: {
+                    name: name,
+                    desc: desc
+                },
+                headers: { 'Accept': 'application/json' }
+            })
+                .success(function (response) {
+                    var state = angular.fromJson(response);
+                    deferred.resolve(state);
+                });
+            return deferred.promise;
+        }
+
+        function remove(thingId) {
+            var deferred = $q.defer();
+            $http({
+                method: 'POST',
+                url: '/Rpg/RemoveThing',
+                data: {
+                    thingId: thingId,
+                },
+                headers: { 'Accept': 'application/json' }
+            })
+                .success(function (response) {
+                    deferred.resolve(response);
+                });
+            return deferred.promise;
+        }
     }])
     //CKEditor
     .service('CKEditorService', ['$http', '$q', '_', function ($http, $q, _) {

@@ -18,7 +18,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 /* admin */
                 .when('/AngularRoute/adminSkill', {
                     templateUrl: '/views/rpg/AdminSkill.html',
-                    controller: 'adminStateController'
+                    controller: 'adminSkillController'
+                })
+                .when('/AngularRoute/adminThing', {
+                    templateUrl: '/views/rpg/admin/thing.html',
+                    controller: 'adminThingController'
                 })
                 .when('/AngularRoute/adminState', {
                     templateUrl: '/views/rpg/admin/state.html',
@@ -801,9 +805,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             }
         }
     ])
-    .controller('adminStateController', [
-                 '$scope', 'stateService',
-        function ($scope, stateService) {
+    .controller('adminStateController', ['$scope', 'stateService',function ($scope, stateService) {
             $scope.states = [];
             $scope.newStateName = '';
             $scope.newStateDesc = '';
@@ -833,6 +835,37 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 });
             }
         }
+    ])
+    .controller('adminThingController', ['$scope', 'thingService', function ($scope, thingService) {
+        $scope.thingsSample = [];
+        $scope.newThingName = '';
+        $scope.newThingDesc = '';
+
+        init();
+
+        $scope.add = function () {
+            thingService.add($scope.newThingName, $scope.newThingDesc)
+                .then(function (data) {
+                    $scope.thingsSample.push(data);
+
+                    $scope.newThingName = '';
+                    $scope.newThingDesc = '';
+                });
+        }
+
+        $scope.remove = function (stateId, index) {
+            thingService.remove(stateId)
+                .then(function () {
+                    $scope.thingsSample.splice(index, 1);
+                });
+        }
+
+        function init() {
+            thingService.loadAllSamples().then(function (data) {
+                $scope.thingsSample = data;
+            });
+        }
+    }
     ])
 
     .controller('adminSkillController', [

@@ -322,9 +322,10 @@ namespace WebWriterV2.Controllers
         public JsonResult GetSkillsSchool()
         {
             var skillSchools = SkillSchoolRepository.GetAll();
+            var frontSkillSchools = skillSchools.Select(x => new FrontSkillSchool(x)).ToList();
             return new JsonResult
             {
-                Data = SerializeHelper.Serialize(skillSchools),
+                Data = SerializeHelper.Serialize(frontSkillSchools),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -384,6 +385,33 @@ namespace WebWriterV2.Controllers
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(thingSamplesFront),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult AddThing(string name, string desc)
+        {
+            var thingSample = new ThingSample
+            {
+                Name = name,
+                Desc = desc
+            };
+
+            var savedThingSample = ThingSampleRepository.Save(thingSample);
+            var frontThingSample = new FrontThingSample(savedThingSample);
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(frontThingSample),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveThing(long thingId)
+        {
+            ThingSampleRepository.Remove(thingId);
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

@@ -1,16 +1,45 @@
 ﻿<div>
     <div>
         <p>
-            New state name <input type="text" ng-model="newStateName"/>
+            New thing name <input type="text" ng-model="newThingName"/>
         </p>
         <p>
-            New state desc <textarea ng-model="newStateDesc"></textarea>
+            New thing desc <textarea ng-model="newThingDesc"></textarea>
         </p>
         <p><input type="button" value="Add" ng-click="add()"/></p>
     </div>
-    <div ng-repeat="state in states" class="block300 left border1px padding10">
-        <p>Имя: {{state.Name}}</p>
-        <p>Описание: {{state.Desc}}</p>
-        <p><a href="#" ng-click="remove(state.Id, $index)">УДАЛИТЬ<img src="/Content/delete.png" style="width: 20px;"/></a></p>
+    <div ng-repeat="thing in thingsSample" class="block300 left border1px padding10">
+        <p>Имя: {{thing.Name}}</p>
+        <p>Описание: {{thing.Desc}}</p>
+        <p>Требования к Рассе: {{thing.RequirementRace.Name}}</p>
+        <p>Требования к Полу: {{thing.RequirementSex.Name}}</p>
+        <p>Используемый предмет: {{thing.IsUsed}}</p>
+        <p ng-if="thing.PassiveCharacteristics.length > 0">
+            Характеристики, пассивное:
+            <span ng-repeat="chara in thing.PassiveCharacteristics">
+                {{chara.CharacteristicType.Name}}: {{chara.Number}}
+            </span>
+        </p>
+        <p ng-if="thing.PassiveStates.length > 0">
+            Cостояния, пассивное:
+            <span ng-repeat="state in thing.PassiveStates">
+                {{state.StateType.Name}}: {{state.Number}}
+            </span>
+        </p>
+        <p ng-if="thing.UsingEffectCharacteristics.length > 0">
+            Характеристики, при активации:
+            <span ng-repeat="chara in thing.UsingEffectCharacteristics">
+                {{chara.CharacteristicType.Name}}: {{chara.Number}}
+            </span>
+        </p>
+
+        <p ng-if="thing.UsingEffectState.length > 0">
+            Состояния, при активации:
+            <span ng-repeat="state in thing.UsingEffectState">
+                {{state.StateType.Name}}: {{state.Number}}
+            </span>
+        </p>
+
+        <p><a href="#" ng-click="remove(thing.Id, $index)">УДАЛИТЬ<img src="/Content/delete.png" style="width: 20px;"/></a></p>
     </div>
 </div>
