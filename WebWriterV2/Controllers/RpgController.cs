@@ -779,8 +779,8 @@ namespace WebWriterV2.Controllers
             var frontHero = JsonConvert.DeserializeObject<FrontHero>(heroJson);
             var hero = frontHero.ToDbModel();
 
-            eventDb.LinksFromThisEvent.FilterLink(hero);
             eventDb.EventChangesApply(hero);
+            eventDb.LinksFromThisEvent.FilterLink(hero);
 
             var frontEvent = new FrontEvent(eventDb);
             frontHero = new FrontHero(hero);

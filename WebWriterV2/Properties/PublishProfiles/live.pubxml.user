@@ -106,7 +106,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 16:40:11</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>01/18/2017 16:08:02</publishTime>
+      <publishTime>01/18/2017 18:28:14</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -1606,7 +1606,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/27/2016 14:07:39</publishTime>
     </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>01/18/2017 16:01:01</publishTime>
+      <publishTime>01/18/2017 17:38:05</publishTime>
     </File>
     <File Include="Scripts/rpg/services.js">
       <publishTime>01/18/2017 15:58:01</publishTime>
@@ -1654,7 +1654,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/04/2016 14:44:10</publishTime>
     </File>
     <File Include="Views/Rpg/admin/Event.html">
-      <publishTime>01/18/2017 16:05:04</publishTime>
+      <publishTime>01/18/2017 17:34:20</publishTime>
     </File>
     <File Include="Views/Rpg/admin/Quest.html">
       <publishTime>01/16/2017 12:11:20</publishTime>
@@ -1690,7 +1690,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/17/2017 18:59:07</publishTime>
     </File>
     <File Include="Views/Rpg/directives/ngQuestInfo.html">
-      <publishTime>12/12/2016 16:39:35</publishTime>
+      <publishTime>01/18/2017 17:56:25</publishTime>
     </File>
     <File Include="Views/Rpg/GetQuest.html">
       <publishTime>08/27/2016 11:50:11</publishTime>

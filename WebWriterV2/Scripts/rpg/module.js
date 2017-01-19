@@ -450,7 +450,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.ThingSamples = [];
             $scope.RequirementTypes = [];
 
-            $scope.parentExpand = false;
+            $scope.parentExpand = true;
             $scope.reqExpand = false;
             $scope.stateExpand = false;
             $scope.eventEdit = true;
@@ -727,9 +727,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 eventService.saveEventLink(eventLink, questId).then(
                     function (response) {
                         if (response) {
-                            //$scope.eventLinkForm['linkItemText' + eventLink.Id].$setPristine();
                             eventLink.disable = false;
-                            //alert('Save completed');
                         }
                         else {
                             alert('Some go wrong');
@@ -757,6 +755,24 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                     eventService.removeEventLink(eventLink.Id).then(function (result) {
                         event.LinksFromThisEvent.splice(index, 1);
                     });
+            }
+
+            $scope.removeEventLinkParent = function (event, eventLink, index) {
+                if (confirm('Are you sure? You try delete event link: ' + eventLink.Text))
+                    eventService.removeEventLink(eventLink.Id).then(function (result) {
+                        event.LinksToThisEvent.splice(index, 1);
+                    });
+            }
+
+            $scope.addParentEventLink = function () {
+                var newEventLink = {
+                    Id: 0,
+                    Text: $scope.selectedEvent.Name,
+                    FromId: $scope.selectedEvent.Id,
+                    ToId: $scope.event.Id
+                };
+
+                $scope.event.LinksToThisEvent.push(newEventLink);
             }
 
             $scope.goToQuest = function () {
