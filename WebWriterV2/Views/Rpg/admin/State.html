@@ -10,7 +10,10 @@
     </div>
     <div ng-repeat="state in states" class="block300 left border1px padding10">
         <p>Имя: {{state.Name}}</p>
-        <p>Описание: {{state.Desc}}</p>
+        <p>
+            Описание:
+            {{state.Desc}}
+        </p>
         <p><a href="#" ng-click="remove(state.Id, $index)">УДАЛИТЬ<img src="/Content/delete.png" style="width: 20px;"/></a></p>
     </div>
 </div>

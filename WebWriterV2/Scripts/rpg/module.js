@@ -4,7 +4,7 @@ underscore.factory('_', ['$window', function ($window) {
     return $window._; // assumes underscore has already been loaded on the page
 }]);
 
-angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSanitize', 'ngCookies']) //, ['common', 'search', 'masha', 'ui.ace']
+angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSanitize', 'ngCookies', 'ngAnimate'])
     .constant('_',
         window._
     )
@@ -1204,6 +1204,8 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.currentEvent = {};
             $scope.ways = [];
             $scope.wait = true;
+            /* animation */
+            $scope.myCssVar = '';
 
             $scope.changes = [];
 
@@ -1246,9 +1248,21 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             }
 
             $scope.removeChange = function (changesId) {
-                $scope.changes = $scope.changes.filter(function (change) {
-                    return change.id !== changesId;
+                $scope.changes.forEach(function (el) {
+                    if (el.id === changesId) {
+                        el.hideClassName = 'change-item';
+                        return;
+                    }
                 });
+
+
+                (function(id) {
+                    $timeout(function() {
+                        $scope.changes = $scope.changes.filter(function(change) {
+                            return change.id !== id;
+                        });
+                    }, 2000);
+                })(changesId);
             }
 
             function alertChanges() {

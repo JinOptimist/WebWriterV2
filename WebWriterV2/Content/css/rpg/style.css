@@ -241,3 +241,28 @@ p {
 form.ng-dirty input.save {
     background-color: green;
 }
+
+/* Animation */
+.change-item {
+    position: relative;
+    opacity: 0.0;
+}
+/*.change-item-remove,*/
+.change-item-add {
+    transition-property: all;
+    transition-duration: 2s;
+    left: 0;
+    /*top: 0;*/
+    opacity: 1.0;
+}
+
+
+.change-item-add.change-item-add-active {
+    left: 600px;
+    /*top: 150px;*/
+    opacity: 0.0;
+}
+
+/*.change-item-remove.change-item-remove-active {
+  left: 0px;
+}*/

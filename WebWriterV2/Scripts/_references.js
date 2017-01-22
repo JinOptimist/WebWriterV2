@@ -1,5 +1,6 @@
 ﻿/// <autosync enabled="true" />
 /// <reference path="angular.js" />
+/// <reference path="angular-animate.min.js" />
 /// <reference path="angular-cookies.min.js" />
 /// <reference path="angular-mocks.js" />
 /// <reference path="angular-route.min.js" />

@@ -48,7 +48,7 @@ angular.module('directives', ['services', 'underscore', 'ngSanitize']) //, ['com
                         var currentState = _.find($scope.hero.State, function(state) {
                             return state.StateType.Name == stateName;
                         });
-                        return currentState.Number;
+                        return currentState ? currentState.Number : -1;
                     }
 
                     $scope.Hp = function () {
