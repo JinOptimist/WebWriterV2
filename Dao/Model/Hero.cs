@@ -7,6 +7,7 @@ namespace Dao.Model
     {
         [Required]
         public string Name { get; set; }
+
         public string Background { get; set; }
 
         [Required]
@@ -14,9 +15,6 @@ namespace Dao.Model
 
         [Required]
         public virtual Sex Sex { get; set; }
-
-        //[Required]
-        //public Location Location { get; set; }
 
         public virtual List<Characteristic> Characteristics { get; set; }
 
@@ -30,5 +28,7 @@ namespace Dao.Model
         /// Things in bag
         /// </summary>
         public virtual List<Thing> Inventory { get; set; }
+
+        public virtual Event CurrentEvent { get; set; }
     }
 }

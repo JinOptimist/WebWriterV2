@@ -36,6 +36,8 @@ namespace Dao.Model
 
         public virtual List<Event> AllEvents { get; set; }
 
+        public virtual User Owner { get; set; }
+
         public void UpdateFrom(Quest model)
         {
             if (Id != model.Id)

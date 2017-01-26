@@ -9,14 +9,14 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
         window._
     )
     .run(['$http', 'sexService', 'raceService', 'heroService', function ($http, sexService, raceService, heroService) {
-        $http({
-            method: 'POST',
-            url: '/Rpg/GetDefaultHero',
-            headers: { 'Accept': 'application/json' }
-        }).success(function (rawHero) {
-            var hero = angular.fromJson(rawHero);
-            heroService.setDefaultHero(hero);
-        });
+        //$http({
+        //    method: 'POST',
+        //    url: '/Rpg/GetDefaultHero',
+        //    headers: { 'Accept': 'application/json' }
+        //}).success(function (rawHero) {
+        //    var hero = angular.fromJson(rawHero);
+        //    heroService.setDefaultHero(hero);
+        //});
     }])
     .service('questService', ['$http', '$q', function ($http, $q) {
         function saveQuest(quest) {
@@ -872,7 +872,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
         }
 
         function edit(state) {
-
             var url = '/Rpg/EditStateType';
             var data = {
                 jsonStateType: angular.toJson(state)
@@ -997,6 +996,30 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                     deferred.resolve(response);
                 });
             return deferred.promise;
+        }
+    }])
+    .service('userService', ['httpHelper', function (httpHelper) {
+        return {
+            login: login,
+            register: register
+        };
+
+        function login(user) {
+            var url = '/Rpg/Login';
+            var data = {
+                username: user.Name,
+                password: user.Password
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function register(user) {
+            var url = '/Rpg/Register';
+            var userJson = angular.toJson(user);
+            var data = {
+                userJson: userJson
+            };
+            return httpHelper.call(url, data);
         }
     }])
     //CKEditor

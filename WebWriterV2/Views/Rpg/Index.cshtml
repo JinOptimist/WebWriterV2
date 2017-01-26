@@ -30,27 +30,8 @@
     <script src="~/Scripts/ckeditor/ckeditor.js"></script>
 </head>
 <body>
-    <p style="border-bottom: 1px dotted green; padding: 10px 7px">
-        Админка:
-        <a href="AngularRoute/admin/quest/">Квесты админка</a>
-        | <a href="AngularRoute/adminQuest">Старая админка квест</a>
-        | <a href="AngularRoute/adminSkill">Админка скилов</a>
-        | <a href="AngularRoute/adminCharacteristic">Админка характеристик</a>
-        | <a href="AngularRoute/adminState">Админка Состояний</a>
-        | <a href="AngularRoute/adminThing">Админка Вещей</a>
-    </p>
-
-    <p style="border-bottom: 1px dotted green; padding: 10px 7px">
-        Пользователь:
-        <a href="AngularRoute/createHero">Создать героя</a>
-        | <a href="AngularRoute/listHeroes">Список героев</a>
-        | <a href="AngularRoute/listQuest">Список квестов</a>
-        | <a href="AngularRoute/guild">Гильдия</a>
-        | <a href="AngularRoute/travel">Путешествие</a>
-        | <a href="AngularRoute/traningRoom">Комната тренировок</a>
-    </p>
-
-<div ng-view>Loading...</div>
+    <div ng-include="'views/rpg/header.html'">Loading...</div>
+    <div ng-view>Loading...</div>
     <footer style="clear: both; padding: 70px 70px; border-top: 1px dotted green; margin-top: 10px;">Все права правильные</footer>
 </body>
 </html>

@@ -1,0 +1,23 @@
+﻿<div ng-controller="accessController">
+    <p ng-if="isAdmin"
+       style="border-bottom: 1px dotted green; padding: 10px 7px">
+        Админка:
+        <a href="AngularRoute/admin/quest/">Квесты админка</a>
+        | <a href="AngularRoute/admin/QuestOld">Старая админка квест</a>
+        | <a href="AngularRoute/admin/Skill">Админка скилов</a>
+        | <a href="AngularRoute/admin/Characteristic">Админка характеристик</a>
+        | <a href="AngularRoute/admin/State">Админка Состояний</a>
+        | <a href="AngularRoute/admin/Thing">Админка Вещей</a>
+    </p>
+
+    <p style="border-bottom: 1px dotted green; padding: 10px 7px">
+        Пользователь:
+        <a ng-if="!isAuthorized" href="AngularRoute/login">Login</a>
+        <!--| <a href="AngularRoute/createHero">Создать героя</a>-->
+        | <a ng-if="isAuthorized" href="AngularRoute/listHeroes">Список героев</a>
+        | <a href="AngularRoute/listQuest">Список квестов</a>
+        | <a ng-if="isAuthorized" href="AngularRoute/guild">Гильдия</a>
+        <!--| <a href="AngularRoute/travel">Путешествие</a>-->
+        <!--| <a href="AngularRoute/traningRoom">Комната тренировок</a>-->
+    </p>
+</div>

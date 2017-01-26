@@ -38,6 +38,8 @@ namespace WebWriterV2.Controllers
         public IStateTypeRepository StateTypeRepository { get; set; }
         public IThingSampleRepository ThingSampleRepository { get; set; }
         public IThingRepository ThingRepository { get; set; }
+        public IUserRepository UserRepository { get; set; }
+
 
         public RpgController()
         {
@@ -55,6 +57,7 @@ namespace WebWriterV2.Controllers
             StateTypeRepository = new StateTypeRepository(_context);
             ThingSampleRepository = new ThingSampleRepository(_context);
             ThingRepository = new ThingRepository(_context);
+            UserRepository = new UserRepository(_context);
 
             //using (var scope = StaticContainer.Container.BeginLifetimeScope())
             //{
@@ -74,8 +77,31 @@ namespace WebWriterV2.Controllers
         {
             return View();
         }
+        /* ************** Hero ************** */
+        public JsonResult Login(string username, string password)
+        {
+            var user = UserRepository.Login(username, password);
 
-        /* ************** Utils for enum ************** */
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(user),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult Register(string userJson)
+        {
+            var user = SerializeHelper.Deserialize<User>(userJson);
+            user = UserRepository.Save(user);
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(user),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        /* ************** Utility for enum ************** */
         public JsonResult GetListRace()
         {
             var listRace = Enum.GetValues(typeof(Race)).Cast<Race>();

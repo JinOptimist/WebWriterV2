@@ -251,6 +251,7 @@
 /// <reference path="galleria-1.2.9.min.js" />
 /// <reference path="jquery-2.1.4.js" />
 /// <reference path="raphael-min.js" />
+/// <reference path="rpg/constant.js" />
 /// <reference path="rpg/directives.js" />
 /// <reference path="rpg/graph.js" />
 /// <reference path="rpg/module.js" />

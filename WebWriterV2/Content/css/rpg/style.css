@@ -3,6 +3,10 @@ p {
     padding: 0;
 }
 
+.error {
+    color: red;
+}
+
 .avatar {
     background-color: #3366CC;
     width: 300px; /* Ширина слоя */

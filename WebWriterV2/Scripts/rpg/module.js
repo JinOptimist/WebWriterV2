@@ -16,24 +16,24 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             // Routes configuration
             $routeProvider
                 /* admin */
-                .when('/AngularRoute/adminSkill', {
-                    templateUrl: '/views/rpg/AdminSkill.html',
+                .when('/AngularRoute/admin/Skill', {
+                    templateUrl: '/views/rpg/admin/Skill.html',
                     controller: 'adminSkillController'
                 })
-                .when('/AngularRoute/adminThing', {
+                .when('/AngularRoute/admin/Thing', {
                     templateUrl: '/views/rpg/admin/thing.html',
                     controller: 'adminThingController'
                 })
-                .when('/AngularRoute/adminState', {
+                .when('/AngularRoute/admin/State', {
                     templateUrl: '/views/rpg/admin/state.html',
                     controller: 'adminStateController'
                 })
-                .when('/AngularRoute/adminCharacteristic', {
-                    templateUrl: '/views/rpg/AdminCharacteristic.html',
+                .when('/AngularRoute/admin/Characteristic', {
+                    templateUrl: '/views/rpg/admin/Characteristic.html',
                     controller: 'adminCharacteristicController'
                 })
-                .when('/AngularRoute/adminQuest', {
-                    templateUrl: '/views/rpg/AdminQuest.html',
+                .when('/AngularRoute/admin/QuestOld', {
+                    templateUrl: '/views/rpg/admin/QuestOld.html',
                     controller: 'adminQuestController'
                 })
                 .when('/AngularRoute/admin/quest/:questId/event/:eventId?', {
@@ -45,6 +45,10 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                     controller: 'adminQuestGeneralController'
                 })
                 /* front */
+                .when('/AngularRoute/login', {
+                    templateUrl: '/views/rpg/Login.html',
+                    controller: 'loginController'
+                })
                 .when('/AngularRoute/guild', {
                     templateUrl: '/views/rpg/Guild.html',
                     controller: 'guildController'
@@ -940,7 +944,6 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
         }
     }
     ])
-
     .controller('adminSkillController', [
                  '$scope', 'skillService', 'stateService',
         function ($scope, skillService, stateService) {
@@ -1049,6 +1052,56 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             $scope.removeState = function (source, index) {
                 source.splice(index, 1);
             }
+        }
+    ])
+    // User controller
+    .controller('accessController', ['$scope', '$cookies', 'userService',
+        function($scope, $cookies, userService) {
+            $scope.isAdmin = false;
+            $scope.isAuthorized = false;
+
+            init();
+
+            function init() {
+                $cookies.get('');
+            }
+        }
+    ])
+    .controller('loginController', ['$scope', '$location', '$cookies', 'userService', function ($scope, $location, $cookies, userService) {
+            $scope.waiting = false;
+            $scope.user = {};
+            $scope.error = '';
+
+            $scope.login = function () {
+                $scope.waiting = true;
+                $scope.error = '';
+                userService.login($scope.user).then(function (result) {
+                    if (result) {
+                        $scope.user = result;
+                        $cookies.put('userId', result.Id);
+                        $location.path('/AngularRoute/listQuest');
+                    } else {
+                        $scope.error = 'Incorrect username or password';
+                    }
+                    $scope.waiting = false;
+                });
+            }
+
+            $scope.register = function () {
+                $scope.waiting = true;
+                userService.register($scope.user)
+                    .then(function (result) {
+                        if (result) {
+                            $scope.user = result;
+                            $cookies.put('userId', result.Id);
+                            $location.path('/AngularRoute/listQuest');
+                        } else {
+                            $scope.error = 'No!';
+                        }
+                        $scope.waiting = false;
+                    });
+            }
+
         }
     ])
     .controller('createHeroController', [
@@ -1174,8 +1227,6 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             }
 
             $scope.goToQuest = function(quest) {
-                //questService.setQuest(quest);
-                //questService.setExecutor($scope.currentHero);
                 if (!$scope.currentHero
                     || $scope.currentHero.Id < 1) {
                     alert('You forgot to select hero');

@@ -20,6 +20,8 @@ namespace Dao
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
+            modelBuilder.Entity<User>().HasMany(x => x.Quests).WithOptional(x => x.Owner);
+
             modelBuilder.Entity<Quest>().HasOptional(x => x.RootEvent).WithOptionalPrincipal(x => x.ForRootQuest).WillCascadeOnDelete(false);
             modelBuilder.Entity<Quest>().HasMany(u => u.AllEvents).WithRequired(x => x.Quest).WillCascadeOnDelete(false);
 
@@ -38,6 +40,7 @@ namespace Dao
             modelBuilder.Entity<Hero>().HasMany(u => u.State).WithOptional().WillCascadeOnDelete(true);
             modelBuilder.Entity<Hero>().HasMany(u => u.Characteristics).WithOptional().WillCascadeOnDelete(true);
             modelBuilder.Entity<Hero>().HasMany(u => u.Inventory).WithOptional(x => x.Hero);
+            //modelBuilder.Entity<Hero>().HasOptional(u => u.CurrentEvent)
 
             //TODO Manual remove state for SelfChanging
             //.WillCascadeOnDelete(true);

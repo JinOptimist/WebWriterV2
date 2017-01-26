@@ -68,6 +68,7 @@
     <Compile Include="IRepository\ICharacteristicTypeRepository.cs" />
     <Compile Include="IRepository\ICharacteristicRepository.cs" />
     <Compile Include="IRepository\IEventLinkItemRepository.cs" />
+    <Compile Include="IRepository\IUserRepository.cs" />
     <Compile Include="IRepository\IThingRepository.cs" />
     <Compile Include="IRepository\IThingSampleRepository.cs" />
     <Compile Include="IRepository\IStateTypeRepository.cs" />
@@ -106,6 +107,10 @@
     <Compile Include="Migrations\201701181133150_AddReqStateAndCharaChanges.Designer.cs">
       <DependentUpon>201701181133150_AddReqStateAndCharaChanges.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701261345211_AddUser.cs" />
+    <Compile Include="Migrations\201701261345211_AddUser.Designer.cs">
+      <DependentUpon>201701261345211_AddUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\CharacteristicType.cs" />
@@ -113,6 +118,7 @@
     <Compile Include="Model\EventLinkItem.cs" />
     <Compile Include="Model\IUpdatable.cs" />
     <Compile Include="Model\SkillSchool.cs" />
+    <Compile Include="Model\User.cs" />
     <Compile Include="Model\StateType.cs" />
     <Compile Include="Model\State.cs" />
     <Compile Include="Model\Event.cs" />
@@ -131,6 +137,7 @@
     <Compile Include="Repository\CharacteristicTypeRepository.cs" />
     <Compile Include="Repository\CharacteristicRepository.cs" />
     <Compile Include="Repository\EventLinkItemRepository.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\ThingRepository.cs" />
     <Compile Include="Repository\ThingSampleRepository.cs" />
     <Compile Include="Repository\StateTypeRepository.cs" />
@@ -170,6 +177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701181133150_AddReqStateAndCharaChanges.resx">
       <DependentUpon>201701181133150_AddReqStateAndCharaChanges.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701261345211_AddUser.resx">
+      <DependentUpon>201701261345211_AddUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
