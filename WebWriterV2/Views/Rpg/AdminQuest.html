@@ -1,9 +1,9 @@
 ﻿<div>
     <div>
-        <h2>Список квестов <a ng-href="#" ng-click="addQuest()"><img src="/Content/add.png" style="width: 20px; height: 20px;"></a></h2>
+        <h2>Список квестов <a ng-href="#" ng-click="addQuest()"><img src="/Content/add.png" class="icon20"></a></h2>
         <p ng-repeat="quest in quests">
             <a ng-href="#" ng-click="selectQuest(quest)">{{quest.Name}}</a>
-            <a ng-href="#" ng-click="removeQuest(quest, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;"></a>
+            <a ng-href="#" ng-click="removeQuest(quest, $index)"><img src="/Content/delete.png" class="icon20"></a>
         </p>
 
         <a ng-href="#" ng-click="clearActiveQuest()">Снять выделение</a>

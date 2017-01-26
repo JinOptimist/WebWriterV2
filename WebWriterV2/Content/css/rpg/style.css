@@ -121,6 +121,11 @@ p {
     width: 300px;
 }
 
+.icon20 {
+    width: 20px;
+    height: 20px;
+}
+
 .border1px {
     border: 1px #ccc solid;
 }

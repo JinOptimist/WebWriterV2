@@ -810,12 +810,13 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             }
         };
     }])
-    .service('stateService', ['$http', '$q', '_', function ($http, $q, _) {
+    .service('stateService', ['$http', '$q', '_', 'httpHelper', function ($http, $q, _, httpHelper) {
         var states = [];
 
         return {
             loadAllTypes: loadAllTypes,
             add: add,
+            edit: edit,
             remove: remove,
             changeState: changeState
         };
@@ -868,6 +869,15 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
                     deferred.resolve(state);
                 });
             return deferred.promise;
+        }
+
+        function edit(state) {
+
+            var url = '/Rpg/EditStateType';
+            var data = {
+                jsonStateType: angular.toJson(state)
+            };
+            return httpHelper.call(url, data);
         }
 
         function remove(stateId) {

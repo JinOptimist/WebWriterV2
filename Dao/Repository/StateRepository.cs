@@ -12,7 +12,6 @@ namespace Dao.Repository
             _stateTypeRepository = new StateTypeRepository(db);
         }
 
-
         public void CheckAndSave(State state)
         {
             if (state.StateType.Id == 0)

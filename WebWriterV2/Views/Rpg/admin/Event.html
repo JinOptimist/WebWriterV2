@@ -5,9 +5,9 @@
         </h2>
         <p ng-repeat="eventItem in events">
             <a ng-href="#" ng-click="selectEvent(eventItem.Id)">{{eventItem.Name}}</a>
-            <a ng-href="#" ng-click="removeEvent(eventItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+            <a ng-href="#" ng-click="removeEvent(eventItem, $index)"><img src="/Content/delete.png" class="icon20" /></a>
         </p>
-        <a ng-href="#" ng-click="addEvent()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+        <a ng-href="#" ng-click="addEvent()"><img src="/Content/add.png" class="icon20" /></a>
     </div>
     <form ng-show="event" class="left event-edit">
         <h3 ng-click="parentExpand = !parentExpand">Откуда можно попасть в эту главу {{parentExpand ? "&uarr;" : "&darr;"}}</h3>
@@ -22,8 +22,8 @@
                 <br />
                 <input name="linkItemText{{linkItem.Id}}" type="text" ng-model="linkItem.Text"
                        class="auto-apply" ng-disabled="linkItem.disable" style="width: 500px;" />
-                <a ng-href="#" ng-click="saveEventLink(linkItem)"><img src="/Content/confirm.png" style="width: 20px; height: 20px;" /></a>
-                <a ng-href="#" ng-click="removeEventLinkParent(event, linkItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+                <a ng-href="#" ng-click="saveEventLink(linkItem)"><img src="/Content/confirm.png" class="icon20" /></a>
+                <a ng-href="#" ng-click="removeEventLinkParent(event, linkItem, $index)"><img src="/Content/delete.png" class="icon20" /></a>
             </p>
             <p ng-show="!event.LinksToThisEvent || event.LinksToThisEvent.length == 0">
                 Нет глав ссылающихся на эту главу
@@ -31,7 +31,7 @@
             <p>
                 Добавить переход к главе:
                 <select ng-model="selectedEvent" ng-options="event as event.Name for event in events"></select>
-                <a ng-href="#" ng-click="addParentEventLink()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+                <a ng-href="#" ng-click="addParentEventLink()"><img src="/Content/add.png" class="icon20" /></a>
             </p>
         </div>
         <hr />
@@ -49,16 +49,16 @@
                 RequirementSkill:
                 <span ng-repeat="skill in event.RequirementSkill">
                     {{skill.Name}}
-                    <a ng-click="removeSkill(skill, $index)" style="cursor: pointer;"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+                    <a ng-click="removeSkill(skill, $index)" style="cursor: pointer;"><img src="/Content/delete.png" class="icon20" /></a>
                 </span>
                 <select ng-model="selectedSkill" ng-options="option as option.Name for option in availableSkill()"></select>
-                <a ng-click="addSkill()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+                <a ng-click="addSkill()" style="cursor: pointer;"><img src="/Content/add.png" class="icon20" /></a>
             </p>
             <p>
                 RequirementCharacteristics:
                 <span ng-repeat="characteristic in event.RequirementCharacteristics">
                     {{characteristic.CharacteristicType.Name}} {{characteristic.RequirementType.Name}} {{characteristic.Number}}
-                    <a ng-click="removeCharacteristic(characteristic.Id)" style="cursor: pointer;"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+                    <a ng-click="removeCharacteristic(characteristic.Id)" style="cursor: pointer;"><img src="/Content/delete.png" class="icon20" /></a>
                 </span>
 
                 <select ng-model="newRequirementCharacteristicsType"
@@ -66,32 +66,32 @@
                 <select ng-model="newRequirementType"
                         ng-options="option as option.Name for option in RequirementTypes"></select>
                 <input type="number" ng-model="newRequirementCharacteristicsValue"/>
-                <a ng-click="addCharacteristic()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
+                <a ng-click="addCharacteristic()" style="cursor: pointer;"><img src="/Content/add.png" class="icon20"/></a>
             </p>
             <p>
                 RequirementStates:
                 <span ng-repeat="state in event.RequirementStates">
                     {{state.StateType.Name}} {{state.RequirementType.Name}} {{state.Number}}
-                    <a ng-click="removeReqState(state.Id, $index)" style="cursor: pointer;"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+                    <a ng-click="removeReqState(state.Id, $index)" style="cursor: pointer;"><img src="/Content/delete.png" class="icon20" /></a>
                 </span>
                 <select ng-model="newRequirementStatesType"
                         ng-options="option as option.Name for option in availableReqStateTypes()"></select>
                 <select ng-model="newStateReqType"
                         ng-options="option as option.Name for option in RequirementTypes"></select>
                 <input type="number" ng-model="newReqStatesValue"/>
-                <a ng-click="addReqState()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
+                <a ng-click="addReqState()" style="cursor: pointer;"><img src="/Content/add.png" class="icon20"/></a>
             </p>
             <div>
                 RequirementThings:
                 <p ng-repeat="thing in event.RequirementThings">
                     {{thing.ThingSample.Name}} &ge; {{thing.Count}};
-                    <a href="#" ng-click="removeRequirementThings(thing.Id, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;"/></a>
+                    <a href="#" ng-click="removeRequirementThings(thing.Id, $index)"><img src="/Content/delete.png" class="icon20"/></a>
                 </p>
 
                 <select ng-model="selectedRequirementThingSample"
                         ng-options="thingSample as thingSample.Name for thingSample in availableRequirementThingSamples()"></select>
                 <input type="number" ng-model="newRequirementThingSampleValue" ng-maxlength="9"/>
-                <a ng-click="addRequirementThing()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
+                <a ng-click="addRequirementThing()" style="cursor: pointer;"><img src="/Content/add.png" class="icon20"/></a>
             </div>
         </div>
         <hr />
@@ -100,23 +100,23 @@
             <div>
                 <p ng-repeat="state in event.HeroStatesChanging">
                     {{state.StateType.Name}}: {{state.Number}};
-                    <a href="#" ng-click="removeState(state.Id, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+                    <a href="#" ng-click="removeState(state.Id, $index)"><img src="/Content/delete.png" class="icon20" /></a>
                 </p>
 
                 <select ng-model="selectedState" ng-options="option as option.Name for option in availableStateTypes()"></select>
                 <input type="number" ng-model="newStateValue" ng-maxlength="9"/>
-                <a ng-click="addState()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
+                <a ng-click="addState()" style="cursor: pointer;"><img src="/Content/add.png" class="icon20"/></a>
             </div>
             <div>
                 <p ng-repeat="thing in event.ThingsChanges">
                     {{thing.ThingSample.Name}}: {{thing.Count}};
-                    <a href="#" ng-click="removeThing(thing.Id, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;" /></a>
+                    <a href="#" ng-click="removeThing(thing.Id, $index)"><img src="/Content/delete.png" class="icon20" /></a>
                 </p>
 
                 <select ng-model="selectedThingChangesSample"
                         ng-options="thingSample as thingSample.Name for thingSample in availableThingSamples()"></select>
                 <input type="number" ng-model="newThingChangesSampleValue" ng-maxlength="9" />
-                <a ng-click="addThingsChanges()" style="cursor: pointer;"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+                <a ng-click="addThingsChanges()" style="cursor: pointer;"><img src="/Content/add.png" class="icon20" /></a>
             </div>
         </div>
         <hr />
@@ -153,13 +153,13 @@
                     <br/>
                     <input name="linkItemText{{linkItem.Id}}" type="text" ng-model="linkItem.Text"
                            class="auto-apply" ng-disabled="linkItem.disable" style="width: 500px;"/>
-                    <a ng-href="#" ng-click="saveEventLink(linkItem)"><img src="/Content/confirm.png" style="width: 20px; height: 20px;"/></a>
-                    <a ng-href="#" ng-click="removeEventLink(event, linkItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;"/></a>
+                    <a ng-href="#" ng-click="saveEventLink(linkItem)"><img src="/Content/confirm.png" class="icon20"/></a>
+                    <a ng-href="#" ng-click="removeEventLink(event, linkItem, $index)"><img src="/Content/delete.png" class="icon20"/></a>
                 </p>
                 <p>
                     Добавить переход к главе:
                     <select ng-model="selectedEvent" ng-options="event as event.Name for event in events"></select>
-                    <a ng-href="#" ng-click="addEventLink()"><img src="/Content/add.png" style="width: 20px; height: 20px;"/></a>
+                    <a ng-href="#" ng-click="addEventLink()"><img src="/Content/add.png" class="icon20"/></a>
                 </p>
             </div>
         </div>

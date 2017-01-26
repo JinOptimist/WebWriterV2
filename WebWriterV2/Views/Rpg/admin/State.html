@@ -9,11 +9,24 @@
         <p><input type="button" value="Add" ng-click="add()"/></p>
     </div>
     <div ng-repeat="state in states" class="block300 left border1px padding10">
-        <p>Имя: {{state.Name}}</p>
+        <p style="float: right;">
+            <a href="#" ng-if="!state.isEditing"
+               ng-click="edit(state, $index)"><img src="/Content/edit.png" class="icon20" /></a>
+            <a href="#" ng-if="state.isEditing"
+               ng-click="confirm(state, $index)"><img src="/Content/confirm.png" class="icon20" /></a>
+            <a href="#" ng-click="remove(state, $index)"><img src="/Content/delete.png" class="icon20" /></a>
+        </p>
+        <p>
+            Имя: <span ng-if="!state.isEditing">{{state.Name}}</span>
+            <input ng-if="state.isEditing" type="text" ng-model="state.Name"/>
+        </p>
         <p>
             Описание:
-            {{state.Desc}}
+            <span ng-if="!state.isEditing">{{state.Desc}}</span>
+            <br ng-if="state.isEditing"/>
+            <textarea ng-if="state.isEditing" ng-model="state.Desc" style="width: 250px; height: 80px;"></textarea>
         </p>
-        <p><a href="#" ng-click="remove(state.Id, $index)">УДАЛИТЬ<img src="/Content/delete.png" style="width: 20px;"/></a></p>
+
+        <img src="/Content/wait.gif" class="icon20" ng-if="state.isSaved"/>
     </div>
 </div>

@@ -205,6 +205,7 @@
     <Content Include="Content\css\rpg\style.css" />
     <Content Include="Content\bin.jpg" />
     <Content Include="Content\delete.png" />
+    <Content Include="Content\edit.png" />
     <Content Include="Content\home\down.png" />
     <Content Include="Content\home\download-icon.png" />
     <Content Include="Content\home\fb2-icon.png" />

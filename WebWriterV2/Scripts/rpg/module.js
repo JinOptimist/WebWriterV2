@@ -860,37 +860,55 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
             }
         }
     ])
-    .controller('adminStateController', ['$scope', 'stateService',function ($scope, stateService) {
-            $scope.states = [];
-            $scope.newStateName = '';
-            $scope.newStateDesc = '';
+    .controller('adminStateController', ['$scope', 'stateService', function($scope, stateService) {
+        $scope.states = [];
+        $scope.newStateName = '';
+        $scope.newStateDesc = '';
 
-            init();
+        init();
 
-            $scope.add = function () {
-                stateService.add($scope.newStateName, $scope.newStateDesc)
-                    .then(function(data) {
-                        $scope.states.push(data);
+        $scope.edit = function(state) {
+            state.isEditing = true;
+        }
 
-                        $scope.newStateName = '';
-                        $scope.newStateDesc = '';
-                    });
-            }
+        $scope.confirm = function (state) {
+            state.isEditing = false;
+            state.isSaved = true;
 
-            $scope.remove = function (stateId, index) {
-                stateService.remove(stateId)
+            stateService.edit(state)
+                .then(function (data) {
+                    if (data) {
+                        state.isEditing = false;
+                    }
+                }).finally(function() {
+                    state.isSaved = false;
+                });
+        }
+
+        $scope.add = function() {
+            stateService.add($scope.newStateName, $scope.newStateDesc)
+                .then(function(data) {
+                    $scope.states.push(data);
+
+                    $scope.newStateName = '';
+                    $scope.newStateDesc = '';
+                });
+        }
+
+        $scope.remove = function (state, index) {
+            if (confirm('Are you sure that you want delete "' + state.Name+ '" status?'))
+                stateService.remove(state.Id)
                     .then(function() {
                         $scope.states.splice(index, 1);
                     });
-            }
+        }
 
-            function init() {
-                stateService.loadAllTypes().then(function (states) {
+        function init() {
+                stateService.loadAllTypes().then(function(states) {
                     $scope.states = states;
                 });
             }
-        }
-    ])
+    }])
     .controller('adminThingController', ['$scope', 'thingService', function ($scope, thingService) {
         $scope.thingsSample = [];
         $scope.newThingName = '';

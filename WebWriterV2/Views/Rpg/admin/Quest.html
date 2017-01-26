@@ -1,10 +1,10 @@
 ﻿<div>
     <div style="float: right; width: 300px;">
         <h2>Список квестов <!--<a ng-href="#" ng-click="addQuest()">+</a>--> </h2>
-        <a ng-href="#" ng-click="addQuest()"><img src="/Content/add.png" style="width: 20px; height: 20px;" /></a>
+        <a ng-href="#" ng-click="addQuest()"><img src="/Content/add.png" class="icon20" /></a>
         <p ng-repeat="questItem in quests">
             <a ng-href="#" ng-click="selectQuest(questItem)">{{questItem.Name}}</a>
-            <a ng-href="#" ng-click="removeQuest(questItem, $index)"><img src="/Content/delete.png" style="width: 20px; height: 20px;"/></a>
+            <a ng-href="#" ng-click="removeQuest(questItem, $index)"><img src="/Content/delete.png" class="icon20"/></a>
         </p>
 
 

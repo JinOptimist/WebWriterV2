@@ -458,6 +458,17 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult EditStateType(string jsonStateType)
+        {
+            var stateType = SerializeHelper.Deserialize<StateType>(jsonStateType);
+            StateTypeRepository.Save(stateType);
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(true),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         public JsonResult RemoveState(long stateId)
         {
             StateTypeRepository.Remove(stateId);
