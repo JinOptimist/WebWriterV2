@@ -77,26 +77,44 @@ namespace WebWriterV2.Controllers
         {
             return View();
         }
+
         /* ************** Hero ************** */
         public JsonResult Login(string username, string password)
         {
             var user = UserRepository.Login(username, password);
-
+            FrontUser frontUser = null;
+            if (user != null)
+            {
+                frontUser = new FrontUser(user);
+            }
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(user),
+                Data = JsonConvert.SerializeObject(frontUser),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 
         public JsonResult Register(string userJson)
         {
-            var user = SerializeHelper.Deserialize<User>(userJson);
+            var frontUser = SerializeHelper.Deserialize<FrontUser>(userJson);
+            var user = frontUser.ToDbModel();
             user = UserRepository.Save(user);
+            frontUser = new FrontUser(user);
 
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(user),
+                Data = JsonConvert.SerializeObject(frontUser),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult GetUserById(long userId)
+        {
+            var user = UserRepository.Get(userId);
+            var frontUser = new FrontUser(user);
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(frontUser),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

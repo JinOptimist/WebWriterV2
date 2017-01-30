@@ -16,6 +16,8 @@ namespace Dao.Model
         [Required]
         public string Password { get; set; }
 
+        public bool IsAdmin { get; set; }
+
         public List<Quest> Quests { get; set; }
     }
 }

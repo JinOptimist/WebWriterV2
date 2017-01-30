@@ -1,5 +1,5 @@
 ﻿<div ng-controller="accessController">
-    <p ng-if="isAdmin"
+    <p ng-if="user.IsAdmin"
        style="border-bottom: 1px dotted green; padding: 10px 7px">
         Админка:
         <a href="AngularRoute/admin/quest/">Квесты админка</a>
@@ -11,13 +11,31 @@
     </p>
 
     <p style="border-bottom: 1px dotted green; padding: 10px 7px">
-        Пользователь:
-        <a ng-if="!isAuthorized" href="AngularRoute/login">Login</a>
+        <span ng-if="user.Id">Привет, {{user.Name}}. <a href="#" ng-click="exit()">Выход</a></span>
+        <span ng-if="!user.Id">Пользователь:</span>
+        <a ng-if="!user.Id" href="#" ng-click="openLogin()">Login</a>
+        <a ng-if="!user.Id" href="#" ng-click="openRegister()">Register</a>
         <!--| <a href="AngularRoute/createHero">Создать героя</a>-->
-        | <a ng-if="isAuthorized" href="AngularRoute/listHeroes">Список героев</a>
+        | <a ng-if="user.Id" href="AngularRoute/listHeroes">Список героев</a>
         | <a href="AngularRoute/listQuest">Список квестов</a>
-        | <a ng-if="isAuthorized" href="AngularRoute/guild">Гильдия</a>
+        | <a ng-if="user.Id" href="AngularRoute/guild">Гильдия</a>
         <!--| <a href="AngularRoute/travel">Путешествие</a>-->
         <!--| <a href="AngularRoute/traningRoom">Комната тренировок</a>-->
     </p>
+
+    <div ng-if="activeLogin || activeRegister">
+        <span ng-if="error" class="error">{{error}}</span>
+        <p>
+            Username: <input type="text" ng-model="user.Name" ng-disabled="waiting"/>
+            <input type="checkbox" ng-model="user.IsAdmin" ng-if="activeRegister" ng-disabled="waiting" />
+        </p>
+        <p>
+            Password: <input type="password" ng-model="user.Password" ng-disabled="waiting"/>
+        </p>
+        <p>
+            <input type="button" value="login" ng-click="login()" ng-if="activeLogin" ng-disabled="waiting" />
+            <input type="button" value="register" ng-click="register()" ng-if="activeRegister" ng-disabled="waiting" />
+            <img src="/Content/wait.gif" ng-if="waiting" class="icon20" />
+        </p>
+    </div>
 </div>

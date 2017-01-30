@@ -1,6 +1,6 @@
 angular
-    .module('rpg', [])
-    .constant("cookies", (function () {
+    .module('AppConst',[])
+    .constant("ConstCookies", (function () {
         var baseApiUrl = 'http://localhost:8086';
         return {
             // placeholders

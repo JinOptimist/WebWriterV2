@@ -4,7 +4,7 @@ underscore.factory('_', ['$window', function ($window) {
     return $window._; // assumes underscore has already been loaded on the page
 }]);
 
-angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSanitize', 'ngCookies', 'ngAnimate'])
+angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSanitize', 'ngCookies', 'ngAnimate', 'AppConst'])
     .constant('_',
         window._
     )
@@ -1055,22 +1055,15 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
         }
     ])
     // User controller
-    .controller('accessController', ['$scope', '$cookies', 'userService',
-        function($scope, $cookies, userService) {
-            $scope.isAdmin = false;
-            $scope.isAuthorized = false;
+    .controller('accessController', ['$scope', '$cookies', '$location', 'ConstCookies', 'userService',
+        function ($scope, $cookies, $location, ConstCookies, userService) {
+            $scope.user = {};
+            $scope.waiting = false;
+            $scope.activeLogin = false;
+            $scope.activeRegister = false;
+            $scope.error = '';
 
             init();
-
-            function init() {
-                $cookies.get('');
-            }
-        }
-    ])
-    .controller('loginController', ['$scope', '$location', '$cookies', 'userService', function ($scope, $location, $cookies, userService) {
-            $scope.waiting = false;
-            $scope.user = {};
-            $scope.error = '';
 
             $scope.login = function () {
                 $scope.waiting = true;
@@ -1078,12 +1071,13 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                 userService.login($scope.user).then(function (result) {
                     if (result) {
                         $scope.user = result;
-                        $cookies.put('userId', result.Id);
-                        $location.path('/AngularRoute/listQuest');
+                        $cookies.put(ConstCookies.userId, result.Id);
+                        $scope.activeLogin = false;
                     } else {
                         $scope.error = 'Incorrect username or password';
                     }
                     $scope.waiting = false;
+                    init();
                 });
             }
 
@@ -1093,15 +1087,42 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                     .then(function (result) {
                         if (result) {
                             $scope.user = result;
-                            $cookies.put('userId', result.Id);
-                            $location.path('/AngularRoute/listQuest');
+                            $cookies.put(ConstCookies.userId, result.Id);
+                            $scope.activeRegister = false;
                         } else {
                             $scope.error = 'No!';
                         }
                         $scope.waiting = false;
+                        init();
                     });
             }
 
+            $scope.openLogin = function() {
+                $scope.activeLogin = true;
+            }
+
+            $scope.openRegister = function() {
+                $scope.activeRegister = true;
+            }
+
+            $scope.exit = function () {
+                $cookies.remove(ConstCookies.userId);
+                $cookies.remove(ConstCookies.isAdmin);
+                $cookies.remove(ConstCookies.isWriter);
+                init();
+                $location.path('/AngularRoute/listQuest');
+            }
+
+            function init() {
+                var userId = $cookies.get(ConstCookies.userId);
+                if (userId) {
+                    userService.getById(userId).then(function (data) {
+                        $scope.user = data;
+                    });
+                } else {
+                    $scope.user = {};
+                }
+            }
         }
     ])
     .controller('createHeroController', [

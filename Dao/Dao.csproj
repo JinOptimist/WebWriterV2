@@ -111,6 +111,10 @@
     <Compile Include="Migrations\201701261345211_AddUser.Designer.cs">
       <DependentUpon>201701261345211_AddUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201701300817106_AddAdminBoolean.cs" />
+    <Compile Include="Migrations\201701300817106_AddAdminBoolean.Designer.cs">
+      <DependentUpon>201701300817106_AddAdminBoolean.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\CharacteristicType.cs" />
@@ -180,6 +184,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701261345211_AddUser.resx">
       <DependentUpon>201701261345211_AddUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701300817106_AddAdminBoolean.resx">
+      <DependentUpon>201701300817106_AddAdminBoolean.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

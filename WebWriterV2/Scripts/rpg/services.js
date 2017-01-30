@@ -4,7 +4,7 @@ underscore.factory('_', ['$window', function ($window) {
     return $window._; // assumes underscore has already been loaded on the page
 }]);
 
-angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
+angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
     .constant('_',
         window._
     )
@@ -1001,7 +1001,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
     .service('userService', ['httpHelper', function (httpHelper) {
         return {
             login: login,
-            register: register
+            register: register,
+            getById: getById
         };
 
         function login(user) {
@@ -1018,6 +1019,14 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore'])
             var userJson = angular.toJson(user);
             var data = {
                 userJson: userJson
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function getById(userId) {
+            var url = '/Rpg/GetUserById';
+            var data = {
+                userId: userId
             };
             return httpHelper.call(url, data);
         }

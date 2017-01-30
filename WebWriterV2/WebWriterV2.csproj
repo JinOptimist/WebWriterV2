@@ -158,6 +158,7 @@
     <Compile Include="Controllers\RubbishController.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
     <Compile Include="FrontModels\FrontEventLinkItem.cs" />
+    <Compile Include="FrontModels\FrontUser.cs" />
     <Compile Include="FrontModels\FrontSkillSchool.cs" />
     <Compile Include="FrontModels\FrontThing.cs" />
     <Compile Include="FrontModels\FrontThingSample.cs" />
@@ -637,6 +638,7 @@
     <Content Include="Scripts\jquery-2.1.4.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\raphael-min.js" />
+    <Content Include="Scripts\rpg\constant.js" />
     <Content Include="Scripts\rpg\graph.js" />
     <Content Include="Scripts\rpg\services.js" />
     <Content Include="Scripts\rpg\directives.js" />
@@ -649,7 +651,6 @@
     <Content Include="Views\Rpg\admin\Characteristic.html" />
     <Content Include="Views\Rpg\admin\QuestOld.html" />
     <Content Include="Views\Rpg\Header.html" />
-    <Content Include="Views\Rpg\Login.html" />
     <Content Include="Views\Rpg\admin\Thing.html" />
     <Content Include="Views\Rpg\admin\State.html" />
     <Content Include="Views\Rpg\admin\Event.html" />
