@@ -13,9 +13,8 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-            var rpgBaseUrl = "http://localhost:52079/AngularRoute/listQuest";
-            var sevenMinutesId = "quest-100030";
-            var goToPcId = "eventLink-90477";
+            var rpgBaseUrl = "http://martin-s.by/AngularRoute/listQuest";
+            var sevenMinutesId = "quest-33";
             var secondBefor = "stateType-60072-Value";
             IWebDriver driver = new ChromeDriver();
 
@@ -24,16 +23,15 @@ namespace ConsoleApplication1
                 driver.Navigate().GoToUrl(rpgBaseUrl);
                 driver.Manage().Window.Maximize();
 
-                driver.Manage().Timeouts().ImplicitlyWait(new TimeSpan(0, 0, 10));
+                driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
                 driver.Manage().Timeouts().SetScriptTimeout(TimeSpan.FromSeconds(5));
 
                 driver.FindElement(By.Id(sevenMinutesId)).Click();
-
-                var sec = driver.FindElement(By.Id(secondBefor)).Text;
-                //Log
+                //var sec = driver.FindElement(By.Id(secondBefor)).Text;
 
                 for (int i = 0; i < 11; i++)
                 {
+                    Thread.Sleep(200);
                     driver.FindElements(By.TagName("li"))[0].Click();
                 }
             }
