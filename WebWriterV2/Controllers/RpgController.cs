@@ -79,7 +79,7 @@ namespace WebWriterV2.Controllers
             return View();
         }
 
-        /* ************** Hero ************** */
+        /* ************** User ************** */
         public JsonResult Login(string username, string password)
         {
             var user = UserRepository.Login(username, password);
@@ -116,6 +116,30 @@ namespace WebWriterV2.Controllers
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(frontUser),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult AddBookmark(long eventId, string heroJson)
+        {
+            var userId = long.Parse(Request.Cookies["userId"]?.Value ?? "-1");
+            var user = UserRepository.Get(userId);
+            var currentEvent = EventRepository.Get(eventId);
+
+            var fronHero = SerializeHelper.Deserialize<FrontHero>(heroJson);
+            var hero = fronHero.ToDbModel();
+            hero.Owner = user;
+            hero.CurrentEvent = currentEvent;
+            hero.Sex = Sex.None;
+            hero.Race = Race.None;
+            hero.Name = hero.Name ?? "Just a Hero";
+            HeroRepository.Save(hero);
+            user.Bookmarks.Add(hero);
+
+
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

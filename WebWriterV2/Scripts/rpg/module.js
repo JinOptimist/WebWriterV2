@@ -77,8 +77,12 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                     templateUrl: '/views/rpg/battle.html',
                     controller: 'battleController'
                 })
+                .when('/AngularRoute/profile', {
+                    templateUrl: '/views/rpg/profile.html',
+                    controller: 'profileController'
+                })
                 .otherwise({
-                    redirectTo: '/AngularRoute/guild'
+                    redirectTo: '/AngularRoute/listQuest'
                 });
 
             // Uses HTLM5 history API for navigation
@@ -1286,9 +1290,9 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
     ])
     .controller('travelController', [
         '$scope', '$http', '$location', '$routeParams', '$cookies', '$timeout',
-        'questService', 'eventService', 'guildService', 'heroService', 'stateService',
+        'questService', 'eventService', 'guildService', 'heroService', 'userService',
         function ($scope, $http, $location, $routeParams, $cookies, $timeout,
-            questService, eventService, guildService, heroService, stateService) {
+            questService, eventService, guildService, heroService, userService) {
             $scope.quest = {};
             $scope.hero = {};
             $scope.currentEvent = {};
@@ -1353,6 +1357,12 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                         });
                     }, 2000);
                 })(changesId);
+            }
+
+            $scope.createBookmark = function () {
+                var eventId = $scope.currentEvent.Id;
+                var heroJson = angular.toJson($scope.hero);
+                userService.addBookmark(eventId, heroJson);
             }
 
             function alertChanges() {
@@ -1632,6 +1642,23 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
 
             function getState(hero,stateName) {
                 return _.find(hero.State, function(state) { return state.StateType.Name == stateName; });
+            }
+        }
+    ])
+    .controller('profileController', ['$scope', '$cookies', '$location', 'ConstCookies', 'userService',
+        function ($scope, $cookies, $location, ConstCookies, userService) {
+            $scope.user = {};
+            $scope.waiting = false;
+
+            init();
+
+            function init() {
+                var userId = $cookies.get(ConstCookies.userId);
+                if (userId) {
+                    userService.getById(userId).then(function (data) {
+                        $scope.user = data;
+                    });
+                }
             }
         }
     ]);

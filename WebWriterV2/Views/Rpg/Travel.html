@@ -1,6 +1,9 @@
 ﻿<div ng-class="!quest || !hero ? 'wait' : ''">
     <div style="width: 800px; float: left;">
         <h2>Экран путешествия: </h2>
+        <div>
+            <a href="#" ng-click="createBookmark()">Поставить закладку</a>
+        </div>
         <div class="event-changes-block" ng-if="changes.length > 0">
             <p ng-repeat="change in changes" ng-class="change.hideClassName">
                 {{change.text}}
@@ -13,7 +16,8 @@
         </div>
         <div ng-if="!wait">
             <ul>
-                <li ng-repeat="eventLink in ways" class="wayLink" ng-click="chooseEvent(eventLink.ToId)">
+                <li ng-repeat="eventLink in ways" ng-click="chooseEvent(eventLink.ToId)"
+                    id="eventLink-{{eventLink.Id}}" class="wayLink" >
                     <a href="#">{{eventLink.Text}}</a>
                 </li>
             </ul>

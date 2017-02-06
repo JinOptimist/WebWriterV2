@@ -1002,7 +1002,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         return {
             login: login,
             register: register,
-            getById: getById
+            getById: getById,
+            addBookmark: addBookmark
         };
 
         function login(user) {
@@ -1027,6 +1028,15 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var url = '/Rpg/GetUserById';
             var data = {
                 userId: userId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function addBookmark(eventId, heroJson) {
+            var url = '/Rpg/AddBookmark';
+            var data = {
+                eventId: eventId,
+                heroJson: heroJson
             };
             return httpHelper.call(url, data);
         }
