@@ -1,8 +1,7 @@
 ﻿<div ng-class="!quest || !hero ? 'wait' : ''">
     <div style="width: 800px; float: left;">
-        <h2>Экран путушествия: </h2>
+        <h2>Экран путешествия: </h2>
         <div class="event-changes-block" ng-if="changes.length > 0">
-
             <p ng-repeat="change in changes" ng-class="change.hideClassName">
                 {{change.text}}
                 <img ng-src="/Content/delete.png" style="width: 20px; height: 20px; float: right" ng-click="removeChange(change.id)"/>

@@ -10,6 +10,11 @@ namespace Dao.Model
         [Required]
         public long Number { get; set; }
 
+        /// <summary>
+        /// Use for store data which doesn't need to see readers
+        /// </summary>
+        public bool Invisible { get; set; }
+
         public RequirementType? RequirementType { get; set; }
 
         public State Copy()

@@ -24,6 +24,7 @@ namespace WebWriterV2.Controllers
 
         private readonly WriterContext _context = new WriterContext();
 
+        #region Repository
         public IEventRepository EventRepository { get; }
         public IEventLinkItemRepository EventLinkItemRepository { get; }
         public IQuestRepository QuestRepository { get; set; }
@@ -39,7 +40,7 @@ namespace WebWriterV2.Controllers
         public IThingSampleRepository ThingSampleRepository { get; set; }
         public IThingRepository ThingRepository { get; set; }
         public IUserRepository UserRepository { get; set; }
-
+        #endregion
 
         public RpgController()
         {

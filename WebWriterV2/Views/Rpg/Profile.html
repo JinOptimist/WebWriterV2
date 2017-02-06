@@ -1,0 +1,11 @@
+﻿<div ng-class="!quest || !hero ? 'wait' : ''">
+    <div style="width: 800px; float: left;">
+        <h2>Профиль {{user.Name}}: </h2>
+
+        <div ng-if="user.Bookmarks">
+            <p ng-repeat="mark in user.Bookmarks">
+                {{mark.CurrentEvent.Name}}
+            </p>
+        </div>
+    </div>
+</div>

@@ -18,6 +18,14 @@ namespace Dao.Model
 
         public bool IsAdmin { get; set; }
 
-        public List<Quest> Quests { get; set; }
+        /// <summary>
+        /// Hero contains CurrentEvent. Use this field to get information about Quest and Event where user stop reading
+        /// </summary>
+        public virtual List<Hero> Bookmarks { get; set; }
+
+        /// <summary>
+        /// Quests created by User
+        /// </summary>
+        public virtual List<Quest> Quests { get; set; }
     }
 }

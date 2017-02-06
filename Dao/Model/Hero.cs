@@ -30,5 +30,7 @@ namespace Dao.Model
         public virtual List<Thing> Inventory { get; set; }
 
         public virtual Event CurrentEvent { get; set; }
+
+        public virtual User Owner { get; set; }
     }
 }

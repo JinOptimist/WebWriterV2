@@ -660,6 +660,7 @@
     <Content Include="Views\Rpg\ListQuest.html" />
     <Content Include="Views\Rpg\TraningRoom.html" />
     <Content Include="Views\Rpg\Battle.html" />
+    <Content Include="Views\Rpg\Profile.html" />
     <Content Include="Views\Rpg\Travel.html" />
     <Content Include="Views\Rpg\Guild.html" />
     <Content Include="Views\Rpg\ListHeroes.html" />

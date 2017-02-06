@@ -20,11 +20,16 @@ namespace WebWriterV2.FrontModels
             Name = user.Name;
             Email = user.Email;
             IsAdmin = user.IsAdmin;
+            Password = user.Password;
+            Bookmarks = user.Bookmarks.Select(x => new FrontHero(x)).ToList();
         }
 
         public string Name { get; set; }
+        public string Password { get; set; }
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
+
+        public List<FrontHero> Bookmarks { get; set; }
 
         public override User ToDbModel()
         {
@@ -32,6 +37,7 @@ namespace WebWriterV2.FrontModels
             {
                 Id = Id,
                 Name = Name,
+                Password = Password,
                 Email = Email,
                 IsAdmin = IsAdmin
             };

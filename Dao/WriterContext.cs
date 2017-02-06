@@ -21,6 +21,7 @@ namespace Dao
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Entity<User>().HasMany(x => x.Quests).WithOptional(x => x.Owner);
+            modelBuilder.Entity<User>().HasMany(x => x.Bookmarks).WithOptional(x => x.Owner);
 
             modelBuilder.Entity<Quest>().HasOptional(x => x.RootEvent).WithOptionalPrincipal(x => x.ForRootQuest).WillCascadeOnDelete(false);
             modelBuilder.Entity<Quest>().HasMany(u => u.AllEvents).WithRequired(x => x.Quest).WillCascadeOnDelete(false);
