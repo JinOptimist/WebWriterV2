@@ -1732,7 +1732,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/06/2016 17:08:46</publishTime>
     </File>
     <File Include="Views/Rpg/ListQuest.html">
-      <publishTime>02/06/2017 15:42:17</publishTime>
+      <publishTime>02/07/2017 12:14:45</publishTime>
     </File>
     <File Include="Views/Rpg/Login.html">
       <publishTime>01/26/2017 17:01:33</publishTime>

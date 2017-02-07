@@ -16,41 +16,45 @@ namespace ConsoleApplication1
     {
         static string rpgBaseUrl = "http://martin-s.by/AngularRoute/listQuest";
 
-        static string secondBefor = "stateType-60072-Value";
+        //static string secondBefor = "stateType-60072-Value";
         static void Main(string[] args)
         {
-            var towerId = "quest-32";
-            var sevenMinutesId = "quest-33";
-            var kgbId = "quest-34";
+            //var towerId = "quest-32";
+            //var sevenMinutesId = "quest-33";
+            //var kgbId = "quest-34";
+
+            var list = new List<string> { "quest-80026", "quest-80027",  "quest-100030" };
+
             var driver = new ChromeDriver();
+            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
+            //driver.Manage().Timeouts().SetScriptTimeout(TimeSpan.FromSeconds(5));
 
-            MyTest(driver, towerId);
             driver.Manage().Window.Maximize();
-            MyTest(driver, sevenMinutesId);
+            driver.Navigate().GoToUrl(rpgBaseUrl);
+            var questBlockIds = driver.FindElementsByCssSelector(".quest-block").ToList()
+                .Select(x=> x.GetAttribute("id")).ToList();
 
-            //MyTest(driver, kgbId);
+            questBlockIds.ForEach(x => MyTest(driver, x));
 
             Thread.Sleep(1 * 1000);
             driver.Quit();
         }
 
-        static void MyTest(IWebDriver driver, string questName)
+        static void MyTest(IWebDriver driver, string questId)
         {
             driver.Navigate().GoToUrl(rpgBaseUrl);
+            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
 
+            Thread.Sleep(500);
+            driver.FindElement(By.Id(questId)).Click();
 
-            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(10));
-            driver.Manage().Timeouts().SetScriptTimeout(TimeSpan.FromSeconds(5));
-
-            //driver.FindElements(By.CssSelector("." + questName + " div"))[0].Click();
-            Thread.Sleep(1000);
-            driver.FindElement(By.Id(questName)).Click();
-            //var sec = driver.FindElement(By.Id(secondBefor)).Text;
-
-            for (int i = 0; i < 5; i++)
+            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(2));
+            var liTags = driver.FindElements(By.CssSelector("li.wayLink"));
+            while (liTags.Count > 0)
             {
-                Thread.Sleep(200);
-                driver.FindElements(By.TagName("li"))[0].Click();
+                Thread.Sleep(100);
+                liTags[0].Click();
+                liTags = driver.FindElements(By.CssSelector("li.wayLink"));
             }
         }
     }
