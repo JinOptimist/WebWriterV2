@@ -162,11 +162,12 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return httpHelper.call(url,data);
         }
 
-        function getEventForTravelWithHero(eventId, hero) {
+        function getEventForTravelWithHero(eventId, hero, applyChanges) {
             var url = '/Rpg/GetEventForTravelWithHero';
             var data = {
                 eventId: eventId,
-                heroJson: angular.toJson(hero)
+                heroJson: angular.toJson(hero),
+                applyChanges: applyChanges
             };
             return httpHelper.call(url,data);
         }

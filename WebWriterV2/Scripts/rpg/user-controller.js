@@ -252,11 +252,11 @@ angular.module('rpg')
 
             init();
 
-            $scope.chooseEvent = function (eventId) {
-                if ($scope.hero.Id > 0) {
+            $scope.chooseEvent = function (eventId, isBookmark) {
+                if ($scope.hero.Id > 0 && !isBookmark) {
                     chooseEventWithHero(eventId);
                 } else {
-                    chooseEventOnClientSide(eventId);
+                    chooseEventOnClientSide(eventId, isBookmark);
                 }
             };
 
@@ -272,7 +272,7 @@ angular.module('rpg')
                     })
                     .then(function(response) {
                         if (response.data == "+") {
-                            $location.path('/AngularRoute/guild');
+                            $location.path('/AngularRoute/listQuest');
                         } else {
                             alert(response);
                         }
@@ -357,11 +357,11 @@ angular.module('rpg')
                     heroUpdated.State.forEach(function (state) {
                         var stateTypeId = state.StateType.Id;
                         setState(hero, stateTypeId, state.Number);
-                        if (heroService.getHp(hero) < 1) {
-                            alert('Your hero is Dead. Noob!');
-                            $location.path('/AngularRoute/guild');
-                            return;
-                        }
+                        //if (heroService.getHp(hero) < 1) {
+                        //    alert('Your hero is Dead. Noob!');
+                        //    $location.path('/AngularRoute/guild');
+                        //    return;
+                        //}
                     });
 
                     hero.Inventory = [];
@@ -372,9 +372,9 @@ angular.module('rpg')
                 });
             }
 
-            function chooseEventOnClientSide(eventId) {
+            function chooseEventOnClientSide(eventId, isBookmark) {
                 $scope.wait = true;
-                eventService.getEventForTravelWithHero(eventId, $scope.hero).then(function (result) {
+                eventService.getEventForTravelWithHero(eventId, $scope.hero, !isBookmark).then(function (result) {
                     var event = result.frontEvent;
                     $scope.hero = result.frontHero;
 
@@ -382,7 +382,9 @@ angular.module('rpg')
                     $scope.quest.Effective += event.ProgressChanging;
                     $scope.currentEvent = event;
                     $scope.wait = false;
-                    alertChanges();
+                    if (!isBookmark) {
+                        alertChanges();
+                    }
                 });
             }
 
@@ -419,7 +421,7 @@ angular.module('rpg')
             function init() {
                 var questId = $routeParams.questId;
                 var heroId = $routeParams.heroId;
-                var isBookmark = $routeParams.isBookmark;
+                var isBookmark = angular.fromJson($routeParams.isBookmark);
                 heroService.load(heroId).then(function(data) {
                     $scope.hero = data;
 
@@ -432,7 +434,7 @@ angular.module('rpg')
                             $scope.currentEvent = $scope.quest.RootEvent;
                         }
 
-                        $scope.chooseEvent($scope.currentEvent.Id);
+                        $scope.chooseEvent($scope.currentEvent.Id, isBookmark);
                     });
                 });
             }

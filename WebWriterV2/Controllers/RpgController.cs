@@ -143,7 +143,6 @@ namespace WebWriterV2.Controllers
             hero.Name = hero.Name ?? "Just a Hero";
 
             HeroRepository.Save(hero);
-            //user.Bookmarks.Add(hero);
 
             return new JsonResult
             {
@@ -853,13 +852,18 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult GetEventForTravelWithHero(long eventId, string heroJson)
+        public JsonResult GetEventForTravelWithHero(long eventId, string heroJson, bool applyChanges)
         {
             var eventDb = EventRepository.Get(eventId);
             var frontHero = JsonConvert.DeserializeObject<FrontHero>(heroJson);
             var hero = frontHero.ToDbModel();
+            hero.CurrentEvent = eventDb;
 
-            eventDb.EventChangesApply(hero);
+            if (applyChanges)
+            {
+                eventDb.EventChangesApply(hero);
+            }
+
             eventDb.LinksFromThisEvent.FilterLink(hero);
 
             var frontEvent = new FrontEvent(eventDb);

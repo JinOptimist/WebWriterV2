@@ -2,18 +2,18 @@
     <p>
         <b>{{hero.Name}}</b> {{hero.Race.Name}} {{hero.Sex.Name}}
     </p>
-    <div class="main-bar health-bar" ng-if="MaxHp() > 0">
+    <!--<div class="main-bar health-bar" ng-if="MaxHp() > 0">
         <div class="bar" ng-style="hero.healthWidth"></div>
     </div>
     <span ng-if="MaxHp() > 0">
-        Hp {{Hp()}}/{{MaxHp()}}
+        Hp {Hp()}}/{MaxHp()}}
     </span>
     <div class="main-bar mana-bar" ng-if="MaxMp() > 0">
         <div class="bar" ng-style="hero.manaWidth"></div>
     </div>
     <span ng-if="MaxMp() > 0">
-        Mp {{Mp()}}/{{MaxMp()}}
-    </span>
+        Mp {Mp()}}/{MaxMp()}}
+    </span>-->
     <hr/>
     <p><span ng-if="hero.State" ng-repeat="state in hero.State">
             {{state.StateType.Name}}:
