@@ -25,6 +25,7 @@ namespace WebWriterV2.FrontModels
             State = hero.State.Select(x => new FrontState(x)).ToList();
             Skills = hero.Skills.Select(x => new FrontSkill(x)).ToList();
             Inventory = hero.Inventory?.Select(x => new FrontThing(x)).ToList();
+            CurrentEvent = hero.CurrentEvent == null ? null : new FrontEvent(hero.CurrentEvent);
         }
 
         public string Name { get; set; }
@@ -37,6 +38,8 @@ namespace WebWriterV2.FrontModels
         public List<FrontSkill> Skills { get; set; }
         public List<FrontThing> Inventory { get; set; }
 
+        public FrontEvent CurrentEvent { get; set; }
+
         public override Hero ToDbModel()
         {
             var hero = new Hero
@@ -48,7 +51,8 @@ namespace WebWriterV2.FrontModels
                 State = State.Select(x => x.ToDbModel()).ToList(),
                 Characteristics = Characteristics.Select(x => x.ToDbModel()).ToList(),
                 Skills = Skills.Select(x => x.ToDbModel()).ToList(),
-                Inventory = Inventory?.Select(x => x.ToDbModel()).ToList()
+                Inventory = Inventory?.Select(x => x.ToDbModel()).ToList(),
+                CurrentEvent = CurrentEvent?.ToDbModel()
             };
 
             hero.Inventory?.ForEach(x => x.Hero = hero);
