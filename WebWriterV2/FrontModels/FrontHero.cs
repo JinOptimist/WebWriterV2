@@ -44,6 +44,7 @@ namespace WebWriterV2.FrontModels
         {
             var hero = new Hero
             {
+                Id = Id,
                 Name = Name,
                 Background = Background,
                 Sex = (Sex)Sex.Value,

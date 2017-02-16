@@ -72,5 +72,22 @@ namespace Dao.Repository
             base.Save(hero);
             return hero;
         }
+
+        public List<Hero> GetByEvent(long eventId)
+        {
+            return Entity.Where(x => x.CurrentEvent.Id == eventId).ToList();
+        }
+
+        public void RemoveByEvent(long eventId, long userId)
+        {
+            var heroes = Entity.Where(x => x.CurrentEvent.Id == eventId && x.Owner.Id == userId).ToList();
+            Remove(heroes);
+        }
+
+        public void RemoveByQuest(long questId, long userId)
+        {
+            var heroes = Entity.Where(x => x.CurrentEvent.Quest.Id == questId && x.Owner.Id == userId).ToList();
+            Remove(heroes);
+        }
     }
 }

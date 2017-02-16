@@ -10,10 +10,12 @@ namespace Dao.Repository
     public class QuestRepository : BaseRepository<Quest>, IQuestRepository
     {
         private readonly EventRepository _eventRepository;
+        private readonly EventLinkItemRepository _eventLinkItemRepository;
 
         public QuestRepository(WriterContext db) : base(db)
         {
             _eventRepository = new EventRepository(db);
+            _eventLinkItemRepository = new EventLinkItemRepository(db);
         }
 
         public List<Quest> GetAllWithRootEvent()
@@ -28,9 +30,9 @@ namespace Dao.Repository
 
             foreach (var @event in quest.AllEvents)
             {
-                @event.LinksFromThisEvent = null;
-                @event.LinksToThisEvent = null;
-                _eventRepository.Save(@event);
+                _eventLinkItemRepository.Remove(@event.LinksFromThisEvent);
+                _eventLinkItemRepository.Remove(@event.LinksToThisEvent);
+                //_eventRepository.Save(@event);
             }
 
             if (quest.AllEvents.Count > 0)

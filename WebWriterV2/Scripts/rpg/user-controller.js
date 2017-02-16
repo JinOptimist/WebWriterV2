@@ -504,7 +504,7 @@ angular.module('rpg')
             init();
 
             $scope.goToQuest = function (quest) {
-                $location.path('/AngularRoute/travel/quest/' + quest.Id + '/hero/' + -1);
+                $location.path('/AngularRoute/travel/quest/' + quest.Id + '/hero/' + -1 + '/false');
             }
 
             function init() {
