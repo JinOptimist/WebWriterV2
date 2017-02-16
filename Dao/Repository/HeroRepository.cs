@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
@@ -61,13 +62,15 @@ namespace Dao.Repository
                 }
             }
 
+            if (hero.TimeCreation == default(DateTime))
+            {
+                hero.TimeCreation = DateTime.Now;
+            }
+
+            hero.LastChanges = DateTime.Now;
+
             base.Save(hero);
             return hero;
-        }
-
-        public void A()
-        {
-
         }
     }
 }

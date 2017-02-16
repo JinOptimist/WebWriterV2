@@ -419,6 +419,7 @@ angular.module('rpg')
             function init() {
                 var questId = $routeParams.questId;
                 var heroId = $routeParams.heroId;
+                var isBookmark = $routeParams.isBookmark;
                 heroService.load(heroId).then(function(data) {
                     $scope.hero = data;
 
@@ -613,7 +614,7 @@ angular.module('rpg')
 
             $scope.goToBookmark = function (bookmark) {
                 var questId = bookmark.CurrentEvent.quest.Id;
-                var url = '/AngularRoute/travel/quest/' + questId + '/hero/' + bookmark.Id;
+                var url = '/AngularRoute/travel/quest/' + questId + '/hero/' + bookmark.Id + '/true';
                 $location.path(url);
             }
 

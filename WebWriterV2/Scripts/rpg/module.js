@@ -65,7 +65,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSan
                     templateUrl: '/views/rpg/ListQuest.html',
                     controller: 'listQuestController'
                 })
-                .when('/AngularRoute/travel/quest/:questId/hero/:heroId', {
+                .when('/AngularRoute/travel/quest/:questId/hero/:heroId/:isBookmark', {
                     templateUrl: '/views/rpg/Travel.html',
                     controller: 'travelController'
                 })
