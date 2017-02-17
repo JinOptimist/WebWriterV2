@@ -28,6 +28,8 @@ namespace WebWriterV2.FrontModels
             ThingsChanges = eventDb.ThingsChanges?.Select(x => new FrontThing(x)).ToList();
             RequirementThings = eventDb.RequirementThings?.Select(x => new FrontThing(x)).ToList();
             RequirementStates = eventDb.RequirementStates?.Select(x => new FrontState(x)).ToList();
+
+            QuestId = eventDb.Quest.Id;
         }
 
         public string Name { get; set; }
@@ -43,6 +45,8 @@ namespace WebWriterV2.FrontModels
         public List<FrontCharacteristic> CharacteristicsChanges { get; set; }
         public List<FrontThing> ThingsChanges { get; set; }
         public List<FrontState> HeroStatesChanging { get; set; }
+
+        public long QuestId { get; set; }
 
         public double ProgressChanging { get; set; }
 

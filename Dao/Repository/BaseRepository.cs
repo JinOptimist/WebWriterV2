@@ -40,14 +40,6 @@ namespace Dao.Repository
             return model;
         }
 
-        //public virtual T Add(T model)
-        //{
-        //    model.Id = 0;
-        //    Entity.Add(model);
-        //    Db.SaveChanges();
-        //    return model;
-        //}
-
         public virtual List<T> Save(List<T> baseModels)
         {
             return baseModels.Select(Save).ToList();

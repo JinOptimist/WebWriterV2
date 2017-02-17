@@ -640,6 +640,8 @@
     <Content Include="Scripts\raphael-min.js" />
     <Content Include="Scripts\rpg\constant.js" />
     <Content Include="Scripts\rpg\graph.js" />
+    <Content Include="Scripts\rpg\admin-controller.js" />
+    <Content Include="Scripts\rpg\user-controller.js" />
     <Content Include="Scripts\rpg\services.js" />
     <Content Include="Scripts\rpg\directives.js" />
     <Content Include="Scripts\rpg\module.js" />

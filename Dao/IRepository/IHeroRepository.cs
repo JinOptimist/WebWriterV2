@@ -6,5 +6,10 @@ namespace Dao.IRepository
 {
     public interface IHeroRepository : IBaseRepository<Hero>
     {
+        List<Hero> GetByEvent(long eventId);
+
+        void RemoveByEvent(long eventId, long userId);
+
+        void RemoveByQuest(long questId, long userId);
     }
 }

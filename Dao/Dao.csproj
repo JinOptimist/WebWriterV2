@@ -123,6 +123,10 @@
     <Compile Include="Migrations\201702061041321_AddInvisibleState.Designer.cs">
       <DependentUpon>201702061041321_AddInvisibleState.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702161007075_AddDateTimeForHero.cs" />
+    <Compile Include="Migrations\201702161007075_AddDateTimeForHero.Designer.cs">
+      <DependentUpon>201702161007075_AddDateTimeForHero.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\CharacteristicType.cs" />
@@ -201,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702061041321_AddInvisibleState.resx">
       <DependentUpon>201702061041321_AddInvisibleState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702161007075_AddDateTimeForHero.resx">
+      <DependentUpon>201702161007075_AddDateTimeForHero.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

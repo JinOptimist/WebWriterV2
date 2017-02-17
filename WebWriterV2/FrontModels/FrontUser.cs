@@ -21,7 +21,7 @@ namespace WebWriterV2.FrontModels
             Email = user.Email;
             IsAdmin = user.IsAdmin;
             Password = user.Password;
-            Bookmarks = user.Bookmarks.Select(x => new FrontHero(x)).ToList();
+            Bookmarks = user.Bookmarks?.Select(x => new FrontHero(x)).ToList();
         }
 
         public string Name { get; set; }

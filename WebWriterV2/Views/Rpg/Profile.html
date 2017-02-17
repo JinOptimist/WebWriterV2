@@ -4,7 +4,9 @@
         еуые
         <div ng-if="user.Bookmarks">
             <p ng-repeat="mark in user.Bookmarks">
-                {{mark}}
+                Квест: {{mark.CurrentEvent.quest.Name}}. Глава: {{mark.CurrentEvent.Name}}
+                <a href="#" ng-click="goToBookmark(mark)">Продолжить</a>
+                <a href="#" ng-click="removeBookmark(mark, $index)"><img src="/Content/delete.png" class="icon20"/></a>
             </p>
         </div>
     </div>

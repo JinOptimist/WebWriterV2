@@ -13,6 +13,7 @@ namespace Dao.Repository
         private readonly ThingRepository _thingRepository;
         private readonly CharacteristicRepository _characteristicRepository;
         private readonly StateRepository _stateRepository;
+        private readonly HeroRepository _heroRepository;
 
         public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
         public EventRepository(WriterContext db) : base(db)
@@ -21,6 +22,7 @@ namespace Dao.Repository
             _thingRepository = new ThingRepository(db);
             _characteristicRepository = new CharacteristicRepository(db);
             _stateRepository = new StateRepository(db);
+            _heroRepository = new HeroRepository(db);
         }
 
         public override Event Save(Event model)
@@ -74,6 +76,11 @@ namespace Dao.Repository
             if (currentEvent.HeroStatesChanging?.Any() ?? false)
             {
                 _stateRepository.Remove(currentEvent.HeroStatesChanging);
+            }
+            var heroes = _heroRepository.GetByEvent(currentEvent.Id);
+            if (heroes != null)
+            {
+                _heroRepository.Remove(heroes);
             }
 
             base.Remove(currentEvent);

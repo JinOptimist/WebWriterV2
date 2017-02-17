@@ -128,14 +128,21 @@ namespace WebWriterV2.Controllers
 
             var fronHero = SerializeHelper.Deserialize<FrontHero>(heroJson);
             var hero = fronHero.ToDbModel();
+
+            if (hero.Id > 0)
+            {
+                HeroRepository.Remove(hero.Id);
+                hero.Id = 0;
+            }
+            HeroRepository.RemoveByQuest(currentEvent.Quest.Id, userId);
+
             hero.Owner = user;
             hero.CurrentEvent = currentEvent;
             hero.Sex = Sex.None;
             hero.Race = Race.None;
             hero.Name = hero.Name ?? "Just a Hero";
-            HeroRepository.Save(hero);
-            user.Bookmarks.Add(hero);
 
+            HeroRepository.Save(hero);
 
             return new JsonResult
             {
@@ -625,19 +632,11 @@ namespace WebWriterV2.Controllers
 
         public JsonResult RemoveQuest(long id)
         {
-            var result = true;
-            try
-            {
-                QuestRepository.Remove(id);
-            }
-            catch (Exception e)
-            {
-                result = false;
-            }
+            QuestRepository.Remove(id);
 
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(result),
+                Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -853,13 +852,18 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult GetEventForTravelWithHero(long eventId, string heroJson)
+        public JsonResult GetEventForTravelWithHero(long eventId, string heroJson, bool applyChanges)
         {
             var eventDb = EventRepository.Get(eventId);
             var frontHero = JsonConvert.DeserializeObject<FrontHero>(heroJson);
             var hero = frontHero.ToDbModel();
+            hero.CurrentEvent = eventDb;
 
-            eventDb.EventChangesApply(hero);
+            if (applyChanges)
+            {
+                eventDb.EventChangesApply(hero);
+            }
+
             eventDb.LinksFromThisEvent.FilterLink(hero);
 
             var frontEvent = new FrontEvent(eventDb);

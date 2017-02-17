@@ -24,8 +24,7 @@
         </div>
 
         <div ng-if="(!ways || ways.length == 0) && !wait">
-            Квест завершён.
-            <input ng-click="endQuest()" type="button" value="Собрать награду"/>
+            <input ng-click="endQuest()" type="button" value="Конец"/>
         </div>
         <div ng-if="wait">
             <img src="/Content/wait.gif"/>

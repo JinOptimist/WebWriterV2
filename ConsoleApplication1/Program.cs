@@ -36,7 +36,6 @@ namespace ConsoleApplication1
 
             questBlockIds.ForEach(x => MyTest(driver, x));
 
-            Thread.Sleep(1 * 1000);
             driver.Quit();
         }
 

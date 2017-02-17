@@ -56,7 +56,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return deferred.promise;
         }
 
-        function getQuest(questId) {
+        function get(questId) {
             var deferred = $q.defer();
 
             $http({
@@ -120,7 +120,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         return {
             saveQuest: saveQuest,
             getQuests: getQuests,
-            getQuest: getQuest,
+            get: get,
             changeRootEvent: changeRootEvent,
             removeQuest: removeQuest,
             importQuest: importQuest
@@ -162,11 +162,12 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return httpHelper.call(url,data);
         }
 
-        function getEventForTravelWithHero(eventId, hero) {
+        function getEventForTravelWithHero(eventId, hero, applyChanges) {
             var url = '/Rpg/GetEventForTravelWithHero';
             var data = {
                 eventId: eventId,
-                heroJson: angular.toJson(hero)
+                heroJson: angular.toJson(hero),
+                applyChanges: applyChanges
             };
             return httpHelper.call(url,data);
         }
@@ -1118,12 +1119,12 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 url: url,
                 data: data,
                 headers: { 'Accept': 'application/json' }
-            }).success(success, error);
+            }).then(success, error);
 
             return deferred.promise;
 
             function defaultSuccess(response) {
-                deferred.resolve(angular.fromJson(response));
+                deferred.resolve(angular.fromJson(response.data));
             }
 
             function defaultError() {

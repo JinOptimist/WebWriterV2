@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
@@ -61,13 +62,32 @@ namespace Dao.Repository
                 }
             }
 
+            if (hero.TimeCreation == default(DateTime))
+            {
+                hero.TimeCreation = DateTime.Now;
+            }
+
+            hero.LastChanges = DateTime.Now;
+
             base.Save(hero);
             return hero;
         }
 
-        public void A()
+        public List<Hero> GetByEvent(long eventId)
         {
+            return Entity.Where(x => x.CurrentEvent.Id == eventId).ToList();
+        }
 
+        public void RemoveByEvent(long eventId, long userId)
+        {
+            var heroes = Entity.Where(x => x.CurrentEvent.Id == eventId && x.Owner.Id == userId).ToList();
+            Remove(heroes);
+        }
+
+        public void RemoveByQuest(long questId, long userId)
+        {
+            var heroes = Entity.Where(x => x.CurrentEvent.Quest.Id == questId && x.Owner.Id == userId).ToList();
+            Remove(heroes);
         }
     }
 }
