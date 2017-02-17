@@ -5,7 +5,7 @@ namespace WebWriterV2Test
 {
     public class Class1
     {
-        public void Test()
+        public void JsTest()
         {
             IWebDriver driver = new ChromeDriver();
             IJavaScriptExecutor js = driver as IJavaScriptExecutor;

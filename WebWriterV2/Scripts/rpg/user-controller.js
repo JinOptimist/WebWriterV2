@@ -261,26 +261,27 @@ angular.module('rpg')
             };
 
             $scope.endQuest = function() {
-                $scope.waiting = true;
-                var guildId = $cookies.get('guildId');
+                //$scope.waiting = true;
+                //var guildId = $cookies.get('guildId');
+                //var url = '/Rpg/QuestCompleted?guildId=' + guildId + '&gold=' + $scope.quest.Effective;
+                //$http({
+                //        method: 'POST',
+                //        url: url,
+                //        headers: { 'Accept': 'application/json' }
+                //    })
+                //    .then(function(response) {
+                //        if (response.data == "+") {
+                //            $location.path('/AngularRoute/listQuest');
+                //        } else {
+                //            alert(response);
+                //        }
+                //        $scope.waiting = false;
+                //    }, function() {
+                //        alert("Hero want relax. Wait and try again");
+                //        $scope.waiting = false;
+                //    });
 
-                var url = '/Rpg/QuestCompleted?guildId=' + guildId + '&gold=' + $scope.quest.Effective;
-                $http({
-                        method: 'POST',
-                        url: url,
-                        headers: { 'Accept': 'application/json' }
-                    })
-                    .then(function(response) {
-                        if (response.data == "+") {
-                            $location.path('/AngularRoute/listQuest');
-                        } else {
-                            alert(response);
-                        }
-                        $scope.waiting = false;
-                    }, function() {
-                        alert("Hero want relax. Wait and try again");
-                        $scope.waiting = false;
-                    });
+                $location.path('/AngularRoute/listQuest');
             }
 
             $scope.batle = function() {
