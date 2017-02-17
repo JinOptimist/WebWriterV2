@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using OpenQA.Selenium.IE;
 
 namespace WebWriterV2Test
 {
@@ -20,21 +16,10 @@ namespace WebWriterV2Test
         [Test]
         public void QuestThrough()
         {
-            //IWebDriver driver = new ChromeDriver();
-            //IJavaScriptExecutor js = driver as IJavaScriptExecutor;
-            //string title = (string)js.ExecuteScript("return document.title");
-
-            var drivers = new List<Lazy<IWebDriver>>();
-            drivers.Add(new Lazy<IWebDriver>(() => new ChromeDriver()));
-            //drivers.Add(new Lazy<IWebDriver>(() => new FirefoxDriver()));
-            drivers.Add(new Lazy<IWebDriver>(() => new InternetExplorerDriver()));
-
-            drivers.ForEach(x => RunTestWithOneDriver(x.Value));
-
-            Assert.AreEqual(10, 10);
+            TestRunner.RunTest(CheckAllQuests, TargetBrowser.ChromePlusIe);
         }
 
-        private void RunTestWithOneDriver(IWebDriver driver)
+        private void CheckAllQuests(IWebDriver driver)
         {
             driver.Navigate().GoToUrl(rpgBaseUrl);
             driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
