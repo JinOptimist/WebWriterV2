@@ -4,28 +4,28 @@
 	[
 		{
 			"name": "Girl",
-			"src": "https://s-media-cache-ak0.pinimg.com/originals/bb/21/66/bb2166342fbacc842d2a5a2d7e8363e6.jpg",
+			"src": "https://raw.githubusercontent.com/JinOptimist/WebWriterV2/master/WebWriterV2/html/angular-gallery/img/girl.jpg",
 			"desc": "Nice girl",
 			"star": 5,
 			"color": "#FF33FF"
 		},
 		{
 			"name": "Don't ask",
-			"src": "http://1.bp.blogspot.com/-TGYlMUNuepo/UvauvpUUWNI/AAAAAAAAA_0/r1EWeztA0Ck/s1600/Shikamaru.png",
+			"src": "https://raw.githubusercontent.com/JinOptimist/WebWriterV2/master/WebWriterV2/html/angular-gallery/img/shikamaru.png",
 			"desc": "Just a clever guy",
 			"star": 4,
 			"color": "#4c9900"
 		},
 		{
 			"name": "Problem",
-			"src": "https://cdn3.iconfinder.com/data/icons/emoticons-15/24/X-Eye-512.png",
+			"src": "https://raw.githubusercontent.com/JinOptimist/WebWriterV2/master/WebWriterV2/html/angular-gallery/img/smile.png",
 			"desc": "Just a smile",
 			"star": -2,
 			"color": "#FFFF00"			
 		},
 		{
 			"name": "Science",
-			"src": "http://www.ocklynge.e-sussex.sch.uk/wpimages/wpfb7a7e87.gif",
+			"src": "https://raw.githubusercontent.com/JinOptimist/WebWriterV2/master/WebWriterV2/html/angular-gallery/img/science.gif",
 			"desc": "Hate Chemistry",
 			"star": 3,
 			"color": "#66FFFF"		
