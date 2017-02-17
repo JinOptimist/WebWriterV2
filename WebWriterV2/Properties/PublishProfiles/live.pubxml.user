@@ -31,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/10/2015 17:47:34</publishTime>
     </File>
     <File Include="bin/Dao.dll">
-      <publishTime>02/16/2017 12:23:05</publishTime>
+      <publishTime>02/16/2017 14:17:45</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/25/2015 09:11:03</publishTime>
@@ -106,7 +106,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 16:40:11</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>02/16/2017 12:23:05</publishTime>
+      <publishTime>02/16/2017 14:17:46</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -1624,13 +1624,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/27/2016 14:07:39</publishTime>
     </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>02/16/2017 10:54:51</publishTime>
+      <publishTime>02/16/2017 12:53:08</publishTime>
     </File>
     <File Include="Scripts/rpg/services.js">
-      <publishTime>02/16/2017 11:16:08</publishTime>
+      <publishTime>02/16/2017 14:02:57</publishTime>
     </File>
     <File Include="Scripts/rpg/user-controller.js">
-      <publishTime>02/16/2017 11:18:49</publishTime>
+      <publishTime>02/16/2017 14:15:15</publishTime>
     </File>
     <File Include="Scripts/underscore.js">
       <publishTime>12/27/2016 16:31:19</publishTime>
@@ -1717,7 +1717,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/08/2016 20:41:30</publishTime>
     </File>
     <File Include="Views/Rpg/directives/ngHeroCard.html">
-      <publishTime>02/06/2017 15:48:36</publishTime>
+      <publishTime>02/16/2017 14:12:25</publishTime>
     </File>
     <File Include="Views/Rpg/directives/ngQuestInfo.html">
       <publishTime>01/18/2017 17:56:25</publishTime>
@@ -1762,7 +1762,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/27/2016 14:07:39</publishTime>
     </File>
     <File Include="Views/Rpg/Travel.html">
-      <publishTime>02/06/2017 15:44:14</publishTime>
+      <publishTime>02/16/2017 14:15:55</publishTime>
     </File>
     <File Include="Views/RpgMaster.cshtml">
       <publishTime>07/26/2016 13:48:21</publishTime>
