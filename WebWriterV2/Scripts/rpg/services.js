@@ -1048,7 +1048,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             if (editor) {
                 editor.destroy(true);
             }
-            editor = CKEDITOR.replace(editorName, {width: 1200, height: 600});
+            editor = CKEDITOR.replace(editorName, {width: 900, height: 600});
             editor.setData(newData);
         }
 
