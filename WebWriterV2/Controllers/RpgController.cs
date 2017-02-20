@@ -151,6 +151,16 @@ namespace WebWriterV2.Controllers
             };
         }
 
+        public JsonResult RemoveUser(long userId)
+        {
+            UserRepository.Remove(userId);
+            return new JsonResult
+            {
+                Data = JsonConvert.SerializeObject(true),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
         /* ************** Utility for enum ************** */
         public JsonResult GetListRace()
         {

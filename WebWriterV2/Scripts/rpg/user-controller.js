@@ -1,6 +1,6 @@
 angular.module('rpg')
-    .controller('accessController', ['$scope', '$cookies', '$location', 'ConstCookies', 'userService',
-        function ($scope, $cookies, $location, ConstCookies, userService) {
+    .controller('accessController', ['$rootScope', '$scope', '$cookies', '$location', 'ConstCookies', 'userService',
+        function ($rootScope, $scope, $cookies, $location, ConstCookies, userService) {
             $scope.user = {};
             $scope.waiting = false;
             $scope.activeLogin = false;
@@ -8,6 +8,11 @@ angular.module('rpg')
             $scope.error = '';
 
             init();
+
+            // this event can be calling from any controller
+            $rootScope.$on('UpdateUserEvent', function (event, args) {
+                init();
+            });
 
             $scope.login = function () {
                 $scope.waiting = true;
@@ -607,6 +612,23 @@ angular.module('rpg')
             $scope.waiting = false;
 
             init();
+
+            $scope.removeAccount = function () {
+                if (confirm('Are you sure that you whant remove your account?')) {
+                    var userId = $cookies.get(ConstCookies.userId);
+                    userService.removeAccount(userId)
+                        .then(function (data) {
+                            if (data) {
+                                $cookies.remove(ConstCookies.userId);
+                                $cookies.remove(ConstCookies.isAdmin);
+                                $cookies.remove(ConstCookies.isWriter);
+                                $scope.$emit('UpdateUserEvent');
+                                var url = '/AngularRoute/listQuest';
+                                $location.path(url);
+                            }
+                        });
+                }
+            }
 
             $scope.removeBookmark = function (bookmark, index) {
                 heroService.removeHero(bookmark)

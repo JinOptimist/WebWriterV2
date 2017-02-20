@@ -1004,7 +1004,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             login: login,
             register: register,
             getById: getById,
-            addBookmark: addBookmark
+            addBookmark: addBookmark,
+            removeAccount: removeAccount
         };
 
         function login(user) {
@@ -1038,6 +1039,14 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                 eventId: eventId,
                 heroJson: heroJson
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function removeAccount(userId) {
+            var url = '/Rpg/RemoveUser';
+            var data = {
+                userId: userId
             };
             return httpHelper.call(url, data);
         }
