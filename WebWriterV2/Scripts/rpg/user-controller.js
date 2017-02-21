@@ -14,6 +14,17 @@ angular.module('rpg')
                 init();
             });
 
+            $scope.passwordKeyPress = function ($event) {
+                if ($event.which === 13) {// 'Enter'.keyEvent === 13
+                    if ($scope.activeLogin) {
+                        $scope.login();
+                    }
+                    if ($scope.activeRegister) {
+                        $scope.register();
+                    }
+                }
+            }
+
             $scope.login = function () {
                 $scope.waiting = true;
                 $scope.error = '';
@@ -55,9 +66,11 @@ angular.module('rpg')
 
             $scope.openLogin = function() {
                 $scope.activeLogin = true;
+                $scope.activeRegister = false;
             }
 
-            $scope.openRegister = function() {
+            $scope.openRegister = function () {
+                $scope.activeLogin = false;
                 $scope.activeRegister = true;
             }
 

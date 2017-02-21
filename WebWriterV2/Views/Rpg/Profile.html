@@ -1,8 +1,12 @@
 ﻿<div ng-class="!quest || !hero ? 'wait' : ''">
     <div style="width: 800px; float: left;">
         <h2>Профиль пользователя {{user.Name}}</h2>
-        <input type="checkbox" disabled="disabled" ng-model="user.IsAdmin" />
-        <a href="#" ng-click="removeAccount()">Delete my account</a>
+        <p>
+            Возможности администратора: <input type="checkbox" disabled="disabled" ng-model="user.IsAdmin" />
+        </p>
+        <p>
+            <a id="removeMyAccount" href="#" ng-click="removeAccount()">Delete my account</a>
+        </p>
         <h2>Закладки пользователя</h2>
         <div ng-if="user.Bookmarks">
             <p ng-repeat="mark in user.Bookmarks">

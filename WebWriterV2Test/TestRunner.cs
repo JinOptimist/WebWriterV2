@@ -10,10 +10,22 @@ namespace WebWriterV2Test
 {
     public class TestRunner
     {
+        public static string RpgBaseUrl = Properties.Settings.Default.BaseAppUrl;
+
         public static void RunTest(Action<IWebDriver> test, TargetBrowser target)
         {
             var drivers = GenerateDrivers(target);
-            drivers.ForEach(x => test(x.Value));
+            foreach (var lazy in drivers)
+            {
+                var driver = lazy.Value;
+                driver.Navigate().GoToUrl(RpgBaseUrl);
+                driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
+                driver.Manage().Window.Maximize();
+
+                test(driver);
+
+                driver.Quit();
+            }
         }
 
         public static List<Lazy<IWebDriver>> GenerateDrivers(TargetBrowser target)

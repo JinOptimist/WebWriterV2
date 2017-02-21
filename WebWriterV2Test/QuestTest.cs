@@ -9,9 +9,8 @@ namespace WebWriterV2Test
     [TestFixture]
     public class QuestTest
     {
-        public static string rpgBaseUrl = Properties.Settings.Default.BaseAppUrl;
-
-        public static Random random = new Random();
+        public static string RpgBaseUrl = Properties.Settings.Default.BaseAppUrl;
+        public static Random Random = new Random();
 
         [Test]
         public void QuestThrough()
@@ -21,23 +20,17 @@ namespace WebWriterV2Test
 
         private void CheckAllQuests(IWebDriver driver)
         {
-            driver.Navigate().GoToUrl(rpgBaseUrl);
-            driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
-            driver.Manage().Window.Maximize();
-
             var questBlockIds = driver.FindElements(By.ClassName("quest-block"))
                 .Select(x => x.GetAttribute("id")).ToList();
 
-            Assert.Greater(questBlockIds.Count, 0, "Not found any quest. I supouse it's bad signs");
+            Assert.Greater(questBlockIds.Count, 0, "Not found any quest. I suppose it's bad signs");
 
             questBlockIds.ForEach(x => CheckQuest(driver, x));
-
-            driver.Quit();
         }
 
         private void CheckQuest(IWebDriver driver, string questId)
         {
-            driver.Navigate().GoToUrl(rpgBaseUrl);
+            driver.Navigate().GoToUrl(RpgBaseUrl);
             driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
 
             Thread.Sleep(500);
@@ -54,13 +47,13 @@ namespace WebWriterV2Test
             while (liTags.Count > 0)
             {
                 //Thread.Sleep(100);
-                var wayNumber = random.Next(liTags.Count);
+                var wayNumber = Random.Next(liTags.Count);
                 liTags[wayNumber].Click();
                 liTags = driver.FindElements(By.CssSelector("li.wayLink"));
                 counter++;
                 if (counter > 100)
                 {
-                    Assert.Warn($"Posible infinity loop. We did {counter} choes and stil can't find exit. qId - {questId}");
+                    Assert.Warn($"Possible infinity loop. We did {counter} choose and still can't find exit. qId - {questId}");
                     return;
                 }
             }

@@ -4,23 +4,25 @@
         Админка:
         <a href="AngularRoute/admin/quest/">Квесты админка</a>
         | <a href="AngularRoute/admin/QuestOld">Старая админка квест</a>
-        | <a href="AngularRoute/admin/Skill">Админка скилов</a>
-        | <a href="AngularRoute/admin/Characteristic">Админка характеристик</a>
         | <a href="AngularRoute/admin/State">Админка Состояний</a>
         | <a href="AngularRoute/admin/Thing">Админка Вещей</a>
+
+        <!--| <a href="AngularRoute/admin/Skill">Админка скилов</a>
+        | <a href="AngularRoute/admin/Characteristic">Админка характеристик</a>-->
     </p>
 
     <p style="border-bottom: 1px dotted green; padding: 10px 7px">
         <span ng-if="user.Id">Привет, {{user.Name}}. <a href="#" ng-click="exit()">Выход</a></span>
         <span ng-if="!user.Id">Пользователь:</span>
-        <a ng-if="!user.Id" href="#" ng-click="openLogin()">Login</a>
-        <a ng-if="!user.Id" href="#" ng-click="openRegister()">Register</a>
-        <!--| <a href="AngularRoute/createHero">Создать героя</a>-->
-        | <a ng-if="user.Id" href="AngularRoute/listHeroes">Список героев</a>
+        <a id="login-lnk" ng-if="!user.Id" href="#" ng-click="openLogin()">Login</a>
+        | <a id="register-lnk" ng-if="!user.Id" href="#" ng-click="openRegister()">Register</a>
         | <a href="AngularRoute/listQuest">Список квестов</a>
-        | <a ng-if="user.Id" href="AngularRoute/guild">Гильдия</a>
-        | <a ng-if="user.Id" href="AngularRoute/profile">Профиль</a>
+        | <a ng-if="user.Id" class="profile-lnk" href="AngularRoute/profile">Профиль</a>
 
+
+        <!--| <a href="AngularRoute/createHero">Создать героя</a>-->
+        <!--| <a ng-if="user.Id" href="AngularRoute/listHeroes">Список героев</a>-->
+        <!--| <a ng-if="user.Id" href="AngularRoute/guild">Гильдия</a>-->
         <!--| <a href="AngularRoute/travel">Путешествие</a>-->
         <!--| <a href="AngularRoute/traningRoom">Комната тренировок</a>-->
     </p>
@@ -28,15 +30,16 @@
     <div ng-if="activeLogin || activeRegister">
         <span ng-if="error" class="error">{{error}}</span>
         <p>
-            Username: <input type="text" ng-model="user.Name" ng-disabled="waiting"/>
+            Username: <input id="username" type="text" ng-model="user.Name" ng-disabled="waiting"/>
             <input type="checkbox" ng-model="user.IsAdmin" ng-if="activeRegister" ng-disabled="waiting" />
         </p>
         <p>
-            Password: <input type="password" ng-model="user.Password" ng-disabled="waiting"/>
+            Password: <input id="password" type="password"
+                             ng-keypress="passwordKeyPress($event)" ng-model="user.Password" ng-disabled="waiting"/>
         </p>
         <p>
-            <input type="button" value="login" ng-click="login()" ng-if="activeLogin" ng-disabled="waiting" />
-            <input type="button" value="register" ng-click="register()" ng-if="activeRegister" ng-disabled="waiting" />
+            <input id="login-btn" type="button" value="login" ng-click="login()" ng-if="activeLogin" ng-disabled="waiting" />
+            <input id="register-btn" type="button" value="register" ng-click="register()" ng-if="activeRegister" ng-disabled="waiting" />
             <img src="/Content/wait.gif" ng-if="waiting" class="icon20" />
         </p>
     </div>
