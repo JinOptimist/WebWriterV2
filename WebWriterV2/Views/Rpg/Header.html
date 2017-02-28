@@ -1,7 +1,7 @@
 ﻿<div ng-controller="accessController">
     <p ng-if="user.IsAdmin"
        style="border-bottom: 1px dotted green; padding: 10px 7px">
-        Админка:
+        Уголок Писателя:
         <a href="AngularRoute/admin/quest/">Квесты админка</a>
         | <a href="AngularRoute/admin/QuestOld">Старая админка квест</a>
         | <a href="AngularRoute/admin/State">Админка Состояний</a>
@@ -13,7 +13,6 @@
 
     <p style="border-bottom: 1px dotted green; padding: 10px 7px">
         <span ng-if="user.Id">Привет, {{user.Name}}. <a href="#" ng-click="exit()">Выход</a></span>
-        <span ng-if="!user.Id">Пользователь:</span>
         <a id="login-lnk" ng-if="!user.Id" href="#" ng-click="openLogin()">Login</a>
         | <a id="register-lnk" ng-if="!user.Id" href="#" ng-click="openRegister()">Register</a>
         | <a href="AngularRoute/listQuest">Список квестов</a>

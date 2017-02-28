@@ -213,29 +213,6 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult QuestCompleted(int guildId, int gold)
-        {
-            var answer = "+";
-            try
-            {
-                var guild = GuildRepository.Get(guildId)
-                    // TODO Debug only!
-                    ?? GuildRepository.GetAll().First();
-                guild.Gold += gold;
-                GuildRepository.Save(guild);
-            }
-            catch (Exception e)
-            {
-                answer = e.Message;
-            }
-
-            return new JsonResult
-            {
-                Data = answer,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
         /* ************** Hero ************** */
         public JsonResult GetHero(long heroId)
         {
@@ -801,6 +778,27 @@ namespace WebWriterV2.Controllers
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(frontEvent),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult QuestCompleted(long questId)
+        {
+            var userId = long.Parse(Request.Cookies["userId"]?.Value ?? "-1");
+            var user = UserRepository.Get(userId);
+
+            var quest = QuestRepository.Get(questId);
+            if (user.BooksAreReaded == null)
+                user.BooksAreReaded = new List<Quest>();
+            if (user.BooksAreReaded.All(x => x.Id != quest.Id))
+            {
+                user.BooksAreReaded.Add(quest);
+                UserRepository.Save(user);
+            }
+
+            return new JsonResult
+            {
+                Data = true,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

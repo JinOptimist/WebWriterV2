@@ -298,7 +298,8 @@ angular.module('rpg')
                 //        alert("Hero want relax. Wait and try again");
                 //        $scope.waiting = false;
                 //    });
-
+                var questId = $scope.quest.Id;
+                questService.questCompleted(questId);
                 $location.path('/AngularRoute/listQuest');
             }
 

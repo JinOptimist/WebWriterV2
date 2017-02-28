@@ -18,113 +18,64 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         //    heroService.setDefaultHero(hero);
         //});
     }])
-    .service('questService', ['$http', '$q', function ($http, $q) {
-        function saveQuest(quest) {
-            var deferred = $q.defer();
-
-            var request = {
-                method: 'POST',
-                url: '/Rpg/SaveQuest',
-                data: { jsonQuest: angular.toJson(quest) }
-            };
-
-            $http(request)
-                .success(function (response) {
-                    deferred.resolve(angular.fromJson(response));
-                });
-
-            return deferred.promise;
-        }
-
-        function changeRootEvent(questId, eventId) {
-            var deferred = $q.defer();
-
-            var request = {
-                method: 'POST',
-                url: '/Rpg/ChangeRootEvent',
-                data: {
-                    questId: questId,
-                    eventId: eventId
-                }
-            };
-
-            $http(request)
-                .success(function (response) {
-                    deferred.resolve(angular.fromJson(response));
-                });
-
-            return deferred.promise;
-        }
-
-        function get(questId) {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'POST',
-                url: '/Rpg/GetQuest?id=' + questId,
-                headers: { 'Accept': 'application/json' }
-            })
-                .success(function (response) {
-                    var quest = angular.fromJson(response);
-                    deferred.resolve(quest);
-                });
-            return deferred.promise;
-        }
-
-        function getQuests() {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'POST',
-                url: '/Rpg/GetQuests',
-                headers: { 'Accept': 'application/json' }
-            })
-                .success(function (response) {
-                    var quests = angular.fromJson(response);
-                    deferred.resolve(quests);
-                });
-            return deferred.promise;
-        }
-
-        function removeQuest(questId) {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'POST',
-                url: '/Rpg/RemoveQuest?id=' + questId,
-                headers: { 'Accept': 'application/json' }
-            })
-                .success(function (response) {
-                    deferred.resolve(response);
-                });
-            return deferred.promise;
-        }
-
-        function importQuest(questJson) {
-            var deferred = $q.defer();
-
-            var request = {
-                method: 'POST',
-                url: '/Rpg/ImportQuest',
-                data: { jsonQuest: questJson }
-            };
-
-            $http(request)
-                .success(function (response) {
-                    deferred.resolve(angular.fromJson(response));
-                });
-
-            return deferred.promise;
-        }
-
+    .service('questService', ['httpHelper', function (httpHelper) {
         return {
             saveQuest: saveQuest,
             getQuests: getQuests,
             get: get,
             changeRootEvent: changeRootEvent,
             removeQuest: removeQuest,
-            importQuest: importQuest
+            importQuest: importQuest,
+            questCompleted: questCompleted
         };
+
+        function questCompleted(questId) {
+            var url = '/Rpg/QuestCompleted';
+            var data = {
+                questId: questId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function saveQuest(quest) {
+            var url = '/Rpg/SaveQuest';
+            var data = {
+                jsonQuest: angular.toJson(quest)
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function changeRootEvent(questId, eventId) {
+            var url = '/Rpg/ChangeRootEvent';
+            var data = {
+                questId: questId,
+                eventId: eventId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function get(questId) {
+            var url = '/Rpg/GetQuest?id=' + questId;
+            return httpHelper.call(url);
+        }
+
+        function getQuests() {
+            var url = '/Rpg/GetQuests';
+            return httpHelper.call(url);
+        }
+
+        function removeQuest(questId) {
+            var url = '/Rpg/RemoveQuest?id=' + questId;
+            return httpHelper.call(url);
+        }
+
+        function importQuest(questJson) {
+            var url = '/Rpg/ImportQuest';
+            var data = {
+                jsonQuest: questJson
+            };
+            return httpHelper.call(url, data);
+        }
     }])
     .service('eventService', ['httpHelper', function (httpHelper) {
         return {

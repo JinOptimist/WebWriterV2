@@ -27,5 +27,7 @@ namespace Dao.Model
         /// Quests created by User
         /// </summary>
         public virtual List<Quest> Quests { get; set; }
+
+        public virtual List<Quest> BooksAreReaded { get; set; }
     }
 }

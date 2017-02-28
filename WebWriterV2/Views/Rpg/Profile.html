@@ -15,5 +15,12 @@
                 <a href="#" ng-click="removeBookmark(mark, $index)"><img src="/Content/delete.png" class="icon20"/></a>
             </p>
         </div>
+        <h2>Прочитанные книги</h2>
+        <div ng-if="user.BooksAreReaded">
+            <p ng-repeat="book in user.BooksAreReaded">
+                Квест: {{book.Name}}.
+            </p>
+        </div>
+
     </div>
 </div>

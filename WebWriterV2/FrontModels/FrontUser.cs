@@ -22,6 +22,7 @@ namespace WebWriterV2.FrontModels
             IsAdmin = user.IsAdmin;
             Password = user.Password;
             Bookmarks = user.Bookmarks?.Select(x => new FrontHero(x)).ToList();
+            BooksAreReaded = user.BooksAreReaded?.Select(x => new FrontQuest(x)).ToList();
         }
 
         public string Name { get; set; }
@@ -30,6 +31,7 @@ namespace WebWriterV2.FrontModels
         public bool IsAdmin { get; set; }
 
         public List<FrontHero> Bookmarks { get; set; }
+        public List<FrontQuest> BooksAreReaded { get; set; }
 
         public override User ToDbModel()
         {
