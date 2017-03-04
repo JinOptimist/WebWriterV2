@@ -765,9 +765,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             }
         };
     }])
-    .service('stateService', ['$http', '$q', '_', 'httpHelper', function ($http, $q, _, httpHelper) {
-        var states = [];
-
+    .service('stateService', ['_', 'httpHelper', function (_, httpHelper) {
         return {
             loadAllTypes: loadAllTypes,
             add: add,
@@ -777,53 +775,26 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         };
 
         function loadAllTypes() {
-            var deferred = $q.defer();
-            $http({
-                method: 'POST',
-                url: '/Rpg/GetStateTypes',
-                headers: { 'Accept': 'application/json' }
-            })
-                .success(function (response) {
-                    states = angular.fromJson(response);
-                    deferred.resolve(states);
-                });
-            return deferred.promise;
+            var url = '/Rpg/GetStateTypes';
+            return httpHelper.call(url);
         }
 
         function changeState(stateId, delta) {
-            var deferred = $q.defer();
-            $http({
-                method: 'POST',
-                url: '/Rpg/ChangeState',
-                data: {
-                    stateId: stateId,
-                    delta: delta
-                },
-                headers: { 'Accept': 'application/json' }
-            })
-                .success(function (response) {
-                    var state = angular.fromJson(response);
-                    deferred.resolve(state);
-                });
-            return deferred.promise;
+            var url = '/Rpg/ChangeState';
+            var data = {
+                stateId: stateId,
+                delta: delta
+            };
+            return httpHelper.call(url, data);
         }
 
         function add(name, desc) {
-            var deferred = $q.defer();
-            $http({
-                method: 'POST',
-                url: '/Rpg/AddState',
-                data: {
-                    name: name,
-                    desc: desc
-                },
-                headers: { 'Accept': 'application/json' }
-            })
-                .success(function (response) {
-                    var state = angular.fromJson(response);
-                    deferred.resolve(state);
-                });
-            return deferred.promise;
+            var url = '/Rpg/AddState';
+            var data = {
+                name: name,
+                desc: desc
+            };
+            return httpHelper.call(url, data);
         }
 
         function edit(state) {
@@ -835,19 +806,11 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         }
 
         function remove(stateId) {
-            var deferred = $q.defer();
-            $http({
-                method: 'POST',
-                url: '/Rpg/RemoveState',
-                data: {
-                    stateId: stateId,
-                },
-                headers: { 'Accept': 'application/json' }
-            })
-                .success(function (response) {
-                    deferred.resolve(response);
-                });
-            return deferred.promise;
+            var url = '/Rpg/RemoveState';
+            var data = {
+               stateId: stateId,
+            };
+            return httpHelper.call(url, data);
         }
     }])
     .service('characteristicService', ['$http', '$q', '_', function ($http, $q, _) {

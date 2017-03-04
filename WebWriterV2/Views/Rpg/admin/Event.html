@@ -75,7 +75,9 @@
                     <a ng-click="removeReqState(state.Id, $index)" style="cursor: pointer;"><img src="/Content/delete.png" class="icon20" /></a>
                 </span>
                 <select ng-model="newRequirementStatesType"
-                        ng-options="option as option.Name for option in availableReqStateTypes()"></select>
+                        ng-options="option as option.Name group by option.group for option in availableReqStateTypes()">
+
+                </select>
                 <select ng-model="newStateReqType"
                         ng-options="option as option.Name for option in RequirementTypes"></select>
                 <input type="number" ng-model="newReqStatesValue"/>

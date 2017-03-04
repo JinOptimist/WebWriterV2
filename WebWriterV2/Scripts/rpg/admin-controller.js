@@ -765,6 +765,12 @@ angular.module('rpg')
 
                 stateService.loadAllTypes().then(function(data) {
                     $scope.StateTypes = data;
+                    $scope.StateTypes.forEach(function (stateType) {
+                        stateType.group = !!stateType.OwnerId ? 'My' : 'Base';
+                    });
+                    $scope.StateTypes.sort(function (a, b) {                        
+                        return b.OwnerId - a.OwnerId;
+                    });
                 });
 
                 thingService.loadAllSamples().then(function(data) {

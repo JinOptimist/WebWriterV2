@@ -6,5 +6,6 @@ namespace Dao.IRepository
 {
     public interface IStateTypeRepository : IBaseRepository<StateType>
     {
+        List<StateType> GetForUser(long userId);
     }
 }

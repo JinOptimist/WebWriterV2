@@ -14,13 +14,13 @@ namespace WebWriterV2.FrontModels
         {
             Id = state.Id;
             Number = state.Number;
-            StateType = state.StateType;
+            StateType = new FrontStateType(state.StateType);
             RequirementType = new FrontEnum(state.RequirementType);
         }
 
         public long Number { get; set; }
 
-        public StateType StateType { get; set; }
+        public FrontStateType StateType { get; set; }
 
         public FrontEnum RequirementType { get; set; }
 
@@ -30,7 +30,7 @@ namespace WebWriterV2.FrontModels
             {
                 Id = Id,
                 Number = Number,
-                StateType = StateType,
+                StateType = StateType.ToDbModel(),
                 RequirementType = (RequirementType?)RequirementType?.Value
             };
         }

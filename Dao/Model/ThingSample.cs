@@ -38,5 +38,7 @@ namespace Dao.Model
         /// Changing when using
         /// </summary>
         public virtual List<State> UsingEffectState { get; set; }
+
+        public virtual User Owner { get; set; }
     }
 }

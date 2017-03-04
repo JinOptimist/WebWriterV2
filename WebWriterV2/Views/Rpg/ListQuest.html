@@ -8,13 +8,6 @@
 
         <p>Кликни на квест что бы отправиться в путешествие</p>
         <div ng-repeat="quest in quests" style="cursor: pointer;">
-            <!--<div ng-click="goToQuest(quest)" id="quest-{{::quest.Id}}"
-                 class="quest-block" style="float: left;" >
-                <p>Карточка квеста. <b>{{quest.Name}}</b></p>
-                <p>Описание:</p>
-                <div ng-bind-html="quest.Desc | trusted"></div>
-            </div>-->
-            <!--<input type="button" value="Отправить {{currentHero.Name}} на квест" ng-click="goToQuest(quest)" />-->
             <ng-quest-info id="quest-{{::quest.Id}}" ng-click="goToQuest(quest)" quest="quest" style="float: left;"></ng-quest-info>
         </div>
 

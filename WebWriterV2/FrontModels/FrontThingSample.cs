@@ -22,10 +22,13 @@ namespace WebWriterV2.FrontModels
             PassiveCharacteristics = thingSample.PassiveCharacteristics?.Select(x => new FrontCharacteristic(x)).ToList();
             UsingEffectState = thingSample.UsingEffectState?.Select(x => new FrontState(x)).ToList();
             UsingEffectCharacteristics = thingSample.UsingEffectCharacteristics?.Select(x => new FrontCharacteristic(x)).ToList();
+
+            OwnerId = thingSample.Owner?.Id;
         }
 
         public string Name { get; set; }
         public string Desc { get; set; }
+        public long? OwnerId { get; set; }
         public bool IsUsed { get; set; }
         public FrontEnum RequirementRace { get; set; }
         public FrontEnum RequirementSex { get; set; }
@@ -43,10 +46,11 @@ namespace WebWriterV2.FrontModels
                 Name = Name,
                 Desc = Desc,
                 IsUsed = IsUsed,
+                Owner = OwnerId.HasValue ? new User { Id = OwnerId.Value } : null,
                 RequirementRace = (Race)RequirementRace.Value,
                 RequirementSex = (Sex)RequirementSex.Value,
 
-                PassiveStates = PassiveStates.Select(x=>x.ToDbModel()).ToList(),
+                PassiveStates = PassiveStates.Select(x => x.ToDbModel()).ToList(),
                 PassiveCharacteristics = PassiveCharacteristics.Select(x => x.ToDbModel()).ToList(),
                 UsingEffectState = UsingEffectState.Select(x => x.ToDbModel()).ToList(),
                 UsingEffectCharacteristics = UsingEffectCharacteristics.Select(x => x.ToDbModel()).ToList(),

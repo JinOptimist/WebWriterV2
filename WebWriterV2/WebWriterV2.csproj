@@ -158,6 +158,7 @@
     <Compile Include="Controllers\RubbishController.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
     <Compile Include="FrontModels\FrontEventLinkItem.cs" />
+    <Compile Include="FrontModels\FrontStateType.cs" />
     <Compile Include="FrontModels\FrontUser.cs" />
     <Compile Include="FrontModels\FrontSkillSchool.cs" />
     <Compile Include="FrontModels\FrontThing.cs" />

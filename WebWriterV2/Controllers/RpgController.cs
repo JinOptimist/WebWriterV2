@@ -126,7 +126,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddBookmark(long eventId, string heroJson)
         {
-            var userId = long.Parse(Request.Cookies["userId"]?.Value ?? "-1");
+            var userId = currentUserId();
             var user = UserRepository.Get(userId);
             var currentEvent = EventRepository.Get(eventId);
 
@@ -168,7 +168,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult BecomeWriter()
         {
-            var userId = long.Parse(Request.Cookies["userId"]?.Value ?? "-1");
+            var userId = currentUserId();
             var user = UserRepository.Get(userId);
             if (user.UserType == UserType.Reader)
             {
@@ -504,11 +504,13 @@ namespace WebWriterV2.Controllers
         /* ************** State ************** */
         public JsonResult GetStateTypes()
         {
-            var stateTypes = StateTypeRepository.GetAll();
+            var userId = currentUserId();
+            var stateTypes = StateTypeRepository.GetForUser(userId);
+            var frontStateTypes = stateTypes.Select(x => new FrontStateType(x)).ToList();
 
             return new JsonResult
             {
-                Data = SerializeHelper.Serialize(stateTypes),
+                Data = SerializeHelper.Serialize(frontStateTypes),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -530,10 +532,13 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddState(string name, string desc)
         {
+            var userId = currentUserId();
+            User user = UserRepository.Get(userId);
             var stateType = new StateType
             {
                 Name = name,
-                Desc = desc
+                Desc = desc,
+                Owner = user,
             };
             var savedStateType = StateTypeRepository.Save(stateType);
             return new JsonResult
@@ -545,7 +550,9 @@ namespace WebWriterV2.Controllers
 
         public JsonResult EditStateType(string jsonStateType)
         {
-            var stateType = SerializeHelper.Deserialize<StateType>(jsonStateType);
+            var frontStateType = SerializeHelper.Deserialize<FrontStateType>(jsonStateType);
+            var stateType = frontStateType.ToDbModel();
+            stateType.Owner = UserRepository.Get(stateType.Owner.Id);
             StateTypeRepository.Save(stateType);
             return new JsonResult
             {
@@ -816,7 +823,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult QuestCompleted(long questId)
         {
-            var userId = long.Parse(Request.Cookies["userId"]?.Value ?? "-1");
+            var userId = currentUserId();
             var user = UserRepository.Get(userId);
 
             var quest = QuestRepository.Get(questId);
@@ -834,6 +841,7 @@ namespace WebWriterV2.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
+        
         /* ************** Event ************** */
         public JsonResult GetEndingEvents(long questId)
         {
@@ -1400,6 +1408,11 @@ namespace WebWriterV2.Controllers
         {
             _context.Dispose();
             base.Dispose(disposing);
+        }
+
+        private long currentUserId()
+        {
+            return long.Parse(Request.Cookies["userId"]?.Value ?? "-1");
         }
 
         private Guild DebugGetGuild()

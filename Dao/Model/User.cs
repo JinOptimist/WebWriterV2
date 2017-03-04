@@ -29,5 +29,9 @@ namespace Dao.Model
         public virtual List<Quest> Quests { get; set; }
 
         public virtual List<Quest> BooksAreReaded { get; set; }
+
+        public virtual List<StateType> StateTypes { get; set; }
+
+        public virtual List<ThingSample> ThingsSample { get; set; }
     }
 }
