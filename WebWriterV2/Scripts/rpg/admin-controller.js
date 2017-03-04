@@ -1,7 +1,7 @@
 angular.module('rpg')
     .controller('adminQuestController', [
-        '$scope', '$http', 'questService', 'sexService', 'raceService', 'eventService',
-        function ($scope, $http, questService, sexService, raceService, eventService) {
+        '$scope', '$http', '$cookies', 'questService', 'sexService', 'raceService', 'eventService', 'ConstCookies',
+        function ($scope, $http, $cookies, questService, sexService, raceService, eventService, ConstCookies) {
             $scope.quest = null;
             $scope.currentEvent = {};
 
@@ -185,13 +185,15 @@ angular.module('rpg')
                 });
             }
 
-            function loadQuests() {
-                questService.getQuests().then(function (result) {
+            function loadQuests(userId) {
+                questService.getQuests(userId).then(function (result) {
                     $scope.quests = result;
                 });
             }
 
             function init() {
+                var userId = $cookies.get(ConstCookies.userId);
+
                 $scope.SexList.push({ name: 'None', value: null });
                 sexService.loadSexList().then(function (data) {
                     _.each(data, function (item) {
@@ -206,15 +208,15 @@ angular.module('rpg')
                     });
                 });
 
-                loadQuests();
+                loadQuests(userId);
             }
         }
     ])
     .controller('adminQuestGeneralController', [
-        '$scope', '$http', '$routeParams', '$location', 'questService', 'sexService', 'raceService',
-            'eventService', 'CKEditorService',
-        function ($scope, $http, $routeParams, $location, questService, sexService, raceService,
-            eventService, CKEditorService) {
+        '$scope', '$http', '$routeParams', '$location', '$cookies', 'questService', 'sexService', 'raceService',
+            'eventService', 'CKEditorService', 'ConstCookies',
+        function ($scope, $http, $routeParams, $location, $cookies, questService, sexService, raceService,
+            eventService, CKEditorService, ConstCookies) {
 
             $scope.quest = null;
             $scope.quests = [];
@@ -240,6 +242,7 @@ angular.module('rpg')
                 var isNew = !($scope.quest.Id > 0);
                 var text = CKEditorService.getData('desc');
                 $scope.quest.Desc = text;
+                $scope.quest.OwnerId = $scope.userId;
                 questService.saveQuest($scope.quest).then(
                     function (response) {
                         if (response) {
@@ -313,7 +316,7 @@ angular.module('rpg')
             }
 
             function loadQuests() {
-                questService.getQuests().then(function (result) {
+                questService.getQuests($scope.userId).then(function (result) {
                     $scope.quests = result;
                 });
             }
@@ -331,12 +334,15 @@ angular.module('rpg')
             }
 
             function init() {
+                $scope.userId = $cookies.get(ConstCookies.userId);
+
                 var questId = $routeParams.questId;
                 if (questId) {
                     loadQuest(questId);
                     loadEndingEvents(questId);
                     loadNotAvailableEvents(questId);
                 }
+                                
                 loadQuests();
             }
         }

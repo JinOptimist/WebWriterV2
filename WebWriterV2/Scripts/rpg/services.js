@@ -59,9 +59,12 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return httpHelper.call(url);
         }
 
-        function getQuests() {
+        function getQuests(userId) {
             var url = '/Rpg/GetQuests';
-            return httpHelper.call(url);
+            var data = {
+                userId: userId
+            };
+            return httpHelper.call(url, data);
         }
 
         function removeQuest(questId) {

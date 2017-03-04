@@ -9,5 +9,7 @@ namespace Dao.IRepository
         List<Quest> GetAllWithRootEvent();
 
         Quest GetByName(string name);
+
+        List<Quest> GetByUser(long userId);
     }
 }

@@ -13,6 +13,12 @@ namespace WebWriterV2Test
         public static Random Random = new Random();
 
         [Test]
+        public void QuestOwner()
+        {
+            //TestRunner.RunTest(CheckAllQuests, TargetBrowser.ChromePlusIe);
+        }
+
+        [Test]
         public void QuestThrough()
         {
             TestRunner.RunTest(CheckAllQuests, TargetBrowser.ChromePlusIe);

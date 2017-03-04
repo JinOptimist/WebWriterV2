@@ -606,9 +606,17 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult GetQuests()
+        public JsonResult GetQuests(long? userId)
         {
-            var quests = QuestRepository.GetAll();
+            List<Quest> quests;
+            if (userId.HasValue)
+            {
+                quests = QuestRepository.GetByUser(userId.Value);
+            }
+            else
+            {
+                quests = QuestRepository.GetAll();
+            }
             var frontQuests = quests.Select(x => new FrontQuest(x)).ToList();
             return new JsonResult
             {
@@ -632,6 +640,8 @@ namespace WebWriterV2.Controllers
         {
             var frontQuest = SerializeHelper.Deserialize<FrontQuest>(jsonQuest);
             var quest = frontQuest.ToDbModel();
+            var owner = UserRepository.Get(quest.Owner.Id);
+            quest.Owner = owner;
             QuestRepository.Save(quest);
             frontQuest = new FrontQuest(quest);
 

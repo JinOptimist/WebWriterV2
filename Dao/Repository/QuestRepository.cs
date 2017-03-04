@@ -23,6 +23,11 @@ namespace Dao.Repository
             return Entity.Include(x => x.RootEvent).ToList();
         }
 
+        public List<Quest> GetByUser(long userId)
+        {
+            return Entity.Where(x => x.Owner.Id == userId).ToList();
+        }
+
         public override void Remove(Quest quest)
         {
             if (quest == null)
