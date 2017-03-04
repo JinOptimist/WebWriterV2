@@ -1,5 +1,14 @@
 ﻿namespace Dao.Model
 {
+    public enum UserType
+    {
+        Reader = 1,
+        Writer = 2,
+        Moderator = 3,
+
+        Admin = 99
+    }
+
     public enum RequirementType
     {
         More = 1,

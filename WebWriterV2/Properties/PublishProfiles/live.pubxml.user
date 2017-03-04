@@ -31,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/10/2015 17:47:34</publishTime>
     </File>
     <File Include="bin/Dao.dll">
-      <publishTime>02/16/2017 14:17:45</publishTime>
+      <publishTime>02/28/2017 17:33:32</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/25/2015 09:11:03</publishTime>
@@ -106,7 +106,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/12/2016 16:40:11</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>02/20/2017 17:08:33</publishTime>
+      <publishTime>02/28/2017 17:33:32</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -1627,10 +1627,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/16/2017 12:53:08</publishTime>
     </File>
     <File Include="Scripts/rpg/services.js">
-      <publishTime>02/20/2017 10:09:29</publishTime>
+      <publishTime>02/28/2017 17:23:53</publishTime>
     </File>
     <File Include="Scripts/rpg/user-controller.js">
-      <publishTime>02/20/2017 10:09:29</publishTime>
+      <publishTime>02/28/2017 17:23:59</publishTime>
     </File>
     <File Include="Scripts/underscore.js">
       <publishTime>12/27/2016 16:31:19</publishTime>
@@ -1729,7 +1729,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/28/2016 11:44:39</publishTime>
     </File>
     <File Include="Views/Rpg/Header.html">
-      <publishTime>02/06/2017 13:49:35</publishTime>
+      <publishTime>02/28/2017 16:20:17</publishTime>
     </File>
     <File Include="Views/Rpg/Index.cshtml">
       <publishTime>02/16/2017 10:53:07</publishTime>
@@ -1753,7 +1753,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2016 12:18:37</publishTime>
     </File>
     <File Include="Views/Rpg/Profile.html">
-      <publishTime>02/20/2017 10:09:29</publishTime>
+      <publishTime>02/28/2017 17:30:41</publishTime>
     </File>
     <File Include="Views/Rpg/QuestInfo.html">
       <publishTime>09/02/2016 20:49:05</publishTime>

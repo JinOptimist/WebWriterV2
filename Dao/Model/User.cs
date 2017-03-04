@@ -16,7 +16,7 @@ namespace Dao.Model
         [Required]
         public string Password { get; set; }
 
-        public bool IsAdmin { get; set; }
+        public UserType UserType { get; set; } = UserType.Reader;
 
         /// <summary>
         /// Hero contains CurrentEvent. Use this field to get information about Quest and Event where user stop reading

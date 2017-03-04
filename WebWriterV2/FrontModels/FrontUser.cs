@@ -19,8 +19,12 @@ namespace WebWriterV2.FrontModels
             Id = user.Id;
             Name = user.Name;
             Email = user.Email;
-            IsAdmin = user.IsAdmin;
             Password = user.Password;
+
+            UserType = new FrontEnum(user.UserType);
+
+            IsAdmin = user.UserType == Dao.Model.UserType.Admin;
+            IsWriter = user.UserType == Dao.Model.UserType.Writer;
             Bookmarks = user.Bookmarks?.Select(x => new FrontHero(x)).ToList();
             BooksAreReaded = user.BooksAreReaded?.Select(x => new FrontQuest(x)).ToList();
         }
@@ -29,6 +33,9 @@ namespace WebWriterV2.FrontModels
         public string Password { get; set; }
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
+        public bool IsWriter { get; set; }
+
+        public FrontEnum UserType { get; set; }
 
         public List<FrontHero> Bookmarks { get; set; }
         public List<FrontQuest> BooksAreReaded { get; set; }
@@ -41,7 +48,7 @@ namespace WebWriterV2.FrontModels
                 Name = Name,
                 Password = Password,
                 Email = Email,
-                IsAdmin = IsAdmin
+                UserType = IsAdmin
             };
 
             return user;

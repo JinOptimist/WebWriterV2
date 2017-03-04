@@ -26,7 +26,6 @@ namespace Dao.Model
 
         public virtual DateTime LastChanges { get; set; }
 
-
         // need to remove
         [Required]
         public virtual Race Race { get; set; }
