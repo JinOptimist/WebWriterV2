@@ -657,6 +657,15 @@ angular.module('rpg')
                 $location.path(url);
             }
 
+            $scope.becomeWriter = function () {
+                userService.becomeWriter().then(function () {
+                    init();
+                    $scope.$emit('UpdateUserEvent');
+                    var url = '/AngularRoute/admin/quest/';
+                    $location.path(url);
+                });
+            }
+
             function init() {
                 var userId = $cookies.get(ConstCookies.userId);
                 if (userId) {

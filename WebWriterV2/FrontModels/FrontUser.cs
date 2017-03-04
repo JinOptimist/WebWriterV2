@@ -25,8 +25,11 @@ namespace WebWriterV2.FrontModels
 
             IsAdmin = user.UserType == Dao.Model.UserType.Admin;
             IsWriter = user.UserType == Dao.Model.UserType.Writer;
+            IsReader = user.UserType == Dao.Model.UserType.Reader;
             Bookmarks = user.Bookmarks?.Select(x => new FrontHero(x)).ToList();
             BooksAreReaded = user.BooksAreReaded?.Select(x => new FrontQuest(x)).ToList();
+            user.Quests?.ForEach(x => x.Owner = null);
+            MyQuests = user.Quests?.Select(x => new FrontQuest(x)).ToList();
         }
 
         public string Name { get; set; }
@@ -34,11 +37,13 @@ namespace WebWriterV2.FrontModels
         public string Email { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsWriter { get; set; }
+        public bool IsReader { get; set; }
 
         public FrontEnum UserType { get; set; }
 
         public List<FrontHero> Bookmarks { get; set; }
         public List<FrontQuest> BooksAreReaded { get; set; }
+        public List<FrontQuest> MyQuests { get; set; }
 
         public override User ToDbModel()
         {
@@ -48,7 +53,7 @@ namespace WebWriterV2.FrontModels
                 Name = Name,
                 Password = Password,
                 Email = Email,
-                UserType = IsAdmin
+                UserType = UserType != null ? (UserType)UserType.Value : Dao.Model.UserType.Reader
             };
 
             return user;

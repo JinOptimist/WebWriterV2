@@ -1,12 +1,11 @@
 ﻿<div ng-controller="accessController">
-    <p ng-if="user.IsAdmin"
+    <p ng-if="user.IsAdmin || user.IsWriter"
        style="border-bottom: 1px dotted green; padding: 10px 7px">
         Уголок Писателя:
         <a href="AngularRoute/admin/quest/">Квесты админка</a>
         | <a href="AngularRoute/admin/QuestOld">Старая админка квест</a>
-        | <a href="AngularRoute/admin/State">Админка Состояний</a>
-        | <a href="AngularRoute/admin/Thing">Админка Вещей</a>
-
+        <!--| <a href="AngularRoute/admin/State">Админка Состояний</a>
+        | <a href="AngularRoute/admin/Thing">Админка Вещей</a>-->
         <!--| <a href="AngularRoute/admin/Skill">Админка скилов</a>
         | <a href="AngularRoute/admin/Characteristic">Админка характеристик</a>-->
     </p>
@@ -30,7 +29,6 @@
         <span ng-if="error" class="error">{{error}}</span>
         <p>
             Username: <input id="username" type="text" ng-model="user.Name" ng-disabled="waiting"/>
-            <input type="checkbox" ng-model="user.IsAdmin" ng-if="activeRegister" ng-disabled="waiting" />
         </p>
         <p>
             Password: <input id="password" type="password"

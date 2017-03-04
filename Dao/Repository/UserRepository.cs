@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Dao.IRepository;
 using Dao.Model;
 
@@ -8,6 +9,11 @@ namespace Dao.Repository
     {
         public UserRepository(WriterContext db) : base(db)
         {
+        }
+
+        public User GetByName(string username)
+        {
+            return Entity.FirstOrDefault(x => x.Name == username);
         }
 
         public User Login(string username, string password)

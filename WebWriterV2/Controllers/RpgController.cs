@@ -20,6 +20,9 @@ namespace WebWriterV2.Controllers
     {
         private int _priceOfRestore = 5;
 
+        private const string AdminName = "admin";
+        private const string AdminPassword = "32167";
+
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly WriterContext _context = new WriterContext();
@@ -99,6 +102,7 @@ namespace WebWriterV2.Controllers
         {
             var frontUser = SerializeHelper.Deserialize<FrontUser>(userJson);
             var user = frontUser.ToDbModel();
+            
             user = UserRepository.Save(user);
             frontUser = new FrontUser(user);
 
@@ -153,12 +157,30 @@ namespace WebWriterV2.Controllers
 
         public JsonResult RemoveUser(long userId)
         {
+            //TODO check is user can remove another user
             UserRepository.Remove(userId);
             return new JsonResult
             {
                 Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+        }
+
+        public JsonResult BecomeWriter()
+        {
+            var userId = long.Parse(Request.Cookies["userId"]?.Value ?? "-1");
+            var user = UserRepository.Get(userId);
+            if (user.UserType == UserType.Reader)
+            {
+                user.UserType = UserType.Writer;
+                UserRepository.Save(user);
+            }
+            else
+            {
+                //TODO log error behavior
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         /* ************** Utility for enum ************** */
@@ -1351,6 +1373,27 @@ namespace WebWriterV2.Controllers
             StateTypeRepository.Remove(stateTypes);
 
             return Init();
+        }
+
+        public JsonResult AddAdminUser()
+        {
+            var user = UserRepository.GetByName(AdminName);
+            if (user == null)
+            {
+                user = new User
+                {
+                    Name = AdminName,
+                    Password = AdminPassword,
+                    UserType = UserType.Admin
+                };
+                user = UserRepository.Save(user);
+            }
+            if (user.UserType != UserType.Admin)
+            {
+                user.UserType = UserType.Admin;
+                UserRepository.Save(user);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

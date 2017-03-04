@@ -2,7 +2,7 @@
     <div style="width: 800px; float: left;">
         <h2>Профиль пользователя {{user.Name}}</h2>
         <p>
-            Возможности администратора: <input type="checkbox" disabled="disabled" ng-model="user.IsAdmin" />
+            Тип аккаунта: {{user.UserType.Name}}
         </p>
         <p>
             <a id="removeMyAccount" href="#" ng-click="removeAccount()">Delete my account</a>
@@ -19,6 +19,15 @@
         <div ng-if="user.BooksAreReaded">
             <p ng-repeat="book in user.BooksAreReaded">
                 Квест: {{book.Name}}.
+            </p>
+        </div>
+        <div ng-if="user.IsReader">
+            <a href="#" ng-click="becomeWriter()">Я хочу писать</a>
+        </div>
+        <div ng-if="user.MyQuests">
+            Мои Книги:
+            <p ng-repeat="q in user.MyQuests">
+                Квест: {{q.Name}}. Читать. Писать (будет позже)
             </p>
         </div>
 

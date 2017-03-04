@@ -18,12 +18,12 @@ namespace WebWriterV2.FrontModels
             Desc = quest.Desc;
             RootEvent = quest.RootEvent != null ? new FrontEvent(quest.RootEvent) : null;
             AllEvents = quest.AllEvents?.Select(x => new FrontEvent(x)).ToList();
-            OwnerId = quest.Owner.Id;
+            OwnerId = quest.Owner?.Id;
         }
 
         public string Name { get; set; }
         public string Desc { get; set; }
-        public long OwnerId { get; set; }
+        public long? OwnerId { get; set; }
         public FrontEvent RootEvent { get; set; }
         public List<FrontEvent> AllEvents { get; set; }
 
@@ -36,7 +36,7 @@ namespace WebWriterV2.FrontModels
                 Desc = Desc,
                 RootEvent = RootEvent?.ToDbModel(),
                 AllEvents = AllEvents?.Select(x => x.ToDbModel()).ToList(),
-                Owner = new User { Id = OwnerId }
+                Owner = OwnerId.HasValue ? new User { Id = OwnerId.Value } : null
             };
         }
     }

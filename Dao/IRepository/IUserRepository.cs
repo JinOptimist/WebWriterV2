@@ -7,5 +7,7 @@ namespace Dao.IRepository
     public interface IUserRepository : IBaseRepository<User>
     {
         User Login(string username, string password);
+
+        User GetByName(string username);
     }
 }

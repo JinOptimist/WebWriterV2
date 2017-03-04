@@ -959,7 +959,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             register: register,
             getById: getById,
             addBookmark: addBookmark,
-            removeAccount: removeAccount
+            removeAccount: removeAccount,
+            becomeWriter: becomeWriter
         };
 
         function login(user) {
@@ -1003,6 +1004,11 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 userId: userId
             };
             return httpHelper.call(url, data);
+        }
+
+        function becomeWriter() {
+            var url = '/Rpg/BecomeWriter';
+            return httpHelper.call(url);
         }
     }])
     //CKEditor
