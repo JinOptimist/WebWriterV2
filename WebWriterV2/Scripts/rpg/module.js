@@ -4,7 +4,7 @@ underscore.factory('_', ['$window', function ($window) {
     return $window._; // assumes underscore has already been loaded on the page
 }]);
 
-angular.module('rpg', ['directives', 'services', 'underscore', 'ngRoute', 'ngSanitize', 'ngCookies', 'ngAnimate', 'AppConst'])
+angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', 'ngRoute', 'ngSanitize', 'ngCookies', 'ngAnimate', 'AppConst'])
     .constant('_',
         window._
     )

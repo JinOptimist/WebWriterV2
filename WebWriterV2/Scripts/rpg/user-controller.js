@@ -521,7 +521,7 @@ angular.module('rpg')
     .controller('listQuestController', [
         '$scope', '$http', '$location', 'questService', 'raceService', 'sexService',
         function($scope, $http, $location, questService, raceService, sexService) {
-            $scope.quests = [];
+            //$scope.quests = [];
 
             init();
 
@@ -620,8 +620,8 @@ angular.module('rpg')
             }
         }
     ])
-    .controller('profileController', ['$scope', '$cookies', '$location', 'ConstCookies', 'questService', 'heroService', 'userService',
-        function ($scope, $cookies, $location, ConstCookies, questService, heroService, userService) {
+    .controller('profileController', ['$scope', '$cookies', '$location', '$uibModal', 'ConstCookies', 'questService', 'heroService', 'userService',
+        function ($scope, $cookies, $location, $uibModal, ConstCookies, questService, heroService, userService) {
             $scope.user = {};
             $scope.waiting = false;
 
@@ -664,6 +664,34 @@ angular.module('rpg')
                     var url = '/AngularRoute/admin/quest/';
                     $location.path(url);
                 });
+            }
+
+            $scope.openStatePopup = function () {
+                var model = {
+                    templateUrl: 'views/rpg/admin/state.html',
+                    controller: 'adminStateController',
+                    windowClass: 'statesModal',
+                    resolve: {
+                        text: function () {
+                            return 'Test';
+                        }
+                    }
+                };
+                $uibModal.open(model);
+            }
+
+            $scope.openThingPopup = function () {
+                var model = {
+                    templateUrl: 'views/rpg/admin/Thing.html',
+                    controller: 'adminThingController',
+                    windowClass: 'thingModal',
+                    resolve: {
+                        text: function () {
+                            return 'Test';
+                        }
+                    }
+                };
+                $uibModal.open(model);
             }
 
             function init() {

@@ -6,10 +6,17 @@
             </h1>
         </div>
 
-        <p>Кликни на квест что бы отправиться в путешествие</p>
-        <div ng-repeat="quest in quests" style="cursor: pointer;">
-            <ng-quest-info id="quest-{{::quest.Id}}" ng-click="goToQuest(quest)" quest="quest" style="float: left;"></ng-quest-info>
+
+        <div ng-if="!quests">
+            <img ng-src="/Content/wait.gif" />
         </div>
+        <div ng-if="quests">
+            <p>Кликни на квест что бы отправиться в путешествие</p>
+            <div ng-repeat="quest in quests" style="cursor: pointer;">
+                <ng-quest-info id="quest-{{::quest.Id}}" ng-click="goToQuest(quest)" quest="quest" style="float: left;"></ng-quest-info>
+            </div>
+        </div>
+        
 
     </div>
 </div>

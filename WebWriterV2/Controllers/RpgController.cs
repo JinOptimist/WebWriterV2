@@ -502,7 +502,20 @@ namespace WebWriterV2.Controllers
         }
 
         /* ************** State ************** */
-        public JsonResult GetStateTypes()
+        public JsonResult GetStateTypesAvailbleForUser()
+        {
+            var userId = currentUserId();
+            var stateTypes = StateTypeRepository.GetForUser(userId);
+            var frontStateTypes = stateTypes.Select(x => new FrontStateType(x)).ToList();
+
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(frontStateTypes),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult GetStateTypesAvailbleForEdit()
         {
             var userId = currentUserId();
             var stateTypes = StateTypeRepository.GetForUser(userId);
@@ -541,9 +554,10 @@ namespace WebWriterV2.Controllers
                 Owner = user,
             };
             var savedStateType = StateTypeRepository.Save(stateType);
+            var frontStateType = new FrontStateType(savedStateType);
             return new JsonResult
             {
-                Data = SerializeHelper.Serialize(savedStateType),
+                Data = SerializeHelper.Serialize(frontStateType),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -552,6 +566,11 @@ namespace WebWriterV2.Controllers
         {
             var frontStateType = SerializeHelper.Deserialize<FrontStateType>(jsonStateType);
             var stateType = frontStateType.ToDbModel();
+            var userId = currentUserId();
+            if (stateType.Owner.Id != userId)
+            {
+                throw new Exception("You can't edit state types which was created by another user");
+            }
             stateType.Owner = UserRepository.Get(stateType.Owner.Id);
             StateTypeRepository.Save(stateType);
             return new JsonResult

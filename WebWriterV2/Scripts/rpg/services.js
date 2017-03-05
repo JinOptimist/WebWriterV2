@@ -767,15 +767,21 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
     }])
     .service('stateService', ['_', 'httpHelper', function (_, httpHelper) {
         return {
-            loadAllTypes: loadAllTypes,
+            loadTypesAvailbleForUser: loadTypesAvailbleForUser,
+            loadTypesAvailbleForEdit: loadTypesAvailbleForEdit,
             add: add,
             edit: edit,
             remove: remove,
             changeState: changeState
         };
 
-        function loadAllTypes() {
-            var url = '/Rpg/GetStateTypes';
+        function loadTypesAvailbleForUser() {
+            var url = '/Rpg/GetStateTypesAvailbleForUser';
+            return httpHelper.call(url);
+        }
+
+        function loadTypesAvailbleForEdit() {
+            var url = '/Rpg/GetStateTypesAvailbleForEdit';
             return httpHelper.call(url);
         }
 
@@ -861,7 +867,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             }
         };
     }])
-    .service('thingService', ['$http', '$q', '_', function ($http, $q, _) {
+    .service('thingService', ['httpHelper', '_', function (httpHelper, _) {
         return {
             loadAllSamples: loadAllSamples,
             add: add,
@@ -869,51 +875,25 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         };
 
         function loadAllSamples() {
-            var deferred = $q.defer();
-
-            $http({
-                method: 'POST',
-                url: '/Rpg/GetThingSamples',
-                headers: { 'Accept': 'application/json' }
-            })
-                .success(function (response) {
-                    deferred.resolve(angular.fromJson(response));
-                });
-            return deferred.promise;
+            var url = '/Rpg/GetThingSamples';
+            return httpHelper.call(url);
         }
 
         function add(name, desc) {
-            var deferred = $q.defer();
-            $http({
-                method: 'POST',
-                url: '/Rpg/AddThing',
-                data: {
-                    name: name,
-                    desc: desc
-                },
-                headers: { 'Accept': 'application/json' }
-            })
-                .success(function (response) {
-                    var state = angular.fromJson(response);
-                    deferred.resolve(state);
-                });
-            return deferred.promise;
+            var url = '/Rpg/AddThing';
+            var data= {
+                name: name,
+                desc: desc
+            };
+            return httpHelper.call(url,data);
         }
 
         function remove(thingId) {
-            var deferred = $q.defer();
-            $http({
-                method: 'POST',
-                url: '/Rpg/RemoveThing',
-                data: {
-                    thingId: thingId,
-                },
-                headers: { 'Accept': 'application/json' }
-            })
-                .success(function (response) {
-                    deferred.resolve(response);
-                });
-            return deferred.promise;
+            var url = '/Rpg/RemoveThing';
+            var data = {
+                thingId: thingId
+            };
+            return httpHelper.call(url, data);
         }
     }])
     .service('userService', ['httpHelper', function (httpHelper) {

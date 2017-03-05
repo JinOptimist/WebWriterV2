@@ -14,9 +14,9 @@ p {
     margin: 7px; /* Значение отступов */
 }
 
-.avatar img {
-    max-width: 300px;
-}
+    .avatar img {
+        max-width: 300px;
+    }
 
 .button {
     background-color: #0003AA;
@@ -110,7 +110,7 @@ p {
     width: 150px;
     height: 120px;
     border: solid 1px #000030;
-    margin:90px 0;
+    margin: 90px 0;
 }
 
 .log {
@@ -147,9 +147,9 @@ p {
     border: 1px #0003aa solid;
 }
 
-.guild-card img {
-    width: 20px;
-}
+    .guild-card img {
+        width: 20px;
+    }
 
 .traning-room {
     width: 300px;
@@ -165,40 +165,41 @@ p {
     padding: 0 5px;
 }
 
-.skill.Fire {
-    border: 2px red solid;
-}
+    .skill.Fire {
+        border: 2px red solid;
+    }
 
-.skill.Base {
-    border: 1px grey solid;
-}
+    .skill.Base {
+        border: 1px grey solid;
+    }
 
-.skill.Cold {
-    border: 2px #0003aa solid;
-}
+    .skill.Cold {
+        border: 2px #0003aa solid;
+    }
 
 .event-edit {
     width: 900px;
 }
 
-.event-edit h3{
-    cursor: pointer;
-}
+    .event-edit h3 {
+        cursor: pointer;
+    }
 
-.wayLink{
+.wayLink {
     border: rosybrown 2px dotted;
     margin: 5px;
     cursor: pointer;
 }
-.wayLink:hover {
-    border: royalblue 2px dotted;
-    background-color: rosybrown;
 
-}
-.wayLink a {
-    text-decoration: none;
-    color: #000;
-}
+    .wayLink:hover {
+        border: royalblue 2px dotted;
+        background-color: rosybrown;
+    }
+
+    .wayLink a {
+        text-decoration: none;
+        color: #000;
+    }
 
 .event-changes-block {
     position: absolute;
@@ -211,32 +212,33 @@ p {
 
 /*  Health and Mana bar  */
 .main-bar {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  width: 200px;
-  height: 20px;
-  padding: 5px;
-  background: #ddd;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-  position: relative;
-}
-.main-bar .bar {
-  height: 10px;
-  position: relative;
-  transition: width .5s linear;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 200px;
+    height: 20px;
+    padding: 5px;
+    background: #ddd;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    position: relative;
 }
 
+    .main-bar .bar {
+        height: 10px;
+        position: relative;
+        transition: width .5s linear;
+    }
+
 .health-bar .bar {
-  background: #c54;
-  width: 100%;
+    background: #c54;
+    width: 100%;
 }
 
 .mana-bar .bar {
-  background: #000080;
-  width: 100%;
+    background: #000080;
+    width: 100%;
 }
 
 
@@ -244,7 +246,7 @@ p {
 
 /* Use Angular classes */
 .ng-dirty.auto-apply {
-    background-color: darkgrey
+    background-color: darkgrey;
 }
 
 form.ng-dirty input.save {
@@ -265,13 +267,32 @@ form.ng-dirty input.save {
     opacity: 1.0;
 }
 
-
-.change-item-add.change-item-add-active {
-    left: 600px;
-    /*top: 150px;*/
-    opacity: 0.0;
-}
+    .change-item-add.change-item-add-active {
+        left: 600px;
+        /*top: 150px;*/
+        opacity: 0.0;
+    }
 
 /*.change-item-remove.change-item-remove-active {
   left: 0px;
 }*/
+
+/* ****************** modal ****************** */
+/*.modal-open {
+    height: 100%;
+    width: 100%;
+    background: #ccc;
+}*/
+
+.thingModal  .modal-dialog,
+.statesModal .modal-dialog {
+    width: 950px;
+    height: 600px;
+}
+
+.thingModal .modal-content,
+.statesModal .modal-content{
+    height: 600px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}

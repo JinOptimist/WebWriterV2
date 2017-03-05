@@ -348,9 +348,9 @@ angular.module('rpg')
         }
     ])
     .controller('adminEventGeneralController', [
-        '$scope', '$http', '$routeParams', '$location', 'eventService', 'questService', 'raceService', 'requirementTypeService',
+        '$scope', '$http', '$routeParams', '$location', '$uibModal', 'eventService', 'questService', 'raceService', 'requirementTypeService',
         'sexService', 'skillService', 'characteristicService', 'stateService', 'thingService', 'CKEditorService',
-        function ($scope, $http, $routeParams, $location, eventService, questService, raceService, requirementTypeService,
+        function ($scope, $http, $routeParams, $location, $uibModal, eventService, questService, raceService, requirementTypeService,
             sexService, skillService, characteristicService, stateService, thingService, CKEditorService) {
 
             $scope.event = null;
@@ -484,8 +484,6 @@ angular.module('rpg')
                 });
             }
 
-
-
             $scope.addReqState = function () {
                 var typeId = $scope.newRequirementStatesType.Id;
                 var value = $scope.newReqStatesValue;
@@ -519,6 +517,20 @@ angular.module('rpg')
                         return stateType.Id === state.StateType.Id;
                     });
                 });
+            }
+
+            $scope.openStatePopup = function () {
+                var model = {
+                    templateUrl: 'views/rpg/admin/state.html',
+                    controller: 'adminStateController',
+                    windowClass: 'statesModal',
+                    resolve: {
+                        text: function () {
+                            return 'Test';
+                        }
+                    }
+                };
+                $uibModal.open(model);
             }
 
             /* Characteristic */
@@ -736,19 +748,20 @@ angular.module('rpg')
 
             function init() {
                 var eventId = $routeParams.eventId;
-                if (eventId)
+                if (eventId) {
                     loadEvent(eventId);
+                }
+
                 loadEvents();
+
                 loadQuest(questId);
 
-                //$scope.SexList.push(sexNoneObject);
                 sexService.loadSexList().then(function (data) {
                     _.each(data, function (item) {
                         return $scope.SexList.push({ name: item.Name, value: item.Value });
                     });
                 });
 
-                //$scope.RaceList.push(raceNoneObject);
                 raceService.loadRaceList().then(function (data) {
                     _.each(data, function (item) {
                         return $scope.RaceList.push({ name: item.Name, value: item.Value });
@@ -763,7 +776,7 @@ angular.module('rpg')
                     $scope.CharacteristicTypes = data;
                 });
 
-                stateService.loadAllTypes().then(function(data) {
+                stateService.loadTypesAvailbleForUser().then(function(data) {
                     $scope.StateTypes = data;
                     $scope.StateTypes.forEach(function (stateType) {
                         stateType.group = !!stateType.OwnerId ? 'My' : 'Base';
@@ -780,16 +793,19 @@ angular.module('rpg')
                 requirementTypeService.load().then(function (data) {
                     $scope.RequirementTypes = data;
                 });
-
             }
         }
     ])
-    .controller('adminStateController', ['$scope', 'stateService', function($scope, stateService) {
+    .controller('adminStateController', ['$scope', '$uibModalInstance', 'stateService', function($scope, $uibModalInstance, stateService) {
         $scope.states = [];
         $scope.newStateName = '';
         $scope.newStateDesc = '';
 
         init();
+
+        $scope.close = function () {
+            $uibModalInstance.close();
+        }
 
         $scope.edit = function(state) {
             state.isEditing = true;
@@ -828,12 +844,12 @@ angular.module('rpg')
         }
 
         function init() {
-                stateService.loadAllTypes().then(function(states) {
+            stateService.loadTypesAvailbleForEdit().then(function (states) {
                     $scope.states = states;
                 });
-            }
+        }
     }])
-    .controller('adminThingController', ['$scope', 'thingService', function ($scope, thingService) {
+    .controller('adminThingController', ['$scope', '$uibModalInstance', 'thingService', function ($scope, $uibModalInstance, thingService) {
         $scope.thingsSample = [];
         $scope.newThingName = '';
         $scope.newThingDesc = '';
@@ -855,6 +871,10 @@ angular.module('rpg')
                 .then(function () {
                     $scope.thingsSample.splice(index, 1);
                 });
+        }
+
+        $scope.close = function () {
+            $uibModalInstance.close();
         }
 
         function init() {
@@ -891,7 +911,7 @@ angular.module('rpg')
                 $scope.skillSchools = schoolsToSelect;
             });
 
-            stateService.loadAllTypes().then(function (stateTypes) {
+            stateService.loadTypesAvailbleForUser().then(function (stateTypes) {
                 $scope.stateType = _.map(stateTypes, function (stateType) {
                     return {
                         name: stateType.Name,
@@ -938,7 +958,7 @@ angular.module('rpg')
                 $scope.characteristicTypes = characteristics;
             });
 
-            stateService.loadAllTypes().then(function (stateTypes) {
+            stateService.loadTypesAvailbleForUser().then(function (stateTypes) {
                 $scope.stateType = _.map(stateTypes, function (stateType) {
                     return {
                         name: stateType.Name,
