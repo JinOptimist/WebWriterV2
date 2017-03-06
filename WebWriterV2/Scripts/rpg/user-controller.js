@@ -75,9 +75,7 @@ angular.module('rpg')
             }
 
             $scope.exit = function () {
-                $cookies.remove(ConstCookies.userId);
-                $cookies.remove(ConstCookies.isAdmin);
-                $cookies.remove(ConstCookies.isWriter);
+                userService.logout();
                 init();
                 $location.path('/AngularRoute/listQuest');
             }

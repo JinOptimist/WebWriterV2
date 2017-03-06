@@ -896,15 +896,36 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return httpHelper.call(url, data);
         }
     }])
-    .service('userService', ['httpHelper', function (httpHelper) {
+    .service('userService', ['$cookies', '$q', 'httpHelper', 'ConstCookies',
+        function ($cookies, $q, httpHelper, ConstCookies) {
+        var currentUser = null;
+
         return {
             login: login,
+            logout: logout,
             register: register,
             getById: getById,
             addBookmark: addBookmark,
             removeAccount: removeAccount,
-            becomeWriter: becomeWriter
+            becomeWriter: becomeWriter,
+            getCurrentUser: getCurrentUser
         };
+
+        function getCurrentUser() {
+            var deferred = $q.defer();
+
+            if (currentUser) {
+                deferred.resolve(currentUser);
+            } else {
+                var userId = $cookies.get(ConstCookies.userId);
+                getById(userId).then(function (data) {
+                    currentUser = data;
+                    deferred.resolve(currentUser);
+                });
+            }
+
+            return deferred.promise;
+        }
 
         function login(user) {
             var url = '/Rpg/Login';
@@ -913,6 +934,13 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 password: user.Password
             };
             return httpHelper.call(url, data);
+        }
+
+        function logout() {
+            $cookies.remove(ConstCookies.userId);
+            $cookies.remove(ConstCookies.isAdmin);
+            $cookies.remove(ConstCookies.isWriter);
+            currentUser = null;
         }
 
         function register(user) {

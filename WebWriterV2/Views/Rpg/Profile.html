@@ -7,16 +7,16 @@
         <p>
             <a id="removeMyAccount" href="#" ng-click="removeAccount()">Delete my account</a>
         </p>
-        <h2>Закладки пользователя</h2>
-        <div ng-if="user.Bookmarks">
+        <div ng-if="user.Bookmarks && user.Bookmarks.length > 0">
+            <h2>Закладки пользователя</h2>
             <p ng-repeat="mark in user.Bookmarks">
                 Квест: {{mark.CurrentEvent.quest.Name}}. Глава: {{mark.CurrentEvent.Name}}
                 <a href="#" ng-click="goToBookmark(mark)">Продолжить</a>
                 <a href="#" ng-click="removeBookmark(mark, $index)"><img src="/Content/delete.png" class="icon20"/></a>
             </p>
         </div>
-        <h2>Прочитанные книги</h2>
-        <div ng-if="user.BooksAreReaded">
+        <div ng-if="user.BooksAreReaded && user.BooksAreReaded.length > 0">
+            <h2>Прочитанные книги</h2>
             <p ng-repeat="book in user.BooksAreReaded">
                 Квест: {{book.Name}}.
             </p>
@@ -24,8 +24,8 @@
         <div ng-if="user.IsReader">
             <a href="#" ng-click="becomeWriter()">Я хочу писать</a>
         </div>
-        <div ng-if="user.MyQuests">
-            Мои Книги:
+        <div ng-if="user.MyQuests && user.MyQuests.length > 0">
+            <h2>Мои Книги:</h2>
             <p ng-repeat="q in user.MyQuests">
                 Квест: {{q.Name}}. Читать. Писать (будет позже)
             </p>

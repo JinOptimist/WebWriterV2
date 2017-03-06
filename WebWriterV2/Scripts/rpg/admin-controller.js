@@ -1,7 +1,7 @@
 angular.module('rpg')
     .controller('adminQuestController', [
-        '$scope', '$http', '$cookies', 'questService', 'sexService', 'raceService', 'eventService', 'ConstCookies',
-        function ($scope, $http, $cookies, questService, sexService, raceService, eventService, ConstCookies) {
+        '$scope', '$http', '$cookies', 'questService', 'sexService', 'raceService', 'eventService', 'userService',
+        function ($scope, $http, $cookies, questService, sexService, raceService, eventService, userService) {
             $scope.quest = null;
             $scope.currentEvent = {};
 
@@ -185,15 +185,18 @@ angular.module('rpg')
                 });
             }
 
-            function loadQuests(userId) {
+            function loadQuests(user) {
+                var userId = user.Id;
+                if (user.IsAdmin) {
+                    // if userId == null getQuests return all quests
+                    userId = null;
+                }
                 questService.getQuests(userId).then(function (result) {
                     $scope.quests = result;
                 });
             }
 
             function init() {
-                var userId = $cookies.get(ConstCookies.userId);
-
                 $scope.SexList.push({ name: 'None', value: null });
                 sexService.loadSexList().then(function (data) {
                     _.each(data, function (item) {
@@ -208,15 +211,18 @@ angular.module('rpg')
                     });
                 });
 
-                loadQuests(userId);
+                userService.getCurrentUser().then(function (data) {
+                    loadQuests(data);
+                });
+
             }
         }
     ])
     .controller('adminQuestGeneralController', [
         '$scope', '$http', '$routeParams', '$location', '$cookies', 'questService', 'sexService', 'raceService',
-            'eventService', 'CKEditorService', 'ConstCookies',
+            'eventService', 'CKEditorService', 'userService',
         function ($scope, $http, $routeParams, $location, $cookies, questService, sexService, raceService,
-            eventService, CKEditorService, ConstCookies) {
+            eventService, CKEditorService, userService) {
 
             $scope.quest = null;
             $scope.quests = [];
@@ -242,7 +248,7 @@ angular.module('rpg')
                 var isNew = !($scope.quest.Id > 0);
                 var text = CKEditorService.getData('desc');
                 $scope.quest.Desc = text;
-                $scope.quest.OwnerId = $scope.userId;
+                $scope.quest.OwnerId = $scope.user.Id;
                 questService.saveQuest($scope.quest).then(
                     function (response) {
                         if (response) {
@@ -316,7 +322,12 @@ angular.module('rpg')
             }
 
             function loadQuests() {
-                questService.getQuests($scope.userId).then(function (result) {
+                var userId = $scope.user.Id;
+                if ($scope.user.IsAdmin) {
+                    // if userId == null getQuests return all quests
+                    userId = null;
+                }
+                questService.getQuests(userId).then(function (result) {
                     $scope.quests = result;
                 });
             }
@@ -334,16 +345,17 @@ angular.module('rpg')
             }
 
             function init() {
-                $scope.userId = $cookies.get(ConstCookies.userId);
-
                 var questId = $routeParams.questId;
                 if (questId) {
                     loadQuest(questId);
                     loadEndingEvents(questId);
                     loadNotAvailableEvents(questId);
                 }
-                                
-                loadQuests();
+
+                userService.getCurrentUser().then(function (data) {
+                    $scope.user = data;
+                    loadQuests();
+                });
             }
         }
     ])
@@ -781,7 +793,7 @@ angular.module('rpg')
                     $scope.StateTypes.forEach(function (stateType) {
                         stateType.group = !!stateType.OwnerId ? 'My' : 'Base';
                     });
-                    $scope.StateTypes.sort(function (a, b) {                        
+                    $scope.StateTypes.sort(function (a, b) {
                         return b.OwnerId - a.OwnerId;
                     });
                 });

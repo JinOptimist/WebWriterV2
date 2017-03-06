@@ -102,7 +102,7 @@ namespace WebWriterV2.Controllers
         {
             var frontUser = SerializeHelper.Deserialize<FrontUser>(userJson);
             var user = frontUser.ToDbModel();
-            
+
             user = UserRepository.Save(user);
             frontUser = new FrontUser(user);
 
@@ -710,6 +710,7 @@ namespace WebWriterV2.Controllers
             {
                 quest.Id = 0;
                 quest.Executor = null;
+                quest.Owner = UserRepository.Get(currentUserId());
                 var characteristics = new List<Characteristic>();
                 var things = new List<Thing>();
                 var skills = new List<Skill>();
@@ -860,7 +861,7 @@ namespace WebWriterV2.Controllers
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
-        
+
         /* ************** Event ************** */
         public JsonResult GetEndingEvents(long questId)
         {
