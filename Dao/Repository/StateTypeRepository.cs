@@ -12,9 +12,14 @@ namespace Dao.Repository
         {
         }
 
-        public List<StateType> GetForUser(long userId)
+        public List<StateType> AvailableForUse(long userId)
         {
             return Entity.Where(x => x.Owner == null || x.Owner.Id == userId).ToList();
+        }
+
+        public List<StateType> AvailableForEdit(long userId)
+        {
+            return Entity.Where(x => x.Owner.Id == userId).ToList();
         }
     }
 }

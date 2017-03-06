@@ -30,7 +30,7 @@
                 Квест: {{q.Name}}. Читать. Писать (будет позже)
             </p>
         </div>
-        <div ng-if="user.IsWriter">
+        <div ng-if="user.IsWriter || user.IsAdmin">
             <p>
                 <a href="#" ng-click="openStatePopup()">edit my state types</a>
             </p>
@@ -38,6 +38,5 @@
                 <a href="#" ng-click="openThingPopup()">edit my thing sample</a>
             </p>
         </div>
-
     </div>
 </div>

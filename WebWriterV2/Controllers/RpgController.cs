@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.Caching;
 using System.Web.Mvc;
 using Autofac;
 using Dao.IRepository;
@@ -476,10 +477,12 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddThing(string name, string desc)
         {
+            var user = UserRepository.Get(currentUserId());
             var thingSample = new ThingSample
             {
                 Name = name,
-                Desc = desc
+                Desc = desc,
+                Owner = user
             };
 
             var savedThingSample = ThingSampleRepository.Save(thingSample);
@@ -493,6 +496,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult RemoveThing(long thingId)
         {
+            //TODO check permission to remove thing
             ThingSampleRepository.Remove(thingId);
             return new JsonResult
             {
@@ -505,7 +509,7 @@ namespace WebWriterV2.Controllers
         public JsonResult GetStateTypesAvailbleForUser()
         {
             var userId = currentUserId();
-            var stateTypes = StateTypeRepository.GetForUser(userId);
+            var stateTypes = StateTypeRepository.AvailableForUse(userId);
             var frontStateTypes = stateTypes.Select(x => new FrontStateType(x)).ToList();
 
             return new JsonResult
@@ -518,7 +522,7 @@ namespace WebWriterV2.Controllers
         public JsonResult GetStateTypesAvailbleForEdit()
         {
             var userId = currentUserId();
-            var stateTypes = StateTypeRepository.GetForUser(userId);
+            var stateTypes = StateTypeRepository.AvailableForEdit(userId);
             var frontStateTypes = stateTypes.Select(x => new FrontStateType(x)).ToList();
 
             return new JsonResult
@@ -708,9 +712,10 @@ namespace WebWriterV2.Controllers
             var questName = QuestRepository.GetByName(quest.Name);
             if (questName == null)
             {
+                var currentUser = UserRepository.Get(currentUserId());
                 quest.Id = 0;
                 quest.Executor = null;
-                quest.Owner = UserRepository.Get(currentUserId());
+                quest.Owner = currentUser;
                 var characteristics = new List<Characteristic>();
                 var things = new List<Thing>();
                 var skills = new List<Skill>();
@@ -767,6 +772,7 @@ namespace WebWriterV2.Controllers
                     thing.Id = 0;
                     thing.Hero = null;
                     thing.ThingSample.Id = 0;
+                    thing.ThingSample.Owner = currentUser;
                 }
 
                 foreach (var characteristic in characteristics)
@@ -791,6 +797,7 @@ namespace WebWriterV2.Controllers
                 {
                     state.Id = 0;
                     state.StateType.Id = 0;
+                    state.StateType.Owner = currentUser;
                 }
 
 
@@ -1105,10 +1112,11 @@ namespace WebWriterV2.Controllers
                 eventFromDb.HeroStatesChanging.Add(state);
             StateRepository.Save(state);
             EventRepository.Save(eventFromDb);
+            var frontState = new FrontState(state);
 
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(state),
+                Data = JsonConvert.SerializeObject(frontState),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -1146,7 +1154,6 @@ namespace WebWriterV2.Controllers
                 eventFromDb.RequirementStates.Add(state);
             StateRepository.Save(state);
             EventRepository.Save(eventFromDb);
-
             var frontState = new FrontState(state);
 
             return new JsonResult
@@ -1182,10 +1189,11 @@ namespace WebWriterV2.Controllers
             ThingRepository.Save(thing);
             eventFromDb.RequirementThings.Add(thing);
             EventRepository.Save(eventFromDb);
+            var frontThing = new FrontThing(thing);
 
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(thing),
+                Data = JsonConvert.SerializeObject(frontThing),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -1220,10 +1228,11 @@ namespace WebWriterV2.Controllers
             ThingRepository.Save(thing);
             eventFromDb.ThingsChanges.Add(thing);
             EventRepository.Save(eventFromDb);
+            var frontThing = new FrontThing(thing);
 
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(thing),
+                Data = JsonConvert.SerializeObject(frontThing),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

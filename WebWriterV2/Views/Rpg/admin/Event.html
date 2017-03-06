@@ -1,7 +1,4 @@
 ﻿<div>
-    <p>
-        <a href="#" ng-click="openStatePopup()">edit my state types</a>
-    </p>
     <div style="float: right; width: 300px;">
         <h2>
             <a href="#" ng-click="goToQuest()">{{quest.Name}}</a> events:
@@ -90,11 +87,11 @@
                 RequirementThings:
                 <p ng-repeat="thing in event.RequirementThings">
                     {{thing.ThingSample.Name}} &ge; {{thing.Count}};
-                    <a href="#" ng-click="removeRequirementThings(thing.Id, $index)"><img src="/Content/delete.png" class="icon20"/></a>
+                    <a href="#" ng-click="removeRequirementThing(thing.Id, $index)"><img src="/Content/delete.png" class="icon20"/></a>
                 </p>
 
                 <select ng-model="selectedRequirementThingSample"
-                        ng-options="thingSample as thingSample.Name for thingSample in availableRequirementThingSamples()"></select>
+                        ng-options="thingSample as thingSample.Name group by thingSample.group for thingSample in availableRequirementThingSamples()"></select>
                 <input type="number" ng-model="newRequirementThingSampleValue" ng-maxlength="9"/>
                 <a ng-click="addRequirementThing()" style="cursor: pointer;"><img src="/Content/add.png" class="icon20"/></a>
             </div>
@@ -103,25 +100,33 @@
         <h3 ng-click="stateExpand = !stateExpand">Изменения Героя при входе в главу {{stateExpand ? "&uarr;" : "&darr;"}}</h3>
         <div ng-show="stateExpand">
             <div>
+                <h4>Состояния</h4>
+                <p>
+                    <a href="#" ng-click="openStatePopup()">edit my state types</a>
+                </p>
                 <p ng-repeat="state in event.HeroStatesChanging">
                     {{state.StateType.Name}}: {{state.Number}};
-                    <a href="#" ng-click="removeState(state.Id, $index)"><img src="/Content/delete.png" class="icon20" /></a>
+                    <a href="#" ng-click="removeState(state.Id, $index)"><img src="/Content/delete.png" class="icon20"/></a>
                 </p>
 
-                <select ng-model="selectedState" ng-options="option as option.Name for option in availableStateTypes()"></select>
+                <select ng-model="selectedState" ng-options="option as option.Name group by option.group for option in availableStateTypes()"></select>
                 <input type="number" ng-model="newStateValue" ng-maxlength="9"/>
                 <a ng-click="addState()" style="cursor: pointer;"><img src="/Content/add.png" class="icon20"/></a>
             </div>
             <div>
+                <h4>Вещи</h4>
+                <p>
+                    <a href="#" ng-click="openThingPopup()">edit my thing sample</a>
+                </p>
                 <p ng-repeat="thing in event.ThingsChanges">
                     {{thing.ThingSample.Name}}: {{thing.Count}};
-                    <a href="#" ng-click="removeThing(thing.Id, $index)"><img src="/Content/delete.png" class="icon20" /></a>
+                    <a href="#" ng-click="removeThing(thing.Id, $index)"><img src="/Content/delete.png" class="icon20"/></a>
                 </p>
 
                 <select ng-model="selectedThingChangesSample"
-                        ng-options="thingSample as thingSample.Name for thingSample in availableThingSamples()"></select>
-                <input type="number" ng-model="newThingChangesSampleValue" ng-maxlength="9" />
-                <a ng-click="addThingsChanges()" style="cursor: pointer;"><img src="/Content/add.png" class="icon20" /></a>
+                        ng-options="thingSample as thingSample.Name group by thingSample.group for thingSample in availableThingSamples()"></select>
+                <input type="number" ng-model="newThingChangesSampleValue" ng-maxlength="9"/>
+                <a ng-click="addThingsChanges()" style="cursor: pointer;"><img src="/Content/add.png" class="icon20"/></a>
             </div>
         </div>
         <hr />

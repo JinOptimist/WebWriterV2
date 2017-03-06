@@ -1,5 +1,6 @@
 ﻿<div>
     <a href="#" ng-click="close()">close</a>
+    <h3>Добавить новое</h3>
     <div>
         <p>
             New state name <input type="text" ng-model="newStateName"/>
@@ -7,16 +8,19 @@
         <p>
             New state desc <textarea ng-model="newStateDesc"></textarea>
         </p>
-        <p><input type="button" value="Add" ng-click="add()"/></p>
+        <p><input type="button" value="Add" ng-click="add()"/>
+        </p>
     </div>
+    <h3>Список ваших состояний</h3>
     <div ng-repeat="state in states" class="block300 left border1px padding10">
         <p style="float: right;">
             <a href="#" ng-if="!state.isEditing"
-               ng-click="edit(state, $index)"><img src="/Content/edit.png" class="icon20" /></a>
+               ng-click="edit(state, $index)"><img src="/Content/edit.png" class="icon20"/></a>
             <a href="#" ng-if="state.isEditing"
-               ng-click="confirm(state, $index)"><img src="/Content/confirm.png" class="icon20" /></a>
-            <a href="#" ng-click="remove(state, $index)"><img src="/Content/delete.png" class="icon20" /></a>
+               ng-click="confirm(state, $index)"><img src="/Content/confirm.png" class="icon20"/></a>
+            <a href="#" ng-click="remove(state, $index)"><img src="/Content/delete.png" class="icon20"/></a>
         </p>
+        <p>OwnerId: {{state.OwnerId}}</p>
         <p>
             Имя: <span ng-if="!state.isEditing">{{state.Name}}</span>
             <input ng-if="state.isEditing" type="text" ng-model="state.Name"/>
@@ -27,7 +31,6 @@
             <br ng-if="state.isEditing"/>
             <textarea ng-if="state.isEditing" ng-model="state.Desc" style="width: 250px; height: 80px;"></textarea>
         </p>
-
         <img src="/Content/wait.gif" class="icon20" ng-if="state.isSaved"/>
     </div>
 </div>

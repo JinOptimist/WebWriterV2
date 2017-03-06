@@ -214,7 +214,6 @@ angular.module('rpg')
                 userService.getCurrentUser().then(function (data) {
                     loadQuests(data);
                 });
-
             }
         }
     ])
@@ -545,6 +544,20 @@ angular.module('rpg')
                 $uibModal.open(model);
             }
 
+            $scope.openThingPopup = function () {
+                var model = {
+                    templateUrl: 'views/rpg/admin/thing.html',
+                    controller: 'adminThingController',
+                    windowClass: 'thingModal',
+                    resolve: {
+                        text: function () {
+                            return 'Test';
+                        }
+                    }
+                };
+                $uibModal.open(model);
+            }
+
             /* Characteristic */
             $scope.addCharacteristic = function () {
                 var typeId = $scope.newRequirementCharacteristicsType.Id;
@@ -800,6 +813,14 @@ angular.module('rpg')
 
                 thingService.loadAllSamples().then(function(data) {
                     $scope.ThingSamples = data;
+
+                    $scope.ThingSamples = data;
+                    $scope.ThingSamples.forEach(function (thingSample) {
+                        thingSample.group = !!thingSample.OwnerId ? 'My' : 'Base';
+                    });
+                    $scope.ThingSamples.sort(function (a, b) {
+                        return b.OwnerId - a.OwnerId;
+                    });
                 });
 
                 requirementTypeService.load().then(function (data) {
@@ -856,9 +877,9 @@ angular.module('rpg')
         }
 
         function init() {
-            stateService.loadTypesAvailbleForEdit().then(function (states) {
-                    $scope.states = states;
-                });
+            stateService.loadTypesAvailbleForEdit().then(function(states) {
+                $scope.states = states;
+            });
         }
     }])
     .controller('adminThingController', ['$scope', '$uibModalInstance', 'thingService', function ($scope, $uibModalInstance, thingService) {

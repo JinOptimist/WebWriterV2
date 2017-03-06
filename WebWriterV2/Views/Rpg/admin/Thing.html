@@ -12,8 +12,7 @@
     <div ng-repeat="thing in thingsSample" class="block300 left border1px padding10">
         <p>Имя: {{thing.Name}}</p>
         <p>Описание: {{thing.Desc}}</p>
-        <p>Требования к Рассе: {{thing.RequirementRace.Name}}</p>
-        <p>Требования к Полу: {{thing.RequirementSex.Name}}</p>
+        <p>OwnerId: {{thing.OwnerId}}</p>
         <p>Используемый предмет: {{thing.IsUsed}}</p>
         <p ng-if="thing.PassiveCharacteristics.length > 0">
             Характеристики, пассивное:
