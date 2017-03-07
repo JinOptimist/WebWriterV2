@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Web.Caching;
 using System.Web.Mvc;
@@ -757,7 +758,7 @@ namespace WebWriterV2.Controllers
                 /* Process Things connections */
                 characteristics.AddRange(things.SelectMany(x => x.ThingSample.PassiveCharacteristics ?? new List<Characteristic>()));
                 characteristics.AddRange(things.SelectMany(x => x.ThingSample.UsingEffectCharacteristics ?? new List<Characteristic>()));
-                states.AddRange(things.SelectMany(x=>x.ThingSample.PassiveStates ?? new List<State>()));
+                states.AddRange(things.SelectMany(x => x.ThingSample.PassiveStates ?? new List<State>()));
                 states.AddRange(things.SelectMany(x => x.ThingSample.UsingEffectState ?? new List<State>()));
 
                 /* Process Skills connections */
@@ -945,7 +946,7 @@ namespace WebWriterV2.Controllers
             frontHero = new FrontHero(hero);
             return new JsonResult
             {
-                Data = JsonConvert.SerializeObject(new {frontEvent, frontHero}),
+                Data = JsonConvert.SerializeObject(new { frontEvent, frontHero }),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -1136,7 +1137,7 @@ namespace WebWriterV2.Controllers
         {
             var eventFromDb = EventRepository.Get(eventId);
             var stateType = StateTypeRepository.Get(stateTypeId);
-            var requirementType = (RequirementType) reqType;
+            var requirementType = (RequirementType)reqType;
 
             var state =
                 eventFromDb.RequirementStates.FirstOrDefault(
@@ -1253,6 +1254,97 @@ namespace WebWriterV2.Controllers
         }
 
         /* ************** Init Db ************** */
+        public JsonResult AddDefaultState()
+        {
+            var stateTypes = StateTypeRepository.GetAll();
+            var stateTypeForAdding = new List<StateType>();
+            var lifeStateType = new StateType
+            {
+                Name = "Жизни",
+                Desc = "Закончаться жизни и вашему путешествию придёт конец"
+            };
+            var timeStateType = new StateType
+            {
+                Name = "Время",
+                Desc = "Время всегда на исходе"
+            };
+            var hpStateType = new StateType
+            {
+                Name = "Здоровье",
+                Desc = "Закончиться здоровье и ты труп"
+            };
+
+            if (stateTypes.All(x => x.Name != lifeStateType.Name))
+            {
+                stateTypeForAdding.Add(lifeStateType);
+            }
+            if (stateTypes.All(x => x.Name != timeStateType.Name))
+            {
+                stateTypeForAdding.Add(timeStateType);
+            }
+            if (stateTypes.All(x => x.Name != hpStateType.Name))
+            {
+                stateTypeForAdding.Add(hpStateType);
+            }
+
+            if (stateTypeForAdding.Any())
+            {
+                StateTypeRepository.Save(stateTypeForAdding);
+            }
+
+            return Json(stateTypeForAdding.Any(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult AddDefaultThing()
+        {
+            var thingSamples = ThingSampleRepository.GetAll();
+            var thingSampleForAdding = new List<ThingSample>();
+            var goldStateType = new ThingSample
+            {
+                Name = "Золото",
+                Desc = "Прятный звон монет придаст вам толику хорошего настроения",
+                IsUsed = false,
+                RequirementRace = Race.None,
+                RequirementSex = Sex.None
+            };
+            var creditStateType = new ThingSample
+            {
+                Name = "Кредиты",
+                Desc = "Ваш счёт в межгалактическом банке сектора",
+                IsUsed = false,
+                RequirementRace = Race.None,
+                RequirementSex = Sex.None
+            };
+            var keyStateType = new ThingSample
+            {
+                Name = "Ключ",
+                Desc = "Знать бы где он понадобиться",
+                IsUsed = false,
+                RequirementRace = Race.None,
+                RequirementSex = Sex.None
+            };
+
+            if (thingSamples.All(x => x.Name != goldStateType.Name))
+            {
+                thingSampleForAdding.Add(goldStateType);
+            }
+            if (thingSamples.All(x => x.Name != creditStateType.Name))
+            {
+                thingSampleForAdding.Add(creditStateType);
+            }
+            if (thingSamples.All(x => x.Name != keyStateType.Name))
+            {
+                thingSampleForAdding.Add(keyStateType);
+            }
+
+            if (thingSampleForAdding.Any())
+            {
+                ThingSampleRepository.Save(thingSampleForAdding);
+            }
+
+            return Json(thingSampleForAdding.Any(), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult Init()
         {
             /* Создаём StateType */

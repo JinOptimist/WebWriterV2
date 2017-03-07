@@ -1,4 +1,10 @@
 ﻿<div ng-controller="accessController">
+    <p ng-if="user.IsAdmin"
+       style="border-bottom: 1px dotted green; padding: 10px 7px">
+        Уголок Админа:
+        <a href="rpg/AddDefaultState">Создать стандартные состояния</a>
+        | <a href="rpg/AddDefaultThing">Создать стандартные предметы</a>
+    </p>
     <p ng-if="user.IsAdmin || user.IsWriter"
        style="border-bottom: 1px dotted green; padding: 10px 7px">
         Уголок Писателя:
@@ -13,7 +19,8 @@
     <p style="border-bottom: 1px dotted green; padding: 10px 7px">
         <span ng-if="user.Id">Привет, {{user.Name}}. <a href="#" ng-click="exit()">Выход</a></span>
         <a id="login-lnk" ng-if="!user.Id" href="#" ng-click="openLogin()">Login</a>
-        | <a id="register-lnk" ng-if="!user.Id" href="#" ng-click="openRegister()">Register</a>
+        <span ng-if="!user.Id">|</span>
+        <a id="register-lnk" ng-if="!user.Id" href="#" ng-click="openRegister()">Register</a>
         | <a href="AngularRoute/listQuest">Список квестов</a>
         | <a ng-if="user.Id" class="profile-lnk" href="AngularRoute/profile">Профиль</a>
 
@@ -28,11 +35,11 @@
     <div ng-if="activeLogin || activeRegister">
         <span ng-if="error" class="error">{{error}}</span>
         <p>
-            Username: <input id="username" type="text" ng-model="user.Name" ng-disabled="waiting"/>
+            Username: <input id="username" type="text" ng-model="user.Name" ng-disabled="waiting" />
         </p>
         <p>
             Password: <input id="password" type="password"
-                             ng-keypress="passwordKeyPress($event)" ng-model="user.Password" ng-disabled="waiting"/>
+                             ng-keypress="passwordKeyPress($event)" ng-model="user.Password" ng-disabled="waiting" />
         </p>
         <p>
             <input id="login-btn" type="button" value="login" ng-click="login()" ng-if="activeLogin" ng-disabled="waiting" />
