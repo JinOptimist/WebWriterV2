@@ -128,7 +128,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddBookmark(long eventId, string heroJson)
         {
-            var userId = currentUserId();
+            var userId = CurrentUserId();
             var user = UserRepository.Get(userId);
             var currentEvent = EventRepository.Get(eventId);
 
@@ -170,7 +170,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult BecomeWriter()
         {
-            var userId = currentUserId();
+            var userId = CurrentUserId();
             var user = UserRepository.Get(userId);
             if (user.UserType == UserType.Reader)
             {
@@ -478,7 +478,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddThing(string name, string desc)
         {
-            var user = UserRepository.Get(currentUserId());
+            var user = UserRepository.Get(CurrentUserId());
             var thingSample = new ThingSample
             {
                 Name = name,
@@ -509,7 +509,7 @@ namespace WebWriterV2.Controllers
         /* ************** State ************** */
         public JsonResult GetStateTypesAvailbleForUser()
         {
-            var userId = currentUserId();
+            var userId = CurrentUserId();
             var stateTypes = StateTypeRepository.AvailableForUse(userId);
             var frontStateTypes = stateTypes.Select(x => new FrontStateType(x)).ToList();
 
@@ -522,7 +522,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult GetStateTypesAvailbleForEdit()
         {
-            var userId = currentUserId();
+            var userId = CurrentUserId();
             var stateTypes = StateTypeRepository.AvailableForEdit(userId);
             var frontStateTypes = stateTypes.Select(x => new FrontStateType(x)).ToList();
 
@@ -550,7 +550,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddState(string name, string desc)
         {
-            var userId = currentUserId();
+            var userId = CurrentUserId();
             User user = UserRepository.Get(userId);
             var stateType = new StateType
             {
@@ -571,7 +571,7 @@ namespace WebWriterV2.Controllers
         {
             var frontStateType = SerializeHelper.Deserialize<FrontStateType>(jsonStateType);
             var stateType = frontStateType.ToDbModel();
-            var userId = currentUserId();
+            var userId = CurrentUserId();
             if (stateType.Owner.Id != userId)
             {
                 throw new Exception("You can't edit state types which was created by another user");
@@ -713,7 +713,7 @@ namespace WebWriterV2.Controllers
             var questName = QuestRepository.GetByName(quest.Name);
             if (questName == null)
             {
-                var currentUser = UserRepository.Get(currentUserId());
+                var currentUser = UserRepository.Get(CurrentUserId());
                 quest.Id = 0;
                 quest.Executor = null;
                 quest.Owner = currentUser;
@@ -851,7 +851,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult QuestCompleted(long questId)
         {
-            var userId = currentUserId();
+            var userId = CurrentUserId();
             var user = UserRepository.Get(userId);
 
             var quest = QuestRepository.Get(questId);
@@ -1459,6 +1459,12 @@ namespace WebWriterV2.Controllers
 
         public JsonResult ReInit()
         {
+            var user = UserRepository.Get(CurrentUserId());
+            if (user.UserType != UserType.Admin)
+            {
+                throw new Exception("You haven't permission to rebuild whole db");
+            }
+
             var trainingRooms = TrainingRoomRepository.GetAll();
             TrainingRoomRepository.Remove(trainingRooms);
 
@@ -1531,7 +1537,7 @@ namespace WebWriterV2.Controllers
             base.Dispose(disposing);
         }
 
-        private long currentUserId()
+        private long CurrentUserId()
         {
             return long.Parse(Request.Cookies["userId"]?.Value ?? "-1");
         }
