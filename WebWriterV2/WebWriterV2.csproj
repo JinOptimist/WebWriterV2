@@ -672,7 +672,6 @@
     <Content Include="Scripts\underscore.min.map" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Rpg\admin\Characteristic.html" />
-    <Content Include="Views\Rpg\admin\QuestOld.html" />
     <Content Include="Views\Rpg\Header.html" />
     <Content Include="Views\Rpg\admin\Thing.html" />
     <Content Include="Views\Rpg\admin\State.html" />

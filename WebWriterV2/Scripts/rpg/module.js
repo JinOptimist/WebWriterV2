@@ -32,10 +32,6 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     templateUrl: '/views/rpg/admin/Characteristic.html',
                     controller: 'adminCharacteristicController'
                 })
-                .when('/AngularRoute/admin/QuestOld', {
-                    templateUrl: '/views/rpg/admin/QuestOld.html',
-                    controller: 'adminQuestController'
-                })
                 .when('/AngularRoute/admin/quest/:questId/event/:eventId?', {
                     templateUrl: '/views/rpg/admin/Event.html',
                     controller: 'adminEventGeneralController'
