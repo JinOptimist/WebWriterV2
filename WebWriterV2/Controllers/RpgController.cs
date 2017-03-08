@@ -695,7 +695,7 @@ namespace WebWriterV2.Controllers
             var quest = frontQuest.ToDbModel();
             var owner = UserRepository.Get(quest.Owner.Id);
             quest.Owner = owner;
-            QuestRepository.Save(quest);
+            quest = QuestRepository.Save(quest);
             frontQuest = new FrontQuest(quest);
 
             return new JsonResult

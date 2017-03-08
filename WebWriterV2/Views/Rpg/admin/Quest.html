@@ -20,7 +20,7 @@
         <br />
         <textarea ng-model="importJson" rows="10" cols="100"></textarea>
     </div>
-    <form ng-show="quest" novalidate style="width: 1000px;">
+    <form ng-show="quest" novalidate style="width: 1000px; float: left;">
         <input type="submit" ng-click="saveQuest()" value="Save"/>
         <input type="button" ng-click="exportQuest()" value="Export" style="float: right;"/>
 
@@ -31,8 +31,9 @@
             Desc: <textarea id="desc" ng-model="quest.Desc"></textarea>
         </p>
     </form>
+    <ng-quest-info quest="quest" style="float: left;"></ng-quest-info>
 
-    <div ng-show="quest">
+    <div ng-show="quest" style="clear: both;">
         <div ng-show="notAvailableEvents && notAvailableEvents.length > 0" style="color: red;">
             <h3>Главы в которые невозможно попасть!</h3>
             <p ng-repeat="event in notAvailableEvents">
