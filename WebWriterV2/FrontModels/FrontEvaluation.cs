@@ -1,0 +1,41 @@
+﻿using System.Collections.Generic;
+using System.Linq;
+using Dao.Model;
+
+namespace WebWriterV2.FrontModels
+{
+    public class FrontEvaluation : BaseFront<Evaluation>
+    {
+        public FrontEvaluation()
+        {
+        }
+
+        public FrontEvaluation(Evaluation evaluation)
+        {
+            Id = evaluation.Id;
+            Comment = evaluation.Comment;
+            Mark = evaluation.Mark;
+
+            OwnerId = evaluation.Owner?.Id ?? -1;
+            QuestId = evaluation.Quest?.Id ?? -1;
+        }
+
+        public long Mark { get; set; }
+        public string Comment { get; set; }
+
+        public long OwnerId { get; set; }
+        public long QuestId { get; set; }
+
+        public override Evaluation ToDbModel()
+        {
+            return new Evaluation
+            {
+                Id = Id,
+                Mark = Mark,
+                Comment = Comment,
+                Quest = new Quest { Id = QuestId },
+                Owner = new User { Id = OwnerId }
+            };
+        }
+    }
+}

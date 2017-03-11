@@ -33,5 +33,7 @@ namespace Dao.Model
         public virtual List<StateType> StateTypes { get; set; }
 
         public virtual List<ThingSample> ThingsSample { get; set; }
+
+        public virtual List<Evaluation> Evaluations { get; set; }
     }
 }

@@ -981,6 +981,37 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var url = '/Rpg/BecomeWriter';
             return httpHelper.call(url);
         }
+        }])
+    .service('evaluationService', ['httpHelper', function (httpHelper) {
+        return {
+            save: save
+        };
+
+        function save(evaluation) {
+            var url = '/Rpg/SaveEvaluation';
+            var data = {
+                evaluationJson: angular.toJson(evaluation)
+            };
+            return httpHelper.call(url, data);
+        }
+
+        //function questCompleted(questId) {
+        //    var url = '/Rpg/QuestCompleted';
+        //    var data = {
+        //        questId: questId
+        //    };
+        //    return httpHelper.call(url, data);
+        //}
+
+        //function get(questId) {
+        //    var url = '/Rpg/GetQuest?id=' + questId;
+        //    return httpHelper.call(url);
+        //}
+
+        //function removeQuest(questId) {
+        //    var url = '/Rpg/RemoveQuest?id=' + questId;
+        //    return httpHelper.call(url);
+        //}
     }])
     //CKEditor
     .service('CKEditorService', ['$http', '$q', '_', function ($http, $q, _) {

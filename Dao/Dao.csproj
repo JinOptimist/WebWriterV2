@@ -68,6 +68,7 @@
     <Compile Include="IRepository\ICharacteristicTypeRepository.cs" />
     <Compile Include="IRepository\ICharacteristicRepository.cs" />
     <Compile Include="IRepository\IEventLinkItemRepository.cs" />
+    <Compile Include="IRepository\IEvaluationRepository.cs" />
     <Compile Include="IRepository\IUserRepository.cs" />
     <Compile Include="IRepository\IThingRepository.cs" />
     <Compile Include="IRepository\IThingSampleRepository.cs" />
@@ -139,6 +140,10 @@
     <Compile Include="Migrations\201703041535097_AddOwnerForThingsSampleAndStateType.Designer.cs">
       <DependentUpon>201703041535097_AddOwnerForThingsSampleAndStateType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703100727109_AddEvaluation.cs" />
+    <Compile Include="Migrations\201703100727109_AddEvaluation.Designer.cs">
+      <DependentUpon>201703100727109_AddEvaluation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\CharacteristicType.cs" />
@@ -146,6 +151,7 @@
     <Compile Include="Model\EventLinkItem.cs" />
     <Compile Include="Model\IUpdatable.cs" />
     <Compile Include="Model\SkillSchool.cs" />
+    <Compile Include="Model\Evaluation.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\StateType.cs" />
     <Compile Include="Model\State.cs" />
@@ -165,6 +171,7 @@
     <Compile Include="Repository\CharacteristicTypeRepository.cs" />
     <Compile Include="Repository\CharacteristicRepository.cs" />
     <Compile Include="Repository\EventLinkItemRepository.cs" />
+    <Compile Include="Repository\EvaluationRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\ThingRepository.cs" />
     <Compile Include="Repository\ThingSampleRepository.cs" />
@@ -229,6 +236,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703041535097_AddOwnerForThingsSampleAndStateType.resx">
       <DependentUpon>201703041535097_AddOwnerForThingsSampleAndStateType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703100727109_AddEvaluation.resx">
+      <DependentUpon>201703100727109_AddEvaluation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

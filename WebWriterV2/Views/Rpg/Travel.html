@@ -7,7 +7,7 @@
         <div class="event-changes-block" ng-if="changes.length > 0">
             <p ng-repeat="change in changes" ng-class="change.hideClassName">
                 {{change.text}}
-                <img ng-src="/Content/delete.png" style="width: 20px; height: 20px; float: right" ng-click="removeChange(change.id)"/>
+                <img ng-src="/Content/delete.png" style="width: 20px; height: 20px; float: right" ng-click="removeChange(change.id)" />
             </p>
         </div>
         <div>
@@ -17,16 +17,27 @@
         <div ng-if="!wait">
             <ul>
                 <li ng-repeat="eventLink in ways" ng-click="chooseEvent(eventLink.ToId)"
-                    id="eventLink-{{eventLink.Id}}" class="wayLink" >
+                    id="eventLink-{{eventLink.Id}}" class="wayLink">
                     <a href="#">{{eventLink.Text}}</a>
                 </li>
             </ul>
         </div>
         <div ng-if="(!ways || ways.length == 0) && !wait">
-            <input ng-click="endQuest()" id="end" type="button" value="Конец"/>
+            <h2>Конец</h2>
+            <p>
+                Спасибо за прочтение. Если желаете, вы можете поставить свою оценку данному произведению и отставить свой отзыв для автора.
+            </p>
+            <label ng-repeat="mark in markRange">
+                {{mark}}
+                <input type="radio" ng-model="evaluation.Mark" ng-value="mark"/>
+            </label>
+
+            <textarea ng-model="evaluation.Comment"></textarea>
+
+            <input ng-click="endQuest()" id="end" type="button" value="Конец" />
         </div>
         <div ng-if="wait">
-            <img src="/Content/wait.gif"/>
+            <img src="/Content/wait.gif" />
         </div>
         <div ng-if="false">
             <a href="#" ng-click="batle()">Go to battle</a>

@@ -252,9 +252,9 @@ angular.module('rpg')
         }
     ])
     .controller('travelController', [
-        '$scope', '$http', '$location', '$routeParams', '$cookies', '$timeout',
+        '$scope', '$http', '$location', '$routeParams', '$cookies', '$timeout', 'evaluationService',
         'questService', 'eventService', 'guildService', 'heroService', 'userService',
-        function ($scope, $http, $location, $routeParams, $cookies, $timeout,
+        function ($scope, $http, $location, $routeParams, $cookies, $timeout, evaluationService,
             questService, eventService, guildService, heroService, userService) {
             $scope.quest = {};
             $scope.hero = {};
@@ -265,6 +265,8 @@ angular.module('rpg')
             $scope.myCssVar = '';
 
             $scope.changes = [];
+            $scope.markRange = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+            $scope.evaluation = {};
 
             init();
 
@@ -297,6 +299,9 @@ angular.module('rpg')
                 //        $scope.waiting = false;
                 //    });
                 var questId = $scope.quest.Id;
+                $scope.evaluation.QuestId = questId;
+                evaluationService.save($scope.evaluation);
+
                 questService.questCompleted(questId);
                 $location.path('/AngularRoute/listQuest');
             }

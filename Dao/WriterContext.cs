@@ -25,10 +25,11 @@ namespace Dao
             modelBuilder.Entity<User>().HasMany(x => x.StateTypes).WithOptional(x => x.Owner);
             modelBuilder.Entity<User>().HasMany(x => x.ThingsSample).WithOptional(x => x.Owner);
             modelBuilder.Entity<User>().HasMany(x => x.BooksAreReaded).WithMany();
-            
+            modelBuilder.Entity<User>().HasMany(x => x.Evaluations).WithOptional(x => x.Owner);
 
             modelBuilder.Entity<Quest>().HasOptional(x => x.RootEvent).WithOptionalPrincipal(x => x.ForRootQuest).WillCascadeOnDelete(false);
             modelBuilder.Entity<Quest>().HasMany(u => u.AllEvents).WithRequired(x => x.Quest).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Quest>().HasMany(u => u.Evaluations).WithOptional(x => x.Quest);
 
             modelBuilder.Entity<Event>().HasMany(x => x.ThingsChanges).WithOptional();
             modelBuilder.Entity<Event>().HasMany(x => x.CharacteristicsChanges).WithOptional();

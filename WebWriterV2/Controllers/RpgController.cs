@@ -45,6 +45,7 @@ namespace WebWriterV2.Controllers
         public IThingSampleRepository ThingSampleRepository { get; set; }
         public IThingRepository ThingRepository { get; set; }
         public IUserRepository UserRepository { get; set; }
+        public IEvaluationRepository EvaluationRepository { get; set; }
         #endregion
 
         public RpgController()
@@ -64,6 +65,7 @@ namespace WebWriterV2.Controllers
             ThingSampleRepository = new ThingSampleRepository(_context);
             ThingRepository = new ThingRepository(_context);
             UserRepository = new UserRepository(_context);
+            EvaluationRepository = new EvaluationRepository(_context);
 
             //using (var scope = StaticContainer.Container.BeginLifetimeScope())
             //{
@@ -459,6 +461,26 @@ namespace WebWriterV2.Controllers
             return new JsonResult
             {
                 Data = SerializeHelper.Serialize(new FrontSkill(skill)),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        /* ************** Evaluation ************** */
+        public JsonResult SaveEvaluation(string evaluationJson)
+        {
+            var frontEvaluation = SerializeHelper.Deserialize<FrontEvaluation>(evaluationJson);
+            var evaluation = frontEvaluation.ToDbModel();
+            var user = UserRepository.Get(CurrentUserId());
+            var quest = QuestRepository.Get(evaluation.Quest.Id);
+            evaluation.Owner = user;
+            evaluation.Quest = quest;
+            evaluation.Created = DateTime.Now;
+
+            EvaluationRepository.Save(evaluation);
+
+            return new JsonResult
+            {
+                Data = SerializeHelper.Serialize(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

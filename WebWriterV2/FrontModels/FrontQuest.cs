@@ -19,6 +19,7 @@ namespace WebWriterV2.FrontModels
             RootEvent = quest.RootEvent != null ? new FrontEvent(quest.RootEvent) : null;
             AllEvents = quest.AllEvents?.Select(x => new FrontEvent(x)).ToList();
             OwnerId = quest.Owner?.Id;
+            Evaluations = quest.Evaluations?.Select(x => new FrontEvaluation(x)).ToList();
         }
 
         public string Name { get; set; }
@@ -26,6 +27,8 @@ namespace WebWriterV2.FrontModels
         public long? OwnerId { get; set; }
         public FrontEvent RootEvent { get; set; }
         public List<FrontEvent> AllEvents { get; set; }
+
+        public List<FrontEvaluation> Evaluations { get; set; }
 
         public override Quest ToDbModel()
         {
