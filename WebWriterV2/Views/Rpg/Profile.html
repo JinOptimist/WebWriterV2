@@ -1,4 +1,4 @@
-﻿<div ng-class="!quest || !hero ? 'wait' : ''">
+﻿<div ng-class="!quest || !hero ? 'wait' : ''" class="profile">
     <div style="width: 800px; float: left;">
         <h2>Профиль пользователя {{user.Name}}</h2>
         <p>
@@ -26,9 +26,19 @@
         </div>
         <div ng-if="user.MyQuests && user.MyQuests.length > 0">
             <h2>Мои Книги:</h2>
-            <p ng-repeat="q in user.MyQuests">
-                Квест: {{q.Name}}. Читать. Писать (будет позже)
-            </p>
+            <div ng-repeat="quest in user.MyQuests">
+                <p >
+                    Квест: {{quest.Name}}. 
+                    <a ng-href="/AngularRoute/travel/quest/{{quest.Id}}/hero/-1/false">Читать</a>
+                    <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}">Писать</a>
+                </p>
+                <p ng-if="quest.Evaluations && quest.Evaluations.length > 0" class="evaluation">
+                    Отзывы:
+                </p>
+                <p ng-repeat="evaluation in quest.Evaluations" class="evaluation">
+                    {{evaluation.Mark}} * {{evaluation.Comment}}
+                </p>
+            </div>
         </div>
         <div ng-if="user.IsWriter || user.IsAdmin">
             <p>

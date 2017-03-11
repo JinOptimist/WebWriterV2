@@ -210,6 +210,10 @@ p {
     min-width: 200px;
 }
 
+.profile .evaluation{
+    margin-left: 20px
+}
+
 /*  Health and Mana bar  */
 .main-bar {
     -webkit-box-sizing: border-box;
@@ -273,17 +277,7 @@ form.ng-dirty input.save {
         opacity: 0.0;
     }
 
-/*.change-item-remove.change-item-remove-active {
-  left: 0px;
-}*/
-
 /* ****************** modal ****************** */
-/*.modal-open {
-    height: 100%;
-    width: 100%;
-    background: #ccc;
-}*/
-
 .thingModal  .modal-dialog,
 .statesModal .modal-dialog {
     width: 950px;
