@@ -14,6 +14,10 @@ angular.module('rpg')
                 init();
             });
 
+            $scope.goToHomePage = function() {
+                $location.path('/AngularRoute/listQuest');
+            }
+
             $scope.passwordKeyPress = function ($event) {
                 if ($event.which === 13) {// 'Enter'.keyEvent === 13
                     if ($scope.activeLogin) {

@@ -1,49 +1,57 @@
-﻿<div ng-controller="accessController">
-    <p ng-if="user.IsAdmin"
-       style="border-bottom: 1px dotted green; padding: 10px 7px">
-        Уголок Админа:
-        <a href="rpg/AddDefaultState">Создать стандартные состояния</a>
-        | <a href="rpg/AddDefaultThing">Создать стандартные предметы</a>
-    </p>
-    <p ng-if="user.IsAdmin || user.IsWriter"
-       style="border-bottom: 1px dotted green; padding: 10px 7px">
-        Уголок Писателя:
-        <a href="AngularRoute/admin/quest/">Квесты админка</a>
-        <!--| <a href="AngularRoute/admin/State">Админка Состояний</a>
-        | <a href="AngularRoute/admin/Thing">Админка Вещей</a>-->
-        <!--| <a href="AngularRoute/admin/Skill">Админка скилов</a>
-        | <a href="AngularRoute/admin/Characteristic">Админка характеристик</a>-->
-    </p>
-
-    <p style="border-bottom: 1px dotted green; padding: 10px 7px">
-        <span ng-if="user.Id">Привет, {{user.Name}}. <a href="#" ng-click="exit()">Выход</a></span>
-        <a id="login-lnk" ng-if="!user.Id" href="#" ng-click="openLogin()">Login</a>
-        <span ng-if="!user.Id">|</span>
-        <a id="register-lnk" ng-if="!user.Id" href="#" ng-click="openRegister()">Register</a>
-        | <a href="AngularRoute/listQuest">Список квестов</a>
-        | <a ng-if="user.Id" class="profile-lnk" href="AngularRoute/profile">Профиль</a>
-
-
-        <!--| <a href="AngularRoute/createHero">Создать героя</a>-->
-        <!--| <a ng-if="user.Id" href="AngularRoute/listHeroes">Список героев</a>-->
-        <!--| <a ng-if="user.Id" href="AngularRoute/guild">Гильдия</a>-->
-        <!--| <a href="AngularRoute/travel">Путешествие</a>-->
-        <!--| <a href="AngularRoute/traningRoom">Комната тренировок</a>-->
-    </p>
-
-    <div ng-if="activeLogin || activeRegister">
-        <span ng-if="error" class="error">{{error}}</span>
-        <p>
-            Username: <input id="username" type="text" ng-model="user.Name" ng-disabled="waiting" />
+﻿<div ng-controller="accessController" style="border-bottom: 1px dotted green;">
+    <div style="display: inline-block;vertical-align: top;">
+        <a href="#" ng-click="goToHomePage()">
+            <img src="/Content/icon/logo.png" style="max-height: 100px;display: inline-block" />
+        </a>
+    </div>
+    <div style="display: inline-block;">
+        <!--<h3 style="display: inline-block;">Интерактивная книга</h3>-->
+        <p ng-if="user.IsAdmin"
+           style="border-bottom: 1px dotted green; padding: 10px 7px">
+            Уголок Админа:
+            <a href="rpg/AddDefaultState">Создать стандартные состояния</a>
+            | <a href="rpg/AddDefaultThing">Создать стандартные предметы</a>
         </p>
-        <p>
-            Password: <input id="password" type="password"
-                             ng-keypress="passwordKeyPress($event)" ng-model="user.Password" ng-disabled="waiting" />
+        <p ng-if="user.IsAdmin || user.IsWriter"
+           style="border-bottom: 1px dotted green; padding: 10px 7px">
+            Уголок Писателя:
+            <a href="AngularRoute/admin/quest/">Квесты админка</a>
+            <!--| <a href="AngularRoute/admin/State">Админка Состояний</a>
+            | <a href="AngularRoute/admin/Thing">Админка Вещей</a>-->
+            <!--| <a href="AngularRoute/admin/Skill">Админка скилов</a>
+            | <a href="AngularRoute/admin/Characteristic">Админка характеристик</a>-->
         </p>
-        <p>
-            <input id="login-btn" type="button" value="login" ng-click="login()" ng-if="activeLogin" ng-disabled="waiting" />
-            <input id="register-btn" type="button" value="register" ng-click="register()" ng-if="activeRegister" ng-disabled="waiting" />
-            <img src="/Content/wait.gif" ng-if="waiting" class="icon20" />
+
+        <p style="padding: 10px 7px">
+            <span ng-if="user.Id">Привет, {{user.Name}}. <a href="#" ng-click="exit()">Выход</a></span>
+            <a id="login-lnk" ng-if="!user.Id" href="#" ng-click="openLogin()">Login</a>
+            <span ng-if="!user.Id">|</span>
+            <a id="register-lnk" ng-if="!user.Id" href="#" ng-click="openRegister()">Register</a>
+            | <a href="AngularRoute/listQuest">Список квестов</a>
+            | <a ng-if="user.Id" class="profile-lnk" href="AngularRoute/profile">Профиль</a>
+
+
+            <!--| <a href="AngularRoute/createHero">Создать героя</a>-->
+            <!--| <a ng-if="user.Id" href="AngularRoute/listHeroes">Список героев</a>-->
+            <!--| <a ng-if="user.Id" href="AngularRoute/guild">Гильдия</a>-->
+            <!--| <a href="AngularRoute/travel">Путешествие</a>-->
+            <!--| <a href="AngularRoute/traningRoom">Комната тренировок</a>-->
         </p>
+
+        <div ng-if="activeLogin || activeRegister">
+            <span ng-if="error" class="error">{{error}}</span>
+            <p>
+                Username: <input id="username" type="text" ng-model="user.Name" ng-disabled="waiting"/>
+            </p>
+            <p>
+                Password: <input id="password" type="password"
+                                 ng-keypress="passwordKeyPress($event)" ng-model="user.Password" ng-disabled="waiting"/>
+            </p>
+            <p>
+                <input id="login-btn" type="button" value="login" ng-click="login()" ng-if="activeLogin" ng-disabled="waiting"/>
+                <input id="register-btn" type="button" value="register" ng-click="register()" ng-if="activeRegister" ng-disabled="waiting"/>
+                <img src="/Content/icon/wait.gif" ng-if="waiting" class="icon20"/>
+            </p>
+        </div>
     </div>
 </div>

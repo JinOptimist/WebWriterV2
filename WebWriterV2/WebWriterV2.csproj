@@ -200,19 +200,20 @@
     <Content Include="book\Academy.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\add.png" />
+    <Content Include="Content\icon\logo.png" />
+    <Content Include="Content\icon\add.png" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\confirm.png" />
+    <Content Include="Content\icon\confirm.png" />
     <Content Include="Content\css\home.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\css\rpg\michi.css" />
     <Content Include="Content\css\rpg\style.css" />
-    <Content Include="Content\bin.jpg" />
-    <Content Include="Content\delete.png" />
-    <Content Include="Content\edit.png" />
+    <Content Include="Content\icon\bin.jpg" />
+    <Content Include="Content\icon\delete.png" />
+    <Content Include="Content\icon\edit.png" />
     <Content Include="Content\home\down.png" />
     <Content Include="Content\home\download-icon.png" />
     <Content Include="Content\home\fb2-icon.png" />
@@ -250,7 +251,7 @@
     <Content Include="Content\rpg\unknown.jpg" />
     <Content Include="Content\rpg\woman.jpg" />
     <Content Include="Content\ui-bootstrap-csp.css" />
-    <Content Include="Content\wait.gif" />
+    <Content Include="Content\icon\wait.gif" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="book\Academy.doc">
@@ -710,7 +711,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\icon\" />
     <Folder Include="html\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>

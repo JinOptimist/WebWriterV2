@@ -5,9 +5,9 @@
                 Квесты
             </h1>
         </div>
-        
+
         <div ng-if="!quests">
-            <img ng-src="/Content/wait.gif" />
+            <img ng-src="/Content/icon/wait.gif" />
         </div>
         <div ng-if="quests">
             <p>Кликни на квест что бы отправиться в путешествие</p>
@@ -15,7 +15,7 @@
                 <ng-quest-info id="quest-{{::quest.Id}}" ng-click="goToQuest(quest)" quest="quest" style="float: left;"></ng-quest-info>
             </div>
         </div>
-        
+
 
     </div>
 </div>

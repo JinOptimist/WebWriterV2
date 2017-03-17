@@ -1,6 +1,6 @@
 ﻿<div ng-class="!quest || !hero ? 'wait' : ''" class="profile">
     <div style="width: 800px; float: left;">
-        <h2>Профиль пользователя {{user.Name}}</h2>
+        <h2>Профиль: {{user.Name}}</h2>
         <p>
             Тип аккаунта: {{user.UserType.Name}}
         </p>
@@ -8,15 +8,15 @@
             <a id="removeMyAccount" href="#" ng-click="removeAccount()">Delete my account</a>
         </p>
         <div ng-if="user.Bookmarks && user.Bookmarks.length > 0">
-            <h2>Закладки пользователя</h2>
+            <h2>Мои закладки:</h2>
             <p ng-repeat="mark in user.Bookmarks">
                 Квест: {{mark.CurrentEvent.quest.Name}}. Глава: {{mark.CurrentEvent.Name}}
                 <a href="#" ng-click="goToBookmark(mark)">Продолжить</a>
-                <a href="#" ng-click="removeBookmark(mark, $index)"><img src="/Content/delete.png" class="icon20"/></a>
+                <a href="#" ng-click="removeBookmark(mark, $index)"><img src="/Content/icon/delete.png" class="icon20"/></a>
             </p>
         </div>
         <div ng-if="user.BooksAreReaded && user.BooksAreReaded.length > 0">
-            <h2>Прочитанные книги</h2>
+            <h2>Прочитанные книги:</h2>
             <p ng-repeat="book in user.BooksAreReaded">
                 Квест: {{book.Name}}.
             </p>
@@ -28,7 +28,7 @@
             <h2>Мои Книги:</h2>
             <div ng-repeat="quest in user.MyQuests">
                 <p >
-                    Квест: {{quest.Name}}. 
+                    Квест: {{quest.Name}}.
                     <a ng-href="/AngularRoute/travel/quest/{{quest.Id}}/hero/-1/false">Читать</a>
                     <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}">Писать</a>
                 </p>

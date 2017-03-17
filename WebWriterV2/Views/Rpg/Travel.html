@@ -7,7 +7,7 @@
         <div class="event-changes-block" ng-if="changes.length > 0">
             <p ng-repeat="change in changes" ng-class="change.hideClassName">
                 {{change.text}}
-                <img ng-src="/Content/delete.png" style="width: 20px; height: 20px; float: right" ng-click="removeChange(change.id)" />
+                <img ng-src="/Content/icon/delete.png" style="width: 20px; height: 20px; float: right" ng-click="removeChange(change.id)" />
             </p>
         </div>
         <div>
@@ -37,7 +37,7 @@
             <input ng-click="endQuest()" id="end" type="button" value="Конец" />
         </div>
         <div ng-if="wait">
-            <img src="/Content/wait.gif" />
+            <img src="/Content/icon/wait.gif" />
         </div>
         <div ng-if="false">
             <a href="#" ng-click="batle()">Go to battle</a>
