@@ -681,6 +681,7 @@
     <Content Include="Views\Rpg\admin\Quest.html" />
     <Content Include="Views\Rpg\directives\ngGuild.html" />
     <Content Include="Views\Rpg\admin\Skill.html" />
+    <Content Include="Views\Rpg\AboutUs.html" />
     <Content Include="Views\Rpg\ListQuest.html" />
     <Content Include="Views\Rpg\TraningRoom.html" />
     <Content Include="Views\Rpg\Battle.html" />

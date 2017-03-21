@@ -49,9 +49,9 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     templateUrl: '/views/rpg/Guild.html',
                     controller: 'guildController'
                 })
-                .when('/AngularRoute/createHero', {
-                    templateUrl: '/views/rpg/CreateHero.html',
-                    controller: 'createHeroController'
+                .when('/AngularRoute/aboutUs', {
+                    templateUrl: '/views/rpg/AboutUs.html',
+                    controller: 'aboutUsController'
                 })
                 .when('/AngularRoute/listHeroes', {
                     templateUrl: '/views/rpg/ListHeroes.html',

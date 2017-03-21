@@ -96,6 +96,12 @@ angular.module('rpg')
             }
         }
     ])
+    .controller('aboutUsController', [
+        '$scope',
+        function ($scope) {
+
+        }
+    ])
     .controller('createHeroController', [
         '$scope', '$http', '$location', 'heroService', 'raceService', 'sexService','guildService',
         function ($scope, $http, $location, heroService, raceService, sexService, guildService) {
