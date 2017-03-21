@@ -28,7 +28,7 @@
     <hr ng-if="hero.Inventory && hero.Inventory.length > 0" />
     <p ng-if="hero.Inventory && hero.Inventory.length > 0">
         <b>Инвентарь</b>:
-        <span ng-if="hero.Skills" ng-repeat="thing in hero.Inventory" class="skill">
+        <span ng-if="hero.Inventory" ng-repeat="thing in hero.Inventory" class="skill">
             {{::thing.ThingSample.Name}}<span ng-if="!thing.ItemInUse">: {{::thing.Count}}</span>
             <span ng-if="thing.ItemInUse">+</span>
         </span>

@@ -34,12 +34,6 @@ namespace WebWriterV2.Controllers
         public IEventLinkItemRepository EventLinkItemRepository { get; }
         public IQuestRepository QuestRepository { get; set; }
         public IHeroRepository HeroRepository { get; set; }
-        public ISkillRepository SkillRepository { get; set; }
-        public IGuildRepository GuildRepository { get; set; }
-        public ISkillSchoolRepository SkillSchoolRepository { get; set; }
-        public ITrainingRoomRepository TrainingRoomRepository { get; set; }
-        public ICharacteristicRepository CharacteristicRepository { get; set; }
-        public ICharacteristicTypeRepository CharacteristicTypeRepository { get; set; }
         public IStateRepository StateRepository { get; set; }
         public IStateTypeRepository StateTypeRepository { get; set; }
         public IThingSampleRepository ThingSampleRepository { get; set; }
@@ -54,12 +48,6 @@ namespace WebWriterV2.Controllers
             EventLinkItemRepository = new EventLinkItemRepository(_context);
             QuestRepository = new QuestRepository(_context);
             HeroRepository = new HeroRepository(_context);
-            SkillRepository = new SkillRepository(_context);
-            GuildRepository = new GuildRepository(_context);
-            SkillSchoolRepository = new SkillSchoolRepository(_context);
-            TrainingRoomRepository = new TrainingRoomRepository(_context);
-            CharacteristicRepository = new CharacteristicRepository(_context);
-            CharacteristicTypeRepository = new CharacteristicTypeRepository(_context);
             StateRepository = new StateRepository(_context);
             StateTypeRepository = new StateTypeRepository(_context);
             ThingSampleRepository = new ThingSampleRepository(_context);
@@ -146,8 +134,6 @@ namespace WebWriterV2.Controllers
 
             hero.Owner = user;
             hero.CurrentEvent = currentEvent;
-            hero.Sex = Sex.None;
-            hero.Race = Race.None;
             hero.Name = hero.Name ?? "Just a Hero";
 
             HeroRepository.Save(hero);
@@ -188,30 +174,6 @@ namespace WebWriterV2.Controllers
         }
 
         /* ************** Utility for enum ************** */
-        public JsonResult GetListRace()
-        {
-            var listRace = Enum.GetValues(typeof(Race)).Cast<Race>();
-            var listNameValue = listRace.Select(race => new FrontEnum(race));
-
-            return new JsonResult
-            {
-                Data = JsonConvert.SerializeObject(listNameValue),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult GetListSex()
-        {
-            var listSex = Enum.GetValues(typeof(Sex)).Cast<Sex>();
-            var listNameValue = listSex.Select(sex => new FrontEnum(sex));
-
-            return new JsonResult
-            {
-                Data = JsonConvert.SerializeObject(listNameValue),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
         public JsonResult GetListRequirementType()
         {
             var listRequirementType = Enum.GetValues(typeof(RequirementType)).Cast<RequirementType>();
@@ -224,21 +186,6 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        /* ************** Guild ************** */
-        public JsonResult GetGuild(long guildId)
-        {
-            var guild = GuildRepository.Get(guildId)
-                // TODO Debug only!
-                ?? GuildRepository.GetAll().First();
-
-            var frontGuild = new FrontGuild(guild);
-            return new JsonResult
-            {
-                Data = JsonConvert.SerializeObject(frontGuild),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
         /* ************** Hero ************** */
         public JsonResult GetHero(long heroId)
         {
@@ -246,7 +193,7 @@ namespace WebWriterV2.Controllers
             if (hero == null)
             {
                 var stateTypes = StateTypeRepository.GetAll();
-                hero = GenerateData.GetDefaultHero(stateTypes, null, null);
+                hero = GenerateData.GetDefaultHero(stateTypes);
             }
 
             var a = hero.Inventory?.FirstOrDefault();
@@ -274,9 +221,6 @@ namespace WebWriterV2.Controllers
         {
             var frontHero = SerializeHelper.Deserialize<FrontHero>(jsonHero);
             var hero = frontHero.ToDbModel();
-
-            var guild = GuildRepository.GetAll().First();
-            hero.Guild = guild;
 
             HeroRepository.Save(hero);
             frontHero.Id = hero.Id;
@@ -313,24 +257,6 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult AddSkillToHero(int heroId, int skillId)
-        {
-            var hero = HeroRepository.Get(heroId);
-            var skill = SkillRepository.Get(skillId);
-            var guild = GuildRepository.Get(hero.Guild.Id);
-            hero.Skills.Add(skill);
-            HeroRepository.Save(hero);
-
-            guild.Gold -= skill.Price;
-            GuildRepository.Save(guild);
-
-            return new JsonResult
-            {
-                Data = SerializeHelper.Serialize(new FrontHero(hero)),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
         public JsonResult GetEnemy()
         {
             var heroes = HeroRepository.GetAll();
@@ -345,122 +271,12 @@ namespace WebWriterV2.Controllers
         public JsonResult GetDefaultHero()
         {
             var stateTypes = StateTypeRepository.GetAll();
-            var characteristicTypes = CharacteristicTypeRepository.GetAll();
 
-            var skillSchool = SkillSchoolRepository.GetByName(GenerateData.SchoolBaseSkillName);
-            var skills = SkillRepository.GetBySchool(skillSchool);
-
-            var hero = GenerateData.GetDefaultHero(stateTypes, characteristicTypes, skills);
+            var hero = GenerateData.GetDefaultHero(stateTypes);
             var frontHero = new FrontHero(hero);
             return new JsonResult
             {
                 Data = SerializeHelper.Serialize(frontHero),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult RestoreHero(long heroId)
-        {
-            var hero = HeroRepository.Get(heroId);
-
-            var hp = hero.State.First(x => x.StateType.Name == GenerateData.Hp);
-            var maxHp = hero.State.First(x => x.StateType.Name == GenerateData.MaxHp);
-            var mp = hero.State.First(x => x.StateType.Name == GenerateData.Mp);
-            var maxMp = hero.State.First(x => x.StateType.Name == GenerateData.MaxMp);
-            hp.Number = maxHp.Number;
-            mp.Number = maxMp.Number;
-
-            HeroRepository.Save(hero);
-
-            var guild = DebugGetGuild();
-
-            guild.Gold -= _priceOfRestore;
-            GuildRepository.Save(guild);
-
-            var frontHero = new FrontHero(hero);
-            return new JsonResult
-            {
-                Data = SerializeHelper.Serialize(frontHero),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        /* ************** Skill ************** */
-        public JsonResult GetSkill(SkillSchool skillSchool)
-        {
-            var skillsFromDb = SkillRepository.GetBySchool(skillSchool);
-            var frontSkill = skillsFromDb.Select(x => new FrontSkill(x));
-            return new JsonResult
-            {
-                Data = SerializeHelper.Serialize(frontSkill),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult GetSkills()
-        {
-            var skillsFromDb = SkillRepository.GetAll();
-            var frontSkills = skillsFromDb.Select(x => new FrontSkill(x)).ToList();
-            return new JsonResult
-            {
-                Data = SerializeHelper.Serialize(frontSkills),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult GetSkillsSchool()
-        {
-            var skillSchools = SkillSchoolRepository.GetAll();
-            var frontSkillSchools = skillSchools.Select(x => new FrontSkillSchool(x)).ToList();
-            return new JsonResult
-            {
-                Data = SerializeHelper.Serialize(frontSkillSchools),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult RemoveSkill(long skillId)
-        {
-            SkillRepository.Remove(skillId);
-            return new JsonResult
-            {
-                Data = true,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult RemoveAllSkills()
-        {
-            var skillsFromDb = SkillRepository.GetAll();
-            skillsFromDb.ForEach(SkillRepository.Remove);
-            return new JsonResult
-            {
-                Data = SerializeHelper.Serialize(true),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult GetSkillEffect(long skillId)
-        {
-            var skillsFromDb = SkillRepository.Get(skillId);
-            var frontSkill = new FrontSkill(skillsFromDb);
-            return new JsonResult
-            {
-                Data = SerializeHelper.Serialize(frontSkill),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult SaveSkill(string jsonSkill)
-        {
-            var frontSkill = SerializeHelper.Deserialize<FrontSkill>(jsonSkill);
-            var skill = frontSkill.ToDbModel();
-
-            SkillRepository.Save(skill);
-
-            return new JsonResult
-            {
-                Data = SerializeHelper.Serialize(new FrontSkill(skill)),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -617,58 +433,6 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        /* ************** TraningRoom ************** */
-        public JsonResult GetTraningRoom(long traningRoomId)
-        {
-            var room = TrainingRoomRepository.Get(traningRoomId);
-
-            var frontRoom = new FrontTrainingRoom(room);
-
-            return new JsonResult
-            {
-                Data = SerializeHelper.Serialize(frontRoom),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        /* ************** Characteristic ************** */
-        public JsonResult GetCharacteristicTypes()
-        {
-            var characteristicTypes = CharacteristicTypeRepository.GetAll();
-
-            var frontCharacteristicTypes = characteristicTypes.Select(x => new FrontCharacteristicType(x)).ToList();
-
-            return new JsonResult
-            {
-                Data = SerializeHelper.Serialize(frontCharacteristicTypes),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult SaveCharacteristicType(string jsonCharacteristicType)
-        {
-            var frontCharacteristicType = SerializeHelper.Deserialize<FrontCharacteristicType>(jsonCharacteristicType);
-            var characteristicType = frontCharacteristicType.ToDbModel();
-
-            CharacteristicTypeRepository.Save(characteristicType);
-
-            return new JsonResult
-            {
-                Data = SerializeHelper.Serialize(new FrontCharacteristicType(characteristicType)),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult RemoveCharacteristicType(long characteristicTypeId)
-        {
-            CharacteristicTypeRepository.Remove(characteristicTypeId);
-            return new JsonResult
-            {
-                Data = true,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
         /* ************** Quest ************** */
         public JsonResult GetQuest(long id)
         {
@@ -737,11 +501,8 @@ namespace WebWriterV2.Controllers
             {
                 var currentUser = UserRepository.Get(CurrentUserId());
                 quest.Id = 0;
-                quest.Executor = null;
                 quest.Owner = currentUser;
-                var characteristics = new List<Characteristic>();
                 var things = new List<Thing>();
-                var skills = new List<Skill>();
                 var states = new List<State>();
                 var linkItems = new List<EventLinkItem>();
 
@@ -768,28 +529,17 @@ namespace WebWriterV2.Controllers
                 foreach (var @event in quest.AllEvents)
                 {
                     @event.Id = 0;
-                    characteristics.AddRange(@event.RequirementCharacteristics ?? new List<Characteristic>());
-                    characteristics.AddRange(@event.CharacteristicsChanges ?? new List<Characteristic>());
                     things.AddRange(@event.RequirementThings ?? new List<Thing>());
                     things.AddRange(@event.ThingsChanges ?? new List<Thing>());
-                    skills.AddRange(@event.RequirementSkill ?? new List<Skill>());
                     states.AddRange(@event.HeroStatesChanging ?? new List<State>());
                     states.AddRange(@event.RequirementStates ?? new List<State>());
                 }
 
                 /* Process Things connections */
-                characteristics.AddRange(things.SelectMany(x => x.ThingSample.PassiveCharacteristics ?? new List<Characteristic>()));
-                characteristics.AddRange(things.SelectMany(x => x.ThingSample.UsingEffectCharacteristics ?? new List<Characteristic>()));
                 states.AddRange(things.SelectMany(x => x.ThingSample.PassiveStates ?? new List<State>()));
                 states.AddRange(things.SelectMany(x => x.ThingSample.UsingEffectState ?? new List<State>()));
 
-                /* Process Skills connections */
-                states.AddRange(skills.SelectMany(x => x.SelfChanging ?? new List<State>()));
-                states.AddRange(skills.SelectMany(x => x.TargetChanging ?? new List<State>()));
-
                 /* Process Characteristics connections */
-                states.AddRange(characteristics.SelectMany(x => x.CharacteristicType.EffectState ?? new List<State>()));
-
                 foreach (var thing in things)
                 {
                     thing.Id = 0;
@@ -798,23 +548,8 @@ namespace WebWriterV2.Controllers
                     thing.ThingSample.Owner = currentUser;
                 }
 
-                foreach (var characteristic in characteristics)
-                {
-                    characteristic.Id = 0;
-                    characteristic.CharacteristicType.Id = 0;
-                }
-
                 var nbsp = (char)160;// code of nbsp
                 var sp = (char)32;// code of simple space
-
-                foreach (var skill in skills)
-                {
-                    skill.Id = 0;
-                    skill.School.Id = 0;
-
-                    var clearName = skill.Name.Replace(nbsp, sp);
-                    skill.Name = clearName;
-                }
 
                 foreach (var state in states)
                 {
@@ -826,16 +561,6 @@ namespace WebWriterV2.Controllers
 
                 states.ForEach(StateRepository.CheckAndSave);
                 things.ForEach(ThingRepository.CheckAndSave);
-                characteristics.ForEach(CharacteristicRepository.CheckAndSave);
-                var newSkill = skills.Select(SkillRepository.CheckAndSave).ToList();
-                foreach (var @event in quest.AllEvents)
-                {
-                    for (var i = 0; i < @event.RequirementSkill.Count; i++)
-                    {
-                        var requrmentSkillName = @event.RequirementSkill[i].Name;
-                        @event.RequirementSkill[i] = newSkill.First(x => x.Name == requrmentSkillName);
-                    }
-                }
 
                 foreach (var @event in quest.AllEvents)
                 {
@@ -1038,79 +763,6 @@ namespace WebWriterV2.Controllers
             return new JsonResult
             {
                 Data = true,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult AddSkillToEvent(long eventId, long skillId)
-        {
-            var eventFromDb = EventRepository.Get(eventId);
-            var skill = SkillRepository.Get(skillId);
-
-            eventFromDb.RequirementSkill.Add(skill);
-            EventRepository.Save(eventFromDb);
-
-            return new JsonResult
-            {
-                Data = JsonConvert.SerializeObject(true),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult RemoveSkillToEvent(long eventId, long skillId)
-        {
-            var eventFromDb = EventRepository.Get(eventId);
-            var skill = SkillRepository.Get(skillId);
-
-            eventFromDb.RequirementSkill.Remove(skill);
-            EventRepository.Save(eventFromDb);
-
-            return new JsonResult
-            {
-                Data = JsonConvert.SerializeObject(true),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult AddCharacteristicToEvent(long eventId, long characteristicTypeId,
-            int characteristicValue, int requirementType)
-        {
-            var eventFromDb = EventRepository.Get(eventId);
-            var characteristicType = CharacteristicTypeRepository.Get(characteristicTypeId);
-
-            var characteristic =
-                eventFromDb.RequirementCharacteristics.FirstOrDefault(
-                    x => x.CharacteristicType.Id == characteristicType.Id)
-                ?? new Characteristic
-                {
-                    CharacteristicType = characteristicType
-                };
-
-            characteristic.Number = characteristicValue;
-            characteristic.RequirementType = (RequirementType)requirementType;
-
-            // if new
-            if (characteristic.Id < 1)
-                eventFromDb.RequirementCharacteristics.Add(characteristic);
-            CharacteristicRepository.Save(characteristic);
-            EventRepository.Save(eventFromDb);
-
-            var frontCharacteristic = new FrontCharacteristic(characteristic);
-
-            return new JsonResult
-            {
-                Data = JsonConvert.SerializeObject(frontCharacteristic),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult RemoveCharacteristicFromEvent(long characteristicId)
-        {
-            CharacteristicRepository.Remove(characteristicId);
-
-            return new JsonResult
-            {
-                Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -1326,24 +978,18 @@ namespace WebWriterV2.Controllers
                 Name = "Золото",
                 Desc = "Прятный звон монет придаст вам толику хорошего настроения",
                 IsUsed = false,
-                RequirementRace = Race.None,
-                RequirementSex = Sex.None
             };
             var creditStateType = new ThingSample
             {
                 Name = "Кредиты",
                 Desc = "Ваш счёт в межгалактическом банке сектора",
                 IsUsed = false,
-                RequirementRace = Race.None,
-                RequirementSex = Sex.None
             };
             var keyStateType = new ThingSample
             {
                 Name = "Ключ",
                 Desc = "Знать бы где он понадобиться",
                 IsUsed = false,
-                RequirementRace = Race.None,
-                RequirementSex = Sex.None
             };
 
             if (thingSamples.All(x => x.Name != goldStateType.Name))
@@ -1385,31 +1031,6 @@ namespace WebWriterV2.Controllers
                 ThingSampleRepository.Save(thingSamples);
             }
 
-            /* Создаём CharacteristicType */
-            var characteristicTypes = CharacteristicTypeRepository.GetAll();
-            if (!characteristicTypes.Any())
-            {
-                characteristicTypes = GenerateData.GenerateCharacteristicType(stateTypes);
-                CharacteristicTypeRepository.Save(characteristicTypes);
-            }
-
-            /* Создаём Школы умений */
-            var skillSchools = SkillSchoolRepository.GetAll();
-            var skillSchoolsExist = skillSchools.Any();
-            if (!skillSchoolsExist)
-            {
-                skillSchools = GenerateData.GenerateSchools();
-                SkillSchoolRepository.Save(skillSchools);
-            }
-
-            /* Создаём Умения */
-            var skills = SkillRepository.GetAll();
-            if (!skills.Any())
-            {
-                skills = GenerateData.GenerateSkills(skillSchools, stateTypes);
-                SkillRepository.Save(skills);
-            }
-
             /* Создаём Квесты. Чистый без евентов */
             var quests = QuestRepository.GetAll();
             if (!quests.Any())
@@ -1417,7 +1038,7 @@ namespace WebWriterV2.Controllers
                 var quest1 = GenerateData.QuestRat();
                 QuestRepository.Save(quest1);
 
-                var quest2 = GenerateData.QuestTower(characteristicTypes, stateTypes, skills, thingSamples);
+                var quest2 = GenerateData.QuestTower(stateTypes, thingSamples);
                 QuestRepository.Save(quest2);
             }
 
@@ -1444,31 +1065,10 @@ namespace WebWriterV2.Controllers
             //    }
             //}
 
-            /* Создаём Героев */
-            var heroes = HeroRepository.GetAll();
-            var heroExist = heroes.Any();
-            if (!heroExist)
-            {
-                heroes = GenerateData.GetHeroes(skills, characteristicTypes, stateTypes, thingSamples);
-                HeroRepository.Save(heroes);
-            }
-
-            /* Создаём Гильдию */
-            var guilds = GuildRepository.GetAll();
-            if (!guilds.Any())
-            {
-                var guild = GenerateData.GetGuild(heroes, skillSchools);
-                GuildRepository.Save(guild);
-            }
-
             var answer = new
             {
-                skillSchools = skillSchoolsExist ? "Уже существует" : "Добавили",
                 quests = quests.Any() ? "Уже существует" : "Добавили",
                 //eventLinkItemsDb = eventLinkItemsDb.Any() ? "Уже существует" : "Добавили",
-                heroes = heroExist ? "Уже существует" : "Добавили",
-                skills = skills.Any() ? "Уже существует" : "Добавили",
-                guilds = guilds.Any() ? "Уже существует" : "Добавили",
                 thingSamples = thingSamples.Any() ? "Уже существует" : "Добавили",
             };
 
@@ -1487,23 +1087,8 @@ namespace WebWriterV2.Controllers
                 throw new Exception("You haven't permission to rebuild whole db");
             }
 
-            var trainingRooms = TrainingRoomRepository.GetAll();
-            TrainingRoomRepository.Remove(trainingRooms);
-
             var states = StateRepository.GetAll();
             StateRepository.Remove(states);
-
-            var characteristic = CharacteristicRepository.GetAll();
-            CharacteristicRepository.Remove(characteristic);
-
-            var characteristicTypes = CharacteristicTypeRepository.GetAll();
-            CharacteristicTypeRepository.Remove(characteristicTypes);
-
-            var skills = SkillRepository.GetAll();
-            SkillRepository.Remove(skills);
-
-            var skillSchools = SkillSchoolRepository.GetAll();
-            SkillSchoolRepository.Remove(skillSchools);
 
             var things = ThingRepository.GetAll();
             ThingRepository.Remove(things);
@@ -1513,9 +1098,6 @@ namespace WebWriterV2.Controllers
 
             var heroes = HeroRepository.GetAll();
             HeroRepository.Remove(heroes);
-
-            var guilds = GuildRepository.GetAll();
-            GuildRepository.Remove(guilds);
 
             var links = EventLinkItemRepository.GetAll();
             EventLinkItemRepository.Remove(links);
@@ -1562,20 +1144,6 @@ namespace WebWriterV2.Controllers
         private long CurrentUserId()
         {
             return long.Parse(Request.Cookies["userId"]?.Value ?? "-1");
-        }
-
-        private Guild DebugGetGuild()
-        {
-            var guildIdStr = Request.Cookies["guildId"]?.Value ?? "0";
-            var guildId = 0;
-            if (int.TryParse(guildIdStr, out guildId))
-            {
-                guildId = -1;
-            }
-
-            return guildId > 1
-                ? GuildRepository.Get(guildId)
-                : GuildRepository.GetAll().First();
         }
     }
 }

@@ -25,15 +25,10 @@ namespace Dao.Model
         public virtual List<EventLinkItem> LinksToThisEvent { get; set; }
 
         /* Requirement */
-        public virtual Sex? RequirementSex { get; set; } = null;
-        public virtual Race? RequirementRace { get; set; } = null;
-        public virtual List<Skill> RequirementSkill { get; set; }
-        public virtual List<Characteristic> RequirementCharacteristics { get; set; }
         public virtual List<Thing> RequirementThings { get; set; }
         public virtual List<State> RequirementStates{ get; set; }
 
         /* Changes */
-        public virtual List<Characteristic> CharacteristicsChanges { get; set; }
         public virtual List<Thing> ThingsChanges { get; set; }
         public virtual List<State> HeroStatesChanging { get; set; }
 
@@ -50,8 +45,6 @@ namespace Dao.Model
                 throw new Exception($"You try update Event with Id: {model.Id} from Event with id {Id}");
             Name = model.Name;
             Desc = model.Desc;
-            RequirementRace = model.RequirementRace;
-            RequirementSex = model.RequirementSex;
             ProgressChanging = model.ProgressChanging;
             Quest = model.Quest;
             ForRootQuest = model.ForRootQuest;

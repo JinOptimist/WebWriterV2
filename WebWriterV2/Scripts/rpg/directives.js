@@ -27,14 +27,11 @@ angular.module('directives', ['services', 'underscore', 'ngSanitize']) //, ['com
                 replace: true,
                 templateUrl: '/views/rpg/directives/ngHeroCard.html',
                 scope: { hero: '=' },
-                controller: ['$scope', 'raceService', 'sexService', function ($scope, raceService, sexService) {
+                controller: ['$scope', function ($scope) {
                     var maxHpStateName = "MaxHp";
                     var maxMpStateName = "MaxMp";
                     var hpStateName = "Hp";
                     var mpStateName = "Mp";
-
-                    $scope.GetTextSex = sexService.getSexWord;
-                    $scope.GetTextRace = raceService.getRaceWord;
 
                     //TODO Find way to watch by hero
                     $scope.recalc = function () {
@@ -71,11 +68,6 @@ angular.module('directives', ['services', 'underscore', 'ngSanitize']) //, ['com
                         var hpPercent = Math.round(100 * $scope.Hp() / $scope.MaxHp());
                         var mpPercent = Math.round(100 * $scope.Mp() / $scope.MaxMp());
 
-                        if ($scope.Hp() < 1) {
-                            //alert($scope.hero.Name + ' is dead');
-                            console.log($scope.hero.Name + ' is dead');
-                        }
-
                         $scope.hero.healthWidth = { 'width': hpPercent + '%' };
                         $scope.hero.manaWidth = { 'width': mpPercent + '%' };
                     }
@@ -90,20 +82,6 @@ angular.module('directives', ['services', 'underscore', 'ngSanitize']) //, ['com
                 link: function (scope, element, attrs) {
 
                 }
-            }
-        }
-    ])
-    .directive('ngGuild', [
-        function () {
-            return {
-                restrict: 'E',
-                replace: true,
-                templateUrl: '/views/rpg/directives/ngGuild.html',
-                scope: { guild: '=' },
-                controller: ['$scope', function ($scope) {
-                    //$scope.GetTextSex = sexService.getSexWord;
-                    //$scope.GetTextRace = raceService.getRaceWord;
-                }]
             }
         }
     ])

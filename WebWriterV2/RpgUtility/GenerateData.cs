@@ -37,104 +37,6 @@ namespace WebWriterV2.RpgUtility
         public const string EvasionSkill = "Уворот";
 
 
-        public static Guild GetGuild(List<Hero> heroes, List<SkillSchool> skillSchools)
-        {
-            var guild = new Guild
-            {
-                Name = "Пьяный Бобры",
-                Desc = "Основанна стареющим, но некогда велики воином, трижды спасшим мир, два двыжды убившим саму смерть ну и так по мелочи подвигов",
-                Heroes = heroes,
-                Influence = 10,
-                Gold = 954,
-                TrainingRooms = GenerateTrainingRooms(skillSchools).ToList()//.Where(x => x.School.Name == "Школа льда")
-            };
-
-            heroes.ForEach(x=>x.Guild = guild);
-
-            //var location = new Location
-            //{
-            //    Coordinate = new Point(0, 0),
-            //    Guild = guild,
-            //    Name = "Разваливающаяся платина",
-            //    Desc = "Старая развалюха в которую страшно зайти. Не удивительно что только самые отчаяные оборванцы осмеливаются искать тут дом",
-            //    //HeroesInLocation = GetHeroes()
-            //};
-            //guild.Location = location;
-
-            return guild;
-        }
-
-        public static List<Hero> GetHeroes(List<Skill> skills,
-            List<CharacteristicType> characteristicTypes,
-            List<StateType> stateTypes,
-            List<ThingSample> thingSamples)
-        {
-            var swordSample = thingSamples.First(x => x.Name == Sword);
-            var armorBraSample = thingSamples.First(x => x.Name == ArmorBra);
-            var healingPotionSample = thingSamples.First(x => x.Name == HealingPotion);
-            var goldSample = thingSamples.First(x => x.Name == Gold);
-
-            var baseSkills = skills.Where(x => x.School.Name == SchoolBaseSkillName).ToList();
-
-            var freeman = new Hero
-            {
-                Name = "Freeman",
-                Race = Race.Человек,
-                Sex = Sex.Муж,
-                Characteristics = GenerateStat(characteristicTypes, 1),
-                Background = "Сын физика ядерщика",
-                Skills = new List<Skill>()
-            };
-            //freeman.Skills.AddRange(baseSkills);
-            freeman.Skills.Add(skills[0]);
-            freeman.Skills.Add(skills[1]);
-            freeman.SetDefaultState(stateTypes);
-            freeman.AddThingToHero(swordSample, true);
-            freeman.AddThingToHero(goldSample, 100);
-            freeman.AddThingToHero(healingPotionSample, 2);
-
-            var shani = new Hero
-            {
-                Name = "Шани",
-                Race = Race.Эльф,
-                Sex = Sex.Жен,
-                Characteristics = GenerateStat(characteristicTypes, 2),
-                Background = "Дочь проститутки",
-                Skills = new List<Skill>()
-            };
-            shani.Skills.AddRange(baseSkills);
-            shani.Skills.Add(skills[3]);
-            shani.Skills.Add(skills[4]);
-            shani.SetDefaultState(stateTypes);
-            shani.AddThingToHero(armorBraSample, true);
-            shani.AddThingToHero(goldSample, 300);
-            shani.AddThingToHero(swordSample, true);
-
-            var ogrimar = new Hero
-            {
-                Name = "Огримар",
-                Race = Race.Орк,
-                Sex = Sex.Скрывает,
-                Characteristics = GenerateStat(characteristicTypes, 3),
-                Background = "В свои 14 трижды убивал",
-                Skills = new List<Skill>()
-            };
-            ogrimar.Skills.AddRange(baseSkills);
-            ogrimar.SetDefaultState(stateTypes);
-            ogrimar.AddThingToHero(swordSample, true);
-            ogrimar.AddThingToHero(goldSample, 10);
-            ogrimar.AddThingToHero(healingPotionSample, 5);
-
-            var result = new List<Hero>
-            {
-                freeman,
-                shani,
-                ogrimar
-            };
-
-            return result;
-        }
-
         public static List<ThingSample> GenerateThingSample(List<StateType> stateTypes)
         {
             var hp = stateTypes.First(x => x.Name == Hp);
@@ -166,8 +68,6 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = ArmorBra,
                 Desc = "Вот хоть убей не найти эльфийку без этого важнейшего элемента одежды",
-                RequirementRace = Race.Эльф,
-                RequirementSex = Sex.Жен,
                 PassiveStates = new List<State> {
                     new State {
                         Number = 5,
@@ -192,22 +92,12 @@ namespace WebWriterV2.RpgUtility
             return thingSamples;
         }
 
-        public static List<Characteristic> GenerateStat(List<CharacteristicType> characteristicTypes, int seed = 0)
-        {
-            var rnd = new Random(DateTime.Now.Millisecond + seed);
-            var result = characteristicTypes.Select(characteristicType =>
-                new Characteristic { CharacteristicType = characteristicType, Number = rnd.Next(1, 10) })
-                .ToList();
-            return result;
-        }
-
         public static Quest QuestRat()
         {
             var quest = new Quest
             {
                 Name = "Убить крыс",
                 Desc = "Владелец амбара разметил заказ на убийство крыс. Отлично задание для новичка",
-                Effective = 0,
             };
 
             quest.AllEvents = GenerateEventsForQuestRat(quest);
@@ -215,19 +105,16 @@ namespace WebWriterV2.RpgUtility
             return quest;
         }
 
-        public static Quest QuestTower(List<CharacteristicType> characteristicTypes,
-            List<StateType> stateTypes,
-            List<Skill> skills,
+        public static Quest QuestTower(List<StateType> stateTypes,
             List<ThingSample> thingSamples)
         {
             var quest = new Quest
             {
                 Name = "Башня",
                 Desc = "<p>	В великой Башне три уровня. Зачисти их все за один заход и получишь великий Кубок&nbsp;<span style=\"background-color:#ffff00;\">(добавить возможность награды для квеста)</span></p><p>	Перед тем как отправляться убедись что готов к сражениям</p><ol>	<li>		* Ловушки которые ранят если нет умения Уворот</li>	<li>		** Клады дают деньги</li>	<li>		*** Возможность подкупа за золото или обольстить если Пол и Красота на уровне</li>	<li>		**** Открыть короткий проход при помощи Силы или Ловкости</li></ol>",
-                Effective = 0,
             };
 
-            quest.AllEvents = GenerateEventsForQuestTower(quest, characteristicTypes, stateTypes, skills, thingSamples);
+            quest.AllEvents = GenerateEventsForQuestTower(quest, stateTypes, thingSamples);
 
             return quest;
         }
@@ -250,7 +137,6 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Баба заигрывает",
                 ProgressChanging = 50,
-                RequirementSex = Sex.Жен,
                 Desc =
                     "Героиня легко и непренуждённо пообщалась с заказчиком, после чего смогла убедить его снизить требования к выполнению задания",
             };
@@ -258,7 +144,6 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Мужика послали",
                 ProgressChanging = -30,
-                RequirementSex = Sex.Муж,
                 Desc =
                     "Герой не успел и представиться как заказчик с недовольством начал указывать на недопустимость подобного поведения. Пришлось узнавать детали о задание у простых служащих, на что ушло в два раза больше сил и времени"
             };
@@ -266,7 +151,6 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Скрытен работает",
                 ProgressChanging = 10,
-                RequirementSex = Sex.Скрывает,
                 Desc =
                     "Заказчик долго рассматривал героя, то недовольно бурча под нос, но натягивая приветливую улыбку. Тем временем вся необходимая информация была полученна и герой отправился дальше"
             };
@@ -282,7 +166,6 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Эльфу сложней",
                 ProgressChanging = -30,
-                RequirementRace = Race.Эльф,
                 Desc =
                     "Герою постоянно строили козни местные жители. Пришлось потратить много времени и сил на убеждение в своей добропорядочности",
             };
@@ -290,7 +173,6 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Орку легче",
                 ProgressChanging = 50,
-                RequirementRace = Race.Орк,
                 Desc =
                     "Все вокруг пытались помочь Герою. Ничего полезного местные рассказать не смогли, но вот снаряжения надавали отменного, что явно помогло"
             };
@@ -347,19 +229,13 @@ namespace WebWriterV2.RpgUtility
         }
 
         public static List<Event> GenerateEventsForQuestTower(Quest quest,
-            List<CharacteristicType> characteristicTypes,
             List<StateType> stateTypes,
-            List<Skill> skills,
             List<ThingSample> thingSamples)
         {
             // Tips
             // Desc = "У заказчика всегда была репутацию падкого на женское внимание мужика",
             // Desc = "В общем орков не любят со времён третьей общей войны, но порой можно встретить общины с прямо противоположным мнением",
-            var agilityType = characteristicTypes.First(x => x.Name == Agility);
             var hpType = stateTypes.First(x => x.Name == Hp);
-
-            var fireBallSkill = skills.First(x => x.Name == FireBall);
-            var evasionSkill = skills.First(x => x.Name == EvasionSkill);
 
             var gold100 = new Thing
             {
@@ -395,13 +271,6 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Евент 01. Мост. Удача",
                 Desc = "Сальто, потом кувырок и невероятная гордость за себя. Вот так незамысловато разрешилась опасная ситуация на мосту. Повысив свою самооценку герой уверен направился к входу в башню",
-                RequirementCharacteristics = new List<Characteristic> {
-                    new Characteristic {
-                        Number = 6,
-                        CharacteristicType = agilityType,
-                        RequirementType = RequirementType.MoreOrEquals
-                    }
-                }
             };
             var event1p2 = new Event
             {
@@ -428,13 +297,11 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Евент 06. Первый этаж. Мирный путь",
                 Desc = "Ответив симметричной улыбкой Герой поздоровался и сообщил, что ему предстоят великие свершения. Несколько рыков в подтверждения серьёзности своих намерений и диалог плавно перешёл от напряжённой притирки друг к другу к задорному хвастовству у кого больше шрамов.",
-                RequirementRace = Race.Орк,
             };
             var event6p2 = new Event
             {
                 Name = "Евент 06. Первый этаж. Огонь",
                 Desc = "Быстрому удару Герой предпочёл внезапный огненный шар сжигающий врага. И тут ужу не играло роли кто окажется на пути безжалостного пламени. Победа была мгновенной и бескровной, лишь шипящий орк в углу.",
-                RequirementSkill = new List<Skill> { fireBallSkill }
             };
             var event6p3 = new Event
             {
@@ -468,7 +335,6 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = "Евент 08. Второй этаж. Ловушка. Удача",
                 Desc = "Лениво выписывая пируэты и продолжая движение вперёд, Герой продолжил отрёчённые размышления о том как сложно в современном мире найти достойное приключение для профессионального героя. Вот другое дело в старые добрые времена, когда геройствовать ходили необученные недоросли способные получить стрелой в колено на таких вот старых как мир ловушках.",
-                RequirementSkill = new List<Skill> { evasionSkill }
             };
             var event8p4 = new Event
             {
@@ -526,143 +392,6 @@ namespace WebWriterV2.RpgUtility
             return list;
         }
 
-        public static List<Skill> GenerateSkills(List<SkillSchool> schools, List<StateType> stateTypes)
-        {
-            var baseSchool = schools.FirstOrDefault(x => x.Name == "Базовые умения");
-            var coldSchool = schools.FirstOrDefault(x => x.Name == "Школа льда");
-            var fireSchool = schools.FirstOrDefault(x => x.Name == "Школа пламени");
-            var niceSchool = schools.FirstOrDefault(x => x.Name == "Соблазнения");
-
-            var hp = stateTypes.First(x => x.Name == Hp);
-            var mp = stateTypes.First(x => x.Name == Mp);
-
-            var skills = new List<Skill>();
-
-            /* ************ Fire ************ */
-            skills.Add(new Skill
-            {
-                Name = FireBall,
-                Desc = FireBall,
-                School = fireSchool,
-                Price = 10,
-                SelfChanging = new List<State> { new State { StateType = mp, Number = -4 } },
-                TargetChanging = new List<State> { new State { StateType = hp, Number = -6 } }
-            });
-
-            skills.Add(new Skill
-            {
-                Name = "Pyro blast",
-                Desc = "Pyro blast",
-                School = fireSchool,
-                Price = 30,
-                SelfChanging = new List<State> { new State { StateType = mp, Number = -10 } },
-                TargetChanging = new List<State> { new State { StateType = hp, Number = -10 } },
-            });
-
-            /* ************ Cold ************ */
-            skills.Add(new Skill
-            {
-                Name = "Ice spear",
-                Desc = "Ice spear",
-                School = coldSchool,
-                Price = 10,
-                SelfChanging = new List<State> { new State { StateType = mp, Number = -2 } },
-                TargetChanging = new List<State> { new State { StateType = hp, Number = -3 } },
-            });
-
-            skills.Add(new Skill
-            {
-                Name = "Ice armor",
-                Desc = "Ice armor",
-                School = coldSchool,
-                Price = 5,
-                SelfChanging = new List<State>
-                {
-                    new State { StateType = mp, Number = -4 },
-                    new State { StateType = hp, Number = 10 }
-                }
-            });
-
-            /* ************ Seduction ************ */
-            skills.Add(new Skill
-            {
-                Name = "69",
-                Desc = "No question, please. It's working and that all what you need to know",
-                School = niceSchool,
-                Price = 12,
-            });
-
-            /* ************ Base ************ */
-            skills.Add(new Skill
-            {
-                Name = "Удар рукой",
-                Desc = "Что может быть проще?",
-                School = baseSchool,
-                Price = 3,
-                TargetChanging = new List<State> { new State { StateType = hp, Number = -2 } },
-            });
-
-            skills.Add(new Skill
-            {
-                Name = "Блок щитом",
-                Desc = "Кто хочет жить, использует щит",
-                School = baseSchool,
-                Price = 3,
-                SelfChanging = new List<State> { new State { StateType = hp, Number = 2 } },
-            });
-
-            skills.Add(new Skill
-            {
-                Name = EvasionSkill,
-                Desc = "Для тех кто хочет умереть красиво",
-                School = baseSchool,
-                Price = 3,
-                SelfChanging = new List<State> { new State { StateType = hp, Number = 1 } },
-            });
-
-            return skills;
-        }
-
-        public static List<TrainingRoom> GenerateTrainingRooms(List<SkillSchool> schools)
-        {
-            var baseSchool = schools.FirstOrDefault(x => x.Name == "Базовые умения");
-            var coldSchool = schools.FirstOrDefault(x => x.Name == "Школа льда");
-            var fireSchool = schools.FirstOrDefault(x => x.Name == "Школа пламени");
-            var niceSchool = schools.FirstOrDefault(x => x.Name == "Соблазнения");
-
-            var rooms = new List<TrainingRoom>();
-
-            rooms.Add(new TrainingRoom
-            {
-                Name = "Жаровня",
-                School = fireSchool,
-                Price = 300
-            });
-
-            rooms.Add(new TrainingRoom
-            {
-                Name = "Холодильник",
-                School = coldSchool,
-                Price = 120
-            });
-
-            rooms.Add(new TrainingRoom
-            {
-                Name = "Бар",
-                School = niceSchool,
-                Price = 500
-            });
-
-            rooms.Add(new TrainingRoom
-            {
-                Name = "Комната посвящения",
-                School = baseSchool,
-                Price = 10
-            });
-
-            return rooms;
-        }
-
         public static List<StateType> GenerateStateTypes()
         {
             var stateTypes = new List<StateType>();
@@ -712,97 +441,14 @@ namespace WebWriterV2.RpgUtility
             return stateTypes;
         }
 
-        public static List<CharacteristicType> GenerateCharacteristicType(List<StateType> stateTypes)
+        public static Hero GetDefaultHero(List<StateType> stateTypes)
         {
-            var maxHp = stateTypes.First(x => x.Name == MaxHp);
-            var hp = stateTypes.First(x => x.Name == Hp);
-            var dodge = stateTypes.First(x => x.Name == Dodge);
-            var damage = stateTypes.First(x => x.Name == Damage);
-            var armor = stateTypes.First(x => x.Name == Armor);
-            var characteristicType = new List<CharacteristicType>();
-
-            characteristicType.Add(new CharacteristicType
-            {
-                Name = Strength,
-                Desc = "Чем сильней, тем тупей, шутят над орками. А те почему-то смеются и бьют себя в голову",
-                EffectState = new List<State>
-                {
-                    new State { StateType = maxHp, Number = 5 },
-                    new State { StateType = hp, Number = 5 },
-                    new State { StateType = damage, Number = 2 },
-                    new State { StateType = armor, Number = 1 }
-                }
-            });
-
-            characteristicType.Add(new CharacteristicType
-            {
-                Name = Agility,
-                Desc = "Удержать яйцо на иголке? Легко!",
-                EffectState = new List<State> {
-                    new State { StateType = dodge, Number = 5 },
-                    new State { StateType = damage, Number = 1 },
-                }
-            });
-
-            characteristicType.Add(new CharacteristicType
-            {
-                Name = Charism,
-                Desc = "Это не честно кричала некрасивая девочка, глядя как выходит за муж очередная подруга",
-                EffectState = new List<State> {
-                    //new State { StateType = gold, Number = 10 }
-                    new State { StateType = dodge, Number = 2 }
-                }
-            });
-
-            return characteristicType;
-        }
-
-        public static List<SkillSchool> GenerateSchools()
-        {
-            var schools = new List<SkillSchool>();
-
-            schools.Add(new SkillSchool
-            {
-                Name = SchoolBaseSkillName,
-                Desc = "Доступны всем по умолчанию. Ну разве что кроме совсем 'одарённых'"
-            });
-
-            schools.Add(new SkillSchool
-            {
-                Name = SchoolColdSkillName,
-                Desc = "Охладись и начинай"
-            });
-
-            schools.Add(new SkillSchool
-            {
-                Name = SchoolFireSkillName,
-                Desc = "Для тех кто любит зажигать"
-            });
-
-            schools.Add(new SkillSchool
-            {
-                Name = SchoolNiceSkillName,
-                Desc = "Всё то что поможет вам убедить людей, без грубой силой"
-            });
-
-            return schools;
-        }
-
-        public static Hero GetDefaultHero(List<StateType> stateTypes,
-            List<CharacteristicType> characteristicTypes,
-            List<Skill> skills)
-        {
-            skills = skills ?? new List<Skill>();
-            characteristicTypes = characteristicTypes ?? new List<CharacteristicType>();
-
             var hero = new Hero();
 
             //hero.State = stateTypes.Select(x => new State { Number = 1, StateType = x }).ToList();
             //hero.Characteristics = characteristicTypes.Select(x => new Characteristic { Number = 1, CharacteristicType = x }).ToList();
 
             hero.State = new List<State>();
-            hero.Characteristics = new List<Characteristic>();
-            hero.Skills = skills;
 
             return hero;
         }

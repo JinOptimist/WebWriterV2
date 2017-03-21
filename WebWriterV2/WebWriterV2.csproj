@@ -161,19 +161,13 @@
     <Compile Include="FrontModels\FrontStateType.cs" />
     <Compile Include="FrontModels\FrontEvaluation.cs" />
     <Compile Include="FrontModels\FrontUser.cs" />
-    <Compile Include="FrontModels\FrontSkillSchool.cs" />
     <Compile Include="FrontModels\FrontThing.cs" />
     <Compile Include="FrontModels\FrontThingSample.cs" />
     <Compile Include="FrontModels\FrontState.cs" />
-    <Compile Include="FrontModels\FrontCharacteristicType.cs" />
     <Compile Include="FrontModels\FrontQuest.cs" />
     <Compile Include="FrontModels\FrontEvent.cs" />
-    <Compile Include="FrontModels\FrontGuild.cs" />
     <Compile Include="FrontModels\FrontHero.cs" />
     <Compile Include="FrontModels\FrontEnum.cs" />
-    <Compile Include="FrontModels\FrontCharacteristic.cs" />
-    <Compile Include="FrontModels\FrontTrainingRoom.cs" />
-    <Compile Include="FrontModels\FrontSkill.cs" />
     <Compile Include="RpgUtility\EventHelper.cs" />
     <Compile Include="RpgUtility\ThingHelper.cs" />
     <Compile Include="RpgUtility\StateHelper.cs" />
@@ -673,25 +667,17 @@
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\underscore.min.map" />
     <None Include="Scripts\_references.js" />
-    <Content Include="Views\Rpg\admin\Characteristic.html" />
     <Content Include="Views\Rpg\Header.html" />
     <Content Include="Views\Rpg\admin\Thing.html" />
     <Content Include="Views\Rpg\admin\State.html" />
     <Content Include="Views\Rpg\admin\Event.html" />
     <Content Include="Views\Rpg\admin\Quest.html" />
-    <Content Include="Views\Rpg\directives\ngGuild.html" />
-    <Content Include="Views\Rpg\admin\Skill.html" />
     <Content Include="Views\Rpg\AboutUs.html" />
     <Content Include="Views\Rpg\ListQuest.html" />
-    <Content Include="Views\Rpg\TraningRoom.html" />
-    <Content Include="Views\Rpg\Battle.html" />
     <Content Include="Views\Rpg\Profile.html" />
     <Content Include="Views\Rpg\Travel.html" />
-    <Content Include="Views\Rpg\Guild.html" />
-    <Content Include="Views\Rpg\ListHeroes.html" />
     <Content Include="Views\Rpg\directives\ngHeroCard.html" />
     <Content Include="Views\Rpg\directives\ngQuestInfo.html" />
-    <Content Include="Views\Rpg\CreateHero.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

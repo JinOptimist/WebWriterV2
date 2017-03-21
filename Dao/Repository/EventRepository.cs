@@ -11,7 +11,6 @@ namespace Dao.Repository
     {
         private readonly Lazy<EventLinkItemRepository> _eventLinkItemRepository;
         private readonly ThingRepository _thingRepository;
-        private readonly CharacteristicRepository _characteristicRepository;
         private readonly StateRepository _stateRepository;
         private readonly HeroRepository _heroRepository;
 
@@ -20,7 +19,6 @@ namespace Dao.Repository
         {
             _eventLinkItemRepository = new Lazy<EventLinkItemRepository>(() => new EventLinkItemRepository(db));
             _thingRepository = new ThingRepository(db);
-            _characteristicRepository = new CharacteristicRepository(db);
             _stateRepository = new StateRepository(db);
             _heroRepository = new HeroRepository(db);
         }
@@ -60,10 +58,6 @@ namespace Dao.Repository
             if (currentEvent.ThingsChanges?.Any() ?? false)
             {
                 _thingRepository.Remove(currentEvent.ThingsChanges);
-            }
-            if (currentEvent.CharacteristicsChanges?.Any() ?? false)
-            {
-                _characteristicRepository.Remove(currentEvent.CharacteristicsChanges);
             }
             if (currentEvent.RequirementThings?.Any() ?? false)
             {

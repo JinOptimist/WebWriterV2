@@ -65,8 +65,6 @@
     <Compile Include="ContextForRepository.cs" />
     <Compile Include="IRepository\IBaseRepository.cs" />
     <Compile Include="IRepository\IEventRepository.cs" />
-    <Compile Include="IRepository\ICharacteristicTypeRepository.cs" />
-    <Compile Include="IRepository\ICharacteristicRepository.cs" />
     <Compile Include="IRepository\IEventLinkItemRepository.cs" />
     <Compile Include="IRepository\IEvaluationRepository.cs" />
     <Compile Include="IRepository\IUserRepository.cs" />
@@ -74,11 +72,7 @@
     <Compile Include="IRepository\IThingSampleRepository.cs" />
     <Compile Include="IRepository\IStateTypeRepository.cs" />
     <Compile Include="IRepository\IStateRepository.cs" />
-    <Compile Include="IRepository\ITrainingRoomRepository.cs" />
-    <Compile Include="IRepository\ISkillSchoolRepository.cs" />
-    <Compile Include="IRepository\IGuildRepository.cs" />
     <Compile Include="IRepository\IHeroRepository.cs" />
-    <Compile Include="IRepository\ISkillRepository.cs" />
     <Compile Include="IRepository\IQuestRepository.cs" />
     <Compile Include="Migrations\201612271529401_RpgInitV2.cs" />
     <Compile Include="Migrations\201612271529401_RpgInitV2.Designer.cs">
@@ -144,32 +138,27 @@
     <Compile Include="Migrations\201703100727109_AddEvaluation.Designer.cs">
       <DependentUpon>201703100727109_AddEvaluation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703211119013_BigClean.cs" />
+    <Compile Include="Migrations\201703211119013_BigClean.Designer.cs">
+      <DependentUpon>201703211119013_BigClean.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
-    <Compile Include="Model\CharacteristicType.cs" />
     <Compile Include="Model\Enums.cs" />
     <Compile Include="Model\EventLinkItem.cs" />
     <Compile Include="Model\IUpdatable.cs" />
-    <Compile Include="Model\SkillSchool.cs" />
     <Compile Include="Model\Evaluation.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\StateType.cs" />
     <Compile Include="Model\State.cs" />
     <Compile Include="Model\Event.cs" />
-    <Compile Include="Model\Characteristic.cs" />
-    <Compile Include="Model\Guild.cs" />
     <Compile Include="Model\Hero.cs" />
-    <Compile Include="Model\Location.cs" />
     <Compile Include="Model\Quest.cs" />
-    <Compile Include="Model\Skill.cs" />
     <Compile Include="Model\Thing.cs" />
     <Compile Include="Model\ThingSample.cs" />
-    <Compile Include="Model\TrainingRoom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\EventRepository.cs" />
-    <Compile Include="Repository\CharacteristicTypeRepository.cs" />
-    <Compile Include="Repository\CharacteristicRepository.cs" />
     <Compile Include="Repository\EventLinkItemRepository.cs" />
     <Compile Include="Repository\EvaluationRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
@@ -177,11 +166,7 @@
     <Compile Include="Repository\ThingSampleRepository.cs" />
     <Compile Include="Repository\StateTypeRepository.cs" />
     <Compile Include="Repository\StateRepository.cs" />
-    <Compile Include="Repository\TrainingRoomRepository.cs" />
-    <Compile Include="Repository\SkillSchoolRepository.cs" />
-    <Compile Include="Repository\GuildRepository.cs" />
     <Compile Include="Repository\HeroRepository.cs" />
-    <Compile Include="Repository\SkillRepository.cs" />
     <Compile Include="Repository\QuestRepository.cs" />
     <Compile Include="WriterConfiguration.cs" />
     <Compile Include="WriterContext.cs" />
@@ -239,6 +224,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703100727109_AddEvaluation.resx">
       <DependentUpon>201703100727109_AddEvaluation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703211119013_BigClean.resx">
+      <DependentUpon>201703211119013_BigClean.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

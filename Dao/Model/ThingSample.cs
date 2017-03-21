@@ -11,10 +11,6 @@ namespace Dao.Model
 
         public virtual string Desc { get; set; }
 
-        public virtual Sex RequirementSex { get; set; }
-
-        public virtual Race RequirementRace { get; set; }
-
         /// <summary>
         /// If true, you must destroy item after used
         /// </summary>
@@ -24,16 +20,8 @@ namespace Dao.Model
         /// <summary>
         /// Changing while is used
         /// </summary>
-        public virtual List<Characteristic> PassiveCharacteristics { get; set; }
-        /// <summary>
-        /// Changing while is used
-        /// </summary>
         public virtual List<State> PassiveStates { get; set; }
 
-        /// <summary>
-        /// Changing when using
-        /// </summary>
-        public virtual List<Characteristic> UsingEffectCharacteristics { get; set; }
         /// <summary>
         /// Changing when using
         /// </summary>

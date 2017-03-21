@@ -37,19 +37,6 @@ namespace WebWriterV2.RpgUtility
                     heroState.Number += state.Number;
                 }
             }
-
-            foreach (var chara in eventDb.CharacteristicsChanges)
-            {
-                var characteristic = hero.Characteristics.FirstOrDefault(x => x.CharacteristicType.Id == chara.CharacteristicType.Id);
-                if (characteristic == null)
-                {
-                    hero.Characteristics.Add(chara.Copy());
-                }
-                else
-                {
-                    characteristic.Number += chara.Number;
-                }
-            }
         }
 
         public static void FilterLink(this List<EventLinkItem> links, Hero hero)
@@ -58,35 +45,7 @@ namespace WebWriterV2.RpgUtility
             foreach (var link in links)
             {
                 var destination = link.To;
-                /* Filter by Sex */
-                var failBySex = destination.RequirementSex.HasValue
-                                && destination.RequirementSex.Value != hero.Sex
-                                && destination.RequirementSex.Value != Sex.None;
-                /* Filter by Race */
-                var failByRace = destination.RequirementRace.HasValue
-                                 && destination.RequirementRace.Value != hero.Race
-                                 && destination.RequirementRace.Value != Race.None;
-                /* Filter by Skill */
-                var failBySkill = destination.RequirementSkill.Any(skill => !hero.Skills.Contains(skill));
-                if (failBySex || failByRace || failBySkill)
-                {
-                    forRemove.Add(link);
-                    continue;
-                }
-
-                /* Filter by Characteristic */
-                foreach (var characteristic in destination.RequirementCharacteristics)
-                {
-                    var heroCharacteristic = hero.Characteristics.FirstOrDefault(
-                        x => x.CharacteristicType.Id == characteristic.CharacteristicType.Id);
-                    if (heroCharacteristic == null
-                        || !CheckRequirement(heroCharacteristic.Number, characteristic.Number, characteristic.RequirementType))
-                    {
-                        forRemove.Add(link);
-                    }
-                }
-
-                /* Filter by Characteristic */
+                /* Filter by States */
                 foreach (var state in destination.RequirementStates)
                 {
                     var heroState = hero.State.FirstOrDefault(

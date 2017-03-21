@@ -25,18 +25,5 @@ namespace Dao.Model
         public virtual DateTime TimeCreation { get; set; }
 
         public virtual DateTime LastChanges { get; set; }
-
-        // need to remove
-        [Required]
-        public virtual Race Race { get; set; }
-
-        [Required]
-        public virtual Sex Sex { get; set; }
-
-        public virtual List<Characteristic> Characteristics { get; set; }
-
-        public virtual List<Skill> Skills { get; set; }
-
-        public virtual Guild Guild { get; set; }
     }
 }
