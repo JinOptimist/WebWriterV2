@@ -15,29 +15,23 @@
         <p ng-if="user.IsAdmin || user.IsWriter"
            style="border-bottom: 1px dotted green; padding: 10px 7px">
             Уголок Писателя:
-            <a href="AngularRoute/admin/quest/">Квесты админка</a>
-            | <a href="AngularRoute/aboutUs">О сайте</a>
+            <a href="AngularRoute/admin/quest/">Произведения админка</a>
+            | <a href="AngularRoute/aboutUs">Зачем вам это?</a>
 
             <!--| <a href="AngularRoute/admin/State">Админка Состояний</a>
             | <a href="AngularRoute/admin/Thing">Админка Вещей</a>-->
-            <!--| <a href="AngularRoute/admin/Skill">Админка скилов</a>
-            | <a href="AngularRoute/admin/Characteristic">Админка характеристик</a>-->
         </p>
 
         <p style="padding: 10px 7px">
-            <span ng-if="user.Id">Привет, {{user.Name}}. <a href="#" ng-click="exit()">Выход</a></span>
             <a id="login-lnk" ng-if="!user.Id" href="#" ng-click="openLogin()">Login</a>
             <span ng-if="!user.Id">|</span>
             <a id="register-lnk" ng-if="!user.Id" href="#" ng-click="openRegister()">Register</a>
-            | <a href="AngularRoute/listQuest">Список квестов</a>
-            | <a ng-if="user.Id" class="profile-lnk" href="AngularRoute/profile">Профиль</a>
-
-
-            <!--| <a href="AngularRoute/createHero">Создать героя</a>-->
-            <!--| <a ng-if="user.Id" href="AngularRoute/listHeroes">Список героев</a>-->
-            <!--| <a ng-if="user.Id" href="AngularRoute/guild">Гильдия</a>-->
-            <!--| <a href="AngularRoute/travel">Путешествие</a>-->
-            <!--| <a href="AngularRoute/traningRoom">Комната тренировок</a>-->
+            <span ng-if="!user.Id">|</span>
+            <a href="AngularRoute/listQuest">Произведения</a>
+            <span ng-if="user.Id">|</span>
+            <a ng-if="user.Id" class="profile-lnk" href="AngularRoute/profile">Профиль</a>
+            <span ng-if="user.Id">|</span>
+            <span ng-if="user.Id">Привет, {{user.Name}}. |  <a href="#" ng-click="exit()">Выход</a></span>
         </p>
 
         <div ng-if="activeLogin || activeRegister">

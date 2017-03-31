@@ -728,9 +728,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
     .factory('authInterceptorService', ['$q', '$location', '$cookies', '_',
         function ($q, $location, $cookies, _) {
             function request(request) {
-                // TODO
-                //goToLogin();
-                $cookies.put('guildId', 2);
+                // TODO check permission to get access to admin panel
+                // goToLogin();
                 return request;
             }
 
@@ -741,7 +740,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
 
             function response(response) {
                 // do something on success
-                //var gamerId = $cookies.get('guildId');
                 return response;
             }
 

@@ -2,7 +2,7 @@
     <div class="content">
         <div class="specialMarginForQuests">
             <h1 class="text">
-                Квесты
+                Произведения
             </h1>
         </div>
 
@@ -10,7 +10,7 @@
             <img ng-src="/Content/icon/wait.gif" />
         </div>
         <div ng-if="quests">
-            <p>Кликни на квест что бы отправиться в путешествие</p>
+            <p>Кликни на произведение что бы отправиться в путешествие</p>
             <div ng-repeat="quest in quests" style="cursor: pointer;">
                 <ng-quest-info id="quest-{{::quest.Id}}" ng-click="goToQuest(quest)" quest="quest" style="float: left;"></ng-quest-info>
             </div>

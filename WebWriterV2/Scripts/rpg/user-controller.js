@@ -130,25 +130,6 @@ angular.module('rpg')
             };
 
             $scope.endQuest = function() {
-                //$scope.waiting = true;
-                //var guildId = $cookies.get('guildId');
-                //var url = '/Rpg/QuestCompleted?guildId=' + guildId + '&gold=' + $scope.quest.Effective;
-                //$http({
-                //        method: 'POST',
-                //        url: url,
-                //        headers: { 'Accept': 'application/json' }
-                //    })
-                //    .then(function(response) {
-                //        if (response.data == "+") {
-                //            $location.path('/AngularRoute/listQuest');
-                //        } else {
-                //            alert(response);
-                //        }
-                //        $scope.waiting = false;
-                //    }, function() {
-                //        alert("Hero want relax. Wait and try again");
-                //        $scope.waiting = false;
-                //    });
                 var questId = $scope.quest.Id;
                 $scope.evaluation.QuestId = questId;
                 evaluationService.save($scope.evaluation);
@@ -231,11 +212,6 @@ angular.module('rpg')
                     heroUpdated.State.forEach(function (state) {
                         var stateTypeId = state.StateType.Id;
                         setState(hero, stateTypeId, state.Number);
-                        //if (heroService.getHp(hero) < 1) {
-                        //    alert('Your hero is Dead. Noob!');
-                        //    $location.path('/AngularRoute/guild');
-                        //    return;
-                        //}
                     });
 
                     hero.Inventory = [];

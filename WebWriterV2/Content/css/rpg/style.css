@@ -145,15 +145,6 @@ p {
     display: none;
 }
 
-.guild-card {
-    width: 300px;
-    border: 1px #0003aa solid;
-}
-
-    .guild-card img {
-        width: 20px;
-    }
-
 .traning-room {
     width: 300px;
     border: 1px #006400 solid;
