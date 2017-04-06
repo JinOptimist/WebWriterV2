@@ -13,9 +13,6 @@ namespace Dao
             //Configuration.LazyLoadingEnabled = true;
         }
 
-        //public DbSet<Quest> Quest { get; set; }
-        //public DbSet<Event> Event { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

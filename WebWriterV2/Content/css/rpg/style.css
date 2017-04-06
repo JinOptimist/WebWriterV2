@@ -1,6 +1,14 @@
+body{
+    margin: 10px;
+}
+
 p {
     margin: 0;
     padding: 0;
+}
+
+label{
+    cursor: pointer;
 }
 
 .error {
@@ -124,6 +132,7 @@ p {
 .block300 {
     width: 300px;
 }
+
 .block900 {
     width: 900px;
 }
@@ -204,7 +213,7 @@ p {
     min-width: 200px;
 }
 
-.profile .evaluation{
+.profile .evaluation {
     margin-left: 20px
 }
 
@@ -272,15 +281,28 @@ form.ng-dirty input.save {
     }
 
 /* ****************** modal ****************** */
-.thingModal  .modal-dialog,
+.thingModal .modal-dialog,
 .statesModal .modal-dialog {
     width: 950px;
     height: 600px;
 }
 
 .thingModal .modal-content,
-.statesModal .modal-content{
+.statesModal .modal-content {
     height: 600px;
     overflow-x: hidden;
     overflow-y: auto;
+}
+
+/* About Us*/
+.male-minus {
+    border: 1px #00aacc solid;
+}
+
+.female-complex {
+    border: 1px #aa00cc solid;
+}
+
+.story-type {
+    border: 1px solid orange;
 }
