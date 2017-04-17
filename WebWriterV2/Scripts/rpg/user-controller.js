@@ -244,9 +244,12 @@
                     });
                 }
 
-                if ($scope.currentEvent.HeroStatesChanging
-                    && $scope.currentEvent.HeroStatesChanging.length > 0) {
-                    $scope.currentEvent.HeroStatesChanging.forEach(function (stateChanges) {
+                var heroStatesChanging = $scope.currentEvent.HeroStatesChanging == null ? [] : $scope.currentEvent.HeroStatesChanging;
+                var filterHeroStatesChangingFilter = heroStatesChanging.filter(function (state) {
+                    return !state.StateType.HideFromReader;
+                });
+                if (filterHeroStatesChangingFilter.length > 0) {
+                    filterHeroStatesChangingFilter.forEach(function (stateChanges) {
                         var symbol = stateChanges.Number > 0 ? '+' : '';
                         var message = stateChanges.StateType.Name + ':' + symbol + stateChanges.Number;
                         var changeId = 's' + stateChanges.Id;

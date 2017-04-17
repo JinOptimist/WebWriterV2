@@ -15,11 +15,13 @@ namespace WebWriterV2.FrontModels
             Id = stateType.Id;
             Name = stateType.Name;
             Desc = stateType.Desc;
+            HideFromReader = stateType.HideFromReader;
             OwnerId = stateType.Owner?.Id;
         }
 
         public string Name { get; set; }
         public string Desc { get; set; }
+        public bool HideFromReader { get; set; }
         public long? OwnerId { get; set; }
 
         public override StateType ToDbModel()
@@ -29,6 +31,7 @@ namespace WebWriterV2.FrontModels
                 Id = Id,
                 Name = Name,
                 Desc = Desc,
+                HideFromReader = HideFromReader,
                 Owner = OwnerId.HasValue ? new User { Id = OwnerId.Value } : null
             };
         }

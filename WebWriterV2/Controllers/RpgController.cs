@@ -386,14 +386,14 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult AddState(string name, string desc)
-        {
+        public JsonResult AddState(string name, string desc, bool hideFromReader) {
             var userId = CurrentUserId();
             User user = UserRepository.Get(userId);
             var stateType = new StateType
             {
                 Name = name,
                 Desc = desc,
+                HideFromReader = hideFromReader,
                 Owner = user,
             };
             var savedStateType = StateTypeRepository.Save(stateType);

@@ -15,7 +15,7 @@
         Mp {Mp()}}/{MaxMp()}}
     </span>-->
     <hr/>
-    <p><span ng-if="hero.State" ng-repeat="state in hero.State">
+    <p><span ng-repeat="state in hero.State" ng-if="hero.State && !state.StateType.HideFromReader">
             {{state.StateType.Name}}:
             <span id="stateType-{{state.StateType.Id}}-Value">{{state.Number}}</span> |
         </span></p>

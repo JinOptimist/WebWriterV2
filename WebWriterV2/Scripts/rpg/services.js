@@ -526,11 +526,12 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return httpHelper.call(url, data);
         }
 
-        function add(name, desc) {
+        function add(newState) {
             var url = '/Rpg/AddState';
             var data = {
-                name: name,
-                desc: desc
+                name: newState.Name,
+                desc: newState.Desc,
+                hideFromReader: newState.HideFromReader
             };
             return httpHelper.call(url, data);
         }

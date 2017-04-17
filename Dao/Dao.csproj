@@ -142,6 +142,10 @@
     <Compile Include="Migrations\201703211119013_BigClean.Designer.cs">
       <DependentUpon>201703211119013_BigClean.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704171237567_AddHideFromReaderToStateType.cs" />
+    <Compile Include="Migrations\201704171237567_AddHideFromReaderToStateType.Designer.cs">
+      <DependentUpon>201704171237567_AddHideFromReaderToStateType.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Enums.cs" />
@@ -227,6 +231,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703211119013_BigClean.resx">
       <DependentUpon>201703211119013_BigClean.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704171237567_AddHideFromReaderToStateType.resx">
+      <DependentUpon>201704171237567_AddHideFromReaderToStateType.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

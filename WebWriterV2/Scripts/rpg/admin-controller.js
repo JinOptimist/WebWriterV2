@@ -604,8 +604,11 @@ angular.module('rpg')
     ])
     .controller('adminStateController', ['$scope', '$uibModalInstance', 'stateService', function($scope, $uibModalInstance, stateService) {
         $scope.states = [];
-        $scope.newStateName = '';
-        $scope.newStateDesc = '';
+        $scope.newState = {
+            Name: '',
+            Desc: '',
+            HideFromReader: false
+        };
 
         init();
 
@@ -632,12 +635,12 @@ angular.module('rpg')
         }
 
         $scope.add = function() {
-            stateService.add($scope.newStateName, $scope.newStateDesc)
+            stateService.add($scope.newState)
                 .then(function(data) {
                     $scope.states.push(data);
-
-                    $scope.newStateName = '';
-                    $scope.newStateDesc = '';
+                    $scope.newState.Name = '';
+                    $scope.newState.Desc = '';
+                    $scope.newState.HideFromReader = false;
                 });
         }
 
