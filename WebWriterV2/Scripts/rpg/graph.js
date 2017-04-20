@@ -22,11 +22,10 @@ var EventGraph = (function () {
                 continue;
             for (var j = 0; j < event.LinksFromThisEvent.length; j++) {
                 var linkFromThisEvent = event.LinksFromThisEvent[j];
-                var color = event.ProgressChanging > 0 ? "green" : "red";
                 graph.addEdge(linkFromThisEvent.FromId, linkFromThisEvent.ToId, {
-                    fill: color,
-                    stroke: color,
-                    label: 'Effective: ' + event.ProgressChanging,
+                    fill: "#a2a",
+                    stroke: "#c2c",
+                    //label: 'Effective: ' + event.ProgressChanging,
                     directed: true,
                 });
             }

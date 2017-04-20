@@ -20,7 +20,7 @@
         <br />
         <textarea ng-model="importJson" rows="10" cols="100"></textarea>
     </div>
-    <h3 ng-show="quest" ng-click="toggleShowEditPanel()" style="cursor: pointer;">{{showEditPanel ? 'Hide' : 'Show'}} quest edit block</h3>
+    <h3 ng-show="quest" ng-click="toggleShowEditPanel()" style="cursor: pointer;">{{showEditPanel ? 'Спрятать' : 'Показать'}} поля редактирования {{showEditPanel ? "&uarr;" : "&darr;"}}</h3>
     <form ng-show="quest && showEditPanel" novalidate style="width: 1000px; float: left;">
         <input type="submit" ng-click="saveQuest()" value="Save"/>
         <input type="button" ng-click="exportQuest()" value="Export" style="float: right;"/>
