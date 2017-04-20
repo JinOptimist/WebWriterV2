@@ -67,6 +67,7 @@
     <Compile Include="IRepository\IEventRepository.cs" />
     <Compile Include="IRepository\IEventLinkItemRepository.cs" />
     <Compile Include="IRepository\IEvaluationRepository.cs" />
+    <Compile Include="IRepository\IGenreRepository.cs" />
     <Compile Include="IRepository\IUserRepository.cs" />
     <Compile Include="IRepository\IThingRepository.cs" />
     <Compile Include="IRepository\IThingSampleRepository.cs" />
@@ -146,10 +147,15 @@
     <Compile Include="Migrations\201704171237567_AddHideFromReaderToStateType.Designer.cs">
       <DependentUpon>201704171237567_AddHideFromReaderToStateType.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704191013463_AddGenre.cs" />
+    <Compile Include="Migrations\201704191013463_AddGenre.Designer.cs">
+      <DependentUpon>201704191013463_AddGenre.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Enums.cs" />
     <Compile Include="Model\EventLinkItem.cs" />
+    <Compile Include="Model\Genre.cs" />
     <Compile Include="Model\IUpdatable.cs" />
     <Compile Include="Model\Evaluation.cs" />
     <Compile Include="Model\User.cs" />
@@ -165,6 +171,7 @@
     <Compile Include="Repository\EventRepository.cs" />
     <Compile Include="Repository\EventLinkItemRepository.cs" />
     <Compile Include="Repository\EvaluationRepository.cs" />
+    <Compile Include="Repository\GenreRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Repository\ThingRepository.cs" />
     <Compile Include="Repository\ThingSampleRepository.cs" />
@@ -234,6 +241,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704171237567_AddHideFromReaderToStateType.resx">
       <DependentUpon>201704171237567_AddHideFromReaderToStateType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704191013463_AddGenre.resx">
+      <DependentUpon>201704191013463_AddGenre.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -32,6 +32,10 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     templateUrl: '/views/rpg/admin/Quest.html',
                     controller: 'adminQuestGeneralController'
                 })
+                .when('/AngularRoute/admin/genres', {
+                    templateUrl: '/views/rpg/admin/Genre.html',
+                    controller: 'adminGenreController'
+                })
                 /* front */
                 .when('/AngularRoute/login', {
                     templateUrl: '/views/rpg/Login.html',

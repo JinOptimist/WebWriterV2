@@ -29,6 +29,12 @@
             Name: <input type="text" ng-model="quest.Name"/>
         </p>
         <p>
+            <span ng-if="quest.Genre">
+                Genre: {{quest.Genre.Name}}                
+            </span>
+            Change genre: <select ng-model="quest.Genre" ng-options="genre as genre.Name for genre in allGenres"></select>
+        </p>
+        <p>
             Desc: <textarea id="desc" ng-model="quest.Desc"></textarea>
         </p>
     </form>

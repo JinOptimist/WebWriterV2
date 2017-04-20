@@ -581,6 +581,35 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return httpHelper.call(url, data);
         }
     }])
+    .service('genreService', ['httpHelper', '_', function (httpHelper, _) {
+        return {
+            getAll: getAll,
+            add: add,
+            remove: remove,
+        };
+
+        function getAll() {
+            var url = '/Rpg/GetGenres';
+            return httpHelper.call(url);
+        }
+
+        function add(newGenre) {
+            var url = '/Rpg/AddGenre';
+            var data = {
+                name: newGenre.Name,
+                desc: newGenre.Desc
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function remove(genreId) {
+            var url = '/Rpg/RemoveGenre';
+            var data = {
+                genreId: genreId
+            };
+            return httpHelper.call(url, data);
+        }
+    }])
     .service('userService', ['$cookies', '$q', 'httpHelper', 'ConstCookies',
         function ($cookies, $q, httpHelper, ConstCookies) {
         var currentUser = null;

@@ -36,6 +36,8 @@ namespace Dao
             modelBuilder.Entity<EventLinkItem>().HasOptional(x => x.To).WithMany(x => x.LinksToThisEvent);
             modelBuilder.Entity<EventLinkItem>().HasOptional(x => x.From).WithMany(x => x.LinksFromThisEvent);
 
+            modelBuilder.Entity<Genre>().HasMany(u => u.Quests).WithOptional(x => x.Genre);
+
             modelBuilder.Entity<Hero>().HasMany(u => u.State).WithOptional().WillCascadeOnDelete(true);
             modelBuilder.Entity<Hero>().HasMany(u => u.Inventory).WithOptional(x => x.Hero);
             //modelBuilder.Entity<Hero>().HasOptional(u => u.CurrentEvent)

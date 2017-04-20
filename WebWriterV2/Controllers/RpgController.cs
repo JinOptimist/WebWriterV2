@@ -40,6 +40,7 @@ namespace WebWriterV2.Controllers
         public IThingRepository ThingRepository { get; set; }
         public IUserRepository UserRepository { get; set; }
         public IEvaluationRepository EvaluationRepository { get; set; }
+        public IGenreRepository GenreRepository { get; set; }
         #endregion
 
         public RpgController()
@@ -54,6 +55,7 @@ namespace WebWriterV2.Controllers
             ThingRepository = new ThingRepository(_context);
             UserRepository = new UserRepository(_context);
             EvaluationRepository = new EvaluationRepository(_context);
+            GenreRepository = new GenreRepository(_context);
 
             //using (var scope = StaticContainer.Container.BeginLifetimeScope())
             //{
@@ -79,12 +81,10 @@ namespace WebWriterV2.Controllers
         {
             var user = UserRepository.Login(username, password);
             FrontUser frontUser = null;
-            if (user != null)
-            {
+            if (user != null) {
                 frontUser = new FrontUser(user);
             }
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontUser),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -98,8 +98,7 @@ namespace WebWriterV2.Controllers
             user = UserRepository.Save(user);
             frontUser = new FrontUser(user);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontUser),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -109,8 +108,7 @@ namespace WebWriterV2.Controllers
         {
             var user = UserRepository.Get(userId);
             var frontUser = new FrontUser(user);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontUser),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -125,8 +123,7 @@ namespace WebWriterV2.Controllers
             var fronHero = SerializeHelper.Deserialize<FrontHero>(heroJson);
             var hero = fronHero.ToDbModel();
 
-            if (hero.Id > 0)
-            {
+            if (hero.Id > 0) {
                 HeroRepository.Remove(hero.Id);
                 hero.Id = 0;
             }
@@ -138,8 +135,7 @@ namespace WebWriterV2.Controllers
 
             HeroRepository.Save(hero);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -149,8 +145,7 @@ namespace WebWriterV2.Controllers
         {
             //TODO check is user can remove another user
             UserRepository.Remove(userId);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -160,13 +155,10 @@ namespace WebWriterV2.Controllers
         {
             var userId = CurrentUserId();
             var user = UserRepository.Get(userId);
-            if (user.UserType == UserType.Reader)
-            {
+            if (user.UserType == UserType.Reader) {
                 user.UserType = UserType.Writer;
                 UserRepository.Save(user);
-            }
-            else
-            {
+            } else {
                 //TODO log error behavior
             }
 
@@ -179,9 +171,59 @@ namespace WebWriterV2.Controllers
             var listRequirementType = Enum.GetValues(typeof(RequirementType)).Cast<RequirementType>();
             var listNameValue = listRequirementType.Select(requirementType => new FrontEnum(requirementType));
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(listNameValue),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        /* ************** Genre ************** */
+        public JsonResult GetGenres()
+        {
+            var genres = GenreRepository.GetAll();
+            var frontGenres = genres.Select(x => new FrontGenre(x)).ToList();
+
+            return new JsonResult {
+                Data = JsonConvert.SerializeObject(frontGenres),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult AddGenre(string name, string desc)
+        {
+            var genre = new Genre {
+                Name = name,
+                Desc = desc
+            };
+            genre = GenreRepository.Save(genre);
+            var frontGenre = new FrontGenre(genre);
+
+            return new JsonResult {
+                Data = JsonConvert.SerializeObject(frontGenre),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult SaveGenre(string jsonGenre)
+        {
+            var frontGenre = SerializeHelper.Deserialize<FrontGenre>(jsonGenre);
+            var genre = frontGenre.ToDbModel();
+
+            GenreRepository.Save(genre);
+
+            frontGenre = new FrontGenre(genre);
+
+            return new JsonResult {
+                Data = SerializeHelper.Serialize(genre),
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult RemoveGenre(int genreId)
+        {
+            GenreRepository.Remove(genreId);
+            return new JsonResult {
+                Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -190,8 +232,7 @@ namespace WebWriterV2.Controllers
         public JsonResult GetHero(long heroId)
         {
             var hero = HeroRepository.Get(heroId);
-            if (hero == null)
-            {
+            if (hero == null) {
                 var stateTypes = StateTypeRepository.GetAll();
                 hero = GenerateData.GetDefaultHero(stateTypes);
             }
@@ -199,8 +240,7 @@ namespace WebWriterV2.Controllers
             var a = hero.Inventory?.FirstOrDefault();
 
             var frontHero = new FrontHero(hero);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(frontHero),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -210,8 +250,7 @@ namespace WebWriterV2.Controllers
         {
             var heroes = HeroRepository.GetAll();
             var frontHeroes = heroes.Select(x => new FrontHero(x)).ToList();
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(frontHeroes),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -225,8 +264,7 @@ namespace WebWriterV2.Controllers
             HeroRepository.Save(hero);
             frontHero.Id = hero.Id;
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(frontHero),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -239,8 +277,7 @@ namespace WebWriterV2.Controllers
             ThingRepository.Remove(things);
 
             HeroRepository.Remove(id);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = true,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -250,8 +287,7 @@ namespace WebWriterV2.Controllers
         {
             var h = HeroRepository.GetAll();
             h.ForEach(HeroRepository.Remove);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = true,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -261,8 +297,7 @@ namespace WebWriterV2.Controllers
         {
             var heroes = HeroRepository.GetAll();
             var frontHero = new FrontHero(heroes.LastOrDefault());
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(frontHero),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -274,8 +309,7 @@ namespace WebWriterV2.Controllers
 
             var hero = GenerateData.GetDefaultHero(stateTypes);
             var frontHero = new FrontHero(hero);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(frontHero),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -294,8 +328,7 @@ namespace WebWriterV2.Controllers
 
             EvaluationRepository.Save(evaluation);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -307,8 +340,7 @@ namespace WebWriterV2.Controllers
             var thingSamples = ThingSampleRepository.GetAll();
             var thingSamplesFront = thingSamples.Select(x => new FrontThingSample(x)).ToList();
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(thingSamplesFront),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -317,8 +349,7 @@ namespace WebWriterV2.Controllers
         public JsonResult AddThing(string name, string desc)
         {
             var user = UserRepository.Get(CurrentUserId());
-            var thingSample = new ThingSample
-            {
+            var thingSample = new ThingSample {
                 Name = name,
                 Desc = desc,
                 Owner = user
@@ -326,8 +357,7 @@ namespace WebWriterV2.Controllers
 
             var savedThingSample = ThingSampleRepository.Save(thingSample);
             var frontThingSample = new FrontThingSample(savedThingSample);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(frontThingSample),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -337,8 +367,7 @@ namespace WebWriterV2.Controllers
         {
             //TODO check permission to remove thing
             ThingSampleRepository.Remove(thingId);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -351,8 +380,7 @@ namespace WebWriterV2.Controllers
             var stateTypes = StateTypeRepository.AvailableForUse(userId);
             var frontStateTypes = stateTypes.Select(x => new FrontStateType(x)).ToList();
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(frontStateTypes),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -364,8 +392,7 @@ namespace WebWriterV2.Controllers
             var stateTypes = StateTypeRepository.AvailableForEdit(userId);
             var frontStateTypes = stateTypes.Select(x => new FrontStateType(x)).ToList();
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(frontStateTypes),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -379,18 +406,17 @@ namespace WebWriterV2.Controllers
             StateRepository.Save(state);
 
             var frontHero = new FrontState(state);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(frontHero),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 
-        public JsonResult AddState(string name, string desc, bool hideFromReader) {
+        public JsonResult AddState(string name, string desc, bool hideFromReader)
+        {
             var userId = CurrentUserId();
             User user = UserRepository.Get(userId);
-            var stateType = new StateType
-            {
+            var stateType = new StateType {
                 Name = name,
                 Desc = desc,
                 HideFromReader = hideFromReader,
@@ -398,8 +424,7 @@ namespace WebWriterV2.Controllers
             };
             var savedStateType = StateTypeRepository.Save(stateType);
             var frontStateType = new FrontStateType(savedStateType);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(frontStateType),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -410,14 +435,12 @@ namespace WebWriterV2.Controllers
             var frontStateType = SerializeHelper.Deserialize<FrontStateType>(jsonStateType);
             var stateType = frontStateType.ToDbModel();
             var userId = CurrentUserId();
-            if (stateType.Owner.Id != userId)
-            {
+            if (stateType.Owner.Id != userId) {
                 throw new Exception("You can't edit state types which was created by another user");
             }
             stateType.Owner = UserRepository.Get(stateType.Owner.Id);
             StateTypeRepository.Save(stateType);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -426,8 +449,7 @@ namespace WebWriterV2.Controllers
         public JsonResult RemoveState(long stateId)
         {
             StateTypeRepository.Remove(stateId);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = SerializeHelper.Serialize(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -438,8 +460,7 @@ namespace WebWriterV2.Controllers
         {
             var quest = QuestRepository.Get(id);
             var frontQuest = new FrontQuest(quest);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontQuest),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -448,17 +469,13 @@ namespace WebWriterV2.Controllers
         public JsonResult GetQuests(long? userId)
         {
             List<Quest> quests;
-            if (userId.HasValue)
-            {
+            if (userId.HasValue) {
                 quests = QuestRepository.GetByUser(userId.Value);
-            }
-            else
-            {
+            } else {
                 quests = QuestRepository.GetAll();
             }
             var frontQuests = quests.Select(x => new FrontQuest(x)).ToList();
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontQuests),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -468,8 +485,7 @@ namespace WebWriterV2.Controllers
         {
             QuestRepository.Remove(id);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -479,13 +495,23 @@ namespace WebWriterV2.Controllers
         {
             var frontQuest = SerializeHelper.Deserialize<FrontQuest>(jsonQuest);
             var quest = frontQuest.ToDbModel();
+            var newGenre = quest.Genre;
             var owner = UserRepository.Get(quest.Owner.Id);
             quest.Owner = owner;
             quest = QuestRepository.Save(quest);
+
+            if (newGenre != null) {
+                var genre = GenreRepository.Get(newGenre.Id);
+                if (genre.Quests == null) {
+                    genre.Quests = new List<Quest>();
+                }
+                genre.Quests.Add(quest);
+                GenreRepository.Save(genre);
+            }
+
             frontQuest = new FrontQuest(quest);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontQuest),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -497,8 +523,7 @@ namespace WebWriterV2.Controllers
             var quest = frontQuest.ToDbModel();
 
             var questName = QuestRepository.GetByName(quest.Name);
-            if (questName == null)
-            {
+            if (questName == null) {
                 var currentUser = UserRepository.Get(CurrentUserId());
                 quest.Id = 0;
                 quest.Owner = currentUser;
@@ -506,17 +531,14 @@ namespace WebWriterV2.Controllers
                 var states = new List<State>();
                 var linkItems = new List<EventLinkItem>();
 
-                foreach (var @event in quest.AllEvents)
-                {
-                    if (quest.RootEvent.Id == @event.Id)
-                    {
+                foreach (var @event in quest.AllEvents) {
+                    if (quest.RootEvent.Id == @event.Id) {
                         @event.ForRootQuest = quest;
                     }
 
                     var eventLinkItems = @event.LinksFromThisEvent;
                     eventLinkItems.AddRange(@event.LinksToThisEvent);
-                    foreach (var eventLinkItem in eventLinkItems)
-                    {
+                    foreach (var eventLinkItem in eventLinkItems) {
                         eventLinkItem.Id = 0;
                         eventLinkItem.To = quest.AllEvents.First(x => x.Id == eventLinkItem.To.Id);
                         eventLinkItem.From = quest.AllEvents.First(x => x.Id == eventLinkItem.From.Id);
@@ -526,8 +548,7 @@ namespace WebWriterV2.Controllers
                     @event.Quest = quest;
                 }
 
-                foreach (var @event in quest.AllEvents)
-                {
+                foreach (var @event in quest.AllEvents) {
                     @event.Id = 0;
                     things.AddRange(@event.RequirementThings ?? new List<Thing>());
                     things.AddRange(@event.ThingsChanges ?? new List<Thing>());
@@ -540,8 +561,7 @@ namespace WebWriterV2.Controllers
                 states.AddRange(things.SelectMany(x => x.ThingSample.UsingEffectState ?? new List<State>()));
 
                 /* Process Characteristics connections */
-                foreach (var thing in things)
-                {
+                foreach (var thing in things) {
                     thing.Id = 0;
                     thing.Hero = null;
                     thing.ThingSample.Id = 0;
@@ -551,8 +571,7 @@ namespace WebWriterV2.Controllers
                 var nbsp = (char)160;// code of nbsp
                 var sp = (char)32;// code of simple space
 
-                foreach (var state in states)
-                {
+                foreach (var state in states) {
                     state.Id = 0;
                     state.StateType.Id = 0;
                     state.StateType.Owner = currentUser;
@@ -562,8 +581,7 @@ namespace WebWriterV2.Controllers
                 states.ForEach(StateRepository.CheckAndSave);
                 things.ForEach(ThingRepository.CheckAndSave);
 
-                foreach (var @event in quest.AllEvents)
-                {
+                foreach (var @event in quest.AllEvents) {
                     @event.LinksFromThisEvent = new List<EventLinkItem>();
                 }
 
@@ -573,8 +591,7 @@ namespace WebWriterV2.Controllers
                 EventLinkItemRepository.RemoveDuplicates();
             }
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = quest.Id,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -589,8 +606,7 @@ namespace WebWriterV2.Controllers
 
             var frontEvent = new FrontEvent(@event);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvent),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -604,14 +620,12 @@ namespace WebWriterV2.Controllers
             var quest = QuestRepository.Get(questId);
             if (user.BooksAreReaded == null)
                 user.BooksAreReaded = new List<Quest>();
-            if (user.BooksAreReaded.All(x => x.Id != quest.Id))
-            {
+            if (user.BooksAreReaded.All(x => x.Id != quest.Id)) {
                 user.BooksAreReaded.Add(quest);
                 UserRepository.Save(user);
             }
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = true,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -622,8 +636,7 @@ namespace WebWriterV2.Controllers
         {
             var events = EventRepository.GetEndingEvents(questId);
             var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvents),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -633,8 +646,7 @@ namespace WebWriterV2.Controllers
         {
             var events = EventRepository.GetNotAvailableEvents(questId);
             var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvents),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -644,8 +656,7 @@ namespace WebWriterV2.Controllers
         {
             var events = EventRepository.GetAllEventsByQuest(questId);
             var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvents),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -655,8 +666,7 @@ namespace WebWriterV2.Controllers
         {
             var eventFromDb = EventRepository.Get(id);
             var frontEvent = new FrontEvent(eventFromDb);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvent),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -668,8 +678,7 @@ namespace WebWriterV2.Controllers
             var hero = HeroRepository.Get(heroId);
             eventDb.LinksFromThisEvent.FilterLink(hero);
             var frontEvent = new FrontEvent(eventDb);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvent),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -682,8 +691,7 @@ namespace WebWriterV2.Controllers
             var hero = frontHero.ToDbModel();
             hero.CurrentEvent = eventDb;
 
-            if (applyChanges)
-            {
+            if (applyChanges) {
                 eventDb.EventChangesApply(hero);
             }
 
@@ -691,8 +699,7 @@ namespace WebWriterV2.Controllers
 
             var frontEvent = new FrontEvent(eventDb);
             frontHero = new FrontHero(hero);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(new { frontEvent, frontHero }),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -707,8 +714,7 @@ namespace WebWriterV2.Controllers
 
             HeroRepository.Save(hero);
             var frontHero = new FrontHero(hero);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontHero),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -718,15 +724,13 @@ namespace WebWriterV2.Controllers
         {
             var frontEvent = SerializeHelper.Deserialize<FrontEvent>(jsonEvent);
             var eventModel = frontEvent.ToDbModel();
-            if (eventModel.Id == 0)
-            {
+            if (eventModel.Id == 0) {
                 eventModel.Quest = QuestRepository.Get(questId);
             }
 
             var eventFromDb = EventRepository.Save(eventModel);
             var frontEvents = new FrontEvent(eventFromDb);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvents),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -739,8 +743,7 @@ namespace WebWriterV2.Controllers
 
             var linkItemFromDb = EventLinkItemRepository.Save(eventLinkItem);
             var frontEvents = new FrontEventLinkItem(linkItemFromDb);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvents),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -749,8 +752,7 @@ namespace WebWriterV2.Controllers
         public JsonResult RemoveEventLink(long eventLinkId)
         {
             EventLinkItemRepository.Remove(eventLinkId);
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -760,8 +762,7 @@ namespace WebWriterV2.Controllers
         {
             EventRepository.Remove(eventId);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = true,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -775,8 +776,7 @@ namespace WebWriterV2.Controllers
             var state =
                 eventFromDb.HeroStatesChanging.FirstOrDefault(
                     x => x.StateType.Id == stateType.Id)
-                ?? new State
-                {
+                ?? new State {
                     StateType = stateType
                 };
 
@@ -789,8 +789,7 @@ namespace WebWriterV2.Controllers
             EventRepository.Save(eventFromDb);
             var frontState = new FrontState(state);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontState),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -800,8 +799,7 @@ namespace WebWriterV2.Controllers
         {
             StateRepository.Remove(stateId);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -816,8 +814,7 @@ namespace WebWriterV2.Controllers
             var state =
                 eventFromDb.RequirementStates.FirstOrDefault(
                     x => x.StateType.Id == stateType.Id)
-                ?? new State
-                {
+                ?? new State {
                     StateType = stateType
                 };
 
@@ -831,8 +828,7 @@ namespace WebWriterV2.Controllers
             EventRepository.Save(eventFromDb);
             var frontState = new FrontState(state);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontState),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -842,8 +838,7 @@ namespace WebWriterV2.Controllers
         {
             StateRepository.Remove(stateId);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -853,8 +848,7 @@ namespace WebWriterV2.Controllers
         {
             var eventFromDb = EventRepository.Get(eventId);
             var thingSample = ThingSampleRepository.Get(thingSampleId);
-            var thing = new Thing
-            {
+            var thing = new Thing {
                 Count = count,
                 Hero = null,
                 ThingSample = thingSample,
@@ -866,8 +860,7 @@ namespace WebWriterV2.Controllers
             EventRepository.Save(eventFromDb);
             var frontThing = new FrontThing(thing);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontThing),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -881,8 +874,7 @@ namespace WebWriterV2.Controllers
             EventRepository.Save(eventFromDb);
             ThingRepository.Remove(thing);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -892,8 +884,7 @@ namespace WebWriterV2.Controllers
         {
             var eventFromDb = EventRepository.Get(eventId);
             var thingSample = ThingSampleRepository.Get(thingSampleId);
-            var thing = new Thing
-            {
+            var thing = new Thing {
                 Count = count,
                 Hero = null,
                 ThingSample = thingSample,
@@ -905,8 +896,7 @@ namespace WebWriterV2.Controllers
             EventRepository.Save(eventFromDb);
             var frontThing = new FrontThing(thing);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontThing),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -920,8 +910,7 @@ namespace WebWriterV2.Controllers
             EventRepository.Save(eventFromDb);
             ThingRepository.Remove(thing);
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -932,37 +921,30 @@ namespace WebWriterV2.Controllers
         {
             var stateTypes = StateTypeRepository.GetAll();
             var stateTypeForAdding = new List<StateType>();
-            var lifeStateType = new StateType
-            {
+            var lifeStateType = new StateType {
                 Name = "Жизни",
                 Desc = "Закончаться жизни и вашему путешествию придёт конец"
             };
-            var timeStateType = new StateType
-            {
+            var timeStateType = new StateType {
                 Name = "Время",
                 Desc = "Время всегда на исходе"
             };
-            var hpStateType = new StateType
-            {
+            var hpStateType = new StateType {
                 Name = "Здоровье",
                 Desc = "Закончиться здоровье и ты труп"
             };
 
-            if (stateTypes.All(x => x.Name != lifeStateType.Name))
-            {
+            if (stateTypes.All(x => x.Name != lifeStateType.Name)) {
                 stateTypeForAdding.Add(lifeStateType);
             }
-            if (stateTypes.All(x => x.Name != timeStateType.Name))
-            {
+            if (stateTypes.All(x => x.Name != timeStateType.Name)) {
                 stateTypeForAdding.Add(timeStateType);
             }
-            if (stateTypes.All(x => x.Name != hpStateType.Name))
-            {
+            if (stateTypes.All(x => x.Name != hpStateType.Name)) {
                 stateTypeForAdding.Add(hpStateType);
             }
 
-            if (stateTypeForAdding.Any())
-            {
+            if (stateTypeForAdding.Any()) {
                 StateTypeRepository.Save(stateTypeForAdding);
             }
 
@@ -973,40 +955,33 @@ namespace WebWriterV2.Controllers
         {
             var thingSamples = ThingSampleRepository.GetAll();
             var thingSampleForAdding = new List<ThingSample>();
-            var goldStateType = new ThingSample
-            {
+            var goldStateType = new ThingSample {
                 Name = "Золото",
                 Desc = "Прятный звон монет придаст вам толику хорошего настроения",
                 IsUsed = false,
             };
-            var creditStateType = new ThingSample
-            {
+            var creditStateType = new ThingSample {
                 Name = "Кредиты",
                 Desc = "Ваш счёт в межгалактическом банке сектора",
                 IsUsed = false,
             };
-            var keyStateType = new ThingSample
-            {
+            var keyStateType = new ThingSample {
                 Name = "Ключ",
                 Desc = "Знать бы где он понадобиться",
                 IsUsed = false,
             };
 
-            if (thingSamples.All(x => x.Name != goldStateType.Name))
-            {
+            if (thingSamples.All(x => x.Name != goldStateType.Name)) {
                 thingSampleForAdding.Add(goldStateType);
             }
-            if (thingSamples.All(x => x.Name != creditStateType.Name))
-            {
+            if (thingSamples.All(x => x.Name != creditStateType.Name)) {
                 thingSampleForAdding.Add(creditStateType);
             }
-            if (thingSamples.All(x => x.Name != keyStateType.Name))
-            {
+            if (thingSamples.All(x => x.Name != keyStateType.Name)) {
                 thingSampleForAdding.Add(keyStateType);
             }
 
-            if (thingSampleForAdding.Any())
-            {
+            if (thingSampleForAdding.Any()) {
                 ThingSampleRepository.Save(thingSampleForAdding);
             }
 
@@ -1017,24 +992,21 @@ namespace WebWriterV2.Controllers
         {
             /* Создаём StateType */
             var stateTypes = StateTypeRepository.GetAll();
-            if (!stateTypes.Any())
-            {
+            if (!stateTypes.Any()) {
                 stateTypes = GenerateData.GenerateStateTypes();
                 StateTypeRepository.Save(stateTypes);
             }
 
             /* Создаём ThingSamples */
             var thingSamples = ThingSampleRepository.GetAll();
-            if (!thingSamples.Any())
-            {
+            if (!thingSamples.Any()) {
                 thingSamples = GenerateData.GenerateThingSample(stateTypes);
                 ThingSampleRepository.Save(thingSamples);
             }
 
             /* Создаём Квесты. Чистый без евентов */
             var quests = QuestRepository.GetAll();
-            if (!quests.Any())
-            {
+            if (!quests.Any()) {
                 var quest1 = GenerateData.QuestRat();
                 QuestRepository.Save(quest1);
 
@@ -1065,15 +1037,13 @@ namespace WebWriterV2.Controllers
             //    }
             //}
 
-            var answer = new
-            {
+            var answer = new {
                 quests = quests.Any() ? "Уже существует" : "Добавили",
                 //eventLinkItemsDb = eventLinkItemsDb.Any() ? "Уже существует" : "Добавили",
                 thingSamples = thingSamples.Any() ? "Уже существует" : "Добавили",
             };
 
-            return new JsonResult
-            {
+            return new JsonResult {
                 Data = answer,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
@@ -1082,8 +1052,7 @@ namespace WebWriterV2.Controllers
         public JsonResult ReInit()
         {
             var user = UserRepository.Get(CurrentUserId());
-            if (user.UserType != UserType.Admin)
-            {
+            if (user.UserType != UserType.Admin) {
                 throw new Exception("You haven't permission to rebuild whole db");
             }
 
@@ -1117,18 +1086,15 @@ namespace WebWriterV2.Controllers
         public JsonResult AddAdminUser()
         {
             var user = UserRepository.GetByName(AdminName);
-            if (user == null)
-            {
-                user = new User
-                {
+            if (user == null) {
+                user = new User {
                     Name = AdminName,
                     Password = AdminPassword,
                     UserType = UserType.Admin
                 };
                 user = UserRepository.Save(user);
             }
-            if (user.UserType != UserType.Admin)
-            {
+            if (user.UserType != UserType.Admin) {
                 user.UserType = UserType.Admin;
                 UserRepository.Save(user);
             }

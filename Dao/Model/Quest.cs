@@ -22,6 +22,8 @@ namespace Dao.Model
 
         public virtual User Owner { get; set; }
 
+        public virtual Genre Genre { get; set; }
+
         public void UpdateFrom(Quest model)
         {
             if (Id != model.Id)

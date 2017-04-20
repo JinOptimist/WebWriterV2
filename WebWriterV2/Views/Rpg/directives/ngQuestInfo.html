@@ -1,6 +1,7 @@
 ﻿<div class="quest-block" ng-if="quest">
     <p>Карточка произведения. <b>{{quest.Name}}</b></p>
     <p>Автор: {{quest.OwnerId}}</p>
+    <p ng-if="quest.Genre">Жанр: {{quest.Genre.Name}}</p>
     <p>Описание:</p>
     <div ng-bind-html="quest.Desc | trusted"></div>
 </div>

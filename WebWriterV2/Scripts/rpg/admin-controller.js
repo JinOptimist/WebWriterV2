@@ -2,15 +2,16 @@ angular.module('rpg')
 
     .controller('adminQuestGeneralController', [
         '$scope', '$http', '$routeParams', '$location', '$cookies', 'questService',
-            'eventService', 'CKEditorService', 'userService',
+            'eventService', 'CKEditorService', 'userService', 'genreService',
         function ($scope, $http, $routeParams, $location, $cookies, questService,
-            eventService, CKEditorService, userService) {
+            eventService, CKEditorService, userService, genreService) {
 
             $scope.quest = null;
             $scope.quests = [];
             $scope.wait = true;
             $scope.endingEvents = [];
             $scope.notAvailableEvents = null;
+            $scope.allGenres = [];
             init();
 
             $scope.addQuest = function() {
@@ -147,6 +148,10 @@ angular.module('rpg')
                 userService.getCurrentUser().then(function (data) {
                     $scope.user = data;
                     loadQuests();
+                });
+
+                genreService.getAll().then(function (data) {
+                    $scope.allGenres = data;
                 });
             }
         }
@@ -689,6 +694,52 @@ angular.module('rpg')
         function init() {
             thingService.loadAllSamples().then(function (data) {
                 $scope.thingsSample = data;
+            });
+        }
+    }
+    ])
+    .controller('adminGenreController', ['$scope', 'genreService', function ($scope, genreService) {
+        $scope.genres = [];
+        $scope.newGenre = {
+            Name: '',
+            Desc: ''
+        };
+
+        init();
+
+        $scope.add = function () {
+            genreService.add($scope.newGenre)
+                .then(function (data) {
+                    $scope.genres.push(data);
+                    $scope.newGenre.Name = '';
+                    $scope.newGenre.Desc = '';
+                });
+        }
+
+        $scope.edit = function (genre) {
+            genre.isEditing = true;
+        }
+
+        $scope.confirm = function (genre) {
+            genre.isEditing = false;
+            genreService.add($scope.newGenre)
+                .then(function (data) {
+                    $scope.genres.push(data);
+                    $scope.newGenre.Name = '';
+                    $scope.newGenre.Desc = '';
+                });
+        }
+
+        $scope.remove = function (genre, index) {
+            genreService.remove(genre.Id)
+                .then(function () {
+                    $scope.genres.splice(index, 1);
+                });
+        }
+
+        function init() {
+            genreService.getAll().then(function (data) {
+                $scope.genres = data;
             });
         }
     }

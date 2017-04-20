@@ -158,6 +158,7 @@
     <Compile Include="Controllers\RubbishController.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
     <Compile Include="FrontModels\FrontEventLinkItem.cs" />
+    <Compile Include="FrontModels\FrontGenre.cs" />
     <Compile Include="FrontModels\FrontStateType.cs" />
     <Compile Include="FrontModels\FrontEvaluation.cs" />
     <Compile Include="FrontModels\FrontUser.cs" />
@@ -667,6 +668,7 @@
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\underscore.min.map" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Rpg\admin\Genre.html" />
     <Content Include="Views\Rpg\Header.html" />
     <Content Include="Views\Rpg\admin\Thing.html" />
     <Content Include="Views\Rpg\admin\State.html" />

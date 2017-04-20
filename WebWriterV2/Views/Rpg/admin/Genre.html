@@ -1,0 +1,35 @@
+﻿<div>
+    <h3>Добавить новый жанр</h3>
+    <div>
+        <p>
+            New genre name <input type="text" ng-model="newGenre.Name" />
+        </p>
+        <p>
+            New genre desc <textarea ng-model="newGenre.Desc"></textarea>
+        </p>        
+        <p>
+            <input type="button" value="Add" ng-click="add()" />
+        </p>
+    </div>
+    <h3>Список жанров</h3>
+    <div ng-repeat="genre in genres" class="block300 left border1px padding10">
+        <p style="float: right;">
+            <a href="#" ng-if="!genre.isEditing"
+               ng-click="edit(genre)"><img src="/Content/icon/edit.png" class="icon20" /></a>
+            <a href="#" ng-if="genre.isEditing"
+               ng-click="confirm(genre)"><img src="/Content/icon/confirm.png" class="icon20" /></a>
+            <a href="#" ng-click="remove(genre, $index)"><img src="/Content/icon/delete.png" class="icon20" /></a>
+        </p>
+        <p>
+            Имя: <span ng-if="!genre.isEditing">{{genre.Name}}</span>
+            <input ng-if="genre.isEditing" type="text" ng-model="genre.Name" />
+        </p>
+        <p>
+            Описание:
+            <span ng-if="!genre.isEditing">{{genre.Desc}}</span>
+            <br ng-if="genre.isEditing" />
+            <textarea ng-if="genre.isEditing" ng-model="genre.Desc" style="width: 250px; height: 80px;"></textarea>
+        </p>
+        <img src="/Content/icon/wait.gif" class="icon20" ng-if="genre.isSaved" />
+    </div>
+</div>

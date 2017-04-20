@@ -49,6 +49,11 @@ namespace Dao.Repository
             base.Remove(quest);
         }
 
+        /// <summary>
+        /// If we update model, we update only Name and Desc field. Don't forget this
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         public override Quest Save(Quest model)
         {
             // if we try update detached model
