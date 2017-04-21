@@ -657,6 +657,7 @@
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\raphael-min.js" />
     <Content Include="Scripts\rpg\constant.js" />
+    <Content Include="Scripts\rpg\j-graph.js" />
     <Content Include="Scripts\rpg\graph.js" />
     <Content Include="Scripts\rpg\admin-controller.js" />
     <Content Include="Scripts\rpg\user-controller.js" />

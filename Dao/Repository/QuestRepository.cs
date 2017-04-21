@@ -11,11 +11,13 @@ namespace Dao.Repository
     {
         private readonly EventRepository _eventRepository;
         private readonly EventLinkItemRepository _eventLinkItemRepository;
+        private readonly EvaluationRepository _evaluationRepository;
 
         public QuestRepository(WriterContext db) : base(db)
         {
             _eventRepository = new EventRepository(db);
             _eventLinkItemRepository = new EventLinkItemRepository(db);
+            _evaluationRepository = new EvaluationRepository(db);
         }
 
         public List<Quest> GetAllWithRootEvent()
@@ -33,11 +35,12 @@ namespace Dao.Repository
             if (quest == null)
                 return;
 
+            _evaluationRepository.Remove(quest.Evaluations);
+
             foreach (var @event in quest.AllEvents)
             {
                 _eventLinkItemRepository.Remove(@event.LinksFromThisEvent);
                 _eventLinkItemRepository.Remove(@event.LinksToThisEvent);
-                //_eventRepository.Save(@event);
             }
 
             if (quest.AllEvents.Count > 0)

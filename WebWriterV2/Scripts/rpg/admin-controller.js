@@ -134,7 +134,8 @@ angular.module('rpg')
 
             function reloadGraph() {
                 var count = $scope.quest.AllEvents.length;
-                EventGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 200 * count / 3);
+                //EventGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 200 * count / 3);
+                JGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 200 * count / 3);
             }
 
             function init() {

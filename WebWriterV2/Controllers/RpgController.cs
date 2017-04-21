@@ -1101,6 +1101,28 @@ namespace WebWriterV2.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetAllUsers()
+        {
+            var user = UserRepository.Get(CurrentUserId());
+            if (user == null || user.UserType != UserType.Admin) {
+                return Json("GoFuckYourSelf", JsonRequestBehavior.AllowGet);
+            }
+
+            var frontUsers = UserRepository.GetAll().Select(x=> new FrontUser(x));
+            return Json(frontUsers, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetAllBooks()
+        {
+            var user = UserRepository.Get(CurrentUserId());
+            if (user == null || user.UserType != UserType.Admin) {
+                return Json("GoFuckYourSelf", JsonRequestBehavior.AllowGet);
+            }
+
+            var frontQuests = QuestRepository.GetAll().Select(x => new FrontQuest(x));
+            return Json(frontQuests, JsonRequestBehavior.AllowGet);
+        }
+
         protected override void Dispose(bool disposing)
         {
             _context.Dispose();
