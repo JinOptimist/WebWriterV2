@@ -6,7 +6,8 @@ angular.module('rpg')
         function ($scope, $http, $routeParams, $location, $cookies, questService,
             eventService, CKEditorService, userService, genreService) {
 
-            $scope.quest = null;
+            $scope.questHasCycle = true;
+            $scope.quest = null;//ContainsCycle
             $scope.quests = [];
             $scope.wait = true;
             $scope.endingEvents = [];
@@ -134,8 +135,15 @@ angular.module('rpg')
 
             function reloadGraph() {
                 var count = $scope.quest.AllEvents.length;
-                //EventGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 200 * count / 3);
-                JGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 200 * count / 3);
+                if ($scope.quest.ContainsCycle) {
+                    setTimeout(function () {
+                        EventGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 200 * count / 3);
+                    }, 100);
+                } else {
+                    setTimeout(function () {
+                        JGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 200 * count / 3);
+                    }, 100);
+                }
             }
 
             function init() {

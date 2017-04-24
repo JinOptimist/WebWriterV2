@@ -36,6 +36,7 @@ namespace WebWriterV2Test
 
         private void CheckQuest(IWebDriver driver, string questId)
         {
+            
             driver.Navigate().GoToUrl(RpgBaseUrl);
             driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
 

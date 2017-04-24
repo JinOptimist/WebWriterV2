@@ -16,6 +16,7 @@ var JGraph = (function () {
     var levels = [];
 
     function drawGraph(_chapters, domElementId, _width, _height) {
+        resetVar();
         if (!_chapters || !domElementId)
             return;
         var drawing = document.getElementById(domElementId);
@@ -79,6 +80,23 @@ var JGraph = (function () {
 
     }
 
+    function resetVar() {
+        context;
+        width, height;
+        freePoint = {
+            x: 10,
+            y: 10
+        };
+        chapterSize = 100;
+        chapterMargin = 10;
+        lineHeight = 100;
+        textSize = 14;
+
+        chapters = [];
+
+        levels = [];
+    }
+
     function fillLevels() {
         var chapter;
         for (i = 0; i < chapters.length; i++) {
@@ -97,14 +115,14 @@ var JGraph = (function () {
 
     function calculateLevels(parentChapter) {
         var currentLevel = parentChapter.level + 1;
-        for (i = 0; i < parentChapter.LinksFromThisEvent.length; i++) {
+        for (var i = 0; i < parentChapter.LinksFromThisEvent.length; i++) {
             var chapter = getChapterById(parentChapter.LinksFromThisEvent[i].ToId);
             if (!chapter.level || chapter.level < currentLevel) {
                 chapter.level = currentLevel;
             }
         }
-        for (i = 0; i < parentChapter.LinksFromThisEvent.length; i++) {
-            var chapterForCalc = getChapterById(parentChapter.LinksFromThisEvent[i].ToId);
+        for (var j = 0; j < parentChapter.LinksFromThisEvent.length; j++) {
+            var chapterForCalc = getChapterById(parentChapter.LinksFromThisEvent[j].ToId);
             calculateLevels(chapterForCalc);
         }
         

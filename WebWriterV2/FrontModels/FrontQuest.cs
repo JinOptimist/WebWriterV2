@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dao.Model;
+using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.FrontModels
 {
@@ -10,7 +11,7 @@ namespace WebWriterV2.FrontModels
         public FrontQuest() {
         }
 
-        public FrontQuest(Quest quest) {
+        public FrontQuest(Quest quest, bool forWriter = false) {
             Id = quest.Id;
             Name = quest.Name;
             Desc = quest.Desc;
@@ -19,6 +20,10 @@ namespace WebWriterV2.FrontModels
             AllEvents = quest.AllEvents?.Select(x => new FrontEvent(x)).ToList();
             OwnerId = quest.Owner?.Id;
             Evaluations = quest.Evaluations?.Select(x => new FrontEvaluation(x)).ToList();
+
+            ContainsCycle = forWriter
+                ? new GraphHelper(quest).HasCycle()
+                : true;
         }
 
         public string Name { get; set; }
@@ -28,6 +33,8 @@ namespace WebWriterV2.FrontModels
         public FrontGenre Genre { get; set; }
         public List<FrontEvent> AllEvents { get; set; }
         public List<FrontEvaluation> Evaluations { get; set; }
+
+        public bool ContainsCycle { get; set; }
 
         public override Quest ToDbModel() {
             return new Quest {

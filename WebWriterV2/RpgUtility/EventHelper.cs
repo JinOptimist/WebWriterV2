@@ -60,7 +60,7 @@ namespace WebWriterV2.RpgUtility
                 /* Filter by Thing */
                 foreach (var thing in destination.RequirementThings)
                 {
-                    var heroThing = hero.Inventory.FirstOrDefault(
+                    var heroThing = hero.Inventory?.FirstOrDefault(
                         x => x.ThingSample.Id == thing.ThingSample.Id);
                     if (heroThing == null
                         || !CheckRequirement(heroThing.Count, thing.Count, thing.RequirementType))

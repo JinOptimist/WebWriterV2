@@ -459,7 +459,7 @@ namespace WebWriterV2.Controllers
         public JsonResult GetQuest(long id)
         {
             var quest = QuestRepository.Get(id);
-            var frontQuest = new FrontQuest(quest);
+            var frontQuest = new FrontQuest(quest, true);
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontQuest),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
@@ -509,7 +509,7 @@ namespace WebWriterV2.Controllers
                 GenreRepository.Save(genre);
             }
 
-            frontQuest = new FrontQuest(quest);
+            frontQuest = new FrontQuest(quest, true);
 
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontQuest),
