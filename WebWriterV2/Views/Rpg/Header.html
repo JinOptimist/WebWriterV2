@@ -13,11 +13,13 @@
             | <a href="rpg/AddDefaultThing">Создать стандартные предметы</a>
             | <a href="AngularRoute/admin/genres">Жанры</a>
         </p>
-        <p ng-if="user.IsAdmin || user.IsWriter"
-           style="border-bottom: 1px dotted green; padding: 10px 7px">
+        <p style="border-bottom: 1px dotted green; padding: 10px 7px">
             Уголок Писателя:
-            <a href="AngularRoute/admin/quest/">Произведения админка</a>
-            | <a href="AngularRoute/aboutUs">Зачем вам это?</a>
+            <span ng-if="user.IsAdmin || user.IsWriter">
+                <a href="AngularRoute/admin/quest/">Произведения админка</a> | 
+            </span>
+            <a href="AngularRoute/aboutUs">Зачем писателю это?</a>
+            | <a href="AngularRoute/generalDefinition">Основные инструменты</a>
 
             <!--| <a href="AngularRoute/admin/State">Админка Состояний</a>
             | <a href="AngularRoute/admin/Thing">Админка Вещей</a>-->

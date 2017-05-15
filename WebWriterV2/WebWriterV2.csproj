@@ -196,6 +196,10 @@
     <Content Include="book\Academy.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\defenitionExample\01.png" />
+    <Content Include="Content\defenitionExample\02.jpg" />
+    <Content Include="Content\defenitionExample\03.jpg" />
+    <Content Include="Content\defenitionExample\04.jpg" />
     <Content Include="Content\icon\logo.png" />
     <Content Include="Content\icon\add.png" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -670,6 +674,7 @@
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\underscore.min.map" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\Rpg\GeneralDefinition.html" />
     <Content Include="Views\Rpg\admin\Genre.html" />
     <Content Include="Views\Rpg\Header.html" />
     <Content Include="Views\Rpg\admin\Thing.html" />
