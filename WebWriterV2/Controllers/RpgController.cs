@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Linq;
-using System.Web.Caching;
 using System.Web.Mvc;
-using Autofac;
 using Dao.IRepository;
 using Dao.Model;
 using Newtonsoft.Json;
 using NLog;
-//using WebWriterV2.Models.rpg;
 using WebWriterV2.RpgUtility;
 using WebWriterV2.VkUtility;
 using Dao;
 using Dao.Repository;
 using WebWriterV2.FrontModels;
+using System.Net.Mail;
+using System.Net;
 
 namespace WebWriterV2.Controllers
 {
@@ -94,14 +92,32 @@ namespace WebWriterV2.Controllers
         {
             var frontUser = SerializeHelper.Deserialize<FrontUser>(userJson);
             var user = frontUser.ToDbModel();
-
+            user.ConfirmCode = RandomHelper.RandomString(RandomHelper.RandomInt(10, 20));
             user = UserRepository.Save(user);
             frontUser = new FrontUser(user);
+
+            var url = Url.Action("ConfirmRegister", new { userId = user.Id, confirmCode = user.ConfirmCode });
+            var body = $"Пожалуйста подтвердите регистрацию перейдя по ссылке {url}";
+            var title = "Интерактивная книга. Регистрация";
+            EmailHelper.Send(user.Email, title, body);
 
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontUser),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+        }
+
+        public ActionResult ConfirmRegister(int userId, string confirmCode)
+        {
+            var user = UserRepository.Get(userId);
+            if (user.ConfirmCode == confirmCode) {
+                user.ConfirmCode = null;
+                UserRepository.Save(user);
+                return RedirectToAction("RouteForAngular", new { url = "AngularRoute/registrationConfirm" });
+            } else {
+                return null;
+            }
+            
         }
 
         public JsonResult GetUserById(long userId)

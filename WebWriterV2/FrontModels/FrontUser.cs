@@ -30,6 +30,7 @@ namespace WebWriterV2.FrontModels
             BooksAreReaded = user.BooksAreReaded?.Select(x => new FrontQuest(x)).ToList();
             user.Quests?.ForEach(x => x.Owner = null);
             MyQuests = user.Quests?.Select(x => new FrontQuest(x)).ToList();
+            AccountConfirmed = string.IsNullOrEmpty(user.ConfirmCode);
         }
 
         public string Name { get; set; }
@@ -38,6 +39,7 @@ namespace WebWriterV2.FrontModels
         public bool IsAdmin { get; set; }
         public bool IsWriter { get; set; }
         public bool IsReader { get; set; }
+        public bool AccountConfirmed { get; set; }
 
         public FrontEnum UserType { get; set; }
 

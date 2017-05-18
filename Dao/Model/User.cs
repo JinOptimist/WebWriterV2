@@ -13,6 +13,8 @@ namespace Dao.Model
 
         public string Email { get; set; }
 
+        public string ConfirmCode { get; set; }
+
         [Required]
         public string Password { get; set; }
 

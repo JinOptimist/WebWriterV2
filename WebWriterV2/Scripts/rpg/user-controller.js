@@ -4,7 +4,6 @@
             $scope.user = {};
             $scope.waiting = false;
             $scope.activeLogin = false;
-            $scope.activeRegister = false;
             $scope.error = '';
 
             init();
@@ -20,12 +19,7 @@
 
             $scope.passwordKeyPress = function ($event) {
                 if ($event.which === 13) {// 'Enter'.keyEvent === 13
-                    if ($scope.activeLogin) {
-                        $scope.login();
-                    }
-                    if ($scope.activeRegister) {
-                        $scope.register();
-                    }
+                    $scope.login();
                 }
             }
 
@@ -36,7 +30,6 @@
                     if (result) {
                         $scope.user = result;
                         $cookies.put(ConstCookies.userId, $scope.user.Id);
-                        $scope.activeRegister = false;
                         $scope.activeLogin = false;
                     } else {
                         $scope.error = 'Incorrect username or password';
@@ -53,7 +46,6 @@
                         if (result) {
                             $scope.user = result;
                             $cookies.put(ConstCookies.userId, result.Id);
-                            $scope.activeRegister = false;
                             $scope.activeLogin = false;
                         } else {
                             $scope.error = 'No!';
@@ -70,18 +62,12 @@
 
             $scope.openLogin = function() {
                 $scope.activeLogin = true;
-                $scope.activeRegister = false;
-            }
-
-            $scope.openRegister = function () {
-                $scope.activeLogin = false;
-                $scope.activeRegister = true;
             }
 
             $scope.exit = function () {
                 userService.logout();
                 init();
-                $location.path('/AngularRoute/listQuest');
+                $scope.goToHomePage();
             }
 
             function init() {
@@ -93,6 +79,54 @@
                 } else {
                     $scope.user = {};
                 }
+            }
+        }
+    ])
+    .controller('registerController', ['$rootScope', '$scope', '$cookies', '$location', 'ConstCookies', 'userService',
+        function ($rootScope, $scope, $cookies, $location, ConstCookies, userService) {
+            $scope.user = {};
+            $scope.waiting = false;
+            $scope.error = '';
+
+            init();
+
+            $scope.goToHomePage = function () {
+                $location.path('/AngularRoute/listQuest');
+            }
+
+            $scope.passwordKeyPress = function ($event) {
+                if ($event.which === 13) {// 'Enter'.keyEvent === 13
+                    $scope.register();
+                }
+            }
+
+            $scope.register = function () {
+                $scope.waiting = true;
+                userService.register($scope.user)
+                    .then(function (result) {
+                        if (result) {
+                            $cookies.put(ConstCookies.userId, result.Id);
+                            $scope.$emit('UpdateUserEvent');
+                            $scope.goToHomePage();
+                        } else {
+                            $scope.error = 'No!';
+                        }
+                    })
+                    .catch(function (e) {
+                        $scope.error = 'Nope';
+                    })
+                    .finally(function () {
+                        $scope.waiting = false;
+                        init();
+                    });
+            }
+
+            $scope.isUserValid = function () {
+                return !!$scope.user.Name && !!$scope.user.Password && !!$scope.user.Email;
+            }
+
+            function init() {
+                $scope.user = {};
             }
         }
     ])

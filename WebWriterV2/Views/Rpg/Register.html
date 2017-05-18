@@ -1,0 +1,17 @@
+﻿<div style="width: 800px; float: left;">
+    <h2>Регистрация</h2>
+    <p>
+        Username: <input id="username" type="text" ng-model="user.Name" ng-disabled="waiting" />
+    </p>
+    <p>
+        Email: <input id="email" type="text" ng-model="user.Email" ng-disabled="waiting" />
+    </p>
+    <p>
+        Password: <input id="password" type="password"
+                         ng-keypress="passwordKeyPress($event)" ng-model="user.Password" ng-disabled="waiting" />
+    </p>
+    <p>
+        <input id="register-btn" type="button" value="register" ng-click="register()" ng-disabled="waiting || !isUserValid()" />
+        <img src="/Content/icon/wait.gif" ng-if="waiting" class="icon20" />
+    </p>
+</div>

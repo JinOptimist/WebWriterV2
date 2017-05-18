@@ -151,6 +151,10 @@
     <Compile Include="Migrations\201704191013463_AddGenre.Designer.cs">
       <DependentUpon>201704191013463_AddGenre.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201705181449018_addConfirmCodeToUser.cs" />
+    <Compile Include="Migrations\201705181449018_addConfirmCodeToUser.Designer.cs">
+      <DependentUpon>201705181449018_addConfirmCodeToUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Enums.cs" />
@@ -244,6 +248,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201704191013463_AddGenre.resx">
       <DependentUpon>201704191013463_AddGenre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201705181449018_addConfirmCodeToUser.resx">
+      <DependentUpon>201705181449018_addConfirmCodeToUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

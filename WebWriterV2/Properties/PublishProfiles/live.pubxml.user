@@ -31,7 +31,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/10/2015 17:47:34</publishTime>
     </File>
     <File Include="bin/Dao.dll">
-      <publishTime>04/21/2017 14:40:20</publishTime>
+      <publishTime>05/18/2017 17:59:07</publishTime>
     </File>
     <File Include="bin/Dao.dll.config">
       <publishTime>09/08/2016 15:40:34</publishTime>
@@ -109,7 +109,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/17/2017 13:30:55</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>05/15/2017 17:13:17</publishTime>
+      <publishTime>05/18/2017 17:59:07</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -527,6 +527,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="packages.config">
       <publishTime>03/06/2017 08:54:12</publishTime>
+    </File>
+    <File Include="Properties/Settings.Designer.cs">
+      <publishTime>05/18/2017 17:21:00</publishTime>
+    </File>
+    <File Include="Properties/Settings.settings">
+      <publishTime>05/18/2017 17:21:00</publishTime>
     </File>
     <File Include="Scripts/angular-animate.js">
       <publishTime>01/19/2017 18:09:08</publishTime>
@@ -1723,13 +1729,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 16:12:07</publishTime>
     </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>05/15/2017 16:25:25</publishTime>
+      <publishTime>05/18/2017 14:30:10</publishTime>
     </File>
     <File Include="Scripts/rpg/services.js">
       <publishTime>04/19/2017 14:51:53</publishTime>
     </File>
     <File Include="Scripts/rpg/user-controller.js">
-      <publishTime>05/15/2017 16:25:10</publishTime>
+      <publishTime>05/18/2017 17:50:28</publishTime>
     </File>
     <File Include="Scripts/underscore.js">
       <publishTime>12/27/2016 16:31:19</publishTime>
@@ -1837,7 +1843,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/28/2016 11:44:39</publishTime>
     </File>
     <File Include="Views/Rpg/Header.html">
-      <publishTime>05/15/2017 16:51:03</publishTime>
+      <publishTime>05/18/2017 14:31:09</publishTime>
     </File>
     <File Include="Views/Rpg/Index.cshtml">
       <publishTime>04/21/2017 15:10:35</publishTime>
@@ -1865,6 +1871,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Views/Rpg/QuestInfo.html">
       <publishTime>09/02/2016 20:49:05</publishTime>
+    </File>
+    <File Include="Views/Rpg/Register.html">
+      <publishTime>05/18/2017 17:51:18</publishTime>
     </File>
     <File Include="Views/Rpg/TraningRoom.html">
       <publishTime>12/27/2016 14:07:39</publishTime>
@@ -1912,7 +1921,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2016 18:19:42</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/10/2017 12:21:57</publishTime>
+      <publishTime>05/18/2017 17:59:08</publishTime>
     </File>
   </ItemGroup>
 </Project>

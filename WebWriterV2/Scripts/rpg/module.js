@@ -37,9 +37,9 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     controller: 'adminGenreController'
                 })
                 /* front */
-                .when('/AngularRoute/login', {
-                    templateUrl: '/views/rpg/Login.html',
-                    controller: 'loginController'
+                .when('/AngularRoute/register', {
+                    templateUrl: '/views/rpg/Register.html',
+                    controller: 'registerController'
                 })
                 .when('/AngularRoute/aboutUs', {
                     templateUrl: '/views/rpg/AboutUs.html',
