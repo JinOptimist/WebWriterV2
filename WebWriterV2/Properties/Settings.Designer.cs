@@ -25,7 +25,7 @@ namespace WebWriterV2.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("NoReplay@ martin-s.by")]
+        [global::System.Configuration.DefaultSettingValueAttribute("NoReplay@martin-s.by")]
         public string NoReplayEmailName {
             get {
                 return ((string)(this["NoReplayEmailName"]));

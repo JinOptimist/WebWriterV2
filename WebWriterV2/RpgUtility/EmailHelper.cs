@@ -20,6 +20,27 @@ namespace WebWriterV2.RpgUtility
             smtp.Credentials = new NetworkCredential(
                 Properties.Settings.Default.NoReplayEmailName, 
                 Properties.Settings.Default.NoReplayEmailPassword);
+            smtp.Send(Properties.Settings.Default.NoReplayEmailName, to, title, body);
+        }
+
+        public static string ToAbsoluteUrl(this string relativeUrl)
+        {
+            if (string.IsNullOrEmpty(relativeUrl))
+                return relativeUrl;
+
+            if (HttpContext.Current == null)
+                return relativeUrl;
+
+            if (relativeUrl.StartsWith("/"))
+                relativeUrl = relativeUrl.Insert(0, "~");
+            if (!relativeUrl.StartsWith("~/"))
+                relativeUrl = relativeUrl.Insert(0, "~/");
+
+            var url = HttpContext.Current.Request.Url;
+            var port = url.Port != 80 ? (":" + url.Port) : String.Empty;
+
+            return String.Format("{0}://{1}{2}{3}",
+                url.Scheme, url.Host, port, VirtualPathUtility.ToAbsolute(relativeUrl));
         }
     }
 }

@@ -13,6 +13,7 @@ using Dao.Repository;
 using WebWriterV2.FrontModels;
 using System.Net.Mail;
 using System.Net;
+using System.Web;
 
 namespace WebWriterV2.Controllers
 {
@@ -96,8 +97,10 @@ namespace WebWriterV2.Controllers
             user = UserRepository.Save(user);
             frontUser = new FrontUser(user);
 
-            var url = Url.Action("ConfirmRegister", new { userId = user.Id, confirmCode = user.ConfirmCode });
-            var body = $"Пожалуйста подтвердите регистрацию перейдя по ссылке {url}";
+            var relativeUrl = Url.Action("ConfirmRegister", new { userId = user.Id, confirmCode = user.ConfirmCode });
+            var url = EmailHelper.ToAbsoluteUrl(relativeUrl);
+
+            var body = $"Пожалуйста подтвердите регистрацию. Для этого достаточно перейти по ссылке {url}";
             var title = "Интерактивная книга. Регистрация";
             EmailHelper.Send(user.Email, title, body);
 
