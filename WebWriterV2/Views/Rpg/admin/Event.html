@@ -54,20 +54,6 @@
                 <select ng-model="selectedSkill" ng-options="option as option.Name for option in availableSkill()"></select>
                 <a ng-click="addSkill()" style="cursor: pointer;"><img src="/Content/icon/add.png" class="icon20" /></a>
             </p>
-            <p ng-show="false">
-                RequirementCharacteristics:
-                <span ng-repeat="characteristic in event.RequirementCharacteristics">
-                    {{characteristic.CharacteristicType.Name}} {{characteristic.RequirementType.Name}} {{characteristic.Number}}
-                    <a ng-click="removeCharacteristic(characteristic.Id)" style="cursor: pointer;"><img src="/Content/icon/delete.png" class="icon20" /></a>
-                </span>
-
-                <select ng-model="newRequirementCharacteristicsType"
-                        ng-options="option as option.Name for option in availableCharacteristicTypes()"></select>
-                <select ng-model="newRequirementType"
-                        ng-options="option as option.Name for option in RequirementTypes"></select>
-                <input type="number" ng-model="newRequirementCharacteristicsValue" />
-                <a ng-click="addCharacteristic()" style="cursor: pointer;"><img src="/Content/icon/add.png" class="icon20" /></a>
-            </p>
             <p>
                 RequirementStates:
                 <span ng-repeat="state in event.RequirementStates">
@@ -170,6 +156,11 @@
                     Добавить переход к главе:
                     <select ng-model="selectedEvent" ng-options="event as event.Name for event in events"></select>
                     <a ng-href="#" ng-click="addEventLink()"><img src="/Content/icon/add.png" class="icon20"/></a>
+                </p>
+                <p>
+                    <a ng-href="#" ng-click="createNextChapter()">
+                        Создать главу-продолжение и перейти к её редактированию:
+                    </a>
                 </p>
             </div>
         </div>

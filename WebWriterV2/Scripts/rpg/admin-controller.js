@@ -365,42 +365,6 @@ angular.module('rpg')
                 $uibModal.open(model);
             }
 
-            /* Characteristic */
-            $scope.addCharacteristic = function () {
-                var typeId = $scope.newRequirementCharacteristicsType.Id;
-                var value = $scope.newRequirementCharacteristicsValue;
-                var requirementType = $scope.newRequirementType.Value;
-
-                eventService.addCharacteristic($scope.event.Id, typeId, value, requirementType).then(function (data) {
-                    if (!$scope.event.RequirementCharacteristics) {
-                        $scope.event.RequirementCharacteristics = [];
-                    }
-
-                    $scope.event.RequirementCharacteristics.push(data);
-                    $scope.newRequirementCharacteristicsValue = 0;
-                });
-            }
-
-            $scope.removeCharacteristic = function (characteristicId, index) {
-                eventService.removeCharacteristic(characteristicId).then(function() {
-                    $scope.event.RequirementCharacteristics.splice(index, 1);
-                });
-            };
-
-            $scope.availableCharacteristicTypes = function () {
-                if (!$scope.event) {
-                    return [];
-                }
-                if (!$scope.event.RequirementCharacteristics) {
-                    $scope.event.RequirementCharacteristics = [];
-                }
-                return $scope.CharacteristicTypes.filter(function (charaType) {
-                    return !$scope.event.RequirementCharacteristics.some(function (chara) {
-                        return charaType.Id === chara.CharacteristicType.Id;
-                    });
-                });
-            }
-
             /* Skill */
             $scope.addSkill = function() {
                 eventService.addSkill($scope.event.Id, $scope.selectedSkill.Id).then(function () {
@@ -540,6 +504,18 @@ angular.module('rpg')
             $scope.goToQuest = function () {
                 var url = '/AngularRoute/admin/quest/' + $scope.quest.Id;
                 $location.path(url);
+            }
+
+            $scope.goToEvent = function () {
+                var url = '/AngularRoute/admin/quest/' + $scope.quest.Id + '/event/' + $scope.event.Id;
+                $location.path(url);
+            }
+
+            $scope.createNextChapter = function () {
+                eventService.createNextChapter($scope.event.Id).then(function (newEvent) {
+                    $scope.event = newEvent;
+                    $scope.goToEvent();
+                });
             }
 
             function loadEvent(eventId) {

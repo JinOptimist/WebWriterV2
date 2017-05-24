@@ -8,9 +8,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
     .constant('_',
         window._
     )
-    .run(['$http', function ($http) {
-
-    }])
     .service('questService', ['httpHelper', function (httpHelper) {
         return {
             saveQuest: saveQuest,
@@ -83,8 +80,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             removeEventLink: removeEventLink,
             addSkill: addSkill,
             removeSkill: removeSkill,
-            addCharacteristic: addCharacteristic,
-            removeCharacteristic: removeCharacteristic,
             addState: addState,
             removeState: removeState,
             addReqState: addReqState,
@@ -97,7 +92,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             removeThingChanges: removeThingChanges,
             getEventForTravel: getEventForTravel,
             eventChangesApplyToHero: eventChangesApplyToHero,
-            getEventForTravelWithHero: getEventForTravelWithHero
+            getEventForTravelWithHero: getEventForTravelWithHero,
+            createNextChapter: createNextChapter
         };
 
         function getEventForTravel(eventId, heroId) {
@@ -199,25 +195,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return httpHelper.call(url, data);
         }
 
-        function addCharacteristic(eventId, characteristicTypeId, characteristicValue, requirementType) {
-            var url = '/Rpg/AddCharacteristicToEvent';
-            var data = {
-                eventId: eventId,
-                characteristicTypeId: characteristicTypeId,
-                characteristicValue: characteristicValue,
-                requirementType: requirementType
-            };
-            return httpHelper.call(url, data);
-        }
-
-        function removeCharacteristic(characteristicId) {
-            var url = '/Rpg/RemoveCharacteristicFromEvent';
-            var data = {
-                characteristicId: characteristicId
-            };
-            return httpHelper.call(url, data);
-        }
-
         function addState(eventId, stateTypeId, stateValue) {
             var url = '/Rpg/AddStateToEvent';
             var data = {
@@ -289,6 +266,14 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                 eventId: eventId,
                 thingId: thingId
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function createNextChapter(eventId) {
+            var url = '/Rpg/CreateNextChapter';
+            var data = {
+                eventId: eventId
             };
             return httpHelper.call(url, data);
         }

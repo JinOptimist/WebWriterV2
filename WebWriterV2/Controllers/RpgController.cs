@@ -596,7 +596,6 @@ namespace WebWriterV2.Controllers
                     state.StateType.Owner = currentUser;
                 }
 
-
                 states.ForEach(StateRepository.CheckAndSave);
                 things.ForEach(ThingRepository.CheckAndSave);
 
@@ -933,6 +932,28 @@ namespace WebWriterV2.Controllers
                 Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
+        }
+
+        public JsonResult CreateNextChapter(long eventId)
+        {
+            var parentEvent = EventRepository.Get(eventId);
+            var childEvent = new Event() {
+                Name = parentEvent.Name + " продолжение",
+                Desc = "продолжение",
+                Quest = parentEvent.Quest,
+            };
+            childEvent = EventRepository.Save(childEvent);
+            var eventLinkItem = new EventLinkItem() {
+                From = parentEvent,
+                To = childEvent,
+                Text = "дальше"
+            };
+            EventLinkItemRepository.Save(eventLinkItem);
+
+            var frontEvent = new FrontEvent(childEvent);
+
+            return Json(frontEvent, JsonRequestBehavior.AllowGet);
+
         }
 
         /* ************** Init Db ************** */
