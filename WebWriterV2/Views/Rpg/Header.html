@@ -37,7 +37,7 @@
             <span ng-if="user.Id">Привет, {{user.Name}}. |  <a href="#" ng-click="exit()">Выход</a></span>
         </p>
 
-        <div ng-if="activeLogin || activeRegister">
+        <div ng-if="activeLogin">
             <span ng-if="error" class="error">{{error}}</span>
             <p>
                 Username: <input id="username" type="text" ng-model="user.Name" ng-disabled="waiting"/>
@@ -47,7 +47,8 @@
                                  ng-keypress="passwordKeyPress($event)" ng-model="user.Password" ng-disabled="waiting"/>
             </p>
             <p>
-                <input id="login-btn" type="button" value="login" ng-click="login()" ng-if="activeLogin" ng-disabled="waiting"/>
+                <input id="login-btn" type="button" value="login" ng-click="login()" ng-disabled="waiting"/>
+                <input type="button" value="close" ng-click="close()" />
                 <img src="/Content/icon/wait.gif" ng-if="waiting" class="icon20"/>
             </p>
         </div>

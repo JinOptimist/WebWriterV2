@@ -39,27 +39,6 @@
                 });
             }
 
-            $scope.register = function () {
-                $scope.waiting = true;
-                userService.register($scope.user)
-                    .then(function(result) {
-                        if (result) {
-                            $scope.user = result;
-                            $cookies.put(ConstCookies.userId, result.Id);
-                            $scope.activeLogin = false;
-                        } else {
-                            $scope.error = 'No!';
-                        }
-                    })
-                    .catch(function (e) {
-                        $scope.error = 'Nope';
-                    })
-                    .finally(function() {
-                        $scope.waiting = false;
-                        init();
-                    });
-            }
-
             $scope.openLogin = function() {
                 $scope.activeLogin = true;
             }
@@ -68,6 +47,10 @@
                 userService.logout();
                 init();
                 $scope.goToHomePage();
+            }
+
+            $scope.close = function () {
+                $scope.activeLogin = false;
             }
 
             function init() {
