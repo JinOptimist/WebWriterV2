@@ -109,7 +109,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/17/2017 13:30:55</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>05/18/2017 17:59:07</publishTime>
+      <publishTime>05/24/2017 12:57:02</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -175,7 +175,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/06/2017 08:54:11</publishTime>
     </File>
     <File Include="Content/css/rpg/style.css">
-      <publishTime>04/06/2017 15:04:09</publishTime>
+      <publishTime>05/29/2017 15:23:57</publishTime>
     </File>
     <File Include="Content/defenitionExample/01.png">
       <publishTime>05/15/2017 16:16:23</publishTime>
@@ -1714,7 +1714,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2016 12:57:25</publishTime>
     </File>
     <File Include="Scripts/rpg/admin-controller.js">
-      <publishTime>05/15/2017 16:12:07</publishTime>
+      <publishTime>05/24/2017 12:47:05</publishTime>
     </File>
     <File Include="Scripts/rpg/constant.js">
       <publishTime>02/06/2017 14:00:47</publishTime>
@@ -1732,10 +1732,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/18/2017 14:30:10</publishTime>
     </File>
     <File Include="Scripts/rpg/services.js">
-      <publishTime>04/19/2017 14:51:53</publishTime>
+      <publishTime>05/24/2017 12:50:14</publishTime>
     </File>
     <File Include="Scripts/rpg/user-controller.js">
-      <publishTime>05/18/2017 17:50:28</publishTime>
+      <publishTime>05/26/2017 13:33:52</publishTime>
     </File>
     <File Include="Scripts/underscore.js">
       <publishTime>12/27/2016 16:31:19</publishTime>
@@ -1786,7 +1786,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/20/2016 18:08:55</publishTime>
     </File>
     <File Include="Views/Rpg/admin/Event.html">
-      <publishTime>03/17/2017 12:36:21</publishTime>
+      <publishTime>05/29/2017 15:24:55</publishTime>
     </File>
     <File Include="Views/Rpg/admin/Genre.html">
       <publishTime>04/19/2017 14:35:29</publishTime>
@@ -1843,10 +1843,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/28/2016 11:44:39</publishTime>
     </File>
     <File Include="Views/Rpg/Header.html">
-      <publishTime>05/18/2017 14:31:09</publishTime>
+      <publishTime>05/26/2017 13:33:30</publishTime>
     </File>
     <File Include="Views/Rpg/Index.cshtml">
-      <publishTime>04/21/2017 15:10:35</publishTime>
+      <publishTime>05/29/2017 15:26:07</publishTime>
     </File>
     <File Include="Views/Rpg/ListHeroes.html">
       <publishTime>09/06/2016 17:08:46</publishTime>
@@ -1921,7 +1921,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/23/2016 18:19:42</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>05/18/2017 17:59:08</publishTime>
+      <publishTime>05/24/2017 12:57:02</publishTime>
     </File>
   </ItemGroup>
 </Project>

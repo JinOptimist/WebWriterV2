@@ -21,7 +21,7 @@
                 С текстом перехода:
                 <br />
                 <input name="linkItemText{{linkItem.Id}}" type="text" ng-model="linkItem.Text"
-                       class="auto-apply" ng-disabled="linkItem.disable" style="width: 500px;" />
+                       class="auto-apply width500" ng-disabled="linkItem.disable" />
                 <a ng-href="#" ng-click="saveEventLink(linkItem)"><img src="/Content/icon/confirm.png" class="icon20" /></a>
                 <a ng-href="#" ng-click="removeEventLinkParent(event, linkItem, $index)"><img src="/Content/icon/delete.png" class="icon20" /></a>
             </p>
@@ -123,7 +123,7 @@
             <input type="submit" ng-click="saveEvent()" value="Save" class="save" />
             <p>
                 Name: <input type="text" ng-model="event.Name"
-                             name="eventName" class="auto-apply" />
+                             name="eventName" class="auto-apply width500" />
             </p>
             <p ng-show="false">
                 ProgressChanging: <input type="text" ng-model="event.ProgressChanging"
@@ -148,7 +148,7 @@
                     С текстом перехода:
                     <br/>
                     <input name="linkItemText{{linkItem.Id}}" type="text" ng-model="linkItem.Text"
-                           class="auto-apply" ng-disabled="linkItem.disable" style="width: 500px;"/>
+                           class="auto-apply width500" ng-disabled="linkItem.disable" />
                     <a ng-href="#" ng-click="saveEventLink(linkItem)"><img src="/Content/icon/confirm.png" class="icon20"/></a>
                     <a ng-href="#" ng-click="removeEventLink(event, linkItem, $index)"><img src="/Content/icon/delete.png" class="icon20"/></a>
                 </p>

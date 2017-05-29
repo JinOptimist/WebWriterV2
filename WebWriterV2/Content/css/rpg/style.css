@@ -137,6 +137,10 @@ label{
     width: 900px;
 }
 
+.width500 {
+    width: 500px;
+}
+
 .icon20 {
     width: 20px;
     height: 20px;
