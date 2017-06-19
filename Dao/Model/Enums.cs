@@ -17,6 +17,7 @@
         LessOrEquals = 4,
         Exist = 5,
         NotExist = 6,
-        Equals = 7
+        Equals = 7,
+        NotEquals = 8
     }
 }

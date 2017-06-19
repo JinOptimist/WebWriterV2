@@ -46,14 +46,19 @@ namespace WebWriterV2.RpgUtility
             {
                 var destination = link.To;
                 /* Filter by States */
-                foreach (var state in destination.RequirementStates)
-                {
-                    var heroState = hero.State.FirstOrDefault(
-                        x => x.StateType.Id == state.StateType.Id);
-                    if (heroState == null
-                        || !CheckRequirement(heroState.Number, state.Number, state.RequirementType))
+                foreach (var stateRequirement in destination.RequirementStates) {
+                    var heroState = hero.State.FirstOrDefault(x => x.StateType.Id == stateRequirement.StateType.Id);
+
+                    if (stateRequirement.RequirementType == RequirementType.NotEquals && heroState == null) {
+                        // it's normal when RequirementType is NotEquals and current hero hasn't this state
+                        // therefore skip checking
+                    }
+                    else
                     {
-                        forRemove.Add(link);
+                        if (heroState == null || !CheckRequirement(heroState.Number, stateRequirement.Number, stateRequirement.RequirementType)) 
+                        {
+                            forRemove.Add(link);
+                        }
                     }
                 }
 
@@ -85,6 +90,10 @@ namespace WebWriterV2.RpgUtility
                 case RequirementType.Equals:
                     {
                         return heroValue == requirementValue;
+                    }
+                case RequirementType.NotEquals:
+                    {
+                        return heroValue != requirementValue;
                     }
                 case RequirementType.LessOrEquals:
                     {

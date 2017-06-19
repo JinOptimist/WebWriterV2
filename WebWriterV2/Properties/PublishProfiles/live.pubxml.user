@@ -31,10 +31,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/10/2015 17:47:34</publishTime>
     </File>
     <File Include="bin/Dao.dll">
-      <publishTime>05/18/2017 17:59:07</publishTime>
+      <publishTime>06/19/2017 16:58:43</publishTime>
     </File>
     <File Include="bin/Dao.dll.config">
       <publishTime>09/08/2016 15:40:34</publishTime>
+    </File>
+    <File Include="bin/Dao.pdb">
+      <publishTime>06/19/2017 16:58:43</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>08/25/2015 09:11:03</publishTime>
@@ -106,10 +109,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/24/2015 14:59:29</publishTime>
     </File>
     <File Include="bin/VkApi.dll">
-      <publishTime>03/17/2017 13:30:55</publishTime>
+      <publishTime>06/19/2017 16:58:43</publishTime>
+    </File>
+    <File Include="bin/VkApi.pdb">
+      <publishTime>06/19/2017 16:58:43</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>05/24/2017 12:57:02</publishTime>
+      <publishTime>06/19/2017 17:53:39</publishTime>
+    </File>
+    <File Include="bin/WebWriterV2.pdb">
+      <publishTime>06/19/2017 17:53:39</publishTime>
     </File>
     <File Include="book/Academy.doc">
       <publishTime>08/08/2013 09:33:47</publishTime>
@@ -184,7 +193,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 16:16:50</publishTime>
     </File>
     <File Include="Content/defenitionExample/03.jpg">
-      <publishTime>05/15/2017 16:16:59</publishTime>
+      <publishTime>06/07/2017 10:00:32</publishTime>
     </File>
     <File Include="Content/defenitionExample/04.jpg">
       <publishTime>05/15/2017 16:17:07</publishTime>
