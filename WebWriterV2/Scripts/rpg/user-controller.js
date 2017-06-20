@@ -114,8 +114,8 @@
         }
     ])
     .controller('aboutUsController', [
-        '$scope',
-        function ($scope) {
+        '$scope', '$location', '$anchorScroll',
+        function ($scope, $location, $anchorScroll) {
             $scope.negativeTypes = [
                 {
                     type: 1,
@@ -174,6 +174,11 @@
                 storyType: {},
             };
 
+            $scope.goTo = function (anchor) {
+                $location.hash(anchor);
+                $anchorScroll();
+            }
+
             init();
 
             function init() {
@@ -181,7 +186,6 @@
                 $scope.female.complexType = $scope.complexTypes[0];
                 $scope.story.storyType = $scope.storyTypes[0];
             }
-
         }
     ])
     .controller('travelController', [

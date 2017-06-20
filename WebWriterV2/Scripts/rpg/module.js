@@ -47,6 +47,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                 })
                 .when('/AngularRoute/generalDefinition', {
                     templateUrl: '/views/rpg/GeneralDefinition.html',
+                    controller: 'aboutUsController'
                 })
                 .when('/AngularRoute/listQuest', {
                     templateUrl: '/views/rpg/ListQuest.html',
