@@ -17,16 +17,16 @@ namespace Dao
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            modelBuilder.Entity<User>().HasMany(x => x.Quests).WithOptional(x => x.Owner);
+            modelBuilder.Entity<User>().HasMany(x => x.Books).WithOptional(x => x.Owner);
             modelBuilder.Entity<User>().HasMany(x => x.Bookmarks).WithOptional(x => x.Owner);
             modelBuilder.Entity<User>().HasMany(x => x.StateTypes).WithOptional(x => x.Owner);
             modelBuilder.Entity<User>().HasMany(x => x.ThingsSample).WithOptional(x => x.Owner);
             modelBuilder.Entity<User>().HasMany(x => x.BooksAreReaded).WithMany();
             modelBuilder.Entity<User>().HasMany(x => x.Evaluations).WithOptional(x => x.Owner);
 
-            modelBuilder.Entity<Quest>().HasOptional(x => x.RootEvent).WithOptionalPrincipal(x => x.ForRootQuest).WillCascadeOnDelete(false);
-            modelBuilder.Entity<Quest>().HasMany(u => u.AllEvents).WithRequired(x => x.Quest).WillCascadeOnDelete(false);
-            modelBuilder.Entity<Quest>().HasMany(u => u.Evaluations).WithOptional(x => x.Quest);
+            modelBuilder.Entity<Book>().HasOptional(x => x.RootEvent).WithOptionalPrincipal(x => x.ForRootBook).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Book>().HasMany(u => u.AllEvents).WithRequired(x => x.Book).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Book>().HasMany(u => u.Evaluations).WithOptional(x => x.Book);
 
             modelBuilder.Entity<Event>().HasMany(x => x.ThingsChanges).WithOptional();
             modelBuilder.Entity<Event>().HasMany(x => x.RequirementThings).WithOptional();
@@ -36,7 +36,7 @@ namespace Dao
             modelBuilder.Entity<EventLinkItem>().HasOptional(x => x.To).WithMany(x => x.LinksToThisEvent);
             modelBuilder.Entity<EventLinkItem>().HasOptional(x => x.From).WithMany(x => x.LinksFromThisEvent);
 
-            modelBuilder.Entity<Genre>().HasMany(u => u.Quests).WithOptional(x => x.Genre);
+            modelBuilder.Entity<Genre>().HasMany(u => u.Books).WithOptional(x => x.Genre);
 
             modelBuilder.Entity<Hero>().HasMany(u => u.State).WithOptional().WillCascadeOnDelete(true);
             modelBuilder.Entity<Hero>().HasMany(u => u.Inventory).WithOptional(x => x.Hero);

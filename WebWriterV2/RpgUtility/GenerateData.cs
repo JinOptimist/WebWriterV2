@@ -92,34 +92,34 @@ namespace WebWriterV2.RpgUtility
             return thingSamples;
         }
 
-        public static Quest QuestRat()
+        public static Book BookRat()
         {
-            var quest = new Quest
+            var book = new Book
             {
                 Name = "Убить крыс",
                 Desc = "Владелец амбара разметил заказ на убийство крыс. Отлично задание для новичка",
             };
 
-            quest.AllEvents = GenerateEventsForQuestRat(quest);
+            book.AllEvents = GenerateEventsForBookRat(book);
 
-            return quest;
+            return book;
         }
 
-        public static Quest QuestTower(List<StateType> stateTypes,
+        public static Book BookTower(List<StateType> stateTypes,
             List<ThingSample> thingSamples)
         {
-            var quest = new Quest
+            var book = new Book
             {
                 Name = "Башня",
                 Desc = "<p>	В великой Башне три уровня. Зачисти их все за один заход и получишь великий Кубок&nbsp;<span style=\"background-color:#ffff00;\">(добавить возможность награды для квеста)</span></p><p>	Перед тем как отправляться убедись что готов к сражениям</p><ol>	<li>		* Ловушки которые ранят если нет умения Уворот</li>	<li>		** Клады дают деньги</li>	<li>		*** Возможность подкупа за золото или обольстить если Пол и Красота на уровне</li>	<li>		**** Открыть короткий проход при помощи Силы или Ловкости</li></ol>",
             };
 
-            quest.AllEvents = GenerateEventsForQuestTower(quest, stateTypes, thingSamples);
+            book.AllEvents = GenerateEventsForBookTower(book, stateTypes, thingSamples);
 
-            return quest;
+            return book;
         }
 
-        public static List<Event> GenerateEventsForQuestRat(Quest quest)
+        public static List<Event> GenerateEventsForBookRat(Book book)
         {
             // Tips
             // Desc = "У заказчика всегда была репутацию падкого на женское внимание мужика",
@@ -221,14 +221,14 @@ namespace WebWriterV2.RpgUtility
 
             list.Add(lvl3Event0);
 
-            list.ForEach(x => x.Quest = quest);
+            list.ForEach(x => x.Book = book);
 
-            quest.RootEvent = lvl0Event0;
+            book.RootEvent = lvl0Event0;
 
             return list;
         }
 
-        public static List<Event> GenerateEventsForQuestTower(Quest quest,
+        public static List<Event> GenerateEventsForBookTower(Book book,
             List<StateType> stateTypes,
             List<ThingSample> thingSamples)
         {
@@ -385,9 +385,9 @@ namespace WebWriterV2.RpgUtility
                 event99,
             });
 
-            list.ForEach(x => x.Quest = quest);
+            list.ForEach(x => x.Book = book);
 
-            quest.RootEvent = event0;
+            book.RootEvent = event0;
 
             return list;
         }

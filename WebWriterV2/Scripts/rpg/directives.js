@@ -5,16 +5,16 @@ underscore.factory('_', ['$window', function ($window) {
 }]);
 
 angular.module('directives', ['services', 'underscore', 'ngSanitize']) //, ['common', 'search', 'masha', 'ui.ace']
-    .directive('ngQuestInfo', [
+    .directive('ngBookInfo', [
         function () {
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: '/views/rpg/directives/ngQuestInfo.html',
-                scope: { quest: '=' },
+                templateUrl: '/views/rpg/directives/ngBookInfo.html',
+                scope: { book: '=' },
                 link: function (scope, element, attrs) {
-                    scope.$watch(attrs.quest, function (v) {
-                        console.log('Quest value changed, new value is: ' + v);
+                    scope.$watch(attrs.book, function (v) {
+                        console.log('Book value changed, new value is: ' + v);
                     });
                 }
             }

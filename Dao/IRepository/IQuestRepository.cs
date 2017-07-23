@@ -4,12 +4,12 @@ using Dao.Model;
 
 namespace Dao.IRepository
 {
-    public interface IQuestRepository : IBaseRepository<Quest>
+    public interface IBookRepository : IBaseRepository<Book>
     {
-        List<Quest> GetAllWithRootEvent();
+        List<Book> GetAllWithRootEvent();
 
-        Quest GetByName(string name);
+        Book GetByName(string name);
 
-        List<Quest> GetByUser(long userId);
+        List<Book> GetByUser(long userId);
     }
 }

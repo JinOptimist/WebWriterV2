@@ -57,7 +57,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="LoginTest.cs" />
-    <Compile Include="QuestTest.cs" />
+    <Compile Include="BookTest.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

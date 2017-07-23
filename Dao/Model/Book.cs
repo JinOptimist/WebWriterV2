@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dao.Model
 {
-    public class Quest : BaseModel, IUpdatable<Quest>
+    public class Book : BaseModel, IUpdatable<Book>
     {
         [Required]
         public string Name { get; set; }
@@ -24,11 +24,11 @@ namespace Dao.Model
 
         public virtual Genre Genre { get; set; }
 
-        public void UpdateFrom(Quest model)
+        public void UpdateFrom(Book model)
         {
             if (Id != model.Id)
             {
-                throw new Exception($"You try update Quest model with id {Id} from model with id {Id}");
+                throw new Exception($"You try update Book model with id {Id} from model with id {Id}");
             }
 
             Name = model.Name;

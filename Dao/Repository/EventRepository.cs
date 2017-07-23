@@ -34,9 +34,9 @@ namespace Dao.Repository
                 model = modelFromDb;
             }
 
-            if (model.Quest.RootEvent == null)
+            if (model.Book.RootEvent == null)
             {
-                model.Quest.RootEvent = model;
+                model.Book.RootEvent = model;
             }
 
             return base.Save(model);
@@ -117,19 +117,19 @@ namespace Dao.Repository
             base.Remove(currentEvent);
         }
 
-        public List<Event> GetAllEventsByQuest(long questId)
+        public List<Event> GetAllEventsByBook(long bookId)
         {
-            return Entity.Where(x => x.Quest.Id == questId).ToList();
+            return Entity.Where(x => x.Book.Id == bookId).ToList();
         }
 
-        public List<Event> GetRootEvents(long questId)
+        public List<Event> GetRootEvents(long bookId)
         {
-            return Entity.Where(x => x.Quest != null && x.Quest.Id == questId).ToList();
+            return Entity.Where(x => x.Book != null && x.Book.Id == bookId).ToList();
         }
 
-        public List<Event> GetEndingEvents(long questId)
+        public List<Event> GetEndingEvents(long bookId)
         {
-            return Entity.Where(x => x.Quest != null && x.Quest.Id == questId
+            return Entity.Where(x => x.Book != null && x.Book.Id == bookId
                                      && x.LinksFromThisEvent.Count == 0).ToList();
         }
 
@@ -138,10 +138,10 @@ namespace Dao.Repository
             return Entity.Any(x => x.Id == eventId && x.LinksFromThisEvent.Any());
         }
 
-        public List<Event> GetNotAvailableEvents(long questId)
+        public List<Event> GetNotAvailableEvents(long bookId)
         {
-            return Entity.Where(x => x.Quest != null && x.Quest.Id == questId
-                                     && x.LinksToThisEvent.Count == 0 && x.ForRootQuest == null).ToList();
+            return Entity.Where(x => x.Book != null && x.Book.Id == bookId
+                                     && x.LinksToThisEvent.Count == 0 && x.ForRootBook == null).ToList();
         }
     }
 }

@@ -14,7 +14,7 @@
             });
 
             $scope.goToHomePage = function() {
-                $location.path('/AngularRoute/listQuest');
+                $location.path('/AngularRoute/listBook');
             }
 
             $scope.passwordKeyPress = function ($event) {
@@ -74,7 +74,7 @@
             init();
 
             $scope.goToHomePage = function () {
-                $location.path('/AngularRoute/listQuest');
+                $location.path('/AngularRoute/listBook');
             }
 
             $scope.passwordKeyPress = function ($event) {
@@ -190,10 +190,10 @@
     ])
     .controller('travelController', [
         '$scope', '$http', '$location', '$routeParams', '$cookies', '$timeout', 'evaluationService',
-        'questService', 'eventService', 'heroService', 'userService',
+        'bookService', 'eventService', 'heroService', 'userService',
         function ($scope, $http, $location, $routeParams, $cookies, $timeout, evaluationService,
-            questService, eventService, heroService, userService) {
-            $scope.quest = {};
+            bookService, eventService, heroService, userService) {
+            $scope.book = {};
             $scope.hero = {};
             $scope.currentEvent = {};
             $scope.ways = [];
@@ -215,17 +215,17 @@
                 }
             };
 
-            $scope.endQuest = function() {
-                var questId = $scope.quest.Id;
-                $scope.evaluation.QuestId = questId;
+            $scope.endBook = function() {
+                var bookId = $scope.book.Id;
+                $scope.evaluation.BookId = bookId;
                 evaluationService.save($scope.evaluation);
 
-                questService.questCompleted(questId);
-                $location.path('/AngularRoute/listQuest');
+                bookService.bookCompleted(bookId);
+                $location.path('/AngularRoute/listBook');
             }
 
             $scope.batle = function() {
-                heroService.selectHero($scope.quest.Executor);
+                heroService.selectHero($scope.book.Executor);
                 $location.path('/AngularRoute/battle');
             }
 
@@ -290,7 +290,7 @@
                 $scope.wait = true;
                 eventService.getEventForTravel(eventId, $scope.hero.Id).then(function(result) {
                     $scope.ways = result.LinksFromThisEvent;
-                    $scope.quest.Effective += result.ProgressChanging;
+                    $scope.book.Effective += result.ProgressChanging;
                     $scope.currentEvent = result;
                     $scope.wait = false;
                     alertChanges();
@@ -318,7 +318,7 @@
                     $scope.hero = result.frontHero;
 
                     $scope.ways = event.LinksFromThisEvent;
-                    $scope.quest.Effective += event.ProgressChanging;
+                    $scope.book.Effective += event.ProgressChanging;
                     $scope.currentEvent = event;
                     $scope.wait = false;
                     if (!isBookmark) {
@@ -358,19 +358,19 @@
             }
 
             function init() {
-                var questId = $routeParams.questId;
+                var bookId = $routeParams.bookId;
                 var heroId = $routeParams.heroId;
                 var isBookmark = angular.fromJson($routeParams.isBookmark);
                 heroService.load(heroId).then(function(data) {
                     $scope.hero = data;
 
-                    questService.get(questId).then(function (result) {
-                        $scope.quest = result;
-                        $scope.quest.Effective = 0;
+                    bookService.get(bookId).then(function (result) {
+                        $scope.book = result;
+                        $scope.book.Effective = 0;
                         if ($scope.hero.CurrentEvent) {
                             $scope.currentEvent = $scope.hero.CurrentEvent;
                         } else {
-                            $scope.currentEvent = $scope.quest.RootEvent;
+                            $scope.currentEvent = $scope.book.RootEvent;
                         }
 
                         $scope.chooseEvent($scope.currentEvent.Id, isBookmark);
@@ -379,26 +379,26 @@
             }
         }
     ])
-    .controller('listQuestController', [
-        '$scope', '$http', '$location', 'questService',
-        function($scope, $http, $location, questService) {
-            //$scope.quests = [];
+    .controller('listBookController', [
+        '$scope', '$http', '$location', 'bookService',
+        function($scope, $http, $location, bookService) {
+            //$scope.books = [];
 
             init();
 
-            $scope.goToQuest = function (quest) {
-                $location.path('/AngularRoute/travel/quest/' + quest.Id + '/hero/' + -1 + '/false');
+            $scope.goToBook = function (book) {
+                $location.path('/AngularRoute/travel/book/' + book.Id + '/hero/' + -1 + '/false');
             }
 
             function init() {
-                questService.getQuests().then(function (result) {
-                    $scope.quests = result;
+                bookService.getBooks().then(function (result) {
+                    $scope.books = result;
                 });
             }
         }
     ])
-    .controller('profileController', ['$scope', '$cookies', '$location', '$uibModal', 'ConstCookies', 'questService', 'heroService', 'userService',
-        function ($scope, $cookies, $location, $uibModal, ConstCookies, questService, heroService, userService) {
+    .controller('profileController', ['$scope', '$cookies', '$location', '$uibModal', 'ConstCookies', 'bookService', 'heroService', 'userService',
+        function ($scope, $cookies, $location, $uibModal, ConstCookies, bookService, heroService, userService) {
             $scope.user = {};
             $scope.waiting = false;
 
@@ -414,7 +414,7 @@
                                 $cookies.remove(ConstCookies.isAdmin);
                                 $cookies.remove(ConstCookies.isWriter);
                                 $scope.$emit('UpdateUserEvent');
-                                var url = '/AngularRoute/listQuest';
+                                var url = '/AngularRoute/listBook';
                                 $location.path(url);
                             }
                         });
@@ -429,8 +429,8 @@
             }
 
             $scope.goToBookmark = function (bookmark) {
-                var questId = bookmark.CurrentEvent.quest.Id;
-                var url = '/AngularRoute/travel/quest/' + questId + '/hero/' + bookmark.Id + '/true';
+                var bookId = bookmark.CurrentEvent.book.Id;
+                var url = '/AngularRoute/travel/book/' + bookId + '/hero/' + bookmark.Id + '/true';
                 $location.path(url);
             }
 
@@ -438,7 +438,7 @@
                 userService.becomeWriter().then(function () {
                     init();
                     $scope.$emit('UpdateUserEvent');
-                    var url = '/AngularRoute/admin/quest/';
+                    var url = '/AngularRoute/admin/book/';
                     $location.path(url);
                 });
             }
@@ -477,9 +477,9 @@
                     userService.getById(userId).then(function (data) {
                         $scope.user = data;
                         $scope.user.Bookmarks.forEach(function(hero) {
-                            questService.get(hero.CurrentEvent.QuestId)
-                                .then(function(quest) {
-                                    hero.CurrentEvent.quest = quest;
+                            bookService.get(hero.CurrentEvent.BookId)
+                                .then(function(book) {
+                                    hero.CurrentEvent.book = book;
                                 });
                         });
 

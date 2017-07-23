@@ -24,13 +24,13 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     templateUrl: '/views/rpg/admin/state.html',
                     controller: 'adminStateController'
                 })
-                .when('/AngularRoute/admin/quest/:questId/event/:eventId?', {
+                .when('/AngularRoute/admin/book/:bookId/event/:eventId?', {
                     templateUrl: '/views/rpg/admin/Event.html',
                     controller: 'adminEventGeneralController'
                 })
-                .when('/AngularRoute/admin/quest/:questId?', {
-                    templateUrl: '/views/rpg/admin/Quest.html',
-                    controller: 'adminQuestGeneralController'
+                .when('/AngularRoute/admin/book/:bookId?', {
+                    templateUrl: '/views/rpg/admin/Book.html',
+                    controller: 'adminBookGeneralController'
                 })
                 .when('/AngularRoute/admin/genres', {
                     templateUrl: '/views/rpg/admin/Genre.html',
@@ -49,11 +49,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     templateUrl: '/views/rpg/GeneralDefinition.html',
                     controller: 'aboutUsController'
                 })
-                .when('/AngularRoute/listQuest', {
-                    templateUrl: '/views/rpg/ListQuest.html',
-                    controller: 'listQuestController'
+                .when('/AngularRoute/listBook', {
+                    templateUrl: '/views/rpg/ListBook.html',
+                    controller: 'listBookController'
                 })
-                .when('/AngularRoute/travel/quest/:questId/hero/:heroId/:isBookmark', {
+                .when('/AngularRoute/travel/book/:bookId/hero/:heroId/:isBookmark', {
                     templateUrl: '/views/rpg/Travel.html',
                     controller: 'travelController'
                 })
@@ -62,7 +62,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     controller: 'profileController'
                 })
                 .otherwise({
-                    redirectTo: '/AngularRoute/listQuest'
+                    redirectTo: '/AngularRoute/listBook'
                 });
 
             // Uses HTLM5 history API for navigation

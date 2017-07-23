@@ -1,4 +1,4 @@
-﻿<div ng-class="!quest || !hero ? 'wait' : ''">
+﻿<div ng-class="!book || !hero ? 'wait' : ''">
     <div style="width: 800px; float: left;">
         <h2>Экран путешествия: </h2>
         <div>
@@ -34,7 +34,7 @@
 
             <textarea ng-model="evaluation.Comment"></textarea>
 
-            <input ng-click="endQuest()" id="end" type="button" value="Конец" />
+            <input ng-click="endBook()" id="end" type="button" value="Конец" />
         </div>
         <div ng-if="wait">
             <img src="/Content/icon/wait.gif" />
@@ -46,7 +46,7 @@
 
 
     <div style="float: right;">
-        <ng-quest-info quest="quest"></ng-quest-info>
+        <ng-book-info book="book"></ng-book-info>
         <ng-hero-card hero="hero" style="clear: both;"></ng-hero-card>
     </div>
 </div>

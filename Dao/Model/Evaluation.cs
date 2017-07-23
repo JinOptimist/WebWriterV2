@@ -14,6 +14,6 @@ namespace Dao.Model
 
         public virtual User Owner { get; set; }
 
-        public virtual Quest Quest { get; set; }
+        public virtual Book Book { get; set; }
     }
 }

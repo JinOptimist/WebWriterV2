@@ -17,14 +17,14 @@ namespace WebWriterV2.FrontModels
             Mark = evaluation.Mark;
 
             OwnerId = evaluation.Owner?.Id ?? -1;
-            QuestId = evaluation.Quest?.Id ?? -1;
+            BookId = evaluation.Book?.Id ?? -1;
         }
 
         public long Mark { get; set; }
         public string Comment { get; set; }
 
         public long OwnerId { get; set; }
-        public long QuestId { get; set; }
+        public long BookId { get; set; }
 
         public override Evaluation ToDbModel()
         {
@@ -33,7 +33,7 @@ namespace WebWriterV2.FrontModels
                 Id = Id,
                 Mark = Mark,
                 Comment = Comment,
-                Quest = new Quest { Id = QuestId },
+                Book = new Book { Id = BookId },
                 Owner = new User { Id = OwnerId }
             };
         }

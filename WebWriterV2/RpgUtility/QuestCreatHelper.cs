@@ -6,7 +6,7 @@ using Dao.Model;
 
 namespace WebWriterV2.RpgUtility
 {
-    public static class QuestCreatHelper
+    public static class BookCreatHelper
     {
         public static void AddChildEvent(this Event currentEvent, Event addedEvent, string text = null)
         {

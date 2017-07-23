@@ -155,6 +155,10 @@
     <Compile Include="Migrations\201705181449018_addConfirmCodeToUser.Designer.cs">
       <DependentUpon>201705181449018_addConfirmCodeToUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707231457096_RenameQuestToBook.cs" />
+    <Compile Include="Migrations\201707231457096_RenameQuestToBook.Designer.cs">
+      <DependentUpon>201707231457096_RenameQuestToBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Enums.cs" />
@@ -167,7 +171,7 @@
     <Compile Include="Model\State.cs" />
     <Compile Include="Model\Event.cs" />
     <Compile Include="Model\Hero.cs" />
-    <Compile Include="Model\Quest.cs" />
+    <Compile Include="Model\Book.cs" />
     <Compile Include="Model\Thing.cs" />
     <Compile Include="Model\ThingSample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -251,6 +255,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201705181449018_addConfirmCodeToUser.resx">
       <DependentUpon>201705181449018_addConfirmCodeToUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707231457096_RenameQuestToBook.resx">
+      <DependentUpon>201707231457096_RenameQuestToBook.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,7 @@
 ﻿<div>
     <div style="float: right; width: 300px;">
         <h2>
-            <a href="#" ng-click="goToQuest()">{{quest.Name}}</a> events:
+            <a href="#" ng-click="goToBook()">{{book.Name}}</a> events:
         </h2>
         <p ng-repeat="eventItem in events">
             <a ng-href="#" ng-click="selectEvent(eventItem.Id)">{{eventItem.Name}}</a>
@@ -15,7 +15,7 @@
             <p ng-repeat="linkItem in event.LinksToThisEvent">
                 <!--FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.-->
                 Из главе:
-                <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}/event/{{linkItem.FromId}}" ng-click="selectEvent(linkItem.FromId)">
+                <a ng-href="/AngularRoute/admin/book/{{book.Id}}/event/{{linkItem.FromId}}" ng-click="selectEvent(linkItem.FromId)">
                     {{linkItem.FromId}}
                 </a>
                 С текстом перехода:
@@ -142,7 +142,7 @@
                 <p ng-repeat="linkItem in event.LinksFromThisEvent">
                     <!--FromId: {{linkItem.FromId}}. ToId: {{linkItem.ToId}}.-->
                     К главе:
-                    <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}/event/{{linkItem.ToId}}" ng-click="selectEvent(linkItem.ToId)">
+                    <a ng-href="/AngularRoute/admin/book/{{book.Id}}/event/{{linkItem.ToId}}" ng-click="selectEvent(linkItem.ToId)">
                         {{linkItem.ToId}}
                     </a>
                     С текстом перехода:
@@ -166,5 +166,5 @@
         </div>
     </form>
 
-    <!--<ng-quest-info quest="quest"></ng-quest-info>-->
+    <!--<ng-book-info book="book"></ng-book-info>-->
 </div>

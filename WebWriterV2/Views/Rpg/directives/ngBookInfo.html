@@ -1,0 +1,7 @@
+﻿<div class="book-block" ng-if="book">
+    <p>Карточка произведения. <b>{{book.Name}}</b></p>
+    <p>Автор: {{book.OwnerId}}</p>
+    <p ng-if="book.Genre">Жанр: {{book.Genre.Name}}</p>
+    <p>Описание:</p>
+    <div ng-bind-html="book.Desc | trusted"></div>
+</div>

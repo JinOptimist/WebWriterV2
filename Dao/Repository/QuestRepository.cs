@@ -7,49 +7,49 @@ using Dao.Model;
 
 namespace Dao.Repository
 {
-    public class QuestRepository : BaseRepository<Quest>, IQuestRepository
+    public class BookRepository : BaseRepository<Book>, IBookRepository
     {
         private readonly EventRepository _eventRepository;
         private readonly EventLinkItemRepository _eventLinkItemRepository;
         private readonly EvaluationRepository _evaluationRepository;
 
-        public QuestRepository(WriterContext db) : base(db)
+        public BookRepository(WriterContext db) : base(db)
         {
             _eventRepository = new EventRepository(db);
             _eventLinkItemRepository = new EventLinkItemRepository(db);
             _evaluationRepository = new EvaluationRepository(db);
         }
 
-        public List<Quest> GetAllWithRootEvent()
+        public List<Book> GetAllWithRootEvent()
         {
             return Entity.Include(x => x.RootEvent).ToList();
         }
 
-        public List<Quest> GetByUser(long userId)
+        public List<Book> GetByUser(long userId)
         {
             return Entity.Where(x => x.Owner.Id == userId).ToList();
         }
 
-        public override void Remove(Quest quest)
+        public override void Remove(Book book)
         {
-            if (quest == null)
+            if (book == null)
                 return;
 
-            _evaluationRepository.Remove(quest.Evaluations);
+            _evaluationRepository.Remove(book.Evaluations);
 
-            foreach (var @event in quest.AllEvents)
+            foreach (var @event in book.AllEvents)
             {
                 _eventLinkItemRepository.Remove(@event.LinksFromThisEvent);
                 _eventLinkItemRepository.Remove(@event.LinksToThisEvent);
             }
 
-            if (quest.AllEvents.Count > 0)
+            if (book.AllEvents.Count > 0)
             {
-                _eventRepository.Remove(quest.AllEvents);
+                _eventRepository.Remove(book.AllEvents);
             }
 
-            quest = Get(quest.Id);
-            base.Remove(quest);
+            book = Get(book.Id);
+            base.Remove(book);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Dao.Repository
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
-        public override Quest Save(Quest model)
+        public override Book Save(Book model)
         {
             // if we try update detached model
             if (Db.Entry(model).State == EntityState.Detached && model.Id > 0)
@@ -70,7 +70,7 @@ namespace Dao.Repository
             return base.Save(model);
         }
 
-        public Quest GetByName(string name)
+        public Book GetByName(string name)
         {
             return Entity.FirstOrDefault(x => x.Name == name);
         }

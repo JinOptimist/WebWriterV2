@@ -11,6 +11,6 @@ namespace Dao.Model
 
         public string Desc { get; set; }
 
-        public virtual List<Quest> Quests { get; set; }
+        public virtual List<Book> Books { get; set; }
     }
 }

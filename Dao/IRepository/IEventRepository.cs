@@ -9,13 +9,13 @@ namespace Dao.IRepository
 
         void RemoveEventAndChildren(long currentEventId);
 
-        List<Event> GetAllEventsByQuest(long questId);
+        List<Event> GetAllEventsByBook(long bookId);
 
-        List<Event> GetRootEvents(long questId);
+        List<Event> GetRootEvents(long bookId);
 
-        List<Event> GetEndingEvents(long questId);
+        List<Event> GetEndingEvents(long bookId);
 
-        List<Event> GetNotAvailableEvents(long questId);
+        List<Event> GetNotAvailableEvents(long bookId);
 
         bool HasChild(long eventId);
     }

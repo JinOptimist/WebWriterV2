@@ -16,7 +16,7 @@
         <p style="border-bottom: 1px dotted green; padding: 10px 7px">
             Уголок Писателя:
             <span ng-if="user.IsAdmin || user.IsWriter">
-                <a href="AngularRoute/admin/quest/">Произведения админка</a> | 
+                <a href="AngularRoute/admin/book/">Произведения админка</a> | 
             </span>
             <a href="AngularRoute/aboutUs">Зачем писателю это?</a>
             | <a href="AngularRoute/generalDefinition">Основные инструменты</a>
@@ -30,7 +30,7 @@
             <span ng-if="!user.Id">|</span>
             <a id="register-lnk" ng-if="!user.Id" href="/AngularRoute/register">Register</a>
             <span ng-if="!user.Id">|</span>
-            <a href="AngularRoute/listQuest">Произведения</a>
+            <a href="AngularRoute/listBook">Произведения</a>
             <span ng-if="user.Id">|</span>
             <a ng-if="user.Id" class="profile-lnk" href="/AngularRoute/profile">Профиль</a>
             <span ng-if="user.Id">|</span>

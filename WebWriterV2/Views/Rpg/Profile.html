@@ -1,4 +1,4 @@
-﻿<div ng-class="!quest || !hero ? 'wait' : ''" class="profile">
+﻿<div ng-class="!book || !hero ? 'wait' : ''" class="profile">
     <div style="width: 800px; float: left;">
         <h2>Профиль: {{user.Name}}</h2>
         <p>
@@ -10,7 +10,7 @@
         <div ng-if="user.Bookmarks && user.Bookmarks.length > 0">
             <h2>Мои закладки:</h2>
             <p ng-repeat="mark in user.Bookmarks">
-                Квест: {{mark.CurrentEvent.quest.Name}}. Глава: {{mark.CurrentEvent.Name}}
+                Квест: {{mark.CurrentEvent.book.Name}}. Глава: {{mark.CurrentEvent.Name}}
                 <a href="#" ng-click="goToBookmark(mark)">Продолжить</a>
                 <a href="#" ng-click="removeBookmark(mark, $index)"><img src="/Content/icon/delete.png" class="icon20"/></a>
             </p>
@@ -24,18 +24,18 @@
         <div ng-if="user.IsReader">
             <a href="#" ng-click="becomeWriter()">Я хочу писать</a>
         </div>
-        <div ng-if="user.MyQuests && user.MyQuests.length > 0">
+        <div ng-if="user.MyBooks && user.MyBooks.length > 0">
             <h2>Мои Книги:</h2>
-            <div ng-repeat="quest in user.MyQuests">
+            <div ng-repeat="book in user.MyBooks">
                 <p >
-                    Квест: {{quest.Name}}.
-                    <a ng-href="/AngularRoute/travel/quest/{{quest.Id}}/hero/-1/false">Читать</a>
-                    <a ng-href="/AngularRoute/admin/quest/{{quest.Id}}">Писать</a>
+                    Квест: {{book.Name}}.
+                    <a ng-href="/AngularRoute/travel/book/{{book.Id}}/hero/-1/false">Читать</a>
+                    <a ng-href="/AngularRoute/admin/book/{{book.Id}}">Писать</a>
                 </p>
-                <p ng-if="quest.Evaluations && quest.Evaluations.length > 0" class="evaluation">
+                <p ng-if="book.Evaluations && book.Evaluations.length > 0" class="evaluation">
                     Отзывы:
                 </p>
-                <p ng-repeat="evaluation in quest.Evaluations" class="evaluation">
+                <p ng-repeat="evaluation in book.Evaluations" class="evaluation">
                     {{evaluation.Mark}} * {{evaluation.Comment}}
                 </p>
             </div>

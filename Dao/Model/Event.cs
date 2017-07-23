@@ -32,12 +32,12 @@ namespace Dao.Model
         public virtual List<Thing> ThingsChanges { get; set; }
         public virtual List<State> HeroStatesChanging { get; set; }
 
-        [Description("Add this value to total summ of quest effective")]
+        [Description("Add this value to total summ of book effective")]
         public virtual double ProgressChanging { get; set; } = 0;
 
         //public virtual Location RequrmentLocation { get; set; }
-        public virtual Quest Quest { get; set; }
-        public virtual Quest ForRootQuest { get; set; }
+        public virtual Book Book { get; set; }
+        public virtual Book ForRootBook { get; set; }
 
         public void UpdateFrom(Event model)
         {
@@ -46,8 +46,8 @@ namespace Dao.Model
             Name = model.Name;
             Desc = model.Desc;
             ProgressChanging = model.ProgressChanging;
-            Quest = model.Quest;
-            ForRootQuest = model.ForRootQuest;
+            Book = model.Book;
+            ForRootBook = model.ForRootBook;
         }
     }
 }

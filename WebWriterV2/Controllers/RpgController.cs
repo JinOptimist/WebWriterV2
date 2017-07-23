@@ -31,7 +31,7 @@ namespace WebWriterV2.Controllers
         #region Repository
         public IEventRepository EventRepository { get; }
         public IEventLinkItemRepository EventLinkItemRepository { get; }
-        public IQuestRepository QuestRepository { get; set; }
+        public IBookRepository BookRepository { get; set; }
         public IHeroRepository HeroRepository { get; set; }
         public IStateRepository StateRepository { get; set; }
         public IStateTypeRepository StateTypeRepository { get; set; }
@@ -46,7 +46,7 @@ namespace WebWriterV2.Controllers
         {
             EventRepository = new EventRepository(_context);
             EventLinkItemRepository = new EventLinkItemRepository(_context);
-            QuestRepository = new QuestRepository(_context);
+            BookRepository = new BookRepository(_context);
             HeroRepository = new HeroRepository(_context);
             StateRepository = new StateRepository(_context);
             StateTypeRepository = new StateTypeRepository(_context);
@@ -59,7 +59,7 @@ namespace WebWriterV2.Controllers
             //using (var scope = StaticContainer.Container.BeginLifetimeScope())
             //{
             //    EventRepository = scope.Resolve<IEventRepository>();
-            //    QuestRepository = scope.Resolve<IQuestRepository>();
+            //    BookRepository = scope.Resolve<IBookRepository>();
             //    HeroRepository = scope.Resolve<IHeroRepository>();
             //    SkillRepository = scope.Resolve<ISkillRepository>();
             //}
@@ -146,7 +146,7 @@ namespace WebWriterV2.Controllers
                 HeroRepository.Remove(hero.Id);
                 hero.Id = 0;
             }
-            HeroRepository.RemoveByQuest(currentEvent.Quest.Id, userId);
+            HeroRepository.RemoveByBook(currentEvent.Book.Id, userId);
 
             hero.Owner = user;
             hero.CurrentEvent = currentEvent;
@@ -340,9 +340,9 @@ namespace WebWriterV2.Controllers
             var frontEvaluation = SerializeHelper.Deserialize<FrontEvaluation>(evaluationJson);
             var evaluation = frontEvaluation.ToDbModel();
             var user = UserRepository.Get(CurrentUserId());
-            var quest = QuestRepository.Get(evaluation.Quest.Id);
+            var book = BookRepository.Get(evaluation.Book.Id);
             evaluation.Owner = user;
-            evaluation.Quest = quest;
+            evaluation.Book = book;
             evaluation.Created = DateTime.Now;
 
             EvaluationRepository.Save(evaluation);
@@ -474,35 +474,35 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        /* ************** Quest ************** */
-        public JsonResult GetQuest(long id)
+        /* ************** Book ************** */
+        public JsonResult GetBook(long id)
         {
-            var quest = QuestRepository.Get(id);
-            var frontQuest = new FrontQuest(quest, true);
+            var book = BookRepository.Get(id);
+            var frontBook = new FrontBook(book, true);
             return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontQuest),
+                Data = JsonConvert.SerializeObject(frontBook),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 
-        public JsonResult GetQuests(long? userId)
+        public JsonResult GetBooks(long? userId)
         {
-            List<Quest> quests;
+            List<Book> books;
             if (userId.HasValue) {
-                quests = QuestRepository.GetByUser(userId.Value);
+                books = BookRepository.GetByUser(userId.Value);
             } else {
-                quests = QuestRepository.GetAll();
+                books = BookRepository.GetAll();
             }
-            var frontQuests = quests.Select(x => new FrontQuest(x)).ToList();
+            var frontBooks = books.Select(x => new FrontBook(x)).ToList();
             return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontQuests),
+                Data = JsonConvert.SerializeObject(frontBooks),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 
-        public JsonResult RemoveQuest(long id)
+        public JsonResult RemoveBook(long id)
         {
-            QuestRepository.Remove(id);
+            BookRepository.Remove(id);
 
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(true),
@@ -510,64 +510,64 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult SaveQuest(string jsonQuest)
+        public JsonResult SaveBook(string jsonBook)
         {
-            var frontQuest = SerializeHelper.Deserialize<FrontQuest>(jsonQuest);
-            var quest = frontQuest.ToDbModel();
-            var newGenre = quest.Genre;
-            var owner = UserRepository.Get(quest.Owner.Id);
-            quest.Owner = owner;
-            quest = QuestRepository.Save(quest);
+            var frontBook = SerializeHelper.Deserialize<FrontBook>(jsonBook);
+            var book = frontBook.ToDbModel();
+            var newGenre = book.Genre;
+            var owner = UserRepository.Get(book.Owner.Id);
+            book.Owner = owner;
+            book = BookRepository.Save(book);
 
             if (newGenre != null) {
                 var genre = GenreRepository.Get(newGenre.Id);
-                if (genre.Quests == null) {
-                    genre.Quests = new List<Quest>();
+                if (genre.Books == null) {
+                    genre.Books = new List<Book>();
                 }
-                genre.Quests.Add(quest);
+                genre.Books.Add(book);
                 GenreRepository.Save(genre);
             }
 
-            frontQuest = new FrontQuest(quest, true);
+            frontBook = new FrontBook(book, true);
 
             return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontQuest),
+                Data = JsonConvert.SerializeObject(frontBook),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 
-        public JsonResult ImportQuest(string jsonQuest)
+        public JsonResult ImportBook(string jsonBook)
         {
-            var frontQuest = SerializeHelper.Deserialize<FrontQuest>(jsonQuest);
-            var quest = frontQuest.ToDbModel();
+            var frontBook = SerializeHelper.Deserialize<FrontBook>(jsonBook);
+            var book = frontBook.ToDbModel();
 
-            var questName = QuestRepository.GetByName(quest.Name);
-            if (questName == null) {
+            var bookName = BookRepository.GetByName(book.Name);
+            if (bookName == null) {
                 var currentUser = UserRepository.Get(CurrentUserId());
-                quest.Id = 0;
-                quest.Owner = currentUser;
+                book.Id = 0;
+                book.Owner = currentUser;
                 var things = new List<Thing>();
                 var states = new List<State>();
                 var linkItems = new List<EventLinkItem>();
 
-                foreach (var @event in quest.AllEvents) {
-                    if (quest.RootEvent.Id == @event.Id) {
-                        @event.ForRootQuest = quest;
+                foreach (var @event in book.AllEvents) {
+                    if (book.RootEvent.Id == @event.Id) {
+                        @event.ForRootBook = book;
                     }
 
                     var eventLinkItems = @event.LinksFromThisEvent;
                     eventLinkItems.AddRange(@event.LinksToThisEvent);
                     foreach (var eventLinkItem in eventLinkItems) {
                         eventLinkItem.Id = 0;
-                        eventLinkItem.To = quest.AllEvents.First(x => x.Id == eventLinkItem.To.Id);
-                        eventLinkItem.From = quest.AllEvents.First(x => x.Id == eventLinkItem.From.Id);
+                        eventLinkItem.To = book.AllEvents.First(x => x.Id == eventLinkItem.To.Id);
+                        eventLinkItem.From = book.AllEvents.First(x => x.Id == eventLinkItem.From.Id);
                     }
 
                     linkItems.AddRange(eventLinkItems);
-                    @event.Quest = quest;
+                    @event.Book = book;
                 }
 
-                foreach (var @event in quest.AllEvents) {
+                foreach (var @event in book.AllEvents) {
                     @event.Id = 0;
                     things.AddRange(@event.RequirementThings ?? new List<Thing>());
                     things.AddRange(@event.ThingsChanges ?? new List<Thing>());
@@ -599,28 +599,28 @@ namespace WebWriterV2.Controllers
                 states.ForEach(StateRepository.CheckAndSave);
                 things.ForEach(ThingRepository.CheckAndSave);
 
-                foreach (var @event in quest.AllEvents) {
+                foreach (var @event in book.AllEvents) {
                     @event.LinksFromThisEvent = new List<EventLinkItem>();
                 }
 
-                QuestRepository.Save(quest);
+                BookRepository.Save(book);
 
                 EventLinkItemRepository.Save(linkItems);
                 EventLinkItemRepository.RemoveDuplicates();
             }
 
             return new JsonResult {
-                Data = quest.Id,
+                Data = book.Id,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 
-        public JsonResult ChangeRootEvent(long questId, long eventId)
+        public JsonResult ChangeRootEvent(long bookId, long eventId)
         {
-            var quest = QuestRepository.Get(questId);
+            var book = BookRepository.Get(bookId);
             var @event = EventRepository.Get(eventId);
-            quest.RootEvent = @event;
-            QuestRepository.Save(quest);
+            book.RootEvent = @event;
+            BookRepository.Save(book);
 
             var frontEvent = new FrontEvent(@event);
 
@@ -630,16 +630,16 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult QuestCompleted(long questId)
+        public JsonResult BookCompleted(long bookId)
         {
             var userId = CurrentUserId();
             var user = UserRepository.Get(userId);
 
-            var quest = QuestRepository.Get(questId);
+            var book = BookRepository.Get(bookId);
             if (user.BooksAreReaded == null)
-                user.BooksAreReaded = new List<Quest>();
-            if (user.BooksAreReaded.All(x => x.Id != quest.Id)) {
-                user.BooksAreReaded.Add(quest);
+                user.BooksAreReaded = new List<Book>();
+            if (user.BooksAreReaded.All(x => x.Id != book.Id)) {
+                user.BooksAreReaded.Add(book);
                 UserRepository.Save(user);
             }
 
@@ -650,9 +650,9 @@ namespace WebWriterV2.Controllers
         }
 
         /* ************** Event ************** */
-        public JsonResult GetEndingEvents(long questId)
+        public JsonResult GetEndingEvents(long bookId)
         {
-            var events = EventRepository.GetEndingEvents(questId);
+            var events = EventRepository.GetEndingEvents(bookId);
             var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvents),
@@ -660,9 +660,9 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult GetNotAvailableEvents(long questId)
+        public JsonResult GetNotAvailableEvents(long bookId)
         {
-            var events = EventRepository.GetNotAvailableEvents(questId);
+            var events = EventRepository.GetNotAvailableEvents(bookId);
             var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvents),
@@ -670,9 +670,9 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult GetEvents(long questId)
+        public JsonResult GetEvents(long bookId)
         {
-            var events = EventRepository.GetAllEventsByQuest(questId);
+            var events = EventRepository.GetAllEventsByBook(bookId);
             var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvents),
@@ -738,12 +738,12 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult SaveEvent(string jsonEvent, long questId)
+        public JsonResult SaveEvent(string jsonEvent, long bookId)
         {
             var frontEvent = SerializeHelper.Deserialize<FrontEvent>(jsonEvent);
             var eventModel = frontEvent.ToDbModel();
             if (eventModel.Id == 0) {
-                eventModel.Quest = QuestRepository.Get(questId);
+                eventModel.Book = BookRepository.Get(bookId);
             }
 
             var eventFromDb = EventRepository.Save(eventModel);
@@ -940,7 +940,7 @@ namespace WebWriterV2.Controllers
             var childEvent = new Event() {
                 Name = parentEvent.Name + " продолжение",
                 Desc = "продолжение",
-                Quest = parentEvent.Quest,
+                Book = parentEvent.Book,
             };
             childEvent = EventRepository.Save(childEvent);
             var eventLinkItem = new EventLinkItem() {
@@ -1045,20 +1045,20 @@ namespace WebWriterV2.Controllers
             }
 
             /* Создаём Квесты. Чистый без евентов */
-            var quests = QuestRepository.GetAll();
-            if (!quests.Any()) {
-                var quest1 = GenerateData.QuestRat();
-                QuestRepository.Save(quest1);
+            var books = BookRepository.GetAll();
+            if (!books.Any()) {
+                var book1 = GenerateData.BookRat();
+                BookRepository.Save(book1);
 
-                var quest2 = GenerateData.QuestTower(stateTypes, thingSamples);
-                QuestRepository.Save(quest2);
+                var book2 = GenerateData.BookTower(stateTypes, thingSamples);
+                BookRepository.Save(book2);
             }
 
             // Создаём Евенты с текстом но без связей
             //var events = EventRepository.GetAll();
             //if (!events.Any())
             //{
-            //    events = GenerateData.GenerateEventsForQuest(quest);
+            //    events = GenerateData.GenerateEventsForBook(quest);
             //    foreach (var eve in events)
             //    {
             //        EventRepository.Save(eve);
@@ -1078,7 +1078,7 @@ namespace WebWriterV2.Controllers
             //}
 
             var answer = new {
-                quests = quests.Any() ? "Уже существует" : "Добавили",
+                books = books.Any() ? "Уже существует" : "Добавили",
                 //eventLinkItemsDb = eventLinkItemsDb.Any() ? "Уже существует" : "Добавили",
                 thingSamples = thingSamples.Any() ? "Уже существует" : "Добавили",
             };
@@ -1114,8 +1114,8 @@ namespace WebWriterV2.Controllers
             var events = EventRepository.GetAll();
             EventRepository.Remove(events);
 
-            var quests = QuestRepository.GetAll();
-            QuestRepository.Remove(quests);
+            var books = BookRepository.GetAll();
+            BookRepository.Remove(books);
 
             var stateTypes = StateTypeRepository.GetAll();
             StateTypeRepository.Remove(stateTypes);
@@ -1159,8 +1159,8 @@ namespace WebWriterV2.Controllers
                 return Json("GoFuckYourSelf", JsonRequestBehavior.AllowGet);
             }
 
-            var frontQuests = QuestRepository.GetAll().Select(x => new FrontQuest(x));
-            return Json(frontQuests, JsonRequestBehavior.AllowGet);
+            var frontBooks = BookRepository.GetAll().Select(x => new FrontBook(x));
+            return Json(frontBooks, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

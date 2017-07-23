@@ -27,9 +27,9 @@ namespace WebWriterV2.FrontModels
             IsWriter = user.UserType == Dao.Model.UserType.Writer;
             IsReader = user.UserType == Dao.Model.UserType.Reader;
             Bookmarks = user.Bookmarks?.Select(x => new FrontHero(x)).ToList();
-            BooksAreReaded = user.BooksAreReaded?.Select(x => new FrontQuest(x)).ToList();
-            user.Quests?.ForEach(x => x.Owner = null);
-            MyQuests = user.Quests?.Select(x => new FrontQuest(x)).ToList();
+            BooksAreReaded = user.BooksAreReaded?.Select(x => new FrontBook(x)).ToList();
+            user.Books?.ForEach(x => x.Owner = null);
+            MyBooks = user.Books?.Select(x => new FrontBook(x)).ToList();
             AccountConfirmed = string.IsNullOrEmpty(user.ConfirmCode);
         }
 
@@ -44,8 +44,8 @@ namespace WebWriterV2.FrontModels
         public FrontEnum UserType { get; set; }
 
         public List<FrontHero> Bookmarks { get; set; }
-        public List<FrontQuest> BooksAreReaded { get; set; }
-        public List<FrontQuest> MyQuests { get; set; }
+        public List<FrontBook> BooksAreReaded { get; set; }
+        public List<FrontBook> MyBooks { get; set; }
 
         public override User ToDbModel()
         {

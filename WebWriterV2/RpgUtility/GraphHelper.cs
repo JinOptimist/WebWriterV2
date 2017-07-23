@@ -12,9 +12,9 @@ namespace WebWriterV2.RpgUtility
         private List<long> grayChapters { get; set; } = new List<long>();
         private List<long> blackChapters { get; set; } = new List<long>();
 
-        public GraphHelper(Quest quest)
+        public GraphHelper(Book book)
         {
-            chapters = quest.AllEvents;
+            chapters = book.AllEvents;
             whiteChapters = chapters.Select(x => x.Id).ToList();
         }
 

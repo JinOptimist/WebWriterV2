@@ -10,6 +10,6 @@ namespace Dao.IRepository
 
         void RemoveByEvent(long eventId, long userId);
 
-        void RemoveByQuest(long questId, long userId);
+        void RemoveByBook(long bookId, long userId);
     }
 }

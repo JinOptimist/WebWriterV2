@@ -7,46 +7,46 @@ using OpenQA.Selenium;
 namespace WebWriterV2Test
 {
     [TestFixture]
-    public class QuestTest
+    public class BookTest
     {
         public static string RpgBaseUrl = Properties.Settings.Default.BaseAppUrl;
         public static Random Random = new Random();
 
         [Test]
-        public void QuestOwner()
+        public void BookOwner()
         {
-            //TestRunner.RunTest(CheckAllQuests, TargetBrowser.ChromePlusIe);
+            //TestRunner.RunTest(CheckAllBooks, TargetBrowser.ChromePlusIe);
         }
 
         [Test]
-        public void QuestThrough()
+        public void BookThrough()
         {
-            TestRunner.RunTest(CheckAllQuests, TargetBrowser.ChromePlusIe);
+            TestRunner.RunTest(CheckAllBooks, TargetBrowser.ChromePlusIe);
         }
 
-        private void CheckAllQuests(IWebDriver driver)
+        private void CheckAllBooks(IWebDriver driver)
         {
-            var questBlockIds = driver.FindElements(By.ClassName("quest-block"))
+            var bookBlockIds = driver.FindElements(By.ClassName("book-block"))
                 .Select(x => x.GetAttribute("id")).ToList();
 
-            Assert.Greater(questBlockIds.Count, 0, "Not found any quest. I suppose it's bad signs");
+            Assert.Greater(bookBlockIds.Count, 0, "Not found any book. I suppose it's bad signs");
 
-            questBlockIds.ForEach(x => CheckQuest(driver, x));
+            bookBlockIds.ForEach(x => CheckBook(driver, x));
         }
 
-        private void CheckQuest(IWebDriver driver, string questId)
+        private void CheckBook(IWebDriver driver, string bookId)
         {
             
             driver.Navigate().GoToUrl(RpgBaseUrl);
             driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(5));
 
             Thread.Sleep(500);
-            var quest = driver.FindElement(By.Id(questId));
+            var book = driver.FindElement(By.Id(bookId));
 
-            Assert.IsNotNull(quest, $"Somebody try check quest which does not exist. questId - {questId}");
-            Assert.IsTrue(quest.Displayed, $"I can't see quest {questId}. There is exist, but not visible for user");
+            Assert.IsNotNull(book, $"Somebody try check book which does not exist. {nameof(bookId)} - {bookId}");
+            Assert.IsTrue(book.Displayed, $"I can't see book {bookId}. There is exist, but not visible for user");
 
-            quest.Click();
+            book.Click();
 
             var counter = 0;
             driver.Manage().Timeouts().ImplicitlyWait(TimeSpan.FromSeconds(1));
@@ -60,14 +60,14 @@ namespace WebWriterV2Test
                 counter++;
                 if (counter > 100)
                 {
-                    Assert.Warn($"Possible infinity loop. We did {counter} choose and still can't find exit. qId - {questId}");
+                    Assert.Warn($"Possible infinity loop. We did {counter} choose and still can't find exit. qId - {bookId}");
                     return;
                 }
             }
 
             var endButton = driver.FindElement(By.Id("end"));
-            Assert.IsNotNull(endButton, $"List of ways empty and we haven't end button. qId - {questId}");
-            Assert.IsTrue(endButton.Displayed, $"List of ways empty and we have, but doesn't see end button. qId - {questId}");
+            Assert.IsNotNull(endButton, $"List of ways empty and we haven't end button. qId - {bookId}");
+            Assert.IsTrue(endButton.Displayed, $"List of ways empty and we have, but doesn't see end button. qId - {bookId}");
             endButton.Click();
         }
     }

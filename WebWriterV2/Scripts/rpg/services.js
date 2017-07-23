@@ -8,64 +8,64 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
     .constant('_',
         window._
     )
-    .service('questService', ['httpHelper', function (httpHelper) {
+    .service('bookService', ['httpHelper', function (httpHelper) {
         return {
-            saveQuest: saveQuest,
-            getQuests: getQuests,
+            saveBook: saveBook,
+            getBooks: getBooks,
             get: get,
             changeRootEvent: changeRootEvent,
-            removeQuest: removeQuest,
-            importQuest: importQuest,
-            questCompleted: questCompleted
+            removeBook: removeBook,
+            importBook: importBook,
+            bookCompleted: bookCompleted
         };
 
-        function questCompleted(questId) {
-            var url = '/Rpg/QuestCompleted';
+        function bookCompleted(bookId) {
+            var url = '/Rpg/BookCompleted';
             var data = {
-                questId: questId
+                bookId: bookId
             };
             return httpHelper.call(url, data);
         }
 
-        function saveQuest(quest) {
-            var url = '/Rpg/SaveQuest';
+        function saveBook(book) {
+            var url = '/Rpg/SaveBook';
             var data = {
-                jsonQuest: angular.toJson(quest)
+                jsonBook: angular.toJson(book)
             };
             return httpHelper.call(url, data);
         }
 
-        function changeRootEvent(questId, eventId) {
+        function changeRootEvent(bookId, eventId) {
             var url = '/Rpg/ChangeRootEvent';
             var data = {
-                questId: questId,
+                bookId: bookId,
                 eventId: eventId
             };
             return httpHelper.call(url, data);
         }
 
-        function get(questId) {
-            var url = '/Rpg/GetQuest?id=' + questId;
+        function get(bookId) {
+            var url = '/Rpg/GetBook?id=' + bookId;
             return httpHelper.call(url);
         }
 
-        function getQuests(userId) {
-            var url = '/Rpg/GetQuests';
+        function getBooks(userId) {
+            var url = '/Rpg/GetBooks';
             var data = {
                 userId: userId
             };
             return httpHelper.call(url, data);
         }
 
-        function removeQuest(questId) {
-            var url = '/Rpg/RemoveQuest?id=' + questId;
+        function removeBook(bookId) {
+            var url = '/Rpg/RemoveBook?id=' + bookId;
             return httpHelper.call(url);
         }
 
-        function importQuest(questJson) {
-            var url = '/Rpg/ImportQuest';
+        function importBook(bookJson) {
+            var url = '/Rpg/ImportBook';
             var data = {
-                jsonQuest: questJson
+                jsonBook: bookJson
             };
             return httpHelper.call(url, data);
         }
@@ -129,26 +129,26 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return httpHelper.call(url);
         }
 
-        function getEvents(questId) {
-            var url = '/Rpg/GetEvents?questId=' + questId;
+        function getEvents(bookId) {
+            var url = '/Rpg/GetEvents?bookId=' + bookId;
             return httpHelper.call(url);
         }
 
-        function getEndingEvents(questId) {
-            var url = '/Rpg/GetEndingEvents?questId=' + questId;
+        function getEndingEvents(bookId) {
+            var url = '/Rpg/GetEndingEvents?bookId=' + bookId;
             return httpHelper.call(url);
         }
 
-        function getNotAvailableEvents(questId) {
-            var url = '/Rpg/GetNotAvailableEvents?questId=' + questId;
+        function getNotAvailableEvents(bookId) {
+            var url = '/Rpg/GetNotAvailableEvents?bookId=' + bookId;
             return httpHelper.call(url);
         }
 
-        function save(event, questId) {
+        function save(event, bookId) {
             var url = '/Rpg/SaveEvent';
             var data = {
                 jsonEvent: angular.toJson(event),
-                questId: questId
+                bookId: bookId
             };
             return httpHelper.call(url,data);
         }
@@ -694,21 +694,21 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return httpHelper.call(url, data);
         }
 
-        //function questCompleted(questId) {
-        //    var url = '/Rpg/QuestCompleted';
+        //function bookCompleted(bookId) {
+        //    var url = '/Rpg/BookCompleted';
         //    var data = {
-        //        questId: questId
+        //        bookId: bookId
         //    };
         //    return httpHelper.call(url, data);
         //}
 
-        //function get(questId) {
-        //    var url = '/Rpg/GetQuest?id=' + questId;
+        //function get(bookId) {
+        //    var url = '/Rpg/GetBook?id=' + bookId;
         //    return httpHelper.call(url);
         //}
 
-        //function removeQuest(questId) {
-        //    var url = '/Rpg/RemoveQuest?id=' + questId;
+        //function removeBook(bookId) {
+        //    var url = '/Rpg/RemoveBook?id=' + bookId;
         //    return httpHelper.call(url);
         //}
     }])
@@ -742,13 +742,13 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
     // Login
     .factory('authInterceptorService', ['$q', '$location', '$cookies', '_',
         function ($q, $location, $cookies, _) {
-            function request(request) {
+            function rebook(rebook) {
                 // TODO check permission to get access to admin panel
                 // goToLogin();
-                return request;
+                return rebook;
             }
 
-            function requestError(rejection) {
+            function rebookError(rejection) {
                 // do something on error
                 return $q.reject(rejection);
             }
@@ -764,8 +764,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             }
 
             return {
-                request: request,
-                requestError: requestError,
+                rebook: rebook,
+                rebookError: rebookError,
                 response: response,
                 responseError: responseError
             };

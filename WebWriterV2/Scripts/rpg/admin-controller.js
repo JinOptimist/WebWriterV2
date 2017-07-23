@@ -1,43 +1,43 @@
 angular.module('rpg')
 
-    .controller('adminQuestGeneralController', [
-        '$scope', '$http', '$routeParams', '$location', '$cookies', 'questService',
+    .controller('adminBookGeneralController', [
+        '$scope', '$http', '$routeParams', '$location', '$cookies', 'bookService',
             'eventService', 'CKEditorService', 'userService', 'genreService',
-        function ($scope, $http, $routeParams, $location, $cookies, questService,
+        function ($scope, $http, $routeParams, $location, $cookies, bookService,
             eventService, CKEditorService, userService, genreService) {
 
-            $scope.questHasCycle = true;
-            $scope.quest = null;//ContainsCycle
-            $scope.quests = [];
+            $scope.bookHasCycle = true;
+            $scope.book = null;//ContainsCycle
+            $scope.books = [];
             $scope.wait = true;
             $scope.endingEvents = [];
             $scope.notAvailableEvents = null;
             $scope.allGenres = [];
             init();
 
-            $scope.addQuest = function() {
-                $scope.quest = { Name: 'New quest Title' };
+            $scope.addBook = function() {
+                $scope.book = { Name: 'New book Title' };
                 $scope.endingEvents = [];
                 $scope.notAvailableEvents = [];
 
-                CKEditorService.reloadEditor('desc', 'New quest Desc');
+                CKEditorService.reloadEditor('desc', 'New book Desc');
             }
 
-            $scope.selectQuest = function (quest) {
-                var url = '/AngularRoute/admin/quest/' + quest.Id;
+            $scope.selectBook = function (book) {
+                var url = '/AngularRoute/admin/book/' + book.Id;
                 $location.path(url);
             }
 
-            $scope.saveQuest = function () {
-                var isNew = !($scope.quest.Id > 0);
+            $scope.saveBook = function () {
+                var isNew = !($scope.book.Id > 0);
                 var text = CKEditorService.getData('desc');
-                $scope.quest.Desc = text;
-                $scope.quest.OwnerId = $scope.user.Id;
-                questService.saveQuest($scope.quest).then(
+                $scope.book.Desc = text;
+                $scope.book.OwnerId = $scope.user.Id;
+                bookService.saveBook($scope.book).then(
                     function (response) {
                         if (response) {
                             if (isNew) {
-                                $scope.selectQuest(response);
+                                $scope.selectBook(response);
                             } else {
                                 alert('Save completed');
                             }
@@ -51,46 +51,46 @@ angular.module('rpg')
                 );
             }
 
-            $scope.exportQuest = function () {
-                questService.get($scope.quest.Id).then(function (result) {
+            $scope.exportBook = function () {
+                bookService.get($scope.book.Id).then(function (result) {
                     var text = angular.toJson(result);
                     var blob = new Blob([text]);
                     var link = document.createElement('a');
                     link.href = window.URL.createObjectURL(blob);
-                    link.download = $scope.quest.Name + '.json';
+                    link.download = $scope.book.Name + '.json';
                     link.click();
                 });
             }
 
-            $scope.importQuest = function () {
-                questService.importQuest($scope.importJson).then(function (data) {
+            $scope.importBook = function () {
+                bookService.importBook($scope.importJson).then(function (data) {
                     //alert('We did it!');
-                    var url = '/AngularRoute/admin/quest/' + data;
+                    var url = '/AngularRoute/admin/book/' + data;
                     $location.path(url);
                 });
             }
 
-            $scope.removeQuest = function (quest, index) {
-                if (confirm('Are you sure? You try delete whole event: ' + quest.Name))
-                    questService.removeQuest(quest.Id).then(function (result) {
-                        $scope.quests.splice(index, 1);
+            $scope.removeBook = function (book, index) {
+                if (confirm('Are you sure? You try delete whole event: ' + book.Name))
+                    bookService.removeBook(book.Id).then(function (result) {
+                        $scope.books.splice(index, 1);
                     });
             }
 
-            $scope.goToEvent = function (quest) {
-                var url = '/AngularRoute/admin/quest/' + quest.Id + '/event/';
+            $scope.goToEvent = function (book) {
+                var url = '/AngularRoute/admin/book/' + book.Id + '/event/';
                 $location.path(url);
             }
 
             $scope.selectEvent = function (eventId) {
                 $scope.wait = true;
-                var url = '/AngularRoute/admin/quest/' + $scope.quest.Id + '/event/' + eventId;
+                var url = '/AngularRoute/admin/book/' + $scope.book.Id + '/event/' + eventId;
                 $location.path(url);
             }
 
             $scope.changeRootEvent = function() {
-                questService.changeRootEvent($scope.quest.Id, $scope.newRootEvent.Id).then(function (data) {
-                    $scope.quest.RootEvent = data;
+                bookService.changeRootEvent($scope.book.Id, $scope.newRootEvent.Id).then(function (data) {
+                    $scope.book.RootEvent = data;
                 });
             }
 
@@ -98,65 +98,65 @@ angular.module('rpg')
                 $scope.showEditPanel = !$scope.showEditPanel;
             }
 
-            function loadQuest(questId) {
-                questService.get(questId).then(function (result) {
-                    $scope.quest = result;
+            function loadBook(bookId) {
+                bookService.get(bookId).then(function (result) {
+                    $scope.book = result;
                     $scope.wait = false;
 
-                    CKEditorService.reloadEditor('desc', $scope.quest.Desc);
+                    CKEditorService.reloadEditor('desc', $scope.book.Desc);
 
-                    loadEndingEvents(questId);
+                    loadEndingEvents(bookId);
                     reloadGraph();
                 });
             }
 
-            function loadQuests() {
+            function loadBooks() {
                 var userId = $scope.user.Id;
                 if ($scope.user.IsAdmin) {
-                    // if userId == null getQuests return all quests
+                    // if userId == null getBooks return all books
                     userId = null;
                 }
-                questService.getQuests(userId).then(function (result) {
-                    $scope.quests = result;
+                bookService.getBooks(userId).then(function (result) {
+                    $scope.books = result;
                 });
             }
 
-            function loadEndingEvents(questId) {
-                eventService.getEndingEvents(questId).then(function (result) {
+            function loadEndingEvents(bookId) {
+                eventService.getEndingEvents(bookId).then(function (result) {
                     $scope.endingEvents = result;
                 });
             }
 
-            function loadNotAvailableEvents(questId) {
-                eventService.getNotAvailableEvents(questId).then(function (result) {
+            function loadNotAvailableEvents(bookId) {
+                eventService.getNotAvailableEvents(bookId).then(function (result) {
                     $scope.notAvailableEvents = result;
                 });
             }
 
             function reloadGraph() {
-                var count = $scope.quest.AllEvents.length;
-                if ($scope.quest.ContainsCycle) {
+                var count = $scope.book.AllEvents.length;
+                if ($scope.book.ContainsCycle) {
                     setTimeout(function () {
-                        EventGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 200 * count / 3);
+                        EventGraph.drawGraph($scope.book.AllEvents, 'eventsGraph', 900, 200 * count / 3);
                     }, 100);
                 } else {
                     setTimeout(function () {
-                        JGraph.drawGraph($scope.quest.AllEvents, 'eventsGraph', 900, 200 * count / 3);
+                        JGraph.drawGraph($scope.book.AllEvents, 'eventsGraph', 900, 200 * count / 3);
                     }, 100);
                 }
             }
 
             function init() {
-                var questId = $routeParams.questId;
-                if (questId) {
-                    loadQuest(questId);
-                    loadEndingEvents(questId);
-                    loadNotAvailableEvents(questId);
+                var bookId = $routeParams.bookId;
+                if (bookId) {
+                    loadBook(bookId);
+                    loadEndingEvents(bookId);
+                    loadNotAvailableEvents(bookId);
                 }
 
                 userService.getCurrentUser().then(function (data) {
                     $scope.user = data;
-                    loadQuests();
+                    loadBooks();
                 });
 
                 genreService.getAll().then(function (data) {
@@ -166,13 +166,13 @@ angular.module('rpg')
         }
     ])
     .controller('adminEventGeneralController', [
-        '$scope', '$http', '$routeParams', '$location', '$uibModal', 'eventService', 'questService',
+        '$scope', '$http', '$routeParams', '$location', '$uibModal', 'eventService', 'bookService',
         'requirementTypeService', 'stateService', 'thingService', 'CKEditorService',
-        function ($scope, $http, $routeParams, $location, $uibModal, eventService, questService,
+        function ($scope, $http, $routeParams, $location, $uibModal, eventService, bookService,
             requirementTypeService, stateService, thingService, CKEditorService) {
 
             $scope.event = null;
-            $scope.quest = null;
+            $scope.book = null;
             $scope.selectedEvent = null;
             $scope.selectedSkill = null;
             $scope.events = [];
@@ -192,7 +192,7 @@ angular.module('rpg')
             $scope.eventEdit = true;
             $scope.childExpand = true;
 
-            var questId = $routeParams.questId;
+            var bookId = $routeParams.bookId;
             var raceNoneObject = { name: 'None', value: 0 };
             var sexNoneObject = { name: 'None', value: 0 };
 
@@ -411,7 +411,7 @@ angular.module('rpg')
 
             $scope.selectEvent = function (eventId) {
                 $scope.wait = true;
-                var url = '/AngularRoute/admin/quest/' + questId + '/event/' + eventId;
+                var url = '/AngularRoute/admin/book/' + bookId + '/event/' + eventId;
                 $location.path(url);
             }
 
@@ -420,7 +420,7 @@ angular.module('rpg')
                 var text = CKEditorService.getData('desc');
                 $scope.event.Desc = text;
 
-                eventService.save($scope.event, questId).then(
+                eventService.save($scope.event, bookId).then(
                     function (response) {
                         if (response) {
                             //$scope.eventForm.$setPristine();
@@ -450,7 +450,7 @@ angular.module('rpg')
             /* Event Link */
             $scope.saveEventLink = function (eventLink) {
                 eventLink.disable = true;
-                eventService.saveEventLink(eventLink, questId).then(
+                eventService.saveEventLink(eventLink, bookId).then(
                     function (response) {
                         if (response) {
                             eventLink.disable = false;
@@ -501,13 +501,13 @@ angular.module('rpg')
                 $scope.event.LinksToThisEvent.push(newEventLink);
             }
 
-            $scope.goToQuest = function () {
-                var url = '/AngularRoute/admin/quest/' + $scope.quest.Id;
+            $scope.goToBook = function () {
+                var url = '/AngularRoute/admin/book/' + $scope.book.Id;
                 $location.path(url);
             }
 
             $scope.goToEvent = function () {
-                var url = '/AngularRoute/admin/quest/' + $scope.quest.Id + '/event/' + $scope.event.Id;
+                var url = '/AngularRoute/admin/book/' + $scope.book.Id + '/event/' + $scope.event.Id;
                 $location.path(url);
             }
 
@@ -541,15 +541,15 @@ angular.module('rpg')
                 });
             }
 
-            function loadQuest(questId) {
-                questService.get(questId).then(function (result) {
-                    $scope.quest = result;
+            function loadBook(bookId) {
+                bookService.get(bookId).then(function (result) {
+                    $scope.book = result;
                     $scope.wait = false;
                 });
             }
 
             function loadEvents() {
-                eventService.getEvents($routeParams.questId).then(function (result) {
+                eventService.getEvents($routeParams.bookId).then(function (result) {
                     $scope.events = result;
                 });
             }
@@ -562,7 +562,7 @@ angular.module('rpg')
 
                 loadEvents();
 
-                loadQuest(questId);
+                loadBook(bookId);
 
                 stateService.loadTypesAvailbleForUser().then(function(data) {
                     $scope.StateTypes = data;

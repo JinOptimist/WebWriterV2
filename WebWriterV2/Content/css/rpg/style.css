@@ -99,13 +99,13 @@ label{
     padding: 3px;
 }
 
-.quest {
+.book {
     height: 180px;
     width: 460px;
     border: solid 1px #000000;
 }
 
-.specialMarginForQuests {
+.specialMarginForBooks {
     margin: 25px auto;
     border: solid 1px #000;
 }

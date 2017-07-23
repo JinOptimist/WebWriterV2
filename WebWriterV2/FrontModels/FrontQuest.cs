@@ -6,23 +6,23 @@ using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontQuest : BaseFront<Quest>
+    public class FrontBook : BaseFront<Book>
     {
-        public FrontQuest() {
+        public FrontBook() {
         }
 
-        public FrontQuest(Quest quest, bool forWriter = false) {
-            Id = quest.Id;
-            Name = quest.Name;
-            Desc = quest.Desc;
-            RootEvent = quest.RootEvent != null ? new FrontEvent(quest.RootEvent) : null;
-            Genre = quest.Genre != null ? new FrontGenre(quest.Genre) : null;
-            AllEvents = quest.AllEvents?.Select(x => new FrontEvent(x)).ToList();
-            OwnerId = quest.Owner?.Id;
-            Evaluations = quest.Evaluations?.Select(x => new FrontEvaluation(x)).ToList();
+        public FrontBook(Book book, bool forWriter = false) {
+            Id = book.Id;
+            Name = book.Name;
+            Desc = book.Desc;
+            RootEvent = book.RootEvent != null ? new FrontEvent(book.RootEvent) : null;
+            Genre = book.Genre != null ? new FrontGenre(book.Genre) : null;
+            AllEvents = book.AllEvents?.Select(x => new FrontEvent(x)).ToList();
+            OwnerId = book.Owner?.Id;
+            Evaluations = book.Evaluations?.Select(x => new FrontEvaluation(x)).ToList();
 
             ContainsCycle = forWriter
-                ? new GraphHelper(quest).HasCycle()
+                ? new GraphHelper(book).HasCycle()
                 : true;
         }
 
@@ -36,8 +36,8 @@ namespace WebWriterV2.FrontModels
 
         public bool ContainsCycle { get; set; }
 
-        public override Quest ToDbModel() {
-            return new Quest {
+        public override Book ToDbModel() {
+            return new Book {
                 Id = Id,
                 Name = Name,
                 Desc = Desc,

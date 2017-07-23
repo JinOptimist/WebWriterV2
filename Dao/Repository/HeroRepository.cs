@@ -54,9 +54,9 @@ namespace Dao.Repository
             Remove(heroes);
         }
 
-        public void RemoveByQuest(long questId, long userId)
+        public void RemoveByBook(long bookId, long userId)
         {
-            var heroes = Entity.Where(x => x.CurrentEvent.Quest.Id == questId && x.Owner.Id == userId).ToList();
+            var heroes = Entity.Where(x => x.CurrentEvent.Book.Id == bookId && x.Owner.Id == userId).ToList();
             Remove(heroes);
         }
     }

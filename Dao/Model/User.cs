@@ -21,16 +21,16 @@ namespace Dao.Model
         public UserType UserType { get; set; } = UserType.Reader;
 
         /// <summary>
-        /// Hero contains CurrentEvent. Use this field to get information about Quest and Event where user stop reading
+        /// Hero contains CurrentEvent. Use this field to get information about Book and Event where user stop reading
         /// </summary>
         public virtual List<Hero> Bookmarks { get; set; }
 
         /// <summary>
-        /// Quests created by User
+        /// Books created by User
         /// </summary>
-        public virtual List<Quest> Quests { get; set; }
+        public virtual List<Book> Books { get; set; }
 
-        public virtual List<Quest> BooksAreReaded { get; set; }
+        public virtual List<Book> BooksAreReaded { get; set; }
 
         public virtual List<StateType> StateTypes { get; set; }
 
