@@ -98,6 +98,12 @@ angular.module('rpg')
                 $scope.showEditPanel = !$scope.showEditPanel;
             }
 
+            $scope.publishBook = function (book) {
+                bookService.publishBook(book.Id).then(function (data) {
+                    book.IsPublished = true;
+                });
+            }
+
             function loadBook(bookId) {
                 bookService.get(bookId).then(function (result) {
                     $scope.book = result;

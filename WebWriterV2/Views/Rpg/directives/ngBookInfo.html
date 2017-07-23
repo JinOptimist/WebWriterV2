@@ -1,5 +1,6 @@
 ﻿<div class="book-block" ng-if="book">
     <p>Карточка произведения. <b>{{book.Name}}</b></p>
+    <p>Опубликованно: <b>{{book.IsPublished ? 'да' : 'нет'}}</b></p>
     <p>Автор: {{book.OwnerId}}</p>
     <p ng-if="book.Genre">Жанр: {{book.Genre.Name}}</p>
     <p>Описание:</p>

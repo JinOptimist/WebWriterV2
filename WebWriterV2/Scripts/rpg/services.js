@@ -16,7 +16,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             changeRootEvent: changeRootEvent,
             removeBook: removeBook,
             importBook: importBook,
-            bookCompleted: bookCompleted
+            bookCompleted: bookCompleted,
+            publishBook: publishBook
         };
 
         function bookCompleted(bookId) {
@@ -31,6 +32,14 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var url = '/Rpg/SaveBook';
             var data = {
                 jsonBook: angular.toJson(book)
+            };
+            return httpHelper.call(url, data);
+        }
+
+        function publishBook(bookId) {
+            var url = '/Rpg/PublishBook';
+            var data = {
+                bookId: bookId
             };
             return httpHelper.call(url, data);
         }

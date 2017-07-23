@@ -13,6 +13,9 @@
             <p>
                 <a ng-href="#" ng-click="goToEvent(book)">Перейти к событиям квеста "{{book.Name}}"</a>
             </p>
+            <p ng-if="!book.IsPublished">
+                <input type="button" value="Опублиоквать" ng-click="publishBook(book)"/>
+            </p>
         </div>
     </div>
     <div ng-show="!book">

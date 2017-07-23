@@ -135,7 +135,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddBookmark(long eventId, string heroJson)
         {
-            var userId = CurrentUserId();
+            var userId = CurrentUserId;
             var user = UserRepository.Get(userId);
             var currentEvent = EventRepository.Get(eventId);
 
@@ -172,7 +172,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult BecomeWriter()
         {
-            var userId = CurrentUserId();
+            var userId = CurrentUserId;
             var user = UserRepository.Get(userId);
             if (user.UserType == UserType.Reader) {
                 user.UserType = UserType.Writer;
@@ -339,7 +339,7 @@ namespace WebWriterV2.Controllers
         {
             var frontEvaluation = SerializeHelper.Deserialize<FrontEvaluation>(evaluationJson);
             var evaluation = frontEvaluation.ToDbModel();
-            var user = UserRepository.Get(CurrentUserId());
+            var user = UserRepository.Get(CurrentUserId);
             var book = BookRepository.Get(evaluation.Book.Id);
             evaluation.Owner = user;
             evaluation.Book = book;
@@ -367,7 +367,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddThing(string name, string desc)
         {
-            var user = UserRepository.Get(CurrentUserId());
+            var user = UserRepository.Get(CurrentUserId);
             var thingSample = new ThingSample {
                 Name = name,
                 Desc = desc,
@@ -395,7 +395,7 @@ namespace WebWriterV2.Controllers
         /* ************** State ************** */
         public JsonResult GetStateTypesAvailbleForUser()
         {
-            var userId = CurrentUserId();
+            var userId = CurrentUserId;
             var stateTypes = StateTypeRepository.AvailableForUse(userId);
             var frontStateTypes = stateTypes.Select(x => new FrontStateType(x)).ToList();
 
@@ -407,7 +407,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult GetStateTypesAvailbleForEdit()
         {
-            var userId = CurrentUserId();
+            var userId = CurrentUserId;
             var stateTypes = StateTypeRepository.AvailableForEdit(userId);
             var frontStateTypes = stateTypes.Select(x => new FrontStateType(x)).ToList();
 
@@ -433,7 +433,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddState(string name, string desc, bool hideFromReader)
         {
-            var userId = CurrentUserId();
+            var userId = CurrentUserId;
             User user = UserRepository.Get(userId);
             var stateType = new StateType {
                 Name = name,
@@ -453,7 +453,7 @@ namespace WebWriterV2.Controllers
         {
             var frontStateType = SerializeHelper.Deserialize<FrontStateType>(jsonStateType);
             var stateType = frontStateType.ToDbModel();
-            var userId = CurrentUserId();
+            var userId = CurrentUserId;
             if (stateType.Owner.Id != userId) {
                 throw new Exception("You can't edit state types which was created by another user");
             }
@@ -491,7 +491,7 @@ namespace WebWriterV2.Controllers
             if (userId.HasValue) {
                 books = BookRepository.GetByUser(userId.Value);
             } else {
-                books = BookRepository.GetAll();
+                books = BookRepository.GetAll(!IsCurrentUserAdmin);
             }
             var frontBooks = books.Select(x => new FrontBook(x)).ToList();
             return new JsonResult {
@@ -543,7 +543,7 @@ namespace WebWriterV2.Controllers
 
             var bookName = BookRepository.GetByName(book.Name);
             if (bookName == null) {
-                var currentUser = UserRepository.Get(CurrentUserId());
+                var currentUser = UserRepository.Get(CurrentUserId);
                 book.Id = 0;
                 book.Owner = currentUser;
                 var things = new List<Thing>();
@@ -632,7 +632,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult BookCompleted(long bookId)
         {
-            var userId = CurrentUserId();
+            var userId = CurrentUserId;
             var user = UserRepository.Get(userId);
 
             var book = BookRepository.Get(bookId);
@@ -642,6 +642,18 @@ namespace WebWriterV2.Controllers
                 user.BooksAreReaded.Add(book);
                 UserRepository.Save(user);
             }
+
+            return new JsonResult {
+                Data = true,
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet
+            };
+        }
+
+        public JsonResult PublishBook(long bookId, bool newValue = true)
+        {
+            var book = BookRepository.Get(bookId);
+            book.IsPublished = newValue;
+            BookRepository.Save(book);
 
             return new JsonResult {
                 Data = true,
@@ -1045,7 +1057,7 @@ namespace WebWriterV2.Controllers
             }
 
             /* Создаём Квесты. Чистый без евентов */
-            var books = BookRepository.GetAll();
+            var books = BookRepository.GetAll(false);
             if (!books.Any()) {
                 var book1 = GenerateData.BookRat();
                 BookRepository.Save(book1);
@@ -1091,7 +1103,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult ReInit()
         {
-            var user = UserRepository.Get(CurrentUserId());
+            var user = UserRepository.Get(CurrentUserId);
             if (user.UserType != UserType.Admin) {
                 throw new Exception("You haven't permission to rebuild whole db");
             }
@@ -1114,7 +1126,7 @@ namespace WebWriterV2.Controllers
             var events = EventRepository.GetAll();
             EventRepository.Remove(events);
 
-            var books = BookRepository.GetAll();
+            var books = BookRepository.GetAll(false);
             BookRepository.Remove(books);
 
             var stateTypes = StateTypeRepository.GetAll();
@@ -1143,7 +1155,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult GetAllUsers()
         {
-            var user = UserRepository.Get(CurrentUserId());
+            var user = UserRepository.Get(CurrentUserId);
             if (user == null || user.UserType != UserType.Admin) {
                 return Json("GoFuckYourSelf", JsonRequestBehavior.AllowGet);
             }
@@ -1154,12 +1166,11 @@ namespace WebWriterV2.Controllers
 
         public JsonResult GetAllBooks()
         {
-            var user = UserRepository.Get(CurrentUserId());
-            if (user == null || user.UserType != UserType.Admin) {
+            if (!IsCurrentUserAdmin) {
                 return Json("GoFuckYourSelf", JsonRequestBehavior.AllowGet);
             }
 
-            var frontBooks = BookRepository.GetAll().Select(x => new FrontBook(x));
+            var frontBooks = BookRepository.GetAll(false).Select(x => new FrontBook(x));
             return Json(frontBooks, JsonRequestBehavior.AllowGet);
         }
 
@@ -1169,9 +1180,19 @@ namespace WebWriterV2.Controllers
             base.Dispose(disposing);
         }
 
-        private long CurrentUserId()
-        {
-            return long.Parse(Request.Cookies["userId"]?.Value ?? "-1");
+        private long CurrentUserId {
+            get
+            {
+                return long.Parse(Request.Cookies["userId"]?.Value ?? "-1");
+            }
+        }
+
+        private bool IsCurrentUserAdmin {
+            get
+            {
+                var user = UserRepository.Get(CurrentUserId);
+                return user != null && user.UserType == UserType.Admin;
+            }
         }
     }
 }

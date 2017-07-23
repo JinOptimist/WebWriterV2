@@ -11,5 +11,7 @@ namespace Dao.IRepository
         Book GetByName(string name);
 
         List<Book> GetByUser(long userId);
+
+        List<Book> GetAll(bool getOnlyPublished);
     }
 }

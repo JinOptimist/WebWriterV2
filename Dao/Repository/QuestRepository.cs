@@ -74,5 +74,19 @@ namespace Dao.Repository
         {
             return Entity.FirstOrDefault(x => x.Name == name);
         }
+
+        public override List<Book> GetAll()
+        {
+            throw new Exception("Don't use default GetAll() in BookRepository, instead of this use GetAll(bool getOnlyPublished)");
+        }
+
+        public List<Book> GetAll(bool getOnlyPublished)
+        {
+            if (getOnlyPublished) {
+                return Entity.Where(x => x.IsPublished == true).ToList();
+            }
+
+            return base.GetAll();
+        }
     }
 }
