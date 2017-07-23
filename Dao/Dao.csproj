@@ -159,6 +159,10 @@
     <Compile Include="Migrations\201707231457096_RenameQuestToBook.Designer.cs">
       <DependentUpon>201707231457096_RenameQuestToBook.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707231510497_AddIsPublishedToBook.cs" />
+    <Compile Include="Migrations\201707231510497_AddIsPublishedToBook.Designer.cs">
+      <DependentUpon>201707231510497_AddIsPublishedToBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Enums.cs" />
@@ -258,6 +262,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707231457096_RenameQuestToBook.resx">
       <DependentUpon>201707231457096_RenameQuestToBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707231510497_AddIsPublishedToBook.resx">
+      <DependentUpon>201707231510497_AddIsPublishedToBook.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

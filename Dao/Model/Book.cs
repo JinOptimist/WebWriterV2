@@ -24,6 +24,8 @@ namespace Dao.Model
 
         public virtual Genre Genre { get; set; }
 
+        public virtual bool IsPublished { get; set; }
+
         public void UpdateFrom(Book model)
         {
             if (Id != model.Id)

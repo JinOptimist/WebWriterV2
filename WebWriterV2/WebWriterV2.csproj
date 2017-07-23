@@ -165,7 +165,7 @@
     <Compile Include="FrontModels\FrontThing.cs" />
     <Compile Include="FrontModels\FrontThingSample.cs" />
     <Compile Include="FrontModels\FrontState.cs" />
-    <Compile Include="FrontModels\FrontQuest.cs" />
+    <Compile Include="FrontModels\FrontBook.cs" />
     <Compile Include="FrontModels\FrontEvent.cs" />
     <Compile Include="FrontModels\FrontHero.cs" />
     <Compile Include="FrontModels\FrontEnum.cs" />
