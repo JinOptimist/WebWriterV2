@@ -172,6 +172,7 @@
     <Compile Include="RpgUtility\EmailHelper.cs" />
     <Compile Include="RpgUtility\EventHelper.cs" />
     <Compile Include="RpgUtility\GraphHelper.cs" />
+    <Compile Include="RpgUtility\PathHelper.cs" />
     <Compile Include="RpgUtility\RandomHelper.cs" />
     <Compile Include="RpgUtility\ThingHelper.cs" />
     <Compile Include="RpgUtility\StateHelper.cs" />
@@ -711,6 +712,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\avatar\" />
     <Folder Include="html\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>

@@ -471,6 +471,12 @@
                 $uibModal.open(model);
             }
 
+            $scope.uploadAvatar = function (event) {
+                userService.uploadAvatar($scope.user.newAvatarData).then(function (response) {
+                    $scope.user.AvatarUrl = response;
+                });
+            }
+
             function init() {
                 var userId = $cookies.get(ConstCookies.userId);
                 if (userId) {

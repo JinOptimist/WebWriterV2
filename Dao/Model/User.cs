@@ -20,6 +20,8 @@ namespace Dao.Model
 
         public UserType UserType { get; set; } = UserType.Reader;
 
+        public string AvatarUrl { get; set; }
+
         /// <summary>
         /// Hero contains CurrentEvent. Use this field to get information about Book and Event where user stop reading
         /// </summary>

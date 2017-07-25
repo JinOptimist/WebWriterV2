@@ -14,6 +14,7 @@ using WebWriterV2.FrontModels;
 using System.Net.Mail;
 using System.Net;
 using System.Web;
+using System.IO;
 
 namespace WebWriterV2.Controllers
 {
@@ -182,6 +183,39 @@ namespace WebWriterV2.Controllers
             }
 
             return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult UploadAvatar(string data)
+        {
+            //example of base64 string 
+            //data:image/png;base64,iVBORw0KGg...
+            var dataIndex = data.IndexOf("base64", StringComparison.Ordinal) + 7;
+            var mark = "data:image/";
+            var extensionStart = data.IndexOf(mark) + mark.Length;
+            var extensionEnd = data.IndexOf(";");
+            var extension = data.Substring(extensionStart, extensionEnd - extensionStart);
+
+            var clearData = data.Substring(dataIndex);
+            var fileData = Convert.FromBase64String(clearData);
+            var bytes = fileData.ToArray();
+
+            var path = PathHelper.PathToAvatar(CurrentUserId, extension);
+            if (System.IO.File.Exists(path)) {
+                System.IO.File.Delete(path);
+            }
+            
+            using (var fileStream = System.IO.File.Create(path)) {
+                fileStream.Write(bytes, 0, bytes.Length);
+                //TODO investigate why we reload page on client after on server I close strea
+                fileStream.Close();
+            }
+
+
+            var user = UserRepository.Get(CurrentUserId);
+            user.AvatarUrl = PathHelper.PathToUrl(path);
+            UserRepository.Save(user);
+
+            return Json(JsonConvert.SerializeObject(user.AvatarUrl), JsonRequestBehavior.AllowGet);
         }
 
         /* ************** Utility for enum ************** */

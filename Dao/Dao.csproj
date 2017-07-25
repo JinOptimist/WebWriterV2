@@ -163,6 +163,10 @@
     <Compile Include="Migrations\201707231510497_AddIsPublishedToBook.Designer.cs">
       <DependentUpon>201707231510497_AddIsPublishedToBook.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201707250747133_AddAvatarUrl.cs" />
+    <Compile Include="Migrations\201707250747133_AddAvatarUrl.Designer.cs">
+      <DependentUpon>201707250747133_AddAvatarUrl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Enums.cs" />
@@ -265,6 +269,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201707231510497_AddIsPublishedToBook.resx">
       <DependentUpon>201707231510497_AddIsPublishedToBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201707250747133_AddAvatarUrl.resx">
+      <DependentUpon>201707250747133_AddAvatarUrl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

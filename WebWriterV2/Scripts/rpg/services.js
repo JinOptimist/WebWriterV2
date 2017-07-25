@@ -606,89 +606,98 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
     }])
     .service('userService', ['$cookies', '$q', 'httpHelper', 'ConstCookies',
         function ($cookies, $q, httpHelper, ConstCookies) {
-        var currentUser = null;
+            var currentUser = null;
 
-        return {
-            login: login,
-            logout: logout,
-            register: register,
-            getById: getById,
-            addBookmark: addBookmark,
-            removeAccount: removeAccount,
-            becomeWriter: becomeWriter,
-            getCurrentUser: getCurrentUser
-        };
+            return {
+                login: login,
+                logout: logout,
+                register: register,
+                getById: getById,
+                addBookmark: addBookmark,
+                removeAccount: removeAccount,
+                becomeWriter: becomeWriter,
+                getCurrentUser: getCurrentUser,
+                uploadAvatar: uploadAvatar
+            };
 
-        function getCurrentUser() {
-            var deferred = $q.defer();
+            function getCurrentUser() {
+                var deferred = $q.defer();
 
-            if (currentUser) {
-                deferred.resolve(currentUser);
-            } else {
-                var userId = $cookies.get(ConstCookies.userId);
-                getById(userId).then(function (data) {
-                    currentUser = data;
+                if (currentUser) {
                     deferred.resolve(currentUser);
-                });
+                } else {
+                    var userId = $cookies.get(ConstCookies.userId);
+                    getById(userId).then(function (data) {
+                        currentUser = data;
+                        deferred.resolve(currentUser);
+                    });
+                }
+
+                return deferred.promise;
             }
 
-            return deferred.promise;
-        }
+            function login(user) {
+                var url = '/Rpg/Login';
+                var data = {
+                    username: user.Name,
+                    password: user.Password
+                };
+                return httpHelper.call(url, data);
+            }
 
-        function login(user) {
-            var url = '/Rpg/Login';
-            var data = {
-                username: user.Name,
-                password: user.Password
-            };
-            return httpHelper.call(url, data);
-        }
+            function logout() {
+                $cookies.remove(ConstCookies.userId);
+                $cookies.remove(ConstCookies.isAdmin);
+                $cookies.remove(ConstCookies.isWriter);
+                currentUser = null;
+            }
 
-        function logout() {
-            $cookies.remove(ConstCookies.userId);
-            $cookies.remove(ConstCookies.isAdmin);
-            $cookies.remove(ConstCookies.isWriter);
-            currentUser = null;
-        }
+            function register(user) {
+                var url = '/Rpg/Register';
+                var userJson = angular.toJson(user);
+                var data = {
+                    userJson: userJson
+                };
+                return httpHelper.call(url, data);
+            }
 
-        function register(user) {
-            var url = '/Rpg/Register';
-            var userJson = angular.toJson(user);
-            var data = {
-                userJson: userJson
-            };
-            return httpHelper.call(url, data);
-        }
+            function getById(userId) {
+                var url = '/Rpg/GetUserById';
+                var data = {
+                    userId: userId
+                };
+                return httpHelper.call(url, data);
+            }
 
-        function getById(userId) {
-            var url = '/Rpg/GetUserById';
-            var data = {
-                userId: userId
-            };
-            return httpHelper.call(url, data);
-        }
+            function addBookmark(eventId, heroJson) {
+                var url = '/Rpg/AddBookmark';
+                var data = {
+                    eventId: eventId,
+                    heroJson: heroJson
+                };
+                return httpHelper.call(url, data);
+            }
 
-        function addBookmark(eventId, heroJson) {
-            var url = '/Rpg/AddBookmark';
-            var data = {
-                eventId: eventId,
-                heroJson: heroJson
-            };
-            return httpHelper.call(url, data);
-        }
+            function removeAccount(userId) {
+                var url = '/Rpg/RemoveUser';
+                var data = {
+                    userId: userId
+                };
+                return httpHelper.call(url, data);
+            }
 
-        function removeAccount(userId) {
-            var url = '/Rpg/RemoveUser';
-            var data = {
-                userId: userId
-            };
-            return httpHelper.call(url, data);
-        }
+            function becomeWriter() {
+                var url = '/Rpg/BecomeWriter';
+                return httpHelper.call(url);
+            }
 
-        function becomeWriter() {
-            var url = '/Rpg/BecomeWriter';
-            return httpHelper.call(url);
-        }
+            function uploadAvatar(imageData) {
+                var url = '/Rpg/UploadAvatar';
+                var data = {
+                    data: imageData
+                };
+                return httpHelper.call(url, data);
+            }
         }])
     .service('evaluationService', ['httpHelper', function (httpHelper) {
         return {
