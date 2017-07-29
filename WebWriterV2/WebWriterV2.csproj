@@ -169,9 +169,11 @@
     <Compile Include="FrontModels\FrontEvent.cs" />
     <Compile Include="FrontModels\FrontHero.cs" />
     <Compile Include="FrontModels\FrontEnum.cs" />
+    <Compile Include="RpgUtility\Dto\VkAccess.cs" />
     <Compile Include="RpgUtility\EmailHelper.cs" />
     <Compile Include="RpgUtility\EventHelper.cs" />
     <Compile Include="RpgUtility\GraphHelper.cs" />
+    <Compile Include="RpgUtility\JsonResponseReader.cs" />
     <Compile Include="RpgUtility\PathHelper.cs" />
     <Compile Include="RpgUtility\RandomHelper.cs" />
     <Compile Include="RpgUtility\ThingHelper.cs" />

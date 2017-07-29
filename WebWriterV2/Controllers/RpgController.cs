@@ -15,6 +15,8 @@ using System.Net.Mail;
 using System.Net;
 using System.Web;
 using System.IO;
+using System.Text;
+using WebWriterV2.RpgUtility.Dto;
 
 namespace WebWriterV2.Controllers
 {
@@ -74,6 +76,31 @@ namespace WebWriterV2.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult RegisterVkComplete(string code)
+        {
+            var redirectUri = "http://localhost:52079/rpg/RegisterVkComplete";
+            var secret = "S8CbQO9K10jPNTuGKDUv";
+            var urlAccessToken = "https://oauth.vk.com/access_token?"
+                + $"client_id={4279045}&client_secret={secret}&redirect_uri={redirectUri}&code={code}";
+            
+            var request = (HttpWebRequest)WebRequest.Create(urlAccessToken);
+            request.Method = "GET";
+
+            var answer = "";
+            using (var response = (HttpWebResponse)request.GetResponse()) {
+                var reader = new StreamReader(response.GetResponseStream());
+                var output = new StringBuilder();
+                output.Append(reader.ReadToEnd());
+                response.Close();
+                answer = output.ToString();
+            }
+
+            var jsonReader = new JsonResponseReader<VkAccess>();
+            var vkAc = jsonReader.ReadResponse(answer);
+
+            return RedirectToAction("Index");
         }
 
         /* ************** User ************** */

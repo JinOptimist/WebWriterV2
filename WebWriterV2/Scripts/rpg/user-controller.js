@@ -65,13 +65,24 @@
             }
         }
     ])
-    .controller('registerController', ['$rootScope', '$scope', '$cookies', '$location', 'ConstCookies', 'userService',
-        function ($rootScope, $scope, $cookies, $location, ConstCookies, userService) {
+    .controller('registerController', ['$rootScope', '$scope', '$cookies', '$location', '$window', 'ConstCookies', 'userService',
+        function ($rootScope, $scope, $cookies, $location, $window, ConstCookies, userService) {
             $scope.user = {};
             $scope.waiting = false;
             $scope.error = '';
 
             init();
+
+            $scope.vk = function () {
+                //https://vk.com/dev/auth_sites
+                $window.open('https://oauth.vk.com/authorize?'
+                        + 'client_id=' + 4279045
+                        + '&redirect_uri=' + 'http://localhost:52079/rpg/RegisterVkComplete'
+                        + '&display=' + 'popup'
+                        + '&scope=' + 4194304 // bit rules https://vk.com/dev/permissions
+                        + '&state=' + 'smile'
+                    , '_blank');
+            }
 
             $scope.goToHomePage = function () {
                 $location.path('/AngularRoute/listBook');
