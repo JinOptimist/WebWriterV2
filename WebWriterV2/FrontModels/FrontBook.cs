@@ -21,6 +21,8 @@ namespace WebWriterV2.FrontModels
             OwnerId = book.Owner?.Id;
             Evaluations = book.Evaluations?.Select(x => new FrontEvaluation(x)).ToList();
             IsPublished = book.IsPublished;
+            NumberOfChapters = book.NumberOfChapters;
+            NumberOfWords = book.NumberOfWords;
 
             ContainsCycle = forWriter
                 ? new GraphHelper(book).HasCycle()
@@ -35,6 +37,8 @@ namespace WebWriterV2.FrontModels
         public List<FrontEvent> AllEvents { get; set; }
         public List<FrontEvaluation> Evaluations { get; set; }
         public bool IsPublished { get; set; }
+        public long NumberOfChapters { get; set; }
+        public long NumberOfWords { get; set; }
 
         public bool ContainsCycle { get; set; }
 

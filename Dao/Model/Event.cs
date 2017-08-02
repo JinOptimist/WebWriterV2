@@ -14,6 +14,8 @@ namespace Dao.Model
         [Required]
         public string Desc { get; set; }
 
+        public long NumberOfWords { get; set; }
+
         /// <summary>
         /// You must save this field separately. Use EventLinkItemRepository
         /// </summary>

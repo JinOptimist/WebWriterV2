@@ -26,6 +26,9 @@ namespace Dao.Model
 
         public virtual bool IsPublished { get; set; }
 
+        public long NumberOfChapters { get; set; }
+        public long NumberOfWords { get; set; }
+
         public void UpdateFrom(Book model)
         {
             if (Id != model.Id)

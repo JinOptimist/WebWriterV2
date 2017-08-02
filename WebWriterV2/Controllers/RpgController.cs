@@ -815,11 +815,24 @@ namespace WebWriterV2.Controllers
         {
             var frontEvent = SerializeHelper.Deserialize<FrontEvent>(jsonEvent);
             var eventModel = frontEvent.ToDbModel();
+            var book = BookRepository.Get(bookId);
+            long oldTextLength = 0;
+            long oldNumberOfWords = 0;
             if (eventModel.Id == 0) {
-                eventModel.Book = BookRepository.Get(bookId);
+                eventModel.Book = book;
+            } else {
+                var oldEvent = EventRepository.Get(eventModel.Id);
+                oldTextLength = oldEvent.Desc.Length;
+                oldNumberOfWords = oldEvent.NumberOfWords;
             }
 
+            eventModel.NumberOfWords = WordHelper.GetWordCount(eventModel.Desc);
             var eventFromDb = EventRepository.Save(eventModel);
+
+            book.NumberOfChapters = book.NumberOfChapters - oldTextLength + eventModel.Desc.Length;
+            book.NumberOfWords = book.NumberOfWords - oldTextLength + eventModel.NumberOfWords;
+            BookRepository.Save(book);
+
             var frontEvents = new FrontEvent(eventFromDb);
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvents),
@@ -851,7 +864,12 @@ namespace WebWriterV2.Controllers
 
         public JsonResult RemoveEvent(long eventId)
         {
+            var eventToRemove = EventRepository.Get(eventId);
+            var book = BookRepository.Get(eventToRemove.Book.Id);
+            book.NumberOfWords -= eventToRemove.NumberOfWords;
+            book.NumberOfChapters -= eventToRemove.Desc.Length;
             EventRepository.Remove(eventId);
+            BookRepository.Save(book);
 
             return new JsonResult {
                 Data = true,
@@ -1233,6 +1251,23 @@ namespace WebWriterV2.Controllers
 
             var frontBooks = BookRepository.GetAll(false).Select(x => new FrontBook(x));
             return Json(frontBooks, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult RecalculateBookSize()
+        {
+            if (!IsCurrentUserAdmin) {
+                return Json("GoFuckYourSelf", JsonRequestBehavior.AllowGet);
+            }
+
+            var books = BookRepository.GetAll(false);
+            foreach(var book in books) {
+                book.NumberOfChapters = book.AllEvents.Sum(x => x.Desc.Length);
+                book.NumberOfWords = book.AllEvents.Sum(x=>WordHelper.GetWordCount(x.Desc));
+            }
+
+            BookRepository.Save(books);
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

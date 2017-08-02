@@ -2,6 +2,8 @@
     <p>Карточка произведения. <b>{{book.Name}}</b></p>
     <p>Опубликованно: <b>{{book.IsPublished ? 'да' : 'нет'}}</b></p>
     <p>Автор: {{book.OwnerId}}</p>
+    <p>Среднее время прочтения: {{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}} мин</p>
+    <p>Иное время: {{}} мин</p>
     <p ng-if="book.Genre">Жанр: {{book.Genre.Name}}</p>
     <p>Описание:</p>
     <div ng-bind-html="book.Desc | trusted"></div>

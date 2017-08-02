@@ -25,6 +25,10 @@ namespace Dao.Repository
 
         public override Event Save(Event model)
         {
+            if (model.NumberOfWords == 0 && model.Desc.Length > 0) {
+                throw new Exception("You foget fill NumberOfWords before save");
+            }
+
             // if we try update detached model
             var entry = Db.Entry(model);
             if (entry.State == EntityState.Detached && model.Id > 0)
