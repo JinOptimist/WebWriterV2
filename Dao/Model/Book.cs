@@ -38,6 +38,8 @@ namespace Dao.Model
 
             Name = model.Name;
             Desc = model.Desc;
+            NumberOfChapters = model.NumberOfChapters;
+            NumberOfWords = model.NumberOfWords;
 
             //TODO Update collection element by element
             //RootEvent = model.RootEvent;

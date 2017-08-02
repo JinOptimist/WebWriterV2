@@ -816,11 +816,11 @@ namespace WebWriterV2.Controllers
             var frontEvent = SerializeHelper.Deserialize<FrontEvent>(jsonEvent);
             var eventModel = frontEvent.ToDbModel();
             var book = BookRepository.Get(bookId);
+            eventModel.Book = book;
+
             long oldTextLength = 0;
             long oldNumberOfWords = 0;
-            if (eventModel.Id == 0) {
-                eventModel.Book = book;
-            } else {
+            if (eventModel.Id != 0) {
                 var oldEvent = EventRepository.Get(eventModel.Id);
                 oldTextLength = oldEvent.Desc.Length;
                 oldNumberOfWords = oldEvent.NumberOfWords;
@@ -830,7 +830,7 @@ namespace WebWriterV2.Controllers
             var eventFromDb = EventRepository.Save(eventModel);
 
             book.NumberOfChapters = book.NumberOfChapters - oldTextLength + eventModel.Desc.Length;
-            book.NumberOfWords = book.NumberOfWords - oldTextLength + eventModel.NumberOfWords;
+            book.NumberOfWords = book.NumberOfWords - oldNumberOfWords + eventModel.NumberOfWords;
             BookRepository.Save(book);
 
             var frontEvents = new FrontEvent(eventFromDb);

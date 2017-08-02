@@ -1,7 +1,8 @@
 ﻿<div>
     <div style="float: right; width: 300px;">
+        <p> <label><input type="checkbox" ng-model="advancedEditor" /> Экспертный редактор</label></p>
         <h2>
-            <a href="#" ng-click="goToBook()">{{book.Name}}</a> events:
+            <a href="#" ng-click="goToBook()">{{book.Name}}</a>
         </h2>
         <p ng-repeat="eventItem in events">
             <a ng-href="#" ng-click="selectEvent(eventItem.Id)">{{eventItem.Name}}</a>
@@ -35,8 +36,8 @@
             </p>
         </div>
         <hr />
-        <h3 ng-click="reqExpand = !reqExpand">Условия входа в главу {{reqExpand ? "&uarr;" : "&darr;"}}</h3>
-        <div ng-show="reqExpand">
+        <h3 ng-show="advancedEditor" ng-click="reqExpand = !reqExpand">Условия входа в главу {{reqExpand ? "&uarr;" : "&darr;"}}</h3>
+        <div ng-show="reqExpand && advancedEditor">
             <p ng-show="false">
                 RequirementSex:
                 <select ng-model="event.RequirementSex.Value" ng-options="option.value as option.name for option in SexList"></select>
@@ -82,9 +83,9 @@
                 <a ng-click="addRequirementThing()" style="cursor: pointer;"><img src="/Content/icon/add.png" class="icon20"/></a>
             </div>
         </div>
-        <hr />
-        <h3 ng-click="stateExpand = !stateExpand">Изменения Героя при входе в главу {{stateExpand ? "&uarr;" : "&darr;"}}</h3>
-        <div ng-show="stateExpand">
+        <hr ng-show="advancedEditor" />
+        <h3 ng-show="advancedEditor" ng-click="stateExpand = !stateExpand">Изменения Героя при входе в главу {{stateExpand ? "&uarr;" : "&darr;"}}</h3>
+        <div ng-show="stateExpand && advancedEditor">
             <div>
                 <h4>Состояния</h4>
                 <p>
@@ -115,8 +116,8 @@
                 <a ng-click="addThingsChanges()" style="cursor: pointer;"><img src="/Content/icon/add.png" class="icon20"/></a>
             </div>
         </div>
-        <hr />
-        <h3 ng-click="eventEdit = !eventEdit">
+        <hr ng-show="advancedEditor" />
+        <h3 ng-show="advancedEditor" ng-click="eventEdit = !eventEdit">
             Глава Основное {{eventEdit ? "&uarr;" : "&darr;"}}
         </h3>
         <div ng-show="eventEdit">
@@ -124,6 +125,7 @@
             <p>
                 Name: <input type="text" ng-model="event.Name"
                              name="eventName" class="auto-apply width500" />
+                <span>Приблизительное время прочтения: {{event.Desc.length / 1500 | number : 1}} мин</span>
             </p>
             <p ng-show="false">
                 ProgressChanging: <input type="text" ng-model="event.ProgressChanging"

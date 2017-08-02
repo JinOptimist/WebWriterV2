@@ -50,6 +50,7 @@ namespace Dao.Model
             ProgressChanging = model.ProgressChanging;
             Book = model.Book;
             ForRootBook = model.ForRootBook;
+            NumberOfWords = model.NumberOfWords;
         }
     }
 }

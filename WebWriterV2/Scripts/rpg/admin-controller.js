@@ -198,6 +198,8 @@ angular.module('rpg')
             $scope.eventEdit = true;
             $scope.childExpand = true;
 
+            $scope.advancedEditor = false;
+
             var bookId = $routeParams.bookId;
             var raceNoneObject = { name: 'None', value: 0 };
             var sexNoneObject = { name: 'None', value: 0 };
