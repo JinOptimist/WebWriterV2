@@ -81,7 +81,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
     }])
     .service('eventService', ['httpHelper', function (httpHelper) {
         return {
-            getEvent: getEvent,
+            get: get,
             getEvents: getEvents,
             save: save,
             remove: remove,
@@ -133,8 +133,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return httpHelper.call(url, data);
         }
 
-        function getEvent(currentEventId) {
-            var url = '/Rpg/GetEvent?id=' + currentEventId;
+        function get(eventId) {
+            var url = '/Rpg/GetEvent?id=' + eventId;
             return httpHelper.call(url);
         }
 

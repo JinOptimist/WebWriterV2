@@ -200,9 +200,9 @@
         }
     ])
     .controller('travelController', [
-        '$scope', '$http', '$location', '$routeParams', '$cookies', '$timeout', 'evaluationService',
+        '$scope', '$http', '$location', '$routeParams', '$cookies', '$timeout', '$q', 'evaluationService',
         'bookService', 'eventService', 'heroService', 'userService',
-        function ($scope, $http, $location, $routeParams, $cookies, $timeout, evaluationService,
+        function ($scope, $http, $location, $routeParams, $cookies, $timeout, $q, evaluationService,
             bookService, eventService, heroService, userService) {
             $scope.book = {};
             $scope.hero = {};
@@ -370,22 +370,25 @@
 
             function init() {
                 var bookId = $routeParams.bookId;
+                var eventId = $routeParams.eventId;
                 var heroId = $routeParams.heroId;
                 var isBookmark = angular.fromJson($routeParams.isBookmark);
-                heroService.load(heroId).then(function(data) {
-                    $scope.hero = data;
 
-                    bookService.get(bookId).then(function (result) {
-                        $scope.book = result;
-                        $scope.book.Effective = 0;
-                        if ($scope.hero.CurrentEvent) {
-                            $scope.currentEvent = $scope.hero.CurrentEvent;
-                        } else {
-                            $scope.currentEvent = $scope.book.RootEvent;
-                        }
+                //if (eventId != -1)
 
-                        $scope.chooseEvent($scope.currentEvent.Id, isBookmark);
-                    });
+                var heroPromise = heroService.load(heroId);
+                var bookPromise = bookService.get(bookId);
+                var eventPromise = eventService.get(eventId);
+                $q.all([heroPromise, bookPromise, eventPromise]).then(function (results) {
+                    $scope.hero = results[0];
+                    $scope.book = results[1];
+                    $scope.currentEvent = results[2]
+                        ? results[2]
+                        : $scope.hero.CurrentEvent
+                            ? $scope.hero.CurrentEvent
+                            : $scope.book.RootEvent;;
+
+                    $scope.chooseEvent($scope.currentEvent.Id, isBookmark);
                 });
             }
         }
@@ -398,7 +401,7 @@
             init();
 
             $scope.goToBook = function (book) {
-                $location.path('/AngularRoute/travel/book/' + book.Id + '/hero/' + -1 + '/false');
+                $location.path('/AngularRoute/travel/book/' + book.Id + '/event/' + -1 + '/hero/' + -1 + '/false');
             }
 
             function init() {
@@ -441,7 +444,7 @@
 
             $scope.goToBookmark = function (bookmark) {
                 var bookId = bookmark.CurrentEvent.book.Id;
-                var url = '/AngularRoute/travel/book/' + bookId + '/hero/' + bookmark.Id + '/true';
+                var url = '/AngularRoute/travel/book/' + bookId + '/event/' + -1 + '/hero/' + bookmark.Id + '/true';
                 $location.path(url);
             }
 

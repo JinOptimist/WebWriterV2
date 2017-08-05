@@ -172,9 +172,9 @@ angular.module('rpg')
         }
     ])
     .controller('adminEventGeneralController', [
-        '$scope', '$http', '$routeParams', '$location', '$uibModal', 'eventService', 'bookService',
+        '$scope', '$http', '$routeParams', '$window', '$location', '$uibModal', 'eventService', 'bookService',
         'requirementTypeService', 'stateService', 'thingService', 'CKEditorService',
-        function ($scope, $http, $routeParams, $location, $uibModal, eventService, bookService,
+        function ($scope, $http, $routeParams, $window, $location, $uibModal, eventService, bookService,
             requirementTypeService, stateService, thingService, CKEditorService) {
 
             $scope.event = null;
@@ -526,8 +526,13 @@ angular.module('rpg')
                 });
             }
 
+            $scope.preview = function () {
+                var url = '/AngularRoute/travel/book/' + $scope.book.Id + '/event/' + $scope.event.Id + '/hero/-1/false';
+                $window.open(url, '_blank');
+            }
+
             function loadEvent(eventId) {
-                eventService.getEvent(eventId).then(function (result) {
+                eventService.get(eventId).then(function (result) {
                     $scope.event = result;
                     $scope.wait = false;
 

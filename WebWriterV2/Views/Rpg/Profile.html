@@ -38,7 +38,7 @@
             <div ng-repeat="book in user.MyBooks">
                 <p >
                     Квест: {{book.Name}}.
-                    <a ng-href="/AngularRoute/travel/book/{{book.Id}}/hero/-1/false">Читать</a>
+                    <a ng-href="/AngularRoute/travel/book/{{book.Id}}/event/-1/hero/-1/false">Читать</a>
                     <a ng-href="/AngularRoute/admin/book/{{book.Id}}">Писать</a>
                 </p>
                 <p ng-if="book.Evaluations && book.Evaluations.length > 0" class="evaluation">

@@ -756,7 +756,9 @@ namespace WebWriterV2.Controllers
         public JsonResult GetEvent(long id)
         {
             var eventFromDb = EventRepository.Get(id);
-            var frontEvent = new FrontEvent(eventFromDb);
+            var frontEvent = eventFromDb == null
+                ? null
+                : new FrontEvent(eventFromDb);
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvent),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
@@ -1032,6 +1034,7 @@ namespace WebWriterV2.Controllers
                 Name = parentEvent.Name + " продолжение",
                 Desc = "продолжение",
                 Book = parentEvent.Book,
+                NumberOfWords = 1
             };
             childEvent = EventRepository.Save(childEvent);
             var eventLinkItem = new EventLinkItem() {
@@ -1044,7 +1047,6 @@ namespace WebWriterV2.Controllers
             var frontEvent = new FrontEvent(childEvent);
 
             return Json(frontEvent, JsonRequestBehavior.AllowGet);
-
         }
 
         /* ************** Init Db ************** */

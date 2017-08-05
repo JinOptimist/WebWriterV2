@@ -53,7 +53,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     templateUrl: '/views/rpg/ListBook.html',
                     controller: 'listBookController'
                 })
-                .when('/AngularRoute/travel/book/:bookId/hero/:heroId/:isBookmark', {
+                .when('/AngularRoute/travel/book/:bookId/event/:eventId/hero/:heroId/:isBookmark', {
                     templateUrl: '/views/rpg/Travel.html',
                     controller: 'travelController'
                 })
