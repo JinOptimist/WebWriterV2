@@ -15,7 +15,7 @@ namespace WebWriterV2.RpgUtility
             try {
                 using (var memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(response)))
                     return (T)contractJsonSerializer.ReadObject(memoryStream);
-            } catch (Exception ex) {
+            } catch (Exception) {
                 return default(T);
             }
         }

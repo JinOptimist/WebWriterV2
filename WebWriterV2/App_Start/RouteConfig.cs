@@ -14,12 +14,6 @@ namespace WebWriterV2
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "GoodBoy",
-                url: "GoodBoy",
-                defaults: new { controller = "Carrier", action = "Index", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
                 name: "AngularRoute",
                 url: "AngularRoute/{*url}",
                 defaults: new { controller = "Rpg", action = "RouteForAngular", id = UrlParameter.Optional }

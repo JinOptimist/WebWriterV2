@@ -5,7 +5,6 @@ using System.Web.Mvc;
 using Dao.IRepository;
 using Dao.Model;
 using Newtonsoft.Json;
-using NLog;
 using WebWriterV2.RpgUtility;
 using WebWriterV2.VkUtility;
 using Dao;
@@ -22,12 +21,10 @@ namespace WebWriterV2.Controllers
 {
     public class RpgController : Controller
     {
-        private int _priceOfRestore = 5;
-
         private const string AdminName = "admin";
         private const string AdminPassword = "32167";
 
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        //private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         private readonly WriterContext _context = new WriterContext();
 
@@ -648,8 +645,8 @@ namespace WebWriterV2.Controllers
                     thing.ThingSample.Owner = currentUser;
                 }
 
-                var nbsp = (char)160;// code of nbsp
-                var sp = (char)32;// code of simple space
+                const char nbsp = (char)160;// code of nbsp
+                const char sp = (char)32;// code of simple space
 
                 foreach (var state in states) {
                     state.Id = 0;

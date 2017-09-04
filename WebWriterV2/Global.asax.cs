@@ -6,6 +6,8 @@ using Autofac;
 using Dao;
 using Dao.IRepository;
 using Dao.Repository;
+using System;
+using System.Text;
 
 namespace WebWriterV2
 {
@@ -22,7 +24,8 @@ namespace WebWriterV2
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             var builder = new ContainerBuilder();
-            /* ************** RPG ************** */
+            /* ************** Controller ************** */
+            //builder.registerc
 
             //builder.RegisterType<QuestRepository>()
             //    .As<IQuestRepository>()
@@ -58,6 +61,14 @@ namespace WebWriterV2
             StaticContainer.Container = builder.Build();
 
             WriterContext.SetInitializer();
+        }
+
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            var a = 1;
+            //Exception exception = Server.GetLastError();
+            //Server.ClearError();
+            //Response.Redirect("/Home/Error");
         }
     }
 }
