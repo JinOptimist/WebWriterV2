@@ -19,7 +19,7 @@ using WebWriterV2.RpgUtility.Dto;
 
 namespace WebWriterV2.Controllers
 {
-    public class RpgController : Controller
+    public class RpgController : MyController
     {
         private const string AdminName = "admin";
         private const string AdminPassword = "32167";
@@ -160,7 +160,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddBookmark(long eventId, string heroJson)
         {
-            var userId = CurrentUserId;
+            var userId = User.Id;
             var user = UserRepository.Get(userId);
             var currentEvent = EventRepository.Get(eventId);
 
@@ -197,11 +197,9 @@ namespace WebWriterV2.Controllers
 
         public JsonResult BecomeWriter()
         {
-            var userId = CurrentUserId;
-            var user = UserRepository.Get(userId);
-            if (user.UserType == UserType.Reader) {
-                user.UserType = UserType.Writer;
-                UserRepository.Save(user);
+            if (User.UserType == UserType.Reader) {
+                User.UserType = UserType.Writer;
+                UserRepository.Save(User);
             } else {
                 //TODO log error behavior
             }
@@ -223,7 +221,7 @@ namespace WebWriterV2.Controllers
             var fileData = Convert.FromBase64String(clearData);
             var bytes = fileData.ToArray();
 
-            var path = PathHelper.PathToAvatar(CurrentUserId, extension);
+            var path = PathHelper.PathToAvatar(User.Id, extension);
             if (System.IO.File.Exists(path)) {
                 System.IO.File.Delete(path);
             }
@@ -235,11 +233,10 @@ namespace WebWriterV2.Controllers
             }
 
 
-            var user = UserRepository.Get(CurrentUserId);
-            user.AvatarUrl = PathHelper.PathToUrl(path);
-            UserRepository.Save(user);
+            User.AvatarUrl = PathHelper.PathToUrl(path);
+            UserRepository.Save(User);
 
-            return Json(JsonConvert.SerializeObject(user.AvatarUrl), JsonRequestBehavior.AllowGet);
+            return Json(JsonConvert.SerializeObject(User.AvatarUrl), JsonRequestBehavior.AllowGet);
         }
 
         /* ************** Utility for enum ************** */
@@ -397,9 +394,8 @@ namespace WebWriterV2.Controllers
         {
             var frontEvaluation = SerializeHelper.Deserialize<FrontEvaluation>(evaluationJson);
             var evaluation = frontEvaluation.ToDbModel();
-            var user = UserRepository.Get(CurrentUserId);
             var book = BookRepository.Get(evaluation.Book.Id);
-            evaluation.Owner = user;
+            evaluation.Owner = User;
             evaluation.Book = book;
             evaluation.Created = DateTime.Now;
 
@@ -425,11 +421,10 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddThing(string name, string desc)
         {
-            var user = UserRepository.Get(CurrentUserId);
             var thingSample = new ThingSample {
                 Name = name,
                 Desc = desc,
-                Owner = user
+                Owner = User
             };
 
             var savedThingSample = ThingSampleRepository.Save(thingSample);
@@ -453,8 +448,7 @@ namespace WebWriterV2.Controllers
         /* ************** State ************** */
         public JsonResult GetStateTypesAvailbleForUser()
         {
-            var userId = CurrentUserId;
-            var stateTypes = StateTypeRepository.AvailableForUse(userId);
+            var stateTypes = StateTypeRepository.AvailableForUse(User.Id);
             var frontStateTypes = stateTypes.Select(x => new FrontStateType(x)).ToList();
 
             return new JsonResult {
@@ -465,8 +459,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult GetStateTypesAvailbleForEdit()
         {
-            var userId = CurrentUserId;
-            var stateTypes = StateTypeRepository.AvailableForEdit(userId);
+            var stateTypes = StateTypeRepository.AvailableForEdit(User.Id);
             var frontStateTypes = stateTypes.Select(x => new FrontStateType(x)).ToList();
 
             return new JsonResult {
@@ -491,13 +484,11 @@ namespace WebWriterV2.Controllers
 
         public JsonResult AddState(string name, string desc, bool hideFromReader)
         {
-            var userId = CurrentUserId;
-            User user = UserRepository.Get(userId);
             var stateType = new StateType {
                 Name = name,
                 Desc = desc,
                 HideFromReader = hideFromReader,
-                Owner = user,
+                Owner = User,
             };
             var savedStateType = StateTypeRepository.Save(stateType);
             var frontStateType = new FrontStateType(savedStateType);
@@ -511,8 +502,7 @@ namespace WebWriterV2.Controllers
         {
             var frontStateType = SerializeHelper.Deserialize<FrontStateType>(jsonStateType);
             var stateType = frontStateType.ToDbModel();
-            var userId = CurrentUserId;
-            if (stateType.Owner.Id != userId) {
+            if (stateType.Owner.Id != User.Id) {
                 throw new Exception("You can't edit state types which was created by another user");
             }
             stateType.Owner = UserRepository.Get(stateType.Owner.Id);
@@ -601,9 +591,8 @@ namespace WebWriterV2.Controllers
 
             var bookName = BookRepository.GetByName(book.Name);
             if (bookName == null) {
-                var currentUser = UserRepository.Get(CurrentUserId);
                 book.Id = 0;
-                book.Owner = currentUser;
+                book.Owner = User;
                 var things = new List<Thing>();
                 var states = new List<State>();
                 var linkItems = new List<EventLinkItem>();
@@ -642,7 +631,7 @@ namespace WebWriterV2.Controllers
                     thing.Id = 0;
                     thing.Hero = null;
                     thing.ThingSample.Id = 0;
-                    thing.ThingSample.Owner = currentUser;
+                    thing.ThingSample.Owner = User;
                 }
 
                 const char nbsp = (char)160;// code of nbsp
@@ -651,7 +640,7 @@ namespace WebWriterV2.Controllers
                 foreach (var state in states) {
                     state.Id = 0;
                     state.StateType.Id = 0;
-                    state.StateType.Owner = currentUser;
+                    state.StateType.Owner = User;
                 }
 
                 states.ForEach(StateRepository.CheckAndSave);
@@ -690,15 +679,12 @@ namespace WebWriterV2.Controllers
 
         public JsonResult BookCompleted(long bookId)
         {
-            var userId = CurrentUserId;
-            var user = UserRepository.Get(userId);
-
             var book = BookRepository.Get(bookId);
-            if (user.BooksAreReaded == null)
-                user.BooksAreReaded = new List<Book>();
-            if (user.BooksAreReaded.All(x => x.Id != book.Id)) {
-                user.BooksAreReaded.Add(book);
-                UserRepository.Save(user);
+            if (User.BooksAreReaded == null)
+                User.BooksAreReaded = new List<Book>();
+            if (User.BooksAreReaded.All(x => x.Id != book.Id)) {
+                User.BooksAreReaded.Add(book);
+                UserRepository.Save(User);
             }
 
             return new JsonResult {
@@ -1181,8 +1167,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult ReInit()
         {
-            var user = UserRepository.Get(CurrentUserId);
-            if (user.UserType != UserType.Admin) {
+            if (User.UserType != UserType.Admin) {
                 throw new Exception("You haven't permission to rebuild whole db");
             }
 
@@ -1233,9 +1218,8 @@ namespace WebWriterV2.Controllers
 
         public JsonResult GetAllUsers()
         {
-            var user = UserRepository.Get(CurrentUserId);
-            if (user == null || user.UserType != UserType.Admin) {
-                return Json("GoFuckYourSelf", JsonRequestBehavior.AllowGet);
+            if (User == null || User.UserType != UserType.Admin) {
+                return Json("GoHuckYourSelf", JsonRequestBehavior.AllowGet);
             }
 
             var frontUsers = UserRepository.GetAll().Select(x=> new FrontUser(x));
@@ -1275,18 +1259,10 @@ namespace WebWriterV2.Controllers
             base.Dispose(disposing);
         }
 
-        private long CurrentUserId {
-            get
-            {
-                return long.Parse(Request.Cookies["userId"]?.Value ?? "-1");
-            }
-        }
-
         private bool IsCurrentUserAdmin {
             get
             {
-                var user = UserRepository.Get(CurrentUserId);
-                return user != null && user.UserType == UserType.Admin;
+                return User != null && User.UserType == UserType.Admin;
             }
         }
     }

@@ -14,7 +14,7 @@ using WebWriterV2.VkUtility;
 
 namespace WebWriterV2.Controllers
 {
-    public class BookController : ApiController
+    public class BookController : MyApiController
     {
         private IBookRepository BookRepository { get; set; }
         private IGenreRepository GenreRepository { get; set; }
@@ -23,7 +23,6 @@ namespace WebWriterV2.Controllers
         private IStateRepository StateRepository { get; set; }
         private IThingRepository ThingRepository { get; set; }
         private IEventLinkItemRepository EventLinkItemRepository { get; set; }
-        
 
         public BookController()
         {
@@ -49,7 +48,7 @@ namespace WebWriterV2.Controllers
         // old GetBooks(long? userId) with null
         public List<FrontBook> GetAll()
         {
-            var books = BookRepository.GetAll(true);
+            var books = BookRepository.GetAll(User == null || User.UserType != UserType.Admin);
             var frontBooks = books.Select(x => new FrontBook(x)).ToList();
             return frontBooks;
         }
@@ -67,10 +66,11 @@ namespace WebWriterV2.Controllers
             BookRepository.Remove(id);
         }
 
-        public FrontBook SaveBook(string jsonBook)
+        //TODO
+        public FrontBook SaveBook(FrontBook jsonBook)
         {
-            var frontBook = SerializeHelper.Deserialize<FrontBook>(jsonBook);
-            var book = frontBook.ToDbModel();
+            //var frontBook = SerializeHelper.Deserialize<FrontBook>(jsonBook);
+            var book = jsonBook.ToDbModel();
             var newGenre = book.Genre;
             var owner = UserRepository.Get(book.Owner.Id);
             book.Owner = owner;
@@ -85,7 +85,7 @@ namespace WebWriterV2.Controllers
                 GenreRepository.Save(genre);
             }
 
-            frontBook = new FrontBook(book, true);
+            var frontBook = new FrontBook(book, true);
             return frontBook;
         }
 
@@ -96,9 +96,8 @@ namespace WebWriterV2.Controllers
 
             var bookName = BookRepository.GetByName(book.Name);
             if (bookName == null) {
-                var currentUser = HttpModule.User;
                 book.Id = 0;
-                book.Owner = currentUser;
+                book.Owner = User;
                 var things = new List<Thing>();
                 var states = new List<State>();
                 var linkItems = new List<EventLinkItem>();
@@ -137,7 +136,7 @@ namespace WebWriterV2.Controllers
                     thing.Id = 0;
                     thing.Hero = null;
                     thing.ThingSample.Id = 0;
-                    thing.ThingSample.Owner = currentUser;
+                    thing.ThingSample.Owner = User;
                 }
 
                 const char nbsp = (char)160;// code of nbsp
@@ -146,7 +145,7 @@ namespace WebWriterV2.Controllers
                 foreach (var state in states) {
                     state.Id = 0;
                     state.StateType.Id = 0;
-                    state.StateType.Owner = currentUser;
+                    state.StateType.Owner = User;
                 }
 
                 states.ForEach(StateRepository.CheckAndSave);
@@ -179,13 +178,12 @@ namespace WebWriterV2.Controllers
 
         public void BookCompleted(long bookId)
         {
-            var user = HttpModule.User;
             var book = BookRepository.Get(bookId);
-            if (user.BooksAreReaded == null)
-                user.BooksAreReaded = new List<Book>();
-            if (user.BooksAreReaded.All(x => x.Id != book.Id)) {
-                user.BooksAreReaded.Add(book);
-                UserRepository.Save(user);
+            if (User.BooksAreReaded == null)
+                User.BooksAreReaded = new List<Book>();
+            if (User.BooksAreReaded.All(x => x.Id != book.Id)) {
+                User.BooksAreReaded.Add(book);
+                UserRepository.Save(User);
             }
         }
 

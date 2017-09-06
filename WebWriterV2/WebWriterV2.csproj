@@ -147,6 +147,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\MyController.cs" />
+    <Compile Include="Controllers\MyApiController.cs" />
     <Compile Include="Controllers\RpgController.cs" />
     <Compile Include="Controllers\RubbishController.cs" />
     <Compile Include="DI\CurrentUserContainer.cs" />
@@ -696,7 +698,9 @@
       <DependentUpon>Web.config</DependentUpon>
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Rpg\Index.cshtml" />
     <Content Include="Views\Rubbish\Index.cshtml" />
     <Content Include="Views\Rubbish\old.cshtml" />
