@@ -40,7 +40,7 @@ namespace VkApi.Web
         }
         return str;
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         return null;
       }
@@ -68,7 +68,7 @@ namespace VkApi.Web
             return streamReader.ReadToEnd();
         }
       }
-      catch (Exception ex)
+      catch (Exception)
       {
         return null;
       }

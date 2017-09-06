@@ -49,6 +49,12 @@
     <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.4.6.1\lib\net45\Autofac.dll</HintPath>
     </Reference>
+    <Reference Include="Autofac.Integration.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.Mvc5.4.0.2\lib\net45\Autofac.Integration.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.WebApi, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.WebApi.3.1.0\lib\net40\Autofac.Integration.WebApi.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -143,6 +149,8 @@
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\RpgController.cs" />
     <Compile Include="Controllers\RubbishController.cs" />
+    <Compile Include="DI\CurrentUserContainer.cs" />
+    <Compile Include="DI\HttpModule.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
     <Compile Include="FrontModels\FrontEventLinkItem.cs" />
     <Compile Include="FrontModels\FrontGenre.cs" />
@@ -174,7 +182,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="StaticContainer.cs" />
+    <Compile Include="DI\StaticContainer.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -713,9 +721,9 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dao\Dao.csproj">
+    <ProjectReference Include="..\Dao\Dal.csproj">
       <Project>{3AF58E93-9F23-4642-8B00-D13204A0B8E7}</Project>
-      <Name>Dao</Name>
+      <Name>Dal</Name>
     </ProjectReference>
     <ProjectReference Include="..\VkApi\VkApi.csproj">
       <Project>{b3bc9f9b-32a0-4276-b741-a2698b72dc28}</Project>

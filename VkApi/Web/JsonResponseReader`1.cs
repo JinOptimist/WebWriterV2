@@ -23,7 +23,7 @@ namespace VkApi.Web
                 using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(response)))
                     return (T) contractJsonSerializer.ReadObject((Stream) memoryStream);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return default(T);
             }

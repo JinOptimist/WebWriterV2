@@ -7,8 +7,8 @@
     <ProjectGuid>{3AF58E93-9F23-4642-8B00-D13204A0B8E7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Dao</RootNamespace>
-    <AssemblyName>Dao</AssemblyName>
+    <RootNamespace>Dal</RootNamespace>
+    <AssemblyName>Dal</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

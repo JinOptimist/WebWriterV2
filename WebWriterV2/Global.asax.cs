@@ -1,13 +1,15 @@
-﻿using System.Web;
+﻿using System;
+using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
+using Autofac.Integration.Mvc;
+using Autofac.Integration.WebApi;
 using Dao;
-using Dao.IRepository;
 using Dao.Repository;
-using System;
-using System.Text;
+using System.Linq;
+using WebWriterV2.DI;
 
 namespace WebWriterV2
 {
@@ -15,6 +17,10 @@ namespace WebWriterV2
     // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : HttpApplication
     {
+        public static string Repository => "Repository";
+
+        private WriterContext _writerContext => new WriterContext();
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -24,41 +30,25 @@ namespace WebWriterV2
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             var builder = new ContainerBuilder();
+
             /* ************** Controller ************** */
-            //builder.registerc
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
+            //TODO why this not work? :(
+            //builder.RegisterApiControllers(typeof(MvcApplication).Assembly);
+            // Or how I can run follow code
+            //builder.Register(cont => new BookController(cont.Resolve<IBookRepository>()));
 
-            //builder.RegisterType<QuestRepository>()
-            //    .As<IQuestRepository>()
-            //    .WithParameter(new TypedParameter(typeof(WriterContext), StaticContainer.Context));
+            /* ************** Repository ************** */
+            var dalAssembly = typeof(BookRepository).Assembly;
+            builder.RegisterAssemblyTypes(dalAssembly)
+                .Where(x => x.IsClass && x.Name.EndsWith(Repository))
+                .As(repositoryObject => repositoryObject.GetInterfaces().Single(x => x.Name.EndsWith(repositoryObject.Name)));
 
-            //builder.RegisterType<EventRepository>()
-            //    .As<IEventRepository>()
-            //    .WithParameter(new TypedParameter(typeof(WriterContext), StaticContainer.Context));
-
-            //builder.RegisterType<HeroRepository>()
-            //    .As<IHeroRepository>()
-            //    .WithParameter(new TypedParameter(typeof(WriterContext), StaticContainer.Context));
-
-            //builder.RegisterType<SkillRepository>()
-            //    .As<ISkillRepository>()
-            //    .WithParameter(new TypedParameter(typeof(WriterContext), StaticContainer.Context));
-
-            //builder.RegisterType<QuestRepository>().As<IQuestRepository>();
-
-            //builder.RegisterType<EventRepository>().As<IEventRepository>();
-
-            //builder.RegisterType<HeroRepository>().As<IHeroRepository>();
-
-            //builder.RegisterType<SkillRepository>().As<ISkillRepository>();
-
-
-            //builder.RegisterType<QuestRepository>();
-            //builder.RegisterType<EventRepository>();
-            //builder.Register<IQuestRepository>(x => x.Resolve<QuestRepository>());
-            //builder.Register<IEventRepository>(x => x.Resolve<EventRepository>());
-
-
-            StaticContainer.Container = builder.Build();
+            /* ************** WriterContext ************** */
+            builder.RegisterInstance(_writerContext).As<WriterContext>();
+            var container = builder.Build();
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            StaticContainer.Container = container;
 
             WriterContext.SetInitializer();
         }
