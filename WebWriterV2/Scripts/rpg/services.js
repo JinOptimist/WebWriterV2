@@ -303,36 +303,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         var selectedHero = null;
         var defaultHero = {};
 
-        function restoreHero(heroId, skillId) {
-            var deferred = $q.defer();
-            $http({
-                method: 'POST',
-                url: '/Rpg/RestoreHero',
-                data: {
-                    heroId: heroId
-                },
-                headers: { 'Accept': 'application/json' }
-            })
-                .success(function (response) {
-                    var hero = angular.fromJson(response);
-                    deferred.resolve(hero);
-                });
-            return deferred.promise;
-        }
-
-        function getState(hero, stateName) {
-            if (!hero || !hero.State)
-                return -1;
-            var currentState = _.find(hero.State, function (state) {
-                return state.StateType.Name == stateName;
-            });
-            return currentState.Number;
-        }
-
-        function getHp(hero) {
-            return getState(hero, hpStateName);
-        }
-
         function updateHeroState(heroOrigin, heroNew) {
             for (var i = 0; i < heroNew.State.length; i++) {
                 var newStat = heroNew.State[i];
@@ -374,39 +344,11 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             getAllHeroes: function () {
                 return listHeroes;
             },
-            saveHero: function (newHero) {
-                var deferred = $q.defer();
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/SaveHero',
-                    data: { jsonHero: angular.toJson(newHero) },
-                    headers: { 'Accept': 'application/json' }
-                })
-                    .success(function (response) {
-                        deferred.resolve(response);
-                    });
-
-                return deferred.promise;
-            },
             selectHero: function (hero) {
                 selectedHero = hero;
             },
             getSelectedHero: function () {
                 return selectedHero;
-            },
-            loadEnemy: function () {
-                var deferred = $q.defer();
-
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/GetEnemy',
-                    headers: { 'Accept': 'application/json' }
-                })
-                    .success(function (response) {
-                        var enemy = angular.fromJson(response);
-                        deferred.resolve(enemy);
-                    });
-                return deferred.promise;
             },
             getDefaultHero: function () {
                 return defaultHero;
@@ -414,40 +356,14 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             setDefaultHero: function (hero) {
                 defaultHero = hero;
             },
-            loadDefaultHero: function () {
-                var deferred = $q.defer();
-
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/GetDefaultHero',
-                    headers: { 'Accept': 'application/json' }
-                }).success(function (rawHero) {
-                    var hero = angular.fromJson(rawHero);
-                    defaultHero = hero;
-                    deferred.resolve(defaultHero);
-                });
-                return deferred.promise;
-            },
-            restoreHero: restoreHero,
-            getHp: getHp,
             updateHeroState: updateHeroState
         };
     }])
-    .service('requirementTypeService', ['$http', '$q', '_', function ($http, $q, _) {
+    .service('requirementTypeService', ['httpHelper', '_', function (httpHelper, _) {
         return {
             load: function () {
-                var deferred = $q.defer();
-
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/GetListRequirementType',
-                    headers: { 'Accept': 'application/json' }
-                })
-                .success(function (response) {
-                    var requirementTypes = angular.fromJson(response);
-                    deferred.resolve(requirementTypes);
-                });
-                return deferred.promise;
+                var url = '/Rpg/GetListRequirementType';
+                return httpHelper.post(url);
             },
         };
     }])
