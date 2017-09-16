@@ -175,6 +175,7 @@ namespace WebWriterV2.Controllers
             return frontEvent;
         }
 
+        [AcceptVerbs("GET")]
         public void BookCompleted(long bookId)
         {
             var book = BookRepository.Get(bookId);
