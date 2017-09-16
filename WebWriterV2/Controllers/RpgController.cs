@@ -16,6 +16,8 @@ using System.Web;
 using System.IO;
 using System.Text;
 using WebWriterV2.RpgUtility.Dto;
+using WebWriterV2.DI;
+using Autofac;
 
 namespace WebWriterV2.Controllers
 {
@@ -25,8 +27,6 @@ namespace WebWriterV2.Controllers
         private const string AdminPassword = "32167";
 
         //private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-
-        private readonly WriterContext _context = new WriterContext();
 
         #region Repository
         public IEventRepository EventRepository { get; }
@@ -44,17 +44,19 @@ namespace WebWriterV2.Controllers
 
         public RpgController()
         {
-            EventRepository = new EventRepository(_context);
-            EventLinkItemRepository = new EventLinkItemRepository(_context);
-            BookRepository = new BookRepository(_context);
-            HeroRepository = new HeroRepository(_context);
-            StateRepository = new StateRepository(_context);
-            StateTypeRepository = new StateTypeRepository(_context);
-            ThingSampleRepository = new ThingSampleRepository(_context);
-            ThingRepository = new ThingRepository(_context);
-            UserRepository = new UserRepository(_context);
-            EvaluationRepository = new EvaluationRepository(_context);
-            GenreRepository = new GenreRepository(_context);
+            var container = StaticContainer.Container;
+
+            EventRepository = container.Resolve<IEventRepository>();
+            EventLinkItemRepository = container.Resolve<IEventLinkItemRepository>();
+            BookRepository = container.Resolve<IBookRepository>();
+            HeroRepository = container.Resolve<IHeroRepository>();
+            StateRepository = container.Resolve<IStateRepository>();
+            StateTypeRepository = container.Resolve<IStateTypeRepository>();
+            ThingSampleRepository = container.Resolve<IThingSampleRepository>();
+            ThingRepository = container.Resolve<IThingRepository>();
+            UserRepository = container.Resolve<IUserRepository>();
+            EvaluationRepository = container.Resolve<IEvaluationRepository>();
+            GenreRepository = container.Resolve<IGenreRepository>();
 
             //using (var scope = StaticContainer.Container.BeginLifetimeScope())
             //{
@@ -518,189 +520,6 @@ namespace WebWriterV2.Controllers
             StateTypeRepository.Remove(stateId);
             return new JsonResult {
                 Data = SerializeHelper.Serialize(true),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        /* ************** Book ************** */
-        public JsonResult GetBook(long id)
-        {
-            var book = BookRepository.Get(id);
-            var frontBook = new FrontBook(book, true);
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontBook),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult GetBooks(long? userId)
-        {
-            List<Book> books;
-            if (userId.HasValue) {
-                books = BookRepository.GetByUser(userId.Value);
-            } else {
-                books = BookRepository.GetAll(!IsCurrentUserAdmin);
-            }
-            var frontBooks = books.Select(x => new FrontBook(x)).ToList();
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontBooks),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult RemoveBook(long id)
-        {
-            BookRepository.Remove(id);
-
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(true),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult SaveBook(string jsonBook)
-        {
-            var frontBook = SerializeHelper.Deserialize<FrontBook>(jsonBook);
-            var book = frontBook.ToDbModel();
-            var newGenre = book.Genre;
-            var owner = UserRepository.Get(book.Owner.Id);
-            book.Owner = owner;
-            book = BookRepository.Save(book);
-
-            if (newGenre != null) {
-                var genre = GenreRepository.Get(newGenre.Id);
-                if (genre.Books == null) {
-                    genre.Books = new List<Book>();
-                }
-                genre.Books.Add(book);
-                GenreRepository.Save(genre);
-            }
-
-            frontBook = new FrontBook(book, true);
-
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontBook),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult ImportBook(string jsonBook)
-        {
-            var frontBook = SerializeHelper.Deserialize<FrontBook>(jsonBook);
-            var book = frontBook.ToDbModel();
-
-            var bookName = BookRepository.GetByName(book.Name);
-            if (bookName == null) {
-                book.Id = 0;
-                book.Owner = User;
-                var things = new List<Thing>();
-                var states = new List<State>();
-                var linkItems = new List<EventLinkItem>();
-
-                foreach (var @event in book.AllEvents) {
-                    if (book.RootEvent.Id == @event.Id) {
-                        @event.ForRootBook = book;
-                    }
-
-                    var eventLinkItems = @event.LinksFromThisEvent;
-                    eventLinkItems.AddRange(@event.LinksToThisEvent);
-                    foreach (var eventLinkItem in eventLinkItems) {
-                        eventLinkItem.Id = 0;
-                        eventLinkItem.To = book.AllEvents.First(x => x.Id == eventLinkItem.To.Id);
-                        eventLinkItem.From = book.AllEvents.First(x => x.Id == eventLinkItem.From.Id);
-                    }
-
-                    linkItems.AddRange(eventLinkItems);
-                    @event.Book = book;
-                }
-
-                foreach (var @event in book.AllEvents) {
-                    @event.Id = 0;
-                    things.AddRange(@event.RequirementThings ?? new List<Thing>());
-                    things.AddRange(@event.ThingsChanges ?? new List<Thing>());
-                    states.AddRange(@event.HeroStatesChanging ?? new List<State>());
-                    states.AddRange(@event.RequirementStates ?? new List<State>());
-                }
-
-                /* Process Things connections */
-                states.AddRange(things.SelectMany(x => x.ThingSample.PassiveStates ?? new List<State>()));
-                states.AddRange(things.SelectMany(x => x.ThingSample.UsingEffectState ?? new List<State>()));
-
-                /* Process Characteristics connections */
-                foreach (var thing in things) {
-                    thing.Id = 0;
-                    thing.Hero = null;
-                    thing.ThingSample.Id = 0;
-                    thing.ThingSample.Owner = User;
-                }
-
-                const char nbsp = (char)160;// code of nbsp
-                const char sp = (char)32;// code of simple space
-
-                foreach (var state in states) {
-                    state.Id = 0;
-                    state.StateType.Id = 0;
-                    state.StateType.Owner = User;
-                }
-
-                states.ForEach(StateRepository.CheckAndSave);
-                things.ForEach(ThingRepository.CheckAndSave);
-
-                foreach (var @event in book.AllEvents) {
-                    @event.LinksFromThisEvent = new List<EventLinkItem>();
-                }
-
-                BookRepository.Save(book);
-
-                EventLinkItemRepository.Save(linkItems);
-                EventLinkItemRepository.RemoveDuplicates();
-            }
-
-            return new JsonResult {
-                Data = book.Id,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult ChangeRootEvent(long bookId, long eventId)
-        {
-            var book = BookRepository.Get(bookId);
-            var @event = EventRepository.Get(eventId);
-            book.RootEvent = @event;
-            BookRepository.Save(book);
-
-            var frontEvent = new FrontEvent(@event);
-
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontEvent),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult BookCompleted(long bookId)
-        {
-            var book = BookRepository.Get(bookId);
-            if (User.BooksAreReaded == null)
-                User.BooksAreReaded = new List<Book>();
-            if (User.BooksAreReaded.All(x => x.Id != book.Id)) {
-                User.BooksAreReaded.Add(book);
-                UserRepository.Save(User);
-            }
-
-            return new JsonResult {
-                Data = true,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult PublishBook(long bookId, bool newValue = true)
-        {
-            var book = BookRepository.Get(bookId);
-            book.IsPublished = newValue;
-            BookRepository.Save(book);
-
-            return new JsonResult {
-                Data = true,
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -1255,7 +1074,6 @@ namespace WebWriterV2.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            _context.Dispose();
             base.Dispose(disposing);
         }
 

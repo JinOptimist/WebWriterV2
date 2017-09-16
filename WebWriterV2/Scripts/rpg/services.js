@@ -11,8 +11,9 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
     .service('bookService', ['httpHelper', function (httpHelper) {
         return {
             saveBook: saveBook,
-            getBooks: getBooks,
+            getByUser: getByUser,
             get: get,
+            getAll: getAll,
             changeRootEvent: changeRootEvent,
             removeBook: removeBook,
             importBook: importBook,
@@ -21,62 +22,67 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         };
 
         function bookCompleted(bookId) {
-            var url = '/Rpg/BookCompleted';
+            var url = '/api/book/BookCompleted';
             var data = {
                 bookId: bookId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.get(url, data);
         }
 
         function saveBook(book) {
-            var url = '/Rpg/SaveBook';
+            var url = '/api/book/SaveBook';
             var data = {
                 jsonBook: angular.toJson(book)
             };
-            return httpHelper.call(url, data);
+            return httpHelper.get(url, data);
         }
 
         function publishBook(bookId) {
-            var url = '/Rpg/PublishBook';
+            var url = '/api/book/PublishBook';
             var data = {
                 bookId: bookId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.get(url, data);
         }
 
         function changeRootEvent(bookId, eventId) {
-            var url = '/Rpg/ChangeRootEvent';
+            var url = '/api/book/ChangeRootEvent';
             var data = {
                 bookId: bookId,
                 eventId: eventId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.get(url, data);
         }
 
         function get(bookId) {
-            var url = '/Rpg/GetBook?id=' + bookId;
-            return httpHelper.call(url);
+            var url = '/api/book/get?id=' + bookId;
+            return httpHelper.get(url);
         }
 
-        function getBooks(userId) {
-            var url = '/Rpg/GetBooks';
+        function getAll() {
+            var url = '/api/book/getAll';
+            return httpHelper.get(url);
+        }
+
+        function getByUser(userId) {
+            var url = '/api/book/GetByUser';
             var data = {
                 userId: userId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.get(url, data);
         }
 
         function removeBook(bookId) {
-            var url = '/Rpg/RemoveBook?id=' + bookId;
-            return httpHelper.call(url);
+            var url = '/api/book/Remove?id=' + bookId;
+            return httpHelper.get(url);
         }
 
         function importBook(bookJson) {
-            var url = '/Rpg/ImportBook';
+            var url = '/api/book/ImportBook';
             var data = {
                 jsonBook: bookJson
             };
-            return httpHelper.call(url, data);
+            return httpHelper.get(url, data);
         }
     }])
     .service('eventService', ['httpHelper', function (httpHelper) {
@@ -111,7 +117,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 eventId: eventId,
                 heroId: heroId
             };
-            return httpHelper.call(url,data);
+            return httpHelper.post(url,data);
         }
 
         function getEventForTravelWithHero(eventId, hero, applyChanges) {
@@ -121,7 +127,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 heroJson: angular.toJson(hero),
                 applyChanges: applyChanges
             };
-            return httpHelper.call(url,data);
+            return httpHelper.post(url,data);
         }
 
         function eventChangesApplyToHero(eventId, heroId) {
@@ -130,27 +136,27 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 eventId: eventId,
                 heroId: heroId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function get(eventId) {
             var url = '/Rpg/GetEvent?id=' + eventId;
-            return httpHelper.call(url);
+            return httpHelper.post(url);
         }
 
         function getEvents(bookId) {
             var url = '/Rpg/GetEvents?bookId=' + bookId;
-            return httpHelper.call(url);
+            return httpHelper.post(url);
         }
 
         function getEndingEvents(bookId) {
             var url = '/Rpg/GetEndingEvents?bookId=' + bookId;
-            return httpHelper.call(url);
+            return httpHelper.post(url);
         }
 
         function getNotAvailableEvents(bookId) {
             var url = '/Rpg/GetNotAvailableEvents?bookId=' + bookId;
-            return httpHelper.call(url);
+            return httpHelper.post(url);
         }
 
         function save(event, bookId) {
@@ -159,7 +165,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 jsonEvent: angular.toJson(event),
                 bookId: bookId
             };
-            return httpHelper.call(url,data);
+            return httpHelper.post(url,data);
         }
 
         function remove(eventId) {
@@ -167,7 +173,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                 eventId: eventId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function saveEventLink(eventLink) {
@@ -175,7 +181,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                 jsonEventLink: angular.toJson(eventLink)
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function removeEventLink(eventLinkId) {
@@ -183,7 +189,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                 eventLinkId: eventLinkId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function addSkill(eventId, skillId) {
@@ -192,7 +198,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 eventId: eventId,
                 skillId: skillId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function removeSkill(eventId, skillId) {
@@ -201,7 +207,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 eventId: eventId,
                 skillId: skillId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function addState(eventId, stateTypeId, stateValue) {
@@ -211,7 +217,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 stateTypeId: stateTypeId,
                 stateValue: stateValue
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function removeState(stateId) {
@@ -219,7 +225,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                 stateId: stateId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function addReqState(eventId, stateTypeId, reqType, stateValue) {
@@ -230,7 +236,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 reqType: reqType,
                 stateValue: stateValue
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function removeReqState(stateId) {
@@ -238,7 +244,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                 stateId: stateId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function addRequirementThing(eventId, thingSampleId, count) {
@@ -248,7 +254,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 thingSampleId: thingSampleId,
                 count: count
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function removeRequirementThing(eventId, thingId) {
@@ -257,7 +263,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 eventId: eventId,
                 thingId: thingId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function addThingChanges(eventId, thingSampleId, count) {
@@ -267,7 +273,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 thingSampleId: thingSampleId,
                 count: count
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function removeThingChanges(eventId, thingId) {
@@ -276,7 +282,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 eventId: eventId,
                 thingId: thingId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function createNextChapter(eventId) {
@@ -284,10 +290,10 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                 eventId: eventId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
     }])
-    .service('heroService', ['$http', '$q', function ($http, $q) {
+    .service('heroService', ['httpHelper', function (httpHelper) {
         var maxHpStateName = "MaxHp";
         var maxMpStateName = "MaxMp";
         var hpStateName = "Hp";
@@ -296,24 +302,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         var listHeroes = null;
         var selectedHero = null;
         var defaultHero = {};
-
-        function addSkill(heroId, skillId) {
-            var deferred = $q.defer();
-            $http({
-                method: 'POST',
-                url: '/Rpg/AddSkillToHero',
-                data: {
-                    heroId: heroId,
-                    skillId: skillId
-                },
-                headers: { 'Accept': 'application/json' }
-            })
-                .success(function (response) {
-                    var hero = angular.fromJson(response);
-                    deferred.resolve(hero);
-                });
-            return deferred.promise;
-        }
 
         function restoreHero(heroId, skillId) {
             var deferred = $q.defer();
@@ -356,53 +344,26 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         }
 
         return {
-            load: function(heroId) {
-                var deferred = $q.defer();
-                $http({
-                        method: 'POST',
-                        url: '/Rpg/GetHero',
-                        data: {
-                            heroId: heroId
-                        },
-                        headers: { 'Accept': 'application/json' }
-                    })
-                    .success(function (response) {
-                        var hero= angular.fromJson(response);
-                        deferred.resolve(hero);
-                    });
-                return deferred.promise;
+            load: function (heroId) {
+                var url = '/Rpg/GetHero';
+                var data = {
+                    heroId: heroId
+                };
+                return httpHelper.post(url, data);
             },
             loadListHeroes: function () {
-                var deferred = $q.defer();
-
-                if (listHeroes) {
-                    deferred.resolve(listHeroes);
-                    return deferred.promise;
-                }
-
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/GetHeroes',
-                    headers: { 'Accept': 'application/json' }
-                })
-                    .success(function (response) {
-                        listHeroes = angular.fromJson(response);
-                        deferred.resolve(listHeroes);
-                    });
-                return deferred.promise;
+                var url = '/Rpg/GetHeroes';
+                var data = {
+                    heroId: heroId
+                };
+                return httpHelper.post(url, data);
             },
             removeHero: function (hero) {
-                var deferred = $q.defer();
-
-                $http({
-                    method: 'POST',
-                    url: '/Rpg/RemoveHero?id=' + hero.Id,
-                    headers: { 'Accept': 'application/json' }
-                })
-                    .success(function (response) {
-                        deferred.resolve(response);
-                    });
-                return deferred.promise;
+                var url = '/Rpg/RemoveHero?id=' + hero.Id;
+                var data = {
+                    heroId: heroId
+                };
+                return httpHelper.post(url, data);
             },
             addHero: function (newHero) {
                 newHero.Sex = newHero.Sex - 0;
@@ -467,7 +428,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 });
                 return deferred.promise;
             },
-            addSkill: addSkill,
             restoreHero: restoreHero,
             getHp: getHp,
             updateHeroState: updateHeroState
@@ -503,12 +463,12 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
 
         function loadTypesAvailbleForUser() {
             var url = '/Rpg/GetStateTypesAvailbleForUser';
-            return httpHelper.call(url);
+            return httpHelper.post(url);
         }
 
         function loadTypesAvailbleForEdit() {
             var url = '/Rpg/GetStateTypesAvailbleForEdit';
-            return httpHelper.call(url);
+            return httpHelper.post(url);
         }
 
         function changeState(stateId, delta) {
@@ -517,7 +477,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 stateId: stateId,
                 delta: delta
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function add(newState) {
@@ -527,7 +487,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 desc: newState.Desc,
                 hideFromReader: newState.HideFromReader
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function edit(state) {
@@ -535,7 +495,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                 jsonStateType: angular.toJson(state)
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function remove(stateId) {
@@ -543,7 +503,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                stateId: stateId,
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
     }])
     .service('thingService', ['httpHelper', '_', function (httpHelper, _) {
@@ -555,7 +515,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
 
         function loadAllSamples() {
             var url = '/Rpg/GetThingSamples';
-            return httpHelper.call(url);
+            return httpHelper.post(url);
         }
 
         function add(name, desc) {
@@ -564,7 +524,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 name: name,
                 desc: desc
             };
-            return httpHelper.call(url,data);
+            return httpHelper.post(url,data);
         }
 
         function remove(thingId) {
@@ -572,7 +532,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                 thingId: thingId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
     }])
     .service('genreService', ['httpHelper', '_', function (httpHelper, _) {
@@ -584,7 +544,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
 
         function getAll() {
             var url = '/Rpg/GetGenres';
-            return httpHelper.call(url);
+            return httpHelper.post(url);
         }
 
         function add(newGenre) {
@@ -593,7 +553,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 name: newGenre.Name,
                 desc: newGenre.Desc
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         function remove(genreId) {
@@ -601,7 +561,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                 genreId: genreId
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
     }])
     .service('userService', ['$cookies', '$q', 'httpHelper', 'ConstCookies',
@@ -642,7 +602,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                     username: user.Name,
                     password: user.Password
                 };
-                return httpHelper.call(url, data);
+                return httpHelper.post(url, data);
             }
 
             function logout() {
@@ -658,7 +618,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 var data = {
                     userJson: userJson
                 };
-                return httpHelper.call(url, data);
+                return httpHelper.post(url, data);
             }
 
             function getById(userId) {
@@ -666,7 +626,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 var data = {
                     userId: userId
                 };
-                return httpHelper.call(url, data);
+                return httpHelper.post(url, data);
             }
 
             function addBookmark(eventId, heroJson) {
@@ -675,7 +635,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                     eventId: eventId,
                     heroJson: heroJson
                 };
-                return httpHelper.call(url, data);
+                return httpHelper.post(url, data);
             }
 
             function removeAccount(userId) {
@@ -683,12 +643,12 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 var data = {
                     userId: userId
                 };
-                return httpHelper.call(url, data);
+                return httpHelper.post(url, data);
             }
 
             function becomeWriter() {
                 var url = '/Rpg/BecomeWriter';
-                return httpHelper.call(url);
+                return httpHelper.post(url);
             }
 
             function uploadAvatar(imageData) {
@@ -696,7 +656,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 var data = {
                     data: imageData
                 };
-                return httpHelper.call(url, data);
+                return httpHelper.post(url, data);
             }
         }])
     .service('evaluationService', ['httpHelper', function (httpHelper) {
@@ -709,7 +669,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var data = {
                 evaluationJson: angular.toJson(evaluation)
             };
-            return httpHelper.call(url, data);
+            return httpHelper.post(url, data);
         }
 
         //function bookCompleted(bookId) {
@@ -717,17 +677,17 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         //    var data = {
         //        bookId: bookId
         //    };
-        //    return httpHelper.call(url, data);
+        //    return httpHelper.post(url, data);
         //}
 
         //function get(bookId) {
         //    var url = '/Rpg/GetBook?id=' + bookId;
-        //    return httpHelper.call(url);
+        //    return httpHelper.post(url);
         //}
 
         //function removeBook(bookId) {
         //    var url = '/Rpg/RemoveBook?id=' + bookId;
-        //    return httpHelper.call(url);
+        //    return httpHelper.post(url);
         //}
     }])
     //CKEditor
@@ -789,19 +749,32 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             };
         }])
     .service('httpHelper', ['$q', '$http', function ($q, $http) {
-        return { call: call };
+        return {
+            get: get,
+            post: post
+        };
 
-        function call(url, data, success, error) {
+        function get(url, data, success, error) {
+            url = generateUrl(url, data);
+            return call(url, data, success, error, 'GET');
+        }
+
+        function post(url, data, success, error) {
+            return call(url, data, success, error, 'POST');
+        }
+
+        function call(url, data, success, error, method) {
             if (!success) {
                 success = defaultSuccess;
             }
+
             if (!error) {
                 error = defaultError;
             }
 
             var deferred = $q.defer();
             $http({
-                method: 'POST',
+                method: method,
                 url: url,
                 data: data,
                 headers: { 'Accept': 'application/json' }
@@ -816,5 +789,22 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             function defaultError() {
                 deferred.reject(Error("Sorry :( we have fail"));
             }
+        }
+
+        function generateUrl(url, data) {
+            if (!data) {
+                return url;
+            }
+
+            var baseUrl = url;
+            var paramStr = '?';
+            var properties = Object.keys(data);
+            for (var i = 0; i < properties.length; i++){
+                var propertyName = properties[i];
+                var propertyValue = data[propertyName];
+                paramStr += propertyName + '=' + propertyValue + '&';
+            }
+
+            return baseUrl + paramStr;
         }
     }]);

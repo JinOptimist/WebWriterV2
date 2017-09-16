@@ -119,12 +119,15 @@ angular.module('rpg')
             function loadBooks() {
                 var userId = $scope.user.Id;
                 if ($scope.user.IsAdmin) {
-                    // if userId == null getBooks return all books
-                    userId = null;
+                    bookService.getAll().then(function (result) {
+                        $scope.books = result;
+                    });
+                } else {
+                    bookService.getByUser(userId).then(function (result) {
+                        $scope.books = result;
+                    });
                 }
-                bookService.getBooks(userId).then(function (result) {
-                    $scope.books = result;
-                });
+                
             }
 
             function loadEndingEvents(bookId) {
@@ -580,7 +583,7 @@ angular.module('rpg')
                 stateService.loadTypesAvailbleForUser().then(function(data) {
                     $scope.StateTypes = data;
                     $scope.StateTypes.forEach(function (stateType) {
-                        stateType.group = !!stateType.OwnerId ? 'My' : 'Base';
+                        stateType.group = stateType.OwnerId ? 'My' : 'Base';
                     });
                     $scope.StateTypes.sort(function (a, b) {
                         return b.OwnerId - a.OwnerId;
@@ -592,7 +595,7 @@ angular.module('rpg')
 
                     $scope.ThingSamples = data;
                     $scope.ThingSamples.forEach(function (thingSample) {
-                        thingSample.group = !!thingSample.OwnerId ? 'My' : 'Base';
+                        thingSample.group = thingSample.OwnerId ? 'My' : 'Base';
                     });
                     $scope.ThingSamples.sort(function (a, b) {
                         return b.OwnerId - a.OwnerId;

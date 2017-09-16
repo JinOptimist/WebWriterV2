@@ -19,8 +19,6 @@ namespace WebWriterV2
     {
         public static string Repository => "Repository";
 
-        private WriterContext _writerContext => new WriterContext();
-
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
@@ -45,7 +43,9 @@ namespace WebWriterV2
                 .As(repositoryObject => repositoryObject.GetInterfaces().Single(x => x.Name.EndsWith(repositoryObject.Name)));
 
             /* ************** WriterContext ************** */
-            builder.RegisterInstance(_writerContext).As<WriterContext>();
+            //var _writerContext = new WriterContext();
+            builder.RegisterType<WriterContext>().As<WriterContext>();
+            //builder.RegisterInstance(_writerContext).As<WriterContext>();
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             StaticContainer.Container = container;
@@ -55,7 +55,6 @@ namespace WebWriterV2
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            var a = 1;
             //Exception exception = Server.GetLastError();
             //Server.ClearError();
             //Response.Redirect("/Home/Error");

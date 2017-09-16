@@ -17,15 +17,18 @@ namespace WebWriterV2.DI
 
         private void Application_BeginRequest(Object source, EventArgs e)
         {
-            IUserRepository userRepository;
-            using (var scope = StaticContainer.Container.BeginLifetimeScope()) {
-                userRepository = scope.Resolve<IUserRepository>();
-            }
+            var scope = StaticContainer.Container;
+            var userRepository = scope.Resolve<IUserRepository>();
 
             var userId = long.Parse(HttpContext.Current.Request?.Cookies["userId"]?.Value ?? "-1");
             var user = userId > 0 ? userRepository.Get(userId) : null;
 
             HttpContext.Current.User = new PrincipalUser(user);
+        }
+
+        private void Application_EndRequest(Object source, EventArgs e)
+        {
+            StaticContainer.Container.Dispose();
         }
 
         public void Init(HttpApplication context)

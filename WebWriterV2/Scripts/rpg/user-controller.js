@@ -405,7 +405,7 @@
             }
 
             function init() {
-                bookService.getBooks().then(function (result) {
+                bookService.getAll().then(function (result) {
                     $scope.books = result;
                 });
             }

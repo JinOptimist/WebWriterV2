@@ -26,15 +26,14 @@ namespace WebWriterV2.Controllers
 
         public BookController()
         {
-            using (var scope = StaticContainer.Container.BeginLifetimeScope()) {
-                BookRepository = scope.Resolve<IBookRepository>();
-                GenreRepository = scope.Resolve<IGenreRepository>();
-                UserRepository = scope.Resolve<IUserRepository>();
-                EventRepository = scope.Resolve<IEventRepository>();
-                StateRepository = scope.Resolve<IStateRepository>();
-                ThingRepository = scope.Resolve<IThingRepository>();
-                EventLinkItemRepository = scope.Resolve<IEventLinkItemRepository>();
-            }
+            var container = StaticContainer.Container;
+            BookRepository = container.Resolve<IBookRepository>();
+            GenreRepository = container.Resolve<IGenreRepository>();
+            UserRepository = container.Resolve<IUserRepository>();
+            EventRepository = container.Resolve<IEventRepository>();
+            StateRepository = container.Resolve<IStateRepository>();
+            ThingRepository = container.Resolve<IThingRepository>();
+            EventLinkItemRepository = container.Resolve<IEventLinkItemRepository>();
         }
 
         // old GetBook
@@ -61,7 +60,7 @@ namespace WebWriterV2.Controllers
             return frontBooks;
         }
 
-        public void RemoveBook(long id)
+        public void Remove(long id)
         {
             BookRepository.Remove(id);
         }
