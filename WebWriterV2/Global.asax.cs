@@ -29,6 +29,8 @@ namespace WebWriterV2
 
             var builder = new ContainerBuilder();
 
+            //builder.RegisterModule();
+
             /* ************** Controller ************** */
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
             //TODO why this not work? :(
@@ -40,11 +42,14 @@ namespace WebWriterV2
             var dalAssembly = typeof(BookRepository).Assembly;
             builder.RegisterAssemblyTypes(dalAssembly)
                 .Where(x => x.IsClass && x.Name.EndsWith(Repository))
-                .As(repositoryObject => repositoryObject.GetInterfaces().Single(x => x.Name.EndsWith(repositoryObject.Name)));
+                .As(repositoryObject => repositoryObject.GetInterfaces().Single(x => x.Name.EndsWith(repositoryObject.Name)))
+                .InstancePerRequest();
 
             /* ************** WriterContext ************** */
             //var _writerContext = new WriterContext();
-            builder.RegisterType<WriterContext>().As<WriterContext>();
+            //builder.RegisterType<WriterContext>().As<WriterContext>().CacheInSession();
+            builder.RegisterType<WriterContext>().As<WriterContext>().InstancePerRequest();
+            //builder.RegisterType<WriterContext>().As<WriterContext>();
             //builder.RegisterInstance(_writerContext).As<WriterContext>();
             var container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

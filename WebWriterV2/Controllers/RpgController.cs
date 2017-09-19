@@ -391,24 +391,6 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        /* ************** Evaluation ************** */
-        public JsonResult SaveEvaluation(string evaluationJson)
-        {
-            var frontEvaluation = SerializeHelper.Deserialize<FrontEvaluation>(evaluationJson);
-            var evaluation = frontEvaluation.ToDbModel();
-            var book = BookRepository.Get(evaluation.Book.Id);
-            evaluation.Owner = User;
-            evaluation.Book = book;
-            evaluation.Created = DateTime.Now;
-
-            EvaluationRepository.Save(evaluation);
-
-            return new JsonResult {
-                Data = SerializeHelper.Serialize(true),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
         /* ************** Thing ************** */
         public JsonResult GetThingSamples()
         {
@@ -615,9 +597,8 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult SaveEvent(string jsonEvent, long bookId)
+        public JsonResult SaveEvent(FrontEvent frontEvent, long bookId)
         {
-            var frontEvent = SerializeHelper.Deserialize<FrontEvent>(jsonEvent);
             var eventModel = frontEvent.ToDbModel();
             var book = BookRepository.Get(bookId);
             eventModel.Book = book;
