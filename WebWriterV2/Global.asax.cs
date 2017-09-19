@@ -3,13 +3,13 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Autofac;
-using Autofac.Integration.Mvc;
-using Autofac.Integration.WebApi;
 using Dao;
 using Dao.Repository;
 using System.Linq;
 using WebWriterV2.DI;
+using Castle.Windsor;
+using Castle.MicroKernel.Registration;
+using Dao.IRepository;
 
 namespace WebWriterV2
 {
@@ -27,32 +27,36 @@ namespace WebWriterV2
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
-            var builder = new ContainerBuilder();
+            var container = new WindsorContainer();
 
             //builder.RegisterModule();
 
             /* ************** Controller ************** */
-            builder.RegisterControllers(typeof(MvcApplication).Assembly);
-            //TODO why this not work? :(
-            //builder.RegisterApiControllers(typeof(MvcApplication).Assembly);
-            // Or how I can run follow code
-            //builder.Register(cont => new BookController(cont.Resolve<IBookRepository>()));
+            //container.RegisterControllers(typeof(MvcApplication).Assembly);
 
             /* ************** Repository ************** */
             var dalAssembly = typeof(BookRepository).Assembly;
-            builder.RegisterAssemblyTypes(dalAssembly)
+            container.Register(Types.FromAssemblyContaining<BookRepository>()
                 .Where(x => x.IsClass && x.Name.EndsWith(Repository))
-                .As(repositoryObject => repositoryObject.GetInterfaces().Single(x => x.Name.EndsWith(repositoryObject.Name)))
-                .InstancePerRequest();
+                .WithService.AllInterfaces()
+                .Configure(c => c.LifestylePerWebRequest()));
+                
+                //.Where(x => x.IsClass && x.Name.EndsWith(Repository))
+                //.As(repositoryObject => repositoryObject.GetInterfaces().Single(x => x.Name.EndsWith(repositoryObject.Name)))
+                //.InstancePerRequest();
 
             /* ************** WriterContext ************** */
             //var _writerContext = new WriterContext();
-            //builder.RegisterType<WriterContext>().As<WriterContext>().CacheInSession();
-            builder.RegisterType<WriterContext>().As<WriterContext>().InstancePerRequest();
-            //builder.RegisterType<WriterContext>().As<WriterContext>();
-            //builder.RegisterInstance(_writerContext).As<WriterContext>();
-            var container = builder.Build();
-            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            container.Register(Component.For<WriterContext>().LifestylePerWebRequest());
+                //<WriterContext>().As<WriterContext>().InstancePerRequest();
+
+            
+
+            /* ************** Store container in static ************** */
+
+            //var container = container2.Build();
+            //GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            //DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
             StaticContainer.Container = container;
 
             WriterContext.SetInitializer();

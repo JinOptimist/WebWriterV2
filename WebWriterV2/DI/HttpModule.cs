@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using Dao.Model;
 using Dao.IRepository;
-using Autofac;
 using System.Security.Principal;
 using Dao;
 using Dao.Repository;

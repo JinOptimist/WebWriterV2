@@ -1,5 +1,4 @@
-﻿using Autofac;
-using Dao.IRepository;
+﻿using Dao.IRepository;
 using Dao.Model;
 using System;
 using System.Collections.Generic;

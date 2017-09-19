@@ -17,7 +17,6 @@ using System.IO;
 using System.Text;
 using WebWriterV2.RpgUtility.Dto;
 using WebWriterV2.DI;
-using Autofac;
 
 namespace WebWriterV2.Controllers
 {
@@ -45,7 +44,6 @@ namespace WebWriterV2.Controllers
         public RpgController()
         {
             var container = StaticContainer.Container;
-
             EventRepository = container.Resolve<IEventRepository>();
             EventLinkItemRepository = container.Resolve<IEventLinkItemRepository>();
             BookRepository = container.Resolve<IBookRepository>();
@@ -1052,12 +1050,7 @@ namespace WebWriterV2.Controllers
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-        }
-
+        
         private bool IsCurrentUserAdmin {
             get
             {

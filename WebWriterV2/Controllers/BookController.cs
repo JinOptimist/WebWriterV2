@@ -1,5 +1,4 @@
-﻿using Autofac;
-using Dao;
+﻿using Dao;
 using Dao.IRepository;
 using Dao.Model;
 using Dao.Repository;
@@ -25,9 +24,13 @@ namespace WebWriterV2.Controllers
         private IEventLinkItemRepository EventLinkItemRepository { get; set; }
         private IEvaluationRepository EvaluationRepository { get; set; }
 
-        public BookController() : base()
+        public BookController()
         {
             var container = StaticContainer.Container;
+
+            var a = container.Resolve<WriterContext>();
+
+
             BookRepository = container.Resolve<IBookRepository>();
             GenreRepository = container.Resolve<IGenreRepository>();
             UserRepository = container.Resolve<IUserRepository>();
