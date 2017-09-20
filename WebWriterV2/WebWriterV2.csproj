@@ -148,11 +148,9 @@
     <Compile Include="Controllers\MyController.cs" />
     <Compile Include="Controllers\MyApiController.cs" />
     <Compile Include="Controllers\RpgController.cs" />
-    <Compile Include="Controllers\RubbishController.cs" />
     <Compile Include="DI\WindsorDependencyResolver.cs" />
     <Compile Include="DI\WindsorDependencyScope.cs" />
     <Compile Include="DI\CurrentUserContainer.cs" />
-    <Compile Include="DI\HttpModule.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
     <Compile Include="FrontModels\FrontEventLinkItem.cs" />
     <Compile Include="FrontModels\FrontGenre.cs" />
@@ -702,8 +700,6 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Views\Rpg\Index.cshtml" />
-    <Content Include="Views\Rubbish\Index.cshtml" />
-    <Content Include="Views\Rubbish\old.cshtml" />
     <None Include="Web.EpamPc.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

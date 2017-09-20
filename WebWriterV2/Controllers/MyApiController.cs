@@ -17,14 +17,13 @@ namespace WebWriterV2.Controllers
         /// Current user. Set on init request by Cookies["userId"].
         /// Can be null, if user not authorised
         /// </summary>
-        protected User MyUser {
+        protected new User User {
             get
             {
                 if (_user == null)
                 {
                     var container = StaticContainer.Container;
                     var userRepository = container.Resolve<IUserRepository>();
-
                     string userIdStr = HttpContext.Current.Request.Cookies["userId"]?.Value;
                     var userId = long.Parse(string.IsNullOrEmpty(userIdStr) ? "-1" : userIdStr);
                     _user = userId > 0 ? userRepository.Get(userId) : null;
