@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Http.Dependencies;
 
-namespace WebWriterV2.Controllers
+namespace WebWriterV2.DI
 {
     public class WindsorDependencyResolver : IDependencyResolver
     {

@@ -4,7 +4,7 @@ using System;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace WebWriterV2.Controllers
+namespace WebWriterV2.DI
 {
     public class CastleControllerFactory : DefaultControllerFactory
     {
