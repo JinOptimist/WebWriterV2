@@ -144,10 +144,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="Controllers\CastleControllerFactory.cs" />
     <Compile Include="Controllers\MyController.cs" />
     <Compile Include="Controllers\MyApiController.cs" />
     <Compile Include="Controllers\RpgController.cs" />
     <Compile Include="Controllers\RubbishController.cs" />
+    <Compile Include="Controllers\WindsorDependencyResolver.cs" />
+    <Compile Include="Controllers\WindsorDependencyScope.cs" />
     <Compile Include="DI\CurrentUserContainer.cs" />
     <Compile Include="DI\HttpModule.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />

@@ -41,28 +41,22 @@ namespace WebWriterV2.Controllers
         public IGenreRepository GenreRepository { get; set; }
         #endregion
 
-        public RpgController()
+        public RpgController(IEventRepository eventRepository, IEventLinkItemRepository eventLinkItemRepository, IBookRepository bookRepository, 
+            IHeroRepository heroRepository, IStateRepository stateRepository, IStateTypeRepository stateTypeRepository, 
+            IThingSampleRepository thingSampleRepository, IThingRepository thingRepository, IUserRepository userRepository, 
+            IEvaluationRepository evaluationRepository, IGenreRepository genreRepository)
         {
-            var container = StaticContainer.Container;
-            EventRepository = container.Resolve<IEventRepository>();
-            EventLinkItemRepository = container.Resolve<IEventLinkItemRepository>();
-            BookRepository = container.Resolve<IBookRepository>();
-            HeroRepository = container.Resolve<IHeroRepository>();
-            StateRepository = container.Resolve<IStateRepository>();
-            StateTypeRepository = container.Resolve<IStateTypeRepository>();
-            ThingSampleRepository = container.Resolve<IThingSampleRepository>();
-            ThingRepository = container.Resolve<IThingRepository>();
-            UserRepository = container.Resolve<IUserRepository>();
-            EvaluationRepository = container.Resolve<IEvaluationRepository>();
-            GenreRepository = container.Resolve<IGenreRepository>();
-
-            //using (var scope = StaticContainer.Container.BeginLifetimeScope())
-            //{
-            //    EventRepository = scope.Resolve<IEventRepository>();
-            //    BookRepository = scope.Resolve<IBookRepository>();
-            //    HeroRepository = scope.Resolve<IHeroRepository>();
-            //    SkillRepository = scope.Resolve<ISkillRepository>();
-            //}
+            EventRepository = eventRepository;
+            EventLinkItemRepository = eventLinkItemRepository;
+            BookRepository = bookRepository;
+            HeroRepository = heroRepository;
+            StateRepository = stateRepository;
+            StateTypeRepository = stateTypeRepository;
+            ThingSampleRepository = thingSampleRepository;
+            ThingRepository = thingRepository;
+            UserRepository = userRepository;
+            EvaluationRepository = evaluationRepository;
+            GenreRepository = genreRepository;
         }
 
         public ActionResult RouteForAngular(string url)
@@ -595,8 +589,9 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult SaveEvent(FrontEvent frontEvent, long bookId)
+        public JsonResult SaveEvent(string jsonEvent, long bookId)
         {
+            var frontEvent = SerializeHelper.Deserialize<FrontEvent>(jsonEvent);
             var eventModel = frontEvent.ToDbModel();
             var book = BookRepository.Get(bookId);
             eventModel.Book = book;

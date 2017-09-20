@@ -1,3 +1,5 @@
 http://www.freesqldatabase.com/resetpass/
 
 dfhbr32167
+
+https://smarly.net/dependency-injection-in-net/di-containers/castle-windsor/managing-lifetime

@@ -10,6 +10,7 @@ using WebWriterV2.DI;
 using Castle.Windsor;
 using Castle.MicroKernel.Registration;
 using Dao.IRepository;
+using WebWriterV2.Controllers;
 
 namespace WebWriterV2
 {
@@ -32,33 +33,23 @@ namespace WebWriterV2
             //builder.RegisterModule();
 
             /* ************** Controller ************** */
-            //container.RegisterControllers(typeof(MvcApplication).Assembly);
-
+            container.Register(Classes.FromThisAssembly().BasedOn<MyApiController>().LifestyleTransient());
+            container.Register(Classes.FromThisAssembly().BasedOn<MyController>().LifestyleTransient());
+            
             /* ************** Repository ************** */
             var dalAssembly = typeof(BookRepository).Assembly;
             container.Register(Types.FromAssemblyContaining<BookRepository>()
                 .Where(x => x.IsClass && x.Name.EndsWith(Repository))
                 .WithService.AllInterfaces()
                 .Configure(c => c.LifestylePerWebRequest()));
-                
-                //.Where(x => x.IsClass && x.Name.EndsWith(Repository))
-                //.As(repositoryObject => repositoryObject.GetInterfaces().Single(x => x.Name.EndsWith(repositoryObject.Name)))
-                //.InstancePerRequest();
 
             /* ************** WriterContext ************** */
-            //var _writerContext = new WriterContext();
             container.Register(Component.For<WriterContext>().LifestylePerWebRequest());
-                //<WriterContext>().As<WriterContext>().InstancePerRequest();
-
-            
 
             /* ************** Store container in static ************** */
-
-            //var container = container2.Build();
-            //GlobalConfiguration.Configuration.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            //DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            GlobalConfiguration.Configuration.DependencyResolver = new WindsorDependencyResolver(container);
+            ControllerBuilder.Current.SetControllerFactory(new CastleControllerFactory(container));
             StaticContainer.Container = container;
-
             WriterContext.SetInitializer();
         }
 

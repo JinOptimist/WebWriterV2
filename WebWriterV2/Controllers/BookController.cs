@@ -24,21 +24,16 @@ namespace WebWriterV2.Controllers
         private IEventLinkItemRepository EventLinkItemRepository { get; set; }
         private IEvaluationRepository EvaluationRepository { get; set; }
 
-        public BookController()
+        public BookController(IBookRepository bookRepository, IGenreRepository genreRepository, IUserRepository userRepository, IEventRepository eventRepository, IStateRepository stateRepository, IThingRepository thingRepository, IEventLinkItemRepository eventLinkItemRepository, IEvaluationRepository evaluationRepository)
         {
-            var container = StaticContainer.Container;
-
-            var a = container.Resolve<WriterContext>();
-
-
-            BookRepository = container.Resolve<IBookRepository>();
-            GenreRepository = container.Resolve<IGenreRepository>();
-            UserRepository = container.Resolve<IUserRepository>();
-            EventRepository = container.Resolve<IEventRepository>();
-            StateRepository = container.Resolve<IStateRepository>();
-            ThingRepository = container.Resolve<IThingRepository>();
-            EventLinkItemRepository = container.Resolve<IEventLinkItemRepository>();
-            EvaluationRepository = container.Resolve<IEvaluationRepository>();
+            BookRepository = bookRepository;
+            GenreRepository = genreRepository;
+            UserRepository = userRepository;
+            EventRepository = eventRepository;
+            StateRepository = stateRepository;
+            ThingRepository = thingRepository;
+            EventLinkItemRepository = eventLinkItemRepository;
+            EvaluationRepository = evaluationRepository;
         }
 
         // old GetBook
