@@ -276,7 +276,7 @@
                     });
                 }
 
-                var heroStatesChanging = $scope.currentEvent.HeroStatesChanging == null ? [] : $scope.currentEvent.HeroStatesChanging;
+                var heroStatesChanging = $scope.currentEvent.HeroStatesChanging === null ? [] : $scope.currentEvent.HeroStatesChanging;
                 var filterHeroStatesChangingFilter = heroStatesChanging.filter(function (state) {
                     return !state.StateType.HideFromReader;
                 });

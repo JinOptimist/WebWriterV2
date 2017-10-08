@@ -13,7 +13,7 @@ using WebWriterV2.VkUtility;
 
 namespace WebWriterV2.Controllers
 {
-    public class BookController : MyApiController
+    public class BookController : BaseApiController
     {
         private IBookRepository BookRepository { get; set; }
         private IGenreRepository GenreRepository { get; set; }
@@ -24,7 +24,9 @@ namespace WebWriterV2.Controllers
         private IEventLinkItemRepository EventLinkItemRepository { get; set; }
         private IEvaluationRepository EvaluationRepository { get; set; }
 
-        public BookController(IBookRepository bookRepository, IGenreRepository genreRepository, IUserRepository userRepository, IChapterRepository eventRepository, IStateRepository stateRepository, IThingRepository thingRepository, IEventLinkItemRepository eventLinkItemRepository, IEvaluationRepository evaluationRepository)
+        public BookController(IBookRepository bookRepository, IGenreRepository genreRepository, IUserRepository userRepository, 
+            IChapterRepository eventRepository, IStateRepository stateRepository, IThingRepository thingRepository, 
+            IEventLinkItemRepository eventLinkItemRepository, IEvaluationRepository evaluationRepository)
         {
             BookRepository = bookRepository;
             GenreRepository = genreRepository;
@@ -187,7 +189,8 @@ namespace WebWriterV2.Controllers
             }
         }
 
-        public void PublishBook(long bookId, bool newValue = true)
+        [AcceptVerbs("GET", "POST")]
+        public void PublishBook(long bookId, bool newValue)
         {
             var book = BookRepository.Get(bookId);
             book.IsPublished = newValue;

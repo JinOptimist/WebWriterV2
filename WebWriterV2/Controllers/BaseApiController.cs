@@ -10,7 +10,7 @@ using WebWriterV2.DI;
 
 namespace WebWriterV2.Controllers
 {
-    public class MyApiController : ApiController
+    public class BaseApiController : ApiController
     {
         private User _user;
         /// <summary>

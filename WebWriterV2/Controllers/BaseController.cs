@@ -10,8 +10,9 @@ using WebWriterV2.DI;
 
 namespace WebWriterV2.Controllers
 {
-    public class MyController : Controller
+    public class BaseController : Controller
     {
+        
         private User _user;
         /// <summary>
         /// Current user. Set on init request by Cookies["userId"].

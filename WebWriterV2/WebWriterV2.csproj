@@ -146,8 +146,8 @@
     <Compile Include="Controllers\ChapterController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="DI\CastleControllerFactory.cs" />
-    <Compile Include="Controllers\MyController.cs" />
-    <Compile Include="Controllers\MyApiController.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\RpgController.cs" />
     <Compile Include="DI\WindsorDependencyResolver.cs" />
     <Compile Include="DI\WindsorDependencyScope.cs" />

@@ -13,7 +13,7 @@ using WebWriterV2.VkUtility;
 
 namespace WebWriterV2.Controllers
 {
-    public class ChapterController : MyApiController
+    public class ChapterController : BaseApiController
     {
         private IBookRepository BookRepository { get; set; }
         private IGenreRepository GenreRepository { get; set; }
@@ -24,7 +24,9 @@ namespace WebWriterV2.Controllers
         private IEventLinkItemRepository EventLinkItemRepository { get; set; }
         private IEvaluationRepository EvaluationRepository { get; set; }
 
-        public ChapterController(IBookRepository bookRepository, IGenreRepository genreRepository, IUserRepository userRepository, IChapterRepository eventRepository, IStateRepository stateRepository, IThingRepository thingRepository, IEventLinkItemRepository eventLinkItemRepository, IEvaluationRepository evaluationRepository)
+        public ChapterController(IBookRepository bookRepository, IGenreRepository genreRepository, IUserRepository userRepository, 
+            IChapterRepository eventRepository, IStateRepository stateRepository, IThingRepository thingRepository, 
+            IEventLinkItemRepository eventLinkItemRepository, IEvaluationRepository evaluationRepository)
         {
             BookRepository = bookRepository;
             GenreRepository = genreRepository;

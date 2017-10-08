@@ -40,7 +40,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         function publishBook(bookId) {
             var url = '/api/book/PublishBook';
             var data = {
-                bookId: bookId
+                bookId: bookId,
+                newValue: true
             };
             return httpHelper.get(url, data);
         }
@@ -307,7 +308,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             for (var i = 0; i < heroNew.State.length; i++) {
                 var newStat = heroNew.State[i];
                 var st = heroOrigin.State.find(function (stat) {
-                    return stat.StateType.Id == newStat.StateType.Id;
+                    return stat.StateType.Id === newStat.StateType.Id;
                 });
                 st.Number = newStat.Number;
             }

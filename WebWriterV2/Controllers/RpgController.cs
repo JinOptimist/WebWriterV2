@@ -20,7 +20,7 @@ using WebWriterV2.DI;
 
 namespace WebWriterV2.Controllers
 {
-    public class RpgController : MyController
+    public class RpgController : BaseController
     {
         private const string AdminName = "admin";
         private const string AdminPassword = "32167";

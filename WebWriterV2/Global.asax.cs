@@ -33,8 +33,8 @@ namespace WebWriterV2
             //builder.RegisterModule();
 
             /* ************** Controller ************** */
-            container.Register(Classes.FromThisAssembly().BasedOn<MyApiController>().LifestyleTransient());
-            container.Register(Classes.FromThisAssembly().BasedOn<MyController>().LifestyleTransient());
+            container.Register(Classes.FromThisAssembly().BasedOn<BaseApiController>().LifestyleTransient());
+            container.Register(Classes.FromThisAssembly().BasedOn<BaseController>().LifestyleTransient());
             
             /* ************** Repository ************** */
             var dalAssembly = typeof(BookRepository).Assembly;
