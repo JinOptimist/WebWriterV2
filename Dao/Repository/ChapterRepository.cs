@@ -7,7 +7,7 @@ using Dao.Model;
 
 namespace Dao.Repository
 {
-    public class EventRepository : BaseRepository<Event>, IEventRepository
+    public class ChapterRepository : BaseRepository<Chapter>, IChapterRepository
     {
         private readonly Lazy<EventLinkItemRepository> _eventLinkItemRepository;
         private readonly ThingRepository _thingRepository;
@@ -15,7 +15,7 @@ namespace Dao.Repository
         private readonly HeroRepository _heroRepository;
 
         public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
-        public EventRepository(WriterContext db) : base(db)
+        public ChapterRepository(WriterContext db) : base(db)
         {
             _eventLinkItemRepository = new Lazy<EventLinkItemRepository>(() => new EventLinkItemRepository(db));
             _thingRepository = new ThingRepository(db);
@@ -23,7 +23,7 @@ namespace Dao.Repository
             _heroRepository = new HeroRepository(db);
         }
 
-        public override Event Save(Event model)
+        public override Chapter Save(Chapter model)
         {
             if (model.NumberOfWords == 0 && model.Desc.Length > 0) {
                 throw new Exception("You foget fill NumberOfWords before save");
@@ -38,26 +38,26 @@ namespace Dao.Repository
                 model = modelFromDb;
             }
 
-            if (model.Book.RootEvent == null)
+            if (model.Book.RootChapter == null)
             {
-                model.Book.RootEvent = model;
+                model.Book.RootChapter = model;
             }
 
             return base.Save(model);
         }
 
-        public override void Remove(Event currentEvent)
+        public override void Remove(Chapter currentEvent)
         {
             if (currentEvent == null)
                 return;
 
-            if (currentEvent.LinksFromThisEvent?.Any() ?? false)
+            if (currentEvent.LinksFromThisChapter?.Any() ?? false)
             {
-                _eventLinkItemRepository.Value.Remove(currentEvent.LinksFromThisEvent);
+                _eventLinkItemRepository.Value.Remove(currentEvent.LinksFromThisChapter);
             }
-            if (currentEvent.LinksToThisEvent?.Any() ?? false)
+            if (currentEvent.LinksToThisChapter?.Any() ?? false)
             {
-                _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisEvent);
+                _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisChapter);
             }
             if (currentEvent.ThingsChanges?.Any() ?? false)
             {
@@ -89,21 +89,21 @@ namespace Dao.Repository
             RemoveEventAndChildren(Get(currentEventId));
         }
 
-        public void RemoveEventAndChildren(Event currentEvent)
+        public void RemoveEventAndChildren(Chapter currentEvent)
         {
             if (currentEvent == null)
                 return;
 
-            if (currentEvent.LinksFromThisEvent?.Any() ?? false)
+            if (currentEvent.LinksFromThisChapter?.Any() ?? false)
             {
-                var forDelete = currentEvent.LinksFromThisEvent.Select(x => x.From).ToList();
-                _eventLinkItemRepository.Value.Remove(currentEvent.LinksFromThisEvent);
+                var forDelete = currentEvent.LinksFromThisChapter.Select(x => x.From).ToList();
+                _eventLinkItemRepository.Value.Remove(currentEvent.LinksFromThisChapter);
                 forDelete.ForEach(RemoveEventAndChildren);
             }
 
-            if (currentEvent.LinksToThisEvent.Any())
+            if (currentEvent.LinksToThisChapter.Any())
             {
-                _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisEvent);
+                _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisChapter);
             }
 
             var isDetached = Db.Entry(currentEvent).State == EntityState.Detached;
@@ -121,31 +121,31 @@ namespace Dao.Repository
             base.Remove(currentEvent);
         }
 
-        public List<Event> GetAllEventsByBook(long bookId)
+        public List<Chapter> GetAllEventsByBook(long bookId)
         {
             return Entity.Where(x => x.Book.Id == bookId).ToList();
         }
 
-        public List<Event> GetRootEvents(long bookId)
+        public List<Chapter> GetRootEvents(long bookId)
         {
             return Entity.Where(x => x.Book != null && x.Book.Id == bookId).ToList();
         }
 
-        public List<Event> GetEndingEvents(long bookId)
+        public List<Chapter> GetEndingEvents(long bookId)
         {
             return Entity.Where(x => x.Book != null && x.Book.Id == bookId
-                                     && x.LinksFromThisEvent.Count == 0).ToList();
+                                     && x.LinksFromThisChapter.Count == 0).ToList();
         }
 
         public bool HasChild(long eventId)
         {
-            return Entity.Any(x => x.Id == eventId && x.LinksFromThisEvent.Any());
+            return Entity.Any(x => x.Id == eventId && x.LinksFromThisChapter.Any());
         }
 
-        public List<Event> GetNotAvailableEvents(long bookId)
+        public List<Chapter> GetNotAvailableEvents(long bookId)
         {
             return Entity.Where(x => x.Book != null && x.Book.Id == bookId
-                                     && x.LinksToThisEvent.Count == 0 && x.ForRootBook == null).ToList();
+                                     && x.LinksToThisChapter.Count == 0 && x.ForRootBook == null).ToList();
         }
     }
 }

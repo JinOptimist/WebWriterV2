@@ -7,14 +7,14 @@ namespace WebWriterV2.RpgUtility
 {
     public class GraphHelper
     {
-        private List<Event> chapters { get; set; }
+        private List<Chapter> chapters { get; set; }
         private List<long> whiteChapters {get;set;}
         private List<long> grayChapters { get; set; } = new List<long>();
         private List<long> blackChapters { get; set; } = new List<long>();
 
         public GraphHelper(Book book)
         {
-            chapters = book.AllEvents;
+            chapters = book.AllChapters;
             whiteChapters = chapters.Select(x => x.Id).ToList();
         }
 
@@ -29,7 +29,7 @@ namespace WebWriterV2.RpgUtility
             return false;
         }
 
-        private bool IsChapterContainsCycle(Event chapter)
+        private bool IsChapterContainsCycle(Chapter chapter)
         {
             //if we already check this chapter go next
             if (blackChapters.Contains(chapter.Id)) {
@@ -41,14 +41,14 @@ namespace WebWriterV2.RpgUtility
             }
 
             whiteChapters.Remove(chapter.Id);
-            if (!chapter.LinksFromThisEvent?.Any() ?? true) {
+            if (!chapter.LinksFromThisChapter?.Any() ?? true) {
                 blackChapters.Add(chapter.Id);
                 return false;
             } else {
                 grayChapters.Add(chapter.Id);
             }
 
-            foreach (var link in chapter.LinksFromThisEvent) {
+            foreach (var link in chapter.LinksFromThisChapter) {
                 if (IsChapterContainsCycle(link.To)) {
                     return true;
                 }

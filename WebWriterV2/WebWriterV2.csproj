@@ -143,6 +143,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ChapterController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="DI\CastleControllerFactory.cs" />
     <Compile Include="Controllers\MyController.cs" />

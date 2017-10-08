@@ -11,9 +11,9 @@ namespace Dao.Model
         [Required]
         public string Text { get; set; }
 
-        public virtual Event From { get; set; }
+        public virtual Chapter From { get; set; }
 
-        public virtual Event To { get; set; }
+        public virtual Chapter To { get; set; }
 
         public void UpdateFrom(EventLinkItem model)
         {

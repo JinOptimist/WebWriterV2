@@ -29,8 +29,8 @@ namespace WebWriterV2.FrontModels
             {
                 Id = Id,
                 Text = Text,
-                From = new Event {Id = FromId},
-                To = new Event {Id = ToId},
+                From = new Chapter {Id = FromId},
+                To = new Chapter {Id = ToId},
             };
         }
     }

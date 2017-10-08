@@ -28,7 +28,7 @@ namespace WebWriterV2.Controllers
         //private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         #region Repository
-        public IEventRepository EventRepository { get; }
+        public IChapterRepository EventRepository { get; }
         public IEventLinkItemRepository EventLinkItemRepository { get; }
         public IBookRepository BookRepository { get; set; }
         public IHeroRepository HeroRepository { get; set; }
@@ -41,7 +41,7 @@ namespace WebWriterV2.Controllers
         public IGenreRepository GenreRepository { get; set; }
         #endregion
 
-        public RpgController(IEventRepository eventRepository, IEventLinkItemRepository eventLinkItemRepository, IBookRepository bookRepository, 
+        public RpgController(IChapterRepository eventRepository, IEventLinkItemRepository eventLinkItemRepository, IBookRepository bookRepository, 
             IHeroRepository heroRepository, IStateRepository stateRepository, IStateTypeRepository stateTypeRepository, 
             IThingSampleRepository thingSampleRepository, IThingRepository thingRepository, IUserRepository userRepository, 
             IEvaluationRepository evaluationRepository, IGenreRepository genreRepository)
@@ -168,7 +168,7 @@ namespace WebWriterV2.Controllers
             HeroRepository.RemoveByBook(currentEvent.Book.Id, userId);
 
             hero.Owner = user;
-            hero.CurrentEvent = currentEvent;
+            hero.CurrentChapter = currentEvent;
             hero.Name = hero.Name ?? "Just a Hero";
 
             HeroRepository.Save(hero);
@@ -545,7 +545,7 @@ namespace WebWriterV2.Controllers
         {
             var eventDb = EventRepository.Get(eventId);
             var hero = HeroRepository.Get(heroId);
-            eventDb.LinksFromThisEvent.FilterLink(hero);
+            eventDb.LinksFromThisChapter.FilterLink(hero);
             var frontEvent = new FrontEvent(eventDb);
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontEvent),
@@ -558,13 +558,13 @@ namespace WebWriterV2.Controllers
             var eventDb = EventRepository.Get(eventId);
             var frontHero = JsonConvert.DeserializeObject<FrontHero>(heroJson);
             var hero = frontHero.ToDbModel();
-            hero.CurrentEvent = eventDb;
+            hero.CurrentChapter = eventDb;
 
             if (applyChanges) {
                 eventDb.EventChangesApply(hero);
             }
 
-            eventDb.LinksFromThisEvent.FilterLink(hero);
+            eventDb.LinksFromThisChapter.FilterLink(hero);
 
             var frontEvent = new FrontEvent(eventDb);
             frontHero = new FrontHero(hero);
@@ -806,7 +806,7 @@ namespace WebWriterV2.Controllers
         public JsonResult CreateNextChapter(long eventId)
         {
             var parentEvent = EventRepository.Get(eventId);
-            var childEvent = new Event() {
+            var childEvent = new Chapter() {
                 Name = parentEvent.Name + " продолжение",
                 Desc = "продолжение",
                 Book = parentEvent.Book,
@@ -1037,8 +1037,8 @@ namespace WebWriterV2.Controllers
 
             var books = BookRepository.GetAll(false);
             foreach(var book in books) {
-                book.NumberOfChapters = book.AllEvents.Sum(x => x.Desc.Length);
-                book.NumberOfWords = book.AllEvents.Sum(x=>WordHelper.GetWordCount(x.Desc));
+                book.NumberOfChapters = book.AllChapters.Sum(x => x.Desc.Length);
+                book.NumberOfWords = book.AllChapters.Sum(x=>WordHelper.GetWordCount(x.Desc));
             }
 
             BookRepository.Save(books);

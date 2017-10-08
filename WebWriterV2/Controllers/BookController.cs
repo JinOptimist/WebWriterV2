@@ -18,13 +18,13 @@ namespace WebWriterV2.Controllers
         private IBookRepository BookRepository { get; set; }
         private IGenreRepository GenreRepository { get; set; }
         private IUserRepository UserRepository { get; set; }
-        private IEventRepository EventRepository { get; set; }
+        private IChapterRepository EventRepository { get; set; }
         private IStateRepository StateRepository { get; set; }
         private IThingRepository ThingRepository { get; set; }
         private IEventLinkItemRepository EventLinkItemRepository { get; set; }
         private IEvaluationRepository EvaluationRepository { get; set; }
 
-        public BookController(IBookRepository bookRepository, IGenreRepository genreRepository, IUserRepository userRepository, IEventRepository eventRepository, IStateRepository stateRepository, IThingRepository thingRepository, IEventLinkItemRepository eventLinkItemRepository, IEvaluationRepository evaluationRepository)
+        public BookController(IBookRepository bookRepository, IGenreRepository genreRepository, IUserRepository userRepository, IChapterRepository eventRepository, IStateRepository stateRepository, IThingRepository thingRepository, IEventLinkItemRepository eventLinkItemRepository, IEvaluationRepository evaluationRepository)
         {
             BookRepository = bookRepository;
             GenreRepository = genreRepository;
@@ -101,24 +101,24 @@ namespace WebWriterV2.Controllers
                 var states = new List<State>();
                 var linkItems = new List<EventLinkItem>();
 
-                foreach (var @event in book.AllEvents) {
-                    if (book.RootEvent.Id == @event.Id) {
+                foreach (var @event in book.AllChapters) {
+                    if (book.RootChapter.Id == @event.Id) {
                         @event.ForRootBook = book;
                     }
 
-                    var eventLinkItems = @event.LinksFromThisEvent;
-                    eventLinkItems.AddRange(@event.LinksToThisEvent);
+                    var eventLinkItems = @event.LinksFromThisChapter;
+                    eventLinkItems.AddRange(@event.LinksToThisChapter);
                     foreach (var eventLinkItem in eventLinkItems) {
                         eventLinkItem.Id = 0;
-                        eventLinkItem.To = book.AllEvents.First(x => x.Id == eventLinkItem.To.Id);
-                        eventLinkItem.From = book.AllEvents.First(x => x.Id == eventLinkItem.From.Id);
+                        eventLinkItem.To = book.AllChapters.First(x => x.Id == eventLinkItem.To.Id);
+                        eventLinkItem.From = book.AllChapters.First(x => x.Id == eventLinkItem.From.Id);
                     }
 
                     linkItems.AddRange(eventLinkItems);
                     @event.Book = book;
                 }
 
-                foreach (var @event in book.AllEvents) {
+                foreach (var @event in book.AllChapters) {
                     @event.Id = 0;
                     things.AddRange(@event.RequirementThings ?? new List<Thing>());
                     things.AddRange(@event.ThingsChanges ?? new List<Thing>());
@@ -150,8 +150,8 @@ namespace WebWriterV2.Controllers
                 states.ForEach(StateRepository.CheckAndSave);
                 things.ForEach(ThingRepository.CheckAndSave);
 
-                foreach (var @event in book.AllEvents) {
-                    @event.LinksFromThisEvent = new List<EventLinkItem>();
+                foreach (var @event in book.AllChapters) {
+                    @event.LinksFromThisChapter = new List<EventLinkItem>();
                 }
 
                 BookRepository.Save(book);
@@ -167,7 +167,7 @@ namespace WebWriterV2.Controllers
         {
             var book = BookRepository.Get(bookId);
             var @event = EventRepository.Get(eventId);
-            book.RootEvent = @event;
+            book.RootChapter = @event;
             BookRepository.Save(book);
 
             var frontEvent = new FrontEvent(@event);

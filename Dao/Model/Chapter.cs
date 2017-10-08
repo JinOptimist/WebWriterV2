@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Dao.Model
 {
-    public class Event : BaseModel, IUpdatable<Event>
+    public class Chapter : BaseModel, IUpdatable<Chapter>
     {
         [Required]
         public string Name { get; set; }
@@ -19,12 +19,12 @@ namespace Dao.Model
         /// <summary>
         /// You must save this field separately. Use EventLinkItemRepository
         /// </summary>
-        public virtual List<EventLinkItem> LinksFromThisEvent { get; set; }
+        public virtual List<EventLinkItem> LinksFromThisChapter { get; set; }
 
         /// <summary>
         /// You must save this field separately. Use EventLinkItemRepository
         /// </summary>
-        public virtual List<EventLinkItem> LinksToThisEvent { get; set; }
+        public virtual List<EventLinkItem> LinksToThisChapter { get; set; }
 
         /* Requirement */
         public virtual List<Thing> RequirementThings { get; set; }
@@ -41,7 +41,7 @@ namespace Dao.Model
         public virtual Book Book { get; set; }
         public virtual Book ForRootBook { get; set; }
 
-        public void UpdateFrom(Event model)
+        public void UpdateFrom(Chapter model)
         {
             if (Id != model.Id)
                 throw new Exception($"You try update Event with Id: {model.Id} from Event with id {Id}");

@@ -4,19 +4,19 @@ using System.Linq;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontEvent : BaseFront<Event>
+    public class FrontEvent : BaseFront<Chapter>
     {
         public FrontEvent()
         {
         }
 
-        public FrontEvent(Event eventDb)
+        public FrontEvent(Chapter eventDb)
         {
             Id = eventDb.Id;
             Name = eventDb.Name;
             Desc = eventDb.Desc;
-            LinksFromThisEvent = eventDb.LinksFromThisEvent?.Select(x => new FrontEventLinkItem(x)).ToList();
-            LinksToThisEvent = eventDb.LinksToThisEvent?.Select(x => new FrontEventLinkItem(x)).ToList();
+            LinksFromThisEvent = eventDb.LinksFromThisChapter?.Select(x => new FrontEventLinkItem(x)).ToList();
+            LinksToThisEvent = eventDb.LinksToThisChapter?.Select(x => new FrontEventLinkItem(x)).ToList();
             ProgressChanging = eventDb.ProgressChanging;
             HeroStatesChanging = eventDb.HeroStatesChanging?.Select(x => new FrontState(x)).ToList();
             ThingsChanges = eventDb.ThingsChanges?.Select(x => new FrontThing(x)).ToList();
@@ -39,15 +39,15 @@ namespace WebWriterV2.FrontModels
 
         public double ProgressChanging { get; set; }
 
-        public override Event ToDbModel()
+        public override Chapter ToDbModel()
         {
-            return new Event
+            return new Chapter
             {
                 Id = Id,
                 Name = Name,
                 Desc = Desc,
-                LinksFromThisEvent = LinksFromThisEvent?.Select(x => x.ToDbModel()).ToList(),
-                LinksToThisEvent = LinksToThisEvent?.Select(x => x.ToDbModel()).ToList(),
+                LinksFromThisChapter = LinksFromThisEvent?.Select(x => x.ToDbModel()).ToList(),
+                LinksToThisChapter = LinksToThisEvent?.Select(x => x.ToDbModel()).ToList(),
                 ProgressChanging = ProgressChanging,
 
                 RequirementThings = RequirementThings?.Select(x => x.ToDbModel()).ToList(),

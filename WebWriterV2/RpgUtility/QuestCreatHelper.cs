@@ -8,17 +8,17 @@ namespace WebWriterV2.RpgUtility
 {
     public static class BookCreatHelper
     {
-        public static void AddChildEvent(this Event currentEvent, Event addedEvent, string text = null)
+        public static void AddChildEvent(this Chapter currentEvent, Chapter addedEvent, string text = null)
         {
             ConnecteEvent(currentEvent, addedEvent, text);
         }
 
-        public static void AddParentEvent(this Event currentEvent, Event addedEvent, string text = null)
+        public static void AddParentEvent(this Chapter currentEvent, Chapter addedEvent, string text = null)
         {
             ConnecteEvent(addedEvent, currentEvent, text);
         }
 
-        public static void AddChildrenEvents(this Event currentEvent, params Event[] childrenEvents)
+        public static void AddChildrenEvents(this Chapter currentEvent, params Chapter[] childrenEvents)
         {
             foreach(var childEvent in childrenEvents)
             {
@@ -26,7 +26,7 @@ namespace WebWriterV2.RpgUtility
             }
         }
 
-        public static void AddParentsEvents(this Event currentEvent, string text = null, params Event[] parentsEvents)
+        public static void AddParentsEvents(this Chapter currentEvent, string text = null, params Chapter[] parentsEvents)
         {
             foreach (var parentEvent in parentsEvents)
             {
@@ -34,12 +34,12 @@ namespace WebWriterV2.RpgUtility
             }
         }
 
-        private static void ConnecteEvent(Event parentEvent, Event childEvent, string text = null)
+        private static void ConnecteEvent(Chapter parentEvent, Chapter childEvent, string text = null)
         {
-            if (parentEvent.LinksFromThisEvent == null)
-                parentEvent.LinksFromThisEvent = new List<EventLinkItem>();
-            if (childEvent.LinksToThisEvent == null)
-                childEvent.LinksToThisEvent = new List<EventLinkItem>();
+            if (parentEvent.LinksFromThisChapter == null)
+                parentEvent.LinksFromThisChapter = new List<EventLinkItem>();
+            if (childEvent.LinksToThisChapter == null)
+                childEvent.LinksToThisChapter = new List<EventLinkItem>();
 
             var eventLinkItem = new EventLinkItem
             {
@@ -48,8 +48,8 @@ namespace WebWriterV2.RpgUtility
                 Text = text ?? childEvent.Name
             };
 
-            parentEvent.LinksFromThisEvent.Add(eventLinkItem);
-            childEvent.LinksToThisEvent.Add(eventLinkItem);
+            parentEvent.LinksFromThisChapter.Add(eventLinkItem);
+            childEvent.LinksToThisChapter.Add(eventLinkItem);
 
 
         }

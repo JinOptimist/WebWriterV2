@@ -3,19 +3,19 @@ using Dao.Model;
 
 namespace Dao.IRepository
 {
-    public interface IEventRepository : IBaseRepository<Event>
+    public interface IChapterRepository : IBaseRepository<Chapter>
     {
-        void RemoveEventAndChildren(Event currentEvent);
+        void RemoveEventAndChildren(Chapter currentEvent);
 
         void RemoveEventAndChildren(long currentEventId);
 
-        List<Event> GetAllEventsByBook(long bookId);
+        List<Chapter> GetAllEventsByBook(long bookId);
 
-        List<Event> GetRootEvents(long bookId);
+        List<Chapter> GetRootEvents(long bookId);
 
-        List<Event> GetEndingEvents(long bookId);
+        List<Chapter> GetEndingEvents(long bookId);
 
-        List<Event> GetNotAvailableEvents(long bookId);
+        List<Chapter> GetNotAvailableEvents(long bookId);
 
         bool HasChild(long eventId);
     }

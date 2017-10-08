@@ -7,7 +7,7 @@ namespace WebWriterV2.RpgUtility
 {
     public static class EventHelper
     {
-        public static void EventChangesApply(this Event eventDb, Hero hero)
+        public static void EventChangesApply(this Chapter eventDb, Hero hero)
         {
             foreach (var thing in eventDb.ThingsChanges)
             {

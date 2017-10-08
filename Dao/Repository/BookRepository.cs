@@ -9,20 +9,20 @@ namespace Dao.Repository
 {
     public class BookRepository : BaseRepository<Book>, IBookRepository
     {
-        private readonly EventRepository _eventRepository;
+        private readonly ChapterRepository _eventRepository;
         private readonly EventLinkItemRepository _eventLinkItemRepository;
         private readonly EvaluationRepository _evaluationRepository;
 
         public BookRepository(WriterContext db) : base(db)
         {
-            _eventRepository = new EventRepository(db);
+            _eventRepository = new ChapterRepository(db);
             _eventLinkItemRepository = new EventLinkItemRepository(db);
             _evaluationRepository = new EvaluationRepository(db);
         }
 
         public List<Book> GetAllWithRootEvent()
         {
-            return Entity.Include(x => x.RootEvent).ToList();
+            return Entity.Include(x => x.RootChapter).ToList();
         }
 
         public List<Book> GetByUser(long userId)
@@ -37,15 +37,15 @@ namespace Dao.Repository
 
             _evaluationRepository.Remove(book.Evaluations);
 
-            foreach (var @event in book.AllEvents)
+            foreach (var @event in book.AllChapters)
             {
-                _eventLinkItemRepository.Remove(@event.LinksFromThisEvent);
-                _eventLinkItemRepository.Remove(@event.LinksToThisEvent);
+                _eventLinkItemRepository.Remove(@event.LinksFromThisChapter);
+                _eventLinkItemRepository.Remove(@event.LinksToThisChapter);
             }
 
-            if (book.AllEvents.Count > 0)
+            if (book.AllChapters.Count > 0)
             {
-                _eventRepository.Remove(book.AllEvents);
+                _eventRepository.Remove(book.AllChapters);
             }
 
             book = Get(book.Id);

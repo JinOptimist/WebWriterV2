@@ -17,7 +17,7 @@ namespace WebWriterV2.Controllers
         /// Current user. Set on init request by Cookies["userId"].
         /// Can be null, if user not authorised
         /// </summary>
-        protected User User
+        protected new User User
         {
             get
             {

@@ -8,11 +8,11 @@ namespace Dao.Repository
 {
     public class EventLinkItemRepository : BaseRepository<EventLinkItem>, IEventLinkItemRepository
     {
-        private readonly Lazy<EventRepository> _eventRepository;
+        private readonly Lazy<ChapterRepository> _eventRepository;
 
         public EventLinkItemRepository(WriterContext db) : base(db)
         {
-            _eventRepository = new Lazy<EventRepository>(() => new EventRepository(db));
+            _eventRepository = new Lazy<ChapterRepository>(() => new ChapterRepository(db));
         }
 
         public override EventLinkItem Save(EventLinkItem model)

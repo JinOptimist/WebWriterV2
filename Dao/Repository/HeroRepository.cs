@@ -45,18 +45,18 @@ namespace Dao.Repository
 
         public List<Hero> GetByEvent(long eventId)
         {
-            return Entity.Where(x => x.CurrentEvent.Id == eventId).ToList();
+            return Entity.Where(x => x.CurrentChapter.Id == eventId).ToList();
         }
 
         public void RemoveByEvent(long eventId, long userId)
         {
-            var heroes = Entity.Where(x => x.CurrentEvent.Id == eventId && x.Owner.Id == userId).ToList();
+            var heroes = Entity.Where(x => x.CurrentChapter.Id == eventId && x.Owner.Id == userId).ToList();
             Remove(heroes);
         }
 
         public void RemoveByBook(long bookId, long userId)
         {
-            var heroes = Entity.Where(x => x.CurrentEvent.Book.Id == bookId && x.Owner.Id == userId).ToList();
+            var heroes = Entity.Where(x => x.CurrentChapter.Book.Id == bookId && x.Owner.Id == userId).ToList();
             Remove(heroes);
         }
     }

@@ -13,10 +13,10 @@ namespace Dao.Model
         [Required]
         public string Desc { get; set; }
 
-        [Description("Стартовый эвент")]
-        public virtual Event RootEvent { get; set; }
+        [Description("Начальная глава")]
+        public virtual Chapter RootChapter { get; set; }
 
-        public virtual List<Event> AllEvents { get; set; }
+        public virtual List<Chapter> AllChapters { get; set; }
 
         public virtual List<Evaluation> Evaluations { get; set; }
 

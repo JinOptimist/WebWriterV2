@@ -15,6 +15,8 @@ namespace Dao
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Entity<User>().HasMany(x => x.Books).WithOptional(x => x.Owner);
@@ -24,17 +26,17 @@ namespace Dao
             modelBuilder.Entity<User>().HasMany(x => x.BooksAreReaded).WithMany();
             modelBuilder.Entity<User>().HasMany(x => x.Evaluations).WithOptional(x => x.Owner);
 
-            modelBuilder.Entity<Book>().HasOptional(x => x.RootEvent).WithOptionalPrincipal(x => x.ForRootBook).WillCascadeOnDelete(false);
-            modelBuilder.Entity<Book>().HasMany(u => u.AllEvents).WithRequired(x => x.Book).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Book>().HasOptional(x => x.RootChapter).WithOptionalPrincipal(x => x.ForRootBook).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Book>().HasMany(u => u.AllChapters).WithRequired(x => x.Book).WillCascadeOnDelete(false);
             modelBuilder.Entity<Book>().HasMany(u => u.Evaluations).WithOptional(x => x.Book);
 
-            modelBuilder.Entity<Event>().HasMany(x => x.ThingsChanges).WithOptional();
-            modelBuilder.Entity<Event>().HasMany(x => x.RequirementThings).WithOptional();
-            modelBuilder.Entity<Event>().HasMany(x => x.RequirementStates).WithMany();
-            modelBuilder.Entity<Event>().HasMany(x => x.HeroStatesChanging).WithMany();
+            modelBuilder.Entity<Chapter>().HasMany(x => x.ThingsChanges).WithOptional();
+            modelBuilder.Entity<Chapter>().HasMany(x => x.RequirementThings).WithOptional();
+            modelBuilder.Entity<Chapter>().HasMany(x => x.RequirementStates).WithMany();
+            modelBuilder.Entity<Chapter>().HasMany(x => x.HeroStatesChanging).WithMany();
 
-            modelBuilder.Entity<EventLinkItem>().HasOptional(x => x.To).WithMany(x => x.LinksToThisEvent);
-            modelBuilder.Entity<EventLinkItem>().HasOptional(x => x.From).WithMany(x => x.LinksFromThisEvent);
+            modelBuilder.Entity<EventLinkItem>().HasOptional(x => x.To).WithMany(x => x.LinksToThisChapter);
+            modelBuilder.Entity<EventLinkItem>().HasOptional(x => x.From).WithMany(x => x.LinksFromThisChapter);
 
             modelBuilder.Entity<Genre>().HasMany(u => u.Books).WithOptional(x => x.Genre);
 
