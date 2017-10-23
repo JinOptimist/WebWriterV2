@@ -6,16 +6,24 @@ using System.Linq;
 
 namespace Dao.Model
 {
-    public class EventLinkItem : BaseModel, IUpdatable<EventLinkItem>
+    public class ChapterLinkItem : BaseModel, IUpdatable<ChapterLinkItem>
     {
         [Required]
         public string Text { get; set; }
 
-        public virtual Chapter From { get; set; }
+        /* Requirement */
+        public virtual List<Thing> RequirementThings { get; set; }
+        public virtual List<State> RequirementStates { get; set; }
 
+        /* Changes */
+        public virtual List<Thing> ThingsChanges { get; set; }
+        public virtual List<State> HeroStatesChanging { get; set; }
+
+        /* Link reference */
+        public virtual Chapter From { get; set; }
         public virtual Chapter To { get; set; }
 
-        public void UpdateFrom(EventLinkItem model)
+        public void UpdateFrom(ChapterLinkItem model)
         {
             if (Id != model.Id)
                 throw new Exception($"You try update EventLinkItem with Id: {model.Id} from EventLinkItem with id {Id}");

@@ -9,7 +9,7 @@ namespace Dao.Repository
 {
     public class ChapterRepository : BaseRepository<Chapter>, IChapterRepository
     {
-        private readonly Lazy<EventLinkItemRepository> _eventLinkItemRepository;
+        private readonly Lazy<ChapterLinkItemRepository> _eventLinkItemRepository;
         private readonly ThingRepository _thingRepository;
         private readonly StateRepository _stateRepository;
         private readonly HeroRepository _heroRepository;
@@ -17,7 +17,7 @@ namespace Dao.Repository
         public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
         public ChapterRepository(WriterContext db) : base(db)
         {
-            _eventLinkItemRepository = new Lazy<EventLinkItemRepository>(() => new EventLinkItemRepository(db));
+            _eventLinkItemRepository = new Lazy<ChapterLinkItemRepository>(() => new ChapterLinkItemRepository(db));
             _thingRepository = new ThingRepository(db);
             _stateRepository = new StateRepository(db);
             _heroRepository = new HeroRepository(db);
@@ -58,22 +58,6 @@ namespace Dao.Repository
             if (currentEvent.LinksToThisChapter?.Any() ?? false)
             {
                 _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisChapter);
-            }
-            if (currentEvent.ThingsChanges?.Any() ?? false)
-            {
-                _thingRepository.Remove(currentEvent.ThingsChanges);
-            }
-            if (currentEvent.RequirementThings?.Any() ?? false)
-            {
-                _thingRepository.Remove(currentEvent.RequirementThings);
-            }
-            if (currentEvent.RequirementStates?.Any() ?? false)
-            {
-                _stateRepository.Remove(currentEvent.RequirementStates);
-            }
-            if (currentEvent.HeroStatesChanging?.Any() ?? false)
-            {
-                _stateRepository.Remove(currentEvent.HeroStatesChanging);
             }
             var heroes = _heroRepository.GetByEvent(currentEvent.Id);
             if (heroes != null)

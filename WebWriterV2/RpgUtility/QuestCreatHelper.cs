@@ -37,11 +37,11 @@ namespace WebWriterV2.RpgUtility
         private static void ConnecteEvent(Chapter parentEvent, Chapter childEvent, string text = null)
         {
             if (parentEvent.LinksFromThisChapter == null)
-                parentEvent.LinksFromThisChapter = new List<EventLinkItem>();
+                parentEvent.LinksFromThisChapter = new List<ChapterLinkItem>();
             if (childEvent.LinksToThisChapter == null)
-                childEvent.LinksToThisChapter = new List<EventLinkItem>();
+                childEvent.LinksToThisChapter = new List<ChapterLinkItem>();
 
-            var eventLinkItem = new EventLinkItem
+            var eventLinkItem = new ChapterLinkItem
             {
                 From = parentEvent,
                 To = childEvent,

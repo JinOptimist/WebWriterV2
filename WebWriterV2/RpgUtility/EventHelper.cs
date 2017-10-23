@@ -7,9 +7,9 @@ namespace WebWriterV2.RpgUtility
 {
     public static class EventHelper
     {
-        public static void EventChangesApply(this Chapter eventDb, Hero hero)
+        public static void EventChangesApply(this ChapterLinkItem chapterLinkItemDb, Hero hero)
         {
-            foreach (var thing in eventDb.ThingsChanges)
+            foreach (var thing in chapterLinkItemDb.ThingsChanges)
             {
                 hero.Inventory = hero.Inventory ?? new List<Thing>();
                 var heroThing = hero.Inventory.FirstOrDefault(x => x.ThingSample.Id == thing.ThingSample.Id);
@@ -25,7 +25,7 @@ namespace WebWriterV2.RpgUtility
                 }
             }
 
-            foreach (var state in eventDb.HeroStatesChanging)
+            foreach (var state in chapterLinkItemDb.HeroStatesChanging)
             {
                 var heroState = hero.State.FirstOrDefault(x => x.StateType.Id == state.StateType.Id);
                 if (heroState == null)
@@ -39,14 +39,13 @@ namespace WebWriterV2.RpgUtility
             }
         }
 
-        public static void FilterLink(this List<EventLinkItem> links, Hero hero)
+        public static void FilterLink(this List<ChapterLinkItem> links, Hero hero)
         {
-            var forRemove = new List<EventLinkItem>();
+            var forRemove = new List<ChapterLinkItem>();
             foreach (var link in links)
             {
-                var destination = link.To;
                 /* Filter by States */
-                foreach (var stateRequirement in destination.RequirementStates) {
+                foreach (var stateRequirement in link.RequirementStates) {
                     var heroState = hero.State.FirstOrDefault(x => x.StateType.Id == stateRequirement.StateType.Id);
 
                     if (stateRequirement.RequirementType == RequirementType.NotEquals && heroState == null) {
@@ -63,7 +62,7 @@ namespace WebWriterV2.RpgUtility
                 }
 
                 /* Filter by Thing */
-                foreach (var thing in destination.RequirementThings)
+                foreach (var thing in link.RequirementThings)
                 {
                     var heroThing = hero.Inventory?.FirstOrDefault(
                         x => x.ThingSample.Id == thing.ThingSample.Id);

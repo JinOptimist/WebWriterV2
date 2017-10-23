@@ -30,13 +30,13 @@ namespace Dao
             modelBuilder.Entity<Book>().HasMany(u => u.AllChapters).WithRequired(x => x.Book).WillCascadeOnDelete(false);
             modelBuilder.Entity<Book>().HasMany(u => u.Evaluations).WithOptional(x => x.Book);
 
-            modelBuilder.Entity<Chapter>().HasMany(x => x.ThingsChanges).WithOptional();
-            modelBuilder.Entity<Chapter>().HasMany(x => x.RequirementThings).WithOptional();
-            modelBuilder.Entity<Chapter>().HasMany(x => x.RequirementStates).WithMany();
-            modelBuilder.Entity<Chapter>().HasMany(x => x.HeroStatesChanging).WithMany();
+            modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.ThingsChanges).WithOptional();
+            modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.RequirementThings).WithOptional();
+            modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.RequirementStates).WithMany();
+            modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.HeroStatesChanging).WithMany();
 
-            modelBuilder.Entity<EventLinkItem>().HasOptional(x => x.To).WithMany(x => x.LinksToThisChapter);
-            modelBuilder.Entity<EventLinkItem>().HasOptional(x => x.From).WithMany(x => x.LinksFromThisChapter);
+            modelBuilder.Entity<ChapterLinkItem>().HasOptional(x => x.To).WithMany(x => x.LinksToThisChapter);
+            modelBuilder.Entity<ChapterLinkItem>().HasOptional(x => x.From).WithMany(x => x.LinksFromThisChapter);
 
             modelBuilder.Entity<Genre>().HasMany(u => u.Books).WithOptional(x => x.Genre);
 

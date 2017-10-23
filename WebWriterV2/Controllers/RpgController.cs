@@ -29,7 +29,7 @@ namespace WebWriterV2.Controllers
 
         #region Repository
         public IChapterRepository EventRepository { get; }
-        public IEventLinkItemRepository EventLinkItemRepository { get; }
+        public IChapterLinkItemRepository EventLinkItemRepository { get; }
         public IBookRepository BookRepository { get; set; }
         public IHeroRepository HeroRepository { get; set; }
         public IStateRepository StateRepository { get; set; }
@@ -39,12 +39,14 @@ namespace WebWriterV2.Controllers
         public IUserRepository UserRepository { get; set; }
         public IEvaluationRepository EvaluationRepository { get; set; }
         public IGenreRepository GenreRepository { get; set; }
+        public IChapterLinkItemRepository ChapterLinkItemRepository { get; set; }
+        
         #endregion
 
-        public RpgController(IChapterRepository eventRepository, IEventLinkItemRepository eventLinkItemRepository, IBookRepository bookRepository, 
-            IHeroRepository heroRepository, IStateRepository stateRepository, IStateTypeRepository stateTypeRepository, 
-            IThingSampleRepository thingSampleRepository, IThingRepository thingRepository, IUserRepository userRepository, 
-            IEvaluationRepository evaluationRepository, IGenreRepository genreRepository)
+        public RpgController(IChapterRepository eventRepository, IChapterLinkItemRepository eventLinkItemRepository, IBookRepository bookRepository,
+            IHeroRepository heroRepository, IStateRepository stateRepository, IStateTypeRepository stateTypeRepository,
+            IThingSampleRepository thingSampleRepository, IThingRepository thingRepository, IUserRepository userRepository,
+            IEvaluationRepository evaluationRepository, IGenreRepository genreRepository, IChapterLinkItemRepository chapterLinkItemRepository)
         {
             EventRepository = eventRepository;
             EventLinkItemRepository = eventLinkItemRepository;
@@ -57,6 +59,7 @@ namespace WebWriterV2.Controllers
             UserRepository = userRepository;
             EvaluationRepository = evaluationRepository;
             GenreRepository = genreRepository;
+            ChapterLinkItemRepository = chapterLinkItemRepository;
         }
 
         public ActionResult RouteForAngular(string url)
@@ -75,7 +78,7 @@ namespace WebWriterV2.Controllers
             var secret = "S8CbQO9K10jPNTuGKDUv";
             var urlAccessToken = "https://oauth.vk.com/access_token?"
                 + $"client_id={4279045}&client_secret={secret}&redirect_uri={redirectUri}&code={code}";
-            
+
             var request = (HttpWebRequest)WebRequest.Create(urlAccessToken);
             request.Method = "GET";
 
@@ -139,7 +142,7 @@ namespace WebWriterV2.Controllers
             } else {
                 return null;
             }
-            
+
         }
 
         public JsonResult GetUserById(long userId)
@@ -219,7 +222,7 @@ namespace WebWriterV2.Controllers
             if (System.IO.File.Exists(path)) {
                 System.IO.File.Delete(path);
             }
-            
+
             using (var fileStream = System.IO.File.Create(path)) {
                 fileStream.Write(bytes, 0, bytes.Length);
                 //TODO investigate why we reload page on client after on server I close strea
@@ -553,20 +556,20 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult GetEventForTravelWithHero(long eventId, string heroJson, bool applyChanges)
+        public JsonResult GetEventForTravelWithHero(long chapterLinkItemId, string heroJson, bool applyChanges)
         {
-            var eventDb = EventRepository.Get(eventId);
+            var chapterLinkItem = ChapterLinkItemRepository.Get(chapterLinkItemId);
             var frontHero = JsonConvert.DeserializeObject<FrontHero>(heroJson);
             var hero = frontHero.ToDbModel();
-            hero.CurrentChapter = eventDb;
+            hero.CurrentChapter = chapterLinkItem.To;
 
             if (applyChanges) {
-                eventDb.EventChangesApply(hero);
+                chapterLinkItem.EventChangesApply(hero);
             }
 
-            eventDb.LinksFromThisChapter.FilterLink(hero);
+            chapterLinkItem.To.LinksFromThisChapter.FilterLink(hero);
 
-            var frontEvent = new FrontEvent(eventDb);
+            var frontEvent = new FrontEvent(chapterLinkItem.To);
             frontHero = new FrontHero(hero);
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(new { frontEvent, frontHero }),
@@ -574,20 +577,20 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult EventChangesApplyToHero(long eventId, long heroId)
-        {
-            var eventDb = EventRepository.Get(eventId);
-            var hero = HeroRepository.Get(heroId);
+        //public JsonResult EventChangesApplyToHero(long eventId, long heroId)
+        //{
+        //    var eventDb = EventRepository.Get(eventId);
+        //    var hero = HeroRepository.Get(heroId);
 
-            eventDb.EventChangesApply(hero);
+        //    eventDb.EventChangesApply(hero);
 
-            HeroRepository.Save(hero);
-            var frontHero = new FrontHero(hero);
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontHero),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
+        //    HeroRepository.Save(hero);
+        //    var frontHero = new FrontHero(hero);
+        //    return new JsonResult {
+        //        Data = JsonConvert.SerializeObject(frontHero),
+        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+        //    };
+        //}
 
         public JsonResult SaveEvent(string jsonEvent, long bookId)
         {
@@ -655,13 +658,13 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult AddStateToEvent(long eventId, long stateTypeId, int stateValue)
+        public JsonResult AddStateToLink(long chapterLinkId, long stateTypeId, int stateValue)
         {
-            var eventFromDb = EventRepository.Get(eventId);
+            var chapterLinkItemDb = ChapterLinkItemRepository.Get(chapterLinkId);
             var stateType = StateTypeRepository.Get(stateTypeId);
 
             var state =
-                eventFromDb.HeroStatesChanging.FirstOrDefault(
+                chapterLinkItemDb.HeroStatesChanging.FirstOrDefault(
                     x => x.StateType.Id == stateType.Id)
                 ?? new State {
                     StateType = stateType
@@ -671,9 +674,9 @@ namespace WebWriterV2.Controllers
 
             // if new
             if (state.Id < 1)
-                eventFromDb.HeroStatesChanging.Add(state);
+                chapterLinkItemDb.HeroStatesChanging.Add(state);
             StateRepository.Save(state);
-            EventRepository.Save(eventFromDb);
+            ChapterLinkItemRepository.Save(chapterLinkItemDb);
             var frontState = new FrontState(state);
 
             return new JsonResult {
@@ -692,34 +695,34 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult AddReqStateToEvent(long eventId, long stateTypeId, int reqType, int stateValue)
-        {
-            var eventFromDb = EventRepository.Get(eventId);
-            var stateType = StateTypeRepository.Get(stateTypeId);
-            var requirementType = (RequirementType)reqType;
+        //public JsonResult AddReqStateToEvent(long eventId, long stateTypeId, int reqType, int stateValue)
+        //{
+        //    var eventFromDb = EventRepository.Get(eventId);
+        //    var stateType = StateTypeRepository.Get(stateTypeId);
+        //    var requirementType = (RequirementType)reqType;
 
-            var state =
-                eventFromDb.RequirementStates.FirstOrDefault(
-                    x => x.StateType.Id == stateType.Id)
-                ?? new State {
-                    StateType = stateType
-                };
+        //    var state =
+        //        eventFromDb.RequirementStates.FirstOrDefault(
+        //            x => x.StateType.Id == stateType.Id)
+        //        ?? new State {
+        //            StateType = stateType
+        //        };
 
-            state.Number = stateValue;
-            state.RequirementType = requirementType;
+        //    state.Number = stateValue;
+        //    state.RequirementType = requirementType;
 
-            // if new
-            if (state.Id < 1)
-                eventFromDb.RequirementStates.Add(state);
-            StateRepository.Save(state);
-            EventRepository.Save(eventFromDb);
-            var frontState = new FrontState(state);
+        //    // if new
+        //    if (state.Id < 1)
+        //        eventFromDb.RequirementStates.Add(state);
+        //    StateRepository.Save(state);
+        //    EventRepository.Save(eventFromDb);
+        //    var frontState = new FrontState(state);
 
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontState),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
+        //    return new JsonResult {
+        //        Data = JsonConvert.SerializeObject(frontState),
+        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+        //    };
+        //}
 
         public JsonResult RemoveReqStateFromEvent(long stateId)
         {
@@ -731,77 +734,77 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        public JsonResult AddRequirementThingToEvent(long eventId, long thingSampleId, int count)
-        {
-            var eventFromDb = EventRepository.Get(eventId);
-            var thingSample = ThingSampleRepository.Get(thingSampleId);
-            var thing = new Thing {
-                Count = count,
-                Hero = null,
-                ThingSample = thingSample,
-                ItemInUse = false
-            };
+        //public JsonResult AddRequirementThingToEvent(long eventId, long thingSampleId, int count)
+        //{
+        //    var eventFromDb = EventRepository.Get(eventId);
+        //    var thingSample = ThingSampleRepository.Get(thingSampleId);
+        //    var thing = new Thing {
+        //        Count = count,
+        //        Hero = null,
+        //        ThingSample = thingSample,
+        //        ItemInUse = false
+        //    };
 
-            ThingRepository.Save(thing);
-            eventFromDb.RequirementThings.Add(thing);
-            EventRepository.Save(eventFromDb);
-            var frontThing = new FrontThing(thing);
+        //    ThingRepository.Save(thing);
+        //    eventFromDb.RequirementThings.Add(thing);
+        //    EventRepository.Save(eventFromDb);
+        //    var frontThing = new FrontThing(thing);
 
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontThing),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
+        //    return new JsonResult {
+        //        Data = JsonConvert.SerializeObject(frontThing),
+        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+        //    };
+        //}
 
-        public JsonResult RemoveRequirementThingFromEvent(long eventId, long thingId)
-        {
-            var eventFromDb = EventRepository.Get(eventId);
-            var thing = ThingRepository.Get(thingId);
-            eventFromDb.RequirementThings.Remove(thing);
-            EventRepository.Save(eventFromDb);
-            ThingRepository.Remove(thing);
+        //public JsonResult RemoveRequirementThingFromEvent(long eventId, long thingId)
+        //{
+        //    var eventFromDb = EventRepository.Get(eventId);
+        //    var thing = ThingRepository.Get(thingId);
+        //    eventFromDb.RequirementThings.Remove(thing);
+        //    EventRepository.Save(eventFromDb);
+        //    ThingRepository.Remove(thing);
 
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(true),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
+        //    return new JsonResult {
+        //        Data = JsonConvert.SerializeObject(true),
+        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+        //    };
+        //}
 
-        public JsonResult AddThingChangesToEvent(long eventId, long thingSampleId, int count)
-        {
-            var eventFromDb = EventRepository.Get(eventId);
-            var thingSample = ThingSampleRepository.Get(thingSampleId);
-            var thing = new Thing {
-                Count = count,
-                Hero = null,
-                ThingSample = thingSample,
-                ItemInUse = false
-            };
+        //public JsonResult AddThingChangesToEvent(long eventId, long thingSampleId, int count)
+        //{
+        //    var eventFromDb = EventRepository.Get(eventId);
+        //    var thingSample = ThingSampleRepository.Get(thingSampleId);
+        //    var thing = new Thing {
+        //        Count = count,
+        //        Hero = null,
+        //        ThingSample = thingSample,
+        //        ItemInUse = false
+        //    };
 
-            ThingRepository.Save(thing);
-            eventFromDb.ThingsChanges.Add(thing);
-            EventRepository.Save(eventFromDb);
-            var frontThing = new FrontThing(thing);
+        //    ThingRepository.Save(thing);
+        //    eventFromDb.ThingsChanges.Add(thing);
+        //    EventRepository.Save(eventFromDb);
+        //    var frontThing = new FrontThing(thing);
 
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontThing),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
+        //    return new JsonResult {
+        //        Data = JsonConvert.SerializeObject(frontThing),
+        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+        //    };
+        //}
 
-        public JsonResult RemoveThingChangesFromEvent(long eventId, long thingId)
-        {
-            var eventFromDb = EventRepository.Get(eventId);
-            var thing = ThingRepository.Get(thingId);
-            eventFromDb.ThingsChanges.Remove(thing);
-            EventRepository.Save(eventFromDb);
-            ThingRepository.Remove(thing);
+        //public JsonResult RemoveThingChangesFromEvent(long eventId, long thingId)
+        //{
+        //    var eventFromDb = EventRepository.Get(eventId);
+        //    var thing = ThingRepository.Get(thingId);
+        //    eventFromDb.ThingsChanges.Remove(thing);
+        //    EventRepository.Save(eventFromDb);
+        //    ThingRepository.Remove(thing);
 
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(true),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
+        //    return new JsonResult {
+        //        Data = JsonConvert.SerializeObject(true),
+        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+        //    };
+        //}
 
         public JsonResult CreateNextChapter(long eventId)
         {
@@ -813,7 +816,7 @@ namespace WebWriterV2.Controllers
                 NumberOfWords = 1
             };
             childEvent = EventRepository.Save(childEvent);
-            var eventLinkItem = new EventLinkItem() {
+            var eventLinkItem = new ChapterLinkItem() {
                 From = parentEvent,
                 To = childEvent,
                 Text = "дальше"
@@ -1015,7 +1018,7 @@ namespace WebWriterV2.Controllers
                 return Json("GoHuckYourSelf", JsonRequestBehavior.AllowGet);
             }
 
-            var frontUsers = UserRepository.GetAll().Select(x=> new FrontUser(x));
+            var frontUsers = UserRepository.GetAll().Select(x => new FrontUser(x));
             return Json(frontUsers, JsonRequestBehavior.AllowGet);
         }
 
@@ -1036,17 +1039,18 @@ namespace WebWriterV2.Controllers
             }
 
             var books = BookRepository.GetAll(false);
-            foreach(var book in books) {
+            foreach (var book in books) {
                 book.NumberOfChapters = book.AllChapters.Sum(x => x.Desc.Length);
-                book.NumberOfWords = book.AllChapters.Sum(x=>WordHelper.GetWordCount(x.Desc));
+                book.NumberOfWords = book.AllChapters.Sum(x => WordHelper.GetWordCount(x.Desc));
             }
 
             BookRepository.Save(books);
 
             return Json(true, JsonRequestBehavior.AllowGet);
         }
-        
-        private bool IsCurrentUserAdmin {
+
+        private bool IsCurrentUserAdmin
+        {
             get
             {
                 return User != null && User.UserType == UserType.Admin;

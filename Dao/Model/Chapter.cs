@@ -19,23 +19,12 @@ namespace Dao.Model
         /// <summary>
         /// You must save this field separately. Use EventLinkItemRepository
         /// </summary>
-        public virtual List<EventLinkItem> LinksFromThisChapter { get; set; }
+        public virtual List<ChapterLinkItem> LinksFromThisChapter { get; set; }
 
         /// <summary>
         /// You must save this field separately. Use EventLinkItemRepository
         /// </summary>
-        public virtual List<EventLinkItem> LinksToThisChapter { get; set; }
-
-        /* Requirement */
-        public virtual List<Thing> RequirementThings { get; set; }
-        public virtual List<State> RequirementStates{ get; set; }
-
-        /* Changes */
-        public virtual List<Thing> ThingsChanges { get; set; }
-        public virtual List<State> HeroStatesChanging { get; set; }
-
-        [Description("Add this value to total summ of book effective")]
-        public virtual double ProgressChanging { get; set; } = 0;
+        public virtual List<ChapterLinkItem> LinksToThisChapter { get; set; }
 
         //public virtual Location RequrmentLocation { get; set; }
         public virtual Book Book { get; set; }
@@ -47,7 +36,6 @@ namespace Dao.Model
                 throw new Exception($"You try update Event with Id: {model.Id} from Event with id {Id}");
             Name = model.Name;
             Desc = model.Desc;
-            ProgressChanging = model.ProgressChanging;
             Book = model.Book;
             ForRootBook = model.ForRootBook;
             NumberOfWords = model.NumberOfWords;

@@ -10,13 +10,13 @@ namespace Dao.Repository
     public class BookRepository : BaseRepository<Book>, IBookRepository
     {
         private readonly ChapterRepository _eventRepository;
-        private readonly EventLinkItemRepository _eventLinkItemRepository;
+        private readonly ChapterLinkItemRepository _eventLinkItemRepository;
         private readonly EvaluationRepository _evaluationRepository;
 
         public BookRepository(WriterContext db) : base(db)
         {
             _eventRepository = new ChapterRepository(db);
-            _eventLinkItemRepository = new EventLinkItemRepository(db);
+            _eventLinkItemRepository = new ChapterLinkItemRepository(db);
             _evaluationRepository = new EvaluationRepository(db);
         }
 
