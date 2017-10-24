@@ -7,13 +7,13 @@ namespace Dao.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class AddDateTimeForHero : IMigrationMetadata
+    public sealed partial class RpgInitV3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddDateTimeForHero));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RpgInitV3));
         
         string IMigrationMetadata.Id
         {
-            get { return "201702161007075_AddDateTimeForHero"; }
+            get { return "201710241043452_RpgInitV3"; }
         }
         
         string IMigrationMetadata.Source
