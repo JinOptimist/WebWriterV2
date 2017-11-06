@@ -18,7 +18,7 @@ namespace WebWriterV2.FrontModels
             RootEvent = book.RootChapter != null ? new FrontEvent(book.RootChapter) : null;
             Genre = book.Genre != null ? new FrontGenre(book.Genre) : null;
             AllEvents = book.AllChapters?.Select(x => new FrontEvent(x)).ToList();
-            OwnerId = book.Owner?.Id;
+            OwnerId = book.Owner.Id;
             Evaluations = book.Evaluations?.Select(x => new FrontEvaluation(x)).ToList();
             IsPublished = book.IsPublished;
             NumberOfChapters = book.NumberOfChapters;
@@ -31,7 +31,7 @@ namespace WebWriterV2.FrontModels
 
         public string Name { get; set; }
         public string Desc { get; set; }
-        public long? OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public FrontEvent RootEvent { get; set; }
         public FrontGenre Genre { get; set; }
         public List<FrontEvent> AllEvents { get; set; }
@@ -49,7 +49,7 @@ namespace WebWriterV2.FrontModels
                 Desc = Desc,
                 RootChapter = RootEvent?.ToDbModel(),
                 AllChapters = AllEvents?.Select(x => x.ToDbModel()).ToList(),
-                Owner = OwnerId.HasValue ? new User { Id = OwnerId.Value } : null,
+                Owner = new User { Id = OwnerId },
                 Genre = Genre != null ? Genre.ToDbModel() : null,
                 IsPublished = IsPublished
             };

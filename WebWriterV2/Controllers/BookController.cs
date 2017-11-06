@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
+using WebWriterV2.Dao;
 using WebWriterV2.DI;
 using WebWriterV2.FrontModels;
 using WebWriterV2.VkUtility;
@@ -15,33 +16,16 @@ namespace WebWriterV2.Controllers
 {
     public class BookController : BaseApiController
     {
-        private IBookRepository BookRepository { get; set; }
-        private IGenreRepository GenreRepository { get; set; }
-        private IUserRepository UserRepository { get; set; }
-        private IChapterRepository EventRepository { get; set; }
-        private IStateRepository StateRepository { get; set; }
-        private IThingRepository ThingRepository { get; set; }
-        private IChapterLinkItemRepository EventLinkItemRepository { get; set; }
-        private IEvaluationRepository EvaluationRepository { get; set; }
+        private IBookDao BookDao { get; }
 
-        public BookController(IBookRepository bookRepository, IGenreRepository genreRepository, IUserRepository userRepository, 
-            IChapterRepository eventRepository, IStateRepository stateRepository, IThingRepository thingRepository, 
-            IChapterLinkItemRepository eventLinkItemRepository, IEvaluationRepository evaluationRepository)
+        public BookController(IBookDao bookDao)
         {
-            BookRepository = bookRepository;
-            GenreRepository = genreRepository;
-            UserRepository = userRepository;
-            EventRepository = eventRepository;
-            StateRepository = stateRepository;
-            ThingRepository = thingRepository;
-            EventLinkItemRepository = eventLinkItemRepository;
-            EvaluationRepository = evaluationRepository;
         }
 
         // old GetBook
         public FrontBook Get(long id)
         {
-            var book = BookRepository.Get(id);
+            var book = BookDao.Get(id);
             var frontBook = new FrontBook(book, true);
             return frontBook;
         }

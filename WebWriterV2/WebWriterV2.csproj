@@ -145,6 +145,9 @@
   <ItemGroup>
     <Compile Include="Controllers\ChapterController.cs" />
     <Compile Include="Controllers\BookController.cs" />
+    <Compile Include="IDao\IBookDao.cs" />
+    <Compile Include="Dao\RepositoryContainer.cs" />
+    <Compile Include="Dao\BookDao.cs" />
     <Compile Include="DI\CastleControllerFactory.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />

@@ -11,7 +11,7 @@ namespace Dao.Model
 
         public string Background { get; set; }
 
-        public virtual List<State> State { get; set; }
+        public virtual List<StateValue> State { get; set; }
 
         /// <summary>
         /// Things in bag

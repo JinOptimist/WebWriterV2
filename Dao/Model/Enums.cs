@@ -20,4 +20,13 @@
         Equals = 7,
         NotEquals = 8
     }
+
+    public enum ChangeType
+    {
+        Add = 1,
+        Reduce = 2,
+        Create = 3,
+        Remove = 4,
+        Set = 5,
+    }
 }

@@ -23,7 +23,7 @@ namespace Dao.Model
         public string AvatarUrl { get; set; }
 
         /// <summary>
-        /// Hero contains CurrentEvent. Use this field to get information about Book and Event where user stop reading
+        /// Hero contains CurrentChapter. Use this field to get information about Book and Chapter where user stop reading
         /// </summary>
         public virtual List<Hero> Bookmarks { get; set; }
 

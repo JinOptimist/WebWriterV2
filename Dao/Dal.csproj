@@ -82,13 +82,15 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Enums.cs" />
-    <Compile Include="Model\EventLinkItem.cs" />
+    <Compile Include="Model\ChapterLinkItem.cs" />
     <Compile Include="Model\Genre.cs" />
     <Compile Include="Model\IUpdatable.cs" />
     <Compile Include="Model\Evaluation.cs" />
+    <Compile Include="Model\StateChange.cs" />
+    <Compile Include="Model\StateValue.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\StateType.cs" />
-    <Compile Include="Model\State.cs" />
+    <Compile Include="Model\StateRequirement.cs" />
     <Compile Include="Model\Chapter.cs" />
     <Compile Include="Model\Hero.cs" />
     <Compile Include="Model\Book.cs" />
