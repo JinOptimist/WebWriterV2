@@ -10,14 +10,11 @@ namespace Dao.Model
         [Required]
         public ChangeType ChangeType { get; set; }
 
+        public virtual ChapterLinkItem Chapter { get; set; }
+
         /// <summary>
         /// Can be null if ChangeType is Remove
         /// </summary>
         public long? Number { get; set; }
-
-        /// <summary>
-        /// Use for store data which doesn't need to see readers
-        /// </summary>
-        public bool Invisible { get; set; }
     }
 }

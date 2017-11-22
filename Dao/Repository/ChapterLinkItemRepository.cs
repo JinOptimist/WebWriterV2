@@ -9,14 +9,10 @@ namespace Dao.Repository
     public class ChapterLinkItemRepository : BaseRepository<ChapterLinkItem>, IChapterLinkItemRepository
     {
         private readonly Lazy<ChapterRepository> _eventRepository;
-        private readonly Lazy<StateValueRepository> _stateValueRepository;
-        private readonly Lazy<ThingRepository> _thingRepository;
 
         public ChapterLinkItemRepository(WriterContext db) : base(db)
         {
             _eventRepository = new Lazy<ChapterRepository>(() => new ChapterRepository(db));
-            _stateValueRepository = new Lazy<StateValueRepository>(() => new StateValueRepository(db));
-            _thingRepository = new Lazy<ThingRepository>(() => new ThingRepository(db));
         }
 
         public override ChapterLinkItem Save(ChapterLinkItem model)
@@ -40,24 +36,6 @@ namespace Dao.Repository
                 .GroupBy(x => new {x.From, x.Text, x.To})
                 .SelectMany(x => x.OrderBy(y => y.Id).Skip(1));
             Remove(duplicate);
-        }
-
-        public override void Remove(ChapterLinkItem baseModel)
-        {
-            if (baseModel.ThingsChanges?.Any() ?? false) {
-                _thingRepository.Value.Remove(baseModel.ThingsChanges);
-            }
-            if (baseModel.RequirementThings?.Any() ?? false) {
-                _thingRepository.Value.Remove(baseModel.RequirementThings);
-            }
-            if (baseModel.RequirementStates?.Any() ?? false) {
-                _stateValueRepository.Value.Remove(baseModel.RequirementStates);
-            }
-            if (baseModel.HeroStatesChanging?.Any() ?? false) {
-                _stateValueRepository.Value.Remove(baseModel.HeroStatesChanging);
-            }
-
-            base.Remove(baseModel);
         }
     }
 }

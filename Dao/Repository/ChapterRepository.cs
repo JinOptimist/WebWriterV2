@@ -10,7 +10,6 @@ namespace Dao.Repository
     public class ChapterRepository : BaseRepository<Chapter>, IChapterRepository
     {
         private readonly Lazy<ChapterLinkItemRepository> _eventLinkItemRepository;
-        private readonly ThingRepository _thingRepository;
         private readonly StateValueRepository _stateValueRepository;
         private readonly HeroRepository _heroRepository;
 
@@ -18,7 +17,6 @@ namespace Dao.Repository
         public ChapterRepository(WriterContext db) : base(db)
         {
             _eventLinkItemRepository = new Lazy<ChapterLinkItemRepository>(() => new ChapterLinkItemRepository(db));
-            _thingRepository = new ThingRepository(db);
             _stateValueRepository = new StateValueRepository(db);
             _heroRepository = new HeroRepository(db);
         }

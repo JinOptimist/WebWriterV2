@@ -11,13 +11,9 @@ namespace Dao.Model
         [Required]
         public string Text { get; set; }
 
-        /* Requirement */
-        public virtual List<Thing> RequirementThings { get; set; }
-        public virtual List<StateValue> RequirementStates { get; set; }
+        public virtual List<StateRequirement> RequirementStates { get; set; }
 
-        /* Changes */
-        public virtual List<Thing> ThingsChanges { get; set; }
-        public virtual List<StateValue> HeroStatesChanging { get; set; }
+        public virtual List<StateChange> HeroStatesChanging { get; set; }
 
         /* Link reference */
         public virtual Chapter From { get; set; }

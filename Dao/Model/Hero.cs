@@ -13,11 +13,6 @@ namespace Dao.Model
 
         public virtual List<StateValue> State { get; set; }
 
-        /// <summary>
-        /// Things in bag
-        /// </summary>
-        public virtual List<Thing> Inventory { get; set; }
-
         public virtual Chapter CurrentChapter { get; set; }
 
         public virtual User Owner { get; set; }

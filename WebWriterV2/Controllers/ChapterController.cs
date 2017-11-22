@@ -20,12 +20,11 @@ namespace WebWriterV2.Controllers
         private IUserRepository UserRepository { get; set; }
         private IChapterRepository EventRepository { get; set; }
         private IStateValueRepository StateRepository { get; set; }
-        private IThingRepository ThingRepository { get; set; }
         private IChapterLinkItemRepository EventLinkItemRepository { get; set; }
         private IEvaluationRepository EvaluationRepository { get; set; }
 
         public ChapterController(IBookRepository bookRepository, IGenreRepository genreRepository, IUserRepository userRepository, 
-            IChapterRepository eventRepository, IStateValueRepository stateRepository, IThingRepository thingRepository, 
+            IChapterRepository eventRepository, IStateValueRepository stateRepository, 
             IChapterLinkItemRepository eventLinkItemRepository, IEvaluationRepository evaluationRepository)
         {
             BookRepository = bookRepository;
@@ -33,7 +32,6 @@ namespace WebWriterV2.Controllers
             UserRepository = userRepository;
             EventRepository = eventRepository;
             StateRepository = stateRepository;
-            ThingRepository = thingRepository;
             EventLinkItemRepository = eventLinkItemRepository;
             EvaluationRepository = evaluationRepository;
         }

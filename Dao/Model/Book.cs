@@ -21,7 +21,7 @@ namespace Dao.Model
         public virtual List<Evaluation> Evaluations { get; set; }
 
         public virtual User Owner { get; set; }
-        public virtual List<User> Readers { get; set; }
+        public virtual List<UserWhoReadBook> Readers { get; set; }
 
         public virtual Genre Genre { get; set; }
 

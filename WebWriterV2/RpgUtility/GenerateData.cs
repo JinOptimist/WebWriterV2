@@ -36,62 +36,6 @@ namespace WebWriterV2.RpgUtility
         public const string FireBall = "Fire ball";
         public const string EvasionSkill = "Уворот";
 
-
-        public static List<ThingSample> GenerateThingSample(List<StateType> stateTypes)
-        {
-            var hp = stateTypes.First(x => x.Name == Hp);
-            var dodge = stateTypes.First(x => x.Name == Dodge);
-            var damage = stateTypes.First(x => x.Name == Damage);
-            var armor = stateTypes.First(x => x.Name == Armor);
-
-            var thingSamples = new List<ThingSample>();
-
-            thingSamples.Add(new ThingSample
-            {
-                Name = Gold,
-                Desc = "Что может быть лучше кошелька с золотыми? Мешок с золотыми!",
-            });
-
-            thingSamples.Add(new ThingSample
-            {
-                Name = Sword,
-                Desc = "Вжух и готово",
-                PassiveStates = new List<StateValue> {
-                    new StateValue {
-                        Value = 10,
-                        StateType = damage
-                    }
-                }
-            });
-
-            thingSamples.Add(new ThingSample
-            {
-                Name = ArmorBra,
-                Desc = "Вот хоть убей не найти эльфийку без этого важнейшего элемента одежды",
-                PassiveStates = new List<StateValue> {
-                    new StateValue {
-                        Value = 5,
-                        StateType = armor
-                    }
-                }
-            });
-
-            thingSamples.Add(new ThingSample
-            {
-                Name = HealingPotion,
-                Desc = "Выпил и дыры затягиваются сами собой. Только щекотно",
-                IsUsed = true,
-                UsingEffectState = new List<StateValue> {
-                    new StateValue {
-                        Value = 10,
-                        StateType = hp
-                    }
-                }
-            });
-
-            return thingSamples;
-        }
-
         public static Book BookRat()
         {
             var book = new Book
@@ -105,8 +49,7 @@ namespace WebWriterV2.RpgUtility
             return book;
         }
 
-        public static Book BookTower(List<StateType> stateTypes,
-            List<ThingSample> thingSamples)
+        public static Book BookTower(List<StateType> stateTypes)
         {
             var book = new Book
             {
@@ -114,7 +57,7 @@ namespace WebWriterV2.RpgUtility
                 Desc = "<p>	В великой Башне три уровня. Зачисти их все за один заход и получишь великий Кубок&nbsp;<span style=\"background-color:#ffff00;\">(добавить возможность награды для квеста)</span></p><p>	Перед тем как отправляться убедись что готов к сражениям</p><ol>	<li>		* Ловушки которые ранят если нет умения Уворот</li>	<li>		** Клады дают деньги</li>	<li>		*** Возможность подкупа за золото или обольстить если Пол и Красота на уровне</li>	<li>		**** Открыть короткий проход при помощи Силы или Ловкости</li></ol>",
             };
 
-            book.AllChapters = GenerateEventsForBookTower(book, stateTypes, thingSamples);
+            book.AllChapters = GenerateEventsForBookTower(book, stateTypes);
 
             return book;
         }
@@ -220,32 +163,12 @@ namespace WebWriterV2.RpgUtility
         }
 
         public static List<Chapter> GenerateEventsForBookTower(Book book,
-            List<StateType> stateTypes,
-            List<ThingSample> thingSamples)
+            List<StateType> stateTypes)
         {
             // Tips
             // Desc = "У заказчика всегда была репутацию падкого на женское внимание мужика",
             // Desc = "В общем орков не любят со времён третьей общей войны, но порой можно встретить общины с прямо противоположным мнением",
             var hpType = stateTypes.First(x => x.Name == Hp);
-
-            var gold100 = new Thing
-            {
-                Count = 100,
-                ThingSample = thingSamples.First(x => x.Name == Gold)
-            };
-
-            var gold300 = new Thing
-            {
-                Count = 300,
-                ThingSample = thingSamples.First(x => x.Name == Gold)
-            };
-
-            var healingPotion = new Thing
-            {
-                Count = 1,
-                ThingSample = thingSamples.First(x => x.Name == HealingPotion)
-            };
-
 
             var event0 = new Chapter
             {

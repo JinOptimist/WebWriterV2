@@ -145,7 +145,6 @@
   <ItemGroup>
     <Compile Include="Controllers\ChapterController.cs" />
     <Compile Include="Controllers\BookController.cs" />
-    <Compile Include="IDao\IBookDao.cs" />
     <Compile Include="Dao\RepositoryContainer.cs" />
     <Compile Include="Dao\BookDao.cs" />
     <Compile Include="DI\CastleControllerFactory.cs" />
@@ -161,8 +160,6 @@
     <Compile Include="FrontModels\FrontStateType.cs" />
     <Compile Include="FrontModels\FrontEvaluation.cs" />
     <Compile Include="FrontModels\FrontUser.cs" />
-    <Compile Include="FrontModels\FrontThing.cs" />
-    <Compile Include="FrontModels\FrontThingSample.cs" />
     <Compile Include="FrontModels\FrontState.cs" />
     <Compile Include="FrontModels\FrontBook.cs" />
     <Compile Include="FrontModels\FrontEvent.cs" />
@@ -176,7 +173,6 @@
     <Compile Include="RpgUtility\JsonResponseReader.cs" />
     <Compile Include="RpgUtility\PathHelper.cs" />
     <Compile Include="RpgUtility\RandomHelper.cs" />
-    <Compile Include="RpgUtility\ThingHelper.cs" />
     <Compile Include="RpgUtility\StateHelper.cs" />
     <Compile Include="RpgUtility\EnumHelper.cs" />
     <Compile Include="RpgUtility\GenerateData.cs" />

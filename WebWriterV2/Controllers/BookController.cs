@@ -15,6 +15,17 @@ namespace WebWriterV2.Controllers
 {
     public class BookController : BaseApiController
     {
+        public BookController(IBookRepository bookRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IChapterRepository eventRepository, IStateValueRepository stateRepository, IGenreRepository genreRepository, IUserRepository userRepository)
+        {
+            BookRepository = bookRepository;
+            EvaluationRepository = evaluationRepository;
+            EventLinkItemRepository = eventLinkItemRepository;
+            EventRepository = eventRepository;
+            StateRepository = stateRepository;
+            GenreRepository = genreRepository;
+            UserRepository = userRepository;
+        }
+
         private IBookRepository BookRepository { get; }
         private IEvaluationRepository EvaluationRepository { get; }
         private IChapterLinkItemRepository EventLinkItemRepository { get; }
@@ -22,9 +33,6 @@ namespace WebWriterV2.Controllers
         private IStateValueRepository StateRepository { get; }
         private IGenreRepository GenreRepository { get; }
         private IUserRepository UserRepository { get; }
-        private IThingRepository ThingRepository { get; }
-        
-
 
         // old GetBook
         public FrontBook Get(long id)
@@ -37,7 +45,8 @@ namespace WebWriterV2.Controllers
         // old GetBooks(long? userId) with null
         public List<FrontBook> GetAll()
         {
-            var books = BookRepository.GetAll(User == null || User.UserType != UserType.Admin);
+            var getOnlyPublished = User == null || User.UserType != UserType.Admin;
+            var books = BookRepository.GetAll(getOnlyPublished);
             var frontBooks = books.Select(x => new FrontBook(x)).ToList();
             return frontBooks;
         }
@@ -87,7 +96,6 @@ namespace WebWriterV2.Controllers
             if (bookName == null) {
                 book.Id = 0;
                 book.Owner = User;
-                var things = new List<Thing>();
                 var states = new List<StateValue>();
                 var linkItems = new List<ChapterLinkItem>();
 
@@ -104,26 +112,13 @@ namespace WebWriterV2.Controllers
                         chapterLinkItem.To = book.AllChapters.First(x => x.Id == chapterLinkItem.To.Id);
                         chapterLinkItem.From = book.AllChapters.First(x => x.Id == chapterLinkItem.From.Id);
 
-                        things.AddRange(chapterLinkItem.RequirementThings ?? new List<Thing>());
-                        things.AddRange(chapterLinkItem.ThingsChanges ?? new List<Thing>());
-                        states.AddRange(chapterLinkItem.HeroStatesChanging ?? new List<StateValue>());
-                        states.AddRange(chapterLinkItem.RequirementStates ?? new List<StateValue>());
+                        //states.AddRange(chapterLinkItem.HeroStatesChanging ?? new List<StateChange>());
+                        //states.AddRange(chapterLinkItem.RequirementStates ?? new List<StateValue>());
+                        throw new NotImplementedException();
                     }
 
                     linkItems.AddRange(chapterLinkItems);
                     chapter.Book = book;
-                }
-
-                /* Process Things connections */
-                states.AddRange(things.SelectMany(x => x.ThingSample.PassiveStates ?? new List<StateValue>()));
-                states.AddRange(things.SelectMany(x => x.ThingSample.UsingEffectState ?? new List<StateValue>()));
-
-                /* Process Characteristics connections */
-                foreach (var thing in things) {
-                    thing.Id = 0;
-                    thing.Hero = null;
-                    thing.ThingSample.Id = 0;
-                    thing.ThingSample.Owner = User;
                 }
 
                 const char nbsp = (char)160;// code of nbsp
@@ -136,7 +131,6 @@ namespace WebWriterV2.Controllers
                 }
 
                 states.ForEach(StateRepository.CheckAndSave);
-                things.ForEach(ThingRepository.CheckAndSave);
 
                 foreach (var @event in book.AllChapters) {
                     @event.LinksFromThisChapter = new List<ChapterLinkItem>();
@@ -168,9 +162,10 @@ namespace WebWriterV2.Controllers
         {
             var book = BookRepository.Get(bookId);
             if (User.BooksAreReaded == null)
-                User.BooksAreReaded = new List<Book>();
+                User.BooksAreReaded = new List<UserWhoReadBook>();
             if (User.BooksAreReaded.All(x => x.Id != book.Id)) {
-                User.BooksAreReaded.Add(book);
+                User.BooksAreReaded.Add(new UserWhoReadBook { User = User, Book = book });
+                throw new NotImplementedException();
                 UserRepository.Save(User);
             }
         }

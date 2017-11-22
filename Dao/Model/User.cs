@@ -33,7 +33,7 @@ namespace Dao.Model
         /// </summary>
         public virtual List<Book> Books { get; set; }
 
-        public virtual List<Book> BooksAreReaded { get; set; }
+        public virtual List<UserWhoReadBook> BooksAreReaded { get; set; }
 
         public virtual List<StateType> StateTypes { get; set; }
 

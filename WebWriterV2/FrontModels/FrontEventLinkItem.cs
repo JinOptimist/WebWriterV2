@@ -18,10 +18,9 @@ namespace WebWriterV2.FrontModels
             FromId = eventLinkItemDb.From.Id;
             ToId = eventLinkItemDb.To.Id;
 
-            HeroStatesChanging = eventLinkItemDb.HeroStatesChanging?.Select(x => new FrontState(x)).ToList();
-            ThingsChanges = eventLinkItemDb.ThingsChanges?.Select(x => new FrontThing(x)).ToList();
-            RequirementThings = eventLinkItemDb.RequirementThings?.Select(x => new FrontThing(x)).ToList();
-            RequirementStates = eventLinkItemDb.RequirementStates?.Select(x => new FrontState(x)).ToList();
+            //HeroStatesChanging = eventLinkItemDb.HeroStatesChanging?.Select(x => new FrontState(x)).ToList();
+            //RequirementStates = eventLinkItemDb.RequirementStates?.Select(x => new FrontState(x)).ToList();
+            throw new NotImplementedException();
         }
 
         public string Text { get; set; }
@@ -29,8 +28,6 @@ namespace WebWriterV2.FrontModels
         public long ToId { get; set; }
 
         public List<FrontState> RequirementStates { get; set; }
-        public List<FrontThing> RequirementThings { get; set; }
-        public List<FrontThing> ThingsChanges { get; set; }
         public List<FrontState> HeroStatesChanging { get; set; }
 
         public override ChapterLinkItem ToDbModel()
@@ -42,11 +39,10 @@ namespace WebWriterV2.FrontModels
                 From = new Chapter {Id = FromId},
                 To = new Chapter {Id = ToId},
 
-                RequirementThings = RequirementThings?.Select(x => x.ToDbModel()).ToList(),
-                RequirementStates = RequirementStates?.Select(x => x.ToDbModel()).ToList(),
-                ThingsChanges = ThingsChanges?.Select(x => x.ToDbModel()).ToList(),
-                HeroStatesChanging = HeroStatesChanging?.Select(x => x.ToDbModel()).ToList()
+                //RequirementStates = RequirementStates?.Select(x => x.ToDbModel()).ToList(),
+                //HeroStatesChanging = HeroStatesChanging?.Select(x => x.ToDbModel()).ToList()
             };
+            throw new NotImplementedException();
         }
     }
 }

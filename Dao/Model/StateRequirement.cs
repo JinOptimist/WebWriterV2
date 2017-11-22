@@ -10,6 +10,8 @@ namespace Dao.Model
         [Required]
         public RequirementType RequirementType { get; set; }
 
+        public virtual ChapterLinkItem Chapter { get; set; }
+
         /// <summary>
         /// Can be null if RequirementType is Exist or NotExist
         /// </summary>

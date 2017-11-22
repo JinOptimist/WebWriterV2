@@ -34,8 +34,6 @@ namespace WebWriterV2.Controllers
         public IHeroRepository HeroRepository { get; set; }
         public IStateValueRepository StateRepository { get; set; }
         public IStateTypeRepository StateTypeRepository { get; set; }
-        public IThingSampleRepository ThingSampleRepository { get; set; }
-        public IThingRepository ThingRepository { get; set; }
         public IUserRepository UserRepository { get; set; }
         public IEvaluationRepository EvaluationRepository { get; set; }
         public IGenreRepository GenreRepository { get; set; }
@@ -44,8 +42,7 @@ namespace WebWriterV2.Controllers
         #endregion
 
         public RpgController(IChapterRepository eventRepository, IChapterLinkItemRepository eventLinkItemRepository, IBookRepository bookRepository,
-            IHeroRepository heroRepository, IStateValueRepository stateRepository, IStateTypeRepository stateTypeRepository,
-            IThingSampleRepository thingSampleRepository, IThingRepository thingRepository, IUserRepository userRepository,
+            IHeroRepository heroRepository, IStateValueRepository stateRepository, IStateTypeRepository stateTypeRepository, IUserRepository userRepository,
             IEvaluationRepository evaluationRepository, IGenreRepository genreRepository, IChapterLinkItemRepository chapterLinkItemRepository)
         {
             EventRepository = eventRepository;
@@ -54,8 +51,6 @@ namespace WebWriterV2.Controllers
             HeroRepository = heroRepository;
             StateRepository = stateRepository;
             StateTypeRepository = stateTypeRepository;
-            ThingSampleRepository = thingSampleRepository;
-            ThingRepository = thingRepository;
             UserRepository = userRepository;
             EvaluationRepository = evaluationRepository;
             GenreRepository = genreRepository;
@@ -308,8 +303,6 @@ namespace WebWriterV2.Controllers
                 hero = GenerateData.GetDefaultHero(stateTypes);
             }
 
-            var a = hero.Inventory?.FirstOrDefault();
-
             var frontHero = new FrontHero(hero);
             return new JsonResult {
                 Data = SerializeHelper.Serialize(frontHero),
@@ -344,8 +337,6 @@ namespace WebWriterV2.Controllers
         public JsonResult RemoveHero(long id)
         {
             var hero = HeroRepository.Get(id);
-            var things = hero.Inventory.ToList();
-            ThingRepository.Remove(things);
 
             HeroRepository.Remove(id);
             return new JsonResult {
@@ -382,44 +373,6 @@ namespace WebWriterV2.Controllers
             var frontHero = new FrontHero(hero);
             return new JsonResult {
                 Data = SerializeHelper.Serialize(frontHero),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        /* ************** Thing ************** */
-        public JsonResult GetThingSamples()
-        {
-            var thingSamples = ThingSampleRepository.GetAll();
-            var thingSamplesFront = thingSamples.Select(x => new FrontThingSample(x)).ToList();
-
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(thingSamplesFront),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult AddThing(string name, string desc)
-        {
-            var thingSample = new ThingSample {
-                Name = name,
-                Desc = desc,
-                Owner = User
-            };
-
-            var savedThingSample = ThingSampleRepository.Save(thingSample);
-            var frontThingSample = new FrontThingSample(savedThingSample);
-            return new JsonResult {
-                Data = SerializeHelper.Serialize(frontThingSample),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult RemoveThing(long thingId)
-        {
-            //TODO check permission to remove thing
-            ThingSampleRepository.Remove(thingId);
-            return new JsonResult {
-                Data = SerializeHelper.Serialize(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -663,18 +616,19 @@ namespace WebWriterV2.Controllers
             var chapterLinkItemDb = ChapterLinkItemRepository.Get(chapterLinkId);
             var stateType = StateTypeRepository.Get(stateTypeId);
 
-            var state =
-                chapterLinkItemDb.HeroStatesChanging.FirstOrDefault(
-                    x => x.StateType.Id == stateType.Id)
-                ?? new StateValue {
-                    StateType = stateType
-                };
+            var state = new StateValue();
+            throw new NotImplementedException();
+                //chapterLinkItemDb.HeroStatesChanging.FirstOrDefault(
+                //    x => x.StateType.Id == stateType.Id)
+                //?? new StateValue {
+                //    StateType = stateType
+                //};
 
             state.Value = stateValue;
 
             // if new
-            if (state.Id < 1)
-                chapterLinkItemDb.HeroStatesChanging.Add(state);
+            //if (state.Id < 1)
+            //    chapterLinkItemDb.HeroStatesChanging.Add(state);
             StateRepository.Save(state);
             ChapterLinkItemRepository.Save(chapterLinkItemDb);
             var frontState = new FrontState(state);
@@ -863,43 +817,6 @@ namespace WebWriterV2.Controllers
             return Json(stateTypeForAdding.Any(), JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult AddDefaultThing()
-        {
-            var thingSamples = ThingSampleRepository.GetAll();
-            var thingSampleForAdding = new List<ThingSample>();
-            var goldStateType = new ThingSample {
-                Name = "Золото",
-                Desc = "Прятный звон монет придаст вам толику хорошего настроения",
-                IsUsed = false,
-            };
-            var creditStateType = new ThingSample {
-                Name = "Кредиты",
-                Desc = "Ваш счёт в межгалактическом банке сектора",
-                IsUsed = false,
-            };
-            var keyStateType = new ThingSample {
-                Name = "Ключ",
-                Desc = "Знать бы где он понадобиться",
-                IsUsed = false,
-            };
-
-            if (thingSamples.All(x => x.Name != goldStateType.Name)) {
-                thingSampleForAdding.Add(goldStateType);
-            }
-            if (thingSamples.All(x => x.Name != creditStateType.Name)) {
-                thingSampleForAdding.Add(creditStateType);
-            }
-            if (thingSamples.All(x => x.Name != keyStateType.Name)) {
-                thingSampleForAdding.Add(keyStateType);
-            }
-
-            if (thingSampleForAdding.Any()) {
-                ThingSampleRepository.Save(thingSampleForAdding);
-            }
-
-            return Json(thingSampleForAdding.Any(), JsonRequestBehavior.AllowGet);
-        }
-
         public JsonResult Init()
         {
             /* Создаём StateType */
@@ -909,20 +826,13 @@ namespace WebWriterV2.Controllers
                 StateTypeRepository.Save(stateTypes);
             }
 
-            /* Создаём ThingSamples */
-            var thingSamples = ThingSampleRepository.GetAll();
-            if (!thingSamples.Any()) {
-                thingSamples = GenerateData.GenerateThingSample(stateTypes);
-                ThingSampleRepository.Save(thingSamples);
-            }
-
             /* Создаём Квесты. Чистый без евентов */
             var books = BookRepository.GetAll(false);
             if (!books.Any()) {
                 var book1 = GenerateData.BookRat();
                 BookRepository.Save(book1);
 
-                var book2 = GenerateData.BookTower(stateTypes, thingSamples);
+                var book2 = GenerateData.BookTower(stateTypes);
                 BookRepository.Save(book2);
             }
 
@@ -952,7 +862,6 @@ namespace WebWriterV2.Controllers
             var answer = new {
                 books = books.Any() ? "Уже существует" : "Добавили",
                 //eventLinkItemsDb = eventLinkItemsDb.Any() ? "Уже существует" : "Добавили",
-                thingSamples = thingSamples.Any() ? "Уже существует" : "Добавили",
             };
 
             return new JsonResult {
@@ -969,12 +878,6 @@ namespace WebWriterV2.Controllers
 
             var states = StateRepository.GetAll();
             StateRepository.Remove(states);
-
-            var things = ThingRepository.GetAll();
-            ThingRepository.Remove(things);
-
-            var thingSamples = ThingSampleRepository.GetAll();
-            ThingSampleRepository.Remove(thingSamples);
 
             var heroes = HeroRepository.GetAll();
             HeroRepository.Remove(heroes);
