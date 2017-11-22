@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI.WebControls;
 using Dao.Model;
 using WebWriterV2.RpgUtility;
+using DalUserType = Dao.Model.UserType;
 
 namespace WebWriterV2.FrontModels
 {
@@ -23,9 +24,9 @@ namespace WebWriterV2.FrontModels
 
             UserType = new FrontEnum(user.UserType);
 
-            IsAdmin = user.UserType == Dao.Model.UserType.Admin;
-            IsWriter = user.UserType == Dao.Model.UserType.Writer;
-            IsReader = user.UserType == Dao.Model.UserType.Reader;
+            IsAdmin = user.UserType == DalUserType.Admin;
+            IsWriter = user.UserType == DalUserType.Writer;
+            IsReader = user.UserType == DalUserType.Reader;
             AvatarUrl = user.AvatarUrl;
             Bookmarks = user.Bookmarks?.Select(x => new FrontHero(x)).ToList();
             BooksAreReaded = user.BooksAreReaded?.Select(x => new FrontBook(x)).ToList();
@@ -57,7 +58,7 @@ namespace WebWriterV2.FrontModels
                 Name = Name,
                 Password = Password,
                 Email = Email,
-                UserType = UserType != null ? (UserType)UserType.Value : Dao.Model.UserType.Reader,
+                UserType = UserType != null ? (UserType)UserType.Value : DalUserType.Reader,
                 AvatarUrl = AvatarUrl
             };
 

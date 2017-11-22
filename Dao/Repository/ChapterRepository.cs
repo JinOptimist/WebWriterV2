@@ -11,7 +11,7 @@ namespace Dao.Repository
     {
         private readonly Lazy<ChapterLinkItemRepository> _eventLinkItemRepository;
         private readonly ThingRepository _thingRepository;
-        private readonly StateRepository _stateRepository;
+        private readonly StateValueRepository _stateValueRepository;
         private readonly HeroRepository _heroRepository;
 
         public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
@@ -19,7 +19,7 @@ namespace Dao.Repository
         {
             _eventLinkItemRepository = new Lazy<ChapterLinkItemRepository>(() => new ChapterLinkItemRepository(db));
             _thingRepository = new ThingRepository(db);
-            _stateRepository = new StateRepository(db);
+            _stateValueRepository = new StateValueRepository(db);
             _heroRepository = new HeroRepository(db);
         }
 

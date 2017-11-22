@@ -19,29 +19,36 @@ namespace Dao
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
-            modelBuilder.Entity<User>().HasMany(x => x.Books).WithOptional(x => x.Owner);
-            modelBuilder.Entity<User>().HasMany(x => x.Bookmarks).WithOptional(x => x.Owner);
-            modelBuilder.Entity<User>().HasMany(x => x.StateTypes).WithOptional(x => x.Owner);
-            modelBuilder.Entity<User>().HasMany(x => x.ThingsSample).WithOptional(x => x.Owner);
-            modelBuilder.Entity<User>().HasMany(x => x.BooksAreReaded).WithMany();
-            modelBuilder.Entity<User>().HasMany(x => x.Evaluations).WithOptional(x => x.Owner);
+            modelBuilder.Entity<User>().HasMany(x => x.Books).WithRequired(x => x.Owner);
+            modelBuilder.Entity<User>().HasMany(x => x.BooksAreReaded).WithMany(x => x.Readers);
+            modelBuilder.Entity<User>().HasMany(x => x.StateTypes).WithRequired(x => x.Owner);
+            modelBuilder.Entity<User>().HasMany(x => x.Bookmarks).WithRequired(x => x.Owner);
+            modelBuilder.Entity<User>().HasMany(x => x.Evaluations).WithRequired(x => x.Owner);
+            
 
-            modelBuilder.Entity<Book>().HasOptional(x => x.RootChapter).WithOptionalPrincipal(x => x.ForRootBook).WillCascadeOnDelete(false);
-            modelBuilder.Entity<Book>().HasMany(u => u.AllChapters).WithRequired(x => x.Book).WillCascadeOnDelete(false);
-            modelBuilder.Entity<Book>().HasMany(u => u.Evaluations).WithOptional(x => x.Book);
+            //modelBuilder.Entity<User>().HasMany(x => x.Books).WithOptional(x => x.Owner);
+            //modelBuilder.Entity<User>().HasMany(x => x.Bookmarks).WithOptional(x => x.Owner);
+            //modelBuilder.Entity<User>().HasMany(x => x.StateTypes).WithOptional(x => x.Owner);
+            //modelBuilder.Entity<User>().HasMany(x => x.ThingsSample).WithOptional(x => x.Owner);
+            //modelBuilder.Entity<User>().HasMany(x => x.BooksAreReaded).WithMany();
+            //modelBuilder.Entity<User>().HasMany(x => x.Evaluations).WithOptional(x => x.Owner);
 
-            modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.ThingsChanges).WithOptional();
-            modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.RequirementThings).WithOptional();
-            modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.RequirementStates).WithMany();
-            modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.HeroStatesChanging).WithMany();
+            //modelBuilder.Entity<Book>().HasOptional(x => x.RootChapter).WithOptionalPrincipal(x => x.ForRootBook).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Book>().HasMany(u => u.AllChapters).WithRequired(x => x.Book).WillCascadeOnDelete(false);
+            //modelBuilder.Entity<Book>().HasMany(u => u.Evaluations).WithOptional(x => x.Book);
 
-            modelBuilder.Entity<ChapterLinkItem>().HasOptional(x => x.To).WithMany(x => x.LinksToThisChapter);
-            modelBuilder.Entity<ChapterLinkItem>().HasOptional(x => x.From).WithMany(x => x.LinksFromThisChapter);
+            //modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.ThingsChanges).WithOptional();
+            //modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.RequirementThings).WithOptional();
+            //modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.RequirementStates).WithMany();
+            //modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.HeroStatesChanging).WithMany();
 
-            modelBuilder.Entity<Genre>().HasMany(u => u.Books).WithOptional(x => x.Genre);
+            //modelBuilder.Entity<ChapterLinkItem>().HasOptional(x => x.To).WithMany(x => x.LinksToThisChapter);
+            //modelBuilder.Entity<ChapterLinkItem>().HasOptional(x => x.From).WithMany(x => x.LinksFromThisChapter);
 
-            modelBuilder.Entity<Hero>().HasMany(u => u.State).WithOptional().WillCascadeOnDelete(true);
-            modelBuilder.Entity<Hero>().HasMany(u => u.Inventory).WithOptional(x => x.Hero);
+            //modelBuilder.Entity<Genre>().HasMany(u => u.Books).WithOptional(x => x.Genre);
+
+            //modelBuilder.Entity<Hero>().HasMany(u => u.State).WithOptional().WillCascadeOnDelete(true);
+            //modelBuilder.Entity<Hero>().HasMany(u => u.Inventory).WithOptional(x => x.Hero);
             //modelBuilder.Entity<Hero>().HasOptional(u => u.CurrentEvent)
 
             //TODO Manual remove state for SelfChanging
@@ -52,7 +59,7 @@ namespace Dao
             modelBuilder.Entity<Thing>().HasOptional(u => u.ThingSample).WithMany();
             modelBuilder.Entity<Thing>().HasOptional(u => u.Hero).WithMany(x => x.Inventory);
 
-            modelBuilder.Entity<State>().HasOptional(u => u.StateType).WithMany();
+            modelBuilder.Entity<StateValue>().HasOptional(u => u.StateType).WithMany();
         }
 
         public static void SetInitializer()

@@ -17,6 +17,6 @@ namespace Dao.Model
         /// </summary>
         public bool HideFromReader { get; set; }
 
-        public virtual User WriterOwner { get; set; }
+        public virtual User Owner { get; set; }
     }
 }

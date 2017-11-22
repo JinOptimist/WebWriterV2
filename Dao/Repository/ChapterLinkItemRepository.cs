@@ -9,13 +9,13 @@ namespace Dao.Repository
     public class ChapterLinkItemRepository : BaseRepository<ChapterLinkItem>, IChapterLinkItemRepository
     {
         private readonly Lazy<ChapterRepository> _eventRepository;
-        private readonly Lazy<StateRepository> _stateRepository;
+        private readonly Lazy<StateValueRepository> _stateValueRepository;
         private readonly Lazy<ThingRepository> _thingRepository;
 
         public ChapterLinkItemRepository(WriterContext db) : base(db)
         {
             _eventRepository = new Lazy<ChapterRepository>(() => new ChapterRepository(db));
-            _stateRepository = new Lazy<StateRepository>(() => new StateRepository(db));
+            _stateValueRepository = new Lazy<StateValueRepository>(() => new StateValueRepository(db));
             _thingRepository = new Lazy<ThingRepository>(() => new ThingRepository(db));
         }
 
@@ -51,10 +51,10 @@ namespace Dao.Repository
                 _thingRepository.Value.Remove(baseModel.RequirementThings);
             }
             if (baseModel.RequirementStates?.Any() ?? false) {
-                _stateRepository.Value.Remove(baseModel.RequirementStates);
+                _stateValueRepository.Value.Remove(baseModel.RequirementStates);
             }
             if (baseModel.HeroStatesChanging?.Any() ?? false) {
-                _stateRepository.Value.Remove(baseModel.HeroStatesChanging);
+                _stateValueRepository.Value.Remove(baseModel.HeroStatesChanging);
             }
 
             base.Remove(baseModel);

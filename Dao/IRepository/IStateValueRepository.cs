@@ -4,8 +4,8 @@ using Dao.Model;
 
 namespace Dao.IRepository
 {
-    public interface IStateRepository : IBaseRepository<State>
+    public interface IStateValueRepository : IBaseRepository<StateValue>
     {
-        void CheckAndSave(State state);
+        void CheckAndSave(StateValue stateValue);
     }
 }

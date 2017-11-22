@@ -13,6 +13,7 @@ namespace Dao.Model
 
         public string Email { get; set; }
 
+        // Need to vk auth
         public string ConfirmCode { get; set; }
 
         [Required]
@@ -36,7 +37,7 @@ namespace Dao.Model
 
         public virtual List<StateType> StateTypes { get; set; }
 
-        public virtual List<ThingSample> ThingsSample { get; set; }
+        //public virtual List<ThingSample> ThingsSample { get; set; }
 
         public virtual List<Evaluation> Evaluations { get; set; }
     }

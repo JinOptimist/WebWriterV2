@@ -20,18 +20,18 @@ namespace WebWriterV2.RpgUtility
             var damage = stateTypes.First(x => x.Name == GenerateData.Damage);
 
             /* Set zeroes */
-            hero.State = stateTypes.Select(stateType => new State { StateType = stateType, Number = 0 }).ToList();
+            hero.State = stateTypes.Select(stateType => new StateValue { StateType = stateType, Value = 0 }).ToList();
 
-            var maxHpNumber = hero.State.First(x => x.StateType == maxHp).Number;
-            var maxMpNumber = hero.State.First(x => x.StateType == maxMp).Number;
+            var maxHpNumber = hero.State.First(x => x.StateType == maxHp).Value;
+            var maxMpNumber = hero.State.First(x => x.StateType == maxMp).Value;
 
-            hero.State.First(x => x.StateType == hp).Number = maxHpNumber;
-            hero.State.First(x => x.StateType == mp).Number = maxMpNumber;
+            hero.State.First(x => x.StateType == hp).Value = maxHpNumber;
+            hero.State.First(x => x.StateType == mp).Value = maxMpNumber;
         }
 
         public static void AddNumberToState(this Hero hero, StateType stateType, long addingNumber)
         {
-            hero.State.First(x => x.StateType == stateType).Number += addingNumber;
+            hero.State.First(x => x.StateType == stateType).Value += addingNumber;
         }
     }
 }

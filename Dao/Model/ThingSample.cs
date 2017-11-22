@@ -20,12 +20,12 @@ namespace Dao.Model
         /// <summary>
         /// Changing while is used
         /// </summary>
-        public virtual List<State> PassiveStates { get; set; }
+        public virtual List<StateValue> PassiveStates { get; set; }
 
         /// <summary>
         /// Changing when using
         /// </summary>
-        public virtual List<State> UsingEffectState { get; set; }
+        public virtual List<StateValue> UsingEffectState { get; set; }
 
         public virtual User Owner { get; set; }
     }

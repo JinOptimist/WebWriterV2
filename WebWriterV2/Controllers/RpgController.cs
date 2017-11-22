@@ -32,7 +32,7 @@ namespace WebWriterV2.Controllers
         public IChapterLinkItemRepository EventLinkItemRepository { get; }
         public IBookRepository BookRepository { get; set; }
         public IHeroRepository HeroRepository { get; set; }
-        public IStateRepository StateRepository { get; set; }
+        public IStateValueRepository StateRepository { get; set; }
         public IStateTypeRepository StateTypeRepository { get; set; }
         public IThingSampleRepository ThingSampleRepository { get; set; }
         public IThingRepository ThingRepository { get; set; }
@@ -44,7 +44,7 @@ namespace WebWriterV2.Controllers
         #endregion
 
         public RpgController(IChapterRepository eventRepository, IChapterLinkItemRepository eventLinkItemRepository, IBookRepository bookRepository,
-            IHeroRepository heroRepository, IStateRepository stateRepository, IStateTypeRepository stateTypeRepository,
+            IHeroRepository heroRepository, IStateValueRepository stateRepository, IStateTypeRepository stateTypeRepository,
             IThingSampleRepository thingSampleRepository, IThingRepository thingRepository, IUserRepository userRepository,
             IEvaluationRepository evaluationRepository, IGenreRepository genreRepository, IChapterLinkItemRepository chapterLinkItemRepository)
         {
@@ -450,7 +450,7 @@ namespace WebWriterV2.Controllers
         public JsonResult ChangeState(long stateId, long delta)
         {
             var state = StateRepository.Get(stateId);
-            state.Number += delta;
+            state.Value += delta;
             var fake = state.StateType;
             StateRepository.Save(state);
 
@@ -666,11 +666,11 @@ namespace WebWriterV2.Controllers
             var state =
                 chapterLinkItemDb.HeroStatesChanging.FirstOrDefault(
                     x => x.StateType.Id == stateType.Id)
-                ?? new State {
+                ?? new StateValue {
                     StateType = stateType
                 };
 
-            state.Number = stateValue;
+            state.Value = stateValue;
 
             // if new
             if (state.Id < 1)

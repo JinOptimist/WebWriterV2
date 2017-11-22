@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
-using WebWriterV2.Dao;
 using WebWriterV2.DI;
 using WebWriterV2.FrontModels;
 using WebWriterV2.VkUtility;
@@ -16,16 +15,21 @@ namespace WebWriterV2.Controllers
 {
     public class BookController : BaseApiController
     {
-        private IBookDao BookDao { get; }
+        private IBookRepository BookRepository { get; }
+        private IEvaluationRepository EvaluationRepository { get; }
+        private IChapterLinkItemRepository EventLinkItemRepository { get; }
+        private IChapterRepository EventRepository { get; }
+        private IStateValueRepository StateRepository { get; }
+        private IGenreRepository GenreRepository { get; }
+        private IUserRepository UserRepository { get; }
+        private IThingRepository ThingRepository { get; }
+        
 
-        public BookController(IBookDao bookDao)
-        {
-        }
 
         // old GetBook
         public FrontBook Get(long id)
         {
-            var book = BookDao.Get(id);
+            var book = BookRepository.Get(id);
             var frontBook = new FrontBook(book, true);
             return frontBook;
         }
@@ -84,7 +88,7 @@ namespace WebWriterV2.Controllers
                 book.Id = 0;
                 book.Owner = User;
                 var things = new List<Thing>();
-                var states = new List<State>();
+                var states = new List<StateValue>();
                 var linkItems = new List<ChapterLinkItem>();
 
                 foreach (var chapter in book.AllChapters) {
@@ -102,8 +106,8 @@ namespace WebWriterV2.Controllers
 
                         things.AddRange(chapterLinkItem.RequirementThings ?? new List<Thing>());
                         things.AddRange(chapterLinkItem.ThingsChanges ?? new List<Thing>());
-                        states.AddRange(chapterLinkItem.HeroStatesChanging ?? new List<State>());
-                        states.AddRange(chapterLinkItem.RequirementStates ?? new List<State>());
+                        states.AddRange(chapterLinkItem.HeroStatesChanging ?? new List<StateValue>());
+                        states.AddRange(chapterLinkItem.RequirementStates ?? new List<StateValue>());
                     }
 
                     linkItems.AddRange(chapterLinkItems);
@@ -111,8 +115,8 @@ namespace WebWriterV2.Controllers
                 }
 
                 /* Process Things connections */
-                states.AddRange(things.SelectMany(x => x.ThingSample.PassiveStates ?? new List<State>()));
-                states.AddRange(things.SelectMany(x => x.ThingSample.UsingEffectState ?? new List<State>()));
+                states.AddRange(things.SelectMany(x => x.ThingSample.PassiveStates ?? new List<StateValue>()));
+                states.AddRange(things.SelectMany(x => x.ThingSample.UsingEffectState ?? new List<StateValue>()));
 
                 /* Process Characteristics connections */
                 foreach (var thing in things) {

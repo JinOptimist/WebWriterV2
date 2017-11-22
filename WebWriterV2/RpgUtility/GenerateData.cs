@@ -56,9 +56,9 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = Sword,
                 Desc = "Вжух и готово",
-                PassiveStates = new List<State> {
-                    new State {
-                        Number = 10,
+                PassiveStates = new List<StateValue> {
+                    new StateValue {
+                        Value = 10,
                         StateType = damage
                     }
                 }
@@ -68,9 +68,9 @@ namespace WebWriterV2.RpgUtility
             {
                 Name = ArmorBra,
                 Desc = "Вот хоть убей не найти эльфийку без этого важнейшего элемента одежды",
-                PassiveStates = new List<State> {
-                    new State {
-                        Number = 5,
+                PassiveStates = new List<StateValue> {
+                    new StateValue {
+                        Value = 5,
                         StateType = armor
                     }
                 }
@@ -81,9 +81,9 @@ namespace WebWriterV2.RpgUtility
                 Name = HealingPotion,
                 Desc = "Выпил и дыры затягиваются сами собой. Только щекотно",
                 IsUsed = true,
-                UsingEffectState = new List<State> {
-                    new State {
-                        Number = 10,
+                UsingEffectState = new List<StateValue> {
+                    new StateValue {
+                        Value = 10,
                         StateType = hp
                     }
                 }
@@ -439,7 +439,7 @@ namespace WebWriterV2.RpgUtility
             //hero.State = stateTypes.Select(x => new State { Number = 1, StateType = x }).ToList();
             //hero.Characteristics = characteristicTypes.Select(x => new Characteristic { Number = 1, CharacteristicType = x }).ToList();
 
-            hero.State = new List<State>();
+            hero.State = new List<StateValue>();
 
             return hero;
         }

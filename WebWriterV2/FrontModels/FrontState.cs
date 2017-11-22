@@ -4,34 +4,30 @@ using Dao.Model;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontState : BaseFront<State>
+    public class FrontState : BaseFront<StateValue>
     {
         public FrontState()
         {
         }
 
-        public FrontState(State state)
+        public FrontState(StateValue state)
         {
             Id = state.Id;
-            Number = state.Number;
+            Value = state.Value;
             StateType = new FrontStateType(state.StateType);
-            RequirementType = new FrontEnum(state.RequirementType);
         }
 
-        public long Number { get; set; }
+        public long? Value { get; set; }
 
         public FrontStateType StateType { get; set; }
 
-        public FrontEnum RequirementType { get; set; }
-
-        public override State ToDbModel()
+        public override StateValue ToDbModel()
         {
-            return new State
+            return new StateValue
             {
                 Id = Id,
-                Number = Number,
+                Value = Value,
                 StateType = StateType.ToDbModel(),
-                RequirementType = (RequirementType?)RequirementType?.Value
             };
         }
     }

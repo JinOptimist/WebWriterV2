@@ -10,7 +10,7 @@ namespace WebWriterV2.Dao
     public class RepositoryContainer
     {
         public RepositoryContainer(IBookRepository bookRepository, IGenreRepository genreRepository, 
-            IUserRepository userRepository, IChapterRepository eventRepository, IStateRepository stateRepository, 
+            IUserRepository userRepository, IChapterRepository eventRepository, IStateValueRepository stateRepository, 
             IThingRepository thingRepository, IChapterLinkItemRepository eventLinkItemRepository, 
             IEvaluationRepository evaluationRepository)
         {
@@ -28,7 +28,7 @@ namespace WebWriterV2.Dao
         public IGenreRepository GenreRepository { get; set; }
         public IUserRepository UserRepository { get; set; }
         public IChapterRepository EventRepository { get; set; }
-        public IStateRepository StateRepository { get; set; }
+        public IStateValueRepository StateRepository { get; set; }
         public IThingRepository ThingRepository { get; set; }
         public IChapterLinkItemRepository EventLinkItemRepository { get; set; }
         public IEvaluationRepository EvaluationRepository { get; set; }
