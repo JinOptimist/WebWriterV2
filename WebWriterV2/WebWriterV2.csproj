@@ -175,8 +175,6 @@
     <Compile Include="RpgUtility\RandomHelper.cs" />
     <Compile Include="RpgUtility\StateHelper.cs" />
     <Compile Include="RpgUtility\EnumHelper.cs" />
-    <Compile Include="RpgUtility\GenerateData.cs" />
-    <Compile Include="RpgUtility\QuestCreatHelper.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

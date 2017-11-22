@@ -16,8 +16,6 @@ namespace WebWriterV2.FrontModels
         public FrontHero(Hero hero)
         {
             Id = hero.Id;
-            Name = hero.Name;
-            Background = hero.Background;
 
             State = hero.State.Select(x => new FrontState(x)).ToList();
             CurrentEvent = hero.CurrentChapter == null ? null : new FrontEvent(hero.CurrentChapter);
@@ -35,8 +33,6 @@ namespace WebWriterV2.FrontModels
             var hero = new Hero
             {
                 Id = Id,
-                Name = Name,
-                Background = Background,
                 State = State.Select(x => x.ToDbModel()).ToList(),
                 CurrentChapter = CurrentEvent?.ToDbModel()
             };

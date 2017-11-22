@@ -1,5 +1,7 @@
 namespace Dao.Migrations
 {
+    using Dao.DataGeneration;
+    using Dao.Model;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -17,17 +19,19 @@ namespace Dao.Migrations
         protected override void Seed(Dao.WriterContext context)
         {
             //  This method will be called after migrating to the latest version.
+            var admin = GenerateData.GenerateAdmin();
+            context.Users.AddOrUpdate(x => x.Id, admin);
+            admin = context.Users.Single(x => x.Id == admin.Id);
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var stateTypes = GenerateData.GenerateStateTypes();
+            stateTypes.ForEach(x => x.Owner = admin);
+            context.StateTypes.AddOrUpdate(x => x.Name, stateTypes.ToArray());
+
+            //var book = GenerateData.BookRat();
+            //book.Owner = admin;
+            ////var tower = GenerateData.BookTower(stateTypes);
+            //context.Books.AddOrUpdate(x => x.Name, book);
+
         }
     }
 }

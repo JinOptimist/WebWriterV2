@@ -6,9 +6,9 @@ namespace Dao.Model
     public class StateValue : BaseModel
     {
         [Required]
-        public StateType StateType { get; set; }
+        public virtual StateType StateType { get; set; }
 
-        public Hero Hero { get; set; }
+        public virtual Hero Hero { get; set; }
 
         public long? Value { get; set; }
     }

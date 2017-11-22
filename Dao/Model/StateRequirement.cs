@@ -5,10 +5,10 @@ namespace Dao.Model
     public class StateRequirement : BaseModel
     {
         [Required]
-        public virtual StateType StateType { get; set; }
+        public RequirementType RequirementType { get; set; }
 
         [Required]
-        public RequirementType RequirementType { get; set; }
+        public virtual StateType StateType { get; set; }
 
         public virtual ChapterLinkItem Chapter { get; set; }
 

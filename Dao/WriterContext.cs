@@ -13,6 +13,21 @@ namespace Dao
             //Configuration.LazyLoadingEnabled = true;
         }
 
+        /* Main entities */
+        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<Book> Books { get; set; }
+        public virtual DbSet<Chapter> Chapters { get; set; }
+        public virtual DbSet<ChapterLinkItem> ChapterLinkItems { get; set; }
+        /* State entities */
+        public virtual DbSet<StateChange> StateChanges { get; set; }
+        public virtual DbSet<StateRequirement> StateRequirements { get; set; }
+        public virtual DbSet<StateValue> StateValues { get; set; }
+        public virtual DbSet<StateType> StateTypes { get; set; }
+        /* Custom entities */
+        public virtual DbSet<Hero> Heros { get; set; }
+        public virtual DbSet<Evaluation> Evaluations { get; set; }
+        public virtual DbSet<Genre> Genres { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -31,24 +46,17 @@ namespace Dao
             modelBuilder.Entity<Book>().HasOptional(x => x.Genre).WithMany(x => x.Books);
             modelBuilder.Entity<Book>().HasMany(x => x.Readers).WithRequired(x => x.Book);
 
-            modelBuilder.Entity<Chapter>().HasMany(x => x.LinksFromThisChapter).WithRequired(x => x.From);
+            modelBuilder.Entity<Chapter>().HasMany(x => x.LinksFromThisChapter).WithRequired(x => x.From).WillCascadeOnDelete(false);
             modelBuilder.Entity<Chapter>().HasMany(x => x.LinksToThisChapter).WithRequired(x => x.To);
 
             modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.RequirementStates).WithOptional(x => x.Chapter);
             modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.HeroStatesChanging).WithOptional(x => x.Chapter);
 
-            modelBuilder.Entity<StateChange>().HasRequired(x => x.StateType).WithMany();
-            modelBuilder.Entity<StateRequirement>().HasRequired(x => x.StateType).WithMany();
+            modelBuilder.Entity<StateType>().HasMany(x => x.Changes).WithRequired(x=>x.StateType);
+            modelBuilder.Entity<StateType>().HasMany(x => x.Requirements).WithRequired(x => x.StateType);
+            modelBuilder.Entity<StateType>().HasMany(x => x.Values).WithRequired(x => x.StateType);
 
-            //TODO Manual remove state for SelfChanging
             //.WillCascadeOnDelete(true);
-            //modelBuilder.Entity<ThingSample>().HasMany(u => u.PassiveStates).WithOptional();
-            //modelBuilder.Entity<ThingSample>().HasMany(u => u.UsingEffectState).WithOptional();
-
-            //modelBuilder.Entity<Thing>().HasOptional(u => u.ThingSample).WithMany();
-            //modelBuilder.Entity<Thing>().HasOptional(u => u.Hero).WithMany(x => x.Inventory);
-
-            //modelBuilder.Entity<StateValue>().HasOptional(u => u.StateType).WithMany();
         }
 
         public static void SetInitializer()

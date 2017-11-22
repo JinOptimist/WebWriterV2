@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dao.Model;
+using Dao.DataGeneration;
 
 namespace WebWriterV2.RpgUtility
 {
@@ -15,9 +16,6 @@ namespace WebWriterV2.RpgUtility
             var maxMp = stateTypes.First(x => x.Name == GenerateData.MaxMp);
 
             //var gold = stateTypes.First(x => x.Name == GenerateData.Gold);
-            var dodge = stateTypes.First(x => x.Name == GenerateData.Dodge);
-            var armor = stateTypes.First(x => x.Name == GenerateData.Armor);
-            var damage = stateTypes.First(x => x.Name == GenerateData.Damage);
 
             /* Set zeroes */
             hero.State = stateTypes.Select(stateType => new StateValue { StateType = stateType, Value = 0 }).ToList();

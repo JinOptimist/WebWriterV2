@@ -27,8 +27,6 @@ namespace Dao.Migrations
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
-                        Background = c.String(),
                         TimeCreation = c.DateTime(nullable: false),
                         LastChanges = c.DateTime(nullable: false),
                         CurrentChapter_Id = c.Long(),
@@ -122,47 +120,30 @@ namespace Dao.Migrations
                     {
                         Id = c.Long(nullable: false, identity: true),
                         Text = c.String(nullable: false),
-                        From_Id = c.Long(),
-                        To_Id = c.Long(),
-                        Chapter_Id = c.Long(),
-                        Chapter_Id1 = c.Long(),
+                        From_Id = c.Long(nullable: false),
+                        To_Id = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Chapter", t => t.From_Id)
-                .ForeignKey("dbo.Chapter", t => t.To_Id)
-                .ForeignKey("dbo.Chapter", t => t.Chapter_Id)
-                .ForeignKey("dbo.Chapter", t => t.Chapter_Id1)
+                .ForeignKey("dbo.Chapter", t => t.To_Id, cascadeDelete: true)
                 .Index(t => t.From_Id)
-                .Index(t => t.To_Id)
-                .Index(t => t.Chapter_Id)
-                .Index(t => t.Chapter_Id1);
+                .Index(t => t.To_Id);
             
             CreateTable(
-                "dbo.StateValue",
+                "dbo.StateChange",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        Value = c.Long(),
-                        Hero_Id = c.Long(),
+                        ChangeType = c.Int(nullable: false),
+                        Number = c.Long(),
                         StateType_Id = c.Long(nullable: false),
-                        ChapterLinkItem_Id = c.Long(),
-                        ChapterLinkItem_Id1 = c.Long(),
-                        ThingSample_Id = c.Long(),
-                        ThingSample_Id1 = c.Long(),
+                        Chapter_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Hero", t => t.Hero_Id)
                 .ForeignKey("dbo.StateType", t => t.StateType_Id, cascadeDelete: true)
-                .ForeignKey("dbo.ChapterLinkItem", t => t.ChapterLinkItem_Id)
-                .ForeignKey("dbo.ChapterLinkItem", t => t.ChapterLinkItem_Id1)
-                .ForeignKey("dbo.ThingSample", t => t.ThingSample_Id)
-                .ForeignKey("dbo.ThingSample", t => t.ThingSample_Id1)
-                .Index(t => t.Hero_Id)
+                .ForeignKey("dbo.ChapterLinkItem", t => t.Chapter_Id)
                 .Index(t => t.StateType_Id)
-                .Index(t => t.ChapterLinkItem_Id)
-                .Index(t => t.ChapterLinkItem_Id1)
-                .Index(t => t.ThingSample_Id)
-                .Index(t => t.ThingSample_Id1);
+                .Index(t => t.Chapter_Id);
             
             CreateTable(
                 "dbo.StateType",
@@ -180,41 +161,35 @@ namespace Dao.Migrations
                 .Index(t => t.Owner_Id);
             
             CreateTable(
-                "dbo.Thing",
+                "dbo.StateRequirement",
                 c => new
                     {
                         Id = c.Long(nullable: false, identity: true),
-                        ItemInUse = c.Boolean(nullable: false),
-                        Count = c.Int(nullable: false),
-                        RequirementType = c.Int(),
+                        RequirementType = c.Int(nullable: false),
+                        Number = c.Long(),
+                        StateType_Id = c.Long(nullable: false),
+                        Chapter_Id = c.Long(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.StateType", t => t.StateType_Id, cascadeDelete: true)
+                .ForeignKey("dbo.ChapterLinkItem", t => t.Chapter_Id)
+                .Index(t => t.StateType_Id)
+                .Index(t => t.Chapter_Id);
+            
+            CreateTable(
+                "dbo.StateValue",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Value = c.Long(),
                         Hero_Id = c.Long(),
-                        ThingSample_Id = c.Long(),
-                        ChapterLinkItem_Id = c.Long(),
-                        ChapterLinkItem_Id1 = c.Long(),
+                        StateType_Id = c.Long(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Hero", t => t.Hero_Id)
-                .ForeignKey("dbo.ThingSample", t => t.ThingSample_Id)
-                .ForeignKey("dbo.ChapterLinkItem", t => t.ChapterLinkItem_Id)
-                .ForeignKey("dbo.ChapterLinkItem", t => t.ChapterLinkItem_Id1)
+                .ForeignKey("dbo.StateType", t => t.StateType_Id, cascadeDelete: true)
                 .Index(t => t.Hero_Id)
-                .Index(t => t.ThingSample_Id)
-                .Index(t => t.ChapterLinkItem_Id)
-                .Index(t => t.ChapterLinkItem_Id1);
-            
-            CreateTable(
-                "dbo.ThingSample",
-                c => new
-                    {
-                        Id = c.Long(nullable: false, identity: true),
-                        Name = c.String(nullable: false),
-                        Desc = c.String(),
-                        IsUsed = c.Boolean(nullable: false),
-                        Owner_Id = c.Long(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.User", t => t.Owner_Id)
-                .Index(t => t.Owner_Id);
+                .Index(t => t.StateType_Id);
             
         }
         
@@ -226,41 +201,27 @@ namespace Dao.Migrations
             DropForeignKey("dbo.Book", "Owner_Id", "dbo.User");
             DropForeignKey("dbo.Hero", "Owner_Id", "dbo.User");
             DropForeignKey("dbo.Hero", "CurrentChapter_Id", "dbo.Chapter");
-            DropForeignKey("dbo.ChapterLinkItem", "Chapter_Id1", "dbo.Chapter");
-            DropForeignKey("dbo.ChapterLinkItem", "Chapter_Id", "dbo.Chapter");
             DropForeignKey("dbo.ChapterLinkItem", "To_Id", "dbo.Chapter");
-            DropForeignKey("dbo.Thing", "ChapterLinkItem_Id1", "dbo.ChapterLinkItem");
-            DropForeignKey("dbo.Thing", "ChapterLinkItem_Id", "dbo.ChapterLinkItem");
-            DropForeignKey("dbo.Thing", "ThingSample_Id", "dbo.ThingSample");
-            DropForeignKey("dbo.StateValue", "ThingSample_Id1", "dbo.ThingSample");
-            DropForeignKey("dbo.StateValue", "ThingSample_Id", "dbo.ThingSample");
-            DropForeignKey("dbo.ThingSample", "Owner_Id", "dbo.User");
-            DropForeignKey("dbo.Thing", "Hero_Id", "dbo.Hero");
-            DropForeignKey("dbo.StateValue", "ChapterLinkItem_Id1", "dbo.ChapterLinkItem");
-            DropForeignKey("dbo.StateValue", "ChapterLinkItem_Id", "dbo.ChapterLinkItem");
+            DropForeignKey("dbo.ChapterLinkItem", "From_Id", "dbo.Chapter");
+            DropForeignKey("dbo.StateRequirement", "Chapter_Id", "dbo.ChapterLinkItem");
+            DropForeignKey("dbo.StateChange", "Chapter_Id", "dbo.ChapterLinkItem");
             DropForeignKey("dbo.StateValue", "StateType_Id", "dbo.StateType");
             DropForeignKey("dbo.StateValue", "Hero_Id", "dbo.Hero");
-            DropForeignKey("dbo.ChapterLinkItem", "From_Id", "dbo.Chapter");
+            DropForeignKey("dbo.StateRequirement", "StateType_Id", "dbo.StateType");
+            DropForeignKey("dbo.StateChange", "StateType_Id", "dbo.StateType");
             DropForeignKey("dbo.Chapter", "Id", "dbo.Book");
             DropForeignKey("dbo.UserWhoReadBook", "Book_Id", "dbo.Book");
             DropForeignKey("dbo.Book", "Genre_Id", "dbo.Genre");
             DropForeignKey("dbo.Evaluation", "Book_Id", "dbo.Book");
             DropForeignKey("dbo.Chapter", "Book_Id", "dbo.Book");
-            DropIndex("dbo.ThingSample", new[] { "Owner_Id" });
-            DropIndex("dbo.Thing", new[] { "ChapterLinkItem_Id1" });
-            DropIndex("dbo.Thing", new[] { "ChapterLinkItem_Id" });
-            DropIndex("dbo.Thing", new[] { "ThingSample_Id" });
-            DropIndex("dbo.Thing", new[] { "Hero_Id" });
-            DropIndex("dbo.StateType", new[] { "Owner_Id" });
-            DropIndex("dbo.StateType", new[] { "Name" });
-            DropIndex("dbo.StateValue", new[] { "ThingSample_Id1" });
-            DropIndex("dbo.StateValue", new[] { "ThingSample_Id" });
-            DropIndex("dbo.StateValue", new[] { "ChapterLinkItem_Id1" });
-            DropIndex("dbo.StateValue", new[] { "ChapterLinkItem_Id" });
             DropIndex("dbo.StateValue", new[] { "StateType_Id" });
             DropIndex("dbo.StateValue", new[] { "Hero_Id" });
-            DropIndex("dbo.ChapterLinkItem", new[] { "Chapter_Id1" });
-            DropIndex("dbo.ChapterLinkItem", new[] { "Chapter_Id" });
+            DropIndex("dbo.StateRequirement", new[] { "Chapter_Id" });
+            DropIndex("dbo.StateRequirement", new[] { "StateType_Id" });
+            DropIndex("dbo.StateType", new[] { "Owner_Id" });
+            DropIndex("dbo.StateType", new[] { "Name" });
+            DropIndex("dbo.StateChange", new[] { "Chapter_Id" });
+            DropIndex("dbo.StateChange", new[] { "StateType_Id" });
             DropIndex("dbo.ChapterLinkItem", new[] { "To_Id" });
             DropIndex("dbo.ChapterLinkItem", new[] { "From_Id" });
             DropIndex("dbo.UserWhoReadBook", new[] { "User_Id" });
@@ -274,10 +235,10 @@ namespace Dao.Migrations
             DropIndex("dbo.Hero", new[] { "Owner_Id" });
             DropIndex("dbo.Hero", new[] { "CurrentChapter_Id" });
             DropIndex("dbo.User", new[] { "Name" });
-            DropTable("dbo.ThingSample");
-            DropTable("dbo.Thing");
-            DropTable("dbo.StateType");
             DropTable("dbo.StateValue");
+            DropTable("dbo.StateRequirement");
+            DropTable("dbo.StateType");
+            DropTable("dbo.StateChange");
             DropTable("dbo.ChapterLinkItem");
             DropTable("dbo.UserWhoReadBook");
             DropTable("dbo.Genre");

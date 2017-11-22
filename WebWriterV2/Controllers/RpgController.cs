@@ -17,6 +17,7 @@ using System.IO;
 using System.Text;
 using WebWriterV2.RpgUtility.Dto;
 using WebWriterV2.DI;
+using Dao.DataGeneration;
 
 namespace WebWriterV2.Controllers
 {
@@ -167,7 +168,6 @@ namespace WebWriterV2.Controllers
 
             hero.Owner = user;
             hero.CurrentChapter = currentEvent;
-            hero.Name = hero.Name ?? "Just a Hero";
 
             HeroRepository.Save(hero);
 
@@ -783,137 +783,137 @@ namespace WebWriterV2.Controllers
         }
 
         /* ************** Init Db ************** */
-        public JsonResult AddDefaultState()
-        {
-            var stateTypes = StateTypeRepository.GetAll();
-            var stateTypeForAdding = new List<StateType>();
-            var lifeStateType = new StateType {
-                Name = "Жизни",
-                Desc = "Закончаться жизни и вашему путешествию придёт конец"
-            };
-            var timeStateType = new StateType {
-                Name = "Время",
-                Desc = "Время всегда на исходе"
-            };
-            var hpStateType = new StateType {
-                Name = "Здоровье",
-                Desc = "Закончиться здоровье и ты труп"
-            };
+        //public JsonResult AddDefaultState()
+        //{
+        //    var stateTypes = StateTypeRepository.GetAll();
+        //    var stateTypeForAdding = new List<StateType>();
+        //    var lifeStateType = new StateType {
+        //        Name = "Жизни",
+        //        Desc = "Закончаться жизни и вашему путешествию придёт конец"
+        //    };
+        //    var timeStateType = new StateType {
+        //        Name = "Время",
+        //        Desc = "Время всегда на исходе"
+        //    };
+        //    var hpStateType = new StateType {
+        //        Name = "Здоровье",
+        //        Desc = "Закончиться здоровье и ты труп"
+        //    };
 
-            if (stateTypes.All(x => x.Name != lifeStateType.Name)) {
-                stateTypeForAdding.Add(lifeStateType);
-            }
-            if (stateTypes.All(x => x.Name != timeStateType.Name)) {
-                stateTypeForAdding.Add(timeStateType);
-            }
-            if (stateTypes.All(x => x.Name != hpStateType.Name)) {
-                stateTypeForAdding.Add(hpStateType);
-            }
+        //    if (stateTypes.All(x => x.Name != lifeStateType.Name)) {
+        //        stateTypeForAdding.Add(lifeStateType);
+        //    }
+        //    if (stateTypes.All(x => x.Name != timeStateType.Name)) {
+        //        stateTypeForAdding.Add(timeStateType);
+        //    }
+        //    if (stateTypes.All(x => x.Name != hpStateType.Name)) {
+        //        stateTypeForAdding.Add(hpStateType);
+        //    }
 
-            if (stateTypeForAdding.Any()) {
-                StateTypeRepository.Save(stateTypeForAdding);
-            }
+        //    if (stateTypeForAdding.Any()) {
+        //        StateTypeRepository.Save(stateTypeForAdding);
+        //    }
 
-            return Json(stateTypeForAdding.Any(), JsonRequestBehavior.AllowGet);
-        }
+        //    return Json(stateTypeForAdding.Any(), JsonRequestBehavior.AllowGet);
+        //}
 
-        public JsonResult Init()
-        {
-            /* Создаём StateType */
-            var stateTypes = StateTypeRepository.GetAll();
-            if (!stateTypes.Any()) {
-                stateTypes = GenerateData.GenerateStateTypes();
-                StateTypeRepository.Save(stateTypes);
-            }
+        //public JsonResult Init()
+        //{
+        //    /* Создаём StateType */
+        //    var stateTypes = StateTypeRepository.GetAll();
+        //    if (!stateTypes.Any()) {
+        //        stateTypes = GenerateData.GenerateStateTypes();
+        //        StateTypeRepository.Save(stateTypes);
+        //    }
 
-            /* Создаём Квесты. Чистый без евентов */
-            var books = BookRepository.GetAll(false);
-            if (!books.Any()) {
-                var book1 = GenerateData.BookRat();
-                BookRepository.Save(book1);
+        //    /* Создаём Квесты. Чистый без евентов */
+        //    var books = BookRepository.GetAll(false);
+        //    if (!books.Any()) {
+        //        var book1 = GenerateData.BookRat();
+        //        BookRepository.Save(book1);
 
-                var book2 = GenerateData.BookTower(stateTypes);
-                BookRepository.Save(book2);
-            }
+        //        var book2 = GenerateData.BookTower(stateTypes);
+        //        BookRepository.Save(book2);
+        //    }
 
-            // Создаём Евенты с текстом но без связей
-            //var events = EventRepository.GetAll();
-            //if (!events.Any())
-            //{
-            //    events = GenerateData.GenerateEventsForBook(quest);
-            //    foreach (var eve in events)
-            //    {
-            //        EventRepository.Save(eve);
-            //    }
-            //}
+        //    // Создаём Евенты с текстом но без связей
+        //    //var events = EventRepository.GetAll();
+        //    //if (!events.Any())
+        //    //{
+        //    //    events = GenerateData.GenerateEventsForBook(quest);
+        //    //    foreach (var eve in events)
+        //    //    {
+        //    //        EventRepository.Save(eve);
+        //    //    }
+        //    //}
 
-            // Создаём связи между Евентами
-            //var eventLinkItemsDb = EventLinkItemRepository.GetAll();
-            //if (!eventLinkItemsDb.Any())
-            //{
-            //    foreach (var currentEvent in events)
-            //    {
-            //        var eventLinkItems = GenerateData.CreateConnectionForEvents(events, currentEvent);
-            //        if (eventLinkItems != null)
-            //            EventLinkItemRepository.Save(eventLinkItems);
-            //    }
-            //}
+        //    // Создаём связи между Евентами
+        //    //var eventLinkItemsDb = EventLinkItemRepository.GetAll();
+        //    //if (!eventLinkItemsDb.Any())
+        //    //{
+        //    //    foreach (var currentEvent in events)
+        //    //    {
+        //    //        var eventLinkItems = GenerateData.CreateConnectionForEvents(events, currentEvent);
+        //    //        if (eventLinkItems != null)
+        //    //            EventLinkItemRepository.Save(eventLinkItems);
+        //    //    }
+        //    //}
 
-            var answer = new {
-                books = books.Any() ? "Уже существует" : "Добавили",
-                //eventLinkItemsDb = eventLinkItemsDb.Any() ? "Уже существует" : "Добавили",
-            };
+        //    var answer = new {
+        //        books = books.Any() ? "Уже существует" : "Добавили",
+        //        //eventLinkItemsDb = eventLinkItemsDb.Any() ? "Уже существует" : "Добавили",
+        //    };
 
-            return new JsonResult {
-                Data = answer,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
+        //    return new JsonResult {
+        //        Data = answer,
+        //        JsonRequestBehavior = JsonRequestBehavior.AllowGet
+        //    };
+        //}
 
-        public JsonResult ReInit()
-        {
-            if (User.UserType != UserType.Admin) {
-                throw new Exception("You haven't permission to rebuild whole db");
-            }
+        //public JsonResult ReInit()
+        //{
+        //    if (User.UserType != UserType.Admin) {
+        //        throw new Exception("You haven't permission to rebuild whole db");
+        //    }
 
-            var states = StateRepository.GetAll();
-            StateRepository.Remove(states);
+        //    var states = StateRepository.GetAll();
+        //    StateRepository.Remove(states);
 
-            var heroes = HeroRepository.GetAll();
-            HeroRepository.Remove(heroes);
+        //    var heroes = HeroRepository.GetAll();
+        //    HeroRepository.Remove(heroes);
 
-            var links = EventLinkItemRepository.GetAll();
-            EventLinkItemRepository.Remove(links);
+        //    var links = EventLinkItemRepository.GetAll();
+        //    EventLinkItemRepository.Remove(links);
 
-            var events = EventRepository.GetAll();
-            EventRepository.Remove(events);
+        //    var events = EventRepository.GetAll();
+        //    EventRepository.Remove(events);
 
-            var books = BookRepository.GetAll(false);
-            BookRepository.Remove(books);
+        //    var books = BookRepository.GetAll(false);
+        //    BookRepository.Remove(books);
 
-            var stateTypes = StateTypeRepository.GetAll();
-            StateTypeRepository.Remove(stateTypes);
+        //    var stateTypes = StateTypeRepository.GetAll();
+        //    StateTypeRepository.Remove(stateTypes);
 
-            return Init();
-        }
+        //    return Init();
+        //}
 
-        public JsonResult AddAdminUser()
-        {
-            var user = UserRepository.GetByName(AdminName);
-            if (user == null) {
-                user = new User {
-                    Name = AdminName,
-                    Password = AdminPassword,
-                    UserType = UserType.Admin
-                };
-                user = UserRepository.Save(user);
-            }
-            if (user.UserType != UserType.Admin) {
-                user.UserType = UserType.Admin;
-                UserRepository.Save(user);
-            }
-            return Json(true, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult AddAdminUser()
+        //{
+        //    var user = UserRepository.GetByName(AdminName);
+        //    if (user == null) {
+        //        user = new User {
+        //            Name = AdminName,
+        //            Password = AdminPassword,
+        //            UserType = UserType.Admin
+        //        };
+        //        user = UserRepository.Save(user);
+        //    }
+        //    if (user.UserType != UserType.Admin) {
+        //        user.UserType = UserType.Admin;
+        //        UserRepository.Save(user);
+        //    }
+        //    return Json(true, JsonRequestBehavior.AllowGet);
+        //}
 
         public JsonResult GetAllUsers()
         {

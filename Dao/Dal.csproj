@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextForRepository.cs" />
+    <Compile Include="DataGeneration\GenerateData.cs" />
     <Compile Include="IRepository\IBaseRepository.cs" />
     <Compile Include="IRepository\IChapterRepository.cs" />
     <Compile Include="IRepository\IChapterLinkItemRepository.cs" />
@@ -75,9 +76,9 @@
     <Compile Include="IRepository\IStateValueRepository.cs" />
     <Compile Include="IRepository\IHeroRepository.cs" />
     <Compile Include="IRepository\IBookRepository.cs" />
-    <Compile Include="Migrations\201711221125359_WebWriterInitV3.cs" />
-    <Compile Include="Migrations\201711221125359_WebWriterInitV3.Designer.cs">
-      <DependentUpon>201711221125359_WebWriterInitV3.cs</DependentUpon>
+    <Compile Include="Migrations\201711221236502_WebWriterInitV3.cs" />
+    <Compile Include="Migrations\201711221236502_WebWriterInitV3.Designer.cs">
+      <DependentUpon>201711221236502_WebWriterInitV3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
@@ -117,8 +118,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711221125359_WebWriterInitV3.resx">
-      <DependentUpon>201711221125359_WebWriterInitV3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711221236502_WebWriterInitV3.resx">
+      <DependentUpon>201711221236502_WebWriterInitV3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

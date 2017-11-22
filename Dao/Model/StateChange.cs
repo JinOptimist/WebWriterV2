@@ -5,10 +5,10 @@ namespace Dao.Model
     public class StateChange : BaseModel
     {
         [Required]
-        public virtual StateType StateType { get; set; }
+        public ChangeType ChangeType { get; set; }
 
         [Required]
-        public ChangeType ChangeType { get; set; }
+        public virtual StateType StateType { get; set; }
 
         public virtual ChapterLinkItem Chapter { get; set; }
 

@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using Dao.Model;
-//using WebWriterV2.Models.rpg;
-using WebWriterV2.RpgUtility;
 
-namespace WebWriterV2.RpgUtility
+namespace Dao.DataGeneration
 {
     public static class GenerateData
     {
@@ -14,9 +11,6 @@ namespace WebWriterV2.RpgUtility
         public const string MaxHp = "MaxHp";
         public const string Mp = "Mp";
         public const string MaxMp = "MaxMp";
-        public const string Dodge = "Dodge";
-        public const string Damage = "Damage";
-        public const string Armor = "Armor";
 
         public const string Gold = "Gold";
 
@@ -336,23 +330,35 @@ namespace WebWriterV2.RpgUtility
 
             stateTypes.Add(new StateType
             {
-                Name = Dodge,
-                Desc = "Борис хрен попадёшь, на всегда останеться недостижимым идеалом",
+                Name = Gold,
+                Desc = "Все любят золото, однако некоторые просто сходят по нему с ума",
             });
 
-            stateTypes.Add(new StateType
-            {
-                Name = Damage,
-                Desc = "Урон за удар. Интересно какой параметр у ВанПанчмента?",
+            stateTypes.Add(new StateType {
+                Name = Strength,
+                Desc = "Сила есть ума не надо",
             });
-
-            stateTypes.Add(new StateType
-            {
-                Name = Armor,
-                Desc = "Вот попробуй пробить закованного в полный доспех парня",
+            stateTypes.Add(new StateType {
+                Name = Agility,
+                Desc = "А ты сможешь удержать яйцо на иголке?",
+            });
+            stateTypes.Add(new StateType {
+                Name = Charism,
+                Desc = "Красота страшная сила",
             });
 
             return stateTypes;
+        }
+
+        public static User GenerateAdmin()
+        {
+            return new User {
+                Id = 1,
+                Name = "admin",
+                Password = "admin",
+                Email = "88jin@mail.ru",
+                UserType = UserType.Admin
+            };
         }
 
         public static Hero GetDefaultHero(List<StateType> stateTypes)

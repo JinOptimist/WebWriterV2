@@ -6,11 +6,6 @@ namespace Dao.Model
 {
     public class Hero : BaseModel
     {
-        [Required]
-        public string Name { get; set; }
-
-        public string Background { get; set; }
-
         public virtual List<StateValue> State { get; set; }
 
         public virtual Chapter CurrentChapter { get; set; }

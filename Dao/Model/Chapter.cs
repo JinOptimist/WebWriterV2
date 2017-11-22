@@ -40,5 +40,46 @@ namespace Dao.Model
             ForRootBook = model.ForRootBook;
             NumberOfWords = model.NumberOfWords;
         }
+
+        public void AddChildEvent(Chapter addedEvent, string text = null)
+        {
+            ConnecteEvent(this, addedEvent, text);
+        }
+
+        public void AddParentEvent(Chapter addedEvent, string text = null)
+        {
+            ConnecteEvent(addedEvent, this, text);
+        }
+
+        public void AddChildrenEvents(params Chapter[] childrenEvents)
+        {
+            foreach (var childEvent in childrenEvents) {
+                ConnecteEvent(this, childEvent);
+            }
+        }
+
+        public void AddParentsEvents(string text = null, params Chapter[] parentsEvents)
+        {
+            foreach (var parentEvent in parentsEvents) {
+                ConnecteEvent(parentEvent, this, text);
+            }
+        }
+
+        private void ConnecteEvent(Chapter parentEvent, Chapter childEvent, string text = null)
+        {
+            if (parentEvent.LinksFromThisChapter == null)
+                parentEvent.LinksFromThisChapter = new List<ChapterLinkItem>();
+            if (childEvent.LinksToThisChapter == null)
+                childEvent.LinksToThisChapter = new List<ChapterLinkItem>();
+
+            var eventLinkItem = new ChapterLinkItem {
+                From = parentEvent,
+                To = childEvent,
+                Text = text ?? childEvent.Name
+            };
+
+            parentEvent.LinksFromThisChapter.Add(eventLinkItem);
+            childEvent.LinksToThisChapter.Add(eventLinkItem);
+        }
     }
 }
