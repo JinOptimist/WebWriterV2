@@ -5,13 +5,13 @@ using Dao.Model;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontEventLinkItem : BaseFront<ChapterLinkItem>
+    public class FrontChapterLinkItem : BaseFront<ChapterLinkItem>
     {
-        public FrontEventLinkItem()
+        public FrontChapterLinkItem()
         {
         }
 
-        public FrontEventLinkItem(ChapterLinkItem eventLinkItemDb)
+        public FrontChapterLinkItem(ChapterLinkItem eventLinkItemDb)
         {
             Id = eventLinkItemDb.Id;
             Text = eventLinkItemDb.Text;

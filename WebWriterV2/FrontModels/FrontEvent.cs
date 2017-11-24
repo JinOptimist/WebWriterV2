@@ -4,27 +4,27 @@ using System.Linq;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontEvent : BaseFront<Chapter>
+    public class FrontChapter : BaseFront<Chapter>
     {
-        public FrontEvent()
+        public FrontChapter()
         {
         }
 
-        public FrontEvent(Chapter eventDb)
+        public FrontChapter(Chapter eventDb)
         {
             Id = eventDb.Id;
             Name = eventDb.Name;
             Desc = eventDb.Desc;
-            LinksFromThisEvent = eventDb.LinksFromThisChapter?.Select(x => new FrontEventLinkItem(x)).ToList();
-            LinksToThisEvent = eventDb.LinksToThisChapter?.Select(x => new FrontEventLinkItem(x)).ToList();
+            LinksFromThisEvent = eventDb.LinksFromThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
+            LinksToThisEvent = eventDb.LinksToThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
 
             BookId = eventDb.Book.Id;
         }
 
         public string Name { get; set; }
         public string Desc { get; set; }
-        public List<FrontEventLinkItem> LinksFromThisEvent { get; set; }
-        public List<FrontEventLinkItem> LinksToThisEvent { get; set; }
+        public List<FrontChapterLinkItem> LinksFromThisEvent { get; set; }
+        public List<FrontChapterLinkItem> LinksToThisEvent { get; set; }
         
 
         public long BookId { get; set; }

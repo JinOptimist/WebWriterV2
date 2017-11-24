@@ -325,7 +325,7 @@
             function chooseEventOnClientSide(eventId, isBookmark) {
                 $scope.wait = true;
                 eventService.getEventForTravelWithHero(eventId, $scope.hero, !isBookmark).then(function (result) {
-                    var event = result.frontEvent;
+                    var event = result.frontChapter;
                     $scope.hero = result.frontHero;
 
                     $scope.ways = event.LinksFromThisEvent;

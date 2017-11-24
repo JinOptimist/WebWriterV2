@@ -458,9 +458,9 @@ namespace WebWriterV2.Controllers
         public JsonResult GetEndingEvents(long bookId)
         {
             var events = EventRepository.GetEndingEvents(bookId);
-            var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
+            var frontChapters = events.Select(x => new FrontChapter(x)).ToList();
             return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontEvents),
+                Data = JsonConvert.SerializeObject(frontChapters),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -468,9 +468,9 @@ namespace WebWriterV2.Controllers
         public JsonResult GetNotAvailableEvents(long bookId)
         {
             var events = EventRepository.GetNotAvailableEvents(bookId);
-            var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
+            var frontChapters = events.Select(x => new FrontChapter(x)).ToList();
             return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontEvents),
+                Data = JsonConvert.SerializeObject(frontChapters),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -478,9 +478,9 @@ namespace WebWriterV2.Controllers
         public JsonResult GetEvents(long bookId)
         {
             var events = EventRepository.GetAllEventsByBook(bookId);
-            var frontEvents = events.Select(x => new FrontEvent(x)).ToList();
+            var frontChapters = events.Select(x => new FrontChapter(x)).ToList();
             return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontEvents),
+                Data = JsonConvert.SerializeObject(frontChapters),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -488,11 +488,11 @@ namespace WebWriterV2.Controllers
         public JsonResult GetEvent(long id)
         {
             var eventFromDb = EventRepository.Get(id);
-            var frontEvent = eventFromDb == null
+            var frontChapter = eventFromDb == null
                 ? null
-                : new FrontEvent(eventFromDb);
+                : new FrontChapter(eventFromDb);
             return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontEvent),
+                Data = JsonConvert.SerializeObject(frontChapter),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -502,9 +502,9 @@ namespace WebWriterV2.Controllers
             var eventDb = EventRepository.Get(eventId);
             var hero = HeroRepository.Get(heroId);
             eventDb.LinksFromThisChapter.FilterLink(hero);
-            var frontEvent = new FrontEvent(eventDb);
+            var frontChapter = new FrontChapter(eventDb);
             return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontEvent),
+                Data = JsonConvert.SerializeObject(frontChapter),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -522,10 +522,10 @@ namespace WebWriterV2.Controllers
 
             chapterLinkItem.To.LinksFromThisChapter.FilterLink(hero);
 
-            var frontEvent = new FrontEvent(chapterLinkItem.To);
+            var frontChapter = new FrontChapter(chapterLinkItem.To);
             frontHero = new FrontHero(hero);
             return new JsonResult {
-                Data = JsonConvert.SerializeObject(new { frontEvent, frontHero }),
+                Data = JsonConvert.SerializeObject(new { frontChapter, frontHero }),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -547,8 +547,8 @@ namespace WebWriterV2.Controllers
 
         public JsonResult SaveEvent(string jsonEvent, long bookId)
         {
-            var frontEvent = SerializeHelper.Deserialize<FrontEvent>(jsonEvent);
-            var eventModel = frontEvent.ToDbModel();
+            var frontChapter = SerializeHelper.Deserialize<FrontChapter>(jsonEvent);
+            var eventModel = frontChapter.ToDbModel();
             var book = BookRepository.Get(bookId);
             eventModel.Book = book;
 
@@ -567,22 +567,22 @@ namespace WebWriterV2.Controllers
             book.NumberOfWords = book.NumberOfWords - oldNumberOfWords + eventModel.NumberOfWords;
             BookRepository.Save(book);
 
-            var frontEvents = new FrontEvent(eventFromDb);
+            var frontChapters = new FrontChapter(eventFromDb);
             return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontEvents),
+                Data = JsonConvert.SerializeObject(frontChapters),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
 
         public JsonResult SaveEventLink(string jsonEventLink)
         {
-            var frontEvent = SerializeHelper.Deserialize<FrontEventLinkItem>(jsonEventLink);
-            var eventLinkItem = frontEvent.ToDbModel();
+            var frontChapter = SerializeHelper.Deserialize<FrontChapterLinkItem>(jsonEventLink);
+            var eventLinkItem = frontChapter.ToDbModel();
 
             var linkItemFromDb = EventLinkItemRepository.Save(eventLinkItem);
-            var frontEvents = new FrontEventLinkItem(linkItemFromDb);
+            var frontChapters = new FrontChapterLinkItem(linkItemFromDb);
             return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontEvents),
+                Data = JsonConvert.SerializeObject(frontChapters),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -777,9 +777,9 @@ namespace WebWriterV2.Controllers
             };
             EventLinkItemRepository.Save(eventLinkItem);
 
-            var frontEvent = new FrontEvent(childEvent);
+            var frontChapter = new FrontChapter(childEvent);
 
-            return Json(frontEvent, JsonRequestBehavior.AllowGet);
+            return Json(frontChapter, JsonRequestBehavior.AllowGet);
         }
 
         /* ************** Init Db ************** */

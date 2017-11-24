@@ -65,6 +65,7 @@ namespace WebWriterV2.Controllers
         }
 
         //TODO
+        [AcceptVerbs("GET")]
         public FrontBook SaveBook(FrontBook jsonBook)
         {
             //var frontBook = SerializeHelper.Deserialize<FrontBook>(jsonBook);
@@ -145,16 +146,16 @@ namespace WebWriterV2.Controllers
             return book.Id;
         }
 
-        public FrontEvent ChangeRootEvent(long bookId, long eventId)
+        public FrontChapter ChangeRootEvent(long bookId, long eventId)
         {
             var book = BookRepository.Get(bookId);
             var @event = EventRepository.Get(eventId);
             book.RootChapter = @event;
             BookRepository.Save(book);
 
-            var frontEvent = new FrontEvent(@event);
+            var frontChapter = new FrontChapter(@event);
 
-            return frontEvent;
+            return frontChapter;
         }
 
         [AcceptVerbs("GET")]

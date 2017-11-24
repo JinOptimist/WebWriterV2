@@ -14,21 +14,18 @@ namespace Dao.DataGeneration
 
         public const string Gold = "Gold";
 
-        public const string Sword = "Меч";
-        public const string ArmorBra = "Броне лифчик";
-        public const string HealingPotion = "Лечебное зелье";
+        //public const string ArmorBra = "Броне лифчик";
 
         public const string Strength = "Сила";
         public const string Agility = "Ловкость";
         public const string Charism = "Красота";
 
-        public const string SchoolBaseSkillName = "Базовые умения";
-        public const string SchoolColdSkillName = "Школа льда";
-        public const string SchoolFireSkillName = "Школа пламени";
-        public const string SchoolNiceSkillName = "Соблазнения";
-
-        public const string FireBall = "Fire ball";
-        public const string EvasionSkill = "Уворот";
+        public readonly static List<string> ganres = new List<string> {
+            "трагедия",
+            "драма",
+            "комедия",
+            "фантастика",
+            "детектив" };
 
         public static Book BookRat()
         {
@@ -348,6 +345,15 @@ namespace Dao.DataGeneration
             });
 
             return stateTypes;
+        }
+
+        public static List<Genre> GenerateGenres()
+        {
+            var genres = ganres.Select(x => new Genre {
+                Name = x,
+                Desc = x
+            });
+            return genres.ToList();
         }
 
         public static User GenerateAdmin()

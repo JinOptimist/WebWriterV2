@@ -16,17 +16,15 @@ namespace WebWriterV2.FrontModels
         public FrontHero(Hero hero)
         {
             Id = hero.Id;
-
             State = hero.State.Select(x => new FrontState(x)).ToList();
-            CurrentEvent = hero.CurrentChapter == null ? null : new FrontEvent(hero.CurrentChapter);
+            CurrentEvent = hero.CurrentChapter == null ? null : new FrontChapter(hero.CurrentChapter);
         }
 
         public string Name { get; set; }
-        public string Background { get; set; }
 
         public List<FrontState> State { get; set; }
 
-        public FrontEvent CurrentEvent { get; set; }
+        public FrontChapter CurrentEvent { get; set; }
 
         public override Hero ToDbModel()
         {

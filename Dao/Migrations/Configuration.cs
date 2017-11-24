@@ -27,6 +27,9 @@ namespace Dao.Migrations
             stateTypes.ForEach(x => x.Owner = admin);
             context.StateTypes.AddOrUpdate(x => x.Name, stateTypes.ToArray());
 
+            var genres = GenerateData.GenerateGenres();
+            context.Genres.AddOrUpdate(x => x.Name, genres.ToArray());
+
             //var book = GenerateData.BookRat();
             //book.Owner = admin;
             ////var tower = GenerateData.BookTower(stateTypes);

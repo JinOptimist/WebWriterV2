@@ -29,9 +29,7 @@ namespace WebWriterV2.FrontModels
             IsReader = user.UserType == DalUserType.Reader;
             AvatarUrl = user.AvatarUrl;
             Bookmarks = user.Bookmarks?.Select(x => new FrontHero(x)).ToList();
-            //BooksAreReaded = user.BooksAreReaded?.Select(x => new FrontBook(x)).ToList();
-            throw new NotImplementedException();
-            user.Books?.ForEach(x => x.Owner = null);
+            ReadedBookIds = user.BooksAreReaded?.Select(x => x.Book.Id).ToList();
             MyBooks = user.Books?.Select(x => new FrontBook(x)).ToList();
             AccountConfirmed = string.IsNullOrEmpty(user.ConfirmCode);
         }
@@ -48,7 +46,7 @@ namespace WebWriterV2.FrontModels
         public FrontEnum UserType { get; set; }
 
         public List<FrontHero> Bookmarks { get; set; }
-        public List<FrontBook> BooksAreReaded { get; set; }
+        public List<long> ReadedBookIds { get; set; }
         public List<FrontBook> MyBooks { get; set; }
 
         public override User ToDbModel()
