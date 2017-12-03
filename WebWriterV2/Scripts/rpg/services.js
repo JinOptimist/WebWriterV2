@@ -1,4 +1,3 @@
-
 var underscore = angular.module('underscore', []);
 underscore.factory('_', ['$window', function ($window) {
     return $window._; // assumes underscore has already been loaded on the page
@@ -31,10 +30,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
 
         function saveBook(book) {
             var url = '/api/book/SaveBook';
-            var data = {
-                jsonBook: angular.toJson(book)
-            };
-            return httpHelper.get(url, data);
+            var data = angular.toJson(book);//jsonBook: 
+            return httpHelper.post(url, data);
         }
 
         function publishBook(bookId) {
@@ -673,7 +670,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
 
         function get(url, data, success, error) {
             url = generateUrl(url, data);
-            return call(url, data, success, error, 'GET');
+            return call(url, null, success, error, 'GET');
         }
 
         function post(url, data, success, error) {

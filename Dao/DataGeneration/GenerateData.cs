@@ -359,7 +359,6 @@ namespace Dao.DataGeneration
         public static User GenerateAdmin()
         {
             return new User {
-                Id = 1,
                 Name = "admin",
                 Password = "admin",
                 Email = "88jin@mail.ru",

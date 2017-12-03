@@ -65,7 +65,7 @@ namespace WebWriterV2.Controllers
         }
 
         //TODO
-        [AcceptVerbs("GET")]
+        [AcceptVerbs("POST")]
         public FrontBook SaveBook(FrontBook jsonBook)
         {
             //var frontBook = SerializeHelper.Deserialize<FrontBook>(jsonBook);

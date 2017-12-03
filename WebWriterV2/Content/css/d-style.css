@@ -1,0 +1,10 @@
+﻿html,
+body {
+    font-family: Lato;
+    font-size: 16px;
+    line-height: 30px;
+}
+
+.logo {
+    font-family: LatoBold;
+}

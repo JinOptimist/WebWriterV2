@@ -17,6 +17,12 @@ namespace Dao.Model
         public long NumberOfWords { get; set; }
 
         /// <summary>
+        /// Number of chapter level in book
+        /// Root chapter level is 1
+        /// </summary>
+        public int Level { get; set; }
+
+        /// <summary>
         /// You must save this field separately. Use EventLinkItemRepository
         /// </summary>
         public virtual List<ChapterLinkItem> LinksFromThisChapter { get; set; }
@@ -33,7 +39,7 @@ namespace Dao.Model
         public void UpdateFrom(Chapter model)
         {
             if (Id != model.Id)
-                throw new Exception($"You try update Event with Id: {model.Id} from Event with id {Id}");
+                throw new Exception($"You try update one Chapter from another. Chapter to Id: {model.Id} Chapter from id {Id}");
             Name = model.Name;
             Desc = model.Desc;
             Book = model.Book;

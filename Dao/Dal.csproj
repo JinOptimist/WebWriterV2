@@ -80,6 +80,10 @@
     <Compile Include="Migrations\201711221236502_WebWriterInitV3.Designer.cs">
       <DependentUpon>201711221236502_WebWriterInitV3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712031211176_AddLevelForChapter.cs" />
+    <Compile Include="Migrations\201712031211176_AddLevelForChapter.Designer.cs">
+      <DependentUpon>201712031211176_AddLevelForChapter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\UserWhoReadBook.cs" />
@@ -120,6 +124,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201711221236502_WebWriterInitV3.resx">
       <DependentUpon>201711221236502_WebWriterInitV3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712031211176_AddLevelForChapter.resx">
+      <DependentUpon>201712031211176_AddLevelForChapter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

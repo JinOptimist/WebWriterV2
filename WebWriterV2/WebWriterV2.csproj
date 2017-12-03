@@ -195,11 +195,14 @@
     <Content Include="book\Academy.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\css\d-font-style.css" />
+    <Content Include="Content\css\d-style.css" />
     <Content Include="Content\defenitionExample\01.png" />
     <Content Include="Content\defenitionExample\02.png" />
     <Content Include="Content\defenitionExample\03.jpg" />
     <Content Include="Content\defenitionExample\04.jpg" />
     <Content Include="Content\defenitionExample\05.png" />
+    <Content Include="Content\font\OFL.txt" />
     <Content Include="Content\icon\logo.png" />
     <Content Include="Content\icon\add.png" />
     <Content Include="Content\bootstrap-theme.css" />
@@ -207,8 +210,6 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\icon\confirm.png" />
-    <Content Include="Content\css\home.css" />
-    <Content Include="Content\css\main.css" />
     <Content Include="Content\css\rpg\michi.css" />
     <Content Include="Content\css\rpg\style.css" />
     <Content Include="Content\icon\bin.jpg" />
@@ -650,6 +651,24 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
+    <Content Include="Content\font\Lato-Black.ttf" />
+    <Content Include="Content\font\Lato-BlackItalic.ttf" />
+    <Content Include="Content\font\Lato-Bold.ttf" />
+    <Content Include="Content\font\Lato-BoldItalic.ttf" />
+    <Content Include="Content\font\Lato-Hairline.ttf" />
+    <Content Include="Content\font\Lato-HairlineItalic.ttf" />
+    <Content Include="Content\font\Lato-Heavy.ttf" />
+    <Content Include="Content\font\Lato-HeavyItalic.ttf" />
+    <Content Include="Content\font\Lato-Italic.ttf" />
+    <Content Include="Content\font\Lato-Light.ttf" />
+    <Content Include="Content\font\Lato-LightItalic.ttf" />
+    <Content Include="Content\font\Lato-Medium.ttf" />
+    <Content Include="Content\font\Lato-MediumItalic.ttf" />
+    <Content Include="Content\font\Lato-Regular.ttf" />
+    <Content Include="Content\font\Lato-Semibold.ttf" />
+    <Content Include="Content\font\Lato-SemiboldItalic.ttf" />
+    <Content Include="Content\font\Lato-Thin.ttf" />
+    <Content Include="Content\font\Lato-ThinItalic.ttf" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -672,7 +691,8 @@
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Rpg\GeneralDefinition.html" />
     <Content Include="Views\Rpg\admin\Genre.html" />
-    <Content Include="Views\Rpg\Header.html" />
+    <Content Include="Views\Rpg\HeaderD.html" />
+    <Content Include="Views\Rpg\HeaderOld.html" />
     <Content Include="Views\Rpg\admin\Thing.html" />
     <Content Include="Views\Rpg\admin\State.html" />
     <Content Include="Views\Rpg\admin\Event.html" />

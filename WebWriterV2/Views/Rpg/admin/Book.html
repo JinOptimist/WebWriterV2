@@ -64,7 +64,7 @@
             </a>
         </p>
         <h3>Стартовая глава:</h3>
-        <p>
+        <div>
             <a ng-href="/AngularRoute/admin/book/{{book.Id}}/event/{{book.RootEvent.Id}}" ng-click="selectEvent(book.RootEvent.Id)">
                 {{book.RootEvent.Name}}
             </a>
@@ -75,7 +75,7 @@
                 <select ng-model="newRootEvent" ng-options="event as event.Name for event in book.AllEvents"></select>
                 <input type="button" value="Set" ng-click="changeRootEvent()"/>
             </p>
-        </p>
+        </div>
         <h3>На {{endingEvents.length}} главах может закончится Квест:</h3>
         <p ng-repeat="event in endingEvents">
             <a ng-href="/AngularRoute/admin/book/{{book.Id}}/event/{{event.Id}}" ng-click="selectEvent(event.Id)">

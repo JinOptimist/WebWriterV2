@@ -20,8 +20,8 @@ namespace Dao.Migrations
         {
             //  This method will be called after migrating to the latest version.
             var admin = GenerateData.GenerateAdmin();
-            context.Users.AddOrUpdate(x => x.Id, admin);
-            admin = context.Users.Single(x => x.Id == admin.Id);
+            context.Users.AddOrUpdate(x => x.Name, admin);
+            admin = context.Users.Single(x => x.Name == admin.Name);
 
             var stateTypes = GenerateData.GenerateStateTypes();
             stateTypes.ForEach(x => x.Owner = admin);
