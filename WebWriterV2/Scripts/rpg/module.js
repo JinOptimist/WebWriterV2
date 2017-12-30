@@ -15,6 +15,12 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
             $httpProvider.interceptors.push('authInterceptorService');
             // Routes configuration
             $routeProvider
+                /* writer */
+                .when('/ar/writer/project/:bookId', {
+                    templateUrl: '/views/writer/Book.html',
+                    controller: 'bookController'
+                })
+
                 /* admin */
                 .when('/AngularRoute/admin/Thing', {
                     templateUrl: '/views/rpg/admin/thing.html',

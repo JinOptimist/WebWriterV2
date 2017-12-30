@@ -21,16 +21,48 @@ body {
     margin: auto;
 }
 
+/* Header */
 .header {
     padding-top: 17px;
+
+    .logo {
+        font-family: LatoBold;
+        font-size: 20px;
+    }
+
+    .header-item {
+        display: inline-block;
+        color: $dark-gray;
+
+        &.center {
+            position: fixed;
+            left: calc(100% / 2)
+        }
+    }
+}
+/* Header End */
+
+/* Writer */
+.level{
+    border: 1px solid #71787e;
 }
 
-.logo {
-    font-family: LatoBold;
-    font-size: 20px;
+.chapter {
+    border: 1px solid #f18f1c;
 }
+/* Writer End */
 
-.header-item {
+/* Icon */
+.icon-bell {
+    height: 20px;
+    width: 20px;
+    background-color: green;
     display: inline-block;
-    color: $dark-gray;
 }
+/* Icon End */
+
+/* Common style*/
+.right {
+    float: right;
+}
+/* Common style End*/

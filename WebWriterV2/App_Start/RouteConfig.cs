@@ -15,7 +15,7 @@ namespace WebWriterV2
 
             routes.MapRoute(
                 name: "AngularRoute",
-                url: "AngularRoute/{*url}",
+                url: "ar/{*url}",
                 defaults: new { controller = "Rpg", action = "RouteForAngular", id = UrlParameter.Optional }
             );
 
