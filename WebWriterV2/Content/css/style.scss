@@ -35,7 +35,7 @@ body {
         color: $dark-gray;
 
         &.center {
-            position: fixed;
+            position: absolute;
             left: calc(100% / 2)
         }
     }
@@ -43,15 +43,31 @@ body {
 /* Header End */
 
 /* Writer */
-.level{
-    border: 1px solid #71787e;
+.level {
+    /*border: 1px solid #71787e;*/
+    /*width: 550px;*/
+    margin: auto;
+
+    .chapter {
+        border: 1px solid #f18f1c;
+        background-color: $light-gray;
+        width: 540px;
+        height: 310px;
+        display: inline-block;
+        margin: 5px;
+    }
 }
 
-.chapter {
-    border: 1px solid #f18f1c;
+.book {
+    border: 1px solid $green;
+    display: inline-block;
+    width: 270px;
+    height: 290px;
+    margin-top: 32px;
+    margin-left: 30px;
+    border-radius: 5px;
 }
 /* Writer End */
-
 /* Icon */
 .icon-bell {
     height: 20px;

@@ -1,28 +1,10 @@
-﻿<div ng-class="!book ? 'wait' : ''" class="profile">
-    <div class="level">
-        <div class="chapter">
-            chapter 1.1
-        </div>
-        <div class="chapter">
-            chapter 1.2
-        </div>
-    </div>
+﻿<div ng-include="'views/writer/Book-subHeaderD.html'">Loading...</div>
 
-    <div class="level">
-        <div class="chapter">
-            chapter 2.1
-        </div>
-    </div>
-
-    <div class="level">
-        <div class="chapter">
-            chapter 3.1
-        </div>
-        <div class="chapter">
-            chapter 3.2
-        </div>
-        <div class="chapter">
-            chapter 3.3
+<div ng-class="!book ? 'wait' : ''" class="profile">
+    <div class="level" ng-repeat="level in book.levels" ng-style="level.dynamicStyle()">
+        <div class="chapter" ng-repeat="chapter in level.chapters" ng-style="chapter.dynamicStyle()" ng-click="level.isWide = !level.isWide">
+            {{chapter.desc}}
+            *** {{level.widthStyle()}}
         </div>
     </div>
 </div>

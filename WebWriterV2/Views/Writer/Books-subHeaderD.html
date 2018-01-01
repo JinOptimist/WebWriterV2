@@ -1,0 +1,26 @@
+﻿<div class="content header">
+    <div class="logo header-item">
+        Все проекты | {{books.length}} проектов
+    </div>
+    <div class="header-item">
+        <input type="range" />
+    </div>
+
+    <div class="header-item center">
+        Актуальные Опубликованные
+    </div>
+
+    <div class="right">
+        <div class="header-item ">
+            <select>
+                <option>Сортировать</option>
+                <option>Дате</option>
+                <option>Размер</option>
+            </select>
+        </div>
+        <div class="header-item">
+            {{newBookName}}<input type="text" ng-model="newBook.name">
+            <a ng-click="createBook()">Add</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,7 @@
+﻿<div ng-include="'views/writer/Books-subHeaderD.html'">Loading...</div>
+
+<div ng-class="!books ? 'wait' : ''" class="profile">
+    <div class="book" ng-repeat="book in books">
+        {{book.name}}
+    </div>
+</div>

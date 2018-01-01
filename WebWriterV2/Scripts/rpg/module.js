@@ -15,12 +15,6 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
             $httpProvider.interceptors.push('authInterceptorService');
             // Routes configuration
             $routeProvider
-                /* writer */
-                .when('/ar/writer/project/:bookId', {
-                    templateUrl: '/views/writer/Book.html',
-                    controller: 'bookController'
-                })
-
                 /* admin */
                 .when('/AngularRoute/admin/Thing', {
                     templateUrl: '/views/rpg/admin/thing.html',
@@ -67,8 +61,19 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     templateUrl: '/views/rpg/profile.html',
                     controller: 'profileController'
                 })
+
+                /* writer */
+                //resolve: resolveController('/app/controllers/customersController.js')
+                .when('/ar/writer/book/:bookId', {
+                    templateUrl: '/views/writer/Book.html',
+                    controller: 'bookController'
+                })
+                .when('/ar/writer/books', {
+                    templateUrl: '/views/writer/Books.html',
+                    controller: 'booksController'
+                })
                 .otherwise({
-                    redirectTo: '/AngularRoute/listBook'
+                    redirectTo: '/ar/writer/books'
                 });
 
             // Uses HTLM5 history API for navigation
