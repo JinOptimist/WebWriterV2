@@ -82,6 +82,14 @@ namespace WebWriterV2.Controllers
             return frontBook;
         }
 
+        [AcceptVerbs("GET")]
+        public bool PublishBook(long bookId, bool newValue)
+        {
+            var book = BookRepository.Get(bookId);
+            book.IsPublished = newValue;
+            BookRepository.Save(book);
+            return true;
+        }
 
 
 
@@ -185,14 +193,7 @@ namespace WebWriterV2.Controllers
             }
         }
 
-        [AcceptVerbs("GET", "POST")]
-        public void PublishBook(long bookId, bool newValue)
-        {
-            var book = BookRepository.Get(bookId);
-            book.IsPublished = newValue;
-            BookRepository.Save(book);
-        }
-
+        
         public bool SaveEvaluation(FrontEvaluation frontEvaluation)
         {
             var evaluation = frontEvaluation.ToDbModel();

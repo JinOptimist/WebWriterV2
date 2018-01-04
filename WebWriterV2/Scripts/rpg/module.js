@@ -66,18 +66,32 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                 //resolve: resolveController('/app/controllers/customersController.js')
                 .when('/ar/writer/book/:bookId', {
                     templateUrl: '/views/writer/Book.html',
-                    controller: 'bookController'
+                    controller: 'writerBookController'
                 })
                 .when('/ar/writer/books', {
                     templateUrl: '/views/writer/Books.html',
-                    controller: 'booksController'
+                    controller: 'writerBooksController'
                 })
                 .when('/ar/writer/chapter/:chapterId', {
                     templateUrl: '/views/writer/Chapter.html',
                     controller: 'chapterController'
                 })
+                .when('/ar/writer/generalDefinition', {
+                    templateUrl: '/views/rpg/GeneralDefinition.html',
+                    controller: 'aboutUsController'
+                })
+                /* reader */
+                .when('/ar/reader/books', {
+                    templateUrl: '/views/reader/Books.html',
+                    controller: 'readerBooksController'
+                })
+                
+                .when('/ar/reader/register', {
+                    templateUrl: '/views/rpg/Register.html',
+                    controller: 'registerController'
+                })
                 .otherwise({
-                    redirectTo: '/ar/writer/books'
+                    redirectTo: '/ar/reader/books'
                 });
 
             // Uses HTLM5 history API for navigation

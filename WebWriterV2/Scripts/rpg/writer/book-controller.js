@@ -1,6 +1,6 @@
 angular.module('rpg')
 
-    .controller('bookController', [
+    .controller('writerBookController', [
         '$scope', '$routeParams', '$location', '$cookies', 'bookService', 'chapterService',
         function ($scope, $routeParams, $location, $cookies, bookService, chapterService,
             eventService, CKEditorService, userService, genreService) {
@@ -31,26 +31,6 @@ angular.module('rpg')
                         });
                     });
                 });
-
-                //var defaultBook = {
-                //    name: 'hit and slash',
-                //    levels: [],
-                //};
-
-                //var level = fakeGenerateLevel(1);
-                //level.chapters.push(fakeGenerateChapter('1 1', level));
-                //level.chapters.push(fakeGenerateChapter('1 2', level));
-                //defaultBook.levels.push(level);
-                //level = fakeGenerateLevel(2);
-                //level.chapters.push(fakeGenerateChapter('2 1', level));
-                //defaultBook.levels.push(level);
-                //level = fakeGenerateLevel(3);
-                //level.chapters.push(fakeGenerateChapter('3 1', level));
-                //level.chapters.push(fakeGenerateChapter('3 2', level));
-                //level.chapters.push(fakeGenerateChapter('3 3', level));
-                //defaultBook.levels.push(level);
-
-                //$scope.book = defaultBook;
             }
 
             function calcLevelWidthStyle() {

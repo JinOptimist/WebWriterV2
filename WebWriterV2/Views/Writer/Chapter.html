@@ -1,11 +1,21 @@
 ﻿<div ng-include="'views/writer/Book-subHeaderD.html'">Loading...</div>
 
-<div ng-class="!chapter ? 'wait' : ''" id="chapter">
-    <div class="header">
-        {{chapter.Name}}. H4 Heading 4 Lato Regular 18 size, 30 line
-        <div class="right">close</div>
-    </div>
-    <div class="body">{{chapter.Desc}}text about some cool chapter</div>
 
-    <div class="footer">Link will be here</div>
+<div id="chapter" class="content">
+    <form name="chapterForm" novalidate>
+        <div class="header">
+            <input type="text" ng-model="chapter.Name" class="no-border" />
+            <div class="right">
+                <a href="ar/writer/book/{{chapter.BookId}}">close</a>
+            </div>
+        </div>
+        <div class="body">
+            <textarea ng-model="chapter.Desc" class="no-border"></textarea>
+        </div>
+        <div class="footer">
+            Link will be here
+            <img ng-if="!chapter || wait" src="/Content/icon/wait.gif" class="icon20" />
+            <input type="button" value="save" ng-click="save()" />
+        </div>
+    </form>
 </div>

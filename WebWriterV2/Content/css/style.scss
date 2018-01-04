@@ -9,7 +9,8 @@ $orange: #f18f1c;
 $red: #f13a30;
 
 html,
-body {
+body,
+textarea, input {
     font-family: Lato;
     font-size: 14px;
     line-height: 30px;
@@ -44,14 +45,26 @@ body {
     /*border: 1px solid #71787e;*/
     /*width: 550px;*/
     margin: auto;
+    cursor: pointer;
 
     .chapter {
         border: 1px solid #f18f1c;
-        background-color: $light-gray;
+        background-color: $white;
         width: 540px;
         height: 310px;
         display: inline-block;
         margin: 5px;
+        overflow: hidden;
+
+        .header {
+            font-family: LatoBold;
+            background-color: $white;
+            border-bottom: 3px $light-gray solid;
+            padding-left: 10px;
+        }
+
+        .body {
+        }
     }
 }
 
@@ -75,14 +88,36 @@ body {
     .header {
         background-color: $white;
         font-size: 18px;
-        line-height: 3.0;
+        line-height: 30px;
+        padding: 10px;
+        text-align: center;
         margin-bottom: 3px;
+
+        a {
+            vertical-align: -webkit-baseline-middle;
+        }
+
+        input {
+            width: 700px;
+            font-size: 18px;
+            font-family: Lato;
+            text-align: center;
+        }
     }
 
     .body {
         background-color: $white;
         margin-bottom: 3px;
-        height: 410px;
+        height: 350px;
+        font-family: MerriweatherLight;
+        padding: 20px;
+
+        textarea {
+            font-family: MerriweatherLight;
+            height: 350px;
+            width: 760px;
+            resize: none;
+        }
     }
 
     .footer {
@@ -100,6 +135,10 @@ body {
 /* Icon End */
 
 /* Common style*/
+.left {
+    float: left;
+}
+
 .right {
     float: right;
 }
@@ -108,4 +147,25 @@ body {
     position: absolute;
     left: calc(100% / 2)
 }
+
+.no-border {
+    border: none;
+    overflow: auto;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+.icon20 {
+    width: 20px;
+    height: 20px;
+}
 /* Common style End*/
+
+
+/* ng-form */
+.ng-dirty {
+    background-color: $light-gray;
+}
+/* ng-form END  */

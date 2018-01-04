@@ -1,7 +1,17 @@
 ﻿<div ng-include="'views/writer/Books-subHeaderD.html'">Loading...</div>
 
-<div ng-class="!books ? 'wait' : ''">
-    <div class="book" ng-repeat="book in books" ng-click="goToBook(book.Id)">
-        {{book.Name}}
+<div class="content">
+    <div class="book" ng-repeat="book in books">
+        <p>
+            {{book.Name}}
+        </p>
+        <p>
+            <a href="/ar/writer/book/{{book.Id}}">edit</a>
+        </p>
+        <p>
+            {{book.IsPublished}} *
+            
+            <a href="#" ng-click="publish(book)">опубликовать</a>
+        </p>
     </div>
 </div>

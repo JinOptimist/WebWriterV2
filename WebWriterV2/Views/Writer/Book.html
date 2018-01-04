@@ -1,10 +1,16 @@
 ﻿<div ng-include="'views/writer/Book-subHeaderD.html'">Loading...</div>
 
-<div ng-class="!book ? 'wait' : ''">
+<div class="content">
     <div class="level" ng-repeat="level in book.Levels" ng-style="level.dynamicStyle()">
         <div class="chapter" ng-repeat="chapter in level.Chapters" ng-style="chapter.dynamicStyle()" ng-click="level.isWide = !level.isWide">
-            {{chapter.Desc}}
-            *** {{level.widthStyle()}}
+            <div class="header">
+                {{chapter.Name}}
+                * <a href="ar/writer/chapter/{{chapter.Id}}">Edit</a>
+            </div>
+            <div class="body">
+                {{chapter.Desc}}
+            </div>
+
         </div>
     </div>
 </div>

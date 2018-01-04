@@ -1,6 +1,6 @@
 angular.module('rpg')
 
-    .controller('booksController', [
+    .controller('writerBooksController', [
         '$scope', '$routeParams', '$location', '$cookies', 'bookService',
         function ($scope, $routeParams, $location, $cookies, bookService,
             eventService, CKEditorService, userService, genreService) {
@@ -24,8 +24,10 @@ angular.module('rpg')
                 $scope.newBook.name = '';
             }
 
-            $scope.goToBook = function (bookId) {
-                $location.path('/ar/writer/book/' + bookId);
+            $scope.publish = function (book) {
+                bookService.publishBook(book.Id).then(function () {
+                    book.IsPublished = true;
+                });
             }
 
             function loadBooks() {
