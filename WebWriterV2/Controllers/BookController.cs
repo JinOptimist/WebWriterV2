@@ -39,7 +39,7 @@ namespace WebWriterV2.Controllers
         {
             var getOnlyPublished = User == null || User.UserType != UserType.Admin;
             var books = BookRepository.GetAll(getOnlyPublished);
-            
+
             var frontBooks = books.Select(x => new FrontBook(x)).ToList();
             return frontBooks;
         }
@@ -55,7 +55,7 @@ namespace WebWriterV2.Controllers
         }
 
         [AcceptVerbs("POST")]
-        public FrontBook SaveBook(FrontBook frontBook)
+        public FrontBook Save(FrontBook frontBook)
         {
             var book = frontBook.ToDbModel();
 
@@ -66,15 +66,7 @@ namespace WebWriterV2.Controllers
             return frontBook;
         }
 
-
-        
-
-
-
-
-
-
-        // old GetBook
+        [AcceptVerbs("GET")]
         public FrontBook Get(long id)
         {
             var book = BookRepository.Get(id);
@@ -82,7 +74,19 @@ namespace WebWriterV2.Controllers
             return frontBook;
         }
 
-        
+        [AcceptVerbs("GET")]
+        public FrontBookWithChapters GetWithChapters(long id)
+        {
+            var book = BookRepository.Get(id);
+            var frontBook = new FrontBookWithChapters(book, true);
+            return frontBook;
+        }
+
+
+
+
+
+
 
         // old GetBooks(long? userId) with userId
         public List<FrontBook> GetByUser(long id)
@@ -97,7 +101,7 @@ namespace WebWriterV2.Controllers
             BookRepository.Remove(id);
         }
 
-        
+
         public long ImportBook(string jsonBook)
         {
             var frontBook = SerializeHelper.Deserialize<FrontBook>(jsonBook);

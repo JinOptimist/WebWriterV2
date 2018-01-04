@@ -15,27 +15,30 @@ namespace WebWriterV2.Controllers
 {
     public class ChapterController : BaseApiController
     {
-        private IBookRepository BookRepository { get; set; }
-        private IGenreRepository GenreRepository { get; set; }
-        private IUserRepository UserRepository { get; set; }
-        private IChapterRepository EventRepository { get; set; }
-        private IStateValueRepository StateRepository { get; set; }
-        private IChapterLinkItemRepository EventLinkItemRepository { get; set; }
-        private IEvaluationRepository EvaluationRepository { get; set; }
-
-        public ChapterController(IBookRepository bookRepository, IGenreRepository genreRepository, IUserRepository userRepository, 
-            IChapterRepository eventRepository, IStateValueRepository stateRepository, 
-            IChapterLinkItemRepository eventLinkItemRepository, IEvaluationRepository evaluationRepository)
+        public ChapterController(IBookRepository bookRepository, IChapterRepository chapterRepository)
         {
             BookRepository = bookRepository;
-            GenreRepository = genreRepository;
-            UserRepository = userRepository;
-            EventRepository = eventRepository;
-            StateRepository = stateRepository;
-            EventLinkItemRepository = eventLinkItemRepository;
-            EvaluationRepository = evaluationRepository;
+            ChapterRepository = chapterRepository;
         }
 
+        private IBookRepository BookRepository { get; set; }
+        private IChapterRepository ChapterRepository { get; set; }
         
+        [AcceptVerbs("POST")]
+        public FrontChapter Save(FrontChapter frontChapter)
+        {
+            var chapter = frontChapter.ToDbModel();
+            chapter = ChapterRepository.Save(chapter);
+            frontChapter = new FrontChapter(chapter);
+            return frontChapter;
+        }
+
+        [AcceptVerbs("GET")]
+        public FrontChapter Get(long id)
+        {
+            var chapter = ChapterRepository.Get(id);
+            var frontChapter = new FrontChapter(chapter);
+            return frontChapter;
+        }
     }
 }

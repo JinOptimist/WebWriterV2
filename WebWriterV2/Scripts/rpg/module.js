@@ -72,6 +72,10 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     templateUrl: '/views/writer/Books.html',
                     controller: 'booksController'
                 })
+                .when('/ar/writer/chapter/:chapterId', {
+                    templateUrl: '/views/writer/Chapter.html',
+                    controller: 'chapterController'
+                })
                 .otherwise({
                     redirectTo: '/ar/writer/books'
                 });

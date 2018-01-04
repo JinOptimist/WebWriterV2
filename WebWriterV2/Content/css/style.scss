@@ -1,7 +1,8 @@
 ﻿$black: #393c3e;
 $dark-gray: #71787e;
 $light-gray: #f5f5f5;
-$white: #fafafa;
+/*$white: #fafafa;*/
+$white: white;
 
 $green: #50d166;
 $orange: #f18f1c;
@@ -22,7 +23,8 @@ body {
 }
 
 /* Header */
-.header {
+#header,
+#sub-header {
     padding-top: 17px;
 
     .logo {
@@ -33,11 +35,6 @@ body {
     .header-item {
         display: inline-block;
         color: $dark-gray;
-
-        &.center {
-            position: absolute;
-            left: calc(100% / 2)
-        }
     }
 }
 /* Header End */
@@ -67,6 +64,31 @@ body {
     margin-left: 30px;
     border-radius: 5px;
 }
+
+#chapter {
+    border: 1px solid #f18f1c;
+    background-color: $light-gray;
+    width: 800px;
+    height: 500px;
+    margin: auto;
+
+    .header {
+        background-color: $white;
+        font-size: 18px;
+        line-height: 3.0;
+        margin-bottom: 3px;
+    }
+
+    .body {
+        background-color: $white;
+        margin-bottom: 3px;
+        height: 410px;
+    }
+
+    .footer {
+        background-color: $white;
+    }
+}
 /* Writer End */
 /* Icon */
 .icon-bell {
@@ -80,5 +102,10 @@ body {
 /* Common style*/
 .right {
     float: right;
+}
+
+.center {
+    position: absolute;
+    left: calc(100% / 2)
 }
 /* Common style End*/

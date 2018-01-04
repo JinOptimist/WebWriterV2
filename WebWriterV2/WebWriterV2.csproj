@@ -177,14 +177,16 @@
     <Compile Include="DI\WindsorDependencyScope.cs" />
     <Compile Include="DI\CurrentUserContainer.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
+    <Compile Include="FrontModels\FrontBookWithChapters.cs" />
     <Compile Include="FrontModels\FrontEventLinkItem.cs" />
     <Compile Include="FrontModels\FrontGenre.cs" />
+    <Compile Include="FrontModels\FrontChapterLevel.cs" />
     <Compile Include="FrontModels\FrontStateType.cs" />
     <Compile Include="FrontModels\FrontEvaluation.cs" />
     <Compile Include="FrontModels\FrontUser.cs" />
     <Compile Include="FrontModels\FrontState.cs" />
     <Compile Include="FrontModels\FrontBook.cs" />
-    <Compile Include="FrontModels\FrontEvent.cs" />
+    <Compile Include="FrontModels\FrontChapter.cs" />
     <Compile Include="FrontModels\FrontHero.cs" />
     <Compile Include="FrontModels\FrontEnum.cs" />
     <Compile Include="RpgUtility\Dto\VkAccess.cs" />
@@ -674,6 +676,7 @@
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\raphael-min.js" />
+    <Content Include="Scripts\rpg\writer\chapter-controller.js" />
     <Content Include="Scripts\rpg\writer\books-controller.js" />
     <Content Include="Scripts\rpg\writer\book-controller.js" />
     <Content Include="Scripts\rpg\constant.js" />
@@ -692,6 +695,7 @@
     <None Include="Scripts\_references.js" />
     <Content Include="Views\Rpg\GeneralDefinition.html" />
     <Content Include="Views\Rpg\admin\Genre.html" />
+    <Content Include="Views\Writer\Chapter.html" />
     <Content Include="Views\Writer\Book-subHeaderD.html" />
     <Content Include="Views\Writer\Books.html" />
     <Content Include="Views\Writer\Books-subHeaderD.html" />

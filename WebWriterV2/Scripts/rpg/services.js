@@ -10,13 +10,15 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
     .service('bookService', ['httpHelper', function (httpHelper) {
         return {
             //new method
-            saveBook: saveBook,
-            getAllForWriter: getAllForWriter,
+            get: get,
+            getWithChapters: getWithChapters,
             getAll: getAll,
-
+            getAllForWriter: getAllForWriter,
+            
+            saveBook: saveBook,
+            
 
             //old method
-            get: get,
             changeRootEvent: changeRootEvent,
             removeBook: removeBook,
             importBook: importBook,
@@ -25,8 +27,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         };
 
         function saveBook(book) {
-            var url = '/api/book/SaveBook';
-            var data = angular.toJson(book);//jsonBook: 
+            var url = '/api/book/Save';
+            var data = angular.toJson(book);
             return httpHelper.post(url, data);
         }
 
@@ -61,6 +63,11 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return httpHelper.get(url);
         }
 
+        function getWithChapters(bookId) {
+            var url = '/api/book/GetWithChapters?id=' + bookId;
+            return httpHelper.get(url);
+        }
+
         function getAll() {
             var url = '/api/book/getAll';
             return httpHelper.get(url);
@@ -82,6 +89,23 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 jsonBook: bookJson
             };
             return httpHelper.get(url, data);
+        }
+    }])
+    .service('chapterService', ['httpHelper', function (httpHelper) {
+        return {
+            get: get,
+            save: save
+        };
+
+        function save(chapter) {
+            var url = '/api/chapter/Save';
+            var data = angular.toJson(chapter);
+            return httpHelper.post(url, data);
+        }
+
+        function get(chapterId) {
+            var url = '/api/chapter/get?id=' + chapterId;
+            return httpHelper.get(url);
         }
     }])
     .service('eventService', ['httpHelper', function (httpHelper) {
@@ -512,7 +536,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             }
 
             function login(user) {
-                var url = '/Rpg/Login';
+                var url = '/api/user/Login';
                 var data = {
                     username: user.Name,
                     password: user.Password

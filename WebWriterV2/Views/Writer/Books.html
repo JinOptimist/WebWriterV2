@@ -1,6 +1,6 @@
 ﻿<div ng-include="'views/writer/Books-subHeaderD.html'">Loading...</div>
 
-<div ng-class="!books ? 'wait' : ''" class="profile">
+<div ng-class="!books ? 'wait' : ''">
     <div class="book" ng-repeat="book in books" ng-click="goToBook(book.Id)">
         {{book.Name}}
     </div>

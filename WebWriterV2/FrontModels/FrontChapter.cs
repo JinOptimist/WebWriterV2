@@ -1,6 +1,7 @@
 ﻿using Dao.Model;
 using System.Collections.Generic;
 using System.Linq;
+using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.FrontModels
 {
@@ -33,6 +34,7 @@ namespace WebWriterV2.FrontModels
 
         public override Chapter ToDbModel()
         {
+            var book = new Book() { Id = BookId };
             return new Chapter
             {
                 Id = Id,
@@ -40,6 +42,8 @@ namespace WebWriterV2.FrontModels
                 Desc = Desc,
                 LinksFromThisChapter = LinksFromThisEvent?.Select(x => x.ToDbModel()).ToList(),
                 LinksToThisChapter = LinksToThisEvent?.Select(x => x.ToDbModel()).ToList(),
+                NumberOfWords = WordHelper.GetWordCount(Desc),
+                Book = book,
             };
         }
     }

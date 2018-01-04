@@ -28,17 +28,15 @@ namespace Dao.Repository
             }
 
             // if we try update detached model
-            var entry = Db.Entry(model);
-            if (entry.State == EntityState.Detached && model.Id > 0)
-            {
-                var modelFromDb = Entity.Find(model.Id);
-                modelFromDb.UpdateFrom(model);
-                model = modelFromDb;
-            }
+            //var entry = Db.Entry(model);
+            //if (entry.State == EntityState.Detached && model.Id > 0) {
+            //    var modelFromDb = Entity.Find(model.Id);
+            //    modelFromDb.UpdateFrom(model);
+            //    model = modelFromDb;
+            //}
 
-            if (model.Book.RootChapter == null)
-            {
-                model.Book.RootChapter = model;
+            if (Db.Entry(model.Book).State == EntityState.Detached) {
+                Db.Set<Book>().Attach(model.Book);
             }
 
             return base.Save(model);
@@ -49,17 +47,14 @@ namespace Dao.Repository
             if (currentEvent == null)
                 return;
 
-            if (currentEvent.LinksFromThisChapter?.Any() ?? false)
-            {
+            if (currentEvent.LinksFromThisChapter?.Any() ?? false) {
                 _eventLinkItemRepository.Value.Remove(currentEvent.LinksFromThisChapter);
             }
-            if (currentEvent.LinksToThisChapter?.Any() ?? false)
-            {
+            if (currentEvent.LinksToThisChapter?.Any() ?? false) {
                 _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisChapter);
             }
             var heroes = _heroRepository.GetByEvent(currentEvent.Id);
-            if (heroes != null)
-            {
+            if (heroes != null) {
                 _heroRepository.Remove(heroes);
             }
 
@@ -76,21 +71,18 @@ namespace Dao.Repository
             if (currentEvent == null)
                 return;
 
-            if (currentEvent.LinksFromThisChapter?.Any() ?? false)
-            {
+            if (currentEvent.LinksFromThisChapter?.Any() ?? false) {
                 var forDelete = currentEvent.LinksFromThisChapter.Select(x => x.From).ToList();
                 _eventLinkItemRepository.Value.Remove(currentEvent.LinksFromThisChapter);
                 forDelete.ForEach(RemoveEventAndChildren);
             }
 
-            if (currentEvent.LinksToThisChapter.Any())
-            {
+            if (currentEvent.LinksToThisChapter.Any()) {
                 _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisChapter);
             }
 
             var isDetached = Db.Entry(currentEvent).State == EntityState.Detached;
-            if (isDetached)
-            {
+            if (isDetached) {
                 return;
             }
 

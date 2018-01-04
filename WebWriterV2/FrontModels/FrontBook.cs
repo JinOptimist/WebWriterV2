@@ -15,11 +15,8 @@ namespace WebWriterV2.FrontModels
             Id = book.Id;
             Name = book.Name;
             Desc = book.Desc;
-            //RootEvent = book.RootChapter != null ? new FrontChapter(book.RootChapter) : null;
-            //Genre = book.Genre != null ? new FrontGenre(book.Genre) : null;
-            //AllEvents = book.AllChapters?.Select(x => new FrontChapter(x)).ToList();
+            RootEventId = book.RootChapter != null ? book.RootChapter.Id : -1;
             OwnerId = book.Owner.Id;
-            //Evaluations = book.Evaluations?.Select(x => new FrontEvaluation(x)).ToList();
             IsPublished = book.IsPublished;
             NumberOfChapters = book.NumberOfChapters;
             NumberOfWords = book.NumberOfWords;
@@ -27,20 +24,24 @@ namespace WebWriterV2.FrontModels
             ContainsCycle = forWriter
                 ? new GraphHelper(book).HasCycle()
                 : true;
+
+            //Genre = book.Genre != null ? new FrontGenre(book.Genre) : null;
+            //AllEvents = book.AllChapters?.Select(x => new FrontChapter(x)).ToList();
+            //Evaluations = book.Evaluations?.Select(x => new FrontEvaluation(x)).ToList();
         }
 
         public string Name { get; set; }
         public string Desc { get; set; }
         public long OwnerId { get; set; }
-        //public FrontChapter RootEvent { get; set; }
-        //public FrontGenre Genre { get; set; }
-        //public List<FrontChapter> AllEvents { get; set; }
-        //public List<FrontEvaluation> Evaluations { get; set; }
+        public long RootEventId { get; set; }
         public bool IsPublished { get; set; }
         public long NumberOfChapters { get; set; }
         public long NumberOfWords { get; set; }
 
         public bool ContainsCycle { get; set; }
+        //public FrontGenre Genre { get; set; }
+        //public List<FrontChapter> AllEvents { get; set; }
+        //public List<FrontEvaluation> Evaluations { get; set; }
 
         public override Book ToDbModel() {
             return new Book {

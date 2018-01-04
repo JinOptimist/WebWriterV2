@@ -29,15 +29,9 @@ angular.module('rpg')
             }
 
             function loadBooks() {
-
                 bookService.getAllForWriter().then(function (books) {
                     $scope.books = books;
                 });
-
-                //var books = [];
-                //books.push({ name: 'aa 1' });
-                //books.push({ name: 'aa 2' });
-                //return books;
             }
 
             function init() {

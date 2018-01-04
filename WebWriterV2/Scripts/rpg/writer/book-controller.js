@@ -1,8 +1,8 @@
 angular.module('rpg')
 
     .controller('bookController', [
-        '$scope', '$routeParams', '$location', '$cookies', 'bookService',
-        function ($scope, $routeParams, $location, $cookies, bookService,
+        '$scope', '$routeParams', '$location', '$cookies', 'bookService', 'chapterService',
+        function ($scope, $routeParams, $location, $cookies, bookService, chapterService,
             eventService, CKEditorService, userService, genreService) {
 
             $scope.bookHasCycle = true;
@@ -10,48 +10,53 @@ angular.module('rpg')
             $scope.wait = true;
             init();
 
+            $scope.addChapter = function () {
+                var chapter = {
+                    Name: 'Header',
+                    Desc: 'Desc',
+                    Level: 1,
+                    BookId: $scope.book.Id,
+                };
+                chapterService.save(chapter);
+            }
+
             function loadBook(bookId) {
-                var defaultBook = {
-                    name: 'hit and slash',
-                    levels: [],
-                };
+                bookService.getWithChapters(bookId).then(function (book) {
+                    $scope.book = book;
+                    $scope.book.Levels.forEach(level => {
+                        level.dynamicStyle = calcLevelWidthStyle;
+                        level.Chapters.forEach(chapter => {
+                            chapter.dynamicStyle = calcChapterStyle;
+                            chapter.parent = level;
+                        });
+                    });
+                });
 
-                var level = fakeGenerateLevel(1);
-                level.chapters.push(fakeGenerateChapter('1 1', level));
-                level.chapters.push(fakeGenerateChapter('1 2', level));
-                defaultBook.levels.push(level);
-                level = fakeGenerateLevel(2);
-                level.chapters.push(fakeGenerateChapter('2 1', level));
-                defaultBook.levels.push(level);
-                level = fakeGenerateLevel(3);
-                level.chapters.push(fakeGenerateChapter('3 1', level));
-                level.chapters.push(fakeGenerateChapter('3 2', level));
-                level.chapters.push(fakeGenerateChapter('3 3', level));
-                defaultBook.levels.push(level);
+                //var defaultBook = {
+                //    name: 'hit and slash',
+                //    levels: [],
+                //};
 
-                return defaultBook;
-            }
+                //var level = fakeGenerateLevel(1);
+                //level.chapters.push(fakeGenerateChapter('1 1', level));
+                //level.chapters.push(fakeGenerateChapter('1 2', level));
+                //defaultBook.levels.push(level);
+                //level = fakeGenerateLevel(2);
+                //level.chapters.push(fakeGenerateChapter('2 1', level));
+                //defaultBook.levels.push(level);
+                //level = fakeGenerateLevel(3);
+                //level.chapters.push(fakeGenerateChapter('3 1', level));
+                //level.chapters.push(fakeGenerateChapter('3 2', level));
+                //level.chapters.push(fakeGenerateChapter('3 3', level));
+                //defaultBook.levels.push(level);
 
-            function fakeGenerateChapter(desc, level) {
-                return {
-                    name: 'ch Name',
-                    desc: desc,
-                    parent: level,
-                    dynamicStyle: calcChapterStyle,
-                };
-            }
-
-            function fakeGenerateLevel(levelNumber) {
-                return {
-                    chapters: [],
-                    dynamicStyle: calcLevelWidthStyle,
-                };
+                //$scope.book = defaultBook;
             }
 
             function calcLevelWidthStyle() {
                 var level = this;
                 var style = {};
-                var countChapter = level.chapters.length;
+                var countChapter = level.Chapters.length;
 
                 if (level.isWide) {
                     style.width = countChapter * (550 + 2) + 'px';
@@ -71,7 +76,7 @@ angular.module('rpg')
                     return {};
                 }
                 
-                var index = level.chapters.indexOf(chapter);
+                var index = level.Chapters.indexOf(chapter);
                 return {
                     'position': 'relative',
                     'top': -1 * index * 300 + 'px',
@@ -81,7 +86,7 @@ angular.module('rpg')
             
             function init() {
                 var bookId = $routeParams.bookId;
-                $scope.book = loadBook(bookId);
+                loadBook(bookId);
             }
         }
     ]);

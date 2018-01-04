@@ -41,7 +41,7 @@ namespace Dao
             modelBuilder.Entity<User>().HasMany(x => x.Evaluations).WithRequired(x => x.Owner).WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Book>().HasMany(x => x.AllChapters).WithRequired(x => x.Book);
-            modelBuilder.Entity<Book>().HasRequired(x => x.RootChapter).WithRequiredPrincipal(x => x.ForRootBook);
+            modelBuilder.Entity<Book>().HasOptional(x => x.RootChapter).WithOptionalPrincipal(x => x.ForRootBook);
             modelBuilder.Entity<Book>().HasMany(x => x.Evaluations).WithRequired(x => x.Book).WillCascadeOnDelete(false);
             modelBuilder.Entity<Book>().HasOptional(x => x.Genre).WithMany(x => x.Books);
             modelBuilder.Entity<Book>().HasMany(x => x.Readers).WithRequired(x => x.Book);
