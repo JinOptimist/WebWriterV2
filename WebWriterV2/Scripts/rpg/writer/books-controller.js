@@ -12,20 +12,36 @@ angular.module('rpg')
 
             $scope.createBook = function () {
                 $scope.newBook.showBook = !$scope.newBook.showBook;
-                $scope.books.push({ name: $scope.newBook.name });
+                var book = {
+                    Name: $scope.newBook.name,
+                    Desc: $scope.newBook.name
+                };
+                bookService.saveBook(book).then(function (newBook) {
+                    $scope.books.push(newBook);
+                })
+                
 
                 $scope.newBook.name = '';
             }
 
+            $scope.goToBook = function (bookId) {
+                $location.path('/ar/writer/book/' + bookId);
+            }
+
             function loadBooks() {
-                var books = [];
-                books.push({ name: 'aa 1' });
-                books.push({ name: 'aa 2' });
-                return books;
+
+                bookService.getAllForWriter().then(function (books) {
+                    $scope.books = books;
+                });
+
+                //var books = [];
+                //books.push({ name: 'aa 1' });
+                //books.push({ name: 'aa 2' });
+                //return books;
             }
 
             function init() {
-                $scope.books = loadBooks();
+                loadBooks();
             }
         }
     ]);

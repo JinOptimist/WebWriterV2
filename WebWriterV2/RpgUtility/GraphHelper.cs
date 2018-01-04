@@ -15,11 +15,14 @@ namespace WebWriterV2.RpgUtility
         public GraphHelper(Book book)
         {
             chapters = book.AllChapters;
-            whiteChapters = chapters.Select(x => x.Id).ToList();
+            whiteChapters = chapters?.Select(x => x.Id).ToList();
         }
 
         public bool HasCycle()
         {
+            if (chapters == null && whiteChapters == null)
+                return false;
+
             foreach(var chapter in chapters) {
                 if (IsChapterContainsCycle(chapter)) {
                     return true;

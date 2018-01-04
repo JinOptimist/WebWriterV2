@@ -67,6 +67,10 @@ namespace Dao.Repository
                 model = modelFromDb;
             }
 
+            if (Db.Entry(model.Owner).State == EntityState.Detached) {
+                Db.Set<User>().Attach(model.Owner);
+            }
+
             return base.Save(model);
         }
 

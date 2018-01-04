@@ -15,11 +15,11 @@ namespace WebWriterV2.FrontModels
             Id = book.Id;
             Name = book.Name;
             Desc = book.Desc;
-            RootEvent = book.RootChapter != null ? new FrontChapter(book.RootChapter) : null;
-            Genre = book.Genre != null ? new FrontGenre(book.Genre) : null;
-            AllEvents = book.AllChapters?.Select(x => new FrontChapter(x)).ToList();
+            //RootEvent = book.RootChapter != null ? new FrontChapter(book.RootChapter) : null;
+            //Genre = book.Genre != null ? new FrontGenre(book.Genre) : null;
+            //AllEvents = book.AllChapters?.Select(x => new FrontChapter(x)).ToList();
             OwnerId = book.Owner.Id;
-            Evaluations = book.Evaluations?.Select(x => new FrontEvaluation(x)).ToList();
+            //Evaluations = book.Evaluations?.Select(x => new FrontEvaluation(x)).ToList();
             IsPublished = book.IsPublished;
             NumberOfChapters = book.NumberOfChapters;
             NumberOfWords = book.NumberOfWords;
@@ -32,10 +32,10 @@ namespace WebWriterV2.FrontModels
         public string Name { get; set; }
         public string Desc { get; set; }
         public long OwnerId { get; set; }
-        public FrontChapter RootEvent { get; set; }
-        public FrontGenre Genre { get; set; }
-        public List<FrontChapter> AllEvents { get; set; }
-        public List<FrontEvaluation> Evaluations { get; set; }
+        //public FrontChapter RootEvent { get; set; }
+        //public FrontGenre Genre { get; set; }
+        //public List<FrontChapter> AllEvents { get; set; }
+        //public List<FrontEvaluation> Evaluations { get; set; }
         public bool IsPublished { get; set; }
         public long NumberOfChapters { get; set; }
         public long NumberOfWords { get; set; }
@@ -47,10 +47,10 @@ namespace WebWriterV2.FrontModels
                 Id = Id,
                 Name = Name,
                 Desc = Desc,
-                RootChapter = RootEvent?.ToDbModel(),
-                AllChapters = AllEvents?.Select(x => x.ToDbModel()).ToList(),
+                //RootChapter = RootEvent?.ToDbModel(),
+                //AllChapters = AllEvents?.Select(x => x.ToDbModel()).ToList(),
                 Owner = new User { Id = OwnerId },
-                Genre = Genre != null ? Genre.ToDbModel() : null,
+                //Genre = Genre != null ? Genre.ToDbModel() : null,
                 IsPublished = IsPublished
             };
         }

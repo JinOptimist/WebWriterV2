@@ -9,10 +9,14 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
     )
     .service('bookService', ['httpHelper', function (httpHelper) {
         return {
+            //new method
             saveBook: saveBook,
-            getByUser: getByUser,
-            get: get,
+            getAllForWriter: getAllForWriter,
             getAll: getAll,
+
+
+            //old method
+            get: get,
             changeRootEvent: changeRootEvent,
             removeBook: removeBook,
             importBook: importBook,
@@ -20,18 +24,18 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             publishBook: publishBook
         };
 
+        function saveBook(book) {
+            var url = '/api/book/SaveBook';
+            var data = angular.toJson(book);//jsonBook: 
+            return httpHelper.post(url, data);
+        }
+
         function bookCompleted(bookId) {
             var url = '/api/book/BookCompleted';
             var data = {
                 bookId: bookId
             };
             return httpHelper.get(url, data);
-        }
-
-        function saveBook(book) {
-            var url = '/api/book/SaveBook';
-            var data = angular.toJson(book);//jsonBook: 
-            return httpHelper.post(url, data);
         }
 
         function publishBook(bookId) {
@@ -62,12 +66,9 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             return httpHelper.get(url);
         }
 
-        function getByUser(userId) {
-            var url = '/api/book/GetByUser';
-            var data = {
-                userId: userId
-            };
-            return httpHelper.get(url, data);
+        function getAllForWriter() {
+            var url = '/api/book/GetAllForWriter';
+            return httpHelper.get(url);
         }
 
         function removeBook(bookId) {
@@ -516,7 +517,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                     username: user.Name,
                     password: user.Password
                 };
-                return httpHelper.post(url, data);
+                return httpHelper.get(url, data);
             }
 
             function logout() {
@@ -674,10 +675,10 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         }
 
         function post(url, data, success, error) {
-            return call(url, data, success, error, 'POST');
+            return call(url, data, success, error, 'POST', 'application/json; charset=utf-8');
         }
 
-        function call(url, data, success, error, method) {
+        function call(url, data, success, error, method, contentType) {
             if (!success) {
                 success = defaultSuccess;
             }
@@ -687,12 +688,17 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             }
 
             var deferred = $q.defer();
-            $http({
+            var requestModel = {
                 method: method,
                 url: url,
-                data: data,
                 headers: { 'Accept': 'application/json' }
-            }).then(success, error);
+            };
+            if (data)
+                requestModel.data = data;
+            if (contentType)
+                requestModel.contentType = contentType;
+
+            $http(requestModel).then(success, error);
 
             return deferred.promise;
 

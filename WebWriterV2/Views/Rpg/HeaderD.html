@@ -5,7 +5,7 @@
         </a>
     </div>
     <div class="header-item">
-        <a href="#">Проекты</a>
+        <a href="ar/writer/books">Проекты</a>
     </div>
     <div class="header-item">
         <a href="#">Помощь</a>
@@ -18,12 +18,12 @@
         <div class="header-item">
             <span class="icon-bell"></span>
         </div>
-        <div class="header-item">
+        <div class="header-item" ng-click="activeLogin = !activeLogin">
             <img ng-src="{{user.AvatarUrl}}" class="user-avatar" title="avatar-user-{{::user.Name}}" />
         </div>
     </div>
 
-    <div ng-if="false">
+    <div ng-if="activeLogin">
         <span ng-if="error" class="error">{{error}}</span>
         <p>
             Username: <input id="username" type="text" ng-model="user.Name" ng-disabled="waiting" />

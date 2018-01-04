@@ -34,6 +34,46 @@ namespace WebWriterV2.Controllers
         private IGenreRepository GenreRepository { get; }
         private IUserRepository UserRepository { get; }
 
+        [AcceptVerbs("GET")]
+        public List<FrontBook> GetAll()
+        {
+            var getOnlyPublished = User == null || User.UserType != UserType.Admin;
+            var books = BookRepository.GetAll(getOnlyPublished);
+            
+            var frontBooks = books.Select(x => new FrontBook(x)).ToList();
+            return frontBooks;
+        }
+
+        [AcceptVerbs("GET")]
+        public List<FrontBook> GetAllForWriter()
+        {
+            var getOnlyPublished = User == null || User.UserType != UserType.Admin;
+            var books = BookRepository.GetByUser(User.Id);
+
+            var frontBooks = books.Select(x => new FrontBook(x)).ToList();
+            return frontBooks;
+        }
+
+        [AcceptVerbs("POST")]
+        public FrontBook SaveBook(FrontBook frontBook)
+        {
+            var book = frontBook.ToDbModel();
+
+            book.Owner = User;
+
+            book = BookRepository.Save(book);
+            frontBook = new FrontBook(book, true);
+            return frontBook;
+        }
+
+
+        
+
+
+
+
+
+
         // old GetBook
         public FrontBook Get(long id)
         {
@@ -42,14 +82,7 @@ namespace WebWriterV2.Controllers
             return frontBook;
         }
 
-        // old GetBooks(long? userId) with null
-        public List<FrontBook> GetAll()
-        {
-            var getOnlyPublished = User == null || User.UserType != UserType.Admin;
-            var books = BookRepository.GetAll(getOnlyPublished);
-            var frontBooks = books.Select(x => new FrontBook(x)).ToList();
-            return frontBooks;
-        }
+        
 
         // old GetBooks(long? userId) with userId
         public List<FrontBook> GetByUser(long id)
@@ -64,30 +97,7 @@ namespace WebWriterV2.Controllers
             BookRepository.Remove(id);
         }
 
-        //TODO
-        [AcceptVerbs("POST")]
-        public FrontBook SaveBook(FrontBook jsonBook)
-        {
-            //var frontBook = SerializeHelper.Deserialize<FrontBook>(jsonBook);
-            var book = jsonBook.ToDbModel();
-            var newGenre = book.Genre;
-            var owner = UserRepository.Get(book.Owner.Id);
-            book.Owner = owner;
-            book = BookRepository.Save(book);
-
-            if (newGenre != null) {
-                var genre = GenreRepository.Get(newGenre.Id);
-                if (genre.Books == null) {
-                    genre.Books = new List<Book>();
-                }
-                genre.Books.Add(book);
-                GenreRepository.Save(genre);
-            }
-
-            var frontBook = new FrontBook(book, true);
-            return frontBook;
-        }
-
+        
         public long ImportBook(string jsonBook)
         {
             var frontBook = SerializeHelper.Deserialize<FrontBook>(jsonBook);
