@@ -18,6 +18,10 @@ textarea, input {
     padding: 0;
 }
 
+body{
+    background-color: $light-gray;
+}
+
 .content {
     max-width: 1560px;
     margin: auto;
@@ -26,6 +30,7 @@ textarea, input {
 /* Header */
 #header,
 #sub-header {
+    background-color: $white;
     padding-top: 17px;
 
     .logo {
@@ -125,6 +130,23 @@ textarea, input {
     }
 }
 /* Writer End */
+/* Reader */
+#travel {
+    .header {
+        background-color: $white;
+        font-size: 18px;
+        border-bottom: 3px solid $light-gray;
+        border-top: 3px solid $light-gray;
+        padding: 30px 150px;
+    }
+
+    .body {
+        font-family: MerriweatherLight;
+        background-color: $white;
+        padding: 30px 150px;
+    }
+}
+/* Reader End */
 /* Icon */
 .icon-bell {
     height: 20px;
@@ -133,7 +155,6 @@ textarea, input {
     display: inline-block;
 }
 /* Icon End */
-
 /* Common style*/
 .left {
     float: left;
@@ -168,4 +189,4 @@ textarea, input {
 .ng-dirty {
     background-color: $light-gray;
 }
-/* ng-form END  */
+/* ng-form End  */

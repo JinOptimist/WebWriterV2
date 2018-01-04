@@ -199,7 +199,7 @@
             }
         }
     ])
-    .controller('travelController', [
+    .controller('travelControllerOld', [
         '$scope', '$http', '$location', '$routeParams', '$cookies', '$timeout', '$q', 'evaluationService',
         'bookService', 'eventService', 'heroService', 'userService',
         function ($scope, $http, $location, $routeParams, $cookies, $timeout, $q, evaluationService,

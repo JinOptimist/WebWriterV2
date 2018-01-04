@@ -81,15 +81,19 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     controller: 'aboutUsController'
                 })
                 /* reader */
+                .when('/ar/reader/travel/:bookId/:chapterId?', { // ! Most important page !
+                    templateUrl: '/views/reader/Travel.html',
+                    controller: 'travelController'
+                })
                 .when('/ar/reader/books', {
                     templateUrl: '/views/reader/Books.html',
                     controller: 'readerBooksController'
                 })
-                
                 .when('/ar/reader/register', {
                     templateUrl: '/views/rpg/Register.html',
                     controller: 'registerController'
                 })
+                
                 .otherwise({
                     redirectTo: '/ar/reader/books'
                 });

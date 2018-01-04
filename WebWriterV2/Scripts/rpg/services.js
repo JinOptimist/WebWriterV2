@@ -14,9 +14,8 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             getWithChapters: getWithChapters,
             getAll: getAll,
             getAllForWriter: getAllForWriter,
-            
             saveBook: saveBook,
-            
+            getRootChapter: getRootChapter,
 
             //old method
             changeRootEvent: changeRootEvent,
@@ -62,6 +61,11 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var url = '/api/book/get?id=' + bookId;
             return httpHelper.get(url);
         }
+
+        function getRootChapter(bookId) {
+            var url = '/api/book/getRootChapter?id=' + bookId;
+            return httpHelper.get(url);
+        } 
 
         function getWithChapters(bookId) {
             var url = '/api/book/GetWithChapters?id=' + bookId;
