@@ -16,8 +16,18 @@ angular.module('rpg')
                     Desc: 'Desc',
                     Level: 1,
                     BookId: $scope.book.Id,
+                    IsRootChapter: $scope.book.RootEventId < 0
                 };
-                chapterService.save(chapter);
+                chapterService.save(chapter).then(function (savedChapter) {
+                    $location.path('/ar/writer/chapter/' + savedChapter.Id);
+                });
+            }
+
+            $scope.remove = function (chapter, index) {
+                chapterService.remove(chapter.Id)
+                    .then(function () {
+                        chapter.parent.Chapters.splice(index, 1);
+                    });
             }
 
             function loadBook(bookId) {

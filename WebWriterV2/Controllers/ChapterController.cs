@@ -28,7 +28,17 @@ namespace WebWriterV2.Controllers
         public FrontChapter Save(FrontChapter frontChapter)
         {
             var chapter = frontChapter.ToDbModel();
-            chapter = ChapterRepository.Save(chapter);
+            //Update root chapter
+            if (frontChapter.IsRootChapter) {
+                var book = BookRepository.Get(frontChapter.BookId);
+                chapter.Book = book;
+                chapter = ChapterRepository.Save(chapter);
+                chapter.Book.RootChapter = chapter;
+                BookRepository.Save(book);
+            } else {
+                chapter = ChapterRepository.Save(chapter);
+            }
+            
             frontChapter = new FrontChapter(chapter);
             return frontChapter;
         }
@@ -39,6 +49,13 @@ namespace WebWriterV2.Controllers
             var chapter = ChapterRepository.Get(id);
             var frontChapter = new FrontChapter(chapter);
             return frontChapter;
+        }
+
+        [AcceptVerbs("GET")]
+        public bool Remove(long id)
+        {
+            ChapterRepository.Remove(id);
+            return true;
         }
     }
 }

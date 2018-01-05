@@ -6,6 +6,7 @@
             <div class="header">
                 {{chapter.Name}}
                 * <a href="ar/writer/chapter/{{chapter.Id}}">Edit</a>
+                * <a href="#" ng-click="remove(chapter, $index)">Remove</a>
             </div>
             <div class="body">
                 {{chapter.Desc}}

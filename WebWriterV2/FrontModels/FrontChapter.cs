@@ -11,27 +11,27 @@ namespace WebWriterV2.FrontModels
         {
         }
 
-        public FrontChapter(Chapter eventDb)
+        public FrontChapter(Chapter chapter)
         {
-            Id = eventDb.Id;
-            Name = eventDb.Name;
-            Desc = eventDb.Desc;
-            LinksFromThisEvent = eventDb.LinksFromThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
-            LinksToThisEvent = eventDb.LinksToThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
+            Id = chapter.Id;
+            Name = chapter.Name;
+            Desc = chapter.Desc;
+            LinksFromThisEvent = chapter.LinksFromThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
+            LinksToThisEvent = chapter.LinksToThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
 
-            BookId = eventDb.Book.Id;
+            BookId = chapter.Book.Id;
+            IsRootChapter = chapter.Book.RootChapter?.Id == chapter.Id;
         }
 
         public string Name { get; set; }
         public string Desc { get; set; }
         public List<FrontChapterLinkItem> LinksFromThisEvent { get; set; }
         public List<FrontChapterLinkItem> LinksToThisEvent { get; set; }
-        
+
+        public bool IsRootChapter { get; set; }
 
         public long BookId { get; set; }
-
-        public double ProgressChanging { get; set; }
-
+        
         public override Chapter ToDbModel()
         {
             var book = new Book() { Id = BookId };
