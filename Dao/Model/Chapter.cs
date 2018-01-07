@@ -17,7 +17,7 @@ namespace Dao.Model
         public long NumberOfWords { get; set; }
 
         /// <summary>
-        /// Number of chapter level in book
+        /// Number of chapter level in book.
         /// Root chapter level is 1
         /// </summary>
         public int Level { get; set; }

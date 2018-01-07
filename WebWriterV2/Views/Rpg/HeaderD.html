@@ -1,46 +1,36 @@
-﻿<div ng-controller="accessController" class="content" id="header">
-    <div class="logo header-item">
-        <a href="/ar/reader/books">
-            LOGO
-        </a>
-    </div>
-    <div class="header-item">
-        <a href="/ar/writer/books">Проекты</a>
-    </div>
-    <div class="header-item">
-        <a href="/ar/writer/generalDefinition">Помощь</a>
-    </div>
-    <div class="header-item">
-        <a href="/ar/reader/register">Register</a>
-    </div>
-    
-
-    <div class="right">
-        <div class="header-item ">
-            <input type="text" value="Искать..." />
+﻿<div class="wide-header">
+    <div ng-controller="accessController" class="content" id="header">
+        <div class="logo header-item">
+            <a href="/ar/reader/books">
+                LOGO
+            </a>
         </div>
         <div class="header-item">
-            <span class="icon-bell"></span>
+            <a href="/ar/writer/books">Проекты</a>
         </div>
-        <div class="header-item" ng-click="activeLogin = !activeLogin">
-            <img ng-src="{{user.AvatarUrl}}" class="user-avatar" title="avatar-user-{{::user.Name}}" />
+        <div class="header-item">
+            <a href="/ar/writer/generalDefinition">Помощь</a>
         </div>
-    </div>
+        <div class="header-item" ng-if="!user">
+            <a href="/ar/reader/register">Регистрация</a>
+        </div>
+        <div class="header-item" ng-if="!user">
+            <a href="/ar/reader/login">Login</a>
+        </div>
+        <div class="header-item" ng-if="user">
+            {{::user.Name}} <a href="#" ng-click="exit()">Выйти</a>
+        </div>
 
-    <div ng-if="activeLogin">
-        <span ng-if="error" class="error">{{error}}</span>
-        <p>
-            Username: <input id="username" type="text" ng-model="user.Name" ng-disabled="waiting" />
-        </p>
-        <p>
-            Password: <input id="password" type="password"
-                             ng-keypress="passwordKeyPress($event)" ng-model="user.Password" ng-disabled="waiting" />
-        </p>
-        <p>
-            <input id="login-btn" type="button" value="login" ng-click="login()" ng-disabled="waiting" />
-            <input type="button" value="close" ng-click="close()" />
-            <img src="/Content/icon/wait.gif" ng-if="waiting" class="icon20" />
-        </p>
+        <div class="right">
+            <div class="header-item ">
+                <input type="text" placeholder="Искать..." />
+            </div>
+            <div class="header-item">
+                <span class="icon-bell"></span>
+            </div>
+            <div class="header-item" ng-click="activeLogin = !activeLogin">
+                <img ng-src="{{user.AvatarUrl}}" class="user-avatar" />
+            </div>
+        </div>
     </div>
 </div>
-

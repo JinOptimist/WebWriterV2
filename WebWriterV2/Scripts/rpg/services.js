@@ -16,10 +16,10 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             getAllForWriter: getAllForWriter,
             saveBook: saveBook,
             getRootChapter: getRootChapter,
+            remove: remove,
 
             //old method
             changeRootEvent: changeRootEvent,
-            removeBook: removeBook,
             importBook: importBook,
             bookCompleted: bookCompleted,
             publishBook: publishBook
@@ -46,6 +46,11 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 newValue: true
             };
             return httpHelper.get(url, data);
+        }
+
+        function remove(bookId) {
+            var url = '/api/book/Remove?id=' + bookId;
+            return httpHelper.get(url);
         }
 
         function changeRootEvent(bookId, eventId) {
@@ -79,11 +84,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
 
         function getAllForWriter() {
             var url = '/api/book/GetAllForWriter';
-            return httpHelper.get(url);
-        }
-
-        function removeBook(bookId) {
-            var url = '/api/book/Remove?id=' + bookId;
             return httpHelper.get(url);
         }
 

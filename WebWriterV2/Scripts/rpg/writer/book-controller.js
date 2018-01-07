@@ -5,16 +5,24 @@ angular.module('rpg')
         function ($scope, $routeParams, $location, $cookies, bookService, chapterService,
             eventService, CKEditorService, userService, genreService) {
 
+            var chapterWidth = 270;
+            var chapterHeight = 300;
+            var offsetWidth = 20;
+            var offsetHeight = 22;
+
+            var addButtonWidth = 70;
+            var addButtonHeight = 30;
+
             $scope.bookHasCycle = true;
             $scope.book = null;
             $scope.wait = true;
             init();
 
-            $scope.addChapter = function () {
+            $scope.addChapter = function (level) {
                 var chapter = {
                     Name: 'Header',
                     Desc: 'Desc',
-                    Level: 1,
+                    Level: level,
                     BookId: $scope.book.Id,
                     IsRootChapter: $scope.book.RootEventId < 0
                 };
@@ -49,12 +57,12 @@ angular.module('rpg')
                 var countChapter = level.Chapters.length;
 
                 if (level.isWide) {
-                    style.width = countChapter * (550 + 2) + 'px';
+                    style.width = countChapter * (chapterWidth + 2) + addButtonWidth + 'px';
                 } else {
-                    style.width = 550 + (countChapter - 1) * 20 + 'px';
+                    style.width = chapterWidth + (countChapter - 1) * offsetWidth + addButtonWidth + 'px';
                 }
                 if (!level.isWide) {
-                    style.height = 322 + (countChapter - 1) * (20 + 2) + 'px';
+                    style.height = addButtonHeight + chapterHeight + (countChapter - 1) * offsetHeight + 'px';
                 }
                 return style;
             }
@@ -65,15 +73,15 @@ angular.module('rpg')
                 if (level.isWide) {
                     return {};
                 }
-                
+
                 var index = level.Chapters.indexOf(chapter);
                 return {
                     'position': 'relative',
-                    'top': -1 * index * 300 + 'px',
-                    'left': index * 20 + 'px'
+                    'top': -1 * index * (chapterHeight - offsetHeight) + 'px',
+                    'left': index * offsetWidth + 'px'
                 };
             }
-            
+
             function init() {
                 var bookId = $routeParams.bookId;
                 loadBook(bookId);

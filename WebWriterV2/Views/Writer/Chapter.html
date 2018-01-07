@@ -15,7 +15,8 @@
         <div class="footer">
             Link will be here
             <img ng-if="!chapter || wait" src="/Content/icon/wait.gif" class="icon20" />
-            <input type="button" value="save" ng-click="save()" />
+            <input type="button" value="save" ng-click="save(false)" />
+            <input type="button" value="save & close" ng-click="save(true)" />
         </div>
     </form>
 </div>

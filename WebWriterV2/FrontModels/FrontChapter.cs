@@ -16,22 +16,21 @@ namespace WebWriterV2.FrontModels
             Id = chapter.Id;
             Name = chapter.Name;
             Desc = chapter.Desc;
+            Level = chapter.Level;
             LinksFromThisEvent = chapter.LinksFromThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
             LinksToThisEvent = chapter.LinksToThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
-
             BookId = chapter.Book.Id;
             IsRootChapter = chapter.Book.RootChapter?.Id == chapter.Id;
         }
 
         public string Name { get; set; }
         public string Desc { get; set; }
+        public int Level { get; set; }
         public List<FrontChapterLinkItem> LinksFromThisEvent { get; set; }
         public List<FrontChapterLinkItem> LinksToThisEvent { get; set; }
-
         public bool IsRootChapter { get; set; }
-
         public long BookId { get; set; }
-        
+
         public override Chapter ToDbModel()
         {
             var book = new Book() { Id = BookId };
@@ -40,6 +39,7 @@ namespace WebWriterV2.FrontModels
                 Id = Id,
                 Name = Name,
                 Desc = Desc,
+                Level = Level,
                 LinksFromThisChapter = LinksFromThisEvent?.Select(x => x.ToDbModel()).ToList(),
                 LinksToThisChapter = LinksToThisEvent?.Select(x => x.ToDbModel()).ToList(),
                 NumberOfWords = WordHelper.GetWordCount(Desc),

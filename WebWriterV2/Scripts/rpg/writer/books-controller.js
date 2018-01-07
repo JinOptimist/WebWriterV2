@@ -7,10 +7,26 @@ angular.module('rpg')
 
             $scope.books = [];
             $scope.wait = true;
-            $scope.newBook = {name: ''};
+            $scope.newBook = null;
+            $scope.listOfFilters = [];
+            $scope.filter = {};
+
             init();
 
-            $scope.createBook = function () {
+            $scope.showCreateBook = function () {
+                $scope.newBook = { };
+            }
+
+            $scope.createBook = function ($event) {
+                if ($event.which !== 13) { // 'Enter'.keyEvent === 13
+                    return false;
+                }
+
+                if (!$scope.newBook.name) {
+                    $scope.newBook = null;
+                    return false;
+                }
+
                 $scope.newBook.showBook = !$scope.newBook.showBook;
                 var book = {
                     Name: $scope.newBook.name,
@@ -18,10 +34,25 @@ angular.module('rpg')
                 };
                 bookService.saveBook(book).then(function (newBook) {
                     $scope.books.push(newBook);
-                })
-                
+                });
 
-                $scope.newBook.name = '';
+                $scope.newBook = null;
+            }
+
+            $scope.remove = function (book, index) {
+                if (!confirm('You try delete "' + book.Name + '". Are you sure?')) {
+                    return false;
+                }
+                bookService.remove(book.Id)
+                    .then(function () {
+                        $scope.books.splice(index, 1);
+                    });
+            }
+
+            $scope.filterBooks = function (filter) {
+                $scope.filter = filter.restriction;
+                $scope.listOfFilters.forEach(filter => filter.active = false);
+                filter.active = true;
             }
 
             $scope.publish = function (book) {
@@ -36,8 +67,15 @@ angular.module('rpg')
                 });
             }
 
+            function initListOfFilters() {
+                $scope.listOfFilters = [
+                    { displayName: 'All', active: true, restriction: {} },
+                    { displayName: 'Published', restriction: { IsPublished: true }}];
+            }
+
             function init() {
                 loadBooks();
+                initListOfFilters();
             }
         }
     ]);

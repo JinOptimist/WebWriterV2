@@ -58,9 +58,7 @@ namespace WebWriterV2.Controllers
         public FrontBook Save(FrontBook frontBook)
         {
             var book = frontBook.ToDbModel();
-
             book.Owner = User;
-
             book = BookRepository.Save(book);
             frontBook = new FrontBook(book, true);
             return frontBook;
@@ -91,7 +89,12 @@ namespace WebWriterV2.Controllers
             return true;
         }
 
-
+        [AcceptVerbs("GET")]
+        public bool Remove(long id)
+        {
+            BookRepository.Remove(id);
+            return true;
+        }
 
 
 
@@ -105,10 +108,7 @@ namespace WebWriterV2.Controllers
             return frontBooks;
         }
 
-        public void Remove(long id)
-        {
-            BookRepository.Remove(id);
-        }
+        
 
 
         public long ImportBook(string jsonBook)

@@ -17,7 +17,7 @@ angular.module('rpg')
 
             function loadBook(bookId) {
                 //bookService.getRoot(bookId).then(function (books) {
-                //    //$scope.books = books;
+                //    $scope.books = books;
                 //});
             }
 

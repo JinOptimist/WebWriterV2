@@ -1,17 +1,53 @@
-﻿<div ng-include="'views/writer/Books-subHeaderD.html'">Loading...</div>
+﻿<div class="wide-header">
+    <div class="content" id="sub-header">
+        <div class="logo header-item">
+            Все проекты
+            <span class="gray-text"> | {{books.length}} проектов</span>
+        </div>
+        <div class="header-item">
+            <input type="range" />
+        </div>
+
+        <div class="header-item center">
+            <ul>
+                <li ng-repeat="filter in listOfFilters" ng-click="filterBooks(filter)" ng-class="{active: filter.active}">
+                    {{filter.displayName}}
+                </li>
+            </ul>
+        </div>
+
+        <div class="right">
+            <div class="header-item ">
+                <select>
+                    <option>Сортировать</option>
+                    <option>Дате</option>
+                    <option>Размер</option>
+                </select>
+            </div>
+            <div class="header-item">
+                <a ng-click="showCreateBook()">Add</a>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="content">
-    <div class="book" ng-repeat="book in books">
+    <div class="book" ng-repeat="book in books  | filter: filter ">
         <p>
             {{book.Name}}
         </p>
         <p>
-            <a href="/ar/writer/book/{{book.Id}}">edit</a>
+            <a href="/ar/writer/book/{{book.Id}}">edit</a> |
+            <a href="#" ng-click="remove(book, $index)">Remove</a>
         </p>
         <p>
             {{book.IsPublished}} *
-            
+
             <a href="#" ng-click="publish(book)">опубликовать</a>
         </p>
     </div>
+</div>
+
+<div class="fullscreen-div" ng-if="newBook">
+    <input class="no-border" placeholder='Введите имя книги' ng-model="newBook.name" ng-keypress="createBook($event)" />
 </div>

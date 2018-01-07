@@ -1,17 +1,24 @@
-﻿<div ng-include="'views/writer/Book-subHeaderD.html'">Loading...</div>
+﻿<div id="book-writer">
+    <div ng-include="'views/writer/Book-subHeaderD.html'">Loading...</div>
 
-<div class="content">
-    <div class="level" ng-repeat="level in book.Levels" ng-style="level.dynamicStyle()">
-        <div class="chapter" ng-repeat="chapter in level.Chapters" ng-style="chapter.dynamicStyle()" ng-click="level.isWide = !level.isWide">
-            <div class="header">
-                {{chapter.Name}}
-                * <a href="ar/writer/chapter/{{chapter.Id}}">Edit</a>
-                * <a href="#" ng-click="remove(chapter, $index)">Remove</a>
+    <div class="content" id="book-writer">
+        <div class="level" ng-repeat="level in book.Levels" ng-style="level.dynamicStyle()">
+            <div class="add" ng-click="addChapter($index + 1)">
+                add
             </div>
-            <div class="body">
-                {{chapter.Desc}}
+            <div class="chapter" ng-repeat="chapter in level.Chapters" ng-style="chapter.dynamicStyle()" ng-click="level.isWide = !level.isWide">
+                <div class="header">
+                    {{chapter.Name}}
+                    * <a href="ar/writer/chapter/{{chapter.Id}}">Edit</a>
+                    * <a href="#" ng-click="remove(chapter, $index)">Remove</a>
+                </div>
+                <div class="body">
+                    {{chapter.Desc}}
+                </div>
             </div>
-
+        </div>
+        <div class="add-level" ng-click="addChapter(book.Levels.length + 1)">
+            add level
         </div>
     </div>
 </div>

@@ -21,6 +21,8 @@ namespace WebWriterV2.FrontModels
             NumberOfChapters = book.NumberOfChapters;
             NumberOfWords = book.NumberOfWords;
 
+            AuthorFullName = book.Owner.Name;
+
             ContainsCycle = forWriter
                 ? new GraphHelper(book).HasCycle()
                 : true;
@@ -37,6 +39,8 @@ namespace WebWriterV2.FrontModels
         public bool IsPublished { get; set; }
         public long NumberOfChapters { get; set; }
         public long NumberOfWords { get; set; }
+
+        public string AuthorFullName { get; set; }
 
         public bool ContainsCycle { get; set; }
         //public FrontGenre Genre { get; set; }

@@ -1,4 +1,5 @@
 ﻿angular.module('rpg')
+    /*Move to separate file*/
     .controller('accessController', ['$rootScope', '$scope', '$cookies', '$location', 'ConstCookies', 'userService',
         function ($rootScope, $scope, $cookies, $location, ConstCookies, userService) {
             $scope.user = {};
@@ -14,7 +15,7 @@
             });
 
             $scope.goToHomePage = function() {
-                $location.path('/AngularRoute/listBook');
+                $location.path('/');
             }
 
             $scope.passwordKeyPress = function ($event) {
@@ -60,11 +61,12 @@
                         $scope.user = data;
                     });
                 } else {
-                    $scope.user = {};
+                    $scope.user = null;
                 }
             }
         }
     ])
+    /*Move to separate file*/
     .controller('registerController', ['$rootScope', '$scope', '$cookies', '$location', '$window', 'ConstCookies', 'userService',
         function ($rootScope, $scope, $cookies, $location, $window, ConstCookies, userService) {
             $scope.user = {};
@@ -85,7 +87,7 @@
             }
 
             $scope.goToHomePage = function () {
-                $location.path('/AngularRoute/listBook');
+                $location.path('/');
             }
 
             $scope.passwordKeyPress = function ($event) {

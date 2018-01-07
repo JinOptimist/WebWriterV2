@@ -9,7 +9,7 @@ angular.module('rpg')
             $scope.wait = true;
             init();
 
-            $scope.save = function () {
+            $scope.save = function (saveAndClose) {
                 $scope.wait = true;
                 chapterService.save($scope.chapter).then(function (chapter) {
                     $scope.wait = false;
@@ -17,6 +17,10 @@ angular.module('rpg')
                     if ($scope.chapterForm) {
                         $scope.chapterForm.$setPristine();
                         $scope.chapterForm.$setUntouched();
+                    }
+
+                    if (saveAndClose) {
+                        $location.path('/ar/writer/book/' + chapter.BookId);
                     }
                 });
             }
