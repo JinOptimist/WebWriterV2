@@ -6,6 +6,7 @@ namespace Dao.IRepository
 {
     public interface IChapterLinkItemRepository : IBaseRepository<ChapterLinkItem>
     {
+        List<ChapterLinkItem> GetLinksFromChapter(long chapterId);
         void RemoveDuplicates();
     }
 }

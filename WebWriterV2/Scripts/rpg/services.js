@@ -99,7 +99,11 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         return {
             get: get,
             save: save,
-            remove: remove
+            remove: remove,
+            getBottomChapters: getBottomChapters,
+
+            saveChapterLink: saveChapterLink,
+            getLinksFromChapter: getLinksFromChapter,
         };
 
         function save(chapter) {
@@ -115,6 +119,23 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
 
         function remove(chapterId) {
             var url = '/api/chapter/Remove?id=' + chapterId;
+            return httpHelper.get(url);
+        }
+
+        function getBottomChapters(chapter) {
+            var url = '/api/chapter/GetChapterBottom';
+            var data = angular.toJson(chapter);
+            return httpHelper.post(url, data);
+        }
+
+        function saveChapterLink(chapterLink) {
+            var url = '/api/chapterLink/save';
+            var data = angular.toJson(chapterLink);
+            return httpHelper.post(url, data);
+        }
+
+        function getLinksFromChapter(chapterId) {
+            var url = '/api/chapterLink/GetLinksFromChapter?chapterId=' + chapterId;
             return httpHelper.get(url);
         }
     }])

@@ -35,6 +35,7 @@ angular.module('rpg')
                 chapterService.remove(chapter.Id)
                     .then(function () {
                         chapter.parent.Chapters.splice(index, 1);
+                        init();
                     });
             }
 

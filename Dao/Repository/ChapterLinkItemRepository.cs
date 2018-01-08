@@ -3,6 +3,8 @@ using Dao.IRepository;
 using Dao.Model;
 using System;
 using System.Linq;
+using Dal.Repository;
+using System.Collections.Generic;
 
 namespace Dao.Repository
 {
@@ -17,15 +19,9 @@ namespace Dao.Repository
 
         public override ChapterLinkItem Save(ChapterLinkItem model)
         {
-            if (_eventRepository.Value.Db.Entry(model.From).State == EntityState.Detached)
-            {
-                model.From = _eventRepository.Value.Entity.Find(model.From.Id);
-            }
+            model.From = model.From.AttachIfNot(Db);
 
-            if (_eventRepository.Value.Db.Entry(model.To).State == EntityState.Detached)
-            {
-                model.To = _eventRepository.Value.Entity.Find(model.To.Id);
-            }
+            model.To = model.To.AttachIfNot(Db);
 
             return base.Save(model);
         }
@@ -36,6 +32,11 @@ namespace Dao.Repository
                 .GroupBy(x => new {x.From, x.Text, x.To})
                 .SelectMany(x => x.OrderBy(y => y.Id).Skip(1));
             Remove(duplicate);
+        }
+
+        public List<ChapterLinkItem> GetLinksFromChapter(long chapterId)
+        {
+            return Entity.Where(x => x.From.Id == chapterId).ToList();
         }
     }
 }

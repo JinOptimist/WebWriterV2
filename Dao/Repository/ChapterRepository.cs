@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using Dal.Repository;
 using Dao.IRepository;
 using Dao.Model;
 
@@ -35,8 +36,13 @@ namespace Dao.Repository
             //    model = modelFromDb;
             //}
 
-            if (Db.Entry(model.Book).State == EntityState.Detached) {
-                Db.Set<Book>().Attach(model.Book);
+            model.Book = model.Book.AttachIfNot(Db);
+
+            for (var i = 0; model.LinksFromThisChapter != null && i < model.LinksFromThisChapter.Count; i++) {
+                model.LinksFromThisChapter[i] = model.LinksFromThisChapter[i].AttachIfNot(Db);
+            }
+            for (var i = 0; model.LinksToThisChapter != null && i < model.LinksToThisChapter.Count; i++) {
+                model.LinksToThisChapter[i] = model.LinksToThisChapter[i].AttachIfNot(Db);
             }
 
             return base.Save(model);
@@ -103,6 +109,16 @@ namespace Dao.Repository
         public List<Chapter> GetRootEvents(long bookId)
         {
             return Entity.Where(x => x.Book != null && x.Book.Id == bookId).ToList();
+        }
+
+        public List<Chapter> GetChapterBottom(long bookId, int level)
+        {
+            return Entity.Where(x => x.Book.Id == bookId && x.Level > level).ToList();
+        }
+
+        public List<Chapter> GetChapterTop(long bookId, int level)
+        {
+            return Entity.Where(x => x.Book.Id == bookId && x.Level < level).ToList();
         }
 
         public List<Chapter> GetEndingEvents(long bookId)

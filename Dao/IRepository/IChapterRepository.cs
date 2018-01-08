@@ -17,6 +17,10 @@ namespace Dao.IRepository
 
         List<Chapter> GetNotAvailableEvents(long bookId);
 
+        List<Chapter> GetChapterBottom(long bookId, int level);
+
+        List<Chapter> GetChapterTop(long bookId, int level);
+
         bool HasChild(long eventId);
     }
 }

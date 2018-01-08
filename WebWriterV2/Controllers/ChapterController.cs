@@ -57,5 +57,19 @@ namespace WebWriterV2.Controllers
             ChapterRepository.Remove(id);
             return true;
         }
+
+        [AcceptVerbs("POST")]
+        public List<FrontChapter> GetChapterBottom(FrontChapter chapter)
+        {
+            var chapters = ChapterRepository.GetChapterBottom(chapter.BookId, chapter.Level);
+            return chapters.Select(x=> new FrontChapter(x)).ToList();
+        }
+
+        [AcceptVerbs("POST")]
+        public List<FrontChapter> GetChapterTop(FrontChapter chapter)
+        {
+            var chapters = ChapterRepository.GetChapterTop(chapter.BookId, chapter.Level);
+            return chapters.Select(x => new FrontChapter(x)).ToList();
+        }
     }
 }

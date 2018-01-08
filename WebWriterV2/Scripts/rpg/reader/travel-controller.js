@@ -2,10 +2,12 @@ angular.module('rpg')
 
     .controller('travelController', [
         '$scope', '$routeParams', '$location', '$cookies', 'bookService', 'chapterService',
+        'eventService', 'CKEditorService', 'userService', 'genreService',
         function ($scope, $routeParams, $location, $cookies, bookService, chapterService,
             eventService, CKEditorService, userService, genreService) {
 
             $scope.chapter = null;
+            $scope.chapterLinks = [];
             $scope.wait = true;
             init();
 
@@ -13,12 +15,20 @@ angular.module('rpg')
                 chapterService.get(chapterId).then(function (chapter) {
                     $scope.chapter = chapter;
                 });
+
+                loadChapterLinks(chapterId);
             }
 
             function loadBook(bookId) {
                 //bookService.getRoot(bookId).then(function (books) {
                 //    $scope.books = books;
                 //});
+            }
+
+            function loadChapterLinks(chapterId) {
+                chapterService.getLinksFromChapter(chapterId).then(function (chapterLinks) {
+                    $scope.chapterLinks = chapterLinks;
+                });
             }
 
             function init() {

@@ -13,10 +13,20 @@
             <textarea ng-model="chapter.Desc" class="no-border"></textarea>
         </div>
         <div class="footer">
-            Link will be here
             <img ng-if="!chapter || wait" src="/Content/icon/wait.gif" class="icon20" />
             <input type="button" value="save" ng-click="save(false)" />
             <input type="button" value="save & close" ng-click="save(true)" />
         </div>
     </form>
+    <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
+        {{chapterLink.Text}} <a href="/ar/writer/chapter/{{chapterLink.ToId}}">перейти к главе</a>
+    </div>
+    <div class="chapter-link">
+        <form name="chapterLinkForm" novalidate>
+            <textarea class="no-border" ng-model="newChapterLink.Text" placeholder='Текст для ссылки на следующую главу. По умолчанию ссылка будет с текстом "Далее"'></textarea>
+            <select ng-options="chapter.Id as chapter.Name for chapter in chaptersBottom track by chapter.Id"
+                    ng-model="newChapterLink.ToId"></select>
+            <input type="button" value="Сохранить ссылку" ng-click="saveChapterLink()" />
+        </form>
+    </div>
 </div>

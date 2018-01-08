@@ -20,7 +20,6 @@ namespace WebWriterV2.FrontModels
 
             //HeroStatesChanging = eventLinkItemDb.HeroStatesChanging?.Select(x => new FrontState(x)).ToList();
             //RequirementStates = eventLinkItemDb.RequirementStates?.Select(x => new FrontState(x)).ToList();
-            throw new NotImplementedException();
         }
 
         public string Text { get; set; }
@@ -42,7 +41,6 @@ namespace WebWriterV2.FrontModels
                 //RequirementStates = RequirementStates?.Select(x => x.ToDbModel()).ToList(),
                 //HeroStatesChanging = HeroStatesChanging?.Select(x => x.ToDbModel()).ToList()
             };
-            throw new NotImplementedException();
         }
     }
 }

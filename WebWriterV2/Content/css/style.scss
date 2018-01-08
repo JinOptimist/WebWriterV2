@@ -132,7 +132,7 @@ body {
     border: 1px solid #f18f1c;
     background-color: $light-gray;
     width: 800px;
-    height: 500px;
+    /*height: 500px;*/
     margin: auto;
 
     .header {
@@ -163,15 +163,29 @@ body {
         padding: 20px;
 
         textarea {
-            font-family: MerriweatherLight;
             height: 350px;
-            width: 760px;
-            resize: none;
+        }
+    }
+
+    .chapter-link {
+        background-color: $white;
+        margin-bottom: 3px;
+        padding: 20px;
+
+        textarea {
+            height: 150px;
         }
     }
 
     .footer {
         background-color: $white;
+        margin-bottom: 3px;
+    }
+
+    textarea {
+        font-family: MerriweatherLight;
+        width: 760px;
+        resize: none;
     }
 }
 /* Writer End */
@@ -188,6 +202,13 @@ body {
     .body {
         font-family: MerriweatherLight;
         background-color: $white;
+        padding: 30px 150px;
+    }
+
+    .chapter-link {
+        background-color: $white;
+        margin-bottom: 3px;
+        margin-top: 3px;
         padding: 30px 150px;
     }
 }

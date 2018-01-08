@@ -5,7 +5,7 @@
     <div class="body">
         {{chapter.Desc}}
     </div>
-    <div>
-        Дальше
+    <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
+        <a href="/ar/reader/travel/{{chapter.BookId}}/{{chapterLink.ToId}}">{{chapterLink.Text}}</a>
     </div>
 </div>
