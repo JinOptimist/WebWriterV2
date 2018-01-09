@@ -12,7 +12,7 @@ angular.module('rpg')
             init();
 
             function loadChapter(chapterId) {
-                chapterService.get(chapterId).then(function (chapter) {
+                chapterService.getForTravel(chapterId).then(function (chapter) {
                     $scope.chapter = chapter;
                 });
 

@@ -20,6 +20,9 @@ html, body, textarea, input {
     margin: 0;
     padding: 0;
 }
+a {
+    text-decoration: none;
+}
 
 body {
     background-color: $light-gray;
@@ -54,7 +57,6 @@ body {
 
         a {
             color: $gray-middle;
-            text-decoration: none;
         }
     }
 
@@ -81,8 +83,8 @@ body {
         margin: auto;
 
         .add {
-            width: 40px;
-            border: 1px red solid;
+            width: 60px;
+            /*border: 1px red solid;*/
             float: right;
             margin-top: 150px;
         }
@@ -111,8 +113,7 @@ body {
     }
 
     .add-level {
-        width: 60px;
-        border: 1px red solid;
+        width: 100px;
         margin: auto;
     }
 }
@@ -205,11 +206,27 @@ body {
         padding: 30px 150px;
     }
 
-    .chapter-link {
-        background-color: $white;
-        margin-bottom: 3px;
-        margin-top: 3px;
+    .chapter-links-block {
         padding: 30px 150px;
+        margin-top: 3px;
+        background-color: $white;
+
+        .chapter-link {
+            background-color: $white;
+
+            .text {
+                border: 2px #ccc solid;
+                border-radius: 5px;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .action-button {
+                position: relative;
+                left: calc( (100% - 120px) / 2);
+                top: -16px;
+            }
+        }
     }
 }
 /* Reader End */
@@ -271,6 +288,20 @@ body {
 
 .gray-text {
     color: $gray-middle;
+}
+
+.wait {
+    background-image: url(../icon/wait.gif);
+    width: 42px;
+    height: 42px;
+}
+
+.button-medium-blue {
+    color: $white;
+    background-color: $blue1;
+    border-radius: 24px;
+    padding: 5px 12px;
+    cursor: pointer;
 }
 /* Common style End*/
 /* ng-form */

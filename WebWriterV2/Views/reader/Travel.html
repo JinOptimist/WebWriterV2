@@ -1,11 +1,20 @@
-﻿<div id="travel" class="content">
-    <div class="header">
+﻿<div id="travel" class="content" ng-class="!chapter ? 'wait' : ''">
+    <div class="header" ng-show="chapter">
         {{chapter.Name}}
     </div>
-    <div class="body">
-        {{chapter.Desc}}
-    </div>
-    <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
-        <a href="/ar/reader/travel/{{chapter.BookId}}/{{chapterLink.ToId}}">{{chapterLink.Text}}</a>
+    <div class="body" ng-bind-html="chapter.Desc" ng-show="chapter"></div>
+    <div class="chapter-links-block" ng-show="chapter">
+        <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
+            <div class="text">
+                {{chapterLink.Text}}
+            </div>
+            <div class="action-button">
+                <a href="/ar/reader/travel/{{chapter.BookId}}/{{chapterLink.ToId}}">
+                    <span class="button-medium-blue">
+                        Сделать выбор
+                    </span>
+                </a>
+            </div>
+        </div>
     </div>
 </div>

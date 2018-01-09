@@ -98,6 +98,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
     .service('chapterService', ['httpHelper', function (httpHelper) {
         return {
             get: get,
+            getForTravel: getForTravel,
             save: save,
             remove: remove,
             getBottomChapters: getBottomChapters,
@@ -116,6 +117,11 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             var url = '/api/chapter/get?id=' + chapterId;
             return httpHelper.get(url);
         }
+
+        function getForTravel(chapterId) {
+            var url = '/api/chapter/GetForTravel?id=' + chapterId;
+            return httpHelper.get(url);
+        } 
 
         function remove(chapterId) {
             var url = '/api/chapter/Remove?id=' + chapterId;

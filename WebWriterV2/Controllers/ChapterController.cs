@@ -52,6 +52,14 @@ namespace WebWriterV2.Controllers
         }
 
         [AcceptVerbs("GET")]
+        public FrontChapter GetForTravel(long id)
+        {
+            var chapter = ChapterRepository.Get(id);
+            var frontChapter = new FrontChapter(chapter, true);
+            return frontChapter;
+        }
+
+        [AcceptVerbs("GET")]
         public bool Remove(long id)
         {
             ChapterRepository.Remove(id);

@@ -1,4 +1,4 @@
-﻿<div class="wide-header">
+﻿<div class="wide-header" ng-class="!books ? 'wait' : ''">
     <div class="content" id="sub-header">
         <div class="logo header-item">
             Все проекты
@@ -25,7 +25,9 @@
                 </select>
             </div>
             <div class="header-item">
-                <a ng-click="showCreateBook()">Add</a>
+                <span class="button-medium-blue" ng-click="showCreateBook()">
+                    add
+                </span>
             </div>
         </div>
     </div>

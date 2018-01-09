@@ -1,4 +1,4 @@
-﻿<div class="content">
+﻿<div class="content" ng-class="!books ? 'wait' : ''">
     <div class="book" ng-repeat="book in books" ng-click="readBook(book.Id)">
         <p>
             {{book.Name}}

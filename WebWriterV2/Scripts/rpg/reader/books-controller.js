@@ -5,7 +5,7 @@ angular.module('rpg')
         function ($scope, $routeParams, $location, $cookies, bookService,
             eventService, CKEditorService, userService, genreService) {
 
-            $scope.books = [];
+            $scope.books = null;
             $scope.wait = true;
             init();
 

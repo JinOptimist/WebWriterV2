@@ -11,16 +11,28 @@ namespace WebWriterV2.FrontModels
         {
         }
 
-        public FrontChapter(Chapter chapter)
+        public FrontChapter(Chapter chapter, bool forTravel = false)
         {
             Id = chapter.Id;
             Name = chapter.Name;
-            Desc = chapter.Desc;
+            Desc = forTravel ? GenerateHtmlForDesc(chapter.Desc) : chapter.Desc;
             Level = chapter.Level;
             LinksFromThisEvent = chapter.LinksFromThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
             LinksToThisEvent = chapter.LinksToThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
             BookId = chapter.Book.Id;
             IsRootChapter = chapter.Book.RootChapter?.Id == chapter.Id;
+        }
+
+        private string GenerateHtmlForDesc(string desc)
+        {
+            var listOfParagraph = desc.Split('\n');
+            for (var i = 0; i < listOfParagraph.Length; i++) {
+                if (string.IsNullOrWhiteSpace(listOfParagraph[i])) {
+                    listOfParagraph[i] = "&nbsp;";
+                }
+                listOfParagraph[i] = $"<p>{listOfParagraph[i]}</p>";
+            }
+            return string.Join("\r\n", listOfParagraph);
         }
 
         public string Name { get; set; }

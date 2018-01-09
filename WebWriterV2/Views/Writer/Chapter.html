@@ -1,7 +1,7 @@
 ﻿<div ng-include="'views/writer/Book-subHeaderD.html'">Loading...</div>
 
 
-<div id="chapter" class="content">
+<div id="chapter" class="content" ng-class="!chapter ? 'wait' : ''">
     <form name="chapterForm" novalidate>
         <div class="header">
             <input type="text" ng-model="chapter.Name" class="no-border" />
