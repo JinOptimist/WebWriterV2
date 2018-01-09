@@ -5,10 +5,10 @@
                 LOGO
             </a>
         </div>
-        <div class="header-item">
+        <div class="header-item" ng-if="user">
             <a href="/ar/writer/books">Проекты</a>
         </div>
-        <div class="header-item">
+        <div class="header-item" ng-if="user">
             <a href="/ar/writer/generalDefinition">Помощь</a>
         </div>
         <div class="header-item" ng-if="!user">

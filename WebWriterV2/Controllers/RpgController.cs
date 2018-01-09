@@ -897,23 +897,23 @@ namespace WebWriterV2.Controllers
         //    return Init();
         //}
 
-        //public JsonResult AddAdminUser()
-        //{
-        //    var user = UserRepository.GetByName(AdminName);
-        //    if (user == null) {
-        //        user = new User {
-        //            Name = AdminName,
-        //            Password = AdminPassword,
-        //            UserType = UserType.Admin
-        //        };
-        //        user = UserRepository.Save(user);
-        //    }
-        //    if (user.UserType != UserType.Admin) {
-        //        user.UserType = UserType.Admin;
-        //        UserRepository.Save(user);
-        //    }
-        //    return Json(true, JsonRequestBehavior.AllowGet);
-        //}
+        public JsonResult AddAdminUser()
+        {
+            var user = UserRepository.GetByName(AdminName);
+            if (user == null) {
+                user = new User {
+                    Name = AdminName,
+                    Password = AdminPassword,
+                    UserType = UserType.Admin
+                };
+                user = UserRepository.Save(user);
+            }
+            if (user.UserType != UserType.Admin) {
+                user.UserType = UserType.Admin;
+                UserRepository.Save(user);
+            }
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
 
         public JsonResult GetAllUsers()
         {

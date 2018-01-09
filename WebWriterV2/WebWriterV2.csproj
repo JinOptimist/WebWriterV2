@@ -258,7 +258,6 @@
     <Content Include="Content\rpg-img\unknown.jpg" />
     <Content Include="Content\rpg-img\woman.jpg" />
     <Content Include="Content\icon\wait.gif" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="book\Academy.doc">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -275,10 +274,6 @@
     <Content Include="book\Academy.rtf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-cookies.js" />
