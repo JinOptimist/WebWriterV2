@@ -6,9 +6,10 @@ angular.module('rpg')
             eventService, CKEditorService, userService, genreService) {
 
             var chapterWidth = 270;
-            var chapterHeight = 300;
+            var chapterHeight = 310;
+
             var offsetWidth = 20;
-            var offsetHeight = 22;
+            var offsetHeight = 25;
 
             var addButtonWidth = 70;
             var addButtonHeight = 30;
@@ -63,7 +64,7 @@ angular.module('rpg')
                     style.width = chapterWidth + (countChapter - 1) * offsetWidth + addButtonWidth + 'px';
                 }
                 if (!level.isWide) {
-                    style.height = addButtonHeight + chapterHeight + (countChapter - 1) * offsetHeight + 'px';
+                    style.height = chapterHeight + (countChapter - 1) * offsetHeight + 'px';
                 }
                 return style;
             }

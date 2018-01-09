@@ -5,13 +5,13 @@
     <div class="body" ng-bind-html="chapter.Desc" ng-show="chapter"></div>
     <div class="chapter-links-block" ng-show="chapter">
         <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
-            <div class="text">
+            <div class="text" ng-if="chapterLink.Text">
                 {{chapterLink.Text}}
             </div>
             <div class="action-button">
                 <a href="/ar/reader/travel/{{chapter.BookId}}/{{chapterLink.ToId}}">
                     <span class="button-medium-blue">
-                        Сделать выбор
+                        {{chapterLink.Text ? 'Сделать выбор' : 'Далее'}}
                     </span>
                 </a>
             </div>

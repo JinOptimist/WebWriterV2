@@ -88,6 +88,10 @@
     <Compile Include="Migrations\201801041349524_updateChapter.Designer.cs">
       <DependentUpon>201801041349524_updateChapter.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801091751404_ChapterLinkItemTextCanBeNull.cs" />
+    <Compile Include="Migrations\201801091751404_ChapterLinkItemTextCanBeNull.Designer.cs">
+      <DependentUpon>201801091751404_ChapterLinkItemTextCanBeNull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\UserWhoReadBook.cs" />
@@ -135,6 +139,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801041349524_updateChapter.resx">
       <DependentUpon>201801041349524_updateChapter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801091751404_ChapterLinkItemTextCanBeNull.resx">
+      <DependentUpon>201801091751404_ChapterLinkItemTextCanBeNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

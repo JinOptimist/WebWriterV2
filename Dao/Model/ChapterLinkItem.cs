@@ -8,11 +8,9 @@ namespace Dao.Model
 {
     public class ChapterLinkItem : BaseModel, IUpdatable<ChapterLinkItem>
     {
-        [Required]
         public string Text { get; set; }
 
         public virtual List<StateRequirement> RequirementStates { get; set; }
-
         public virtual List<StateChange> HeroStatesChanging { get; set; }
 
         /* Link reference */

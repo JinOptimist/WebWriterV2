@@ -707,7 +707,6 @@
     <Content Include="Views\Rpg\GeneralDefinition.html" />
     <Content Include="Views\Rpg\admin\Genre.html" />
     <Content Include="Views\Writer\Chapter.html" />
-    <Content Include="Views\Writer\Book-subHeaderD.html" />
     <Content Include="Views\Writer\Books.html" />
     <Content Include="Views\Rpg\HeaderD.html" />
     <Content Include="Views\Rpg\HeaderOld.html" />

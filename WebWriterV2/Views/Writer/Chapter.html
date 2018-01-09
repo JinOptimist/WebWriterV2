@@ -1,7 +1,4 @@
-﻿<div ng-include="'views/writer/Book-subHeaderD.html'">Loading...</div>
-
-
-<div id="chapter" class="content" ng-class="!chapter ? 'wait' : ''">
+﻿<div id="chapter" class="content" ng-class="!chapter ? 'wait' : ''">
     <form name="chapterForm" novalidate>
         <div class="header">
             <input type="text" ng-model="chapter.Name" class="no-border" />
@@ -18,15 +15,30 @@
             <input type="button" value="save & close" ng-click="save(true)" />
         </div>
     </form>
-    <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
-        {{chapterLink.Text}} <a href="/ar/writer/chapter/{{chapterLink.ToId}}">перейти к главе</a>
+    <div class="chapter-links-block" ng-show="chapterLinks.length > 0">
+        <form name="chapterLinkBlockForm">
+            <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
+
+                <div class="text" ng-if="chapterLink.Text">
+                    <input ng-model="chapterLink.Text" class="no-border" ng-blur="updateChpaterLink(chapterLink)" />
+                </div>
+                <div class="action-button">
+                    <a href="/ar/writer/chapter/{{chapterLink.ToId}}">
+                        <span class="button-medium-blue">
+                            {{chapterLink.Text ? 'Сделать выбор' : 'Далее'}}
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </form>
     </div>
     <div class="chapter-link">
         <form name="chapterLinkForm" novalidate>
             <textarea class="no-border" ng-model="newChapterLink.Text" placeholder='Текст для ссылки на следующую главу. По умолчанию ссылка будет с текстом "Далее"'></textarea>
             <select ng-options="chapter.Id as chapter.Name for chapter in chaptersBottom track by chapter.Id"
                     ng-model="newChapterLink.ToId"></select>
-            <input type="button" value="Сохранить ссылку" ng-click="saveChapterLink()" />
+            <input type="button" value="Создать ссылку" ng-click="saveChapterLink()" />
         </form>
     </div>
+
 </div>

@@ -97,7 +97,6 @@ body {
             display: inline-block;
             margin: 5px;
             overflow: hidden;
-            cursor: pointer;
 
             .header {
                 font-family: LatoBold;
@@ -205,27 +204,33 @@ body {
         background-color: $white;
         padding: 30px 150px;
     }
+}
+/* Also use in chapter editor */
+.chapter-links-block {
+    padding: 30px 150px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    background-color: $white;
 
-    .chapter-links-block {
-        padding: 30px 150px;
-        margin-top: 3px;
+    .chapter-link {
         background-color: $white;
 
-        .chapter-link {
-            background-color: $white;
+        .text {
+            border: 2px #ccc solid;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
 
-            .text {
-                border: 2px #ccc solid;
-                border-radius: 5px;
-                padding: 20px;
+            input {
                 text-align: center;
+                width: 400px;
             }
+        }
 
-            .action-button {
-                position: relative;
-                left: calc( (100% - 120px) / 2);
-                top: -16px;
-            }
+        .action-button {
+            position: relative;
+            left: calc( (100% - 120px) / 2);
+            top: -16px;
         }
     }
 }
@@ -305,7 +310,8 @@ body {
 }
 /* Common style End*/
 /* ng-form */
-.ng-dirty {
+textarea.ng-dirty,
+input.ng-dirty {
     background-color: $light-gray;
 }
 /* ng-form End  */

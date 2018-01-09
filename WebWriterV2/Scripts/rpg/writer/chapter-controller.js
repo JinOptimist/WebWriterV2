@@ -31,10 +31,24 @@ angular.module('rpg')
             }
 
             $scope.saveChapterLink = function () {
-                chapterService.saveChapterLink($scope.newChapterLink).then(function (chapterLink) {
-                    if ($scope.chapterForm) {
-                        $scope.chapterLinkForm.$setPristine();
-                        $scope.chapterLinkForm.$setUntouched();
+                saveChapterLinkAndResetForm($scope.newChapterLink, $scope.chapterLinkForm);
+            }
+
+            $scope.updateChpaterLink = function (chapterLink) {
+                saveChapterLinkAndResetForm(chapterLink, $scope.chapterLinkBlockForm);
+            }
+
+            function saveChapterLinkAndResetForm(chapterLink, form) {
+                chapterService.saveChapterLink(chapterLink).then(function (savedChapterLink) {
+                    if (chapterLink.Id > 0) {
+                        //ignore. Lazy revert statment for undefind
+                    } else {
+                        $scope.chapterLinks.push(savedChapterLink);
+                    }
+                    
+                    if (form) {
+                        form.$setPristine();
+                        form.$setUntouched();
                     }
 
                     //if (saveAndClose) {
