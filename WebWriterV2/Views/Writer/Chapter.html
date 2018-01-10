@@ -11,8 +11,8 @@
         </div>
         <div class="footer">
             <img ng-if="!chapter || wait" src="/Content/icon/wait.gif" class="icon20" />
-            <input type="button" value="save" ng-click="save(false)" />
-            <input type="button" value="save & close" ng-click="save(true)" />
+            <span class="button-medium-blue" ng-click="save(false)">Сохранить</span>
+            <span class="button-medium-blue" ng-click="save(true)">Сохранить и закрыть</span>
         </div>
     </form>
     <div class="chapter-links-block" ng-show="chapterLinks.length > 0">
@@ -37,8 +37,11 @@
             <textarea class="no-border" ng-model="newChapterLink.Text" placeholder='Текст для ссылки на следующую главу. По умолчанию ссылка будет с текстом "Далее"'></textarea>
             <select ng-options="chapter.Id as chapter.Name for chapter in chaptersBottom track by chapter.Id"
                     ng-model="newChapterLink.ToId"></select>
-            <input type="button" value="Создать ссылку" ng-click="saveChapterLink()" />
+            <span class="button-medium-blue" ng-click="saveChapterLink()">Создать ссылку</span>
         </form>
+    </div>
+    <div>
+        <span class="button-medium-blue" ng-click="createNextChapter()">создать следующую главу</span>
     </div>
 
 </div>

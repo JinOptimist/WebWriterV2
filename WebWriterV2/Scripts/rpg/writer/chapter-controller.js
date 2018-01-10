@@ -30,6 +30,12 @@ angular.module('rpg')
                 });
             }
 
+            $scope.createNextChapter = function () {
+                chapterService.createNextChapter($scope.chapter).then(function (newChapter) {
+                    $location.path('/ar/writer/chapter/' + newChapter.Id);
+                });
+            }
+
             $scope.saveChapterLink = function () {
                 saveChapterLinkAndResetForm($scope.newChapterLink, $scope.chapterLinkForm);
             }

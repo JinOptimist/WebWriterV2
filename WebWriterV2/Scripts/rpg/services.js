@@ -102,6 +102,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             save: save,
             remove: remove,
             getBottomChapters: getBottomChapters,
+            createNextChapter: createNextChapter,
 
             saveChapterLink: saveChapterLink,
             getLinksFromChapter: getLinksFromChapter,
@@ -121,7 +122,13 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
         function getForTravel(chapterId) {
             var url = '/api/chapter/GetForTravel?id=' + chapterId;
             return httpHelper.get(url);
-        } 
+        }
+
+        function createNextChapter(chapter) {
+            var url = '/api/chapter/CreateNextChapter';
+            var data = angular.toJson(chapter);
+            return httpHelper.post(url, data);
+        }
 
         function remove(chapterId) {
             var url = '/api/chapter/Remove?id=' + chapterId;

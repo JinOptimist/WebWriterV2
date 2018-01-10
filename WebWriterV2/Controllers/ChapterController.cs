@@ -15,15 +15,18 @@ namespace WebWriterV2.Controllers
 {
     public class ChapterController : BaseApiController
     {
-        public ChapterController(IBookRepository bookRepository, IChapterRepository chapterRepository)
+        public ChapterController(IBookRepository bookRepository, IChapterRepository chapterRepository, IChapterLinkItemRepository chapterLinkItemRepository)
         {
             BookRepository = bookRepository;
             ChapterRepository = chapterRepository;
+            ChapterLinkItemRepository = chapterLinkItemRepository;
         }
 
         private IBookRepository BookRepository { get; set; }
         private IChapterRepository ChapterRepository { get; set; }
-        
+        private IChapterLinkItemRepository ChapterLinkItemRepository { get; set; }
+
+
         [AcceptVerbs("POST")]
         public FrontChapter Save(FrontChapter frontChapter)
         {
@@ -38,7 +41,7 @@ namespace WebWriterV2.Controllers
             } else {
                 chapter = ChapterRepository.Save(chapter);
             }
-            
+
             frontChapter = new FrontChapter(chapter);
             return frontChapter;
         }
@@ -70,7 +73,7 @@ namespace WebWriterV2.Controllers
         public List<FrontChapter> GetChapterBottom(FrontChapter chapter)
         {
             var chapters = ChapterRepository.GetChapterBottom(chapter.BookId, chapter.Level);
-            return chapters.Select(x=> new FrontChapter(x)).ToList();
+            return chapters.Select(x => new FrontChapter(x)).ToList();
         }
 
         [AcceptVerbs("POST")]
@@ -78,6 +81,28 @@ namespace WebWriterV2.Controllers
         {
             var chapters = ChapterRepository.GetChapterTop(chapter.BookId, chapter.Level);
             return chapters.Select(x => new FrontChapter(x)).ToList();
+        }
+
+        [AcceptVerbs("POST")]
+        public FrontChapter CreateNextChapter(FrontChapter frontChapter)
+        {
+            var chapter = frontChapter.ToDbModel();
+            var newChapter = new Chapter() {
+                Name = "Name",
+                Desc = "Desc",
+                Book = chapter.Book,
+                Level = chapter.Level + 1,
+                NumberOfWords = 1,
+            };
+
+            newChapter = ChapterRepository.Save(newChapter);
+            var link = new ChapterLinkItem() {
+                From = chapter,
+                To = newChapter
+            };
+
+            ChapterLinkItemRepository.Save(link);
+            return new FrontChapter(newChapter);
         }
     }
 }
