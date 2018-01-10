@@ -1,0 +1,30 @@
+﻿.icon {
+    background-image: url(spritesheet.png);
+    background-repeat: no-repeat;
+    display: block;
+    cursor: pointer;
+}
+
+.icon-add {
+    width: 40px;
+    height: 40px;
+    background-position: -5px -5px;
+}
+
+.icon-delete {
+    width: 40px;
+    height: 40px;
+    background-position: -55px -5px;
+}
+
+.icon-edit {
+    width: 40px;
+    height: 40px;
+    background-position: -5px -55px;
+}
+
+.icon-wait {
+    width: 44px;
+    height: 44px;
+    background-position: -105px -5px;
+}

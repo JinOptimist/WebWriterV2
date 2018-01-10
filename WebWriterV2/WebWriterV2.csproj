@@ -220,6 +220,7 @@
     <Content Include="book\Academy.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\css\spritesheet.png" />
     <Content Include="Content\defenitionExample\01.png" />
     <Content Include="Content\defenitionExample\02.png" />
     <Content Include="Content\defenitionExample\03.jpg" />
@@ -675,6 +676,7 @@
     <Content Include="Content\font\Merriweather-Light.ttf" />
     <Content Include="Content\font\Merriweather-LightItalic.ttf" />
     <Content Include="Content\font\Merriweather-Regular.ttf" />
+    <Content Include="Content\css\icon.scss" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
