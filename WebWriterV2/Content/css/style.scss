@@ -126,6 +126,16 @@ body {
     margin-left: 30px;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+
+    .name {
+        border-bottom: 3px $light-gray solid;
+        font-family: LatoBold;
+        padding-left: 10px;
+    }
+
+    .desc {
+        padding-left: 10px;
+    }
 }
 
 #chapter {

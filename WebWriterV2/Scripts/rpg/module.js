@@ -10,7 +10,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
     )
     .config([
         '$locationProvider', '$routeProvider', '$httpProvider',
-        function($locationProvider, $routeProvider, $httpProvider) {
+        function ($locationProvider, $routeProvider, $httpProvider) {
             // Check login
             $httpProvider.interceptors.push('authInterceptorService');
             // Routes configuration
@@ -66,7 +66,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                 //resolve: resolveController('/app/controllers/customersController.js')
                 .when('/ar/writer/book/:bookId', {
                     templateUrl: '/views/writer/Book.html',
-                    controller: 'writerBookController'
+                    controller: 'writerBookController',
                 })
                 .when('/ar/writer/books', {
                     templateUrl: '/views/writer/Books.html',

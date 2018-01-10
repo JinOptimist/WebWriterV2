@@ -61,6 +61,13 @@ angular.module('rpg')
                 });
             }
 
+            $scope.keyPressed = function (e) {
+                // 'esc'.which == 27
+                if (e.which === 27) {
+                    $scope.newBook = null;
+                }
+            }
+
             function loadBooks() {
                 bookService.getAllForWriter().then(function (books) {
                     $scope.books = books;
@@ -76,6 +83,10 @@ angular.module('rpg')
             function init() {
                 loadBooks();
                 initListOfFilters();
+
+                document.onkeydown = function (e) {
+                    $scope.$apply($scope.keyPressed(e));
+                };
             }
         }
     ]);

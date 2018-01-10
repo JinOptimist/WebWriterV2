@@ -1,12 +1,12 @@
 ﻿<div class="content" ng-class="!books ? 'wait' : ''">
     <div class="book" ng-repeat="book in books" ng-click="readBook(book.Id)">
-        <p>
+        <p class="name">
             {{book.Name}}
         </p>
-        <p>
+        <p class="desc">
             {{book.AuthorFullName}}
         </p>
-        <p>
+        <p class="desc">
             <a href="/ar/reader/travel/{{book.Id}}/{{book.RootEventId}}">read</a>
         </p>
     </div>
