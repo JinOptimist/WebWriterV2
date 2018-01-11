@@ -94,40 +94,6 @@ namespace WebWriterV2.Controllers
         }
 
         /* ************** User ************** */
-        public JsonResult Login(string username, string password)
-        {
-            var user = UserRepository.Login(username, password);
-            FrontUser frontUser = null;
-            if (user != null) {
-                frontUser = new FrontUser(user);
-            }
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontUser),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult Register(string userJson)
-        {
-            var frontUser = SerializeHelper.Deserialize<FrontUser>(userJson);
-            var user = frontUser.ToDbModel();
-            user.ConfirmCode = RandomHelper.RandomString(RandomHelper.RandomInt(10, 20));
-            user = UserRepository.Save(user);
-            frontUser = new FrontUser(user);
-
-            var relativeUrl = Url.Action("ConfirmRegister", new { userId = user.Id, confirmCode = user.ConfirmCode });
-            var url = EmailHelper.ToAbsoluteUrl(relativeUrl);
-
-            var body = $"Пожалуйста подтвердите регистрацию. Для этого достаточно перейти по ссылке {url}";
-            var title = "Интерактивная книга. Регистрация";
-            EmailHelper.Send(user.Email, title, body);
-
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontUser),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
         public ActionResult ConfirmRegister(int userId, string confirmCode)
         {
             var user = UserRepository.Get(userId);
@@ -138,7 +104,6 @@ namespace WebWriterV2.Controllers
             } else {
                 return null;
             }
-
         }
 
         public JsonResult GetUserById(long userId)

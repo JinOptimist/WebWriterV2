@@ -67,7 +67,7 @@
         }
     ])
     /*Move to separate file*/
-    .controller('registerController', ['$rootScope', '$scope', '$cookies', '$location', '$window', 'ConstCookies', 'userService',
+    .controller('registerControllerOld', ['$rootScope', '$scope', '$cookies', '$location', '$window', 'ConstCookies', 'userService',
         function ($rootScope, $scope, $cookies, $location, $window, ConstCookies, userService) {
             $scope.user = {};
             $scope.waiting = false;

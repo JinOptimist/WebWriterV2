@@ -4,14 +4,13 @@
         <a href="#" ng-click="vk()">vk login</a>
     </p>
     <p>
-        Username: <input id="username" type="text" ng-model="user.Name" ng-disabled="waiting" />
+        Username: <input id="username" type="text" ng-model="user.Name" ng-disabled="waiting" ng-keypress="nameKeyPress($event)" />
     </p>
     <p>
-        Email: <input id="email" type="text" ng-model="user.Email" ng-disabled="waiting" />
+        Email: <input id="email" type="email" ng-model="user.Email" ng-disabled="waiting" />
     </p>
     <p>
-        Password: <input id="password" type="password"
-                         ng-keypress="passwordKeyPress($event)" ng-model="user.Password" ng-disabled="waiting" />
+        Password: <input id="password" type="password" ng-model="user.Password" ng-disabled="waiting" ng-keypress="passwordKeyPress($event)" />
     </p>
     <p>
         <input id="register-btn" type="button" value="register" ng-click="register()" ng-disabled="waiting || !isUserValid()" />

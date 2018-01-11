@@ -555,6 +555,9 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 login: login,
                 logout: logout,
                 register: register,
+                nameIsAvailable: nameIsAvailable,
+
+                /* may be old */
                 getById: getById,
                 addBookmark: addBookmark,
                 removeAccount: removeAccount,
@@ -563,21 +566,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 uploadAvatar: uploadAvatar
             };
 
-            function getCurrentUser() {
-                var deferred = $q.defer();
-
-                if (currentUser) {
-                    deferred.resolve(currentUser);
-                } else {
-                    var userId = $cookies.get(ConstCookies.userId);
-                    getById(userId).then(function (data) {
-                        currentUser = data;
-                        deferred.resolve(currentUser);
-                    });
-                }
-
-                return deferred.promise;
-            }
+            
 
             function login(user) {
                 var url = '/api/user/Login';
@@ -596,12 +585,30 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             }
 
             function register(user) {
-                var url = '/Rpg/Register';
-                var userJson = angular.toJson(user);
-                var data = {
-                    userJson: userJson
-                };
+                var url = '/api/user/Register';
+                var data = angular.toJson(user);
                 return httpHelper.post(url, data);
+            }
+
+            function nameIsAvailable(userName) {
+                var url = '/api/user/NameIsAvailable?username=' + userName;
+                return httpHelper.get(url);
+            }
+
+            function getCurrentUser() {
+                var deferred = $q.defer();
+
+                if (currentUser) {
+                    deferred.resolve(currentUser);
+                } else {
+                    var userId = $cookies.get(ConstCookies.userId);
+                    getById(userId).then(function (data) {
+                        currentUser = data;
+                        deferred.resolve(currentUser);
+                    });
+                }
+
+                return deferred.promise;
             }
 
             function getById(userId) {

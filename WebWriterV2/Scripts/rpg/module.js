@@ -37,10 +37,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     controller: 'adminGenreController'
                 })
                 /* front */
-                .when('/AngularRoute/register', {
-                    templateUrl: '/views/rpg/Register.html',
-                    controller: 'registerController'
-                })
+                
                 .when('/AngularRoute/aboutUs', {
                     templateUrl: '/views/rpg/AboutUs.html',
                     controller: 'aboutUsController'
@@ -96,6 +93,10 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                 .when('/ar/reader/login', {
                     templateUrl: '/views/reader/Login.html',
                     controller: 'loginController'
+                })
+                .when('/AngularRoute/register', {
+                    templateUrl: '/views/reader/Register.html',
+                    controller: 'registerController'
                 })
                 
                 .otherwise({
