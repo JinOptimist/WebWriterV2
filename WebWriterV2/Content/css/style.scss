@@ -2,12 +2,13 @@
 $dark-gray: #71787e; /*rgb(113,120,126)*/
 $light-gray: #f5f5f5;
 /*$white: #fafafa;*/
-$white: white;
+$white: #fff;
+$black: #000;
 
 $green: #50d166;
 $orange: #f18f1c;
 $red: #f13a30;
-$blue1: #00aeef;
+$blue1: #00aeef; /*rgb(0,174,239)*/
 
 /* unusual color */
 /*$border: #e9e9e9;*/
@@ -90,7 +91,7 @@ body {
         }
 
         .chapter {
-            box-shadow: 2px 2px 9px rgba(0, 0, 0, 0.9);
+            box-shadow: 2px 2px 9px $black;
             background-color: $white;
             width: 260px; /* +10px */
             height: 288px; /* +12px */
@@ -98,9 +99,16 @@ body {
             margin: 5px;
             overflow: hidden;
 
+            &.isPrev {
+                box-shadow: 2px 2px 9px $blue1;
+            }
+
+            &.isNext {
+                box-shadow: 2px 2px 9px $orange;
+            }
+
             .header {
                 font-family: LatoBold;
-                background-color: $white;
                 border-bottom: 3px $light-gray solid;
                 padding-left: 10px;
             }

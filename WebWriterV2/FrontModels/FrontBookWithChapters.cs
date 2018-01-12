@@ -14,8 +14,8 @@ namespace WebWriterV2.FrontModels
         public FrontBookWithChapters(Book book, bool forWriter = false) : base(book, forWriter) {
             Levels = new List<FrontChapterLevel>();
             var chaptersByLevel = book.AllChapters.GroupBy(x => x.Level);
-            foreach(var chapter in chaptersByLevel) {
-                Levels.Add(new FrontChapterLevel(chapter));
+            foreach(IEnumerable<Chapter> chapters in chaptersByLevel) {
+                Levels.Add(new FrontChapterLevel(chapters));
             }
         }
 

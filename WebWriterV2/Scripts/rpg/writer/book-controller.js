@@ -19,6 +19,22 @@ angular.module('rpg')
             $scope.wait = true;
             init();
 
+            $scope.onChapterHover = function (chapter) {
+                if (chapter) {
+                    var highlightToChapterIds = [];
+                    chapter.LinksFromThisEvent.forEach(function (link) {
+                        highlightToChapterIds.push(link.ToId);
+                    });
+
+                    var highlightFromChapterIds = [];
+                    chapter.LinksToThisEvent.forEach(function (link) {
+                        highlightFromChapterIds.push(link.FromId);
+                    });
+                }
+
+                highlightChapter(highlightToChapterIds, highlightFromChapterIds);
+            }
+
             $scope.addChapter = function (level) {
                 var chapter = {
                     Name: 'Header',
@@ -40,21 +56,29 @@ angular.module('rpg')
                     });
             }
 
+            $scope.toggleWide = function(level){
+                level.isWide = !level.isWide;
+                recalcLevelStyle(level);
+                level.Chapters.forEach(function (chapter) {
+                    recalcChapterStyle(chapter);
+                });
+                
+            }
+
             function loadBook(bookId) {
                 bookService.getWithChapters(bookId).then(function (book) {
                     $scope.book = book;
                     $scope.book.Levels.forEach(level => {
-                        level.dynamicStyle = calcLevelWidthStyle;
+                        recalcLevelStyle(level)
                         level.Chapters.forEach(chapter => {
-                            chapter.dynamicStyle = calcChapterStyle;
                             chapter.parent = level;
+                            recalcChapterStyle(chapter);
                         });
                     });
                 });
             }
 
-            function calcLevelWidthStyle() {
-                var level = this;
+            function recalcLevelStyle(level) {
                 var style = {};
                 var countChapter = level.Chapters.length;
 
@@ -66,22 +90,31 @@ angular.module('rpg')
                 if (!level.isWide) {
                     style.height = chapterHeight + (countChapter - 1) * offsetHeight + 'px';
                 }
-                return style;
+                level.dynamicStyle = style;
             }
 
-            function calcChapterStyle() {
-                var chapter = this;
+            function recalcChapterStyle(chapter) {
                 var level = chapter.parent;
                 if (level.isWide) {
-                    return {};
+                    chapter.dynamicStyle = {};
+                    return false;
                 }
 
                 var index = level.Chapters.indexOf(chapter);
-                return {
+                chapter.dynamicStyle = {
                     'position': 'relative',
                     'top': -1 * index * (chapterHeight - offsetHeight) + 'px',
-                    'left': index * offsetWidth + 'px'
+                    'left': index * offsetWidth + 'px',
                 };
+            }
+
+            function highlightChapter(nextChapterIds, prevChapterIds) {
+                $scope.book.Levels.forEach(function (level) {
+                    level.Chapters.forEach(function (chapter) {
+                        chapter.isNext = nextChapterIds && nextChapterIds.indexOf(chapter.Id) > -1;
+                        chapter.isPrev = prevChapterIds && prevChapterIds.indexOf(chapter.Id) > -1;
+                    });
+                });
             }
 
             function init() {
