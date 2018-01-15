@@ -24,7 +24,7 @@ angular.module('rpg')
             //}
 
             $scope.checkName = function () {
-                userService.nameIsAvailable.then(function (isAvailable) {
+                userService.nameIsAvailable($scope.user.Name).then(function (isAvailable) {
                     $scope.error = isAvailable ? '' : 'already exist';
                 });
             }
@@ -61,7 +61,7 @@ angular.module('rpg')
             }
 
             $scope.isUserValid = function () {
-                return !!$scope.user.Name && !!$scope.user.Password && !!$scope.user.Email;
+                return !$scope.error && !!$scope.user.Name && !!$scope.user.Password && !!$scope.user.Email;
             }
 
             function init() {

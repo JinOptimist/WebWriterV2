@@ -86,15 +86,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     templateUrl: '/views/reader/Books.html',
                     controller: 'readerBooksController'
                 })
-                .when('/ar/reader/register', {
-                    templateUrl: '/views/rpg/Register.html',
-                    controller: 'registerController'
-                })
                 .when('/ar/reader/login', {
                     templateUrl: '/views/reader/Login.html',
                     controller: 'loginController'
                 })
-                .when('/AngularRoute/register', {
+                .when('/ar/reader/register', {
                     templateUrl: '/views/reader/Register.html',
                     controller: 'registerController'
                 })
