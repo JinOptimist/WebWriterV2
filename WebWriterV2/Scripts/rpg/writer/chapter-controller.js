@@ -44,6 +44,12 @@ angular.module('rpg')
                 saveChapterLinkAndResetForm(chapterLink, $scope.chapterLinkBlockForm);
             }
 
+            $scope.deleteLink = function (chapterLinkId, index) {
+                chapterService.removeChapterLink(chapterLinkId).then(function () {
+                    $scope.chapterLinks.splice(index, 1);
+                });
+            }
+
             function saveChapterLinkAndResetForm(chapterLink, form) {
                 chapterService.saveChapterLink(chapterLink).then(function (savedChapterLink) {
                     if (chapterLink.Id > 0) {
