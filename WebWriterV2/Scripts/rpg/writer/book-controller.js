@@ -5,15 +5,18 @@ angular.module('rpg')
         function ($scope, $routeParams, $location, $cookies, bookService, chapterService,
             eventService, CKEditorService, userService, genreService) {
 
-            var chapterWidth = 270;
-            var chapterHeight = 310;
-
             var offsetWidth = 20;
             var offsetHeight = 25;
 
             var addButtonWidth = 70;
             var addButtonHeight = 30;
 
+            var chapterMargin = 10;
+
+            $scope.chapterWidth = 260;
+            $scope.chapterHeight = 288;
+
+            $scope.scale = 1.0;
             $scope.bookHasCycle = true;
             $scope.book = null;
             $scope.wait = true;
@@ -65,6 +68,15 @@ angular.module('rpg')
                 
             }
 
+            $scope.updateStyleForAllLevel = function () {
+                $scope.book.Levels.forEach(function (level) {
+                    recalcLevelStyle(level);
+                    level.Chapters.forEach(function (chapter) {
+                        recalcChapterStyle(chapter);
+                    });
+                })
+            }
+
             function loadBook(bookId) {
                 bookService.getWithChapters(bookId).then(function (book) {
                     $scope.book = book;
@@ -83,29 +95,36 @@ angular.module('rpg')
                 var countChapter = level.Chapters.length;
 
                 if (level.isWide) {
-                    style.width = countChapter * (chapterWidth + 2) + addButtonWidth + 'px';
+                    style.width = countChapter * ($scope.chapterWidth * $scope.scale + chapterMargin) + addButtonWidth + 'px';
                 } else {
-                    style.width = chapterWidth + (countChapter - 1) * offsetWidth + addButtonWidth + 'px';
+                    style.width = ($scope.chapterWidth * $scope.scale) + (countChapter * offsetWidth) + addButtonWidth + 'px';
                 }
                 if (!level.isWide) {
-                    style.height = chapterHeight + (countChapter - 1) * offsetHeight + 'px';
+                    style.height = ($scope.chapterHeight * $scope.scale) + (countChapter * offsetHeight) + chapterMargin + 'px';
                 }
+
+                style.dynamicStyleForAddButton = {};
+                style.dynamicStyleForAddButton.marginTop = Math.round($scope.chapterHeight * $scope.scale / 2) + 'px';
+
                 level.dynamicStyle = style;
             }
 
             function recalcChapterStyle(chapter) {
                 var level = chapter.parent;
+                var style = {};
+                style.width = $scope.chapterWidth * $scope.scale + 'px';
+                style.height = $scope.chapterHeight * $scope.scale + 'px';
                 if (level.isWide) {
-                    chapter.dynamicStyle = {};
+                    chapter.dynamicStyle = style;
                     return false;
                 }
 
                 var index = level.Chapters.indexOf(chapter);
-                chapter.dynamicStyle = {
-                    'position': 'relative',
-                    'top': -1 * index * (chapterHeight - offsetHeight) + 'px',
-                    'left': index * offsetWidth + 'px',
-                };
+                style.position = 'relative';
+                style.top = -1 * index * ($scope.chapterHeight * $scope.scale - offsetHeight) + 'px';
+                style.left = index * offsetWidth * $scope.scale + 'px';
+                
+                chapter.dynamicStyle = style;
             }
 
             function highlightChapter(nextChapterIds, prevChapterIds) {

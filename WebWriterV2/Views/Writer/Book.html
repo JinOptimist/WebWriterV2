@@ -5,7 +5,7 @@
                 {{book.Name}}
             </div>
             <div class="header-item">
-                <input type="range" />
+                <input type="range" ng-model="scale" ng-change="updateStyleForAllLevel()" min="0.4" max="2" step="0.05" /> {{scale * 100 | number : '.0'}}%
             </div>
 
             <div class="header-item center">
@@ -18,7 +18,7 @@
 
     <div class="content" id="book-writer">
         <div class="level" ng-repeat="level in book.Levels" ng-style="level.dynamicStyle">
-            <div class="add">
+            <div class="add" ng-style="level.dynamicStyle.dynamicStyleForAddButton">
                 <span class="icon icon-add" ng-click="addChapter($index + 1)"></span>
                 <span class="button-medium-blue" ng-click="toggleWide(level)" ng-if="level.Chapters.length > 1">
                     {{level.isWide ? '>=<' : '<=>' }}
@@ -29,7 +29,9 @@
                  ng-style="chapter.dynamicStyle" ng-mouseover="onChapterHover(chapter)" ng-mouseleave="onChapterHover()">
                 <div class="header">
                     {{chapter.Name}}
-                    * <a href="ar/writer/chapter/{{chapter.Id}}">Edit</a>
+                </div>
+                <div>
+                    <a href="ar/writer/chapter/{{chapter.Id}}">Edit</a>
                     * <a href="#" ng-click="remove(chapter, $index)">Remove</a>
                 </div>
                 <div class="body">
