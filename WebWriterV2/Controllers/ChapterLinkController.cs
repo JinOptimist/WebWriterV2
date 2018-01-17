@@ -40,11 +40,11 @@ namespace WebWriterV2.Controllers
             return linksFromChapter.Select(x => new FrontChapterLinkItem(x)).ToList();
         }
 
-        //[AcceptVerbs("GET")]
-        //public bool Remove(long id)
-        //{
-        //    ChapterLinkItemRepository.Remove(id);
-        //    return true;
-        //}
+        [AcceptVerbs("GET")]
+        public bool Remove(long id)
+        {
+            ChapterLinkItemRepository.Remove(id);
+            return true;
+        }
     }
 }

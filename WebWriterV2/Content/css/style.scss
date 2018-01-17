@@ -250,6 +250,22 @@ body {
             left: calc( (100% - 120px) / 2);
             top: -16px;
         }
+
+        &.onlyNext .action-button {
+            top: 0px;
+        }
+
+        .close {
+            float: right;
+            position: relative;
+            top: 5px;
+            left: -5px;
+            z-index: 5;
+        }
+
+        &.onlyNext .close {
+            
+        }
     }
 }
 /* Reader End */
