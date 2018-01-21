@@ -1,15 +1,18 @@
-﻿<div ng-class="!book || !hero ? 'wait' : ''" class="profile">
+﻿<div class="content" ng-class="!user ? 'wait' : ''">
+    <h2>Привет {{user.Name}}</h2>
+    <div>
+        <p ng-if="user.AvatarUrl">
+            <img ng-src="{{user.AvatarUrl}}" style="max-width:50px" />
+        </p>
+        <p>
+            <input type="file" fileread="user.newAvatarData" />
+            <input type="button" ng-click="uploadAvatar()" value="upload new avatar" />
+        </p>
+    </div>
+</div>
+
+<!--<div ng-class="!book || !hero ? 'wait' : ''" class="profile">
     <div style="width: 800px; float: left;">
-        <h2>Профиль: {{user.Name}}</h2>
-        <div>
-            <p ng-if="user.AvatarUrl">
-                <img ng-src="{{user.AvatarUrl}}" style="max-width:50px" />
-            </p>
-            <p>
-                <input type="file" fileread="user.newAvatarData" />
-                <input type="button" ng-click="uploadAvatar()" value="upload new avatar"/>
-            </p>
-        </div>
         <p>
             Тип аккаунта: {{user.UserType.Name}}
         </p>
@@ -58,4 +61,4 @@
             </p>
         </div>
     </div>
-</div>
+</div>-->

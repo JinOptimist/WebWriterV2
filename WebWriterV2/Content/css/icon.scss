@@ -1,5 +1,5 @@
 ﻿.icon {
-    background-image: url(spritesheet.png);
+    background-image: url(../icon/spritesheet.png);
     background-repeat: no-repeat;
     display: block;
     cursor: pointer;
@@ -11,14 +11,32 @@
     background-position: -5px -5px;
 }
 
+.bell {
+    width: 23px;
+    height: 28px;
+    background-position: -55px -5px;
+}
+
+.bell-active {
+    width: 23px;
+    height: 28px;
+    background-position: -55px -43px;
+}
+
 .close {
     width: 14px;
     height: 14px;
-    background-position: -55px -5px;
+    background-position: -88px -5px;
+}
+
+.eye {
+    width: 22px;
+    height: 15px;
+    background-position: -88px -29px;
 }
 
 .wait {
     width: 44px;
     height: 44px;
-    background-position: -79px -5px;
+    background-position: -120px -5px;
 }

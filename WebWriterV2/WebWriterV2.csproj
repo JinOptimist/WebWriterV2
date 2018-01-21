@@ -220,7 +220,6 @@
     <Content Include="book\Academy.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\css\spritesheet.png" />
     <Content Include="Content\defenitionExample\01.png" />
     <Content Include="Content\defenitionExample\02.png" />
     <Content Include="Content\defenitionExample\03.jpg" />
@@ -228,6 +227,11 @@
     <Content Include="Content\defenitionExample\05.png" />
     <Content Include="Content\font\Lato OFL.txt" />
     <Content Include="Content\font\Merriweather OFL.txt" />
+    <Content Include="Content\icon\add-icon.png" />
+    <Content Include="Content\icon\bell-active.png" />
+    <Content Include="Content\icon\bell.png" />
+    <Content Include="Content\icon\close.png" />
+    <Content Include="Content\icon\eye.png" />
     <Content Include="Content\icon\logo.png" />
     <Content Include="Content\icon\add.png" />
     <Content Include="Content\icon\confirm.png" />
@@ -243,6 +247,7 @@
     <Content Include="Content\icon\google-play-icon.png" />
     <Content Include="Content\icon\lj-icon.png" />
     <Content Include="Content\icon\rtf-icon.png" />
+    <Content Include="Content\icon\spritesheet.png" />
     <Content Include="Content\icon\txt-icon.png" />
     <Content Include="Content\icon\up.png" />
     <Content Include="Content\icon\velcome.png" />
@@ -685,6 +690,7 @@
     <Content Include="Scripts\raphael-min.js" />
     <Content Include="Scripts\rpg\reader\register-controller.js" />
     <Content Include="Scripts\rpg\reader\login-controller.js" />
+    <Content Include="Scripts\rpg\reader\profile-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-controller.js" />
     <Content Include="Scripts\rpg\reader\books-controller.js" />
     <Content Include="Scripts\rpg\writer\chapter-controller.js" />
@@ -720,7 +726,7 @@
     <Content Include="Views\Rpg\AboutUs.html" />
     <Content Include="Views\Rpg\ListBook.html" />
     <Content Include="Views\reader\Register.html" />
-    <Content Include="Views\Rpg\Profile.html" />
+    <Content Include="Views\reader\Profile.html" />
     <Content Include="Views\Rpg\Travel.html" />
     <Content Include="Views\Rpg\directives\ngHeroCard.html" />
     <Content Include="Views\Rpg\directives\ngBookInfo.html" />

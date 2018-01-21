@@ -413,7 +413,7 @@
             }
         }
     ])
-    .controller('profileController', ['$scope', '$cookies', '$location', '$uibModal', 'ConstCookies', 'bookService', 'heroService', 'userService',
+    .controller('profileControllerOld', ['$scope', '$cookies', '$location', '$uibModal', 'ConstCookies', 'bookService', 'heroService', 'userService',
         function ($scope, $cookies, $location, $uibModal, ConstCookies, bookService, heroService, userService) {
             $scope.user = {};
             $scope.waiting = false;

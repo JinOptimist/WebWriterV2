@@ -9,23 +9,22 @@ namespace Dao.Model
     {
         [Required]
         public string Name { get; set; }
-
         [Required]
         public string Desc { get; set; }
 
         [Description("Начальная глава")]
         public virtual Chapter RootChapter { get; set; }
 
-        public virtual List<Chapter> AllChapters { get; set; }
-
-        public virtual List<Evaluation> Evaluations { get; set; }
-
         public virtual User Owner { get; set; }
+        public virtual List<Chapter> AllChapters { get; set; }
+        public virtual List<Evaluation> Evaluations { get; set; }
         public virtual List<UserWhoReadBook> Readers { get; set; }
 
         public virtual Genre Genre { get; set; }
 
-        public virtual bool IsPublished { get; set; }
+        public bool IsPublished { get; set; }
+        public virtual DateTime? PublicationDate { get; set; }
+        public int Views { get; set; }
 
         public long NumberOfChapters { get; set; }
         public long NumberOfWords { get; set; }

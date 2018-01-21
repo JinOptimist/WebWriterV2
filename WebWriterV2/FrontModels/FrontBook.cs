@@ -20,6 +20,7 @@ namespace WebWriterV2.FrontModels
             IsPublished = book.IsPublished;
             NumberOfChapters = book.NumberOfChapters;
             NumberOfWords = book.NumberOfWords;
+            Views = book.Views;
 
             AuthorFullName = book.Owner.Name;
 
@@ -40,6 +41,8 @@ namespace WebWriterV2.FrontModels
         public long NumberOfChapters { get; set; }
         public long NumberOfWords { get; set; }
 
+        public long Views { get; set; }
+
         public string AuthorFullName { get; set; }
 
         public bool ContainsCycle { get; set; }
@@ -52,9 +55,9 @@ namespace WebWriterV2.FrontModels
                 Id = Id,
                 Name = Name,
                 Desc = Desc,
+                Owner = new User { Id = OwnerId },
                 //RootChapter = RootEvent?.ToDbModel(),
                 //AllChapters = AllEvents?.Select(x => x.ToDbModel()).ToList(),
-                Owner = new User { Id = OwnerId },
                 //Genre = Genre != null ? Genre.ToDbModel() : null,
                 IsPublished = IsPublished
             };

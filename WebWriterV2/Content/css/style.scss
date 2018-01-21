@@ -55,6 +55,7 @@ body {
         margin-top: 17px;
         color: $dark-gray;
         margin-left: 35px;
+        vertical-align: text-top;
 
         a {
             color: $gray-middle;
@@ -74,6 +75,12 @@ body {
                 border-bottom: 3px $blue1 solid;
             }
         }
+    }
+
+    .user-avatar {
+        max-width: 36px;
+        max-height: 36px;
+        border-radius: 18px;
     }
 }
 /* Header End */

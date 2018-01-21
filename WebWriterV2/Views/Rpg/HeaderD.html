@@ -22,14 +22,17 @@
         </div>
 
         <div class="right">
+            <div class="header-item" ng-if="user">
+                <a href="/ar/reader/profile/{{user.Id}}">Профиль</a>
+            </div>
             <!--<div class="header-item ">
                 <input type="text" placeholder="Искать..." />
             </div>-->
             <div class="header-item">
-                <span class="icon-bell"></span>
+                <span class="icon" ng-class="{'bell-active': active, 'bell': !active}" ng-click="active = !active"></span>
             </div>
             <div class="header-item">
-                <img ng-src="{{user.AvatarUrl}}" class="user-avatar" />
+                <a href="/ar/reader/profile/{{user.Id}}"><img ng-src="{{user.AvatarUrl}}" title="{{user.Name}}" class="user-avatar" /></a>
             </div>
         </div>
     </div>

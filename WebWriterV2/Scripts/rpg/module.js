@@ -94,6 +94,10 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     templateUrl: '/views/reader/Register.html',
                     controller: 'registerController'
                 })
+                .when('/ar/reader/profile/:userId', {
+                    templateUrl: '/views/reader/Profile.html',
+                    controller: 'profileController'
+                })
                 
                 .otherwise({
                     redirectTo: '/ar/reader/books'

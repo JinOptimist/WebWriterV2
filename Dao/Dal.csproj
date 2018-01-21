@@ -92,6 +92,14 @@
     <Compile Include="Migrations\201801091751404_ChapterLinkItemTextCanBeNull.Designer.cs">
       <DependentUpon>201801091751404_ChapterLinkItemTextCanBeNull.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201801211059541_BookViewsAndPublicationDate.cs" />
+    <Compile Include="Migrations\201801211059541_BookViewsAndPublicationDate.Designer.cs">
+      <DependentUpon>201801211059541_BookViewsAndPublicationDate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801211118465_UpdatePublicationDate.cs" />
+    <Compile Include="Migrations\201801211118465_UpdatePublicationDate.Designer.cs">
+      <DependentUpon>201801211118465_UpdatePublicationDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\UserWhoReadBook.cs" />
@@ -142,6 +150,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801091751404_ChapterLinkItemTextCanBeNull.resx">
       <DependentUpon>201801091751404_ChapterLinkItemTextCanBeNull.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801211059541_BookViewsAndPublicationDate.resx">
+      <DependentUpon>201801211059541_BookViewsAndPublicationDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801211118465_UpdatePublicationDate.resx">
+      <DependentUpon>201801211118465_UpdatePublicationDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
