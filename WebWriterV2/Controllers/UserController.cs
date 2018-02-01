@@ -71,5 +71,40 @@ namespace WebWriterV2.Controllers
             return frontUser;
         }
 
+        [AcceptVerbs("POST")]
+        public object UploadAvatar(FakeModelString model)
+        {
+            //example of base64 string 
+            //data:image/png;base64,iVBORw0KGg...
+            var data = model.Data;
+            var dataIndex = data.IndexOf("base64", StringComparison.Ordinal) + 7;
+            var mark = "data:image/";
+            var extensionStart = data.IndexOf(mark) + mark.Length;
+            var extensionEnd = data.IndexOf(";");
+            var extension = data.Substring(extensionStart, extensionEnd - extensionStart);
+
+            var clearData = data.Substring(dataIndex);
+            var fileData = Convert.FromBase64String(clearData);
+            var bytes = fileData.ToArray();
+
+            var path = PathHelper.PathToAvatar(User.Id, extension);
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+
+            using (var fileStream = System.IO.File.Create(path))
+            {
+                fileStream.Write(bytes, 0, bytes.Length);
+                //TODO: investigate why we reload page on client after on server I close strea
+                fileStream.Close();
+            }
+
+            User.AvatarUrl = PathHelper.PathToUrl(path);
+            UserRepository.Save(User);
+
+            return new { User.AvatarUrl };
+        }
+
     }
 }

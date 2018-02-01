@@ -562,6 +562,7 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 logout: logout,
                 register: register,
                 nameIsAvailable: nameIsAvailable,
+                uploadAvatar: uploadAvatar,
 
                 /* may be old */
                 getById: getById,
@@ -569,7 +570,6 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 removeAccount: removeAccount,
                 becomeWriter: becomeWriter,
                 getCurrentUser: getCurrentUser,
-                uploadAvatar: uploadAvatar
             };
 
             
@@ -648,9 +648,9 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
             }
 
             function uploadAvatar(imageData) {
-                var url = '/Rpg/UploadAvatar';
+                var url = '/api/user/UploadAvatar';
                 var data = {
-                    data: imageData
+                    Data: imageData
                 };
                 return httpHelper.post(url, data);
             }
@@ -787,7 +787,9 @@ angular.module('services', ['ngRoute', 'ngCookies', 'underscore', 'AppConst'])
                 deferred.resolve(angular.fromJson(response.data));
             }
 
-            function defaultError() {
+            function defaultError(e) {
+                console.error('httpHelper has fail');
+                console.error(e);
                 deferred.reject(Error("Sorry :( we have fail"));
             }
         }

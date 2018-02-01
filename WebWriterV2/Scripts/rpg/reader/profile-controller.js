@@ -18,7 +18,7 @@ angular.module('rpg')
 
             $scope.uploadAvatar = function (event) {
                 userService.uploadAvatar($scope.user.newAvatarData).then(function (response) {
-                    $scope.user.AvatarUrl = response;
+                    $scope.user.AvatarUrl = response.AvatarUrl;
                 });
             }
 

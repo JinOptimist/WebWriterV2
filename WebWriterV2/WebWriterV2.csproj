@@ -178,6 +178,7 @@
     <Compile Include="DI\WindsorDependencyScope.cs" />
     <Compile Include="DI\CurrentUserContainer.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
+    <Compile Include="FrontModels\FakeModelString.cs" />
     <Compile Include="FrontModels\FrontBookWithChapters.cs" />
     <Compile Include="FrontModels\FrontEventLinkItem.cs" />
     <Compile Include="FrontModels\FrontGenre.cs" />
