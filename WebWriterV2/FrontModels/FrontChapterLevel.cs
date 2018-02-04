@@ -16,5 +16,10 @@ namespace WebWriterV2.FrontModels
         }
 
         public List<FrontChapter> Chapters { get; set; }
+
+        /// <summary>
+        /// Use only for roadmap
+        /// </summary>
+        public List<FrontChaptersBlock> ChaptersBlock { get; set; } = new List<FrontChaptersBlock>();
     }
 }

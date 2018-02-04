@@ -96,7 +96,14 @@ namespace WebWriterV2.Controllers
             return true;
         }
 
-
+        //EXPEREMENAL
+        [AcceptVerbs("GET")]
+        public FrontBookWithChapters GetWithChaptersRoadmap(long id)
+        {
+            var book = BookRepository.Get(id);
+            var frontBook = new FrontBookWithChapters(book, true, true);
+            return frontBook;
+        }
 
 
 
