@@ -256,6 +256,7 @@ body {
             position: relative;
             left: calc( (100% - 120px) / 2);
             top: -16px;
+            width: 200px;
         }
 
         &.onlyNext .action-button {
@@ -271,7 +272,6 @@ body {
         }
 
         &.onlyNext .close {
-            
         }
     }
 }
