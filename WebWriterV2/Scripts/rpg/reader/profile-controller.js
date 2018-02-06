@@ -27,12 +27,12 @@ angular.module('rpg')
                 if (userId) {
                     userService.getById(userId).then(function (data) {
                         $scope.user = data;
-                        $scope.user.Bookmarks.forEach(function (hero) {
-                            bookService.get(hero.CurrentEvent.BookId)
-                                .then(function (book) {
-                                    hero.CurrentEvent.book = book;
-                                });
-                        });
+                        //$scope.user.Bookmarks.forEach(function (hero) {
+                        //    bookService.get(hero.CurrentEvent.BookId)
+                        //        .then(function (book) {
+                        //            hero.CurrentEvent.book = book;
+                        //        });
+                        //});
 
 
                     });

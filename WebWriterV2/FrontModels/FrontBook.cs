@@ -23,6 +23,7 @@ namespace WebWriterV2.FrontModels
             Views = book.Views;
 
             AuthorFullName = book.Owner.Name;
+            AuthorAvatar = book.Owner.AvatarUrl;
 
             ContainsCycle = forWriter
                 ? new GraphHelper(book).HasCycle()
@@ -44,6 +45,7 @@ namespace WebWriterV2.FrontModels
         public long Views { get; set; }
 
         public string AuthorFullName { get; set; }
+        public string AuthorAvatar { get; set; }
 
         public bool ContainsCycle { get; set; }
         //public FrontGenre Genre { get; set; }

@@ -222,6 +222,7 @@
     <Content Include="book\Academy.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\avatar\1.jpeg" />
     <Content Include="Content\defenitionExample\01.png" />
     <Content Include="Content\defenitionExample\02.png" />
     <Content Include="Content\defenitionExample\03.jpg" />
@@ -744,7 +745,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\avatar\" />
     <Folder Include="html\" />
     <Folder Include="Views\Shared\" />
   </ItemGroup>
