@@ -179,6 +179,7 @@
     <Compile Include="DI\CurrentUserContainer.cs" />
     <Compile Include="FrontModels\BaseFront.cs" />
     <Compile Include="FrontModels\FakeModelString.cs" />
+    <Compile Include="FrontModels\FrontChaptersBlock.cs" />
     <Compile Include="FrontModels\FrontBookWithChapters.cs" />
     <Compile Include="FrontModels\FrontEventLinkItem.cs" />
     <Compile Include="FrontModels\FrontGenre.cs" />
@@ -296,8 +297,6 @@
     <Content Include="Scripts\angular-ui\ui-bootstrap.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\ckeditor\adapters\jquery.js" />
     <Content Include="Scripts\ckeditor\CHANGES.html" />
     <Content Include="Scripts\ckeditor\ckeditor.asp" />
@@ -683,11 +682,6 @@
     <Content Include="Content\font\Merriweather-LightItalic.ttf" />
     <Content Include="Content\font\Merriweather-Regular.ttf" />
     <Content Include="Content\css\icon.scss" />
-    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
-    <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\raphael-min.js" />
     <Content Include="Scripts\rpg\reader\register-controller.js" />
     <Content Include="Scripts\rpg\reader\login-controller.js" />
@@ -708,8 +702,6 @@
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\underscore.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\reader\Login.html" />
     <Content Include="Views\reader\Travel.html" />
