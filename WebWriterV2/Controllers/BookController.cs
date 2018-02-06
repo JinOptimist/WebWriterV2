@@ -85,6 +85,7 @@ namespace WebWriterV2.Controllers
         {
             var book = BookRepository.Get(bookId);
             book.IsPublished = newValue;
+            book.PublicationDate = DateTime.Now;
             BookRepository.Save(book);
             return true;
         }

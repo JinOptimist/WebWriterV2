@@ -22,6 +22,11 @@ namespace WebWriterV2.FrontModels
             NumberOfWords = book.NumberOfWords;
             Views = book.Views;
 
+            if (book.PublicationDate.HasValue) {
+                PublicationDate = $"{book.PublicationDate.Value.ToShortDateString()} {book.PublicationDate.Value.ToShortTimeString()}";
+            }
+            
+
             AuthorFullName = book.Owner.Name;
             AuthorAvatar = book.Owner.AvatarUrl;
 
@@ -41,6 +46,7 @@ namespace WebWriterV2.FrontModels
         public bool IsPublished { get; set; }
         public long NumberOfChapters { get; set; }
         public long NumberOfWords { get; set; }
+        public string PublicationDate { get; set; }
 
         public long Views { get; set; }
 

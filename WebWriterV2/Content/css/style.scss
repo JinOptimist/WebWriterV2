@@ -14,13 +14,17 @@ $blue1: #00aeef; /*rgb(0,174,239)*/
 /*$border: #e9e9e9;*/
 $gray-middle: #b3b3b3;
 
-html, body, textarea, input {
-    font-family: Lato;
-    font-size: 14px;
-    line-height: 30px;
+html, body, textarea, input, p {
     margin: 0;
     padding: 0;
 }
+html, body {
+    font-family: Lato;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+
 a {
     text-decoration: none;
 }
@@ -135,15 +139,37 @@ body {
     margin-left: 30px;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    vertical-align: top;
+    padding: 10px;
+
+    .header {
+        display: inline-block;
+        color: $gray-middle;
+        font-size: 12px;
+        line-height: 15px;
+        padding-left: 10px;
+
+        .author-name {
+            color: $black;
+            font-weight: bold;
+        }
+
+        .eye {
+            display: inline-block;
+            cursor: auto;
+        }
+    }
 
     .name {
-        border-bottom: 3px $light-gray solid;
+        /*border-bottom: 3px $light-gray solid;*/
         font-family: LatoBold;
         padding-left: 10px;
     }
 
     .desc {
         padding-left: 10px;
+        max-height: 180px;
+        overflow: hidden;
     }
 }
 
@@ -328,12 +354,20 @@ body {
     height: 42px;
 }
 
+.button-medium-gray,
 .button-medium-blue {
-    color: $white;
-    background-color: $blue1;
     border-radius: 24px;
     padding: 5px 12px;
     cursor: pointer;
+}
+.button-medium-gray {
+    color: $gray-middle;
+    background-color: $white;
+    border: 2px solid $gray-middle;
+}
+.button-medium-blue {
+    color: $white;
+    background-color: $blue1;
 }
 
 .user-avatar {

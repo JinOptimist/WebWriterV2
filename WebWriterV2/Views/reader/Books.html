@@ -1,15 +1,25 @@
 ﻿<div class="content" ng-class="!books ? 'wait' : ''">
     <div class="book" ng-repeat="book in books" ng-click="readBook(book.Id)">
         <img ng-src="{{book.AuthorAvatar}}" title="{{user.Name}}" class="user-avatar" />
+        <div class="header">
+            <p class="line-one">
+                <span>by </span><span class="author-name">{{book.AuthorFullName}}</span>
+            </p>
+            <p class="line-two">
+                <span ng-show="book.PublicationDate">{{book.PublicationDate}} | </span><span class="icon eye"></span> {{book.Views}}
+            </p>
+        </div>
 
         <p class="name">
             {{book.Name}}
         </p>
         <p class="desc">
-            {{book.AuthorFullName}}
+            {{book.Desc}}
         </p>
-        <p class="desc">
-            <a href="/ar/reader/travel/{{book.Id}}/{{book.RootEventId}}">read</a>
-        </p>
+        <a href="/ar/reader/travel/{{book.Id}}/{{book.RootEventId}}">
+            <span class="button-medium-gray">
+                Отправится в путешествие >
+            </span>
+        </a>
     </div>
 </div>
