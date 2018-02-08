@@ -17,6 +17,11 @@ namespace Dao.Model
         public virtual Chapter From { get; set; }
         public virtual Chapter To { get; set; }
 
+        /// <summary>
+        /// We want use to calculated statistic
+        /// </summary>
+        public virtual List<TravelStep> TravelSteps { get; set; }
+
         public void UpdateFrom(ChapterLinkItem model)
         {
             if (Id != model.Id)

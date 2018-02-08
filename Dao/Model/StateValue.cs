@@ -8,7 +8,7 @@ namespace Dao.Model
         [Required]
         public virtual StateType StateType { get; set; }
 
-        public virtual Hero Hero { get; set; }
+        public virtual Travel Travel { get; set; }
 
         public long? Value { get; set; }
     }

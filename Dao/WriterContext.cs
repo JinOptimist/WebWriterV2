@@ -24,7 +24,8 @@ namespace Dao
         public virtual DbSet<StateValue> StateValues { get; set; }
         public virtual DbSet<StateType> StateTypes { get; set; }
         /* Custom entities */
-        public virtual DbSet<Hero> Heros { get; set; }
+        public virtual DbSet<Travel> Travels { get; set; }
+        public virtual DbSet<TravelStep> TravelSteps { get; set; }
         public virtual DbSet<Evaluation> Evaluations { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
 
@@ -37,10 +38,12 @@ namespace Dao
             modelBuilder.Entity<User>().HasMany(x => x.Books).WithRequired(x => x.Owner);
             modelBuilder.Entity<User>().HasMany(x => x.BooksAreReaded).WithOptional(x => x.User).WillCascadeOnDelete(false);
             modelBuilder.Entity<User>().HasMany(x => x.StateTypes).WithRequired(x => x.Owner);
-            modelBuilder.Entity<User>().HasMany(x => x.Bookmarks).WithRequired(x => x.Owner);
+            //modelBuilder.Entity<User>().HasMany(x => x.Bookmarks).WithRequired(x => x.Owner);
+            modelBuilder.Entity<User>().HasMany(x => x.MyTravels).WithOptional(x => x.Reader);
             modelBuilder.Entity<User>().HasMany(x => x.Evaluations).WithRequired(x => x.Owner).WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Book>().HasMany(x => x.AllChapters).WithRequired(x => x.Book);
+            modelBuilder.Entity<Book>().HasMany(x => x.Travels).WithOptional(x => x.Book);
             modelBuilder.Entity<Book>().HasOptional(x => x.RootChapter).WithOptionalPrincipal(x => x.ForRootBook);
             modelBuilder.Entity<Book>().HasMany(x => x.Evaluations).WithRequired(x => x.Book).WillCascadeOnDelete(false);
             modelBuilder.Entity<Book>().HasOptional(x => x.Genre).WithMany(x => x.Books);
@@ -51,8 +54,11 @@ namespace Dao
 
             modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.RequirementStates).WithOptional(x => x.Chapter);
             modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.HeroStatesChanging).WithOptional(x => x.Chapter);
+            modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.TravelSteps).WithOptional(x => x.Сhoice);
 
-            modelBuilder.Entity<StateType>().HasMany(x => x.Changes).WithRequired(x=>x.StateType);
+            modelBuilder.Entity<Travel>().HasMany(x => x.Steps).WithRequired(x => x.Travel);
+
+            modelBuilder.Entity<StateType>().HasMany(x => x.Changes).WithRequired(x => x.StateType);
             modelBuilder.Entity<StateType>().HasMany(x => x.Requirements).WithRequired(x => x.StateType);
             modelBuilder.Entity<StateType>().HasMany(x => x.Values).WithRequired(x => x.StateType);
 

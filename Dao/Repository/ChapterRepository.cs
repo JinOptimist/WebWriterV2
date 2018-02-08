@@ -12,14 +12,12 @@ namespace Dao.Repository
     {
         private readonly Lazy<ChapterLinkItemRepository> _eventLinkItemRepository;
         private readonly StateValueRepository _stateValueRepository;
-        private readonly HeroRepository _heroRepository;
 
         public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
         public ChapterRepository(WriterContext db) : base(db)
         {
             _eventLinkItemRepository = new Lazy<ChapterLinkItemRepository>(() => new ChapterLinkItemRepository(db));
             _stateValueRepository = new StateValueRepository(db);
-            _heroRepository = new HeroRepository(db);
         }
 
         public override Chapter Save(Chapter model)
@@ -58,10 +56,6 @@ namespace Dao.Repository
             }
             if (currentEvent.LinksToThisChapter?.Any() ?? false) {
                 _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisChapter);
-            }
-            var heroes = _heroRepository.GetByEvent(currentEvent.Id);
-            if (heroes != null) {
-                _heroRepository.Remove(heroes);
             }
 
             base.Remove(currentEvent);

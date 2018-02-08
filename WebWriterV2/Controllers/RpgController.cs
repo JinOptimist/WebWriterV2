@@ -32,7 +32,6 @@ namespace WebWriterV2.Controllers
         public IChapterRepository EventRepository { get; }
         public IChapterLinkItemRepository EventLinkItemRepository { get; }
         public IBookRepository BookRepository { get; set; }
-        public IHeroRepository HeroRepository { get; set; }
         public IStateValueRepository StateRepository { get; set; }
         public IStateTypeRepository StateTypeRepository { get; set; }
         public IUserRepository UserRepository { get; set; }
@@ -43,13 +42,12 @@ namespace WebWriterV2.Controllers
         #endregion
 
         public RpgController(IChapterRepository eventRepository, IChapterLinkItemRepository eventLinkItemRepository, IBookRepository bookRepository,
-            IHeroRepository heroRepository, IStateValueRepository stateRepository, IStateTypeRepository stateTypeRepository, IUserRepository userRepository,
+            IStateValueRepository stateRepository, IStateTypeRepository stateTypeRepository, IUserRepository userRepository,
             IEvaluationRepository evaluationRepository, IGenreRepository genreRepository, IChapterLinkItemRepository chapterLinkItemRepository)
         {
             EventRepository = eventRepository;
             EventLinkItemRepository = eventLinkItemRepository;
             BookRepository = bookRepository;
-            HeroRepository = heroRepository;
             StateRepository = stateRepository;
             StateTypeRepository = stateTypeRepository;
             UserRepository = userRepository;
@@ -112,32 +110,6 @@ namespace WebWriterV2.Controllers
             var frontUser = new FrontUser(user);
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontUser),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult AddBookmark(long eventId, string heroJson)
-        {
-            var userId = User.Id;
-            var user = UserRepository.Get(userId);
-            var currentEvent = EventRepository.Get(eventId);
-
-            var fronHero = SerializeHelper.Deserialize<FrontHero>(heroJson);
-            var hero = fronHero.ToDbModel();
-
-            if (hero.Id > 0) {
-                HeroRepository.Remove(hero.Id);
-                hero.Id = 0;
-            }
-            HeroRepository.RemoveByBook(currentEvent.Book.Id, userId);
-
-            hero.Owner = user;
-            hero.CurrentChapter = currentEvent;
-
-            HeroRepository.Save(hero);
-
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(true),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }
@@ -259,89 +231,6 @@ namespace WebWriterV2.Controllers
             };
         }
 
-        /* ************** Hero ************** */
-        public JsonResult GetHero(long heroId)
-        {
-            var hero = HeroRepository.Get(heroId);
-            if (hero == null) {
-                var stateTypes = StateTypeRepository.GetAll();
-                hero = GenerateData.GetDefaultHero(stateTypes);
-            }
-
-            var frontHero = new FrontHero(hero);
-            return new JsonResult {
-                Data = SerializeHelper.Serialize(frontHero),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult GetHeroes()
-        {
-            var heroes = HeroRepository.GetAll();
-            var frontHeroes = heroes.Select(x => new FrontHero(x)).ToList();
-            return new JsonResult {
-                Data = SerializeHelper.Serialize(frontHeroes),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult SaveHero(string jsonHero)
-        {
-            var frontHero = SerializeHelper.Deserialize<FrontHero>(jsonHero);
-            var hero = frontHero.ToDbModel();
-
-            HeroRepository.Save(hero);
-            frontHero.Id = hero.Id;
-
-            return new JsonResult {
-                Data = SerializeHelper.Serialize(frontHero),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult RemoveHero(long id)
-        {
-            var hero = HeroRepository.Get(id);
-
-            HeroRepository.Remove(id);
-            return new JsonResult {
-                Data = true,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult RemoveAllHeroes()
-        {
-            var h = HeroRepository.GetAll();
-            h.ForEach(HeroRepository.Remove);
-            return new JsonResult {
-                Data = true,
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult GetEnemy()
-        {
-            var heroes = HeroRepository.GetAll();
-            var frontHero = new FrontHero(heroes.LastOrDefault());
-            return new JsonResult {
-                Data = SerializeHelper.Serialize(frontHero),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult GetDefaultHero()
-        {
-            var stateTypes = StateTypeRepository.GetAll();
-
-            var hero = GenerateData.GetDefaultHero(stateTypes);
-            var frontHero = new FrontHero(hero);
-            return new JsonResult {
-                Data = SerializeHelper.Serialize(frontHero),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
         /* ************** State ************** */
         public JsonResult GetStateTypesAvailbleForUser()
         {
@@ -458,39 +347,6 @@ namespace WebWriterV2.Controllers
                 : new FrontChapter(eventFromDb);
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontChapter),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult GetEventForTravel(long eventId, long heroId)
-        {
-            var eventDb = EventRepository.Get(eventId);
-            var hero = HeroRepository.Get(heroId);
-            eventDb.LinksFromThisChapter.FilterLink(hero);
-            var frontChapter = new FrontChapter(eventDb);
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(frontChapter),
-                JsonRequestBehavior = JsonRequestBehavior.AllowGet
-            };
-        }
-
-        public JsonResult GetEventForTravelWithHero(long chapterLinkItemId, string heroJson, bool applyChanges)
-        {
-            var chapterLinkItem = ChapterLinkItemRepository.Get(chapterLinkItemId);
-            var frontHero = JsonConvert.DeserializeObject<FrontHero>(heroJson);
-            var hero = frontHero.ToDbModel();
-            hero.CurrentChapter = chapterLinkItem.To;
-
-            if (applyChanges) {
-                chapterLinkItem.EventChangesApply(hero);
-            }
-
-            chapterLinkItem.To.LinksFromThisChapter.FilterLink(hero);
-
-            var frontChapter = new FrontChapter(chapterLinkItem.To);
-            frontHero = new FrontHero(hero);
-            return new JsonResult {
-                Data = JsonConvert.SerializeObject(new { frontChapter, frontHero }),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
             };
         }

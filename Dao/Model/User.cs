@@ -23,10 +23,7 @@ namespace Dao.Model
 
         public string AvatarUrl { get; set; }
 
-        /// <summary>
-        /// Hero contains CurrentChapter. Use this field to get information about Book and Chapter where user stop reading
-        /// </summary>
-        public virtual List<Hero> Bookmarks { get; set; }
+        public virtual List<Travel> MyTravels { get; set; }
 
         /// <summary>
         /// Books created by User
@@ -38,6 +35,11 @@ namespace Dao.Model
         public virtual List<StateType> StateTypes { get; set; }
 
         //public virtual List<ThingSample> ThingsSample { get; set; }
+
+        /// <summary>
+        /// Hero contains CurrentChapter. Use this field to get information about Book and Chapter where user stop reading
+        /// </summary>
+        //public virtual List<Hero> Bookmarks { get; set; }
 
         public virtual List<Evaluation> Evaluations { get; set; }
     }

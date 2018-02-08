@@ -19,6 +19,7 @@ namespace Dao.Model
         public virtual List<Chapter> AllChapters { get; set; }
         public virtual List<Evaluation> Evaluations { get; set; }
         public virtual List<UserWhoReadBook> Readers { get; set; }
+        public virtual List<Travel> Travels { get; set; }
 
         public virtual Genre Genre { get; set; }
 
