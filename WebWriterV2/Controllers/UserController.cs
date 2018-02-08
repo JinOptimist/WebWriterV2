@@ -16,23 +16,11 @@ namespace WebWriterV2.Controllers
 {
     public class UserController : BaseApiController
     {
-        public UserController(IBookRepository bookRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IChapterRepository eventRepository, IStateValueRepository stateRepository, IGenreRepository genreRepository, IUserRepository userRepository)
+        public UserController(IUserRepository userRepository)
         {
-            BookRepository = bookRepository;
-            EvaluationRepository = evaluationRepository;
-            EventLinkItemRepository = eventLinkItemRepository;
-            EventRepository = eventRepository;
-            StateRepository = stateRepository;
-            GenreRepository = genreRepository;
             UserRepository = userRepository;
         }
 
-        private IBookRepository BookRepository { get; }
-        private IEvaluationRepository EvaluationRepository { get; }
-        private IChapterLinkItemRepository EventLinkItemRepository { get; }
-        private IChapterRepository EventRepository { get; }
-        private IStateValueRepository StateRepository { get; }
-        private IGenreRepository GenreRepository { get; }
         private IUserRepository UserRepository { get; }
 
         [AcceptVerbs("GET")]

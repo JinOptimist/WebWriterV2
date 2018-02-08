@@ -68,6 +68,8 @@
     <Compile Include="IRepository\IChapterRepository.cs" />
     <Compile Include="IRepository\IChapterLinkItemRepository.cs" />
     <Compile Include="IRepository\IEvaluationRepository.cs" />
+    <Compile Include="IRepository\ITravelStepRepository.cs" />
+    <Compile Include="IRepository\ITravelRepository.cs" />
     <Compile Include="IRepository\IGenreRepository.cs" />
     <Compile Include="IRepository\IStateChangeRepository.cs" />
     <Compile Include="IRepository\IStateRequirementRepository.cs" />
@@ -126,6 +128,8 @@
     <Compile Include="Repository\ChapterRepository.cs" />
     <Compile Include="Repository\ChapterLinkItemRepository.cs" />
     <Compile Include="Repository\EvaluationRepository.cs" />
+    <Compile Include="Repository\TravelStepRepository.cs" />
+    <Compile Include="Repository\TravelRepository.cs" />
     <Compile Include="Repository\StateRequirementRepository.cs" />
     <Compile Include="Repository\StateChangeRepository.cs" />
     <Compile Include="Repository\GenreRepository.cs" />

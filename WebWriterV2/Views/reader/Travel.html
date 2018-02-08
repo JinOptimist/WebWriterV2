@@ -1,15 +1,15 @@
-﻿<div id="travel" class="content" ng-class="!chapter ? 'wait' : ''">
-    <div class="header" ng-show="chapter">
-        {{chapter.Name}}
+﻿<div id="travel" class="content" ng-class="!travel ? 'wait' : ''">
+    <div class="header" ng-show="travel">
+        {{travel.Chapter.Name}}
     </div>
-    <div class="body" ng-bind-html="chapter.Desc" ng-show="chapter"></div>
-    <div class="chapter-links-block" ng-show="chapter">
-        <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
+    <div class="body" ng-bind-html="travel.Chapter.Desc" ng-show="travel.Chapter"></div>
+    <div class="chapter-links-block" ng-show="travel.Chapter">
+        <div class="chapter-link" ng-repeat="chapterLink in travel.Chapter.LinksFromThisEvent">
             <div class="text" ng-if="chapterLink.Text">
                 {{chapterLink.Text}}
             </div>
             <div class="action-button">
-                <a href="/ar/reader/travel/{{chapter.BookId}}/{{chapterLink.ToId}}">
+                <a href="#" ng-click="choice(chapterLink.Id)">
                     <span class="button-medium-blue">
                         {{chapterLink.Text ? 'Сделать выбор' : 'Далее'}}
                     </span>

@@ -56,7 +56,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                 })
                 .when('/AngularRoute/profile', {
                     templateUrl: '/views/rpg/profile.html',
-                    controller: 'profileController'
+                    controller: 'profileControllerOld'
                 })
 
                 /* writer */
@@ -78,7 +78,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     controller: 'aboutUsController'
                 })
                 /* reader */
-                .when('/ar/reader/travel/:bookId/:chapterId?', { // ! Most important page !
+                .when('/ar/reader/travel/:travelId', { // ! Most important page !
                     templateUrl: '/views/reader/Travel.html',
                     controller: 'travelController'
                 })

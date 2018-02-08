@@ -15,7 +15,7 @@ namespace WebWriterV2.FrontModels
             Id = book.Id;
             Name = book.Name;
             Desc = book.Desc;
-            RootEventId = book.RootChapter != null ? book.RootChapter.Id : -1;
+            RootChapterId = book.RootChapter != null ? book.RootChapter.Id : -1;
             OwnerId = book.Owner.Id;
             IsPublished = book.IsPublished;
             NumberOfChapters = book.NumberOfChapters;
@@ -42,7 +42,7 @@ namespace WebWriterV2.FrontModels
         public string Name { get; set; }
         public string Desc { get; set; }
         public long OwnerId { get; set; }
-        public long RootEventId { get; set; }
+        public long RootChapterId { get; set; }
         public bool IsPublished { get; set; }
         public long NumberOfChapters { get; set; }
         public long NumberOfWords { get; set; }

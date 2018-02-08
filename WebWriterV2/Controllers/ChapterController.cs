@@ -26,7 +26,6 @@ namespace WebWriterV2.Controllers
         private IChapterRepository ChapterRepository { get; set; }
         private IChapterLinkItemRepository ChapterLinkItemRepository { get; set; }
 
-
         [AcceptVerbs("POST")]
         public FrontChapter Save(FrontChapter frontChapter)
         {

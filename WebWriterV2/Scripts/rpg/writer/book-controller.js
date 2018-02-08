@@ -44,7 +44,7 @@ angular.module('rpg')
                     Desc: 'Desc',
                     Level: level,
                     BookId: $scope.book.Id,
-                    IsRootChapter: $scope.book.RootEventId < 0
+                    IsRootChapter: $scope.book.RootChapterId < 0
                 };
                 chapterService.save(chapter).then(function (savedChapter) {
                     $location.path('/ar/writer/chapter/' + savedChapter.Id);

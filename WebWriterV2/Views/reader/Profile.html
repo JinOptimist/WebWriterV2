@@ -9,56 +9,10 @@
             <input type="button" ng-click="uploadAvatar()" value="upload new avatar" />
         </p>
     </div>
-</div>
-
-<!--<div ng-class="!book || !hero ? 'wait' : ''" class="profile">
-    <div style="width: 800px; float: left;">
-        <p>
-            Тип аккаунта: {{user.UserType.Name}}
-        </p>
-        <p>
-            <a id="removeMyAccount" href="#" ng-click="removeAccount()">Delete my account</a>
-        </p>
-        <div ng-if="user.Bookmarks && user.Bookmarks.length > 0">
-            <h2>Мои закладки:</h2>
-            <p ng-repeat="mark in user.Bookmarks">
-                Квест: {{mark.CurrentEvent.book.Name}}. Глава: {{mark.CurrentEvent.Name}}
-                <a href="#" ng-click="goToBookmark(mark)">Продолжить</a>
-                <a href="#" ng-click="removeBookmark(mark, $index)"><img src="/Content/icon/delete.png" class="icon20"/></a>
-            </p>
-        </div>
-        <div ng-if="user.BooksAreReaded && user.BooksAreReaded.length > 0">
-            <h2>Прочитанные книги:</h2>
-            <p ng-repeat="book in user.BooksAreReaded">
-                Квест: {{book.Name}}.
-            </p>
-        </div>
-        <div ng-if="user.IsReader">
-            <a href="#" ng-click="becomeWriter()">Я хочу писать</a>
-        </div>
-        <div ng-if="user.MyBooks && user.MyBooks.length > 0">
-            <h2>Мои Книги:</h2>
-            <div ng-repeat="book in user.MyBooks">
-                <p >
-                    Квест: {{book.Name}}.
-                    <a ng-href="/AngularRoute/travel/book/{{book.Id}}/event/-1/hero/-1/false">Читать</a>
-                    <a ng-href="/AngularRoute/admin/book/{{book.Id}}">Писать</a>
-                </p>
-                <p ng-if="book.Evaluations && book.Evaluations.length > 0" class="evaluation">
-                    Отзывы:
-                </p>
-                <p ng-repeat="evaluation in book.Evaluations" class="evaluation">
-                    {{evaluation.Mark}} * {{evaluation.Comment}}
-                </p>
-            </div>
-        </div>
-        <div ng-if="user.IsWriter || user.IsAdmin">
-            <p>
-                <a href="#" ng-click="openStatePopup()">Редактировать типы Решений</a>
-            </p>
-            <p>
-                <a href="#" ng-click="openThingPopup()">Редактировать типы предметов</a>
-            </p>
+    <div>
+        <h2>Мои путешествия</h2>
+        <div ng-repeat="travel in travels">
+            <a href="#" ng-click="removeTravel(travel.Id, $index)">Забыть прохождение "{{travel.Book.Name}}"</a>
         </div>
     </div>
-</div>-->
+</div>

@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ChapterLinkController.cs" />
+    <Compile Include="Controllers\TravelController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ChapterController.cs" />
     <Compile Include="Controllers\BookController.cs" />
@@ -177,20 +178,21 @@
     <Compile Include="DI\WindsorDependencyResolver.cs" />
     <Compile Include="DI\WindsorDependencyScope.cs" />
     <Compile Include="DI\CurrentUserContainer.cs" />
-    <Compile Include="FrontModels\BaseFront.cs" />
-    <Compile Include="FrontModels\FakeModelString.cs" />
-    <Compile Include="FrontModels\FrontChaptersBlock.cs" />
-    <Compile Include="FrontModels\FrontBookWithChapters.cs" />
-    <Compile Include="FrontModels\FrontEventLinkItem.cs" />
-    <Compile Include="FrontModels\FrontGenre.cs" />
-    <Compile Include="FrontModels\FrontChapterLevel.cs" />
-    <Compile Include="FrontModels\FrontStateType.cs" />
-    <Compile Include="FrontModels\FrontEvaluation.cs" />
-    <Compile Include="FrontModels\FrontUser.cs" />
-    <Compile Include="FrontModels\FrontState.cs" />
-    <Compile Include="FrontModels\FrontBook.cs" />
-    <Compile Include="FrontModels\FrontChapter.cs" />
-    <Compile Include="FrontModels\FrontEnum.cs" />
+    <Compile Include="FrontModel\BaseFront.cs" />
+    <Compile Include="FrontModel\FakeModelString.cs" />
+    <Compile Include="FrontModel\FrontChaptersBlock.cs" />
+    <Compile Include="FrontModel\FrontBookWithChapters.cs" />
+    <Compile Include="FrontModel\FrontEventLinkItem.cs" />
+    <Compile Include="FrontModel\FrontTravel.cs" />
+    <Compile Include="FrontModel\FrontGenre.cs" />
+    <Compile Include="FrontModel\FrontChapterLevel.cs" />
+    <Compile Include="FrontModel\FrontStateType.cs" />
+    <Compile Include="FrontModel\FrontEvaluation.cs" />
+    <Compile Include="FrontModel\FrontUser.cs" />
+    <Compile Include="FrontModel\FrontState.cs" />
+    <Compile Include="FrontModel\FrontBook.cs" />
+    <Compile Include="FrontModel\FrontChapter.cs" />
+    <Compile Include="FrontModel\FrontEnum.cs" />
     <Compile Include="RpgUtility\Dto\VkAccess.cs" />
     <Compile Include="RpgUtility\EmailHelper.cs" />
     <Compile Include="RpgUtility\WordHelper.cs" />
@@ -687,6 +689,10 @@
     <Content Include="Scripts\rpg\reader\profile-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-controller.js" />
     <Content Include="Scripts\rpg\reader\books-controller.js" />
+    <Content Include="Scripts\rpg\services\user.js" />
+    <Content Include="Scripts\rpg\services\chapter.js" />
+    <Content Include="Scripts\rpg\services\book.js" />
+    <Content Include="Scripts\rpg\services\travel.js" />
     <Content Include="Scripts\rpg\writer\chapter-controller.js" />
     <Content Include="Scripts\rpg\writer\books-controller.js" />
     <Content Include="Scripts\rpg\writer\book-controller.js" />
