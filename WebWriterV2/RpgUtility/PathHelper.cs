@@ -12,6 +12,12 @@ namespace WebWriterV2.RpgUtility
 {
     public static class PathHelper
     {
+        public static string PathToBook(long travelId)
+        {
+            var serverPath = HttpContext.Current.Server.MapPath("~");
+            return Path.Combine(serverPath, "Content", "download", $"{travelId}.txt");
+        }
+
         public static string PathToAvatar(long userId, string extension)
         {
             var serverPath = HttpContext.Current.Server.MapPath("~");

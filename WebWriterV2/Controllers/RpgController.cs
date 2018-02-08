@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
@@ -38,12 +39,15 @@ namespace WebWriterV2.Controllers
         public IEvaluationRepository EvaluationRepository { get; set; }
         public IGenreRepository GenreRepository { get; set; }
         public IChapterLinkItemRepository ChapterLinkItemRepository { get; set; }
-        
+
+        public ITravelRepository TravelRepository { get; set; }
+
         #endregion
 
         public RpgController(IChapterRepository eventRepository, IChapterLinkItemRepository eventLinkItemRepository, IBookRepository bookRepository,
             IStateValueRepository stateRepository, IStateTypeRepository stateTypeRepository, IUserRepository userRepository,
-            IEvaluationRepository evaluationRepository, IGenreRepository genreRepository, IChapterLinkItemRepository chapterLinkItemRepository)
+            IEvaluationRepository evaluationRepository, IGenreRepository genreRepository, IChapterLinkItemRepository chapterLinkItemRepository,
+            ITravelRepository travelRepository)
         {
             EventRepository = eventRepository;
             EventLinkItemRepository = eventLinkItemRepository;
@@ -54,6 +58,7 @@ namespace WebWriterV2.Controllers
             EvaluationRepository = evaluationRepository;
             GenreRepository = genreRepository;
             ChapterLinkItemRepository = chapterLinkItemRepository;
+            TravelRepository = travelRepository;
         }
 
         public ActionResult RouteForAngular(string url)
@@ -65,6 +70,29 @@ namespace WebWriterV2.Controllers
         {
             return View();
         }
+
+        [AcceptVerbs("GET")]
+        public ActionResult Download(long travelId)
+        {
+            var path = PathHelper.PathToBook(travelId);
+            var travel = TravelRepository.Get(travelId);
+            if (!System.IO.File.Exists(path)) {
+                var chapters = new List<Chapter>();
+                chapters.Add(travel.Book.RootChapter);
+                chapters.AddRange(travel.Steps.Select(x => x.Сhoice.To));
+
+                using (StreamWriter outputFile = new StreamWriter(path)) {
+                    foreach (var chapter in chapters) {
+                        outputFile.WriteLine();
+                        outputFile.WriteLine(chapter.Name);
+                        outputFile.WriteLine(chapter.Desc);
+                    }
+                }
+            }
+
+            return File(path, "application/octet-stream", $"{travel.Book.Name}.txt");
+        }
+
 
         public ActionResult RegisterVkComplete(string code)
         {

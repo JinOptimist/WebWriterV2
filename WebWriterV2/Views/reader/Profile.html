@@ -12,7 +12,13 @@
     <div>
         <h2>Мои путешествия</h2>
         <div ng-repeat="travel in travels">
-            <a href="#" ng-click="removeTravel(travel.Id, $index)">Забыть прохождение "{{travel.Book.Name}}"</a>
+            <h4>Путешествие по произведению "{{travel.Book.Name}}"</h4>
+            <p>
+                <a href="#" ng-click="removeTravel(travel.Id, $index)">Забыть (удалить)</a>
+            </p>
+            <p>
+                <a ng-href="/rpg/download?travelId={{travel.Id}}" target="_blank">Скачать</a>
+            </p>
         </div>
     </div>
 </div>
