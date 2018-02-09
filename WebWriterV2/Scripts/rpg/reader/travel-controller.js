@@ -18,19 +18,25 @@ angular.module('rpg')
                 });
             }
 
-            $scope.travelIsEnd = function (){
-                travelService.travelIsEnd($scope.travel.Id).then(function () {
-                    // go to profile or MainPage or BookEndPage
-                });
+            $scope.travelIsEnd = function () {
+                if ($scope.travel.Id > 0) {
+                    travelService.travelIsEnd($scope.travel.Id).then(function () {
+                        // go to profile or MainPage or BookEndPage
+                    });
+                } else {
+                    // go to MainPage or BookEndPage
+                }
+                
             }
 
-            //function loadChapter(chapterId) {
-            //    chapterService.getForTravel(chapterId).then(function (chapter) {
-            //        $scope.chapter = chapter;
-            //    });
-
-            //    loadChapterLinks(chapterId);
-            //}
+            function loadChapter(chapterId) {
+                chapterService.getForTravel(chapterId).then(function (chapter) {
+                    $scope.travel = {
+                        Id: -1,
+                        Chapter: chapter
+                    };
+                });
+            }
 
             //function loadBook(bookId) {
             //    //bookService.getRoot(bookId).then(function (books) {
@@ -52,7 +58,12 @@ angular.module('rpg')
 
             function init() {
                 var travelId = $routeParams.travelId;
-                loadTravel(travelId);
+                var chapterId = $routeParams.chapterId;
+                if (travelId > 0) {
+                    loadTravel(travelId);
+                } else {
+                    loadChapter(chapterId);
+                }
 
                 //var chapterId = $routeParams.chapterId;
                 //if (chapterId) {

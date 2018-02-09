@@ -38,17 +38,28 @@ namespace WebWriterV2.Controllers
         [AcceptVerbs("GET")]
         public FrontTravel GetByBook(long bookId)
         {
-            var travel = TravelRepository.GetByBookAndUser(bookId, User.Id);
-            if (travel == null) {
-                var book = BookRepository.Get(bookId);
-                travel = new Travel {
-                    Reader = User,
-                    StartTime = DateTime.Now,
-                    Book = book,
-                    CurrentChapter = book.RootChapter
+            Travel travel;
+            var book = BookRepository.Get(bookId);
+            if (User == null) {
+                travel = new Travel() {
+                    CurrentChapter = book.RootChapter,
+                    Id = -1
                 };
-                travel = TravelRepository.Save(travel);
+            } else {
+                
+                travel = TravelRepository.GetByBookAndUser(bookId, User.Id);
+                if (travel == null) {
+
+                    travel = new Travel {
+                        Reader = User,
+                        StartTime = DateTime.Now,
+                        Book = book,
+                        CurrentChapter = book.RootChapter
+                    };
+                    travel = TravelRepository.Save(travel);
+                }
             }
+
             return new FrontTravel(travel);
         }
 
@@ -56,15 +67,18 @@ namespace WebWriterV2.Controllers
         public FrontChapter Choice(long travelId, long linkItemId)
         {
             var link = ChapterLinkItemRepository.Get(linkItemId);
-            var travel = TravelRepository.Get(travelId);
-            var step = new TravelStep {
-                DateTime = DateTime.Now,
-                Travel = travel,
-                Сhoice = link
-            };
-            travel.CurrentChapter = link.To;
-            TravelStepRepository.Save(step);
-            TravelRepository.Save(travel);
+            if (travelId > 0) {
+                var travel = TravelRepository.Get(travelId);
+                var step = new TravelStep {
+                    DateTime = DateTime.Now,
+                    Travel = travel,
+                    Сhoice = link
+                };
+                travel.CurrentChapter = link.To;
+                TravelStepRepository.Save(step);
+                TravelRepository.Save(travel);
+            }
+            
             return new FrontChapter(link.To);
         }
 

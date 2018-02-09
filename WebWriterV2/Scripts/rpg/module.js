@@ -78,7 +78,7 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     controller: 'aboutUsController'
                 })
                 /* reader */
-                .when('/ar/reader/travel/:travelId', { // ! Most important page !
+                .when('/ar/reader/travel/:travelId/:chapterId?', { // ! Most important page !
                     templateUrl: '/views/reader/Travel.html',
                     controller: 'travelController'
                 })

@@ -40,7 +40,7 @@ namespace WebWriterV2.Controllers
             var getOnlyPublished = User == null || User.UserType != UserType.Admin;
             var books = BookRepository.GetAll(getOnlyPublished);
 
-            var frontBooks = books.Select(x => new FrontBook(x)).ToList();
+            var frontBooks = books.Select(x => new FrontBook(x, user: User)).ToList();
             return frontBooks;
         }
 

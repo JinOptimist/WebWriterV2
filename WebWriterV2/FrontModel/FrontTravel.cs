@@ -14,7 +14,9 @@ namespace WebWriterV2.FrontModels
         public FrontTravel(Travel travel)
         {
             Id = travel.Id;
-            Book = new FrontBook(travel.Book);
+            if (travel.Book != null) {
+                Book = new FrontBook(travel.Book);
+            }
             if (travel.CurrentChapter != null) {
                 Chapter = new FrontChapter(travel.CurrentChapter, true);
             }

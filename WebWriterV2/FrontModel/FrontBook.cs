@@ -11,7 +11,7 @@ namespace WebWriterV2.FrontModels
         public FrontBook() {
         }
 
-        public FrontBook(Book book, bool forWriter = false) {
+        public FrontBook(Book book, bool forWriter = false, User user = null) {
             Id = book.Id;
             Name = book.Name;
             Desc = book.Desc;
@@ -22,6 +22,8 @@ namespace WebWriterV2.FrontModels
             NumberOfWords = book.NumberOfWords;
             Views = book.Views;
 
+            
+
             if (book.PublicationDate.HasValue) {
                 PublicationDate = $"{book.PublicationDate.Value.ToShortDateString()} {book.PublicationDate.Value.ToShortTimeString()}";
             }
@@ -30,9 +32,15 @@ namespace WebWriterV2.FrontModels
             AuthorFullName = book.Owner.Name;
             AuthorAvatar = book.Owner.AvatarUrl;
 
-            ContainsCycle = forWriter
-                ? new GraphHelper(book).HasCycle()
-                : true;
+            if (forWriter) {
+                ContainsCycle = new GraphHelper(book).HasCycle();
+                IsReaded = false;
+            } else {
+                ContainsCycle = true;
+                IsReaded = user == null
+                    ? false
+                    : book.Travels.Any(x => x.Reader.Id == user.Id);
+            }
 
             //Genre = book.Genre != null ? new FrontGenre(book.Genre) : null;
             //AllEvents = book.AllChapters?.Select(x => new FrontChapter(x)).ToList();
@@ -49,6 +57,8 @@ namespace WebWriterV2.FrontModels
         public string PublicationDate { get; set; }
 
         public long Views { get; set; }
+
+        public bool IsReaded { get; set; }
 
         public string AuthorFullName { get; set; }
         public string AuthorAvatar { get; set; }

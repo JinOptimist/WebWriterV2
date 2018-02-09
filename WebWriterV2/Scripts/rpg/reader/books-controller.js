@@ -11,7 +11,7 @@ angular.module('rpg')
 
             $scope.goToTravel = function (bookId) {
                 travelService.getByBook(bookId).then(function (travel) {
-                    $location.path('/ar/reader/travel/' + travel.Id);
+                    $location.path('/ar/reader/travel/' + travel.Id + '/' + travel.Chapter.Id);
                 });
             }
 

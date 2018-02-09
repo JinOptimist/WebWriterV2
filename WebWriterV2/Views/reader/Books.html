@@ -18,7 +18,7 @@
         </p>
         <a href="#" ng-click="goToTravel(book.Id)">
             <span class="button-medium-gray">
-                Отправится в путешествие >
+                {{book.IsReaded ? 'Продолжить' : 'Отправится в' }} путешествие >
             </span>
         </a>
     </div>
