@@ -81,5 +81,15 @@ namespace WebWriterV2.Controllers
             TravelRepository.Remove(id);
             return true;
         }
+
+        [AcceptVerbs("GET")]
+        public bool TravelIsEnd(long id)
+        {
+            var travel = TravelRepository.Get(id);
+            travel.IsTravelEnd = true;
+            travel.FinishTime = DateTime.Now;
+            TravelRepository.Save(travel);
+            return true;
+        }
     }
 }

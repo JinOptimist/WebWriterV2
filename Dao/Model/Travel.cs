@@ -17,6 +17,8 @@ namespace Dao.Model
 
         public virtual List<TravelStep> Steps { get; set; }
 
+        public virtual bool IsTravelEnd { get; set; }
+
         /// <summary>
         /// For future. To implementation State
         /// </summary>

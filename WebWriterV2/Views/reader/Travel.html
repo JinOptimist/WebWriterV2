@@ -16,5 +16,12 @@
                 </a>
             </div>
         </div>
+        <div ng-show="!travel.Chapter.LinksFromThisEvent || travel.Chapter.LinksFromThisEvent.length == 0">
+            <a href="#" ng-click="travelIsEnd(travel.Id)">
+                <span class="button-medium-blue">
+                    Перейти к статистики
+                </span>
+            </a>
+        </div>
     </div>
 </div>

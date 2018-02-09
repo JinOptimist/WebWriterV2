@@ -76,12 +76,16 @@ namespace WebWriterV2.Controllers
         {
             var path = PathHelper.PathToBook(travelId);
             var travel = TravelRepository.Get(travelId);
-            //TODO check is travel ended 
-            // !System.IO.File.Exists(path)
-            if (true) {
-                var chapters = new List<Chapter>();
-                chapters.Add(travel.Book.RootChapter);
+            
+            if (!travel.IsTravelEnd || !System.IO.File.Exists(path)) {
+                var chapters = new List<Chapter> {
+                    travel.Book.RootChapter
+                };
                 chapters.AddRange(travel.Steps.Select(x => x.Сhoice.To));
+
+                if (System.IO.File.Exists(path)) {
+                    System.IO.File.Delete(path);
+                }
 
                 using (StreamWriter outputFile = new StreamWriter(path)) {
                     foreach (var chapter in chapters) {

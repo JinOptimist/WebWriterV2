@@ -105,6 +105,10 @@
     <Compile Include="Migrations\201802080949082_AddTravel.Designer.cs">
       <DependentUpon>201802080949082_AddTravel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802091054565_AddIsTravelEnd.cs" />
+    <Compile Include="Migrations\201802091054565_AddIsTravelEnd.Designer.cs">
+      <DependentUpon>201802091054565_AddIsTravelEnd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\TravelStep.cs" />
@@ -166,6 +170,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802080949082_AddTravel.resx">
       <DependentUpon>201802080949082_AddTravel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802091054565_AddIsTravelEnd.resx">
+      <DependentUpon>201802091054565_AddIsTravelEnd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

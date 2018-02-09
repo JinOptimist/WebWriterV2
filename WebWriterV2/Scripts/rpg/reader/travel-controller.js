@@ -18,6 +18,12 @@ angular.module('rpg')
                 });
             }
 
+            $scope.travelIsEnd = function (){
+                travelService.travelIsEnd($scope.travel.Id).then(function () {
+                    // go to profile or MainPage or BookEndPage
+                });
+            }
+
             //function loadChapter(chapterId) {
             //    chapterService.getForTravel(chapterId).then(function (chapter) {
             //        $scope.chapter = chapter;
