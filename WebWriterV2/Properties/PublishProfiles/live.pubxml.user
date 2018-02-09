@@ -49,13 +49,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/12/2017 06:47:46</publishTime>
     </File>
     <File Include="bin/Dal.dll">
-      <publishTime>01/10/2018 12:11:42</publishTime>
+      <publishTime>02/08/2018 17:58:22</publishTime>
     </File>
     <File Include="bin/Dal.dll.config">
       <publishTime>09/08/2016 15:40:34</publishTime>
     </File>
     <File Include="bin/Dal.pdb">
-      <publishTime>01/10/2018 12:11:42</publishTime>
+      <publishTime>02/08/2018 17:58:22</publishTime>
     </File>
     <File Include="bin/Dao.dll">
       <publishTime>09/04/2017 15:10:05</publishTime>
@@ -154,10 +154,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/17/2013 17:03:52</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>01/10/2018 12:11:43</publishTime>
+      <publishTime>02/08/2018 17:58:23</publishTime>
     </File>
     <File Include="bin/WebWriterV2.pdb">
-      <publishTime>01/10/2018 12:11:43</publishTime>
+      <publishTime>02/08/2018 17:58:23</publishTime>
     </File>
     <File Include="bin/x64/libsass.dll">
       <publishTime>11/15/2017 20:18:30</publishTime>
@@ -185,6 +185,12 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/add.png">
       <publishTime>12/21/2016 15:04:13</publishTime>
+    </File>
+    <File Include="Content/avatar/1.jpeg">
+      <publishTime>02/06/2018 14:08:16</publishTime>
+    </File>
+    <File Include="Content/avatar/hack.txt">
+      <publishTime>02/08/2018 12:01:00</publishTime>
     </File>
     <File Include="Content/bin.jpg">
       <publishTime>12/12/2016 14:49:19</publishTime>
@@ -223,7 +229,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
     <File Include="Content/css/icon.scss">
-      <publishTime>01/10/2018 12:08:29</publishTime>
+      <publishTime>01/22/2018 13:41:11</publishTime>
     </File>
     <File Include="Content/css/main.css">
       <publishTime>08/21/2016 20:20:43</publishTime>
@@ -241,7 +247,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/10/2018 12:07:19</publishTime>
     </File>
     <File Include="Content/css/style.scss">
-      <publishTime>01/10/2018 09:59:18</publishTime>
+      <publishTime>02/06/2018 15:38:11</publishTime>
     </File>
     <File Include="Content/defenitionExample/01.png">
       <publishTime>05/15/2017 16:16:23</publishTime>
@@ -266,6 +272,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/delete.png">
       <publishTime>12/21/2016 15:04:20</publishTime>
+    </File>
+    <File Include="Content/download/hack.txt">
+      <publishTime>02/08/2018 16:26:00</publishTime>
     </File>
     <File Include="Content/edit.png">
       <publishTime>01/24/2017 17:37:44</publishTime>
@@ -441,11 +450,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Content/home/word-icon.png">
       <publishTime>08/21/2016 20:20:43</publishTime>
     </File>
+    <File Include="Content/icon/add-icon.png">
+      <publishTime>01/10/2018 12:00:00</publishTime>
+    </File>
     <File Include="Content/icon/add.png">
       <publishTime>12/21/2016 15:04:13</publishTime>
     </File>
+    <File Include="Content/icon/bell-active.png">
+      <publishTime>01/22/2018 13:41:11</publishTime>
+    </File>
+    <File Include="Content/icon/bell.png">
+      <publishTime>01/22/2018 13:41:11</publishTime>
+    </File>
     <File Include="Content/icon/bin.jpg">
       <publishTime>12/12/2016 14:49:19</publishTime>
+    </File>
+    <File Include="Content/icon/close.png">
+      <publishTime>01/17/2018 13:58:54</publishTime>
     </File>
     <File Include="Content/icon/confirm.png">
       <publishTime>12/21/2016 16:03:43</publishTime>
@@ -461,6 +482,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/icon/edit.png">
       <publishTime>01/24/2017 17:37:44</publishTime>
+    </File>
+    <File Include="Content/icon/eye.png">
+      <publishTime>01/22/2018 13:41:11</publishTime>
     </File>
     <File Include="Content/icon/fb2-icon.png">
       <publishTime>08/08/2013 11:49:49</publishTime>
@@ -485,6 +509,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/icon/rtf-icon.png">
       <publishTime>08/08/2013 11:47:09</publishTime>
+    </File>
+    <File Include="Content/icon/spritesheet.png">
+      <publishTime>01/22/2018 13:41:11</publishTime>
     </File>
     <File Include="Content/icon/txt-icon.png">
       <publishTime>07/15/2013 07:27:12</publishTime>
@@ -754,7 +781,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/09/2016 23:31:26</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>12/06/2017 13:42:59</publishTime>
+      <publishTime>02/06/2018 13:31:20</publishTime>
     </File>
     <File Include="Properties/Settings.Designer.cs">
       <publishTime>05/18/2017 17:21:00</publishTime>
@@ -1975,31 +2002,49 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 16:12:07</publishTime>
     </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>01/10/2018 10:45:16</publishTime>
+      <publishTime>02/08/2018 15:39:22</publishTime>
     </File>
     <File Include="Scripts/rpg/reader/books-controller.js">
-      <publishTime>01/09/2018 14:53:32</publishTime>
+      <publishTime>02/08/2018 13:43:17</publishTime>
     </File>
     <File Include="Scripts/rpg/reader/login-controller.js">
-      <publishTime>01/08/2018 10:02:54</publishTime>
+      <publishTime>02/08/2018 12:58:27</publishTime>
+    </File>
+    <File Include="Scripts/rpg/reader/profile-controller.js">
+      <publishTime>02/08/2018 16:06:16</publishTime>
+    </File>
+    <File Include="Scripts/rpg/reader/register-controller.js">
+      <publishTime>01/12/2018 12:24:42</publishTime>
     </File>
     <File Include="Scripts/rpg/reader/travel-controller.js">
-      <publishTime>01/09/2018 16:05:43</publishTime>
+      <publishTime>02/08/2018 14:47:06</publishTime>
     </File>
     <File Include="Scripts/rpg/services.js">
-      <publishTime>01/09/2018 16:06:09</publishTime>
+      <publishTime>02/08/2018 13:14:09</publishTime>
+    </File>
+    <File Include="Scripts/rpg/services/book.js">
+      <publishTime>02/08/2018 13:11:26</publishTime>
+    </File>
+    <File Include="Scripts/rpg/services/chapter.js">
+      <publishTime>02/08/2018 13:11:56</publishTime>
+    </File>
+    <File Include="Scripts/rpg/services/travel.js">
+      <publishTime>02/08/2018 15:58:31</publishTime>
+    </File>
+    <File Include="Scripts/rpg/services/user.js">
+      <publishTime>02/08/2018 13:14:08</publishTime>
     </File>
     <File Include="Scripts/rpg/user-controller.js">
-      <publishTime>01/08/2018 10:02:54</publishTime>
+      <publishTime>01/22/2018 13:41:11</publishTime>
     </File>
     <File Include="Scripts/rpg/writer/book-controller.js">
-      <publishTime>01/10/2018 09:27:23</publishTime>
+      <publishTime>02/08/2018 14:30:30</publishTime>
     </File>
     <File Include="Scripts/rpg/writer/books-controller.js">
       <publishTime>01/10/2018 11:17:41</publishTime>
     </File>
     <File Include="Scripts/rpg/writer/chapter-controller.js">
-      <publishTime>01/10/2018 09:27:23</publishTime>
+      <publishTime>01/17/2018 13:58:54</publishTime>
     </File>
     <File Include="Scripts/underscore.js">
       <publishTime>12/27/2016 16:31:19</publishTime>
@@ -2041,13 +2086,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/15/2015 15:02:58</publishTime>
     </File>
     <File Include="Views/reader/Books.html">
-      <publishTime>01/10/2018 09:52:40</publishTime>
+      <publishTime>02/08/2018 12:56:48</publishTime>
     </File>
     <File Include="Views/reader/Login.html">
-      <publishTime>01/08/2018 10:02:54</publishTime>
+      <publishTime>01/12/2018 14:56:02</publishTime>
+    </File>
+    <File Include="Views/reader/Profile.html">
+      <publishTime>02/08/2018 17:55:15</publishTime>
+    </File>
+    <File Include="Views/reader/Register.html">
+      <publishTime>01/12/2018 12:23:08</publishTime>
     </File>
     <File Include="Views/reader/Travel.html">
-      <publishTime>01/10/2018 09:27:23</publishTime>
+      <publishTime>02/08/2018 14:35:08</publishTime>
     </File>
     <File Include="Views/Rpg/AboutUs.html">
       <publishTime>05/15/2017 17:22:46</publishTime>
@@ -2125,13 +2176,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2017 17:48:08</publishTime>
     </File>
     <File Include="Views/Rpg/HeaderD.html">
-      <publishTime>01/09/2018 12:09:37</publishTime>
+      <publishTime>01/22/2018 13:41:11</publishTime>
     </File>
     <File Include="Views/Rpg/HeaderOld.html">
       <publishTime>12/06/2017 12:11:56</publishTime>
     </File>
     <File Include="Views/Rpg/Index.cshtml">
-      <publishTime>01/10/2018 10:45:29</publishTime>
+      <publishTime>02/08/2018 13:14:19</publishTime>
     </File>
     <File Include="Views/Rpg/ListBook.html">
       <publishTime>07/24/2017 11:48:16</publishTime>
@@ -2212,13 +2263,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/09/2018 15:17:33</publishTime>
     </File>
     <File Include="Views/Writer/Book.html">
-      <publishTime>01/10/2018 12:18:53</publishTime>
+      <publishTime>01/22/2018 13:41:11</publishTime>
     </File>
     <File Include="Views/Writer/Books.html">
-      <publishTime>01/10/2018 10:13:10</publishTime>
+      <publishTime>01/22/2018 13:41:11</publishTime>
     </File>
     <File Include="Views/Writer/Chapter.html">
-      <publishTime>01/10/2018 09:27:23</publishTime>
+      <publishTime>01/17/2018 13:58:54</publishTime>
     </File>
     <File Include="Web.config">
       <publishTime>01/08/2018 17:06:07</publishTime>

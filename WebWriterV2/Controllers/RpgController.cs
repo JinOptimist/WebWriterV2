@@ -76,7 +76,9 @@ namespace WebWriterV2.Controllers
         {
             var path = PathHelper.PathToBook(travelId);
             var travel = TravelRepository.Get(travelId);
-            if (!System.IO.File.Exists(path)) {
+            //TODO check is travel ended 
+            // !System.IO.File.Exists(path)
+            if (true) {
                 var chapters = new List<Chapter>();
                 chapters.Add(travel.Book.RootChapter);
                 chapters.AddRange(travel.Steps.Select(x => x.Сhoice.To));
