@@ -80,6 +80,22 @@ body {
             }
         }
     }
+
+    .login-block {
+        width: 500px;
+        height: 500px;
+        margin: auto;
+        margin-top: 10px;
+        background: $white;
+        box-shadow: 2px 2px 9px $blue1;
+
+
+
+        &,
+        input {
+            font-size: 14px;
+        }
+    }
 }
 /* Header End */
 

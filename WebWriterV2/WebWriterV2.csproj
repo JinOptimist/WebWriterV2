@@ -685,6 +685,7 @@
     <Content Include="Content\font\Merriweather-Regular.ttf" />
     <Content Include="Content\css\icon.scss" />
     <Content Include="Scripts\raphael-min.js" />
+    <Content Include="Scripts\rpg\reader\access-controller.js" />
     <Content Include="Scripts\rpg\reader\register-controller.js" />
     <Content Include="Scripts\rpg\reader\login-controller.js" />
     <Content Include="Scripts\rpg\reader\profile-controller.js" />
