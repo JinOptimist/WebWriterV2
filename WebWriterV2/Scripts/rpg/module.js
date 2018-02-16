@@ -86,14 +86,6 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     templateUrl: '/views/reader/Books.html',
                     controller: 'readerBooksController'
                 })
-                .when('/ar/reader/login', {
-                    templateUrl: '/views/reader/Login.html',
-                    controller: 'loginController'
-                })
-                .when('/ar/reader/register', {
-                    templateUrl: '/views/reader/Register.html',
-                    controller: 'registerController'
-                })
                 .when('/ar/reader/profile/:userId', {
                     templateUrl: '/views/reader/Profile.html',
                     controller: 'profileController'

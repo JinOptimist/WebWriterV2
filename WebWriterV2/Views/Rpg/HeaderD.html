@@ -11,11 +11,11 @@
         <div class="header-item" ng-if="user">
             <a href="/ar/writer/generalDefinition">Помощь</a>
         </div>
-        <!--<div class="header-item" ng-if="!user">
-        <a href="/ar/reader/register">Регистрация</a>
-    </div>-->
         <div class="header-item" ng-if="!user">
-            <a href="#" ng-click="openLogin()">Login</a>
+            <a href="#" ng-click="openRegistration()">Регистрация</a>
+        </div>
+        <div class="header-item" ng-if="!user">
+            <a href="#" ng-click="openLogin()">Логин</a>
         </div>
         <div class="header-item" ng-if="user">
             {{::user.Name}} <a href="#" ng-click="exit()">Выйти</a>
@@ -26,8 +26,8 @@
                 <a href="/ar/reader/profile/{{user.Id}}">Профиль</a>
             </div>
             <!--<div class="header-item ">
-            <input type="text" placeholder="Искать..." />
-        </div>-->
+                <input type="text" placeholder="Искать..." />
+            </div>-->
             <div class="header-item">
                 <span class="icon" ng-class="{'bell-active': active, 'bell': !active}" ng-click="active = !active"></span>
             </div>
@@ -36,14 +36,14 @@
             </div>
         </div>
 
-        <div class="fullscreen-div" ng-if="isLoginPopupOpen.val" ng-click="close()">
+        <div class="fullscreen-div" ng-if="popupOpen.main" ng-click="close()">
             <div class="login-block" ng-click="idle($event)">
                 <p class="right">
                     <a href="#" ng-click="close()"><span class="icon close"></span></a>
                 </p>
-                <div class="content">
+                <div class="content" ng-if="popupOpen.isLogin">
                     <div class="title">
-                        Sign up
+                        Логин
                     </div>
                     <div class="row">
                         <input placeholder='Email' type="text"
@@ -54,12 +54,38 @@
                                ng-model="loginObj.Password" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
                     </div>
                     <div>
-                        <span class="button-medium-blue" ng-click="login()">Login</span>
+                        <span ng-class="{'button-medium-blue': loginObj.Name && loginObj.Password, 'button-medium-gray': !loginObj.Name || !loginObj.Password}"
+                              ng-click="login()">
+                            Логин
+                        </span>
+                    </div>
+                </div>
+
+                <div class="content" ng-if="popupOpen.isRegistration">
+                    <div class="title">
+                        Регистрация
+                    </div>
+                    <div class="error">
+                        {{error}}
+                    </div>
+                    <div class="row">
+                        <input placeholder='Login' type="text"
+                               ng-model="loginObj.Name" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
+                    </div>
+                    <div class="row">
+                        <input placeholder='Email' type="text"
+                               ng-model="loginObj.Email" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
+                    </div>
+                    <div class="row">
+                        <input placeholder='Password' type="password"
+                               ng-model="loginObj.Password" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
+                    </div>
+                    <div>
+                        <span ng-class="{'button-medium-blue': isUserValid(), 'button-medium-gray': !isUserValid()}"
+                              ng-click="register()">Регистрация</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-

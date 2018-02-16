@@ -11,6 +11,11 @@ namespace Dao.Repository
         {
         }
 
+        public override bool Exist(User baseModel)
+        {
+            return Entity.Any(x => x.Name == baseModel.Name || x.Email == baseModel.Email);
+        }
+
         public User GetByName(string username)
         {
             return Entity.FirstOrDefault(x => x.Name == username);

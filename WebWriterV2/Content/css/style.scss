@@ -405,6 +405,10 @@ body {
                 margin: 10px 0;
             }
 
+            .error{
+                color: $red;
+            }
+            
             .row {
                 margin: 15px 0;
             }
@@ -415,7 +419,11 @@ body {
                 padding: 9px;
             }
 
-            .button-medium-blue {
+            .button-medium-gray {
+                cursor: not-allowed;
+            }
+
+            .button-medium-gray, .button-medium-blue {
                 font-size: 20px;
                 padding: 3px 30px;
                 display: inline-block;

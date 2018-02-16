@@ -46,24 +46,26 @@ namespace WebWriterV2.Controllers
         public FrontUser Register(FrontUser frontUser)
         {
             var user = frontUser.ToDbModel();
+            if (UserRepository.Exist(user)) {
+                frontUser.Error = "Пользователь с таким именем или емалом уже существует";
+                return frontUser;
+            }
+            
             user.ConfirmCode = RandomHelper.RandomString(RandomHelper.RandomInt(10, 20));
             user = UserRepository.Save(user);
-            frontUser = new FrontUser(user);
 
             var relativeUrl = Url.Link("ConfirmRegister", new { userId = user.Id, confirmCode = user.ConfirmCode });
-            var url = EmailHelper.ToAbsoluteUrl(relativeUrl);
-            var body = $"Пожалуйста подтвердите регистрацию. Для этого достаточно перейти по ссылке {url}";
-            var title = "Интерактивная книга. Регистрация";
-            EmailHelper.Send(user.Email, title, body);
+            EmailHelper.SendConfirmRegistrationEmail(relativeUrl, user.Email);
 
+            frontUser = new FrontUser(user);
             return frontUser;
         }
 
         [AcceptVerbs("POST")]
         public object UploadAvatar(FakeModelString model)
         {
-            //example of base64 string 
-            //data:image/png;base64,iVBORw0KGg...
+            // example of base64 string 
+            // data:image/png;base64,iVBORw0KGg...
             var data = model.Data;
             var dataIndex = data.IndexOf("base64", StringComparison.Ordinal) + 7;
             var mark = "data:image/";

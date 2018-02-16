@@ -43,6 +43,8 @@ namespace WebWriterV2.FrontModels
         public bool AccountConfirmed { get; set; }
         public string AvatarUrl { get; set; }
 
+        public string Error { get; set; }
+
         public FrontEnum UserType { get; set; }
 
         //public List<FrontHero> Bookmarks { get; set; }

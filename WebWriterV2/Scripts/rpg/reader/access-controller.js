@@ -5,7 +5,7 @@ angular.module('rpg')
             $scope.user = {};
             $scope.loginObj = {};
             $scope.waiting = false;
-            $scope.isLoginPopupOpen = { val: false };
+            $scope.popupOpen = { main: false };
             $scope.error = '';
 
             init();
@@ -15,16 +15,8 @@ angular.module('rpg')
                 init();
             });
 
-            $scope.openLogin = function () {
-                $scope.isLoginPopupOpen.val = true;
-            }
-
-            $scope.close = function () {
-                $scope.isLoginPopupOpen.val = false;
-            }
-
-            $scope.idle = function ($event) {
-                $event.stopPropagation();
+            $scope.goToHomePage = function () {
+                $location.path('/');
             }
 
             $scope.exit = function () {
@@ -33,13 +25,35 @@ angular.module('rpg')
                 $scope.goToHomePage();
             }
 
-            $scope.goToHomePage = function () {
-                $location.path('/');
+            $scope.openLogin = function () {
+                $scope.popupOpen.main = true;
+                $scope.popupOpen.isLogin = true;
+                $scope.popupOpen.isRegistration = false;
+            }
+            $scope.openRegistration = function () {
+                $scope.popupOpen.main = true;
+                $scope.popupOpen.isLogin = false;
+                $scope.popupOpen.isRegistration = true;
+            }
+
+            $scope.close = function () {
+                $scope.popupOpen.main = false;
+                $scope.popupOpen.isLogin = false;
+                $scope.popupOpen.isRegistration = false;
+            }
+
+            $scope.idle = function ($event) {
+                $event.stopPropagation();
             }
 
             $scope.passwordKeyPress = function ($event) {
                 if ($event.which === 13) {// 'Enter'.keyEvent === 13
-                    $scope.login();
+                    if ($scope.popupOpen.isLogin) {
+                        $scope.login();
+                    } else if ($scope.popupOpen.isRegistration) {
+                        $scope.register();
+                    }
+                    
                 }
             }
 
@@ -60,11 +74,43 @@ angular.module('rpg')
                 });
             }
 
+            $scope.register = function () {
+                if (!$scope.isUserValid()) {
+                    return;
+                }
+
+                $scope.waiting = true;
+                userService.register($scope.loginObj)
+                    .then(function (result) {
+                        if (!result || result.Error) {
+                            $scope.error = result.Error;
+                        } else {
+                            $cookies.put(ConstCookies.userId, result.Id);
+                            $scope.close();
+                            init();
+                        }
+                    })
+                    .catch(function (e) {
+                        $scope.error = 'Nope';
+                    })
+                    .finally(function () {
+                        $scope.waiting = false;
+                        init();
+                    });
+            }
+
+            $scope.isUserValid = function () {
+                return !!$scope.loginObj.Name && !!$scope.loginObj.Password && !!$scope.loginObj.Email;
+            }
+
             function init() {
                 var userId = $cookies.get(ConstCookies.userId);
                 if (userId) {
                     userService.getById(userId).then(function (data) {
                         $scope.user = data;
+                        if ($scope.user.AvatarUrl) {
+                            $scope.user.AvatarUrl += "?d=" + new Date().getTime();
+                        }
                     });
                 } else {
                     $scope.user = null;

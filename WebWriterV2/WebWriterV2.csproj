@@ -686,8 +686,6 @@
     <Content Include="Content\css\icon.scss" />
     <Content Include="Scripts\raphael-min.js" />
     <Content Include="Scripts\rpg\reader\access-controller.js" />
-    <Content Include="Scripts\rpg\reader\register-controller.js" />
-    <Content Include="Scripts\rpg\reader\login-controller.js" />
     <Content Include="Scripts\rpg\reader\profile-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-controller.js" />
     <Content Include="Scripts\rpg\reader\books-controller.js" />
@@ -710,7 +708,6 @@
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\underscore.min.map" />
     <None Include="Scripts\_references.js" />
-    <Content Include="Views\reader\Login.html" />
     <Content Include="Views\reader\Travel.html" />
     <Content Include="Views\reader\Books.html" />
     <Content Include="Views\Rpg\GeneralDefinition.html" />
@@ -725,7 +722,6 @@
     <Content Include="Views\Rpg\admin\Book.html" />
     <Content Include="Views\Rpg\AboutUs.html" />
     <Content Include="Views\Rpg\ListBook.html" />
-    <Content Include="Views\reader\Register.html" />
     <Content Include="Views\reader\Profile.html" />
     <Content Include="Views\Rpg\Travel.html" />
     <Content Include="Views\Rpg\directives\ngHeroCard.html" />
