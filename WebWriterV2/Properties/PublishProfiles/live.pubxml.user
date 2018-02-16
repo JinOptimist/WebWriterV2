@@ -247,7 +247,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/10/2018 12:07:19</publishTime>
     </File>
     <File Include="Content/css/style.scss">
-      <publishTime>02/16/2018 16:44:01</publishTime>
+      <publishTime>02/16/2018 16:48:49</publishTime>
     </File>
     <File Include="Content/defenitionExample/01.png">
       <publishTime>05/15/2017 16:16:23</publishTime>
@@ -2182,7 +2182,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2017 17:48:08</publishTime>
     </File>
     <File Include="Views/Rpg/HeaderD.html">
-      <publishTime>02/16/2018 13:48:38</publishTime>
+      <publishTime>02/16/2018 16:45:18</publishTime>
     </File>
     <File Include="Views/Rpg/HeaderOld.html">
       <publishTime>12/06/2017 12:11:56</publishTime>

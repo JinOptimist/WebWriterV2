@@ -18,9 +18,9 @@ namespace WebWriterV2.FrontModels
             RootChapterId = book.RootChapter != null ? book.RootChapter.Id : -1;
             OwnerId = book.Owner.Id;
             IsPublished = book.IsPublished;
-            NumberOfChapters = book.NumberOfChapters;
-            NumberOfWords = book.NumberOfWords;
-            Views = book.Views;
+            NumberOfChapters = book.AllChapters.Sum(x => x.Desc.Length); //book.NumberOfChapters;
+            NumberOfWords = book.AllChapters.Sum(x => x.NumberOfWords); //book.NumberOfWords;
+            Views = book.Travels.Count();
 
             if (book.PublicationDate.HasValue) {
                 PublicationDate = book.PublicationDate.Value.ToShortDateString();

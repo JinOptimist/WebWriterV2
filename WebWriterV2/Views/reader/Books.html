@@ -10,7 +10,8 @@
                 </p>
                 <p class="line-two">
                     <span ng-show="book.PublicationDate">{{book.PublicationDate}} </span>
-                    <span class="icon eye"></span> {{book.Views}} <span class="icon eye"></span> 9
+                    <span class="icon eye"></span> {{book.Views}}
+                    <span class="icon time"></span> {{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}} мин
                 </p>
             </div>
             <div class="tags-block">
