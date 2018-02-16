@@ -3,6 +3,7 @@ angular.module('rpg')
     .controller('accessController', ['$rootScope', '$scope', '$cookies', '$location', 'ConstCookies', 'userService',
         function ($rootScope, $scope, $cookies, $location, ConstCookies, userService) {
             $scope.user = {};
+            $scope.loginObj = {};
             $scope.waiting = false;
             $scope.isLoginPopupOpen = { val: false };
             $scope.error = '';
@@ -22,6 +23,9 @@ angular.module('rpg')
                 $scope.isLoginPopupOpen.val = false;
             }
 
+            $scope.idle = function ($event) {
+                $event.stopPropagation();
+            }
 
             $scope.exit = function () {
                 userService.logout();
@@ -42,21 +46,19 @@ angular.module('rpg')
             $scope.login = function () {
                 $scope.waiting = true;
                 $scope.error = '';
-                userService.login($scope.user).then(function (result) {
+                userService.login($scope.loginObj).then(function (result) {
                     if (result) {
                         $scope.user = result;
                         $cookies.put(ConstCookies.userId, $scope.user.Id);
-                        $scope.isLoginPopupOpen.val = false;
+                        $scope.close();
                     } else {
                         $scope.error = 'Incorrect username or password';
                     }
                     $scope.waiting = false;
                     init();
+                    $location.path('/');
                 });
             }
-
-
-
 
             function init() {
                 var userId = $cookies.get(ConstCookies.userId);

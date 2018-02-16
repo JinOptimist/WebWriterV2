@@ -81,22 +81,6 @@ body {
             }
         }
     }
-
-    .login-block {
-        width: 500px;
-        height: 500px;
-        margin: auto;
-        margin-top: 10px;
-        background: $white;
-        box-shadow: 2px 2px 9px $blue1;
-
-
-
-        &,
-        input {
-            font-size: 14px;
-        }
-    }
 }
 /* Header End */
 
@@ -397,6 +381,46 @@ body {
         /*&::placeholder{
 
         }*/
+    }
+
+    .login-block {
+        width: 490px;
+        height: 490px;
+        margin: 10px auto;
+        background: $white;
+        box-shadow: 2px 2px 9px $blue1;
+        text-align: left;
+        font-size: 14px;
+        padding: 10px;
+
+        .content {
+            width: 200px;
+            min-width: auto;
+            max-width: none;
+            padding-top: 70px;
+
+            .title {
+                font-size: 20px;
+                color: $gray-middle;
+                margin: 10px 0;
+            }
+
+            .row {
+                margin: 15px 0;
+            }
+
+            input {
+                font-size: 18px;
+                margin: auto;
+                padding: 9px;
+            }
+
+            .button-medium-blue {
+                font-size: 20px;
+                padding: 3px 30px;
+                display: inline-block;
+            }
+        }
     }
 }
 

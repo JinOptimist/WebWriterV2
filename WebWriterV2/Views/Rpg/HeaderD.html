@@ -32,32 +32,32 @@
                 <span class="icon" ng-class="{'bell-active': active, 'bell': !active}" ng-click="active = !active"></span>
             </div>
             <div class="header-item">
-                <a href="/ar/reader/profile/{{user.Id}}"><img ng-src="{{user.AvatarUrl}}" title="{{user.Name}}" class="user-avatar" /></a>
+                <a href="/ar/reader/profile/{{user.Id}}"><img ng-src="{{user.AvatarUrl}}" ng-show="user" title="{{user.Name}}" class="user-avatar" /></a>
             </div>
         </div>
 
-        <div class="fullscreen-div" ng-if="isLoginPopupOpen.val">
-            <div class="login-block">
+        <div class="fullscreen-div" ng-if="isLoginPopupOpen.val" ng-click="close()">
+            <div class="login-block" ng-click="idle($event)">
                 <p class="right">
-                    <a href="#" ng-click="close()">close</a>
+                    <a href="#" ng-click="close()"><span class="icon close"></span></a>
                 </p>
-                <div>
-                    Sign up
-                </div>
-                <div>
-                    <input placeholder='Email'
-                           ng-model="login.email" ng-keypress="createBook($event)" />
-                </div>
-                <div>
-                    <input placeholder='Password'
-                           ng-model="login.password" ng-keypress="createBook($event)" />
-                </div>
-                <div>
-                    <span class="button-medium-blue">Login</span>
+                <div class="content">
+                    <div class="title">
+                        Sign up
+                    </div>
+                    <div class="row">
+                        <input placeholder='Email' type="text"
+                               ng-model="loginObj.Name" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
+                    </div>
+                    <div class="row">
+                        <input placeholder='Password' type="password"
+                               ng-model="loginObj.Password" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
+                    </div>
+                    <div>
+                        <span class="button-medium-blue" ng-click="login()">Login</span>
+                    </div>
                 </div>
             </div>
-
-            
         </div>
     </div>
 </div>
