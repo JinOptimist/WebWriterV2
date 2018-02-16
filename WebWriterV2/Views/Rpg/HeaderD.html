@@ -45,6 +45,9 @@
                     <div class="title">
                         Логин
                     </div>
+                    <div class="error">
+                        {{error}}
+                    </div>
                     <div class="row">
                         <input placeholder='Email' type="text"
                                ng-model="loginObj.Name" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />

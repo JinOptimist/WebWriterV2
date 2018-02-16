@@ -182,12 +182,10 @@ body {
 
     .name {
         font-family: LatoBold;
-        padding-left: 10px;
         font-size: 20px;
     }
 
     .desc {
-        padding-left: 10px;
         max-height: 150px;
         overflow: hidden;
     }
@@ -236,7 +234,7 @@ body {
         padding: 20px;
 
         textarea {
-            height: 350px;
+            height: 100%;
         }
     }
 
