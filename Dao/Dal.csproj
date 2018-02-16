@@ -68,6 +68,7 @@
     <Compile Include="IRepository\IChapterRepository.cs" />
     <Compile Include="IRepository\IChapterLinkItemRepository.cs" />
     <Compile Include="IRepository\IEvaluationRepository.cs" />
+    <Compile Include="IRepository\ITagRepository.cs" />
     <Compile Include="IRepository\ITravelStepRepository.cs" />
     <Compile Include="IRepository\ITravelRepository.cs" />
     <Compile Include="IRepository\IGenreRepository.cs" />
@@ -109,8 +110,13 @@
     <Compile Include="Migrations\201802091054565_AddIsTravelEnd.Designer.cs">
       <DependentUpon>201802091054565_AddIsTravelEnd.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802161212344_AddTags.cs" />
+    <Compile Include="Migrations\201802161212344_AddTags.Designer.cs">
+      <DependentUpon>201802161212344_AddTags.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
+    <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\TravelStep.cs" />
     <Compile Include="Model\Travel.cs" />
     <Compile Include="Model\UserWhoReadBook.cs" />
@@ -132,6 +138,7 @@
     <Compile Include="Repository\ChapterRepository.cs" />
     <Compile Include="Repository\ChapterLinkItemRepository.cs" />
     <Compile Include="Repository\EvaluationRepository.cs" />
+    <Compile Include="Repository\TagRepository.cs" />
     <Compile Include="Repository\TravelStepRepository.cs" />
     <Compile Include="Repository\TravelRepository.cs" />
     <Compile Include="Repository\StateRequirementRepository.cs" />
@@ -173,6 +180,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802091054565_AddIsTravelEnd.resx">
       <DependentUpon>201802091054565_AddIsTravelEnd.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802161212344_AddTags.resx">
+      <DependentUpon>201802161212344_AddTags.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

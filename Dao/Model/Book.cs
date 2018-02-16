@@ -22,6 +22,7 @@ namespace Dao.Model
         public virtual List<Travel> Travels { get; set; }
 
         public virtual Genre Genre { get; set; }
+        public virtual List<Tag> Tags { get; set; }
 
         public bool IsPublished { get; set; }
         public virtual DateTime? PublicationDate { get; set; }

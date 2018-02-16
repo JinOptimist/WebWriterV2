@@ -42,6 +42,7 @@ namespace WebWriterV2.FrontModels
             //Genre = book.Genre != null ? new FrontGenre(book.Genre) : null;
             //AllEvents = book.AllChapters?.Select(x => new FrontChapter(x)).ToList();
             //Evaluations = book.Evaluations?.Select(x => new FrontEvaluation(x)).ToList();
+            Tags = book.Tags?.Select(x => new FrontTag(x)).ToList();
         }
 
         public string Name { get; set; }
@@ -64,6 +65,8 @@ namespace WebWriterV2.FrontModels
         //public FrontGenre Genre { get; set; }
         //public List<FrontChapter> AllEvents { get; set; }
         //public List<FrontEvaluation> Evaluations { get; set; }
+
+        public List<FrontTag> Tags { get; set; }
 
         public override Book ToDbModel() {
             return new Book {

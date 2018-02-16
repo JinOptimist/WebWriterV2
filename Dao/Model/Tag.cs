@@ -7,12 +7,10 @@ using System.Text;
 
 namespace Dao.Model
 {
-    public class Genre : BaseModel
+    public class Tag : BaseModel
     {
         [Index(IsUnique = true), StringLength(500)]
         public string Name { get; set; }
-
-        public string Desc { get; set; }
 
         public virtual List<Book> Books { get; set; }
     }

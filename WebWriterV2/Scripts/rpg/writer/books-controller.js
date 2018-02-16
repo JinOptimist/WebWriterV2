@@ -1,9 +1,8 @@
 angular.module('rpg')
 
     .controller('writerBooksController', [
-        '$scope', '$routeParams', '$location', '$cookies', 'bookService',
-        function ($scope, $routeParams, $location, $cookies, bookService,
-            eventService, CKEditorService, userService, genreService) {
+        '$scope', '$routeParams', '$location', '$cookies', 'bookService', 'tagService',
+        function ($scope, $routeParams, $location, $cookies, bookService, tagService) {
 
             $scope.books = [];
             $scope.wait = true;
@@ -14,7 +13,7 @@ angular.module('rpg')
             init();
 
             $scope.showCreateBook = function () {
-                $scope.newBook = { };
+                $scope.newBook = {};
             }
 
             $scope.createBook = function ($event) {
@@ -61,11 +60,34 @@ angular.module('rpg')
                 });
             }
 
-            $scope.keyPressed = function (e) {
+            $scope.documentKeyPressed = function (e) {
                 // 'esc'.which == 27
                 if (e.which === 27) {
                     $scope.newBook = null;
                 }
+            }
+
+            $scope.tagAdd = function (e, book) {
+                // 'enter'.which == 13
+                if (e.which === 13) {
+                    tagService.addForBook(book.newTag.Name, book.Id).then(function (tag) {
+                        if (!book.Tags) {
+                            book.Tags = [];
+                        }
+
+                        if (!book.Tags.some(x => x.Id === tag.Id)) {
+                            book.Tags.push(tag);
+                        }
+
+                        book.newTag = {};
+                    });
+                }
+            }
+
+            $scope.removeTag = function (book, tag, tagIndex) {
+                tagService.removeTagFromBook(book.Id, tag.Id).then(function () {
+                    book.Tags.splice(tagIndex, 1);
+                });
             }
 
             function loadBooks() {
@@ -77,7 +99,7 @@ angular.module('rpg')
             function initListOfFilters() {
                 $scope.listOfFilters = [
                     { displayName: 'All', active: true, restriction: {} },
-                    { displayName: 'Published', restriction: { IsPublished: true }}];
+                    { displayName: 'Published', restriction: { IsPublished: true } }];
             }
 
             function init() {
@@ -85,7 +107,7 @@ angular.module('rpg')
                 initListOfFilters();
 
                 document.onkeydown = function (e) {
-                    $scope.$apply($scope.keyPressed(e));
+                    $scope.$apply($scope.documentKeyPressed(e));
                 };
             }
         }

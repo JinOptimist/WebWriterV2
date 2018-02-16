@@ -14,8 +14,7 @@
                 </p>
             </div>
             <div class="tags-block">
-                <span class="tag fantastic">Фантастика</span>
-                <span class="tag erotic">Эротика</span>
+                <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
             </div>
             
         </div>

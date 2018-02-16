@@ -25,7 +25,15 @@ namespace Dao.DataGeneration
             "драма",
             "комедия",
             "фантастика",
-            "детектив" };
+            "детектив"
+        };
+
+        public readonly static List<string> tags = new List<string> {
+            "суперспособности",
+            "школьники",
+            "обыденность",
+            "ГГ девушка"
+        };
 
         public static Book BookRat()
         {
@@ -38,6 +46,13 @@ namespace Dao.DataGeneration
             book.AllChapters = GenerateEventsForBookRat(book);
 
             return book;
+        }
+
+        internal static List<Tag> GenerateTags()
+        {
+            return tags.Select(x => new Tag{
+                Name = x
+            }).ToList();
         }
 
         public static Book BookTower(List<StateType> stateTypes)
@@ -349,11 +364,11 @@ namespace Dao.DataGeneration
 
         public static List<Genre> GenerateGenres()
         {
-            var genres = ganres.Select(x => new Genre {
+            //throw new NotImplementedException();
+            return ganres.Select(x => new Genre {
                 Name = x,
                 Desc = x
-            });
-            return genres.ToList();
+            }).ToList();
         }
 
         public static User GenerateAdmin()

@@ -183,6 +183,7 @@
     <Compile Include="FrontModel\FrontChaptersBlock.cs" />
     <Compile Include="FrontModel\FrontBookWithChapters.cs" />
     <Compile Include="FrontModel\FrontEventLinkItem.cs" />
+    <Compile Include="FrontModel\FrontTag.cs" />
     <Compile Include="FrontModel\FrontTravel.cs" />
     <Compile Include="FrontModel\FrontGenre.cs" />
     <Compile Include="FrontModel\FrontChapterLevel.cs" />
@@ -689,6 +690,7 @@
     <Content Include="Scripts\rpg\reader\profile-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-controller.js" />
     <Content Include="Scripts\rpg\reader\books-controller.js" />
+    <Content Include="Scripts\rpg\services\tag.js" />
     <Content Include="Scripts\rpg\services\user.js" />
     <Content Include="Scripts\rpg\services\chapter.js" />
     <Content Include="Scripts\rpg\services\book.js" />

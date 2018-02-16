@@ -34,7 +34,18 @@
 <div class="content">
     <div class="book" ng-repeat="book in books  | filter: filter ">
         <p>
+            Тэги:
+            <span ng-repeat="tag in book.Tags" class="tag fantastic" data-tag-id="{{tag.Id}}">
+                {{tag.Name}}
+                <span class="icon close" ng-click="removeTag(book, tag, $index)"></span>
+            </span>
+            <input class="newTag" ng-model="book.newTag.Name" ng-keypress="tagAdd($event, book)" placeholder="Введите тэг. Нажмите Enter" />
+        </p>
+        <p class="name">
             {{book.Name}}
+        </p>
+        <p class="desc">
+            {{book.Desc}}
         </p>
         <p>
             <a href="/ar/writer/book/{{book.Id}}">edit</a> |
@@ -45,6 +56,7 @@
 
             <a href="#" ng-click="publish(book)">опубликовать</a>
         </p>
+
     </div>
 </div>
 

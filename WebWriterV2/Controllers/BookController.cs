@@ -15,7 +15,7 @@ namespace WebWriterV2.Controllers
 {
     public class BookController : BaseApiController
     {
-        public BookController(IBookRepository bookRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IChapterRepository eventRepository, IStateValueRepository stateRepository, IGenreRepository genreRepository, IUserRepository userRepository)
+        public BookController(IBookRepository bookRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IChapterRepository eventRepository, IStateValueRepository stateRepository, IGenreRepository genreRepository, ITagRepository tagRepository, IUserRepository userRepository)
         {
             BookRepository = bookRepository;
             EvaluationRepository = evaluationRepository;
@@ -23,6 +23,7 @@ namespace WebWriterV2.Controllers
             EventRepository = eventRepository;
             StateRepository = stateRepository;
             GenreRepository = genreRepository;
+            TagRepository = tagRepository;
             UserRepository = userRepository;
         }
 
@@ -32,6 +33,7 @@ namespace WebWriterV2.Controllers
         private IChapterRepository EventRepository { get; }
         private IStateValueRepository StateRepository { get; }
         private IGenreRepository GenreRepository { get; }
+        private ITagRepository TagRepository { get; }
         private IUserRepository UserRepository { get; }
 
         [AcceptVerbs("GET")]
@@ -96,6 +98,32 @@ namespace WebWriterV2.Controllers
             BookRepository.Remove(id);
             return true;
         }
+
+        [AcceptVerbs("GET")]
+        public FrontTag AddTag(string tagName, long bookId)
+        {
+            var tag = TagRepository.GetOrCreate(tagName);
+            var book = BookRepository.Get(bookId);
+            if (!book.Tags.Any(x => x.Id == tag.Id)) {
+                book.Tags.Add(tag);
+                BookRepository.Save(book);
+            }
+
+            var frontTag = new FrontTag(tag);
+            return frontTag;
+        }
+
+        [AcceptVerbs("GET")]
+        public bool RemoveTag(long bookId, long tagId)
+        {
+            var tag = TagRepository.Get(tagId);
+            var book = BookRepository.Get(bookId);
+            book.Tags.Remove(tag);
+            BookRepository.Save(book);
+
+            return true;
+        }
+
 
         //EXPEREMENAL
         [AcceptVerbs("GET")]
@@ -201,7 +229,7 @@ namespace WebWriterV2.Controllers
             }
         }
 
-        
+
         public bool SaveEvaluation(FrontEvaluation frontEvaluation)
         {
             var evaluation = frontEvaluation.ToDbModel();

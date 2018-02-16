@@ -16,7 +16,7 @@ namespace Dao.Migrations
             ContextKey = "Dao.WriterContext";
         }
 
-        protected override void Seed(Dao.WriterContext context)
+        protected override void Seed(WriterContext context)
         {
             //  This method will be called after migrating to the latest version.
             var admin = GenerateData.GenerateAdmin();
@@ -28,6 +28,9 @@ namespace Dao.Migrations
 
             var genres = GenerateData.GenerateGenres();
             context.Genres.AddOrUpdate(x => x.Name, genres.ToArray());
+
+            var tags = GenerateData.GenerateTags();
+            context.Tags.AddOrUpdate(x => x.Name, tags.ToArray());
 
             //var book = GenerateData.BookRat();
             //book.Owner = admin;

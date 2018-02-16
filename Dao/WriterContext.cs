@@ -28,6 +28,7 @@ namespace Dao
         public virtual DbSet<TravelStep> TravelSteps { get; set; }
         public virtual DbSet<Evaluation> Evaluations { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -48,6 +49,7 @@ namespace Dao
             modelBuilder.Entity<Book>().HasMany(x => x.Evaluations).WithRequired(x => x.Book).WillCascadeOnDelete(false);
             modelBuilder.Entity<Book>().HasOptional(x => x.Genre).WithMany(x => x.Books);
             modelBuilder.Entity<Book>().HasMany(x => x.Readers).WithRequired(x => x.Book);
+            modelBuilder.Entity<Book>().HasMany(x => x.Tags).WithMany(x => x.Books);
 
             modelBuilder.Entity<Chapter>().HasMany(x => x.LinksFromThisChapter).WithRequired(x => x.From).WillCascadeOnDelete(false);
             modelBuilder.Entity<Chapter>().HasMany(x => x.LinksToThisChapter).WithRequired(x => x.To);
@@ -62,6 +64,7 @@ namespace Dao
             modelBuilder.Entity<StateType>().HasMany(x => x.Requirements).WithRequired(x => x.StateType);
             modelBuilder.Entity<StateType>().HasMany(x => x.Values).WithRequired(x => x.StateType);
 
+            modelBuilder.Entity<Tag>().HasMany(x => x.Books).WithMany(x => x.Tags);
             //.WillCascadeOnDelete(true);
         }
 

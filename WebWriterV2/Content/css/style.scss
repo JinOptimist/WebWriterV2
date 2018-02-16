@@ -177,22 +177,6 @@ body {
             display: inline-block;
             width: 160px;
             vertical-align: top;
-
-            .tag {
-                border-radius: 10px;
-                padding: 5px;
-                line-height: 28px;
-            }
-
-            .tag.fantastic {
-                background: $blue1;
-                color: $white;
-            }
-
-            .tag.erotic {
-                background: $red;
-                color: $white;
-            }
         }
     }
 
@@ -208,8 +192,12 @@ body {
         overflow: hidden;
     }
 
-    .actions{
+    .actions {
         margin-top: 10px;
+    }
+
+    .newTag{
+        width: 180px;
     }
 }
 
@@ -462,6 +450,22 @@ body {
     max-width: 36px;
     max-height: 36px;
     border-radius: 18px;
+}
+
+.tag {
+    display: inline-block;
+    border-radius: 10px;
+    padding: 0 9px;
+    line-height: 20px;
+    font-size: 12px;
+    margin-left: 3px;
+    white-space: nowrap;
+    background: $blue1;
+    color: $white;
+
+    .icon {
+        vertical-align: middle;
+    }
 }
 /* Common style End*/
 /* ng-form */
