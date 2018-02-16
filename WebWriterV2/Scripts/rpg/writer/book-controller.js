@@ -40,7 +40,7 @@ angular.module('rpg')
 
             $scope.addChapter = function (level) {
                 var chapter = {
-                    Name: 'Header',
+                    Name: 'Chapter: ' + level,
                     Desc: 'Desc',
                     Level: level,
                     BookId: $scope.book.Id,

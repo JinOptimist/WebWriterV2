@@ -35,6 +35,7 @@ body {
 
 .content {
     max-width: 1560px;
+    min-width: 1020px;
     margin: auto;
 }
 
@@ -149,43 +150,82 @@ body {
 .book {
     background-color: $white;
     display: inline-block;
-    width: 270px;
+    width: 420px;
+    //width: calc(100% / 3 - 50px);
     height: 290px;
     margin-top: 32px;
     margin-left: 30px;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
     vertical-align: top;
-    padding: 10px;
+    padding: 30px;
 
     .header {
-        display: inline-block;
         color: $gray-middle;
         font-size: 12px;
         line-height: 15px;
-        padding-left: 10px;
+        height: 40px;
+        margin-bottom: 20px;
 
-        .author-name {
-            color: $black;
-            font-weight: bold;
+        .user-avatar-block {
+            display: inline-block;
+            width: 40px;
+            margin-right: 5px;
         }
 
-        .eye {
+        .detail-block {
             display: inline-block;
-            cursor: auto;
+            width: 200px;
+
+            .author-name {
+                color: $black;
+                font-weight: bold;
+                font-size: 14px;
+            }
+
+            .eye {
+                display: inline-block;
+                cursor: auto;
+            }
+        }
+
+        .tags-block {
+            display: inline-block;
+            width: 160px;
+            vertical-align: top;
+
+            .tag {
+                border-radius: 10px;
+                padding: 5px;
+                line-height: 28px;
+            }
+
+            .tag.fantastic {
+                background: $blue1;
+                color: $white;
+            }
+
+            .tag.erotic {
+                background: $red;
+                color: $white;
+            }
         }
     }
 
     .name {
-        /*border-bottom: 3px $light-gray solid;*/
         font-family: LatoBold;
         padding-left: 10px;
+        font-size: 20px;
     }
 
     .desc {
         padding-left: 10px;
-        max-height: 180px;
+        max-height: 150px;
         overflow: hidden;
+    }
+
+    .actions{
+        margin-top: 10px;
     }
 }
 

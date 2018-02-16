@@ -1,13 +1,23 @@
 ﻿<div class="content" ng-class="!books ? 'wait' : ''">
     <div class="book" ng-repeat="book in books" ng-click="readBook(book.Id)">
-        <img ng-src="{{book.AuthorAvatar}}" title="{{user.Name}}" class="user-avatar" />
         <div class="header">
-            <p class="line-one">
-                <span>by </span><span class="author-name">{{book.AuthorFullName}}</span>
-            </p>
-            <p class="line-two">
-                <span ng-show="book.PublicationDate">{{book.PublicationDate}} | </span><span class="icon eye"></span> {{book.Views}}
-            </p>
+            <div class="user-avatar-block">
+                <img ng-src="{{book.AuthorAvatar}}" title="{{user.Name}}" class="user-avatar" />
+            </div>
+            <div class="detail-block">
+                <p class="line-one">
+                    <span class="author-name">{{book.AuthorFullName}}</span>
+                </p>
+                <p class="line-two">
+                    <span ng-show="book.PublicationDate">{{book.PublicationDate}} </span>
+                    <span class="icon eye"></span> {{book.Views}} <span class="icon eye"></span> 9
+                </p>
+            </div>
+            <div class="tags-block">
+                <span class="tag fantastic">Фантастика</span>
+                <span class="tag erotic">Эротика</span>
+            </div>
+            
         </div>
 
         <p class="name">
@@ -16,10 +26,12 @@
         <p class="desc">
             {{book.Desc}}
         </p>
-        <a href="#" ng-click="goToTravel(book.Id)">
-            <span class="button-medium-gray">
-                {{book.IsReaded ? 'Продолжить' : 'Отправится в' }} путешествие >
-            </span>
-        </a>
+        <div class="actions">
+            <a href="#" ng-click="goToTravel(book.Id)">
+                <span class="button-medium-gray">
+                    {{book.IsReaded ? 'Продолжить' : 'Отправится в' }} путешествие >
+                </span>
+            </a>
+        </div>
     </div>
 </div>

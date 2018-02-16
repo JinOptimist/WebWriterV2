@@ -22,12 +22,9 @@ namespace WebWriterV2.FrontModels
             NumberOfWords = book.NumberOfWords;
             Views = book.Views;
 
-            
-
             if (book.PublicationDate.HasValue) {
-                PublicationDate = $"{book.PublicationDate.Value.ToShortDateString()} {book.PublicationDate.Value.ToShortTimeString()}";
+                PublicationDate = book.PublicationDate.Value.ToShortDateString();
             }
-            
 
             AuthorFullName = book.Owner.Name;
             AuthorAvatar = book.Owner.AvatarUrl;
