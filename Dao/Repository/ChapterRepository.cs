@@ -131,5 +131,10 @@ namespace Dao.Repository
             return Entity.Where(x => x.Book != null && x.Book.Id == bookId
                                      && x.LinksToThisChapter.Count == 0 && x.ForRootBook == null).ToList();
         }
+
+        public List<Chapter> GetByLevel(long bookId, int level)
+        {
+            return Entity.Where(x => x.Book.Id == bookId && x.Level == level).ToList();
+        }
     }
 }

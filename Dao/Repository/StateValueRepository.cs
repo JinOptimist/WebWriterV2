@@ -16,7 +16,7 @@ namespace Dao.Repository
         {
             if (stateValue.StateType.Id == 0)
             {
-                var stateType = _stateTypeRepository.Entity.FirstOrDefault(x => x.Name == stateValue.StateType.Name);
+                var stateType = _stateTypeRepository.GetByName(stateValue.StateType.Name);
                 if (stateType != null)
                 {
                     stateValue.StateType = stateType;

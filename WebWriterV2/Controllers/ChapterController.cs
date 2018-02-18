@@ -38,7 +38,22 @@ namespace WebWriterV2.Controllers
                 chapter.Book.RootChapter = chapter;
                 BookRepository.Save(book);
             } else {
+                var parentsForNewChapter = new List<Chapter>();
+                if (chapter.Id == 0 && chapter.Level > 1) {
+                    parentsForNewChapter = ChapterRepository.GetByLevel(chapter.Book.Id, chapter.Level - 1);
+                }
+
                 chapter = ChapterRepository.Save(chapter);
+
+                foreach (var parent in parentsForNewChapter)
+                {
+                    var link = new ChapterLinkItem()
+                    {
+                        From = parent,
+                        To = chapter
+                    };
+                    ChapterLinkItemRepository.Save(link);
+                }
             }
 
             frontChapter = new FrontChapter(chapter);

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
 using Dao.Model;
 
 namespace Dao.IRepository
@@ -9,5 +8,7 @@ namespace Dao.IRepository
         List<StateType> AvailableForUse(long userId);
 
         List<StateType> AvailableForEdit(long userId);
+
+        StateType GetByName(string name);
     }
 }

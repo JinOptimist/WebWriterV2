@@ -14,8 +14,8 @@ namespace Dao.Repository
             Entity = Db.Set<T>();
         }
 
-        public WriterContext Db { get; set; }// = ContextForRepository.Context;
-        public DbSet<T> Entity { get; set; }
+        protected WriterContext Db { get; set; }// = ContextForRepository.Context;
+        protected DbSet<T> Entity { get; set; }
 
         public virtual bool Exist(T baseModel)
         {

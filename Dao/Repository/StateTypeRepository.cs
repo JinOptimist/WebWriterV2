@@ -21,5 +21,10 @@ namespace Dao.Repository
         {
             return Entity.Where(x => x.Owner.Id == userId).ToList();
         }
+
+        public StateType GetByName(string name)
+        {
+            return Entity.SingleOrDefault(x => x.Name == name);
+        }
     }
 }

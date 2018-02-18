@@ -21,6 +21,8 @@ namespace Dao.IRepository
 
         List<Chapter> GetChapterTop(long bookId, int level);
 
+        List<Chapter> GetByLevel(long bookId, int level);
+
         bool HasChild(long eventId);
     }
 }

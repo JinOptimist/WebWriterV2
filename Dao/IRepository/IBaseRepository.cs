@@ -6,9 +6,6 @@ namespace Dao.IRepository
 {
     public interface IBaseRepository<T> where T : class
     {
-        WriterContext Db { get; set; }// = ContextForRepository.Context;
-        DbSet<T> Entity { get; set; }
-
         bool Exist(T baseModel);
 
         T Save(T baseModel);
