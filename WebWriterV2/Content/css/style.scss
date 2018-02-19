@@ -183,18 +183,35 @@ body {
     .name {
         font-family: LatoBold;
         font-size: 20px;
+
+        input {
+            width: 415px;
+            font-family: LatoBold;
+            font-size: 20px;
+        }
     }
 
     .desc {
-        max-height: 150px;
+        height: 150px;
         overflow: hidden;
+
+        textarea {
+            width: 420px;
+            height: 150px;
+            font-family: Lato;
+            font-size: 14px;
+            line-height: 30px;
+            overflow: hidden;
+            resize: none;
+            background: $light-gray;
+        }
     }
 
     .actions {
         margin-top: 10px;
     }
 
-    .newTag{
+    .newTag {
         width: 180px;
     }
 }
