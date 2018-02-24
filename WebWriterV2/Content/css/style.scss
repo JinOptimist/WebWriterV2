@@ -126,9 +126,24 @@ body {
     }
 
     .level.roadmap {
+        margin: 3px;
+        text-align: center;
+
         .chapterBlock {
             width: 260px;
             display: inline-block;
+            border: 1px green solid;
+            margin: 3px;
+
+            .header {
+                border: 1px black dotted;
+                margin: 2px;
+            }
+
+            .body {
+                height: 150px;
+                overflow: hidden;
+            }
 
             .chapter {
                 height: 100px;
