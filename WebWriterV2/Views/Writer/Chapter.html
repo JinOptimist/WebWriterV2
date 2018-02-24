@@ -17,15 +17,16 @@
     </form>
     <div class="chapter-links-block" ng-show="chapterLinks.length > 0">
         <form name="chapterLinkBlockForm">
-            <div class="chapter-link {{chapterLink.Text ? '' : 'onlyNext'}}" ng-repeat="chapterLink in chapterLinks">
+            <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
+                <!--{{chapterLink.Text ? '' : 'onlyNext'}}-->
                 <span class="icon close" ng-click="deleteLink(chapterLink.Id, $index)"></span>
-                <div class="text" ng-if="chapterLink.Text">
+                <div class="text"><!--ng-if="chapterLink.Text"-->
                     <input ng-model="chapterLink.Text" class="no-border" ng-blur="updateChpaterLink(chapterLink)" />
                 </div>
                 <div class="action-button">
                     <a href="/ar/writer/chapter/{{chapterLink.ToId}}">
                         <span class="button-medium-blue">
-                            {{chapterLink.Text ? 'Сделать выбор' : 'Далее'}}
+                            {{chapterLink.Text ? 'Сделать выбор' : 'Далее'}} <span class="author-tips">{{chapterLink.ToChapterName}}</span>
                         </span>
                     </a>
                 </div>

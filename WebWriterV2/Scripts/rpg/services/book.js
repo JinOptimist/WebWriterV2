@@ -5,6 +5,7 @@
             getWithChapters: getWithChapters,
             getAll: getAll,
             getAllForWriter: getAllForWriter,
+            getWithChaptersRoadmap: getWithChaptersRoadmap,
             saveBook: saveBook,
             getRootChapter: getRootChapter,
             remove: remove,
@@ -44,6 +45,11 @@
 
         function getAllForWriter() {
             var url = '/api/book/GetAllForWriter';
+            return httpHelper.get(url);
+        }
+
+        function getWithChaptersRoadmap(bookId) {
+            var url = '/api/book/GetWithChaptersRoadmap/' + bookId;
             return httpHelper.get(url);
         }
 

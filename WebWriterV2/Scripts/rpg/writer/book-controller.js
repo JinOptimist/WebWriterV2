@@ -90,6 +90,12 @@ angular.module('rpg')
                 });
             }
 
+            function loadBookRoadmap(bookId) {
+                bookService.getWithChaptersRoadmap(bookId).then(function (book) {
+                    $scope.book = book;
+                });
+            }
+
             function recalcLevelStyle(level) {
                 var style = {};
                 var countChapter = level.Chapters.length;
@@ -139,6 +145,8 @@ angular.module('rpg')
             function init() {
                 var bookId = $routeParams.bookId;
                 loadBook(bookId);
+
+                //loadBookRoadmap(bookId);
             }
         }
     ]);
