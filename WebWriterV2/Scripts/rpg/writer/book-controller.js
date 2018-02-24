@@ -84,6 +84,12 @@ angular.module('rpg')
                 init();
             }
 
+            $scope.activeChapter = function (chapterBlock, chapter) {
+                var oldVal = chapter.active;
+                chapterBlock.Chapters.forEach(x => x.active = false);
+                chapter.active = !oldVal;
+            }
+
             function loadBook(bookId) {
                 bookService.getWithChapters(bookId).then(function (book) {
                     $scope.book = book;

@@ -45,10 +45,10 @@
 
             <div class="chapterBlock" ng-repeat="chapterBlock in level.ChaptersBlock">
                 <div  ng-repeat="chapter in chapterBlock.Chapters" ng-style="chapter.dynamicStyle">
-                    <div class="header">
+                    <div class="header" ng-click="activeChapter(chapterBlock, chapter)">
                         {{chapter.Name}}
                     </div>
-                    <div class="body" ng-show="$last">
+                    <div class="body" ng-show="chapter.active">
                         {{chapter.Desc}}
                     </div>
                 </div>
