@@ -60,6 +60,12 @@ angular.module('rpg')
                 });
             }
 
+            $scope.updateBookNameAndDesc = function (book) {
+                bookService.saveBook(book).then(function (newBook) {
+                    book.isEdit = false;
+                });
+            }
+
             $scope.documentKeyPressed = function (e) {
                 // 'esc'.which == 27
                 if (e.which === 27) {

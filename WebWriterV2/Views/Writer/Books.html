@@ -40,22 +40,26 @@
                 <span class="icon close" ng-click="removeTag(book, tag, $index)"></span>
             </span>
             <input class="newTag" ng-model="book.newTag.Name" ng-keypress="tagAdd($event, book)" placeholder="Введите тэг. Нажмите Enter" />
+            <a href="#" ng-show="!book.isEdit" ng-click="book.isEdit = true">Edit</a>
+            <a href="#" ng-show="book.isEdit" ng-click="updateBookNameAndDesc(book)">Confirm</a>
         </p>
-        <p class="name">
-            {{book.Name}}
-        </p>
-        <p class="desc">
-            {{book.Desc}}
-        </p>
-        <p>
+        <div class="name">
+            <span ng-show="!book.isEdit">{{book.Name}}</span>
+            <input ng-show="book.isEdit" ng-model="book.Name" />
+        </div>
+        <div class="desc">
+            <p ng-show="!book.isEdit">{{book.Desc}}</p>
+            <textarea res ng-model="book.Desc" ng-show="book.isEdit" class="no-border"></textarea>
+        </div>
+        <div>
             <a href="/ar/writer/book/{{book.Id}}">edit</a> |
             <a href="#" ng-click="remove(book, $index)">Remove</a>
-        </p>
-        <p>
+        </div>
+        <div>
             {{book.IsPublished}} *
 
             <a href="#" ng-click="publish(book)">опубликовать</a>
-        </p>
+        </div>
 
     </div>
 </div>

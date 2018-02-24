@@ -6,6 +6,8 @@ angular.module('rpg')
             eventService, CKEditorService, userService, genreService) {
 
             $scope.books = null;
+            $scope.filterObj = {};
+            $scope.listOfFilters = [];
             $scope.wait = true;
             init();
 
@@ -15,14 +17,39 @@ angular.module('rpg')
                 });
             }
 
+            $scope.chooseFilter = function (filter) {
+                $scope.listOfFilters.forEach(x => x.active = false);
+                filter.active = true;
+                $scope.filterObj = filter.filterObj;
+            }
+
             function loadBooks() {
                 bookService.getAll().then(function (books) {
                     $scope.books = books;
                 });
             }
 
+            function initFilters() {
+                $scope.listOfFilters.push(generateFilterItem('All'));
+                $scope.listOfFilters.push(generateFilterItem('Readed', 'IsReaded', true));
+                $scope.listOfFilters.push(generateFilterItem('New', 'IsReaded', false));
+                $scope.listOfFilters[0].active = true;
+            }
+
+            function generateFilterItem(displayName, filterName, filterValue) {
+                var filterItem = { displayName: displayName, active: false };
+                var filterObj = {};
+                if (filterName) {
+                    filterObj[filterName] = filterValue;
+                }
+                filterItem.filterObj = filterObj;
+
+                return filterItem;
+            }
+
             function init() {
                 loadBooks();
+                initFilters();
             }
         }
     ]);

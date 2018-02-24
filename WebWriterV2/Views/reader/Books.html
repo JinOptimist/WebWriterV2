@@ -1,5 +1,17 @@
-﻿<div class="content" ng-class="!books ? 'wait' : ''">
-    <div class="book" ng-repeat="book in books" ng-click="readBook(book.Id)">
+﻿<div class="wide-header" ng-class="!books ? 'wait' : ''">
+    <div class="content" id="sub-header">
+        <div class="header-item">
+            <ul>
+                <li ng-repeat="filter in listOfFilters" ng-click="chooseFilter(filter)" ng-class="{active: filter.active}">
+                    {{filter.displayName}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="content" ng-class="!books ? 'wait' : ''">
+    <div class="book" ng-repeat="book in books | filter : filterObj " ng-click="readBook(book.Id)">
         <div class="header">
             <div class="user-avatar-block">
                 <img ng-src="{{book.AuthorAvatar}}" title="{{user.Name}}" class="user-avatar" />
@@ -11,7 +23,7 @@
                 <p class="line-two">
                     <span ng-show="book.PublicationDate">{{book.PublicationDate}} </span>
                     <span class="icon eye"></span> {{book.Views}}
-                    <span class="icon time"></span> {{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}} мин
+                    <span class="icon time"></span> {{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}}
                 </p>
             </div>
             <div class="tags-block">
