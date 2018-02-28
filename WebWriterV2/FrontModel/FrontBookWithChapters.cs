@@ -12,17 +12,15 @@ namespace WebWriterV2.FrontModels
         }
 
         public FrontBookWithChapters(Book book, bool forWriter = false, bool roadmap = false) : base(book, forWriter) {
-            //book.RootChapter
-            //var level
-
             Levels = new List<FrontChapterLevel>();
 
             if (roadmap)
             {
-                var currentChapter = book.RootChapter;
                 var currentLevel = new FrontChapterLevel();
-                Levels.Add(currentLevel);
                 var currentBlock = new FrontChaptersBlock();
+                var currentChapter = book.RootChapter;
+
+                Levels.Add(currentLevel);
                 currentLevel.ChaptersBlock.Add(currentBlock);
                 currentBlock.Chapters.Add(new FrontChapter(currentChapter));
 
@@ -48,24 +46,37 @@ namespace WebWriterV2.FrontModels
 
         private void FillBlock(Chapter currentChapter, FrontChaptersBlock currentBlock, FrontChapterLevel currentLevel)
         {
-            if (currentChapter.LinksFromThisChapter.Count == 1)
+            // If chapter has only one child and child has only one parent
+            if (currentChapter.LinksFromThisChapter.Count == 1
+                && currentChapter.LinksFromThisChapter.First().To.LinksToThisChapter.Count == 1)
             {
                 currentChapter = currentChapter.LinksFromThisChapter.Single().To;
                 currentBlock.Chapters.Add(new FrontChapter(currentChapter));
                 FillBlock(currentChapter, currentBlock, currentLevel);
             }
-            else if(currentChapter.LinksFromThisChapter.Count > 0) 
+            else
             {
                 currentLevel = new FrontChapterLevel();
                 Levels.Add(currentLevel);
                 foreach (var chapter in currentChapter.LinksFromThisChapter.Select(x => x.To))
                 {
+                    if (ChapterAlreadyExistInTree(chapter.Id))
+                    {
+                        continue;
+                    }
                     currentBlock = new FrontChaptersBlock();
                     currentLevel.ChaptersBlock.Add(currentBlock);
                     currentBlock.Chapters.Add(new FrontChapter(chapter));
                     FillBlock(chapter, currentBlock, currentLevel);
                 }
             }
+        }
+
+        private bool ChapterAlreadyExistInTree(long chapterId)
+        {
+            return Levels.SelectMany(x => x.ChaptersBlock)
+                .SelectMany(x => x.Chapters)
+                .Any(x => x.Id == chapterId);
         }
     }
 }

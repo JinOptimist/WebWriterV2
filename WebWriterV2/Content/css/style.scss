@@ -125,6 +125,37 @@ body {
         }
     }
 
+    .level.roadmap {
+        margin: 3px;
+        text-align: center;
+
+        .chapterBlock {
+            width: 260px;
+            display: inline-block;
+            margin: 5px;
+            box-shadow: 2px 2px 9px #000;
+            background-color: $white;
+            vertical-align: top;
+
+            .header {
+                font-family: LatoBold;
+                border-bottom: 3px $light-gray solid;
+                padding-left: 10px;
+                cursor: pointer;
+            }
+
+            .body {
+                height: 150px;
+                overflow: hidden;
+                border-bottom: 3px $light-gray solid;
+            }
+
+            .chapter {
+                height: 100px;
+            }
+        }
+    }
+
     .add-level {
         width: 100px;
         margin: auto;
@@ -263,6 +294,10 @@ body {
         textarea {
             height: 150px;
         }
+
+        .author-tips{
+            color: $gray-middle;
+        }
     }
 
     .footer {
@@ -272,7 +307,7 @@ body {
 
     textarea {
         font-family: MerriweatherLight;
-        width: 760px;
+        width: 100%;
         resize: none;
     }
 }
@@ -316,10 +351,7 @@ body {
         }
 
         .action-button {
-            position: relative;
-            left: calc( (100% - 120px) / 2);
-            top: -16px;
-            width: 200px;
+            text-align: center;
         }
 
         &.onlyNext .action-button {

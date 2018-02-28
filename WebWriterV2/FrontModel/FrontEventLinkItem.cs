@@ -16,7 +16,9 @@ namespace WebWriterV2.FrontModels
             Id = eventLinkItemDb.Id;
             Text = eventLinkItemDb.Text;
             FromId = eventLinkItemDb.From.Id;
+            FromChapterName = eventLinkItemDb.From.Name;
             ToId = eventLinkItemDb.To.Id;
+            ToChapterName = eventLinkItemDb.To.Name;
 
             //HeroStatesChanging = eventLinkItemDb.HeroStatesChanging?.Select(x => new FrontState(x)).ToList();
             //RequirementStates = eventLinkItemDb.RequirementStates?.Select(x => new FrontState(x)).ToList();
@@ -24,7 +26,9 @@ namespace WebWriterV2.FrontModels
 
         public string Text { get; set; }
         public long FromId { get; set; }
+        public string FromChapterName { get; set; }
         public long ToId { get; set; }
+        public string ToChapterName { get; set; }
 
         public List<FrontState> RequirementStates { get; set; }
         public List<FrontState> HeroStatesChanging { get; set; }

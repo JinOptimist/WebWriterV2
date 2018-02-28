@@ -20,6 +20,8 @@ angular.module('rpg')
             $scope.bookHasCycle = true;
             $scope.book = null;
             $scope.wait = true;
+            $scope.isRoadmap = false;
+
             init();
 
             $scope.onChapterHover = function (chapter) {
@@ -77,6 +79,17 @@ angular.module('rpg')
                 })
             }
 
+            $scope.toggleRoadmap = function () {
+                $scope.isRoadmap = !$scope.isRoadmap;
+                init();
+            }
+
+            $scope.activeChapter = function (chapterBlock, chapter) {
+                var oldVal = chapter.active;
+                chapterBlock.Chapters.forEach(x => x.active = false);
+                chapter.active = !oldVal;
+            }
+
             function loadBook(bookId) {
                 bookService.getWithChapters(bookId).then(function (book) {
                     $scope.book = book;
@@ -87,6 +100,12 @@ angular.module('rpg')
                             recalcChapterStyle(chapter);
                         });
                     });
+                });
+            }
+
+            function loadBookRoadmap(bookId) {
+                bookService.getWithChaptersRoadmap(bookId).then(function (book) {
+                    $scope.book = book;
                 });
             }
 
@@ -138,7 +157,12 @@ angular.module('rpg')
 
             function init() {
                 var bookId = $routeParams.bookId;
-                loadBook(bookId);
+
+                if ($scope.isRoadmap) {
+                    loadBookRoadmap(bookId);
+                } else {
+                    loadBook(bookId);
+                }
             }
         }
     ]);
