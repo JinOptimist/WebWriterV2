@@ -1,9 +1,8 @@
 angular.module('rpg')
 
     .controller('chapterController', [
-        '$scope', '$routeParams', '$location', '$cookies', 'chapterService',
-        function ($scope, $routeParams, $location, $cookies, chapterService,
-            eventService, CKEditorService, userService, genreService) {
+        '$scope', '$routeParams', '$location', '$cookies', '$q', 'chapterService', 'userService',
+        function ($scope, $routeParams, $location, $cookies, $q, chapterService, userService) {
 
             $scope.chaptersBottom = [];
 
@@ -69,13 +68,11 @@ angular.module('rpg')
                 });
             }
 
-            function loadChapter(chapterId) {
-                chapterService.get(chapterId).then(function (chapter) {
-                    $scope.chapter = chapter;
-                    $scope.newChapterLink.FromId = chapter.Id;
-                    $scope.wait = false;
-                    loadBottomChapters(chapter);
-                });
+            function loadChapter(chapter) {
+                $scope.chapter = chapter;
+                $scope.newChapterLink.FromId = chapter.Id;
+                $scope.wait = false;
+                
             }
 
             function loadBottomChapters(chapter) {
@@ -84,16 +81,33 @@ angular.module('rpg')
                 });
             }
 
-            function loadChapterLinks(chapterId) {
-                chapterService.getLinksFromChapter(chapterId).then(function (chapterLinks) {
-                    $scope.chapterLinks = chapterLinks;
+            function loadAllChapters(bookId) {
+                chapterService.getAllChapters(bookId).then(function (chapters) {
+                    $scope.chaptersBottom = chapters;
                 });
             }
 
             function init() {
                 var chapterId = $routeParams.chapterId;
-                loadChapter(chapterId);
-                loadChapterLinks(chapterId);
+
+
+                var userPromise = userService.getCurrentUser();//.then(u => $scope.user = u);
+                var chapterPromise = chapterService.get(chapterId);
+                var linksPromise = chapterService.getLinksFromChapter(chapterId);
+                
+                $q.all([userPromise, chapterPromise, linksPromise]).then(function (data) {
+                    $scope.user = data[0];
+                    $scope.chapterLinks = data[2];
+
+                    var chapter = data[1];
+                    loadChapter(chapter);
+                    if ($scope.user.IsAdmin) {
+                        //use experemental functionality
+                        loadAllChapters(chapter.BookId);
+                    } else {
+                        loadBottomChapters(chapter);
+                    }
+                });
             }
         }
     ]);

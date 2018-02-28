@@ -6,7 +6,9 @@
             save: save,
             remove: remove,
             getBottomChapters: getBottomChapters,
+            getAllChapters: getAllChapters,
             createNextChapter: createNextChapter,
+            
 
             saveChapterLink: saveChapterLink,
             getLinksFromChapter: getLinksFromChapter,
@@ -31,9 +33,15 @@
 
         function createNextChapter(chapter) {
             var url = '/api/chapter/CreateNextChapter';
-            var data = angular.toJson(chapter);
+            var data = chapter;
             return httpHelper.post(url, data);
         }
+
+        function getAllChapters(bookId) {
+            var url = '/api/chapter/GetChapterAll';
+            var data = { bookId: bookId };
+            return httpHelper.get(url, data);
+        } 
 
         function remove(chapterId) {
             var url = '/api/chapter/Remove?id=' + chapterId;

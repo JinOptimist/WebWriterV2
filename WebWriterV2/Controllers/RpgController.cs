@@ -365,7 +365,7 @@ namespace WebWriterV2.Controllers
 
         public JsonResult GetEvents(long bookId)
         {
-            var events = EventRepository.GetAllEventsByBook(bookId);
+            var events = EventRepository.GetAllChaptersByBook(bookId);
             var frontChapters = events.Select(x => new FrontChapter(x)).ToList();
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontChapters),

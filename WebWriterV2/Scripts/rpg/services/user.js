@@ -45,19 +45,8 @@
         }
 
         function getCurrentUser() {
-            var deferred = $q.defer();
-
-            if (currentUser) {
-                deferred.resolve(currentUser);
-            } else {
-                var userId = $cookies.get(ConstCookies.userId);
-                getById(userId).then(function (data) {
-                    currentUser = data;
-                    deferred.resolve(currentUser);
-                });
-            }
-
-            return deferred.promise;
+            var userId = $cookies.get(ConstCookies.userId);
+            return getById(userId);
         }
 
         function getById(userId) {

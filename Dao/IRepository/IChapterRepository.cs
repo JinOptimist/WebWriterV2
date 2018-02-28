@@ -9,9 +9,9 @@ namespace Dao.IRepository
 
         void RemoveEventAndChildren(long currentEventId);
 
-        List<Chapter> GetAllEventsByBook(long bookId);
+        List<Chapter> GetAllChaptersByBook(long bookId);
 
-        List<Chapter> GetRootEvents(long bookId);
+        List<Chapter> GetRootChapter(long bookId);
 
         List<Chapter> GetEndingEvents(long bookId);
 

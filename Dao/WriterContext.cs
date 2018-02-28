@@ -56,7 +56,7 @@ namespace Dao
 
             modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.RequirementStates).WithOptional(x => x.Chapter);
             modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.HeroStatesChanging).WithOptional(x => x.Chapter);
-            modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.TravelSteps).WithOptional(x => x.Сhoice);
+            modelBuilder.Entity<ChapterLinkItem>().HasMany(x => x.TravelSteps).WithOptional(x => x.Сhoice).WillCascadeOnDelete(true);
 
             modelBuilder.Entity<Travel>().HasMany(x => x.Steps).WithRequired(x => x.Travel);
 

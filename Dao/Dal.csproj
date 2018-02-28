@@ -114,6 +114,10 @@
     <Compile Include="Migrations\201802161212344_AddTags.Designer.cs">
       <DependentUpon>201802161212344_AddTags.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802281251206_AddCascadeDelete.cs" />
+    <Compile Include="Migrations\201802281251206_AddCascadeDelete.Designer.cs">
+      <DependentUpon>201802281251206_AddCascadeDelete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Tag.cs" />
@@ -183,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802161212344_AddTags.resx">
       <DependentUpon>201802161212344_AddTags.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802281251206_AddCascadeDelete.resx">
+      <DependentUpon>201802281251206_AddCascadeDelete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

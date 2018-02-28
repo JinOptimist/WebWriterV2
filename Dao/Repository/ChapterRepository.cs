@@ -11,12 +11,14 @@ namespace Dao.Repository
     public class ChapterRepository : BaseRepository<Chapter>, IChapterRepository
     {
         private readonly Lazy<ChapterLinkItemRepository> _eventLinkItemRepository;
+        private readonly Lazy<TravelRepository> _travelRepository;
         private readonly StateValueRepository _stateValueRepository;
 
         public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
         public ChapterRepository(WriterContext db) : base(db)
         {
             _eventLinkItemRepository = new Lazy<ChapterLinkItemRepository>(() => new ChapterLinkItemRepository(db));
+            _travelRepository = new Lazy<TravelRepository>(() => new TravelRepository(db));
             _stateValueRepository = new StateValueRepository(db);
         }
 
@@ -46,19 +48,20 @@ namespace Dao.Repository
             return base.Save(model);
         }
 
-        public override void Remove(Chapter currentEvent)
+        public override void Remove(Chapter currentChapter)
         {
-            if (currentEvent == null)
+            if (currentChapter == null)
                 return;
 
-            if (currentEvent.LinksFromThisChapter?.Any() ?? false) {
-                _eventLinkItemRepository.Value.Remove(currentEvent.LinksFromThisChapter);
+            if (currentChapter.LinksFromThisChapter?.Any() ?? false) {
+                _eventLinkItemRepository.Value.Remove(currentChapter.LinksFromThisChapter);
             }
-            if (currentEvent.LinksToThisChapter?.Any() ?? false) {
-                _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisChapter);
+            if (currentChapter.LinksToThisChapter?.Any() ?? false) {
+                _eventLinkItemRepository.Value.Remove(currentChapter.LinksToThisChapter);
             }
+            _travelRepository.Value.Remove(currentChapter.Book.Travels);
 
-            base.Remove(currentEvent);
+            base.Remove(currentChapter);
         }
 
         public void RemoveEventAndChildren(long currentEventId)
@@ -95,12 +98,12 @@ namespace Dao.Repository
             base.Remove(currentEvent);
         }
 
-        public List<Chapter> GetAllEventsByBook(long bookId)
+        public List<Chapter> GetAllChaptersByBook(long bookId)
         {
             return Entity.Where(x => x.Book.Id == bookId).ToList();
         }
 
-        public List<Chapter> GetRootEvents(long bookId)
+        public List<Chapter> GetRootChapter(long bookId)
         {
             return Entity.Where(x => x.Book != null && x.Book.Id == bookId).ToList();
         }

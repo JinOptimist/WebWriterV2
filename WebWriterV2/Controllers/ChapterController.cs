@@ -99,6 +99,13 @@ namespace WebWriterV2.Controllers
             return chapters.Select(x => new FrontChapter(x)).ToList();
         }
 
+        [AcceptVerbs("GET")]
+        public List<FrontChapter> GetChapterAll(long bookId)
+        {
+            var chapters = ChapterRepository.GetAllChaptersByBook(bookId);
+            return chapters.Select(x => new FrontChapter(x)).ToList();
+        }
+
         [AcceptVerbs("POST")]
         public FrontChapter CreateNextChapter(FrontChapter frontChapter)
         {
