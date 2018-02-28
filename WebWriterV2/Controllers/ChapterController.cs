@@ -39,12 +39,14 @@ namespace WebWriterV2.Controllers
                 BookRepository.Save(book);
             } else {
                 var parentsForNewChapter = new List<Chapter>();
+                // New chapter must be linked with parrent.
                 if (chapter.Id == 0 && chapter.Level > 1) {
                     parentsForNewChapter = ChapterRepository.GetByLevel(chapter.Book.Id, chapter.Level - 1);
                 }
 
                 chapter = ChapterRepository.Save(chapter);
 
+                // New chapter must be linked with parrent.
                 foreach (var parent in parentsForNewChapter)
                 {
                     var link = new ChapterLinkItem()
