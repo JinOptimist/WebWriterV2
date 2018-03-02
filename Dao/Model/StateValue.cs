@@ -11,5 +11,7 @@ namespace Dao.Model
         public virtual Travel Travel { get; set; }
 
         public long? Value { get; set; }
+
+        public string Text { get; set; }
     }
 }

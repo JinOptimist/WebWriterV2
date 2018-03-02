@@ -7,6 +7,8 @@ namespace Dao.DataGeneration
 {
     public static class GenerateData
     {
+        public const string DefaultStateTypeName = "Решение v0.1"; 
+
         public const string Hp = "Hp";
         public const string MaxHp = "MaxHp";
         public const string Mp = "Mp";
@@ -357,6 +359,12 @@ namespace Dao.DataGeneration
             stateTypes.Add(new StateType {
                 Name = Charism,
                 Desc = "Красота страшная сила",
+            });
+
+            stateTypes.Add(new StateType {
+                Name = DefaultStateTypeName,
+                Desc = "Заглушка. Используется для пометки пройденных глав",
+                HideFromReader = true
             });
 
             return stateTypes;

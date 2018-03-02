@@ -11,13 +11,17 @@ namespace WebWriterV2.FrontModels
         {
         }
 
-        public FrontChapter(Chapter chapter, bool forTravel = false)
+        public FrontChapter(Chapter chapter, Travel travel = null)
         {
             Id = chapter.Id;
             Name = chapter.Name;
-            Desc = forTravel ? GenerateHtmlForDesc(chapter.Desc) : chapter.Desc;
+            Desc = travel != null ? GenerateHtmlForDesc(chapter.Desc) : chapter.Desc;
             Level = chapter.Level;
-            LinksFromThisEvent = chapter.LinksFromThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
+
+            LinksFromThisEvent = travel == null
+                ? chapter.LinksFromThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList()
+                : travel.FilterLink(chapter.LinksFromThisChapter).Select(x => new FrontChapterLinkItem(x)).ToList();
+
             LinksToThisEvent = chapter.LinksToThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
             BookId = chapter.Book.Id;
             IsRootChapter = chapter.Book.RootChapter?.Id == chapter.Id;

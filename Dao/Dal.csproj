@@ -118,6 +118,14 @@
     <Compile Include="Migrations\201802281251206_AddCascadeDelete.Designer.cs">
       <DependentUpon>201802281251206_AddCascadeDelete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803011106276_ExpandStateValue.cs" />
+    <Compile Include="Migrations\201803011106276_ExpandStateValue.Designer.cs">
+      <DependentUpon>201803011106276_ExpandStateValue.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803011236210_RenameAFewField.cs" />
+    <Compile Include="Migrations\201803011236210_RenameAFewField.Designer.cs">
+      <DependentUpon>201803011236210_RenameAFewField.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Tag.cs" />
@@ -190,6 +198,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802281251206_AddCascadeDelete.resx">
       <DependentUpon>201802281251206_AddCascadeDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803011106276_ExpandStateValue.resx">
+      <DependentUpon>201803011106276_ExpandStateValue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803011236210_RenameAFewField.resx">
+      <DependentUpon>201803011236210_RenameAFewField.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

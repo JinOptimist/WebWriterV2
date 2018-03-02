@@ -14,19 +14,20 @@ namespace WebWriterV2.Controllers
 {
     public class TravelController : BaseApiController
     {
-        public TravelController(ITravelRepository travelRepository, ITravelStepRepository travelStepRepository, IBookRepository bookRepository, IChapterLinkItemRepository chapterLinkItemRepository)
+        public TravelController(ITravelRepository travelRepository, ITravelStepRepository travelStepRepository, IBookRepository bookRepository, IChapterLinkItemRepository chapterLinkItemRepository, IStateTypeRepository stateTypeRepository)
         {
             TravelRepository = travelRepository;
             TravelStepRepository = travelStepRepository;
             BookRepository = bookRepository;
             ChapterLinkItemRepository = chapterLinkItemRepository;
+            StateTypeRepository = stateTypeRepository;
         }
 
         private ITravelRepository TravelRepository { get; }
         private ITravelStepRepository TravelStepRepository { get; }
         private IBookRepository BookRepository { get; }
         private IChapterLinkItemRepository ChapterLinkItemRepository { get; }
-
+        private IStateTypeRepository StateTypeRepository { get; }
 
         [AcceptVerbs("GET")]
         public FrontTravel Get(long id)
@@ -67,8 +68,9 @@ namespace WebWriterV2.Controllers
         public FrontChapter Choice(long travelId, long linkItemId)
         {
             var link = ChapterLinkItemRepository.Get(linkItemId);
+            var travel = new Travel();
             if (travelId > 0) {
-                var travel = TravelRepository.Get(travelId);
+                travel = TravelRepository.Get(travelId);
                 var step = new TravelStep {
                     DateTime = DateTime.Now,
                     Travel = travel,
@@ -76,10 +78,26 @@ namespace WebWriterV2.Controllers
                 };
                 travel.CurrentChapter = link.To;
                 TravelStepRepository.Save(step);
+
+                var changes = link.StateChanging.SingleOrDefault();
+                if (changes != null) {
+
+                    if (changes.Text == "УДАЛИТЬ") {
+                        travel.State.Clear();
+                    } else {
+                        var defaultStateType = StateTypeRepository.GetDefault();
+                        travel.State.Add(new StateValue() {
+                            Travel = travel,
+                            Text = changes.Text,
+                            StateType = defaultStateType
+                        });
+                    }
+                }
+
                 TravelRepository.Save(travel);
             }
             
-            return new FrontChapter(link.To);
+            return new FrontChapter(link.To, travel);
         }
 
         [AcceptVerbs("GET")]

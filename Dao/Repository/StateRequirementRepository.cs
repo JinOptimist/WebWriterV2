@@ -9,5 +9,11 @@ namespace Dao.Repository
         public StateRequirementRepository(WriterContext db) : base(db)
         {
         }
+
+        public void RemoveDecision(string decision, long bookId)
+        {
+            var conditions = Entity.Where(x => x.ChapterLink.From.Book.Id == bookId && x.Text == decision);
+            Remove(conditions);
+        }
     }
 }

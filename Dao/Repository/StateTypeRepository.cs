@@ -26,5 +26,10 @@ namespace Dao.Repository
         {
             return Entity.SingleOrDefault(x => x.Name == name);
         }
+
+        public StateType GetDefault()
+        {
+            return Entity.Single(x => x.Name == DataGeneration.GenerateData.DefaultStateTypeName);
+        }
     }
 }

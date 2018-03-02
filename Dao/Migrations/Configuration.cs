@@ -22,6 +22,10 @@ namespace Dao.Migrations
             var admin = GenerateData.GenerateAdmin();
             context.Users.AddOrUpdate(x => x.Name, admin);
 
+            context.SaveChanges();
+
+            admin = context.Users.Single(x => x.Name == admin.Name);
+
             var stateTypes = GenerateData.GenerateStateTypes();
             stateTypes.ForEach(x => x.Owner = admin);
             context.StateTypes.AddOrUpdate(x => x.Name, stateTypes.ToArray());
@@ -31,6 +35,8 @@ namespace Dao.Migrations
 
             var tags = GenerateData.GenerateTags();
             context.Tags.AddOrUpdate(x => x.Name, tags.ToArray());
+
+            context.SaveChanges();
 
             //var book = GenerateData.BookRat();
             //book.Owner = admin;

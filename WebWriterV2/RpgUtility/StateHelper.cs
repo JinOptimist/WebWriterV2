@@ -8,28 +8,26 @@ namespace WebWriterV2.RpgUtility
 {
     public static class StateHelper
     {
-        public static void SetDefaultState(this Hero hero, List<StateType> stateTypes)
+        public static List<ChapterLinkItem> FilterLink(this Travel travel, List<ChapterLinkItem> linkItems)
         {
-            var hp = stateTypes.First(x => x.Name == GenerateData.Hp);
-            var maxHp = stateTypes.First(x => x.Name == GenerateData.MaxHp);
-            var mp = stateTypes.First(x => x.Name == GenerateData.Mp);
-            var maxMp = stateTypes.First(x => x.Name == GenerateData.MaxMp);
+            var result = new List<ChapterLinkItem>();
 
-            //var gold = stateTypes.First(x => x.Name == GenerateData.Gold);
+            foreach (var linkItem in linkItems) {
+                if (!linkItem.StateRequirement.Any()) {
+                    result.Add(linkItem);
+                    continue;
+                } else {
 
-            /* Set zeroes */
-            hero.State = stateTypes.Select(stateType => new StateValue { StateType = stateType, Value = 0 }).ToList();
+                    var condition = linkItem.StateRequirement.SingleOrDefault()?.Text;
+                    if (travel.State?.Any(x => x.Text == condition) ?? false) {
+                        result.Add(linkItem);
+                    }
+                }
 
-            var maxHpNumber = hero.State.First(x => x.StateType == maxHp).Value;
-            var maxMpNumber = hero.State.First(x => x.StateType == maxMp).Value;
+                
+            }
 
-            hero.State.First(x => x.StateType == hp).Value = maxHpNumber;
-            hero.State.First(x => x.StateType == mp).Value = maxMpNumber;
-        }
-
-        public static void AddNumberToState(this Hero hero, StateType stateType, long addingNumber)
-        {
-            hero.State.First(x => x.StateType == stateType).Value += addingNumber;
+            return result;
         }
     }
 }

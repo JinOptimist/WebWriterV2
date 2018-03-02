@@ -5,11 +5,10 @@ angular.module('rpg')
         function ($scope, $routeParams, $location, $cookies, $q, chapterService, userService) {
 
             $scope.chaptersBottom = [];
-
             $scope.chapterLinks = [];
-
+            $scope.availableDecision = [];
             $scope.chapter = null;
-            $scope.newChapterLink = { FromId: -1};
+            $scope.newChapterLink = { FromId: -1 };
             $scope.wait = true;
             init();
 
@@ -49,6 +48,20 @@ angular.module('rpg')
                 });
             }
 
+            $scope.saveDecision = function (chapterLink) {
+                chapterService.linkDecisionToChapterLink(chapterLink.Id, chapterLink.Decision).then(function () {
+                    init();
+                });
+                //TODO Direct update decision
+            }
+
+            $scope.saveCondition = function (chapterLink) {
+                chapterService.linkConditionToChapterLink(chapterLink.Id, chapterLink.Condition).then(function () {
+                    init();
+                });
+                //TODO Direct update decision
+            }
+
             function saveChapterLinkAndResetForm(chapterLink, form) {
                 chapterService.saveChapterLink(chapterLink).then(function (savedChapterLink) {
                     if (chapterLink.Id > 0) {
@@ -61,10 +74,6 @@ angular.module('rpg')
                         form.$setPristine();
                         form.$setUntouched();
                     }
-
-                    //if (saveAndClose) {
-                    //    $location.path('/ar/writer/book/' + chapter.BookId);
-                    //}
                 });
             }
 
@@ -72,7 +81,6 @@ angular.module('rpg')
                 $scope.chapter = chapter;
                 $scope.newChapterLink.FromId = chapter.Id;
                 $scope.wait = false;
-                
             }
 
             function loadBottomChapters(chapter) {
@@ -90,14 +98,15 @@ angular.module('rpg')
             function init() {
                 var chapterId = $routeParams.chapterId;
 
-
-                var userPromise = userService.getCurrentUser();//.then(u => $scope.user = u);
+                var userPromise = userService.getCurrentUser();
                 var chapterPromise = chapterService.get(chapterId);
                 var linksPromise = chapterService.getLinksFromChapter(chapterId);
+                var availableDecisionPromise = chapterService.getAvailableDecision(chapterId);
                 
-                $q.all([userPromise, chapterPromise, linksPromise]).then(function (data) {
+                $q.all([userPromise, chapterPromise, linksPromise, availableDecisionPromise]).then(function (data) {
                     $scope.user = data[0];
                     $scope.chapterLinks = data[2];
+                    $scope.availableDecision = data[3];
 
                     var chapter = data[1];
                     loadChapter(chapter);

@@ -182,7 +182,7 @@
     <Compile Include="FrontModel\FakeModelString.cs" />
     <Compile Include="FrontModel\FrontChaptersBlock.cs" />
     <Compile Include="FrontModel\FrontBookWithChapters.cs" />
-    <Compile Include="FrontModel\FrontEventLinkItem.cs" />
+    <Compile Include="FrontModel\FrontChapterLinkItem.cs" />
     <Compile Include="FrontModel\FrontTag.cs" />
     <Compile Include="FrontModel\FrontTravel.cs" />
     <Compile Include="FrontModel\FrontGenre.cs" />
@@ -196,6 +196,7 @@
     <Compile Include="FrontModel\FrontEnum.cs" />
     <Compile Include="RpgUtility\Dto\VkAccess.cs" />
     <Compile Include="RpgUtility\EmailHelper.cs" />
+    <Compile Include="RpgUtility\StateHelper.cs" />
     <Compile Include="RpgUtility\WordHelper.cs" />
     <Compile Include="RpgUtility\GraphHelper.cs" />
     <Compile Include="RpgUtility\JsonResponseReader.cs" />

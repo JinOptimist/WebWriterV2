@@ -10,14 +10,14 @@ namespace Dao.Repository
 {
     public class ChapterRepository : BaseRepository<Chapter>, IChapterRepository
     {
-        private readonly Lazy<ChapterLinkItemRepository> _eventLinkItemRepository;
+        private readonly Lazy<ChapterLinkItemRepository> _chapterLinkItemRepository;
         private readonly Lazy<TravelRepository> _travelRepository;
         private readonly StateValueRepository _stateValueRepository;
 
         public const string RemoveExceptionMessage = "If you want remove event wich has children use method RemoveWholeBranch or RemoveEventAndChildren";
         public ChapterRepository(WriterContext db) : base(db)
         {
-            _eventLinkItemRepository = new Lazy<ChapterLinkItemRepository>(() => new ChapterLinkItemRepository(db));
+            _chapterLinkItemRepository = new Lazy<ChapterLinkItemRepository>(() => new ChapterLinkItemRepository(db));
             _travelRepository = new Lazy<TravelRepository>(() => new TravelRepository(db));
             _stateValueRepository = new StateValueRepository(db);
         }
@@ -54,10 +54,10 @@ namespace Dao.Repository
                 return;
 
             if (currentChapter.LinksFromThisChapter?.Any() ?? false) {
-                _eventLinkItemRepository.Value.Remove(currentChapter.LinksFromThisChapter);
+                _chapterLinkItemRepository.Value.Remove(currentChapter.LinksFromThisChapter);
             }
             if (currentChapter.LinksToThisChapter?.Any() ?? false) {
-                _eventLinkItemRepository.Value.Remove(currentChapter.LinksToThisChapter);
+                _chapterLinkItemRepository.Value.Remove(currentChapter.LinksToThisChapter);
             }
             _travelRepository.Value.Remove(currentChapter.Book.Travels);
 
@@ -76,12 +76,12 @@ namespace Dao.Repository
 
             if (currentEvent.LinksFromThisChapter?.Any() ?? false) {
                 var forDelete = currentEvent.LinksFromThisChapter.Select(x => x.From).ToList();
-                _eventLinkItemRepository.Value.Remove(currentEvent.LinksFromThisChapter);
+                _chapterLinkItemRepository.Value.Remove(currentEvent.LinksFromThisChapter);
                 forDelete.ForEach(RemoveEventAndChildren);
             }
 
             if (currentEvent.LinksToThisChapter.Any()) {
-                _eventLinkItemRepository.Value.Remove(currentEvent.LinksToThisChapter);
+                _chapterLinkItemRepository.Value.Remove(currentEvent.LinksToThisChapter);
             }
 
             var isDetached = Db.Entry(currentEvent).State == EntityState.Detached;

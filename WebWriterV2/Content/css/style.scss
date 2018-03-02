@@ -295,8 +295,15 @@ body {
             height: 150px;
         }
 
-        .author-tips{
+        .author-tips {
             color: $gray-middle;
+        }
+
+        .condition,
+        .decision {
+            width: calc( 50% - 10px );
+            display: inline-block;
+            vertical-align: top;
         }
     }
 

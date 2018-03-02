@@ -13,8 +13,10 @@ namespace WebWriterV2.FrontModels
         public FrontChapterLevel(IEnumerable<Chapter> chapters)
         {
             Chapters = chapters.Select(x => new FrontChapter(x)).ToList();
+            LevelNumber = chapters.First().Level;
         }
 
+        public int LevelNumber { get; set; }
         public List<FrontChapter> Chapters { get; set; }
 
         /// <summary>

@@ -10,5 +10,7 @@ namespace Dao.IRepository
         List<StateType> AvailableForEdit(long userId);
 
         StateType GetByName(string name);
+
+        StateType GetDefault();
     }
 }

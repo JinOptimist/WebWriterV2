@@ -11,16 +11,17 @@ namespace WebWriterV2.FrontModels
         {
         }
 
-        public FrontChapterLinkItem(ChapterLinkItem eventLinkItemDb)
+        public FrontChapterLinkItem(ChapterLinkItem chapterLinkItem)
         {
-            Id = eventLinkItemDb.Id;
-            Text = eventLinkItemDb.Text;
-            FromId = eventLinkItemDb.From.Id;
-            FromChapterName = eventLinkItemDb.From.Name;
-            ToId = eventLinkItemDb.To.Id;
-            ToChapterName = eventLinkItemDb.To.Name;
+            Id = chapterLinkItem.Id;
+            Text = chapterLinkItem.Text;
+            FromId = chapterLinkItem.From.Id;
+            FromChapterName = chapterLinkItem.From.Name;
+            ToId = chapterLinkItem.To.Id;
+            ToChapterName = chapterLinkItem.To.Name;
 
-            //HeroStatesChanging = eventLinkItemDb.HeroStatesChanging?.Select(x => new FrontState(x)).ToList();
+            Decision = chapterLinkItem.StateChanging?.FirstOrDefault()?.Text;
+            Condition = chapterLinkItem.StateRequirement?.FirstOrDefault()?.Text;
             //RequirementStates = eventLinkItemDb.RequirementStates?.Select(x => new FrontState(x)).ToList();
         }
 
@@ -30,8 +31,8 @@ namespace WebWriterV2.FrontModels
         public long ToId { get; set; }
         public string ToChapterName { get; set; }
 
-        public List<FrontState> RequirementStates { get; set; }
-        public List<FrontState> HeroStatesChanging { get; set; }
+        public string Condition { get; set; }
+        public string Decision { get; set; }
 
         public override ChapterLinkItem ToDbModel()
         {

@@ -24,11 +24,48 @@
                     <input ng-model="chapterLink.Text" class="no-border" ng-blur="updateChpaterLink(chapterLink)" />
                 </div>
                 <div class="action-button">
-                    <a href="/ar/writer/chapter/{{chapterLink.ToId}}">
-                        <span class="button-medium-blue">
-                            {{chapterLink.Text ? 'Сделать выбор' : 'Далее'}} <span class="author-tips">{{chapterLink.ToChapterName}}</span>
-                        </span>
-                    </a>
+                    <p>
+                        <a href="/ar/writer/chapter/{{chapterLink.ToId}}">
+                            <span class="button-medium-blue">
+                                {{chapterLink.Text ? 'Сделать выбор' : 'Далее'}} <span class="author-tips">{{chapterLink.ToChapterName}}</span>
+                            </span>
+                        </a>
+                    </p>
+                    <div class="condition">
+                        <p>
+                            <label>
+                                Добавить условие
+                                <input type="checkbox"
+                                       ng-disabled="chapterLink.Condition"
+                                       ng-init="addCondition = !!chapterLink.Condition"
+                                       ng-model="addCondition" />
+                            </label>
+                        </p>
+                        <p ng-if="addCondition">
+                            {{chapterLink.Condition}}
+                            <select ng-model="chapterLink.Condition">
+                                <option value="" selected>Выбери решение</option>
+                                <option value="{{decision}}" ng-repeat="decision in availableDecision">{{decision}}</option>
+                            </select>
+                            <span class="button-medium-blue" ng-click="saveCondition(chapterLink)">Сохранить</span>
+                        </p>
+                    </div>
+
+                    <div class="decision">
+                        <p>
+                            <label>
+                                Запомнить решение
+                                <input type="checkbox" 
+                                       ng-disabled="chapterLink.Decision"
+                                       ng-init="rememberDecision = !!chapterLink.Decision" 
+                                       ng-model="rememberDecision" />
+                            </label>
+                        </p>
+                        <p ng-if="rememberDecision || chapterLink.Decision">
+                            <input type="text" ng-model="chapterLink.Decision" placeholder="Метка решения" />
+                            <span class="button-medium-blue" ng-click="saveDecision(chapterLink)">Сохранить</span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </form>

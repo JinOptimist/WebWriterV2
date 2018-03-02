@@ -18,7 +18,7 @@ namespace WebWriterV2.FrontModels
                 Book = new FrontBook(travel.Book);
             }
             if (travel.CurrentChapter != null) {
-                Chapter = new FrontChapter(travel.CurrentChapter, true);
+                Chapter = new FrontChapter(travel.CurrentChapter, travel);
             }
         }
 

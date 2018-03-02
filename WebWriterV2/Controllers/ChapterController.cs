@@ -15,16 +15,18 @@ namespace WebWriterV2.Controllers
 {
     public class ChapterController : BaseApiController
     {
-        public ChapterController(IBookRepository bookRepository, IChapterRepository chapterRepository, IChapterLinkItemRepository chapterLinkItemRepository)
+        public ChapterController(IBookRepository bookRepository, IChapterRepository chapterRepository, IChapterLinkItemRepository chapterLinkItemRepository, IStateTypeRepository stateTypeRepository)
         {
             BookRepository = bookRepository;
             ChapterRepository = chapterRepository;
             ChapterLinkItemRepository = chapterLinkItemRepository;
+            StateTypeRepository = stateTypeRepository;
         }
 
         private IBookRepository BookRepository { get; set; }
         private IChapterRepository ChapterRepository { get; set; }
         private IChapterLinkItemRepository ChapterLinkItemRepository { get; set; }
+        private IStateTypeRepository StateTypeRepository { get; set; }
 
         [AcceptVerbs("POST")]
         public FrontChapter Save(FrontChapter frontChapter)
@@ -74,7 +76,8 @@ namespace WebWriterV2.Controllers
         public FrontChapter GetForTravel(long id)
         {
             var chapter = ChapterRepository.Get(id);
-            var frontChapter = new FrontChapter(chapter, true);
+            var emptyTavel = new Travel();
+            var frontChapter = new FrontChapter(chapter, emptyTavel);
             return frontChapter;
         }
 

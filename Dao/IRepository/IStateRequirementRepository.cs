@@ -6,5 +6,6 @@ namespace Dao.IRepository
 {
     public interface IStateRequirementRepository : IBaseRepository<StateRequirement>
     {
+        void RemoveDecision(string decision, long bookId);
     }
 }

@@ -10,8 +10,8 @@ namespace Dao.Model
     {
         public string Text { get; set; }
 
-        public virtual List<StateRequirement> RequirementStates { get; set; }
-        public virtual List<StateChange> HeroStatesChanging { get; set; }
+        public virtual List<StateRequirement> StateRequirement { get; set; }
+        public virtual List<StateChange> StateChanging { get; set; }
 
         /* Link reference */
         public virtual Chapter From { get; set; }

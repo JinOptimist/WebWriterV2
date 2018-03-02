@@ -8,11 +8,13 @@
             getBottomChapters: getBottomChapters,
             getAllChapters: getAllChapters,
             createNextChapter: createNextChapter,
-            
+            linkDecisionToChapterLink: linkDecisionToChapterLink,
 
             saveChapterLink: saveChapterLink,
             getLinksFromChapter: getLinksFromChapter,
-            removeChapterLink: removeChapterLink
+            removeChapterLink: removeChapterLink,
+            linkConditionToChapterLink: linkConditionToChapterLink,
+            getAvailableDecision: getAvailableDecision
         };
 
         function save(chapter) {
@@ -69,4 +71,30 @@
             var url = '/api/chapterLink/GetLinksFromChapter?chapterId=' + chapterId;
             return httpHelper.get(url);
         }
+
+        function linkDecisionToChapterLink(chapterId, decision) {
+            var url = '/api/chapterLink/LinkDecisionToChapterLink';
+            var data = {
+                chapterId: chapterId,
+                decision: decision
+            };
+            return httpHelper.get(url, data);
+        }
+
+        function linkConditionToChapterLink(chapterId, condition) {
+            var url = '/api/chapterLink/LinkConditionToChapterLink';
+            var data = {
+                chapterId: chapterId,
+                condition: condition
+            };
+            return httpHelper.get(url, data);
+        }
+
+        function getAvailableDecision(chapterId) {
+            var url = '/api/chapterLink/GetAvailableDecision';
+            var data = {
+                chapterId: chapterId
+            };
+            return httpHelper.get(url, data);
+        } 
     }]);
