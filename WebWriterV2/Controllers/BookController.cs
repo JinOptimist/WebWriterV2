@@ -41,6 +41,10 @@ namespace WebWriterV2.Controllers
         {
             var getOnlyPublished = User == null || User.UserType != UserType.Admin;
             var books = BookRepository.GetAll(getOnlyPublished);
+            books = books.Where(book => User != null 
+                    || !book.AllChapters
+                        .SelectMany(chapter => chapter.LinksFromThisChapter)
+                        .Any(x => x.StateRequirement.Any())).ToList();
 
             var frontBooks = books.Select(x => new FrontBook(x, user: User)).ToList();
             return frontBooks;

@@ -20,10 +20,13 @@ namespace WebWriterV2.FrontModels
             if (travel.CurrentChapter != null) {
                 Chapter = new FrontChapter(travel.CurrentChapter, travel);
             }
+
+            AllStates = string.Join(", ", travel.State);
         }
 
         public FrontBook Book { get; set; }
         public FrontChapter Chapter { get; set; }
+        public string AllStates { get; set; }
 
         public override Travel ToDbModel()
         {
