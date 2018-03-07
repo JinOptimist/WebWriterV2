@@ -34,8 +34,6 @@ namespace WebWriterV2.FrontModels
                     Levels.Add(new FrontChapterLevel(chapters));
                 }
             }
-
-            
         }
 
         public List<FrontChapterLevel> Levels { get; set; }

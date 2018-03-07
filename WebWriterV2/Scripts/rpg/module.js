@@ -59,6 +59,11 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
                     controller: 'profileControllerOld'
                 })
 
+                .when('/ar/writer/graph', {
+                    templateUrl: '/views/writer/graph.html',
+                    controller: 'graphController'
+                })
+
                 /* writer */
                 //resolve: resolveController('/app/controllers/customersController.js')
                 .when('/ar/writer/book/:bookId', {

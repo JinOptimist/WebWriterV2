@@ -179,7 +179,9 @@
     <Compile Include="DI\WindsorDependencyScope.cs" />
     <Compile Include="DI\CurrentUserContainer.cs" />
     <Compile Include="FrontModel\BaseFront.cs" />
+    <Compile Include="FrontModel\BookMap\ChapterBranch.cs" />
     <Compile Include="FrontModel\FakeModelString.cs" />
+    <Compile Include="FrontModel\FrontBookWithChaptersV2.cs" />
     <Compile Include="FrontModel\FrontChaptersBlock.cs" />
     <Compile Include="FrontModel\FrontBookWithChapters.cs" />
     <Compile Include="FrontModel\FrontChapterLinkItem.cs" />
@@ -677,6 +679,7 @@
     <Content Include="Scripts\rpg\services\chapter.js" />
     <Content Include="Scripts\rpg\services\book.js" />
     <Content Include="Scripts\rpg\services\travel.js" />
+    <Content Include="Scripts\rpg\writer\graph-controller.js" />
     <Content Include="Scripts\rpg\writer\chapter-controller.js" />
     <Content Include="Scripts\rpg\writer\books-controller.js" />
     <Content Include="Scripts\rpg\writer\book-controller.js" />
@@ -688,6 +691,9 @@
     <Content Include="Scripts\rpg\services.js" />
     <Content Include="Scripts\rpg\directives.js" />
     <Content Include="Scripts\rpg\module.js" />
+    <Content Include="Scripts\sGraph\draw.js" />
+    <Content Include="Scripts\sGraph\ocanvas-2.9.1.js" />
+    <Content Include="Scripts\sGraph\ocanvas-2.9.1.min.js" />
     <Content Include="Scripts\underscore.js" />
     <Content Include="Scripts\underscore.min.js" />
     <Content Include="Scripts\underscore.min.map" />
@@ -696,6 +702,7 @@
     <Content Include="Views\reader\Books.html" />
     <Content Include="Views\Rpg\GeneralDefinition.html" />
     <Content Include="Views\Rpg\admin\Genre.html" />
+    <Content Include="Views\Writer\Graph.html" />
     <Content Include="Views\Writer\Chapter.html" />
     <Content Include="Views\Writer\Books.html" />
     <Content Include="Views\Rpg\HeaderD.html" />

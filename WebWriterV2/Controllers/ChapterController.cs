@@ -103,7 +103,7 @@ namespace WebWriterV2.Controllers
         }
 
         [AcceptVerbs("GET")]
-        public List<FrontChapter> GetChapterAll(long bookId)
+        public List<FrontChapter> GetAllChapters(long bookId)
         {
             var chapters = ChapterRepository.GetAllChaptersByBook(bookId);
             return chapters.Select(x => new FrontChapter(x)).ToList();

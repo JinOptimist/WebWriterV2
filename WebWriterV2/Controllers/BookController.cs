@@ -138,6 +138,13 @@ namespace WebWriterV2.Controllers
             return frontBook;
         }
 
+        [AcceptVerbs("GET")]
+        public FrontBookWithChaptersV2 GetWithChaptersV2(long id)
+        {
+            var book = BookRepository.Get(id);
+            var frontBook = new FrontBookWithChaptersV2(book);
+            return frontBook;
+        }
 
 
 

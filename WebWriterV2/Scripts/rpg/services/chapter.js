@@ -40,7 +40,7 @@
         }
 
         function getAllChapters(bookId) {
-            var url = '/api/chapter/GetChapterAll';
+            var url = '/api/chapter/GetAllChapters';
             var data = { bookId: bookId };
             return httpHelper.get(url, data);
         } 
