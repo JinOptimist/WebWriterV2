@@ -6,12 +6,21 @@ angular.module('rpg')
 
         $scope.book = null;
         $scope.isRoadmap = false;
+        $scope.canvas = {
+            width: 800,
+            height: 500
+        };
         
         init();
 
-        function loadChapters(bookId) {
-            chapterService.getAllChapters(bookId).then(function (chapters) {
-                bookMap.start(chapters);
+        $scope.update = function () {
+            bookMap.redraw($scope.book.Chapters, $scope.scale);
+        }
+
+        function loadChaptersV2(bookId) {
+            bookService.getWithChaptersV2(bookId).then(function (book) {
+                $scope.book = book;
+                bookMap.start(book.Chapters);
             });
         }
 
@@ -24,12 +33,13 @@ angular.module('rpg')
 
         function init() {
             //var bookId = 30002;
-            var bookId = 1;
+            var bookId = 10002;
+            //var bookId = 1;
 
             if ($scope.isRoadmap) {
                 loadBookRoadmap(bookId);
             } else {
-                loadChapters(bookId);
+                loadChaptersV2(bookId);
             }
         }
     }

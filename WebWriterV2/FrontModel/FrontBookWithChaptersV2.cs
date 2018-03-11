@@ -30,12 +30,12 @@ namespace WebWriterV2.FrontModels
             var maxDepth = SetDepth(book.RootChapter, 1);
 
 
-            FrontChapters = book.AllChapters.Select(x => new FrontChapter(x));
+            Chapters = book.AllChapters.Select(x => new FrontChapter(x)).ToList();
             
         }
 
         public bool ContainsCycle { get; set; }
-        public List<FrontChapter> FrontChapters { get; set; }
+        public List<FrontChapter> Chapters { get; set; }
 
         private int SetDepth(Chapter chapter, int depth)
         {

@@ -1,4 +1,7 @@
 ﻿<div>
     <h1>Схема книги</h1>
-    <canvas id="nicePic" width="500" height="500"></canvas>
+    <div>
+        scale <input type="number" ng-model="scale" /> <input type="button" value="update" ng-click="update()" />
+    </div>
+    <canvas id="nicePic" width="{{canvas.width}}" height="{{canvas.height}}"></canvas>
 </div>

@@ -3,6 +3,7 @@
         return {
             get: get,
             getWithChapters: getWithChapters,
+            getWithChaptersV2: getWithChaptersV2,
             getAll: getAll,
             getAllForWriter: getAllForWriter,
             getWithChaptersRoadmap: getWithChaptersRoadmap,
@@ -35,6 +36,11 @@
 
         function getWithChapters(bookId) {
             var url = '/api/book/GetWithChapters?id=' + bookId;
+            return httpHelper.get(url);
+        }
+
+        function getWithChaptersV2(bookId) {
+            var url = '/api/book/GetWithChaptersV2?id=' + bookId;
             return httpHelper.get(url);
         }
 
