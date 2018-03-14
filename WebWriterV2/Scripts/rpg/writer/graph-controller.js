@@ -33,8 +33,8 @@ angular.module('rpg')
 
         function init() {
             //var bookId = 30002;
-            var bookId = 10002;
-            //var bookId = 1;
+            //var bookId = 10002;
+            var bookId = 1;
 
             if ($scope.isRoadmap) {
                 loadBookRoadmap(bookId);

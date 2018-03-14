@@ -47,7 +47,7 @@ namespace WebWriterV2.FrontModels
         public bool IsRootChapter { get; set; }
         public long BookId { get; set; }
 
-        public int Weight { get; set; }
+        public int Weight { get; set; } = 1;
         public int Depth { get; set; }
 
         public override Chapter ToDbModel()

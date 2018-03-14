@@ -179,9 +179,11 @@
     <Compile Include="DI\WindsorDependencyScope.cs" />
     <Compile Include="DI\CurrentUserContainer.cs" />
     <Compile Include="FrontModel\BaseFront.cs" />
-    <Compile Include="FrontModel\BookMap\ChapterBranch.cs" />
+    <Compile Include="FrontModel\BookMap\FrontBranch.cs" />
+    <Compile Include="FrontModel\BookMap\VisualBlock.cs" />
+    <Compile Include="FrontModel\BookMap\Branch.cs" />
     <Compile Include="FrontModel\FakeModelString.cs" />
-    <Compile Include="FrontModel\FrontBookWithChaptersV2.cs" />
+    <Compile Include="FrontModel\BookMap\BookWithChaptersV2.cs" />
     <Compile Include="FrontModel\FrontChaptersBlock.cs" />
     <Compile Include="FrontModel\FrontBookWithChapters.cs" />
     <Compile Include="FrontModel\FrontChapterLinkItem.cs" />

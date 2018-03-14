@@ -8,10 +8,10 @@ var bookMap = (function () {
     var levels = [];
 
     function onChapterBlockClick(obj) {
-        console.log('obj - ' + this.name);
+        console.log('obj - ' + this.chapter.Name);
     }
 
-    function drawChapterBlock(x, y, name) {
+    function drawChapterBlock(x, y, chapter) {
         var centerX = canvas.width / 2;
         var chapterX = x * BlockSize.Width + ChapterSize.Padding + centerX;
         var chapterY = y * BlockSize.Height + ChapterSize.Padding;
@@ -23,21 +23,23 @@ var bookMap = (function () {
             //fill: "#0f0",
             stroke: "inside 1px #f0f"
         });
-        chapterBlock.name = name;
+        chapterBlock.chapter = chapter;
 
         chapterBlock.bind("click", onChapterBlockClick);
         canvas.addChild(chapterBlock);
 
+        var text = chapter.Id + '*' + chapter.Weight;
+
         var fontSize = 10;// * scale;
-        var text = canvas.display.text({
+        var textItem = canvas.display.text({
             x: chapterX + 3,
             y: chapterY + 3,
             origin: { x: "left", y: "top" },
             font: fontSize + "px sans-serif",
-            text: name,
+            text: text,
             fill: "#0aa"
         });
-        canvas.addChild(text);
+        canvas.addChild(textItem);
     }
     
     function start(chapters, newScale) {
@@ -81,7 +83,7 @@ var bookMap = (function () {
             for (var i = 0; i < level.length; i++) {
                 var x = i - (level.length + 1) / 2;
                 var chapter = level[i];
-                drawChapterBlock(x, y, chapter.Name);
+                drawChapterBlock(x, y, chapter);
             }
         }
     }
