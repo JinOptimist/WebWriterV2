@@ -1,7 +1,7 @@
 var bookMap = (function () {
     console.log('bookMap is load');
-    var BlockSize = { Width: 60, Height: 50 };
-    var ChapterSize = { Width: 40, Height: 30, Padding: 10 };
+    var BlockSize = { Width: 100, Height: 50 };
+    var ChapterSize = { Width: 80, Height: 40, Padding: 10 };
     var scale = 1.0
     var canvas = {};
 
@@ -12,9 +12,20 @@ var bookMap = (function () {
     }
 
     function drawChapterBlock(x, y, chapter) {
-        var centerX = canvas.width / 2;
-        var chapterX = x * BlockSize.Width + ChapterSize.Padding + centerX;
+        //var centerX = canvas.width / 2;
+        var parents = getParrentsCanvasObj(chapter.Id);
+        var centerX = getCenterByParents(parents);
+        var chapterX = (x / 2) * BlockSize.Width + ChapterSize.Padding + centerX;
         var chapterY = y * BlockSize.Height + ChapterSize.Padding;
+
+        drawChapter(chapter, chapterX, chapterY);
+
+        drawText(chapter, chapterX, chapterY);
+
+        drawArrow(chapter, parents, chapterX, chapterY);
+    }
+
+    function drawChapter(chapter, chapterX, chapterY) {
         var chapterBlock = canvas.display.rectangle({
             x: chapterX,
             y: chapterY,
@@ -27,8 +38,11 @@ var bookMap = (function () {
 
         chapterBlock.bind("click", onChapterBlockClick);
         canvas.addChild(chapterBlock);
+    }
 
-        var text = chapter.Id + '*' + chapter.Weight;
+    function drawText(chapter, chapterX, chapterY) {
+        //var text = chapter.Id + '*' + chapter.Weight;
+        var text = chapter.Name;
 
         var fontSize = 10;// * scale;
         var textItem = canvas.display.text({
@@ -41,7 +55,39 @@ var bookMap = (function () {
         });
         canvas.addChild(textItem);
     }
-    
+
+    function drawArrow(chapter, parents, chapterX, chapterY) {
+        for (var i = 0; i < parents.length; i++) {
+            var parent = parents[i];
+            var updatedChapterX = chapterX;
+            var updatedChapterY = chapterY;
+            var parentX = parent.x;
+            var parentY = parent.y;
+
+            if (parentX == updatedChapterX) {
+                parentX += ChapterSize.Width / 2;
+                parentY += ChapterSize.Height;
+                updatedChapterX += ChapterSize.Width / 2;
+            } else if (parentX > updatedChapterX) {
+                // if parrent on the right
+                parentY += ChapterSize.Height * 2 / 3;
+                updatedChapterX += ChapterSize.Width / 2;
+            } else if (parentX < updatedChapterX) {
+                parentX += ChapterSize.Width;
+                parentY += ChapterSize.Height * 2 / 3;
+                updatedChapterX += ChapterSize.Width / 2;
+            }
+
+            var line = canvas.display.line({
+                start: { x: parentX, y: parentY },
+                end: { x: updatedChapterX, y: updatedChapterY },
+                stroke: "1px #0aa",
+                cap: "round"
+            });
+            canvas.addChild(line);
+        }
+    }
+
     function start(chapters, newScale) {
         canvas = oCanvas.create({
             canvas: "#nicePic"
@@ -63,9 +109,40 @@ var bookMap = (function () {
         canvas.canvas.scale(scale, scale);
         canvas.draw.clear(false);
 
+        splitByLevels(chapters);
+        //group chapters by parents.
+
+        for (var y = 1; y < levels.length; y++) {
+            var level = levels[y];
+
+            
+            chaptersGroupByParent = groupByParent(level);
+
+            for (var gr = 0; gr < chaptersGroupByParent.length; gr++) {
+                var chapterGroupByParent = chaptersGroupByParent[gr];
+
+                var fullLevelSize = 0;
+                chapterGroupByParent.forEach(function (ch) {
+                    fullLevelSize += ch.Weight;
+                });
+                var currentX = 1 - fullLevelSize;
+
+                for (var i = 0; i < chapterGroupByParent.length; i++) {
+                    var chapter = chapterGroupByParent[i];
+                    var x = currentX + chapter.Weight - 1;
+                    drawChapterBlock(x, y, chapter);
+                    currentX += chapter.Weight * 2;
+                }
+            }
+            
+        }
+    }
+
+    function splitByLevels(chapters) {
         levels = [];
         for (var i = 0; i < chapters.length; i++) {
             var chapter = chapters[i];
+            chapter.parents = findParents(chapters, chapter.Id);
             var depth = chapter.Level;
             if (depth == 0) {
                 //chapters without parent are ignored
@@ -77,18 +154,71 @@ var bookMap = (function () {
             }
             levels[depth].push(chapter);
         }
-
-        for (var y = 1; y < levels.length; y++) {
-            var level = levels[y];
-            for (var i = 0; i < level.length; i++) {
-                var x = i - (level.length + 1) / 2;
-                var chapter = level[i];
-                drawChapterBlock(x, y, chapter);
-            }
-        }
     }
 
-    
+    function findParents(chapters, chapterId) {
+        return chapters.filter(function (chapter) {
+            return chapterContainsLinkToCurrentChapter(chapter, chapterId);
+        });
+    }
+
+    function getParrentsCanvasObj(chapterId) {
+        return canvas.children.filter(function (canvasItem) {
+            if (!canvasItem.chapter)
+                return false;
+            var chapter = canvasItem.chapter;
+            return chapterContainsLinkToCurrentChapter(chapter, chapterId);
+        });
+    }
+
+    function chapterContainsLinkToCurrentChapter(chapter, chapterId) {
+        if (!chapter.LinksFromThisEvent || chapter.LinksFromThisEvent.length == 0)
+            return false;
+        return chapter.LinksFromThisEvent.filter(link => link.ToId == chapterId).length > 0;
+    }
+
+    function getCenterByParents(parents) {
+        if (!parents || parents.length < 1)
+            return canvas.width / 2;
+
+        var xCoordinates = parents.map(chapterBlock => chapterBlock.x);
+
+        var min = Math.min.apply(Math, xCoordinates);
+        var max = Math.max.apply(Math, xCoordinates);
+        return (min + max) / 2 - ChapterSize.Padding;
+    }
+
+    function groupByParent(chapters) {
+        if (chapters.length == 1)
+            return [chapters];
+
+        chapters = chapters.sort(function (a, b) {
+            if (!a.parents)
+                return -1;
+            if (!b.parents)
+                return 1;
+
+            return a.parents[0].Id - b.parents[0].Id;
+        });
+
+        var result = [];
+        var activeGroup = [];
+        var groupByParentId = chapters[0].parents[0].Id;
+        for (var i = 0; i < chapters.length; i++) {
+            var ch = chapters[i];
+            if (ch.parents[0].Id != groupByParentId) {
+                groupByParentId = ch.parents[0].Id;
+                if (activeGroup.length > 0)
+                    result.push(activeGroup);
+                activeGroup = [];
+            }
+            activeGroup.push(ch);
+        }
+        result.push(activeGroup);
+
+        return result;
+    }
+
     return {
         start: start,
         redraw: redraw

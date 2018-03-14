@@ -17,7 +17,7 @@ namespace WebWriterV2.FrontModels
             ContainsCycle = new GraphHelper(book).HasCycle();
 
             book.AllChapters.ForEach(x => x.Level = 0);
-            var maxDepth = SetDepth(book.RootChapter, 1);
+            var maxDepth = SetDepth(book.RootChapter, 1, new List<Chapter>());
 
             //var currentChapter = book.RootChapter;
             //if (currentChapter.LinksFromThisChapter.Count > 1) {
@@ -40,15 +40,21 @@ namespace WebWriterV2.FrontModels
 
         public List<FrontBranch> Branches { get; set; }
 
-        private int SetDepth(Chapter chapter, int depth)
+        private int SetDepth(Chapter chapter, int depth, List<Chapter> visitedChapters)
         {
+            visitedChapters.Add(chapter);
             var maxDepth = depth;
             if (chapter.Level < depth) {
                 chapter.Level = depth;
             }
 
             chapter.LinksFromThisChapter.ForEach(x => {
-                var childDepth = SetDepth(x.To, chapter.Level + 1);
+                if (visitedChapters.Any(v => v.Id == x.To.Id)) {
+                    return;
+                }
+                    
+
+                var childDepth = SetDepth(x.To, chapter.Level + 1, visitedChapters);
                 if (childDepth > maxDepth) {
                     maxDepth = childDepth;
                 }
