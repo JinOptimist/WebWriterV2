@@ -33,7 +33,8 @@ angular.module('rpg')
         //}
 
         function init() {
-            var bookId = 30002;
+            var bookId = 20005;
+            //var bookId = 30002;
             //var bookId = 10002;
             //var bookId = 1;
 

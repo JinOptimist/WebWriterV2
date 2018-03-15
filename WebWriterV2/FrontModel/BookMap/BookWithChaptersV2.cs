@@ -19,11 +19,6 @@ namespace WebWriterV2.FrontModels
             book.AllChapters.ForEach(x => x.Level = 0);
             var maxDepth = SetDepth(book.RootChapter, 1, new List<Chapter>());
 
-            //var currentChapter = book.RootChapter;
-            //if (currentChapter.LinksFromThisChapter.Count > 1) {
-            //    CreateBranch(book.RootChapter);
-            //}
-
             Chapters = new List<FrontChapter>();
             foreach (var chapter in book.AllChapters) {
                 var frontChapter = new FrontChapter(chapter);
@@ -52,7 +47,6 @@ namespace WebWriterV2.FrontModels
                 if (visitedChapters.Any(v => v.Id == x.To.Id)) {
                     return;
                 }
-                    
 
                 var childDepth = SetDepth(x.To, chapter.Level + 1, visitedChapters);
                 if (childDepth > maxDepth) {

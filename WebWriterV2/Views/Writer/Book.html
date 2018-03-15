@@ -41,19 +41,26 @@
         </div>
 
 
-        <div class="level roadmap" ng-repeat="level in book.Levels" ng-style="level.dynamicStyle" ng-if="isRoadmap">
+        <!--<div class="level roadmap" ng-repeat="level in book.Levels" ng-style="level.dynamicStyle" ng-if="isRoadmap">
 
-            <div class="chapterBlock" ng-repeat="chapterBlock in level.ChaptersBlock">
-                <div  ng-repeat="chapter in chapterBlock.Chapters" ng-style="chapter.dynamicStyle">
-                    <div class="header" ng-click="activeChapter(chapterBlock, chapter)">
-                        {{chapter.Name}}
-                    </div>
-                    <div class="body" ng-show="chapter.active">
-                        {{chapter.Desc}}
-                    </div>
+        <div class="chapterBlock" ng-repeat="chapterBlock in level.ChaptersBlock">
+            <div  ng-repeat="chapter in chapterBlock.Chapters" ng-style="chapter.dynamicStyle">
+                <div class="header" ng-click="activeChapter(chapterBlock, chapter)">
+                    {{chapter.Name}}
+                </div>
+                <div class="body" ng-show="chapter.active">
+                    {{chapter.Desc}}
                 </div>
             </div>
         </div>
+    </div>-->
+        <div ng-if="wait" class="center" >
+            <img src="/Content/icon/wait.gif" />
+        </div>
+        <div ng-show="isRoadmap" >
+            <canvas id="nicePic" width="{{canvas.width}}" height="{{canvas.height}}"></canvas>
+        </div>
+        
 
 
         <div class="add-level" ng-if="!isRoadmap">

@@ -21,7 +21,7 @@ namespace WebWriterV2.FrontModels
                 Chapter = new FrontChapter(travel.CurrentChapter, travel);
             }
 
-            AllStates = string.Join(", ", travel.State);
+            AllStates = travel.State == null ? "" : string.Join(", ", travel.State);
         }
 
         public FrontBook Book { get; set; }
