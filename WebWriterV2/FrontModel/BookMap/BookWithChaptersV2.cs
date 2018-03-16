@@ -44,7 +44,7 @@ namespace WebWriterV2.FrontModels
             }
 
             chapter.LinksFromThisChapter.ForEach(x => {
-                if (visitedChapters.Any(v => v.Id == x.To.Id)) {
+                if (visitedChapters.Any(v => v.Id == x.To.Id && v.Level >  x.To.Level)) {
                     return;
                 }
 
