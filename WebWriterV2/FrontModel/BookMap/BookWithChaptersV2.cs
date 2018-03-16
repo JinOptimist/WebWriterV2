@@ -20,7 +20,7 @@ namespace WebWriterV2.FrontModels
             var maxDepth = SetDepth(book.RootChapter, 1, new List<Chapter>());
 
             Chapters = new List<FrontChapter>();
-            foreach (var chapter in book.AllChapters) {
+            foreach (var chapter in book.AllChapters.Where(x=>x.Level > 0)) {
                 var frontChapter = new FrontChapter(chapter);
                 if (chapter.LinksFromThisChapter.Count > 1) {
                     var branch = CreateBranch(chapter);
