@@ -154,10 +154,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/17/2013 17:03:52</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>03/16/2018 12:41:05</publishTime>
+      <publishTime>03/16/2018 20:47:09</publishTime>
     </File>
     <File Include="bin/WebWriterV2.pdb">
-      <publishTime>03/16/2018 12:41:05</publishTime>
+      <publishTime>03/16/2018 20:47:09</publishTime>
     </File>
     <File Include="bin/x64/libsass.dll">
       <publishTime>11/15/2017 20:18:30</publishTime>
@@ -2047,7 +2047,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/15/2018 15:59:13</publishTime>
     </File>
     <File Include="Scripts/rpg/writer/book-controller.js">
-      <publishTime>03/15/2018 13:21:03</publishTime>
+      <publishTime>03/16/2018 20:28:06</publishTime>
     </File>
     <File Include="Scripts/rpg/writer/books-controller.js">
       <publishTime>02/24/2018 11:29:44</publishTime>

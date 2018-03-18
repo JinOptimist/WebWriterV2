@@ -44,11 +44,14 @@ namespace WebWriterV2.FrontModels
             }
 
             chapter.LinksFromThisChapter.ForEach(x => {
-                if (visitedChapters.Any(v => v.Id == x.To.Id && v.Level >  x.To.Level)) {
+                if (visitedChapters.Any(v => v.Id == x.To.Id)) {
                     return;
                 }
 
-                var childDepth = SetDepth(x.To, chapter.Level + 1, visitedChapters);
+                var path = new List<Chapter>();
+                path.AddRange(visitedChapters);
+
+                var childDepth = SetDepth(x.To, chapter.Level + 1, path);
                 if (childDepth > maxDepth) {
                     maxDepth = childDepth;
                 }

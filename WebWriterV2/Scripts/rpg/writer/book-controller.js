@@ -19,7 +19,7 @@ angular.module('rpg')
         $scope.scale = 1.0;
         $scope.bookHasCycle = true;
         $scope.book = null;
-        $scope.wait = true;
+        $scope.wait = false;
         $scope.isRoadmap = false;
 
         $scope.canvas = {
