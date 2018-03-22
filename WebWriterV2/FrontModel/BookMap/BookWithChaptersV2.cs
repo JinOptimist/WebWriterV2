@@ -89,7 +89,7 @@ namespace WebWriterV2.FrontModels
 
             currentDepth++;
 
-            var nextDepthChapters = currentDepthChapters.SelectMany(ch => ch.LinksFromThisChapter.Select(link => link.To));
+            var nextDepthChapters = currentDepthChapters.SelectMany(ch => ch.LinksFromThisChapter.Select(link => link.To)).Distinct();
             currentDepthChapters = nextDepthChapters.Where(x => x.Level == currentDepth).ToList();
             notProcessedChapters.AddRange(nextDepthChapters.Where(x => x.Level != currentDepth));
             var additionalChaptersFromPreviusLevels = notProcessedChapters.Where(x => x.Level == currentDepth).ToList();

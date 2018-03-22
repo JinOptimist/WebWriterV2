@@ -4,6 +4,7 @@
             get: get,
             getForTravel: getForTravel,
             save: save,
+            createChild: createChild,
             remove: remove,
             getBottomChapters: getBottomChapters,
             getAllChapters: getAllChapters,
@@ -31,6 +32,12 @@
         function getForTravel(chapterId) {
             var url = '/api/chapter/GetForTravel?id=' + chapterId;
             return httpHelper.get(url);
+        }
+
+        function createChild(parentId) {
+            var url = '/api/chapter/CreateChild';
+            var data = { parentId: parentId };
+            return httpHelper.get(url, data);
         }
 
         function createNextChapter(chapter) {

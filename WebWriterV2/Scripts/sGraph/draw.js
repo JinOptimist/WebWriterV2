@@ -1,16 +1,36 @@
 var bookMap = (function () {
     console.log('bookMap is load');
-    var BlockSize = { Width: 100, Height: 50 };
-    var ChapterSize = { Width: 80, Height: 40, Padding: 10 };
+    var ChapterSize = { Width: 100, Height: 40, Padding: 20 };
+    var BlockSize = { Width: ChapterSize.Width + ChapterSize.Padding, Height: ChapterSize.Height + ChapterSize.Padding };
+    var AddButtonSize = { Radius: 5, Padding: 3 };
     var ArrowSize = 5;
+    var FontSize = 12;
     var scale = 1.0
     var canvas = {};
+    var actions = {};
 
     var levels = [];
 
-    function onChapterBlockClick(obj) {
-        console.log('obj - ' + this.chapter.Name);
+    function onChapterClick(obj) {
+        console.log('bookMap onChapterClick. chapter.Id - ' + this.chapter.Id);
+        actions.moveToEditChapter(this.chapter.Id);
     }
+
+    function onAddChapterClick(obj) {
+        console.log('bookMap onAddChapterClick. chapter.Id - ' + this.relatedAdd.chapter.Id);
+        actions.addChapter(this.relatedAdd.chapter.Id);
+    }
+
+    function onEditChapterClick(obj) {
+        console.log('bookMap onEditChapterClick. chapter.Id - ' + this.relatedEdit.chapter.Id);
+        actions.moveToEditChapter(this.relatedEdit.chapter.Id);
+    }
+
+    function onRemoveChapterClick(obj) {
+        console.log('bookMap onRemoveChapterClick. chapter.Id - ' + this.relatedRemove.chapter.Id);
+        actions.remove(this.relatedRemove.chapter.Id);
+    }
+
     /* draw section */
     function drawChapterBlock(x, y, chapter) {
         //var centerX = canvas.width / 2;
@@ -20,6 +40,10 @@ var bookMap = (function () {
         var chapterY = y * BlockSize.Height + ChapterSize.Padding;
 
         drawChapter(chapter, chapterX, chapterY);
+
+        drawAddChapterButoon(chapter, chapterX, chapterY);
+        drawEditChapterButoon(chapter, chapterX, chapterY);
+        drawRemoveChapterButoon(chapter, chapterX, chapterY);
 
         drawText(chapter, chapterX, chapterY);
 
@@ -37,15 +61,65 @@ var bookMap = (function () {
         });
         chapterBlock.chapter = chapter;
 
-        chapterBlock.bind("click", onChapterBlockClick);
+        chapterBlock.bind("click", onChapterClick);
         canvas.addChild(chapterBlock);
+    }
+
+    function drawAddChapterButoon(chapter, chapterX, chapterY) {
+        var addBlock = canvas.display.ellipse({
+            x: chapterX + ChapterSize.Width / 2 - AddButtonSize.Radius / 2,
+            y: chapterY + ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
+            radius_x: AddButtonSize.Radius,
+            radius_y: AddButtonSize.Radius,
+            fill: "#0f0",
+        });
+        addBlock.relatedAdd = {};
+        addBlock.relatedAdd.chapter = chapter;
+
+        addBlock.bind("click", onAddChapterClick);
+        canvas.addChild(addBlock);
+    }
+
+    function drawEditChapterButoon(chapter, chapterX, chapterY) {
+        var addBlock = canvas.display.ellipse({
+            x: chapterX + ChapterSize.Width / 2 - AddButtonSize.Radius / 2 - AddButtonSize.Radius - AddButtonSize.Padding * 3,
+            y: chapterY + ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
+            radius_x: AddButtonSize.Radius,
+            radius_y: AddButtonSize.Radius,
+            fill: "#FFA500",
+        });
+
+        addBlock.relatedEdit = {};
+        addBlock.relatedEdit.chapter = chapter;
+
+        addBlock.bind("click", onEditChapterClick);
+        canvas.addChild(addBlock);
+    }
+
+    function drawRemoveChapterButoon(chapter, chapterX, chapterY) {
+        var addBlock = canvas.display.ellipse({
+            x: chapterX + ChapterSize.Width / 2 - AddButtonSize.Radius / 2 + AddButtonSize.Radius + AddButtonSize.Padding * 3,
+            y: chapterY + ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
+            radius_x: AddButtonSize.Radius,
+            radius_y: AddButtonSize.Radius,
+            fill: "#f00",
+        });
+        addBlock.relatedRemove = {};
+        addBlock.relatedRemove.chapter = chapter;
+
+        addBlock.bind("click", onRemoveChapterClick);
+        canvas.addChild(addBlock);
     }
 
     function drawText(chapter, chapterX, chapterY) {
         //var text = chapter.Id + '*' + chapter.Weight;
         var text = chapter.Name;
 
-        var fontSize = 10;// * scale;
+        while (canvas.canvas.measureText(text).width > ChapterSize.Width - ChapterSize.Padding) {
+            text = text.substr(0, text.length - 1);
+        }
+
+        var fontSize = FontSize;// * scale;
         var textItem = canvas.display.text({
             x: chapterX + 3,
             y: chapterY + 3,
@@ -96,7 +170,7 @@ var bookMap = (function () {
                 }
             }
 
-            
+
 
             if (startFromBottom) {
                 drawLineHelper(parentX, parentY, parentX, updatedChapterY);
@@ -113,7 +187,7 @@ var bookMap = (function () {
                 drawLineHelper(updatedChapterX, updatedChapterY, updatedChapterX + ArrowSize, updatedChapterY - ArrowSize);
             }
 
-            
+
         }
     }
 
@@ -127,7 +201,7 @@ var bookMap = (function () {
         canvas.addChild(line);
     }
     /* draw section END */
-    
+
 
     function draw(chapters, newScale) {
         if (newScale) {
@@ -159,11 +233,12 @@ var bookMap = (function () {
                     currentX += chapter.Weight * 2;
                 }
             }
-            
+
         }
     }
 
     function splitByLevels(chapters) {
+        var maxWeight = 1;
         levels = [];
         for (var i = 0; i < chapters.length; i++) {
             var chapter = chapters[i];
@@ -173,12 +248,21 @@ var bookMap = (function () {
                 //chapters without parent are ignored
                 continue;
             }
+
+            if (chapter.Weight > maxWeight) {
+                maxWeight = chapter.Weight;
+            }
+
             var level = levels[depth];
             if (!level) {
                 levels[depth] = [];
             }
             levels[depth].push(chapter);
         }
+
+
+        ChapterSize.Width = canvas.canvas.canvas.offsetWidth / (maxWeight + 1);
+        BlockSize.Width = ChapterSize.Width + ChapterSize.Padding;
     }
 
     function findParents(chapters, chapterId) {
@@ -204,13 +288,17 @@ var bookMap = (function () {
 
     function getCenterByParents(parents) {
         if (!parents || parents.length < 1)
-            return canvas.width / 2;
+            return canvas.width / 2 - BlockSize.Width / 2;
 
         var xCoordinates = parents.map(chapterBlock => chapterBlock.x);
 
         var min = Math.min.apply(Math, xCoordinates);
         var max = Math.max.apply(Math, xCoordinates);
-        return (min + max) / 2 - ChapterSize.Padding;
+        var result = (min + max) / 2;
+        //if (min != max) {
+        //    result -= BlockSize.Width / 2;
+        //}
+        return result - ChapterSize.Padding;
     }
 
     function groupByParent(chapters) {
@@ -245,7 +333,8 @@ var bookMap = (function () {
     }
 
     /* public functions */
-    function start(chapters, newScale) {
+    function start(chapters, newScale, _actions) {
+        actions = _actions;
         canvas = oCanvas.create({
             canvas: "#nicePic"
         });

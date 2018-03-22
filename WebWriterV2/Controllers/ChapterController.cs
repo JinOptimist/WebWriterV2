@@ -65,6 +65,31 @@ namespace WebWriterV2.Controllers
         }
 
         [AcceptVerbs("GET")]
+        public FrontChapter CreateChild(long parentId)
+        {
+            var parent = ChapterRepository.Get(parentId);
+
+            var child = new Chapter {
+                Name = "Глава. Ур: " + parent.Level + 1,
+                Desc = "Глава создана из главы: " + parent.Name,
+                Book = parent.Book,
+                Level = parent.Level + 1,
+                NumberOfWords = 1
+            };
+            child = ChapterRepository.Save(child);
+
+            // New chapter must be linked with parrent.
+            var link = new ChapterLinkItem() {
+                From = parent,
+                To = child
+            };
+            ChapterLinkItemRepository.Save(link);
+
+            var frontChapter = new FrontChapter(child);
+            return frontChapter;
+        }
+
+        [AcceptVerbs("GET")]
         public FrontChapter Get(long id)
         {
             var chapter = ChapterRepository.Get(id);
