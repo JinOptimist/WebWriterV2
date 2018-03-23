@@ -3,10 +3,13 @@ var bookMap = (function () {
     var ChapterSize = { Width: 100, Height: 40, Padding: 20 };
     var BlockSize = { Width: ChapterSize.Width + ChapterSize.Padding, Height: ChapterSize.Height + ChapterSize.Padding };
     var AddButtonSize = { Radius: 5, Padding: 3 };
+    var canvasSize = {};
     var ArrowSize = 5;
     var FontSize = 12;
     var scale = 1.0
-    var canvas = {};
+    //var canvas = {};
+    var stage = {};
+    var layer = {};
     var actions = {};
 
     var levels = [];
@@ -51,84 +54,90 @@ var bookMap = (function () {
     }
 
     function drawChapter(chapter, chapterX, chapterY) {
-        var chapterBlock = canvas.display.rectangle({
+        var chapterBlock = new Konva.Rect({
             x: chapterX,
             y: chapterY,
             width: ChapterSize.Width,
             height: ChapterSize.Height,
             //fill: "#0f0",
-            stroke: "inside 1px #f0f"
+            stroke: "#000",
+            //strokeWidth: 4
         });
+
         chapterBlock.chapter = chapter;
 
-        chapterBlock.bind("click", onChapterClick);
-        canvas.addChild(chapterBlock);
+        //chapterBlock.on('click', onChapterClick);
+        layer.add(chapterBlock);
     }
 
     function drawAddChapterButoon(chapter, chapterX, chapterY) {
-        var addBlock = canvas.display.ellipse({
+        var addBlock = new Konva.Ellipse({
             x: chapterX + ChapterSize.Width / 2 - AddButtonSize.Radius / 2,
             y: chapterY + ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
-            radius_x: AddButtonSize.Radius,
-            radius_y: AddButtonSize.Radius,
+            radius: {
+                x: AddButtonSize.Radius,
+                y: AddButtonSize.Radius
+            },
             fill: "#0f0",
         });
         addBlock.relatedAdd = {};
         addBlock.relatedAdd.chapter = chapter;
 
-        addBlock.bind("click", onAddChapterClick);
-        canvas.addChild(addBlock);
+        addBlock.on("click", onAddChapterClick);
+        cursorPointerHelper(addBlock);
+        layer.add(addBlock);
     }
 
     function drawEditChapterButoon(chapter, chapterX, chapterY) {
-        var addBlock = canvas.display.ellipse({
+        var addBlock = new Konva.Ellipse({
             x: chapterX + ChapterSize.Width / 2 - AddButtonSize.Radius / 2 - AddButtonSize.Radius - AddButtonSize.Padding * 3,
             y: chapterY + ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
-            radius_x: AddButtonSize.Radius,
-            radius_y: AddButtonSize.Radius,
+            radius: {
+                x: AddButtonSize.Radius,
+                y: AddButtonSize.Radius
+            },
             fill: "#FFA500",
         });
 
         addBlock.relatedEdit = {};
         addBlock.relatedEdit.chapter = chapter;
 
-        addBlock.bind("click", onEditChapterClick);
-        canvas.addChild(addBlock);
+        addBlock.on("click", onEditChapterClick);
+        cursorPointerHelper(addBlock);
+        layer.add(addBlock);
     }
 
     function drawRemoveChapterButoon(chapter, chapterX, chapterY) {
-        var addBlock = canvas.display.ellipse({
+        var removeBlock = new Konva.Ellipse({
             x: chapterX + ChapterSize.Width / 2 - AddButtonSize.Radius / 2 + AddButtonSize.Radius + AddButtonSize.Padding * 3,
             y: chapterY + ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
-            radius_x: AddButtonSize.Radius,
-            radius_y: AddButtonSize.Radius,
+            radius: {
+                x: AddButtonSize.Radius,
+                y: AddButtonSize.Radius
+            },
             fill: "#f00",
         });
-        addBlock.relatedRemove = {};
-        addBlock.relatedRemove.chapter = chapter;
+        removeBlock.relatedRemove = {};
+        removeBlock.relatedRemove.chapter = chapter;
 
-        addBlock.bind("click", onRemoveChapterClick);
-        canvas.addChild(addBlock);
+        removeBlock.on("click", onRemoveChapterClick);
+        cursorPointerHelper(removeBlock);
+        layer.add(removeBlock);
     }
 
     function drawText(chapter, chapterX, chapterY) {
-        //var text = chapter.Id + '*' + chapter.Weight;
         var text = chapter.Name;
-
-        while (canvas.canvas.measureText(text).width > ChapterSize.Width - ChapterSize.Padding) {
-            text = text.substr(0, text.length - 1);
-        }
-
         var fontSize = FontSize;// * scale;
-        var textItem = canvas.display.text({
+        var textItem = new Konva.Text({
             x: chapterX + 3,
             y: chapterY + 3,
-            origin: { x: "left", y: "top" },
-            font: fontSize + "px sans-serif",
+            width: ChapterSize.Width - ChapterSize.Padding,
+            fontSize: fontSize,
+            fontFamily: "sans-serif",
             text: text,
             fill: "#0aa"
         });
-        canvas.addChild(textItem);
+        layer.add(textItem);
     }
 
     function drawArrow(chapter, parents, chapterX, chapterY) {
@@ -136,8 +145,8 @@ var bookMap = (function () {
             var parent = parents[i];
             var updatedChapterX = chapterX;
             var updatedChapterY = chapterY;
-            var parentX = parent.x;
-            var parentY = parent.y;
+            var parentX = parent.attrs.x;
+            var parentY = parent.attrs.y;
 
             var startFromBottom = Math.abs(parentY - chapterY) > BlockSize.Height;
             var parentOnTheRight = parentX > updatedChapterX;
@@ -170,45 +179,45 @@ var bookMap = (function () {
                 }
             }
 
-
-
             if (startFromBottom) {
-                drawLineHelper(parentX, parentY, parentX, updatedChapterY);
-                drawLineHelper(parentX, updatedChapterY, updatedChapterX, updatedChapterY);
-
+                drawLineHelper([parentX, parentY, parentX, updatedChapterY, updatedChapterX, updatedChapterY]);
                 var arrowDirection = parentOnTheRight ? 1 : -1;
-                drawLineHelper(updatedChapterX, updatedChapterY, updatedChapterX + ArrowSize * arrowDirection, updatedChapterY - ArrowSize);
-                drawLineHelper(updatedChapterX, updatedChapterY, updatedChapterX + ArrowSize * arrowDirection, updatedChapterY + ArrowSize);
+                drawLineHelper([updatedChapterX + ArrowSize * arrowDirection, updatedChapterY - ArrowSize, updatedChapterX, updatedChapterY, updatedChapterX + ArrowSize * arrowDirection, updatedChapterY + ArrowSize]);
             } else {
-                drawLineHelper(parentX, parentY, updatedChapterX, parentY);
-                drawLineHelper(updatedChapterX, parentY, updatedChapterX, updatedChapterY);
-
-                drawLineHelper(updatedChapterX, updatedChapterY, updatedChapterX - ArrowSize, updatedChapterY - ArrowSize);
-                drawLineHelper(updatedChapterX, updatedChapterY, updatedChapterX + ArrowSize, updatedChapterY - ArrowSize);
+                drawLineHelper([parentX, parentY, updatedChapterX, parentY,updatedChapterX, updatedChapterY]);
+                drawLineHelper([updatedChapterX - ArrowSize, updatedChapterY - ArrowSize, updatedChapterX, updatedChapterY, updatedChapterX + ArrowSize, updatedChapterY - ArrowSize]);
             }
-
-
         }
     }
 
-    function drawLineHelper(startX, startY, endX, endY) {
-        line = canvas.display.line({
-            start: { x: startX, y: startY },
-            end: { x: endX, y: endY },
-            stroke: "1px #0aa",
-            cap: "round"
+    function drawLineHelper(points) {
+        line = new Konva.Line({
+            points: points,
+            stroke: "#0aa",
+            strokeWidth: 2,
+            lineCap: "round",
         });
-        canvas.addChild(line);
+        layer.add(line);
+    }
+
+    function cursorPointerHelper(obj) {
+        obj.on('mouseenter', function () {
+            stage.container().style.cursor = 'pointer';
+        });
+
+        obj.on('mouseleave', function () {
+            stage.container().style.cursor = 'default';
+        });
     }
     /* draw section END */
 
 
     function draw(chapters, newScale) {
-        if (newScale) {
-            scale = newScale;
-        }
-        canvas.canvas.scale(scale, scale);
-        canvas.draw.clear(false);
+        //if (newScale) {
+        //    scale = newScale;
+        //}
+        //canvas.canvas.scale(scale, scale);
+        //canvas.draw.clear(false);
 
         splitByLevels(chapters);
         //group chapters by parents.
@@ -233,7 +242,6 @@ var bookMap = (function () {
                     currentX += chapter.Weight * 2;
                 }
             }
-
         }
     }
 
@@ -261,7 +269,7 @@ var bookMap = (function () {
         }
 
 
-        ChapterSize.Width = canvas.canvas.canvas.offsetWidth / (maxWeight + 1);
+        ChapterSize.Width = canvasSize.width / (maxWeight + 1);
         BlockSize.Width = ChapterSize.Width + ChapterSize.Padding;
     }
 
@@ -272,7 +280,7 @@ var bookMap = (function () {
     }
 
     function getParrentsCanvasObj(chapterId) {
-        return canvas.children.filter(function (canvasItem) {
+        return layer.children.filter(function (canvasItem) {
             if (!canvasItem.chapter)
                 return false;
             var chapter = canvasItem.chapter;
@@ -288,9 +296,9 @@ var bookMap = (function () {
 
     function getCenterByParents(parents) {
         if (!parents || parents.length < 1)
-            return canvas.width / 2 - BlockSize.Width / 2;
+            return canvasSize.width / 2 - BlockSize.Width / 2;
 
-        var xCoordinates = parents.map(chapterBlock => chapterBlock.x);
+        var xCoordinates = parents.map(chapterBlock => chapterBlock.attrs.x);
 
         var min = Math.min.apply(Math, xCoordinates);
         var max = Math.max.apply(Math, xCoordinates);
@@ -333,13 +341,19 @@ var bookMap = (function () {
     }
 
     /* public functions */
-    function start(chapters, newScale, _actions) {
+    function start(chapters, newScale, _actions, _canvasSize) {
         actions = _actions;
-        canvas = oCanvas.create({
-            canvas: "#nicePic"
+        canvasSize = _canvasSize;
+        stage = new Konva.Stage({
+            container: 'nicePic',
+            width: canvasSize.width,
+            height: canvasSize.height
         });
+        layer = new Konva.Layer();
 
         draw(chapters, newScale);
+
+        stage.add(layer);
     }
 
     function redraw(chapters, newScale) {

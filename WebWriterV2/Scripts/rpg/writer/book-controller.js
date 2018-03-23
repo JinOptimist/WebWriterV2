@@ -62,7 +62,7 @@ angular.module('rpg')
             bookService.getWithChaptersV2(bookId).then(function (book) {
                 $scope.book = book;
                 $scope.canvas.height = book.Chapters.length * 100
-                setTimeout(function () { bookMap.start(book.Chapters, 1, actions) }, 0);
+                setTimeout(function () { bookMap.start(book.Chapters, 1, actions, $scope.canvas) }, 0);
                 $scope.wait = false;
             });
         }

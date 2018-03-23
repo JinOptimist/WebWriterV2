@@ -8,10 +8,6 @@
                 <input type="range" ng-model="scale" ng-change="updateStyleForAllLevel()" min="0.4" max="2" step="0.05" /> {{scale * 100 | number : '.0'}}%
             </div>
 
-            <div class="header-item center">
-                <a href="#" ng-click="toggleRoadmap()">Roadmap</a>
-            </div>
-
             <div class="right"></div>
         </div>
     </div>
@@ -42,9 +38,7 @@
         <div ng-if="wait" class="center" >
             <img src="/Content/icon/wait.gif" />
         </div>
-        <div>
-            <canvas id="nicePic" width="{{canvas.width}}" height="{{canvas.height}}"></canvas>
-        </div>
+        <div id="nicePic"></div>
         
 
 
