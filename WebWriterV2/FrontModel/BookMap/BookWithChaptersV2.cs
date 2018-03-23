@@ -14,6 +14,7 @@ namespace WebWriterV2.FrontModels
 
         public BookWithChaptersV2(Book book) {
             Id = book.Id;
+            Name = book.Name;
             ContainsCycle = new GraphHelper(book).HasCycle();
 
             book.AllChapters.ForEach(x => x.Level = 0);
@@ -29,6 +30,8 @@ namespace WebWriterV2.FrontModels
                 Chapters.Add(frontChapter);
             }
         }
+
+        public string Name { get; set; }
 
         public bool ContainsCycle { get; set; }
         public List<FrontChapter> Chapters { get; set; }

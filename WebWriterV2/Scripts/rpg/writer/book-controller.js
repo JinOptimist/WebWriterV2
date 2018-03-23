@@ -4,16 +4,7 @@ angular.module('rpg')
     '$scope', '$routeParams', '$location', '$window', 'bookService', 'chapterService',
     function ($scope, $routeParams, $location, $window, bookService, chapterService) {
 
-        //var offsetWidth = 20;
-        //var offsetHeight = 25;
-        //var addButtonWidth = 70;
-        //var addButtonHeight = 30;
-        //var chapterMargin = 10;
-        //$scope.chapterWidth = 260;
-        //$scope.chapterHeight = 288;
-
         $scope.scale = 1.0;
-        $scope.bookHasCycle = true;
         $scope.book = null;
         $scope.wait = false;
 
@@ -61,34 +52,12 @@ angular.module('rpg')
 
             bookService.getWithChaptersV2(bookId).then(function (book) {
                 $scope.book = book;
-                $scope.canvas.height = book.Chapters.length * 100
+                var maxDepth = Math.max.apply(Math, book.Chapters.map(x => x.Level));
+                $scope.canvas.height = maxDepth * 70 + 200
                 setTimeout(function () { bookMap.start(book.Chapters, 1, actions, $scope.canvas) }, 0);
                 $scope.wait = false;
             });
         }
-
-        //$scope.onChapterHover = function (chapter) {
-        //    if (chapter) {
-        //        var highlightToChapterIds = [];
-        //        chapter.LinksFromThisEvent.forEach(function (link) {
-        //            highlightToChapterIds.push(link.ToId);
-        //        });
-        //        var highlightFromChapterIds = [];
-        //        chapter.LinksToThisEvent.forEach(function (link) {
-        //            highlightFromChapterIds.push(link.FromId);
-        //        });
-        //    }
-        //    highlightChapter(highlightToChapterIds, highlightFromChapterIds);
-        //}
-
-        //function highlightChapter(nextChapterIds, prevChapterIds) {
-        //    $scope.book.Levels.forEach(function (level) {
-        //        level.Chapters.forEach(function (chapter) {
-        //            chapter.isNext = nextChapterIds && nextChapterIds.indexOf(chapter.Id) > -1;
-        //            chapter.isPrev = prevChapterIds && prevChapterIds.indexOf(chapter.Id) > -1;
-        //        });
-        //    });
-        //}
 
         function init() {
             var bookId = $routeParams.bookId;

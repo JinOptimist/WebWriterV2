@@ -1,6 +1,6 @@
 var bookMap = (function () {
     console.log('bookMap is load');
-    var ChapterSize = { Width: 100, Height: 40, Padding: 20 };
+    var ChapterSize = { Width: 100, Height: 40, Padding: 30 };
     var BlockSize = { Width: ChapterSize.Width + ChapterSize.Padding, Height: ChapterSize.Height + ChapterSize.Padding };
     var AddButtonSize = { Radius: 5, Padding: 3 };
     var canvasSize = {};
@@ -39,8 +39,12 @@ var bookMap = (function () {
         //var centerX = canvas.width / 2;
         var parents = getParrentsCanvasObj(chapter.Id);
         var centerX = getCenterByParents(parents);
+
         var chapterX = (x / 2) * BlockSize.Width + ChapterSize.Padding + centerX;
         var chapterY = y * BlockSize.Height + ChapterSize.Padding;
+        while (isCrossOtherChapter(chapterX, chapterY)) {
+            chapterX += 10;
+        }
 
         drawChapter(chapter, chapterX, chapterY);
 
@@ -61,12 +65,30 @@ var bookMap = (function () {
             height: ChapterSize.Height,
             //fill: "#0f0",
             stroke: "#000",
-            //strokeWidth: 4
+            strokeWidth: 1,
+            shadowColor: '#000',
+            shadowBlur: 2,
+            shadowOffset: { x: 2, y: 2 },
+            shadowOpacity: 1
         });
 
         chapterBlock.chapter = chapter;
 
-        //chapterBlock.on('click', onChapterClick);
+        //chapterBlock.on('mouseover', function (chap) {
+        //    var box = chap.target;
+        //    box.shadowColor('red');
+        //    box.draw();
+        //});
+        //chapterBlock.on('mouseout', function (obj) {
+        //    var chapter = this.chapter;
+        //    var x = obj.target.attrs.x;
+        //    var y = obj.target.attrs.y;
+        //    var box = obj.target;
+        //    box.remove();
+        //    drawChapter(chapter, x, y);
+        //    stage.draw();
+        //});
+
         layer.add(chapterBlock);
     }
 
@@ -135,7 +157,9 @@ var bookMap = (function () {
             fontSize: fontSize,
             fontFamily: "sans-serif",
             text: text,
-            fill: "#0aa"
+            fill: "#0aa",
+            align: 'center'
+
         });
         layer.add(textItem);
     }
@@ -151,51 +175,43 @@ var bookMap = (function () {
             var startFromBottom = Math.abs(parentY - chapterY) > BlockSize.Height;
             var parentOnTheRight = parentX > updatedChapterX;
 
-            if (parentX == updatedChapterX) {
+            if (parentX === updatedChapterX) {
                 parentX += ChapterSize.Width / 2;
                 parentY += ChapterSize.Height;
                 updatedChapterX += ChapterSize.Width / 2;
-            } else if (parentOnTheRight) {
-                // if parrent on the right
-                if (startFromBottom) {
-                    parentX += ChapterSize.Width / 2;
-                    parentY += ChapterSize.Height;
-                    updatedChapterY += ChapterSize.Height / 3;
-                    updatedChapterX += ChapterSize.Width;
-                } else {
-                    parentY += ChapterSize.Height * 2 / 3;
-                    updatedChapterX += ChapterSize.Width / 2;
-                }
-            } else if (!parentOnTheRight) {
-                // if parrent on the left
-                if (startFromBottom) {
-                    parentX += ChapterSize.Width / 2;
-                    parentY += ChapterSize.Height;
-                    updatedChapterY += ChapterSize.Height / 3;
-                } else {
-                    parentX += ChapterSize.Width;
-                    parentY += ChapterSize.Height * 2 / 3;
-                    updatedChapterX += ChapterSize.Width / 2;
-                }
+            } else {
+                parentX += ChapterSize.Width / 2;
+                parentY += ChapterSize.Height;
+                updatedChapterX += ChapterSize.Width / 2;
             }
 
-            if (startFromBottom) {
-                drawLineHelper([parentX, parentY, parentX, updatedChapterY, updatedChapterX, updatedChapterY]);
-                var arrowDirection = parentOnTheRight ? 1 : -1;
-                drawLineHelper([updatedChapterX + ArrowSize * arrowDirection, updatedChapterY - ArrowSize, updatedChapterX, updatedChapterY, updatedChapterX + ArrowSize * arrowDirection, updatedChapterY + ArrowSize]);
-            } else {
-                drawLineHelper([parentX, parentY, updatedChapterX, parentY,updatedChapterX, updatedChapterY]);
-                drawLineHelper([updatedChapterX - ArrowSize, updatedChapterY - ArrowSize, updatedChapterX, updatedChapterY, updatedChapterX + ArrowSize, updatedChapterY - ArrowSize]);
-            }
+            var points = [];
+            points.push(parentX);
+            points.push(parentY);
+
+            points.push(parentX);
+            points.push(updatedChapterY - ChapterSize.Padding / 2);
+
+            points.push(updatedChapterX);
+            points.push(updatedChapterY - ChapterSize.Padding / 2);
+
+            points.push(updatedChapterX);
+            points.push(updatedChapterY);
+
+            drawLineHelper(points);
         }
     }
 
     function drawLineHelper(points) {
-        line = new Konva.Line({
+        line = new Konva.Arrow({
             points: points,
             stroke: "#0aa",
             strokeWidth: 2,
             lineCap: "round",
+            fill: 'black',
+            pointerLength: 8,
+            pointerWidth: 12,
+
         });
         layer.add(line);
     }
@@ -252,7 +268,7 @@ var bookMap = (function () {
             var chapter = chapters[i];
             chapter.parents = findParents(chapters, chapter.Id);
             var depth = chapter.Level;
-            if (depth == 0) {
+            if (depth === 0) {
                 //chapters without parent are ignored
                 continue;
             }
@@ -268,8 +284,11 @@ var bookMap = (function () {
             levels[depth].push(chapter);
         }
 
+        updateChapterSize(maxWeight);
+    }
 
-        ChapterSize.Width = canvasSize.width / (maxWeight + 1);
+    function updateChapterSize(maxWeight) {
+        ChapterSize.Width = canvasSize.width / (maxWeight + 2);
         BlockSize.Width = ChapterSize.Width + ChapterSize.Padding;
     }
 
@@ -289,9 +308,9 @@ var bookMap = (function () {
     }
 
     function chapterContainsLinkToCurrentChapter(chapter, chapterId) {
-        if (!chapter.LinksFromThisEvent || chapter.LinksFromThisEvent.length == 0)
+        if (!chapter.LinksFromThisEvent || chapter.LinksFromThisEvent.length === 0)
             return false;
-        return chapter.LinksFromThisEvent.filter(link => link.ToId == chapterId).length > 0;
+        return chapter.LinksFromThisEvent.filter(link => link.ToId === chapterId).length > 0;
     }
 
     function getCenterByParents(parents) {
@@ -310,7 +329,7 @@ var bookMap = (function () {
     }
 
     function groupByParent(chapters) {
-        if (chapters.length == 1)
+        if (chapters.length === 1)
             return [chapters];
 
         chapters = chapters.sort(function (a, b) {
@@ -327,7 +346,7 @@ var bookMap = (function () {
         var groupByParentId = chapters[0].parents[0].Id;
         for (var i = 0; i < chapters.length; i++) {
             var ch = chapters[i];
-            if (ch.parents[0].Id != groupByParentId) {
+            if (ch.parents[0].Id !== groupByParentId) {
                 groupByParentId = ch.parents[0].Id;
                 if (activeGroup.length > 0)
                     result.push(activeGroup);
@@ -338,6 +357,17 @@ var bookMap = (function () {
         result.push(activeGroup);
 
         return result;
+    }
+
+    function isCrossOtherChapter(x, y) {
+        var chapterWichAreCrossed = layer.children.filter(function (canvasItem) {
+            if (!canvasItem.chapter)
+                return false;
+            var existItemX = canvasItem.attrs.x;
+            return canvasItem.attrs.y === y && existItemX >= x - BlockSize.Width && existItemX <= x + BlockSize.Width;
+        });
+
+        return chapterWichAreCrossed.length > 0;
     }
 
     /* public functions */

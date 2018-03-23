@@ -15,24 +15,22 @@ namespace WebWriterV2.Controllers
 {
     public class BookController : BaseApiController
     {
-        public BookController(IBookRepository bookRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IChapterRepository eventRepository, IStateValueRepository stateRepository, IGenreRepository genreRepository, ITagRepository tagRepository, IUserRepository userRepository)
+        public BookController(IBookRepository bookRepository, IChapterRepository chapterRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IStateValueRepository stateRepository, ITagRepository tagRepository, IUserRepository userRepository)
         {
             BookRepository = bookRepository;
+            ChapterRepository = chapterRepository;
             EvaluationRepository = evaluationRepository;
             EventLinkItemRepository = eventLinkItemRepository;
-            EventRepository = eventRepository;
             StateRepository = stateRepository;
-            GenreRepository = genreRepository;
             TagRepository = tagRepository;
             UserRepository = userRepository;
         }
 
         private IBookRepository BookRepository { get; }
+        private IChapterRepository ChapterRepository { get; }
         private IEvaluationRepository EvaluationRepository { get; }
         private IChapterLinkItemRepository EventLinkItemRepository { get; }
-        private IChapterRepository EventRepository { get; }
         private IStateValueRepository StateRepository { get; }
-        private IGenreRepository GenreRepository { get; }
         private ITagRepository TagRepository { get; }
         private IUserRepository UserRepository { get; }
 
@@ -66,6 +64,18 @@ namespace WebWriterV2.Controllers
             var book = frontBook.ToDbModel();
             book.Owner = User;
             book = BookRepository.Save(book);
+
+            if (!book.AllChapters?.Any() ?? true) {
+                var rootChapter = new Chapter {
+                    Name = "Начальная глава",
+                    Desc = "Начало",
+                    NumberOfWords = 1,
+                    Book = book,
+                    ForRootBook = book
+                };
+                ChapterRepository.Save(rootChapter);
+            }
+
             frontBook = new FrontBook(book, true);
             return frontBook;
         }
@@ -218,7 +228,7 @@ namespace WebWriterV2.Controllers
         public FrontChapter ChangeRootEvent(long bookId, long eventId)
         {
             var book = BookRepository.Get(bookId);
-            var @event = EventRepository.Get(eventId);
+            var @event = ChapterRepository.Get(eventId);
             book.RootChapter = @event;
             BookRepository.Save(book);
 
