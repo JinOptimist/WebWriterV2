@@ -6,8 +6,7 @@ var bookMap = (function () {
     var canvasSize = {};
     var ArrowSize = 5;
     var FontSize = 12;
-    var scale = 1.0
-    //var canvas = {};
+
     var stage = {};
     var layer = {};
     var actions = {};
@@ -172,8 +171,7 @@ var bookMap = (function () {
             var parentX = parent.attrs.x;
             var parentY = parent.attrs.y;
 
-            var startFromBottom = Math.abs(parentY - chapterY) > BlockSize.Height;
-            var parentOnTheRight = parentX > updatedChapterX;
+            var specialArrow = Math.abs(parentY - chapterY) > BlockSize.Height && parentX === updatedChapterX;
 
             if (parentX === updatedChapterX) {
                 parentX += ChapterSize.Width / 2;
@@ -186,34 +184,48 @@ var bookMap = (function () {
             }
 
             var points = [];
-            points.push(parentX);
-            points.push(parentY);
 
-            points.push(parentX);
-            points.push(updatedChapterY - ChapterSize.Padding / 2);
+            if (specialArrow) {
+                var point1X = parent.attrs.x + ChapterSize.Width;
+                var point1Y = parent.attrs.y + ChapterSize.Height * 2 / 3;
+                points.push(point1X);
+                points.push(point1Y);
 
-            points.push(updatedChapterX);
-            points.push(updatedChapterY - ChapterSize.Padding / 2);
+                points.push(point1X + ChapterSize.Padding / 2);
+                points.push(point1Y);
 
-            points.push(updatedChapterX);
-            points.push(updatedChapterY);
+                points.push(point1X + ChapterSize.Padding / 2);
+                points.push(updatedChapterY + ChapterSize.Height / 3);
 
-            drawLineHelper(points);
+                points.push(point1X);
+                points.push(updatedChapterY + ChapterSize.Height / 3);
+
+            } else {
+                points.push(parentX);
+                points.push(parentY);
+
+                points.push(parentX);
+                points.push(updatedChapterY - ChapterSize.Padding / 2);
+
+                points.push(updatedChapterX);
+                points.push(updatedChapterY - ChapterSize.Padding / 2);
+
+                points.push(updatedChapterX);
+                points.push(updatedChapterY);
+            }
+            
+
+            var arrow = new Konva.Arrow({
+                points: points,
+                stroke: "#0aa",
+                strokeWidth: 2,
+                lineCap: "round",
+                fill: 'black',
+                pointerLength: 8,
+                pointerWidth: 12,
+            });
+            layer.add(arrow);
         }
-    }
-
-    function drawLineHelper(points) {
-        line = new Konva.Arrow({
-            points: points,
-            stroke: "#0aa",
-            strokeWidth: 2,
-            lineCap: "round",
-            fill: 'black',
-            pointerLength: 8,
-            pointerWidth: 12,
-
-        });
-        layer.add(line);
     }
 
     function cursorPointerHelper(obj) {
@@ -229,15 +241,9 @@ var bookMap = (function () {
 
 
     function draw(chapters, newScale) {
-        //if (newScale) {
-        //    scale = newScale;
-        //}
-        //canvas.canvas.scale(scale, scale);
-        //canvas.draw.clear(false);
-
         splitByLevels(chapters);
-        //group chapters by parents.
 
+        //group chapters by parents.
         for (var y = 1; y < levels.length; y++) {
             var level = levels[y];
             chaptersGroupByParent = groupByParent(level);
@@ -254,7 +260,7 @@ var bookMap = (function () {
                 for (var i = 0; i < chapterGroupByParent.length; i++) {
                     var chapter = chapterGroupByParent[i];
                     var x = currentX + chapter.Weight - 1;
-                    drawChapterBlock(x, y, chapter);
+                    drawChapterBlock(x, y - 1, chapter);
                     currentX += chapter.Weight * 2;
                 }
             }

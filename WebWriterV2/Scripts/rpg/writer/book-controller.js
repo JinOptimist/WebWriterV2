@@ -53,7 +53,7 @@ angular.module('rpg')
             bookService.getWithChaptersV2(bookId).then(function (book) {
                 $scope.book = book;
                 var maxDepth = Math.max.apply(Math, book.Chapters.map(x => x.Level));
-                $scope.canvas.height = maxDepth * 70 + 200
+                $scope.canvas.height = maxDepth * 70 + 100
                 setTimeout(function () { bookMap.start(book.Chapters, 1, actions, $scope.canvas) }, 0);
                 $scope.wait = false;
             });
