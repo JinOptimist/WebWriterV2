@@ -13,7 +13,7 @@ var bookMap = (function () {
 
     var levels = [];
 
-    var useDirectArrow = true;
+    var useDirectArrow = false;
 
     function onChapterClick(obj) {
         console.log('bookMap onChapterClick. chapter.Id - ' + this.chapter.Id);
@@ -56,15 +56,14 @@ var bookMap = (function () {
 
             arrow.remove();
 
-            drawDirectArrow(pos.x, pos.y, childX, childY, this.chapter.Id, link.ToId);
+            useDirectArrow
+                ? drawDirectArrow(pos.x, pos.y, childX, childY, this.chapter.Id, link.ToId)
+                : drawArrow(pos.x, pos.y, childX, childY, this.chapter.Id, link.ToId);
         }
 
-        drawDirectArrows(this.chapter, drableGroupParents, pos.x, pos.y);
-
-        //arrow.twoSides = {
-        //    parentId: parent.Id,
-        //    childId: chapter.Id
-        //};
+        useDirectArrow
+            ? drawDirectArrows(this.chapter, drableGroupParents, pos.x, pos.y)
+            : drawArrows(this.chapter, drableGroupParents, pos.x, pos.y);
 
         return {
             x: pos.x,
@@ -223,7 +222,7 @@ var bookMap = (function () {
     function drawArrows(chapter, parents, chapterX, chapterY) {
         for (var i = 0; i < parents.length; i++) {
             var parent = parents[i];
-            drawArrow(parent.attrs.x, parent.attrs.y, chapterX, chapterY, parent.chapter.Id, chapter.Id);
+            drawArrow(parent.attrs.x + ChapterSize.Width / 2, parent.attrs.y + ChapterSize.Height, chapterX + ChapterSize.Width / 2, chapterY, parent.chapter.Id, chapter.Id);
         }
     }
 
@@ -233,21 +232,12 @@ var bookMap = (function () {
 
         var specialArrow = Math.abs(parentY - chapterY) > BlockSize.Height && parentX === updatedChapterX;
 
-        if (parentX === updatedChapterX) {
-            parentX += ChapterSize.Width / 2;
-            parentY += ChapterSize.Height;
-            updatedChapterX += ChapterSize.Width / 2;
-        } else {
-            parentX += ChapterSize.Width / 2;
-            parentY += ChapterSize.Height;
-            updatedChapterX += ChapterSize.Width / 2;
-        }
 
         var points = [];
 
         if (specialArrow) {
-            var point1X = parent.attrs.x + ChapterSize.Width;
-            var point1Y = parent.attrs.y + ChapterSize.Height * 2 / 3;
+            var point1X = parentX + ChapterSize.Width / 2;
+            var point1Y = parentY - ChapterSize.Height / 3;
             points.push(point1X);
             points.push(point1Y);
 
