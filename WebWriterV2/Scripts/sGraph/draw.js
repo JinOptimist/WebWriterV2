@@ -136,7 +136,7 @@ var bookMap = (function () {
         canvas.canvas.scale(scale, scale);
         canvas.draw.clear(false);
 
-        splitByLevels(chapters);
+        levels = splitByLevels(chapters);
         //group chapters by parents.
 
         for (var y = 1; y < levels.length; y++) {
@@ -164,7 +164,7 @@ var bookMap = (function () {
     }
 
     function splitByLevels(chapters) {
-        levels = [];
+        var levels = [];
         for (var i = 0; i < chapters.length; i++) {
             var chapter = chapters[i];
             chapter.parents = findParents(chapters, chapter.Id);
@@ -179,6 +179,8 @@ var bookMap = (function () {
             }
             levels[depth].push(chapter);
         }
+
+        return levels;
     }
 
     function findParents(chapters, chapterId) {
