@@ -13,37 +13,9 @@
     </div>
 
     <div class="content" id="book-writer">
-        <!--<div class="level" ng-repeat="level in book.Levels" ng-style="level.dynamicStyle" ng-if="!isRoadmap">
-            <div class="add" ng-style="level.dynamicStyle.dynamicStyleForAddButton">
-                <span class="icon add-icon" ng-click="addChapter(level.LevelNumber)"></span>
-                <span class="button-medium-blue" ng-click="toggleWide(level)" ng-if="level.Chapters.length > 1">
-                    {{level.isWide ? '>=<' : '<=>' }}
-                </span>
-            </div>
-
-            <div class="chapter" ng-repeat="chapter in level.Chapters" ng-class="{isNext : chapter.isNext,isPrev : chapter.isPrev}"
-                 ng-style="chapter.dynamicStyle" ng-mouseover="onChapterHover(chapter)" ng-mouseleave="onChapterHover()">
-                <div class="header">
-                    {{chapter.Name}}
-                </div>
-                <div>
-                    <a href="ar/writer/chapter/{{chapter.Id}}">Edit</a>
-                    * <a href="#" ng-click="remove(chapter, $index)">Remove</a>
-                </div>
-                <div class="body">
-                    {{chapter.Desc}}
-                </div>
-            </div>
-        </div>-->
         <div ng-if="wait" class="center" >
             <img src="/Content/icon/wait.gif" />
         </div>
         <div id="nicePic"></div>
-        
-
-
-        <!--<div class="add-level" ng-if="!isRoadmap">
-            <span class="icon add-icon" ng-click="addChapter(book.Levels[book.Levels.length - 1].LevelNumber + 1)"></span>
-        </div>-->
     </div>
 </div>

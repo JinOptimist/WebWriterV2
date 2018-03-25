@@ -13,6 +13,8 @@ var bookMap = (function () {
 
     var levels = [];
 
+    var useDirectArrow = true;
+
     function onChapterClick(obj) {
         console.log('bookMap onChapterClick. chapter.Id - ' + this.chapter.Id);
         actions.moveToEditChapter(this.chapter.Id);
@@ -33,6 +35,43 @@ var bookMap = (function () {
         actions.remove(this.relatedRemove.chapter.Id);
     }
 
+    function onDragChpaterHroup(pos) {
+
+        var drableGroupParents = getParrentsCanvasObj(this.chapter.Id);
+
+        //remove arrow from parents to curent
+        for (var i = 0; i < drableGroupParents.length; i++) {
+            var parent = drableGroupParents[i];
+            var arrow = getArrowBetweenTwoChater(parent.chapter.Id, this.chapter.Id);
+            arrow.remove();
+        }
+
+        // remove arrow from current to children
+        for (var i = 0; i < this.chapter.LinksFromThisEvent.length; i++) {
+            var link = this.chapter.LinksFromThisEvent[i];
+            var arrow = getArrowBetweenTwoChater(this.chapter.Id, link.ToId);
+            var childPoints = arrow.points();
+            var childX = childPoints[childPoints.length - 2];
+            var childY = childPoints[childPoints.length - 1];
+
+            arrow.remove();
+
+            drawDirectArrow(pos.x, pos.y, childX, childY, this.chapter.Id, link.ToId);
+        }
+
+        drawDirectArrows(this.chapter, drableGroupParents, pos.x, pos.y);
+
+        //arrow.twoSides = {
+        //    parentId: parent.Id,
+        //    childId: chapter.Id
+        //};
+
+        return {
+            x: pos.x,
+            y: pos.y
+        };
+    }
+
     /* draw section */
     function drawChapterBlock(x, y, chapter) {
         //var centerX = canvas.width / 2;
@@ -45,21 +84,38 @@ var bookMap = (function () {
             chapterX += 10;
         }
 
-        drawChapter(chapter, chapterX, chapterY);
-
-        drawAddChapterButoon(chapter, chapterX, chapterY);
-        drawEditChapterButoon(chapter, chapterX, chapterY);
-        drawRemoveChapterButoon(chapter, chapterX, chapterY);
-
-        drawText(chapter, chapterX, chapterY);
-
-        drawArrow(chapter, parents, chapterX, chapterY);
-    }
-
-    function drawChapter(chapter, chapterX, chapterY) {
-        var chapterBlock = new Konva.Rect({
+        var group = new Konva.Group({
+            draggable: true,
             x: chapterX,
             y: chapterY,
+            dragBoundFunc: onDragChpaterHroup
+        });
+        group.chapter = chapter;
+
+        var chapterBox = drawChapter(chapter);
+        group.add(chapterBox);
+
+        var addButton = drawAddChapterButoon(chapter);
+        group.add(addButton);
+        var editButton = drawEditChapterButoon(chapter);
+        group.add(editButton);
+        var removeButton = drawRemoveChapterButoon(chapter);
+        group.add(removeButton);
+
+        var textShape = drawText(chapter);
+        group.add(textShape);
+
+        useDirectArrow
+            ? drawDirectArrows(chapter, parents, chapterX, chapterY)
+            : drawArrows(chapter, parents, chapterX, chapterY);
+
+        layer.add(group);
+    }
+
+    function drawChapter(chapter) {
+        var chapterBlock = new Konva.Rect({
+            x: 0,// regarding the group coordinate 
+            y: 0,
             width: ChapterSize.Width,
             height: ChapterSize.Height,
             //fill: "#0f0",
@@ -68,7 +124,7 @@ var bookMap = (function () {
             shadowColor: '#000',
             shadowBlur: 2,
             shadowOffset: { x: 2, y: 2 },
-            shadowOpacity: 1
+            shadowOpacity: 1,
         });
 
         chapterBlock.chapter = chapter;
@@ -88,13 +144,14 @@ var bookMap = (function () {
         //    stage.draw();
         //});
 
-        layer.add(chapterBlock);
+        return chapterBlock;
+        //layer.add(chapterBlock);
     }
 
-    function drawAddChapterButoon(chapter, chapterX, chapterY) {
+    function drawAddChapterButoon(chapter) {
         var addBlock = new Konva.Ellipse({
-            x: chapterX + ChapterSize.Width / 2 - AddButtonSize.Radius / 2,
-            y: chapterY + ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
+            x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2,
+            y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
             radius: {
                 x: AddButtonSize.Radius,
                 y: AddButtonSize.Radius
@@ -106,13 +163,13 @@ var bookMap = (function () {
 
         addBlock.on("click", onAddChapterClick);
         cursorPointerHelper(addBlock);
-        layer.add(addBlock);
+        return addBlock;
     }
 
-    function drawEditChapterButoon(chapter, chapterX, chapterY) {
-        var addBlock = new Konva.Ellipse({
-            x: chapterX + ChapterSize.Width / 2 - AddButtonSize.Radius / 2 - AddButtonSize.Radius - AddButtonSize.Padding * 3,
-            y: chapterY + ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
+    function drawEditChapterButoon(chapter) {
+        var editButton = new Konva.Ellipse({
+            x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2 - AddButtonSize.Radius - AddButtonSize.Padding * 3,
+            y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
             radius: {
                 x: AddButtonSize.Radius,
                 y: AddButtonSize.Radius
@@ -120,18 +177,18 @@ var bookMap = (function () {
             fill: "#FFA500",
         });
 
-        addBlock.relatedEdit = {};
-        addBlock.relatedEdit.chapter = chapter;
+        editButton.relatedEdit = {};
+        editButton.relatedEdit.chapter = chapter;
 
-        addBlock.on("click", onEditChapterClick);
-        cursorPointerHelper(addBlock);
-        layer.add(addBlock);
+        editButton.on("click", onEditChapterClick);
+        cursorPointerHelper(editButton);
+        return editButton;
     }
 
-    function drawRemoveChapterButoon(chapter, chapterX, chapterY) {
+    function drawRemoveChapterButoon(chapter) {
         var removeBlock = new Konva.Ellipse({
-            x: chapterX + ChapterSize.Width / 2 - AddButtonSize.Radius / 2 + AddButtonSize.Radius + AddButtonSize.Padding * 3,
-            y: chapterY + ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
+            x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2 + AddButtonSize.Radius + AddButtonSize.Padding * 3,
+            y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
             radius: {
                 x: AddButtonSize.Radius,
                 y: AddButtonSize.Radius
@@ -143,15 +200,15 @@ var bookMap = (function () {
 
         removeBlock.on("click", onRemoveChapterClick);
         cursorPointerHelper(removeBlock);
-        layer.add(removeBlock);
+        return removeBlock;
     }
 
-    function drawText(chapter, chapterX, chapterY) {
+    function drawText(chapter) {
         var text = chapter.Name;
         var fontSize = FontSize;// * scale;
         var textItem = new Konva.Text({
-            x: chapterX + 3,
-            y: chapterY + 3,
+            x: 3,// regarding the group coordinate 
+            y: 3,
             width: ChapterSize.Width - ChapterSize.Padding,
             fontSize: fontSize,
             fontFamily: "sans-serif",
@@ -160,72 +217,109 @@ var bookMap = (function () {
             align: 'center'
 
         });
-        layer.add(textItem);
+        return textItem;
     }
 
-    function drawArrow(chapter, parents, chapterX, chapterY) {
+    function drawArrows(chapter, parents, chapterX, chapterY) {
         for (var i = 0; i < parents.length; i++) {
             var parent = parents[i];
-            var updatedChapterX = chapterX;
-            var updatedChapterY = chapterY;
-            var parentX = parent.attrs.x;
-            var parentY = parent.attrs.y;
-
-            var specialArrow = Math.abs(parentY - chapterY) > BlockSize.Height && parentX === updatedChapterX;
-
-            if (parentX === updatedChapterX) {
-                parentX += ChapterSize.Width / 2;
-                parentY += ChapterSize.Height;
-                updatedChapterX += ChapterSize.Width / 2;
-            } else {
-                parentX += ChapterSize.Width / 2;
-                parentY += ChapterSize.Height;
-                updatedChapterX += ChapterSize.Width / 2;
-            }
-
-            var points = [];
-
-            if (specialArrow) {
-                var point1X = parent.attrs.x + ChapterSize.Width;
-                var point1Y = parent.attrs.y + ChapterSize.Height * 2 / 3;
-                points.push(point1X);
-                points.push(point1Y);
-
-                points.push(point1X + ChapterSize.Padding / 2);
-                points.push(point1Y);
-
-                points.push(point1X + ChapterSize.Padding / 2);
-                points.push(updatedChapterY + ChapterSize.Height / 3);
-
-                points.push(point1X);
-                points.push(updatedChapterY + ChapterSize.Height / 3);
-
-            } else {
-                points.push(parentX);
-                points.push(parentY);
-
-                points.push(parentX);
-                points.push(updatedChapterY - ChapterSize.Padding / 2);
-
-                points.push(updatedChapterX);
-                points.push(updatedChapterY - ChapterSize.Padding / 2);
-
-                points.push(updatedChapterX);
-                points.push(updatedChapterY);
-            }
-            
-
-            var arrow = new Konva.Arrow({
-                points: points,
-                stroke: "#0aa",
-                strokeWidth: 2,
-                lineCap: "round",
-                fill: 'black',
-                pointerLength: 8,
-                pointerWidth: 12,
-            });
-            layer.add(arrow);
+            drawArrow(parent.attrs.x, parent.attrs.y, chapterX, chapterY, parent.chapter.Id, chapter.Id);
         }
+    }
+
+    function drawArrow(parentX, parentY, chapterX, chapterY, parentId, chapterId) {
+        var updatedChapterX = chapterX;
+        var updatedChapterY = chapterY;
+
+        var specialArrow = Math.abs(parentY - chapterY) > BlockSize.Height && parentX === updatedChapterX;
+
+        if (parentX === updatedChapterX) {
+            parentX += ChapterSize.Width / 2;
+            parentY += ChapterSize.Height;
+            updatedChapterX += ChapterSize.Width / 2;
+        } else {
+            parentX += ChapterSize.Width / 2;
+            parentY += ChapterSize.Height;
+            updatedChapterX += ChapterSize.Width / 2;
+        }
+
+        var points = [];
+
+        if (specialArrow) {
+            var point1X = parent.attrs.x + ChapterSize.Width;
+            var point1Y = parent.attrs.y + ChapterSize.Height * 2 / 3;
+            points.push(point1X);
+            points.push(point1Y);
+
+            points.push(point1X + ChapterSize.Padding / 2);
+            points.push(point1Y);
+
+            points.push(point1X + ChapterSize.Padding / 2);
+            points.push(updatedChapterY + ChapterSize.Height / 3);
+
+            points.push(point1X);
+            points.push(updatedChapterY + ChapterSize.Height / 3);
+
+        } else {
+            points.push(parentX);
+            points.push(parentY);
+
+            points.push(parentX);
+            points.push(updatedChapterY - ChapterSize.Padding / 2);
+
+            points.push(updatedChapterX);
+            points.push(updatedChapterY - ChapterSize.Padding / 2);
+
+            points.push(updatedChapterX);
+            points.push(updatedChapterY);
+        }
+
+        var arrow = new Konva.Arrow({
+            points: points,
+            stroke: "#0aa",
+            strokeWidth: 2,
+            lineCap: "round",
+            fill: 'black',
+            pointerLength: 8,
+            pointerWidth: 12,
+        });
+        arrow.twoSides = {
+            parentId: parentId,
+            childId: chapterId
+        };
+        layer.add(arrow);
+    }
+
+    function drawDirectArrows(chapter, parents, chapterX, chapterY) {
+        for (var i = 0; i < parents.length; i++) {
+            var parent = parents[i];
+            drawDirectArrow(parent.attrs.x, parent.attrs.y, chapterX, chapterY, parent.chapter.Id, chapter.Id);
+        }
+    }
+
+    function drawDirectArrow(parentX, parentY, chapterX, chapterY, parentId, chapterId) {
+        var points = [];
+
+        points.push(parentX);
+        points.push(parentY);
+
+        points.push(chapterX);
+        points.push(chapterY);
+
+        var arrow = new Konva.Arrow({
+            points: points,
+            stroke: "#0aa",
+            strokeWidth: 2,
+            lineCap: "round",
+            fill: 'black',
+            pointerLength: 8,
+            pointerWidth: 12,
+        });
+        arrow.twoSides = {
+            parentId: parentId,
+            childId: chapterId
+        };
+        layer.add(arrow);
     }
 
     function cursorPointerHelper(obj) {
@@ -316,10 +410,27 @@ var bookMap = (function () {
         });
     }
 
-    function chapterContainsLinkToCurrentChapter(chapter, chapterId) {
-        if (!chapter.LinksFromThisEvent || chapter.LinksFromThisEvent.length === 0)
+    function getChapterCanvasObjById(chapterId) {
+        return layer.children.filter(function (canvasItem) {
+            if (!canvasItem.chapter)
+                return false;
+            return canvasItem.chapter.Id === chapterId;
+        });
+    }
+
+    function getArrowBetweenTwoChater(parentId, childId) {
+        return layer.children.filter(function (canvasItem) {
+            if (!canvasItem.twoSides)
+                return false;
+
+            return canvasItem.twoSides.parentId === parentId && canvasItem.twoSides.childId === childId;
+        })[0];
+    }
+
+    function chapterContainsLinkToCurrentChapter(curentChapter, destinationChapterId) {
+        if (!curentChapter.LinksFromThisEvent || curentChapter.LinksFromThisEvent.length === 0)
             return false;
-        return chapter.LinksFromThisEvent.filter(link => link.ToId === chapterId).length > 0;
+        return curentChapter.LinksFromThisEvent.filter(link => link.ToId === destinationChapterId).length > 0;
     }
 
     function getCenterByParents(parents) {
