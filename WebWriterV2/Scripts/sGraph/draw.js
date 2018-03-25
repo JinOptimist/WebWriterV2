@@ -45,6 +45,9 @@ var bookMap = (function () {
             var arrow = getArrowBetweenTwoChater(parent.chapter.Id, this.chapter.Id);
             if (arrow) {
                 arrow.remove();
+
+                this.drawParentCount--;
+                parent.drawChildCount--;
             }
         }
 
@@ -61,12 +64,16 @@ var bookMap = (function () {
 
             arrow.remove();
 
+            var child = getChapterCanvasObjById(link.ToId);
+            this.drawChildCount--;
+            child.drawParentCount--;
+
             useDirectArrow
-                ? drawDirectArrow(this, getChapterCanvasObjById(link.ToId))
-                : drawArrow(this, getChapterCanvasObjById(link.ToId));
+                ? drawDirectArrow(this, child)
+                : drawArrow(this, child);
         }
 
-         // Draw arrow from parents to curent
+        // Draw arrow from parents to curent
         useDirectArrow
             ? drawDirectArrows(this, drableGroupParents)
             : drawArrows(this, drableGroupParents);
@@ -101,6 +108,8 @@ var bookMap = (function () {
             dragBoundFunc: onDragChpaterGroup
         });
         group.chapter = chapter;
+        group.drawChildCount = -1;
+        group.drawParentCount = -1;
 
         var chapterBox = drawChapter(chapter);
         group.add(chapterBox);
@@ -237,18 +246,30 @@ var bookMap = (function () {
     }
 
     function drawArrow(parent, child) {
+        parent.drawChildCount++;
+        child.drawParentCount++;
+
+        var parentShift = parent.drawChildCount - (parent.chapter.LinksFromThisEvent.length - 1) / 2;
+        var childShift = child.drawParentCount - (child.chapter.LinksToThisEvent.length - 1) / 2;
+
         var parentX = parent.attrs.x + ChapterSize.Width / 2;
         var parentY = parent.attrs.y + ChapterSize.Height;
 
-        var chapterX = child.attrs.x + ChapterSize.Width / 2;
-        var chapterY = child.attrs.y;
+        var childX = child.attrs.x + ChapterSize.Width / 2;
+        var childY = child.attrs.y;
 
-        var specialArrow = Math.abs(parentY - chapterY) > BlockSize.Height && parentX === chapterX;
+        var specialArrow = Math.abs(parentY - childY) > BlockSize.Height && parentX === childX;
 
+        parentX += (parentShift * 5);
+        childX += (childShift * 15);
 
         var points = [];
 
         if (specialArrow) {
+            //   |__lv1__| -->|
+            //   |__lv2__|    |
+            //   |__lv3__|<-- |
+
             var point1X = parentX + ChapterSize.Width / 2;
             var point1Y = parentY - ChapterSize.Height / 3;
             points.push(point1X);
@@ -258,23 +279,23 @@ var bookMap = (function () {
             points.push(point1Y);
 
             points.push(point1X + ChapterSize.Padding / 2);
-            points.push(chapterY + ChapterSize.Height / 3);
+            points.push(childY + ChapterSize.Height / 3);
 
             points.push(point1X);
-            points.push(chapterY + ChapterSize.Height / 3);
+            points.push(childY + ChapterSize.Height / 3);
 
         } else {
             points.push(parentX);
             points.push(parentY);
 
             points.push(parentX);
-            points.push(chapterY - ChapterSize.Padding / 2);
+            points.push(childY - ChapterSize.Padding / 2 + childShift * 4);
 
-            points.push(chapterX);
-            points.push(chapterY - ChapterSize.Padding / 2);
+            points.push(childX);
+            points.push(childY - ChapterSize.Padding / 2 + childShift * 4);
 
-            points.push(chapterX);
-            points.push(chapterY);
+            points.push(childX);
+            points.push(childY);
         }
 
         var arrow = new Konva.Arrow({
