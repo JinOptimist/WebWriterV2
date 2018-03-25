@@ -4,20 +4,16 @@
             <div class="logo header-item">
                 {{book.Name}}
             </div>
-            <div class="header-item">
+            <!--<div class="header-item">
                 <input type="range" ng-model="scale" ng-change="updateStyleForAllLevel()" min="0.4" max="2" step="0.05" /> {{scale * 100 | number : '.0'}}%
-            </div>
-
-            <div class="header-item center">
-                <a href="#" ng-click="toggleRoadmap()">Roadmap</a>
-            </div>
+            </div>-->
 
             <div class="right"></div>
         </div>
     </div>
 
     <div class="content" id="book-writer">
-        <div class="level" ng-repeat="level in book.Levels" ng-style="level.dynamicStyle" ng-if="!isRoadmap">
+        <!--<div class="level" ng-repeat="level in book.Levels" ng-style="level.dynamicStyle" ng-if="!isRoadmap">
             <div class="add" ng-style="level.dynamicStyle.dynamicStyleForAddButton">
                 <span class="icon add-icon" ng-click="addChapter(level.LevelNumber)"></span>
                 <span class="button-medium-blue" ng-click="toggleWide(level)" ng-if="level.Chapters.length > 1">
@@ -38,33 +34,16 @@
                     {{chapter.Desc}}
                 </div>
             </div>
-        </div>
-
-
-        <!--<div class="level roadmap" ng-repeat="level in book.Levels" ng-style="level.dynamicStyle" ng-if="isRoadmap">
-
-        <div class="chapterBlock" ng-repeat="chapterBlock in level.ChaptersBlock">
-            <div  ng-repeat="chapter in chapterBlock.Chapters" ng-style="chapter.dynamicStyle">
-                <div class="header" ng-click="activeChapter(chapterBlock, chapter)">
-                    {{chapter.Name}}
-                </div>
-                <div class="body" ng-show="chapter.active">
-                    {{chapter.Desc}}
-                </div>
-            </div>
-        </div>
-    </div>-->
+        </div>-->
         <div ng-if="wait" class="center" >
             <img src="/Content/icon/wait.gif" />
         </div>
-        <div ng-show="isRoadmap" >
-            <canvas id="nicePic" width="{{canvas.width}}" height="{{canvas.height}}"></canvas>
-        </div>
+        <div id="nicePic"></div>
         
 
 
-        <div class="add-level" ng-if="!isRoadmap">
+        <!--<div class="add-level" ng-if="!isRoadmap">
             <span class="icon add-icon" ng-click="addChapter(book.Levels[book.Levels.length - 1].LevelNumber + 1)"></span>
-        </div>
+        </div>-->
     </div>
 </div>

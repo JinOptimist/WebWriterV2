@@ -14,6 +14,7 @@ namespace WebWriterV2.FrontModels
 
         public BookWithChaptersV2(Book book) {
             Id = book.Id;
+            Name = book.Name;
             ContainsCycle = new GraphHelper(book).HasCycle();
 
             book.AllChapters.ForEach(x => x.Level = 0);
@@ -29,6 +30,8 @@ namespace WebWriterV2.FrontModels
                 Chapters.Add(frontChapter);
             }
         }
+
+        public string Name { get; set; }
 
         public bool ContainsCycle { get; set; }
         public List<FrontChapter> Chapters { get; set; }
@@ -89,7 +92,7 @@ namespace WebWriterV2.FrontModels
 
             currentDepth++;
 
-            var nextDepthChapters = currentDepthChapters.SelectMany(ch => ch.LinksFromThisChapter.Select(link => link.To));
+            var nextDepthChapters = currentDepthChapters.SelectMany(ch => ch.LinksFromThisChapter.Select(link => link.To)).Distinct();
             currentDepthChapters = nextDepthChapters.Where(x => x.Level == currentDepth).ToList();
             notProcessedChapters.AddRange(nextDepthChapters.Where(x => x.Level != currentDepth));
             var additionalChaptersFromPreviusLevels = notProcessedChapters.Where(x => x.Level == currentDepth).ToList();
