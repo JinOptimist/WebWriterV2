@@ -50,5 +50,10 @@ namespace Dao.Repository
 
             base.Remove(chapterLink);
         }
+
+        public bool Exist(long fromId, long toId)
+        {
+            return Entity.Any(x => x.From.Id == fromId && x.To.Id == toId);
+        }
     }
 }

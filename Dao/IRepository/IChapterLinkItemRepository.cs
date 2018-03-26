@@ -8,5 +8,7 @@ namespace Dao.IRepository
     {
         List<ChapterLinkItem> GetLinksFromChapter(long chapterId);
         void RemoveDuplicates();
+
+        bool Exist(long fromId, long toId);
     }
 }

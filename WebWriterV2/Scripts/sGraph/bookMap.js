@@ -17,7 +17,18 @@ var bookMap = (function () {
     /* events */
     function onChapterClick(obj) {
         console.log('bookMap onChapterClick. chapter.Id - ' + this.chapter.Id);
-        actions.moveToEditChapter(this.chapter.Id);
+
+        var newArrow = stage.find('#newArrow')[0];
+        if (!newArrow) {
+            return;
+        }
+        if (newArrow.fromChapterId !== this.chapter.Id) {
+            actions.createLink(newArrow.fromChapterId, this.chapter.Id);
+        }
+
+        stage.off('mousemove');
+        newArrow.destroy();
+        layer.draw();
     }
 
     function onAddChapterClick(obj) {
@@ -33,6 +44,66 @@ var bookMap = (function () {
     function onRemoveChapterClick(obj) {
         console.log('bookMap onRemoveChapterClick. chapter.Id - ' + this.relatedRemove.chapter.Id);
         actions.remove(this.relatedRemove.chapter.Id);
+    }
+
+    function onAddLinkClick(obj) {
+        var chapterId = this.chapter.Id;
+        console.log('bookMap onAddLinkClick. chapter.Id - ' + chapterId);
+        var chapterBlock = stage.find('#chBl' + chapterId)[0];
+
+        var x1 = chapterBlock.attrs.x;
+        var y1 = chapterBlock.attrs.y;
+        var mousePosition = stage.getPointerPosition();
+        var x2 = mousePosition.x;
+        var y2 = mousePosition.y - 5;
+
+        var arrow = new Konva.Arrow({
+            points: [x1, y1, x2, y2],
+            stroke: "#0aa",
+            strokeWidth: 2,
+            lineCap: "round",
+            fill: 'black',
+            pointerLength: 8,
+            pointerWidth: 12,
+            id: 'newArrow',
+        });
+        arrow.fromChapterId = chapterId;
+
+        layer.add(arrow);
+
+        stage.on('mousemove', redrawActiveArrow);
+
+        layer.draw();
+
+        obj.cancelBubble = true;
+    }
+
+    function redrawActiveArrow() {
+        var newArrow = stage.find('#newArrow')[0];
+        var points = newArrow.points();
+        var x1 = points[0];
+        var y1 = points[1];
+        var fromChapterId = newArrow.fromChapterId;
+        newArrow.destroy();
+
+        var mousePosition = stage.getPointerPosition();
+        var x2 = mousePosition.x;
+        var y2 = mousePosition.y - 5;
+
+        var arrow = new Konva.Arrow({
+            points: [x1, y1, x2, y2],
+            stroke: "#0aa",
+            strokeWidth: 2,
+            lineCap: "round",
+            fill: 'black',
+            pointerLength: 8,
+            pointerWidth: 12,
+            id: 'newArrow'
+        });
+        arrow.fromChapterId = fromChapterId;
+
+        layer.add(arrow);
+        layer.draw();
     }
 
     function onDragChpaterGroup(pos) {
@@ -117,11 +188,13 @@ var bookMap = (function () {
             draggable: true,
             x: chapterX,
             y: chapterY,
-            dragBoundFunc: onDragChpaterGroup
+            dragBoundFunc: onDragChpaterGroup,
+            id: 'chBl' + chapter.Id
         });
         group.chapter = chapter;
         group.drawChildCount = -1;
         group.drawParentCount = -1;
+        group.on('click', onChapterClick);
 
         var chapterBox = drawShapes.drawChapter(chapter);
         group.add(chapterBox);
@@ -132,6 +205,8 @@ var bookMap = (function () {
         group.add(editButton);
         var removeButton = drawShapes.drawRemoveChapterButoon(chapter, onRemoveChapterClick, cursorPointerHelper);
         group.add(removeButton);
+        var addLinkButoon = drawShapes.drawAddLinkButoon(chapter, onAddLinkClick, cursorPointerHelper);
+        group.add(addLinkButoon);
 
         var textShape = drawShapes.drawText(chapter);
         group.add(textShape);

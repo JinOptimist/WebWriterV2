@@ -4,6 +4,7 @@
             get: get,
             getForTravel: getForTravel,
             save: save,
+            createLink: createLink,
             createChild: createChild,
             remove: remove,
             getBottomChapters: getBottomChapters,
@@ -32,6 +33,15 @@
         function getForTravel(chapterId) {
             var url = '/api/chapter/GetForTravel?id=' + chapterId;
             return httpHelper.get(url);
+        }
+
+        function createLink(fromId, toId) {
+            var url = '/api/chapterLink/CreateLink';
+            var data = {
+                fromId: fromId,
+                toId: toId
+            };
+            return httpHelper.get(url, data);
         }
 
         function createChild(parentId) {

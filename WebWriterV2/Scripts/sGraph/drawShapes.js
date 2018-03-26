@@ -11,7 +11,7 @@ var drawShapes = (function () {
             y: 0,
             width: ChapterSize.Width,
             height: ChapterSize.Height,
-            //fill: "#0f0",
+            fill: "#fff",
             stroke: "#000",
             strokeWidth: 1,
             shadowColor: '#000',
@@ -27,14 +27,17 @@ var drawShapes = (function () {
         //    box.shadowColor('red');
         //    box.draw();
         //});
-        //chapterBlock.on('mouseout', function (obj) {
-        //    var chapter = this.chapter;
-        //    var x = obj.target.attrs.x;
-        //    var y = obj.target.attrs.y;
-        //    var box = obj.target;
-        //    box.remove();
-        //    drawChapter(chapter, x, y);
-        //    stage.draw();
+        //chapterBlock.on('mouseout', function (chap) {
+        //    //var chapter = this.chapter;
+        //    //var x = obj.target.attrs.x;
+        //    //var y = obj.target.attrs.y;
+        //    //var box = obj.target;
+        //    //box.remove();
+        //    //drawChapter(chapter);
+        //    //box.parent.draw();
+        //    var box = chap.target;
+        //    box.shadowColor('#fff');
+        //    box.draw();
         //});
 
         return chapterBlock;
@@ -93,6 +96,24 @@ var drawShapes = (function () {
         removeBlock.on("click", onRemoveChapterClick);
         cursorPointerHelper(removeBlock);
         return removeBlock;
+    }
+
+    function drawAddLinkButoon(chapter, onAddLinkClick, cursorPointerHelper) {
+        var addLink = new Konva.Ellipse({
+            x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2 + (AddButtonSize.Radius + AddButtonSize.Padding) * 3 + AddButtonSize.Padding,
+            y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
+            radius: {
+                x: AddButtonSize.Radius,
+                y: AddButtonSize.Radius
+            },
+            fill: "#F0F",
+        });
+
+        addLink.chapter = chapter;
+
+        addLink.on("click", onAddLinkClick);
+        cursorPointerHelper(addLink);
+        return addLink;
     }
 
     function drawText(chapter) {
@@ -234,6 +255,7 @@ var drawShapes = (function () {
         drawAddChapterButoon: drawAddChapterButoon,
         drawEditChapterButoon: drawEditChapterButoon,
         drawRemoveChapterButoon: drawRemoveChapterButoon,
+        drawAddLinkButoon: drawAddLinkButoon,
         drawText: drawText,
         drawArrows: drawArrows,
         drawArrow: drawArrow,

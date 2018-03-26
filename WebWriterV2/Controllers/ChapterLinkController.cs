@@ -42,6 +42,26 @@ namespace WebWriterV2.Controllers
         }
 
         [AcceptVerbs("GET")]
+        public FrontChapterLinkItem CreateLink(long fromId, long toId)
+        {
+            if (ChapterLinkItemRepository.Exist(fromId, toId)) {
+                return null;
+            }
+
+            var fromChapter = new Chapter { Id = fromId };
+            var toChapter = new Chapter { Id = toId };
+
+            var link = new ChapterLinkItem() {
+                From = fromChapter,
+                To = toChapter,
+                Text = string.Empty
+            };
+
+            link = ChapterLinkItemRepository.Save(link);
+            return new FrontChapterLinkItem(link);
+        }
+
+        [AcceptVerbs("GET")]
         public List<FrontChapterLinkItem> GetLinksFromChapter(long chapterId)
         {
             var linksFromChapter = ChapterLinkItemRepository.GetLinksFromChapter(chapterId);
