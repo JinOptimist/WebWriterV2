@@ -15,55 +15,6 @@ angular.module('rpg', ['directives', 'services', 'underscore', 'ui.bootstrap', '
             $httpProvider.interceptors.push('authInterceptorService');
             // Routes configuration
             $routeProvider
-                /* admin */
-                .when('/AngularRoute/admin/Thing', {
-                    templateUrl: '/views/rpg/admin/thing.html',
-                    controller: 'adminThingController'
-                })
-                .when('/AngularRoute/admin/State', {
-                    templateUrl: '/views/rpg/admin/state.html',
-                    controller: 'adminStateController'
-                })
-                .when('/AngularRoute/admin/book/:bookId/event/:eventId?', {
-                    templateUrl: '/views/rpg/admin/Event.html',
-                    controller: 'adminEventGeneralController'
-                })
-                .when('/AngularRoute/admin/book/:bookId?', {
-                    templateUrl: '/views/rpg/admin/Book.html',
-                    controller: 'adminBookGeneralController'
-                })
-                .when('/AngularRoute/admin/genres', {
-                    templateUrl: '/views/rpg/admin/Genre.html',
-                    controller: 'adminGenreController'
-                })
-                /* front */
-                
-                .when('/AngularRoute/aboutUs', {
-                    templateUrl: '/views/rpg/AboutUs.html',
-                    controller: 'aboutUsController'
-                })
-                .when('/AngularRoute/generalDefinition', {
-                    templateUrl: '/views/rpg/GeneralDefinition.html',
-                    controller: 'aboutUsController'
-                })
-                .when('/AngularRoute/listBook', {
-                    templateUrl: '/views/rpg/ListBook.html',
-                    controller: 'listBookController'
-                })
-                .when('/AngularRoute/travel/book/:bookId/event/:eventId/hero/:heroId/:isBookmark', {
-                    templateUrl: '/views/rpg/Travel.html',
-                    controller: 'travelController'
-                })
-                .when('/AngularRoute/profile', {
-                    templateUrl: '/views/rpg/profile.html',
-                    controller: 'profileControllerOld'
-                })
-
-                .when('/ar/writer/graph', {
-                    templateUrl: '/views/writer/graph.html',
-                    controller: 'graphController'
-                })
-
                 /* writer */
                 //resolve: resolveController('/app/controllers/customersController.js')
                 .when('/ar/writer/book/:bookId', {
