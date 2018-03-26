@@ -1,11 +1,10 @@
 var bookMap = (function () {
     console.log('bookMap is load');
-    var ChapterSize = { Width: 100, Height: 40, Padding: 30 };
+    var ChapterSize = Const.ChapterSize;
     var BlockSize = { Width: ChapterSize.Width + ChapterSize.Padding, Height: ChapterSize.Height + ChapterSize.Padding };
-    var AddButtonSize = { Radius: 5, Padding: 3 };
+    var AddButtonSize = Const.AddButtonSize;
     var canvasSize = {};
-    var ArrowSize = 5;
-    var FontSize = 12;
+    var FontSize = Const.FontSize;
 
     var stage = {};
     var layer = {};
@@ -15,6 +14,7 @@ var bookMap = (function () {
 
     var useDirectArrow = false;
 
+    /* events */
     function onChapterClick(obj) {
         console.log('bookMap onChapterClick. chapter.Id - ' + this.chapter.Id);
         actions.moveToEditChapter(this.chapter.Id);
@@ -68,23 +68,35 @@ var bookMap = (function () {
             this.drawChildCount--;
             child.drawParentCount--;
 
-            useDirectArrow
-                ? drawDirectArrow(this, child)
-                : drawArrow(this, child);
+            var arrow = useDirectArrow
+                ? drawShapes.drawDirectArrow(this, child)
+                : drawShapes.drawArrow(this, child);
+            layer.add(arrow);
         }
 
         // Draw arrow from parents to curent
-        useDirectArrow
-            ? drawDirectArrows(this, drableGroupParents)
-            : drawArrows(this, drableGroupParents);
+        var arrows = useDirectArrow
+            ? drawShapes.drawDirectArrows(this, drableGroupParents)
+            : drawShapes.drawArrows(this, drableGroupParents);
+        arrows.forEach(arrow => layer.add(arrow));
 
         return {
             x: pos.x,
-            y: pos.y
+            y: this.getAbsolutePosition().y
         };
     }
 
-    /* draw section */
+    function cursorPointerHelper(obj) {
+        obj.on('mouseenter', function () {
+            stage.container().style.cursor = 'pointer';
+        });
+
+        obj.on('mouseleave', function () {
+            stage.container().style.cursor = 'default';
+        });
+    }
+    /* events END */
+
     function drawChapterBlock(x, y, chapter) {
         //var centerX = canvas.width / 2;
         var parents = getParrentsCanvasObj(chapter.Id);
@@ -111,258 +123,26 @@ var bookMap = (function () {
         group.drawChildCount = -1;
         group.drawParentCount = -1;
 
-        var chapterBox = drawChapter(chapter);
+        var chapterBox = drawShapes.drawChapter(chapter);
         group.add(chapterBox);
 
-        var addButton = drawAddChapterButoon(chapter);
+        var addButton = drawShapes.drawAddChapterButoon(chapter, onAddChapterClick, cursorPointerHelper);
         group.add(addButton);
-        var editButton = drawEditChapterButoon(chapter);
+        var editButton = drawShapes.drawEditChapterButoon(chapter, onEditChapterClick, cursorPointerHelper);
         group.add(editButton);
-        var removeButton = drawRemoveChapterButoon(chapter);
+        var removeButton = drawShapes.drawRemoveChapterButoon(chapter, onRemoveChapterClick, cursorPointerHelper);
         group.add(removeButton);
 
-        var textShape = drawText(chapter);
+        var textShape = drawShapes.drawText(chapter);
         group.add(textShape);
 
         layer.add(group);
 
-        useDirectArrow
-            ? drawDirectArrows(group, parents)
-            : drawArrows(group, parents);
+        var arrows = useDirectArrow
+            ? drawShapes.drawDirectArrows(group, parents)
+            : drawShapes.drawArrows(group, parents);
+        arrows.forEach(arrow => layer.add(arrow));
     }
-
-    function drawChapter(chapter) {
-        var chapterBlock = new Konva.Rect({
-            x: 0,// regarding the group coordinate 
-            y: 0,
-            width: ChapterSize.Width,
-            height: ChapterSize.Height,
-            //fill: "#0f0",
-            stroke: "#000",
-            strokeWidth: 1,
-            shadowColor: '#000',
-            shadowBlur: 2,
-            shadowOffset: { x: 2, y: 2 },
-            shadowOpacity: 1,
-        });
-
-        chapterBlock.chapter = chapter;
-
-        //chapterBlock.on('mouseover', function (chap) {
-        //    var box = chap.target;
-        //    box.shadowColor('red');
-        //    box.draw();
-        //});
-        //chapterBlock.on('mouseout', function (obj) {
-        //    var chapter = this.chapter;
-        //    var x = obj.target.attrs.x;
-        //    var y = obj.target.attrs.y;
-        //    var box = obj.target;
-        //    box.remove();
-        //    drawChapter(chapter, x, y);
-        //    stage.draw();
-        //});
-
-        return chapterBlock;
-    }
-
-    function drawAddChapterButoon(chapter) {
-        var addBlock = new Konva.Ellipse({
-            x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2,
-            y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
-            radius: {
-                x: AddButtonSize.Radius,
-                y: AddButtonSize.Radius
-            },
-            fill: "#0f0",
-        });
-        addBlock.relatedAdd = {};
-        addBlock.relatedAdd.chapter = chapter;
-
-        addBlock.on("click", onAddChapterClick);
-        cursorPointerHelper(addBlock);
-        return addBlock;
-    }
-
-    function drawEditChapterButoon(chapter) {
-        var editButton = new Konva.Ellipse({
-            x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2 - AddButtonSize.Radius - AddButtonSize.Padding * 3,
-            y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
-            radius: {
-                x: AddButtonSize.Radius,
-                y: AddButtonSize.Radius
-            },
-            fill: "#FFA500",
-        });
-
-        editButton.relatedEdit = {};
-        editButton.relatedEdit.chapter = chapter;
-
-        editButton.on("click", onEditChapterClick);
-        cursorPointerHelper(editButton);
-        return editButton;
-    }
-
-    function drawRemoveChapterButoon(chapter) {
-        var removeBlock = new Konva.Ellipse({
-            x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2 + AddButtonSize.Radius + AddButtonSize.Padding * 3,
-            y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
-            radius: {
-                x: AddButtonSize.Radius,
-                y: AddButtonSize.Radius
-            },
-            fill: "#f00",
-        });
-        removeBlock.relatedRemove = {};
-        removeBlock.relatedRemove.chapter = chapter;
-
-        removeBlock.on("click", onRemoveChapterClick);
-        cursorPointerHelper(removeBlock);
-        return removeBlock;
-    }
-
-    function drawText(chapter) {
-        var text = chapter.Name;
-        var fontSize = FontSize;// * scale;
-        var textItem = new Konva.Text({
-            x: 3,// regarding the group coordinate 
-            y: 3,
-            width: ChapterSize.Width - ChapterSize.Padding,
-            fontSize: fontSize,
-            fontFamily: "sans-serif",
-            text: text,
-            fill: "#0aa",
-            align: 'center'
-
-        });
-        return textItem;
-    }
-
-    function drawArrows(child, parents) {
-        for (var i = 0; i < parents.length; i++) {
-            var parent = parents[i];
-            drawArrow(parent, child);
-        }
-    }
-
-    function drawArrow(parent, child) {
-        parent.drawChildCount++;
-        child.drawParentCount++;
-
-        var parentShift = parent.drawChildCount - (parent.chapter.LinksFromThisEvent.length - 1) / 2;
-        var childShift = child.drawParentCount - (child.chapter.LinksToThisEvent.length - 1) / 2;
-
-        var parentX = parent.attrs.x + ChapterSize.Width / 2;
-        var parentY = parent.attrs.y + ChapterSize.Height;
-
-        var childX = child.attrs.x + ChapterSize.Width / 2;
-        var childY = child.attrs.y;
-
-        var specialArrow = Math.abs(parentY - childY) > BlockSize.Height && parentX === childX;
-
-        parentX += (parentShift * 5);
-        childX += (childShift * 15);
-
-        var points = [];
-
-        if (specialArrow) {
-            //   |__lv1__| -->|
-            //   |__lv2__|    |
-            //   |__lv3__|<-- |
-
-            var point1X = parentX + ChapterSize.Width / 2;
-            var point1Y = parentY - ChapterSize.Height / 3;
-            points.push(point1X);
-            points.push(point1Y);
-
-            points.push(point1X + ChapterSize.Padding / 2);
-            points.push(point1Y);
-
-            points.push(point1X + ChapterSize.Padding / 2);
-            points.push(childY + ChapterSize.Height / 3);
-
-            points.push(point1X);
-            points.push(childY + ChapterSize.Height / 3);
-
-        } else {
-            points.push(parentX);
-            points.push(parentY);
-
-            points.push(parentX);
-            points.push(childY - ChapterSize.Padding / 2 + childShift * 4);
-
-            points.push(childX);
-            points.push(childY - ChapterSize.Padding / 2 + childShift * 4);
-
-            points.push(childX);
-            points.push(childY);
-        }
-
-        var arrow = new Konva.Arrow({
-            points: points,
-            stroke: "#0aa",
-            strokeWidth: 2,
-            lineCap: "round",
-            fill: 'black',
-            pointerLength: 8,
-            pointerWidth: 12,
-        });
-        arrow.twoSides = {
-            parentId: parent.chapter.Id,
-            childId: child.chapter.Id
-        };
-        layer.add(arrow);
-    }
-
-    function drawDirectArrows(chapterGroup, parents) {
-        for (var i = 0; i < parents.length; i++) {
-            var parent = parents[i];
-            drawDirectArrow(parent, chapterGroup);
-        }
-    }
-
-    function drawDirectArrow(parent, child) {
-        var points = [];
-
-        var parentX = parent.attrs.x;
-        var parentY = parent.attrs.y;
-
-        var chapterX = child.attrs.x;
-        var chapterY = child.attrs.y;
-
-        points.push(parentX);
-        points.push(parentY);
-
-        points.push(chapterX);
-        points.push(chapterY);
-
-        var arrow = new Konva.Arrow({
-            points: points,
-            stroke: "#0aa",
-            strokeWidth: 2,
-            lineCap: "round",
-            fill: 'black',
-            pointerLength: 8,
-            pointerWidth: 12,
-        });
-        arrow.twoSides = {
-            parentId: parent.chapter.Id,
-            childId: child.chapter.Id
-        };
-        layer.add(arrow);
-    }
-
-    function cursorPointerHelper(obj) {
-        obj.on('mouseenter', function () {
-            stage.container().style.cursor = 'pointer';
-        });
-
-        obj.on('mouseleave', function () {
-            stage.container().style.cursor = 'default';
-        });
-    }
-    /* draw section END */
-
 
     function draw(chapters, newScale) {
         splitByLevels(chapters);
@@ -423,6 +203,7 @@ var bookMap = (function () {
     function updateChapterSize(maxWeight) {
         ChapterSize.Width = canvasSize.width / (maxWeight + 2);
         BlockSize.Width = ChapterSize.Width + ChapterSize.Padding;
+        Const.ChapterSize = ChapterSize;
     }
 
     function findParents(chapters, chapterId) {

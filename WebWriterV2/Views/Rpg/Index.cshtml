@@ -3,11 +3,19 @@
 <head>
     <base href="/">
     <meta name="viewport" content="width=device-width" />
-    @*<link rel="icon" type="image/png" href="@Url.Content("~/Content/icon/icon.png")" />*@
+    <link rel="icon" type="image/png" href="~/Content/icon/time.png" />
 
     <link rel="stylesheet" type="text/css" href="~/Content/css/font-style.scss">
     <link rel="stylesheet" type="text/css" href="~/Content/css/style.scss?v=1.0">
     <link rel="stylesheet" type="text/css" href="~/Content/css/icon.scss?v=1.0">
+
+    <script>
+        var Const = {
+            ChapterSize: { Width: 100, Height: 40, Padding: 30 },
+            AddButtonSize: { Radius: 5, Padding: 3 },
+            FontSize: 12,
+        };
+    </script>
 
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/angular-route.min.js"></script>
@@ -43,9 +51,10 @@
 
     <!-- Start For draw Graph -->
     <script src="~/Scripts/sGraph/konva.min.js"></script>
-    <script src="~/Scripts/sGraph/draw.js"></script>
+    <script src="~/Scripts/sGraph/drawShapes.js"></script>
+    <script src="~/Scripts/sGraph/bookMap.js"></script>
+
     <!-- End For draw Graph-->
-    
     @*<script src="~/Scripts/ckeditor/ckeditor.js"></script>*@
 </head>
 <body>
