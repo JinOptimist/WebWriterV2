@@ -70,10 +70,9 @@ var bookMap = (function () {
         arrow.fromChapterId = chapterId;
 
         layer.add(arrow);
+        layer.draw();
 
         stage.on('mousemove', redrawActiveArrow);
-
-        layer.draw();
 
         obj.cancelBubble = true;
     }
@@ -106,13 +105,17 @@ var bookMap = (function () {
         layer.draw();
     }
 
-    function onDragChpaterGroup(pos) {
+    function onArrowClick(obj) {
+        var arrow = obj.target;
+        actions.removeLink(arrow.linkId);
+    }
 
-        var drableGroupParents = getParrentsCanvasObj(this.chapter.Id);
+    function onDragChpaterGroup(pos) {
+        var parentsGroup = getParentsCanvasObj(this.chapter.Id);
 
         // Remove arrow from parents to curent
-        for (var i = 0; i < drableGroupParents.length; i++) {
-            var parent = drableGroupParents[i];
+        for (var i = 0; i < parentsGroup.length; i++) {
+            var parent = parentsGroup[i];
             var arrow = getArrowBetweenTwoChater(parent.chapter.Id, this.chapter.Id);
             if (arrow) {
                 arrow.remove();
@@ -141,15 +144,19 @@ var bookMap = (function () {
 
             var arrow = useDirectArrow
                 ? drawShapes.drawDirectArrow(this, child)
-                : drawShapes.drawArrow(this, child);
+                : drawShapes.drawArrow(this, child, onArrowClick);
+            cursorPointerHelper(arrow);
             layer.add(arrow);
         }
 
         // Draw arrow from parents to curent
         var arrows = useDirectArrow
-            ? drawShapes.drawDirectArrows(this, drableGroupParents)
-            : drawShapes.drawArrows(this, drableGroupParents);
-        arrows.forEach(arrow => layer.add(arrow));
+            ? drawShapes.drawDirectArrows(this, parentsGroup)
+            : drawShapes.drawArrows(this, parentsGroup, onArrowClick);
+        arrows.forEach(arrow => {
+            cursorPointerHelper(arrow);
+            layer.add(arrow);
+        });
 
         return {
             x: pos.x,
@@ -170,7 +177,7 @@ var bookMap = (function () {
 
     function drawChapterBlock(x, y, chapter) {
         //var centerX = canvas.width / 2;
-        var parents = getParrentsCanvasObj(chapter.Id);
+        var parents = getParentsCanvasObj(chapter.Id);
         var centerX = getCenterByParents(parents);
 
         var chapterX = (x / 2) * BlockSize.Width + ChapterSize.Padding + centerX;
@@ -199,14 +206,18 @@ var bookMap = (function () {
         var chapterBox = drawShapes.drawChapter(chapter);
         group.add(chapterBox);
 
-        var addButton = drawShapes.drawAddChapterButoon(chapter, onAddChapterClick, cursorPointerHelper);
+        var addButton = drawShapes.drawAddChapterButton(chapter, onAddChapterClick);
+        cursorPointerHelper(addButton);
         group.add(addButton);
-        var editButton = drawShapes.drawEditChapterButoon(chapter, onEditChapterClick, cursorPointerHelper);
+        var editButton = drawShapes.drawEditChapterButton(chapter, onEditChapterClick);
+        cursorPointerHelper(editButton);
         group.add(editButton);
-        var removeButton = drawShapes.drawRemoveChapterButoon(chapter, onRemoveChapterClick, cursorPointerHelper);
+        var removeButton = drawShapes.drawRemoveChapterButton(chapter, onRemoveChapterClick);
+        cursorPointerHelper(removeButton);
         group.add(removeButton);
-        var addLinkButoon = drawShapes.drawAddLinkButoon(chapter, onAddLinkClick, cursorPointerHelper);
-        group.add(addLinkButoon);
+        var addLinkButton = drawShapes.drawAddLinkButton(chapter, onAddLinkClick);
+        cursorPointerHelper(addLinkButton);
+        group.add(addLinkButton);
 
         var textShape = drawShapes.drawText(chapter);
         group.add(textShape);
@@ -215,8 +226,11 @@ var bookMap = (function () {
 
         var arrows = useDirectArrow
             ? drawShapes.drawDirectArrows(group, parents)
-            : drawShapes.drawArrows(group, parents);
-        arrows.forEach(arrow => layer.add(arrow));
+            : drawShapes.drawArrows(group, parents, onArrowClick);
+        arrows.forEach(arrow => {
+            cursorPointerHelper(arrow);
+            layer.add(arrow);
+        });
     }
 
     function draw(chapters, newScale) {
@@ -287,7 +301,7 @@ var bookMap = (function () {
         });
     }
 
-    function getParrentsCanvasObj(chapterId) {
+    function getParentsCanvasObj(chapterId) {
         return layer.children.filter(function (canvasItem) {
             if (!canvasItem.chapter)
                 return false;
@@ -400,6 +414,6 @@ var bookMap = (function () {
 
     return {
         start: start,
-        redraw: redraw
+        redraw: redraw,
     };
 })();

@@ -4,7 +4,6 @@
             get: get,
             getForTravel: getForTravel,
             save: save,
-            createLink: createLink,
             createChild: createChild,
             remove: remove,
             getBottomChapters: getBottomChapters,
@@ -12,6 +11,8 @@
             createNextChapter: createNextChapter,
             linkDecisionToChapterLink: linkDecisionToChapterLink,
 
+            createLink: createLink,
+            removeLink: removeLink,
             saveChapterLink: saveChapterLink,
             getLinksFromChapter: getLinksFromChapter,
             removeChapterLink: removeChapterLink,
@@ -44,6 +45,14 @@
             return httpHelper.get(url, data);
         }
 
+        function removeLink(linkId) {
+            var url = '/api/chapterLink/Remove';
+            var data = {
+                id: linkId,
+            };
+            return httpHelper.get(url, data);
+        }
+
         function createChild(parentId) {
             var url = '/api/chapter/CreateChild';
             var data = { parentId: parentId };
@@ -60,7 +69,7 @@
             var url = '/api/chapter/GetAllChapters';
             var data = { bookId: bookId };
             return httpHelper.get(url, data);
-        } 
+        }
 
         function remove(chapterId) {
             var url = '/api/chapter/Remove?id=' + chapterId;
@@ -113,5 +122,5 @@
                 chapterId: chapterId
             };
             return httpHelper.get(url, data);
-        } 
+        }
     }]);

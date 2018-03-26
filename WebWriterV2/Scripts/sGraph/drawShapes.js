@@ -43,7 +43,7 @@ var drawShapes = (function () {
         return chapterBlock;
     }
 
-    function drawAddChapterButoon(chapter, onAddChapterClick, cursorPointerHelper) {
+    function drawAddChapterButton(chapter, onAddChapterClick) {
         var addBlock = new Konva.Ellipse({
             x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2,
             y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
@@ -57,11 +57,10 @@ var drawShapes = (function () {
         addBlock.relatedAdd.chapter = chapter;
 
         addBlock.on("click", onAddChapterClick);
-        cursorPointerHelper(addBlock);
         return addBlock;
     }
 
-    function drawEditChapterButoon(chapter, onEditChapterClick, cursorPointerHelper) {
+    function drawEditChapterButton(chapter, onEditChapterClick) {
         var editButton = new Konva.Ellipse({
             x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2 - AddButtonSize.Radius - AddButtonSize.Padding * 3,
             y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
@@ -76,11 +75,10 @@ var drawShapes = (function () {
         editButton.relatedEdit.chapter = chapter;
 
         editButton.on("click", onEditChapterClick);
-        cursorPointerHelper(editButton);
         return editButton;
     }
 
-    function drawRemoveChapterButoon(chapter, onRemoveChapterClick, cursorPointerHelper) {
+    function drawRemoveChapterButton(chapter, onRemoveChapterClick) {
         var removeBlock = new Konva.Ellipse({
             x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2 + AddButtonSize.Radius + AddButtonSize.Padding * 3,
             y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
@@ -94,11 +92,10 @@ var drawShapes = (function () {
         removeBlock.relatedRemove.chapter = chapter;
 
         removeBlock.on("click", onRemoveChapterClick);
-        cursorPointerHelper(removeBlock);
         return removeBlock;
     }
 
-    function drawAddLinkButoon(chapter, onAddLinkClick, cursorPointerHelper) {
+    function drawAddLinkButton(chapter, onAddLinkClick) {
         var addLink = new Konva.Ellipse({
             x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2 + (AddButtonSize.Radius + AddButtonSize.Padding) * 3 + AddButtonSize.Padding,
             y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
@@ -112,7 +109,6 @@ var drawShapes = (function () {
         addLink.chapter = chapter;
 
         addLink.on("click", onAddLinkClick);
-        cursorPointerHelper(addLink);
         return addLink;
     }
 
@@ -133,19 +129,22 @@ var drawShapes = (function () {
         return textItem;
     }
 
-    function drawArrows(child, parents) {
+    function drawArrows(child, parents, onArrowClick) {
         var arrows = [];
         for (var i = 0; i < parents.length; i++) {
             var parent = parents[i];
-            var arrow = drawArrow(parent, child);
+            var arrow = drawArrow(parent, child, onArrowClick);
             arrows.push(arrow);
         }
         return arrows;
     }
 
-    function drawArrow(parent, child) {
+    function drawArrow(parent, child, onArrowClick) {
         parent.drawChildCount++;
         child.drawParentCount++;
+
+        var links = child.chapter.LinksToThisEvent;
+        var linkId = links.find(x=>x.FromId == parent.chapter.Id).Id;
 
         var parentShift = parent.drawChildCount - (parent.chapter.LinksFromThisEvent.length - 1) / 2;
         var childShift = child.drawParentCount - (child.chapter.LinksToThisEvent.length - 1) / 2;
@@ -209,6 +208,10 @@ var drawShapes = (function () {
             parentId: parent.chapter.Id,
             childId: child.chapter.Id
         };
+        arrow.linkId = linkId;
+
+        arrow.on('click', onArrowClick);
+
         return arrow;
     }
 
@@ -252,10 +255,10 @@ var drawShapes = (function () {
 
     return {
         drawChapter: drawChapter,
-        drawAddChapterButoon: drawAddChapterButoon,
-        drawEditChapterButoon: drawEditChapterButoon,
-        drawRemoveChapterButoon: drawRemoveChapterButoon,
-        drawAddLinkButoon: drawAddLinkButoon,
+        drawAddChapterButton: drawAddChapterButton,
+        drawEditChapterButton: drawEditChapterButton,
+        drawRemoveChapterButton: drawRemoveChapterButton,
+        drawAddLinkButton: drawAddLinkButton,
         drawText: drawText,
         drawArrows: drawArrows,
         drawArrow: drawArrow,

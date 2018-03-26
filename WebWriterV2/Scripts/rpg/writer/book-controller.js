@@ -42,6 +42,12 @@ angular.module('rpg')
             });
         }
 
+        function removeLink(linkId) {
+            chapterService.removeLink(linkId).then(function () {
+                init();
+            });
+        }
+
         function moveToEditChapter(chapterId) {
             $location.path('/ar/writer/chapter/' + chapterId);
             $scope.$apply()
@@ -54,7 +60,8 @@ angular.module('rpg')
                 moveToEditChapter: moveToEditChapter,
                 addChapter: addChapter,
                 remove: remove,
-                createLink: createLink
+                createLink: createLink,
+                removeLink: removeLink
             };
 
             bookService.getWithChaptersV2(bookId).then(function (book) {
