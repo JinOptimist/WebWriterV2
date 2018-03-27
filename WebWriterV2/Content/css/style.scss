@@ -14,10 +14,11 @@ $blue1: #00aeef; /*rgb(0,174,239)*/
 /*$border: #e9e9e9;*/
 $gray-middle: #b3b3b3;
 
-html, body, textarea, input, p {
+html, body, textarea, input, p, ul {
     margin: 0;
     padding: 0;
 }
+
 html, body {
     font-family: Lato;
     font-size: 14px;
@@ -33,6 +34,13 @@ body {
     background-color: $light-gray;
 }
 
+ul {
+    li {
+        list-style: none;
+        display: inline-block;
+    }
+}
+
 .content {
     max-width: 1560px;
     min-width: 1020px;
@@ -42,42 +50,150 @@ body {
 /* Header */
 .wide-header {
     background: $white;
+    padding: 0 35px;
 }
 
-#header,
+#header {
+    background-color: $white;
+    height: 70px;
+    margin: 2px 0;
+    position: relative;
+
+    .menu-panel {
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        .logo {
+            font-family: LatoBold;
+            font-size: 20px;
+            //display: none !important;
+        }
+
+        .header-item {
+            display: inline-block;
+            margin-top: 17px;
+            color: $dark-gray;
+            vertical-align: text-top;
+            margin-right: 35px;
+
+            a {
+                color: $gray-middle;
+            }
+
+            ul {
+                li {
+                    display: inline-block;
+                    margin: 5px 6px;
+                    cursor: pointer;
+
+                    &.active {
+                        border-bottom: 3px $blue1 solid;
+                    }
+                }
+            }
+        }
+    }
+
+    .login-panel {
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        .header-item {
+            display: inline-block;
+            margin-top: 17px;
+            color: $dark-gray;
+            vertical-align: text-top;
+            margin-left: 35px;
+
+            a {
+                color: $gray-middle;
+            }
+
+            ul {
+                li {
+                    display: inline-block;
+                    margin: 5px 6px;
+                    cursor: pointer;
+
+                    &.active {
+                        border-bottom: 3px $blue1 solid;
+                    }
+                }
+            }
+        }
+    }
+}
+
 #sub-header {
     background-color: $white;
     height: 70px;
-    margin-top: 3px;
+    margin: 2px 0;
+    position: relative;
+    padding: 0 35px;
 
-    .logo {
-        font-family: LatoBold;
-        font-size: 20px;
+    .project-list {
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        li {
+            line-height: 70px;
+            height: 70px;
+            vertical-align: top;
+            padding-right: 10px;
+        }
+
+        .size-action {
+            input {
+                margin-top: 25px;
+            }
+        }
     }
 
-    .header-item {
-        display: inline-block;
-        margin-top: 17px;
+    .action-list {
+        position: absolute;
+        right: 0;
+        top: 0;
+
+        .action-list-item {
+            display: inline-block;
+            line-height: 70px;
+            height: 70px;
+            padding-left: 10px;
+
+            .add-icon {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .book-menu {
         color: $dark-gray;
-        margin-left: 35px;
-        vertical-align: text-top;
+        position: absolute;
+        left: calc(100% / 2);
+        top: 0;
 
         a {
             color: $gray-middle;
         }
-    }
 
-    ul {
-        margin: 0;
-        padding: 0;
+        ul {
+            height: 100%;
 
-        li {
-            display: inline-block;
-            margin: 5px 6px;
-            cursor: pointer;
+            li {
+                display: inline-block;
+                margin: 0 6px;
+                cursor: pointer;
+                height: 70px;
+                line-height: 70px;
+                border-bottom: 3px transparent solid;
 
-            &.active {
-                border-bottom: 3px $blue1 solid;
+                &.active {
+                    border-bottom: 3px $blue1 solid;
+                }
             }
         }
     }
@@ -165,7 +281,7 @@ body {
 .book {
     background-color: $white;
     display: inline-block;
-    width: 420px;
+    width: 270px;
     //width: calc(100% / 3 - 50px);
     height: 290px;
     margin-top: 32px;
@@ -173,7 +289,8 @@ body {
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
     vertical-align: top;
-    padding: 30px;
+    padding: 30px 30px 60px 30px;
+    position: relative;
 
     .header {
         color: $gray-middle;
@@ -214,6 +331,7 @@ body {
     .name {
         font-family: LatoBold;
         font-size: 20px;
+        padding: 10px 0;
 
         input {
             width: 415px;
@@ -225,6 +343,8 @@ body {
     .desc {
         height: 150px;
         overflow: hidden;
+        font-size: 12px;
+        line-height: 16px;
 
         textarea {
             width: 420px;
@@ -239,7 +359,9 @@ body {
     }
 
     .actions {
-        margin-top: 10px;
+        position: absolute;
+        bottom: 30px;
+        left: 58px;
     }
 
     .newTag {
@@ -324,9 +446,9 @@ body {
     .header {
         background-color: $white;
         font-size: 18px;
-        border-bottom: 3px solid $light-gray;
-        border-top: 3px solid $light-gray;
+        border-bottom: 2px solid $light-gray;
         padding: 30px 150px;
+        text-align: center;
     }
 
     .body {
@@ -338,15 +460,15 @@ body {
 /* Also use in chapter editor */
 .chapter-links-block {
     padding: 30px 150px;
-    margin-top: 3px;
-    margin-bottom: 3px;
+    margin-top: 2px;
+    margin-bottom: 2px;
     background-color: $white;
 
     .chapter-link {
         background-color: $white;
 
         .text {
-            border: 2px #ccc solid;
+            border: 2px $light-gray solid;
             border-radius: 5px;
             padding: 20px;
             text-align: center;
@@ -359,6 +481,8 @@ body {
 
         .action-button {
             text-align: center;
+            padding-bottom: 16px;
+            margin-top: -16px;
         }
 
         &.onlyNext .action-button {
@@ -381,15 +505,6 @@ body {
 /* Common style*/
 .left {
     float: left;
-}
-
-.right {
-    float: right;
-}
-
-.center {
-    position: absolute;
-    left: calc(100% / 2)
 }
 
 .no-border {
@@ -447,10 +562,10 @@ body {
                 margin: 10px 0;
             }
 
-            .error{
+            .error {
                 color: $red;
             }
-            
+
             .row {
                 margin: 15px 0;
             }
@@ -490,19 +605,21 @@ body {
     padding: 5px 12px;
     cursor: pointer;
 }
+
 .button-medium-gray {
     color: $gray-middle;
     background-color: $white;
     border: 2px solid $gray-middle;
 }
+
 .button-medium-blue {
     color: $white;
     background-color: $blue1;
 }
 
 .user-avatar {
-    max-width: 36px;
-    max-height: 36px;
+    width: 36px;
+    height: 36px;
     border-radius: 18px;
 }
 
@@ -520,6 +637,18 @@ body {
     .icon {
         vertical-align: middle;
     }
+}
+
+.help-page {
+    padding: 0 35px;
+}
+
+.profile-page {
+    padding: 0 35px;
+}
+
+footer {
+    clear: both;
 }
 /* Common style End*/
 /* ng-form */

@@ -1,38 +1,41 @@
 ﻿<div class="wide-header" ng-controller="accessController">
     <div class="content" id="header">
-        <div class="logo header-item">
-            <a href="/ar/reader/books">
-                LOGO
-            </a>
-        </div>
-        <div class="header-item" ng-if="user">
-            <a href="/ar/writer/books">Проекты</a>
-        </div>
-        <div class="header-item" ng-if="user">
-            <a href="/ar/writer/generalDefinition">Помощь</a>
-        </div>
-        <!--<div class="header-item" ng-if="user">
-            <a href="/ar/writer/graph">график</a>
-        </div>-->
-        <div class="header-item" ng-if="!user">
-            <a href="#" ng-click="openRegistration()">Регистрация</a>
-        </div>
-        <div class="header-item" ng-if="!user">
-            <a href="#" ng-click="openLogin()">Логин</a>
-        </div>
-        <div class="header-item" ng-if="user">
-            {{::user.Name}} <a href="#" ng-click="exit()">Выйти</a>
+
+        <div class="menu-panel">
+            <div class="logo header-item">
+                <a href="/ar/reader/books">
+                    Денис, добавь лого, блять
+                </a>
+            </div>
+            <div class="header-item" ng-if="user">
+                <a href="/ar/writer/books">Проекты</a>
+            </div>
+            <div class="header-item" ng-if="user">
+                <a href="/ar/writer/generalDefinition">Помощь</a>
+            </div>
+            <!--<div class="header-item" ng-if="user">
+                <a href="/ar/writer/graph">график</a>
+            </div>-->
+            <div class="header-item" ng-if="!user">
+                <a href="#" ng-click="openRegistration()">Регистрация</a>
+            </div>
         </div>
 
-        <div class="right">
-            <div class="header-item" ng-if="user">
+        <div class="right login-panel">
+            <!--<div class="header-item" ng-if="user">
                 <a href="/ar/reader/profile/{{user.Id}}">Профиль</a>
-            </div>
+            </div>-->
             <!--<div class="header-item ">
                 <input type="text" placeholder="Искать..." />
             </div>-->
             <div class="header-item">
                 <span class="icon" ng-class="{'bell-active': active, 'bell': !active}" ng-click="active = !active"></span>
+            </div>
+            <div class="header-item" ng-if="!user">
+                <a href="#" ng-click="openLogin()">Логин</a>
+            </div>
+            <div class="header-item" ng-if="user">
+                {{::user.Name}} <a href="#" ng-click="exit()">Выйти</a>
             </div>
             <div class="header-item">
                 <a href="/ar/reader/profile/{{user.Id}}"><img ng-src="{{user.AvatarUrl}}" ng-show="user" title="{{user.Name}}" class="user-avatar" /></a>

@@ -20,7 +20,8 @@
             <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
                 <!--{{chapterLink.Text ? '' : 'onlyNext'}}-->
                 <span class="icon close" ng-click="deleteLink(chapterLink.Id, $index)"></span>
-                <div class="text"><!--ng-if="chapterLink.Text"-->
+                <div class="text">
+                    <!--ng-if="chapterLink.Text"-->
                     <input ng-model="chapterLink.Text" class="no-border" ng-blur="updateChpaterLink(chapterLink)" />
                 </div>
                 <div class="action-button">
@@ -55,9 +56,9 @@
                         <p>
                             <label>
                                 Запомнить решение
-                                <input type="checkbox" 
+                                <input type="checkbox"
                                        ng-disabled="chapterLink.Decision"
-                                       ng-init="rememberDecision = !!chapterLink.Decision" 
+                                       ng-init="rememberDecision = !!chapterLink.Decision"
                                        ng-model="rememberDecision" />
                             </label>
                         </p>
