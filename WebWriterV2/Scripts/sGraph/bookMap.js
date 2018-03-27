@@ -43,7 +43,7 @@ var bookMap = (function () {
 
     function onRemoveChapterClick(obj) {
         console.log('bookMap onRemoveChapterClick. chapter.Id - ' + this.relatedRemove.chapter.Id);
-        actions.remove(this.relatedRemove.chapter.Id);
+        actions.remove(this.relatedRemove.chapter);
     }
 
     function onAddLinkClick(obj) {

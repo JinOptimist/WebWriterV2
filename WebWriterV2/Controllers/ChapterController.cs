@@ -33,16 +33,20 @@ namespace WebWriterV2.Controllers
         {
             var chapter = frontChapter.ToDbModel();
             //Update root chapter
-            if (frontChapter.IsRootChapter) {
+            if (frontChapter.IsRootChapter)
+            {
                 var book = BookRepository.Get(frontChapter.BookId);
                 chapter.Book = book;
                 chapter = ChapterRepository.Save(chapter);
                 chapter.Book.RootChapter = chapter;
                 BookRepository.Save(book);
-            } else {
+            }
+            else
+            {
                 var parentsForNewChapter = new List<Chapter>();
                 // New chapter must be linked with parrent.
-                if (chapter.Id == 0 && chapter.Level > 1) {
+                if (chapter.Id == 0 && chapter.Level > 1)
+                {
                     parentsForNewChapter = ChapterRepository.GetByLevel(chapter.Book.Id, chapter.Level - 1);
                 }
 
@@ -69,7 +73,8 @@ namespace WebWriterV2.Controllers
         {
             var parent = ChapterRepository.Get(parentId);
 
-            var child = new Chapter {
+            var child = new Chapter
+            {
                 Name = "Глава. Ур: " + parent.Level + 1,
                 Desc = "Глава создана из главы: " + parent.Name,
                 Book = parent.Book,
@@ -79,7 +84,8 @@ namespace WebWriterV2.Controllers
             child = ChapterRepository.Save(child);
 
             // New chapter must be linked with parrent.
-            var link = new ChapterLinkItem() {
+            var link = new ChapterLinkItem()
+            {
                 From = parent,
                 To = child
             };
@@ -109,7 +115,17 @@ namespace WebWriterV2.Controllers
         [AcceptVerbs("GET")]
         public bool Remove(long id)
         {
-            ChapterRepository.Remove(id);
+            var chapter = ChapterRepository.Get(id);
+            if (chapter.LinksToThisChapter.Count == 0 || 
+                chapter.LinksFromThisChapter.Any(link => link.To.LinksToThisChapter.Count == 1))
+            {
+                // if curent chapter is root chapter
+                // OR there is at least one child who has only one parent 
+                // we shouldn't remove chapter because the action create isolated chapter
+                return false;
+            }
+
+            ChapterRepository.Remove(chapter);
             return true;
         }
 
@@ -138,7 +154,8 @@ namespace WebWriterV2.Controllers
         public FrontChapter CreateNextChapter(FrontChapter frontChapter)
         {
             var chapter = frontChapter.ToDbModel();
-            var newChapter = new Chapter() {
+            var newChapter = new Chapter()
+            {
                 Name = "Name",
                 Desc = "Desc",
                 Book = chapter.Book,
@@ -147,7 +164,8 @@ namespace WebWriterV2.Controllers
             };
 
             newChapter = ChapterRepository.Save(newChapter);
-            var link = new ChapterLinkItem() {
+            var link = new ChapterLinkItem()
+            {
                 From = chapter,
                 To = newChapter
             };

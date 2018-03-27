@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="~/Content/css/style.scss?v=1.0">
     <link rel="stylesheet" type="text/css" href="~/Content/css/icon.scss?v=1.0">
 
+    <script src="~/Scripts/polyfill.js"></script>
+
     <script>
         var Const = {
             ChapterSize: { Width: 100, Height: 40, Padding: 30 },
@@ -16,6 +18,8 @@
             FontSize: 12,
         };
     </script>
+
+    <script type="text/javascript" src="@Url.Action("GetResources")"></script>
 
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/angular-route.min.js"></script>

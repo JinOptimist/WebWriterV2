@@ -198,6 +198,11 @@
     <Compile Include="FrontModel\FrontBook.cs" />
     <Compile Include="FrontModel\FrontChapter.cs" />
     <Compile Include="FrontModel\FrontEnum.cs" />
+    <Compile Include="Localization\MainRu.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainRu.resx</DependentUpon>
+    </Compile>
     <Compile Include="RpgUtility\Dto\VkAccess.cs" />
     <Compile Include="RpgUtility\EmailHelper.cs" />
     <Compile Include="RpgUtility\StateHelper.cs" />
@@ -668,6 +673,7 @@
     <Content Include="Content\font\Merriweather-LightItalic.ttf" />
     <Content Include="Content\font\Merriweather-Regular.ttf" />
     <Content Include="Content\css\icon.scss" />
+    <Content Include="Scripts\polyfill.js" />
     <Content Include="Scripts\rpg\reader\access-controller.js" />
     <Content Include="Scripts\rpg\reader\profile-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-controller.js" />
@@ -748,6 +754,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\MainRu.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>MainRu.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

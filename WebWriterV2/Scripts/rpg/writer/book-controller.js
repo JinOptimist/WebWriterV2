@@ -28,10 +28,14 @@ angular.module('rpg')
             });
         }
 
-        function remove(chapterId) {
-            if (confirm('Are you sure?')) {
-                chapterService.remove(chapterId).then(function () {
-                    init();
+        function remove(chapter) {
+            if (confirm(resources.RemoveChapterConfirmation.format(chapter.Name))) {
+                chapterService.remove(chapter.Id).then(function (result) {
+                    if (result) {
+                        init();
+                    } else {
+                        alert(resources.RemoveChapterImpossibleAlert.format(chapter.Name));
+                    }
                 });
             }
         }
@@ -43,8 +47,12 @@ angular.module('rpg')
         }
 
         function removeLink(linkId) {
-            chapterService.removeLink(linkId).then(function () {
-                init();
+            chapterService.removeLink(linkId).then(function (result) {
+                if (result) {
+                    init();
+                } else {
+                    alert(resources.RemoveLinkImpossibleAlert);
+                }
             });
         }
 
