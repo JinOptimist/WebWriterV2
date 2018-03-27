@@ -24,7 +24,7 @@ angular.module('rpg')
 
         function addChapter(parentId) {
             chapterService.createChild(parentId).then(function (savedChapter) {
-                moveToEditChapter(savedChapter.Id);
+                moveToEditChapter(savedChapter.Id, true);
             });
         }
 
@@ -56,9 +56,11 @@ angular.module('rpg')
             });
         }
 
-        function moveToEditChapter(chapterId) {
+        function moveToEditChapter(chapterId, avoidApply) {
             $location.path('/ar/writer/chapter/' + chapterId);
-            $scope.$apply()
+            if (!avoidApply) {
+                $scope.$apply();
+            }
         }
 
         function loadChaptersV2(bookId) {
