@@ -1,14 +1,14 @@
 ﻿<div class="wide-header" ng-class="!books ? 'wait' : ''">
-    <div class="content" id="sub-header">
-        <div class="logo header-item">
-            Все проекты
-            <span class="gray-text"> | {{books.length}} проектов</span>
-        </div>
-        <div class="header-item">
-            <input type="range" />
+    <div class="content sub-header" id="sub-header">
+        <div class="project-list">
+            <ul>
+                <li>Все проекты<span class="gray-text"> | {{books.length}} проектов</span>
+                <li>
+                    <!--<li class="size-action"><input type="range" /></li>-->
+            </ul>
         </div>
 
-        <div class="header-item center">
+        <div class="book-menu w-reg">
             <ul>
                 <li ng-repeat="filter in listOfFilters" ng-click="filterBooks(filter)" ng-class="{active: filter.active}">
                     {{filter.displayName}}
@@ -16,15 +16,15 @@
             </ul>
         </div>
 
-        <div class="right">
-            <div class="header-item ">
+        <div class="action-list">
+            <!--<div class="action-list-item sort-list">
                 <select>
                     <option>Сортировать</option>
                     <option>Дате</option>
                     <option>Размер</option>
                 </select>
-            </div>
-            <div class="header-item">
+            </div>-->
+            <div class="action-list-item create-book">
                 <span class="icon add-icon" ng-click="showCreateBook()"></span>
             </div>
         </div>

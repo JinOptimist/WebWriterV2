@@ -9,6 +9,8 @@
     <link rel="stylesheet" type="text/css" href="~/Content/css/style.scss?v=1.0">
     <link rel="stylesheet" type="text/css" href="~/Content/css/icon.scss?v=1.0">
 
+    <script src="~/Scripts/polyfill.js"></script>
+
     <script>
         var Const = {
             ChapterSize: { Width: 100, Height: 40, Padding: 30 },
@@ -16,6 +18,8 @@
             FontSize: 12,
         };
     </script>
+
+    <script type="text/javascript" src="@Url.Action("GetResources")"></script>
 
     <script src="~/Scripts/angular.js"></script>
     <script src="~/Scripts/angular-route.min.js"></script>
@@ -58,9 +62,9 @@
     @*<script src="~/Scripts/ckeditor/ckeditor.js"></script>*@
 </head>
 <body>
-    <div ng-include="'views/rpg/headerD.html'">Loading...</div>
-    <div ng-view>Loading...</div>
-    <footer style="clear: both; padding: 70px 70px; border-top: 1px dotted green; margin-top: 10px;">Все права правильные</footer>
+    <div ng-include="'views/rpg/headerD.html'"></div>
+    <div ng-view></div>
+    <footer></footer>
 </body>
 </html>
 

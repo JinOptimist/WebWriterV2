@@ -55,8 +55,10 @@ namespace WebWriterV2
 
         protected void Application_Error(object sender, EventArgs e)
         {
-            //Exception exception = Server.GetLastError();
-            //Server.ClearError();
+            Exception exception = Server.GetLastError();
+            Server.ClearError();
+            RpgUtility.EmailHelper.SendError(exception);
+            
             //Response.Redirect("/Home/Error");
         }
     }

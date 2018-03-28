@@ -13,11 +13,15 @@ namespace WebWriterV2.RpgUtility
     {
         public static void SendConfirmRegistrationEmail(string relativeUrl, string userEmail)
         {
-            
             var url = ToAbsoluteUrl(relativeUrl);
             var title = "Интерактивная книга. Регистрация";
             var body = $"Пожалуйста подтвердите регистрацию. Для этого достаточно перейти по ссылке {url}";
             Send(userEmail, title, body);
+        }
+
+        public static void SendError(Exception e)
+        {
+            Send(Properties.Settings.Default.AdminEmail, "На сайте проблемы!", e.ToString());
         }
 
         public static void Send(string to, string title, string body)

@@ -99,6 +99,9 @@ namespace WebWriterV2.FrontModels
             currentDepthChapters.AddRange(additionalChaptersFromPreviusLevels);
             additionalChaptersFromPreviusLevels.ForEach(x => notProcessedChapters.Remove(x));
 
+            currentDepthChapters = currentDepthChapters.Distinct().ToList();
+            notProcessedChapters = notProcessedChapters.Distinct().ToList();
+
             return RecursiveProcessedBranch(branch, currentDepthChapters, currentDepth, notProcessedChapters, currentWidth);
         }
 

@@ -19,6 +19,10 @@ using System.Text;
 using WebWriterV2.RpgUtility.Dto;
 using WebWriterV2.DI;
 using Dao.DataGeneration;
+using System.Web.Script.Serialization;
+using System.Resources;
+using System.Globalization;
+using System.Collections;
 
 namespace WebWriterV2.Controllers
 {
@@ -99,6 +103,20 @@ namespace WebWriterV2.Controllers
             return File(path, "application/octet-stream", $"{travel.Book.Name}.txt");
         }
 
+        public ActionResult GetResources()
+        {
+            var resources = new Dictionary<string, string>();
+            var resourceSet = Localization.MainRu.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
+            foreach (DictionaryEntry entry in resourceSet)
+            {
+                var resourceKey = entry.Key.ToString();
+                var value = entry.Value.ToString();
+                resources.Add(resourceKey, value);
+            }
+            
+            var json = new JavaScriptSerializer().Serialize(resources);
+            return JavaScript("var resources = " + json + ";");
+        }
 
         public ActionResult RegisterVkComplete(string code)
         {

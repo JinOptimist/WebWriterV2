@@ -1,6 +1,6 @@
 ﻿<div class="wide-header" ng-class="!books ? 'wait' : ''">
     <div class="content" id="sub-header">
-        <div class="header-item">
+        <div class="book-menu r-reg">
             <ul>
                 <li ng-repeat="filter in listOfFilters" ng-click="chooseFilter(filter)" ng-class="{active: filter.active}">
                     {{filter.displayName}}
@@ -29,7 +29,7 @@
             <div class="tags-block">
                 <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
             </div>
-            
+
         </div>
 
         <p class="name">
