@@ -110,7 +110,7 @@ var bookMap = (function () {
         actions.removeLink(arrow.linkId);
     }
 
-    function onDragChpaterGroup(pos) {
+    function onDragChapterGroup(pos) {
         var parentsGroup = getParentsCanvasObj(this.chapter.Id);
 
         // Remove arrow from parents to curent
@@ -119,7 +119,6 @@ var bookMap = (function () {
             var arrow = getArrowBetweenTwoChater(parent.chapter.Id, this.chapter.Id);
             if (arrow) {
                 arrow.remove();
-
                 this.drawParentCount--;
                 parent.drawChildCount--;
             }
@@ -138,7 +137,7 @@ var bookMap = (function () {
 
             arrow.remove();
 
-            var child = getChapterCanvasObjById(link.ToId);
+            var child = stage.find('#chBl' + link.ToId)[0];
             this.drawChildCount--;
             child.drawParentCount--;
 
@@ -195,7 +194,7 @@ var bookMap = (function () {
             draggable: true,
             x: chapterX,
             y: chapterY,
-            dragBoundFunc: onDragChpaterGroup,
+            dragBoundFunc: onDragChapterGroup,
             id: 'chBl' + chapter.Id
         });
         group.chapter = chapter;
@@ -310,14 +309,6 @@ var bookMap = (function () {
         });
     }
 
-    function getChapterCanvasObjById(chapterId) {
-        return layer.children.filter(function (canvasItem) {
-            if (!canvasItem.chapter)
-                return false;
-            return canvasItem.chapter.Id === chapterId;
-        })[0];
-    }
-
     function getArrowBetweenTwoChater(parentId, childId) {
         return layer.children.filter(function (canvasItem) {
             if (!canvasItem.twoSides)
@@ -342,9 +333,6 @@ var bookMap = (function () {
         var min = Math.min.apply(Math, xCoordinates);
         var max = Math.max.apply(Math, xCoordinates);
         var result = (min + max) / 2;
-        //if (min != max) {
-        //    result -= BlockSize.Width / 2;
-        //}
         return result - ChapterSize.Padding;
     }
 
