@@ -1,8 +1,6 @@
 var bookMap = (function () {
     console.log('bookMap is load');
-    var ChapterSize = Const.ChapterSize;
-    var BlockSize = { Width: ChapterSize.Width + ChapterSize.Padding, Height: ChapterSize.Height + ChapterSize.Padding };
-    var AddButtonSize = Const.AddButtonSize;
+    var BlockSize = { Width: Const.ChapterSize.Width + Const.ChapterSize.Padding, Height: Const.ChapterSize.Height + Const.ChapterSize.Padding };
     var canvasSize = {};
     var FontSize = Const.FontSize;
 
@@ -19,16 +17,14 @@ var bookMap = (function () {
         console.log('bookMap onChapterClick. chapter.Id - ' + this.chapter.Id);
 
         var newArrow = stage.find('#newArrow')[0];
-        if (!newArrow) {
-            return;
-        }
-        if (newArrow.fromChapterId !== this.chapter.Id) {
-            actions.createLink(newArrow.fromChapterId, this.chapter.Id);
-        }
+        if (newArrow) {
+            finishCreatingNewLink(newArrow, this.chapter.Id)
+        } else {
+            var from = this.chapter.LinksFromThisEvent;
+            var to = this.chapter.LinksToThisEvent;
 
-        stage.off('mousemove');
-        newArrow.destroy();
-        layer.draw();
+            from.forEach(l => highlightArrow(this.chapter.Id, l.ToId));
+        }
     }
 
     function onAddChapterClick(obj) {
@@ -119,8 +115,7 @@ var bookMap = (function () {
             var arrow = getArrowBetweenTwoChater(parent.chapter.Id, this.chapter.Id);
             if (arrow) {
                 arrow.remove();
-                this.drawParentCount--;
-                parent.drawChildCount--;
+                removeArrowDrawnRecord(parent, this);
             }
         }
 
@@ -131,15 +126,10 @@ var bookMap = (function () {
             if (!arrow) {
                 continue;
             }
-            var childPoints = arrow.points();
-            var childX = childPoints[childPoints.length - 2];
-            var childY = childPoints[childPoints.length - 1];
-
+            
             arrow.remove();
-
             var child = stage.find('#chBl' + link.ToId)[0];
-            this.drawChildCount--;
-            child.drawParentCount--;
+            removeArrowDrawnRecord(this, child);
 
             var arrow = useDirectArrow
                 ? drawShapes.drawDirectArrow(this, child)
@@ -174,13 +164,36 @@ var bookMap = (function () {
     }
     /* events END */
 
+    function removeArrowDrawnRecord(parent, child) {
+        var i = parent.drawnChildren.indexOf(child.chapter.Id);
+        parent.drawnChildren[i] = undefined;
+
+        i = child.drawnParents.indexOf(parent.chapter.Id);
+        child.drawnParents[i] = undefined;
+    }
+
+    function finishCreatingNewLink(newArrow, chapterId) {
+        if (newArrow.fromChapterId !== chapterId) {
+            actions.createLink(newArrow.fromChapterId, chapterId);
+        }
+
+        stage.off('mousemove');
+        newArrow.destroy();
+        layer.draw();
+    }
+
+    function highlightArrow(fromId, toId) {
+        var arrow = getArrowBetweenTwoChater(fromId, toId);
+        arrow.destroy();
+    }
+
     function drawChapterBlock(x, y, chapter) {
         //var centerX = canvas.width / 2;
         var parents = getParentsCanvasObj(chapter.Id);
         var centerX = getCenterByParents(parents);
 
-        var chapterX = (x / 2) * BlockSize.Width + ChapterSize.Padding + centerX;
-        var chapterY = y * BlockSize.Height + ChapterSize.Padding;
+        var chapterX = (x / 2) * BlockSize.Width + Const.ChapterSize.Padding + centerX;
+        var chapterY = y * BlockSize.Height + Const.ChapterSize.Padding;
         var isCrossed = false;
         while (isCrossOtherChapter(chapterX, chapterY)) {
             chapterX += 10;
@@ -198,8 +211,8 @@ var bookMap = (function () {
             id: 'chBl' + chapter.Id
         });
         group.chapter = chapter;
-        group.drawChildCount = -1;
-        group.drawParentCount = -1;
+        group.drawnChildren = [];
+        group.drawnParents = [];
         group.on('click', onChapterClick);
 
         var chapterBox = drawShapes.drawChapter(chapter);
@@ -260,6 +273,13 @@ var bookMap = (function () {
         }
     }
 
+    function updateChapterSize(maxWeight) {
+        Const.ChapterSize.Width = canvasSize.width / (maxWeight + 2);
+        BlockSize.Width = Const.ChapterSize.Width + Const.ChapterSize.Padding;
+        Const.ChapterSize = Const.ChapterSize;
+    }
+    
+    /* tools to work with FronModels */
     function splitByLevels(chapters) {
         var maxWeight = 1;
         var levels = [];
@@ -288,54 +308,12 @@ var bookMap = (function () {
         return levels;
     }
 
-    function updateChapterSize(maxWeight) {
-        ChapterSize.Width = canvasSize.width / (maxWeight + 2);
-        BlockSize.Width = ChapterSize.Width + ChapterSize.Padding;
-        Const.ChapterSize = ChapterSize;
-    }
-
-    function findParents(chapters, chapterId) {
-        return chapters.filter(function (chapter) {
-            return chapterContainsLinkToCurrentChapter(chapter, chapterId);
-        });
-    }
-
-    function getParentsCanvasObj(chapterId) {
-        return layer.children.filter(function (canvasItem) {
-            if (!canvasItem.chapter)
-                return false;
-            var chapter = canvasItem.chapter;
-            return chapterContainsLinkToCurrentChapter(chapter, chapterId);
-        });
-    }
-
-    function getArrowBetweenTwoChater(parentId, childId) {
-        return layer.children.filter(function (canvasItem) {
-            if (!canvasItem.twoSides)
-                return false;
-
-            return canvasItem.twoSides.parentId === parentId && canvasItem.twoSides.childId === childId;
-        })[0];
-    }
-
     function chapterContainsLinkToCurrentChapter(curentChapter, destinationChapterId) {
         if (!curentChapter.LinksFromThisEvent || curentChapter.LinksFromThisEvent.length === 0)
             return false;
         return curentChapter.LinksFromThisEvent.filter(link => link.ToId === destinationChapterId).length > 0;
     }
-
-    function getCenterByParents(parents) {
-        if (!parents || parents.length < 1)
-            return canvasSize.width / 2 - BlockSize.Width / 2;
-
-        var xCoordinates = parents.map(chapterBlock => chapterBlock.attrs.x);
-
-        var min = Math.min.apply(Math, xCoordinates);
-        var max = Math.max.apply(Math, xCoordinates);
-        var result = (min + max) / 2;
-        return result - ChapterSize.Padding;
-    }
-
+    
     function groupByParent(chapters) {
         if (chapters.length === 1)
             return [chapters];
@@ -367,6 +345,26 @@ var bookMap = (function () {
         return result;
     }
 
+    function findParents(chapters, chapterId) {
+        return chapters.filter(function (chapter) {
+            return chapterContainsLinkToCurrentChapter(chapter, chapterId);
+        });
+    }
+    /* tools to work with FronModels END */
+
+    /* stage helper */
+    function getCenterByParents(parents) {
+        if (!parents || parents.length < 1)
+            return canvasSize.width / 2 - BlockSize.Width / 2;
+
+        var xCoordinates = parents.map(chapterBlock => chapterBlock.attrs.x);
+
+        var min = Math.min.apply(Math, xCoordinates);
+        var max = Math.max.apply(Math, xCoordinates);
+        var result = (min + max) / 2;
+        return result - Const.ChapterSize.Padding;
+    }
+
     function isCrossOtherChapter(x, y) {
         var chapterWichAreCrossed = layer.children.filter(function (canvasItem) {
             if (!canvasItem.chapter)
@@ -377,6 +375,25 @@ var bookMap = (function () {
 
         return chapterWichAreCrossed.length > 0;
     }
+
+    function getArrowBetweenTwoChater(parentId, childId) {
+        return layer.children.filter(function (canvasItem) {
+            if (!canvasItem.twoSides)
+                return false;
+
+            return canvasItem.twoSides.parentId === parentId && canvasItem.twoSides.childId === childId;
+        })[0];
+    }
+
+    function getParentsCanvasObj(chapterId) {
+        return layer.children.filter(function (canvasItem) {
+            if (!canvasItem.chapter)
+                return false;
+            var chapter = canvasItem.chapter;
+            return chapterContainsLinkToCurrentChapter(chapter, chapterId);
+        });
+    }
+    /* stage helper END */
 
     /* public functions */
     function start(chapters, newScale, _actions, _canvasSize) {

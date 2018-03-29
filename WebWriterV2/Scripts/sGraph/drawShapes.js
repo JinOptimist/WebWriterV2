@@ -1,16 +1,13 @@
 var drawShapes = (function () {
     console.log('drawShapes is load');
-    var ChapterSize = Const.ChapterSize;
-    var BlockSize = { Width: ChapterSize.Width + ChapterSize.Padding, Height: ChapterSize.Height + ChapterSize.Padding };
-    var AddButtonSize = Const.AddButtonSize;
-    var FontSize = Const.FontSize;
+    var BlockSize = { Width: Const.ChapterSize.Width + Const.ChapterSize.Padding, Height: Const.ChapterSize.Height + Const.ChapterSize.Padding };
 
     function drawChapter(chapter) {
         var chapterBlock = new Konva.Rect({
             x: 0,// regarding the group coordinate 
             y: 0,
-            width: ChapterSize.Width,
-            height: ChapterSize.Height,
+            width: Const.ChapterSize.Width,
+            height: Const.ChapterSize.Height,
             fill: "#fff",
             stroke: "#000",
             strokeWidth: 1,
@@ -45,11 +42,11 @@ var drawShapes = (function () {
 
     function drawAddChapterButton(chapter, onAddChapterClick) {
         var addBlock = new Konva.Ellipse({
-            x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2,
-            y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
+            x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2,
+            y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
             radius: {
-                x: AddButtonSize.Radius,
-                y: AddButtonSize.Radius
+                x: Const.AddButtonSize.Radius,
+                y: Const.AddButtonSize.Radius
             },
             fill: "#0f0",
         });
@@ -62,11 +59,11 @@ var drawShapes = (function () {
 
     function drawEditChapterButton(chapter, onEditChapterClick) {
         var editButton = new Konva.Ellipse({
-            x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2 - AddButtonSize.Radius - AddButtonSize.Padding * 3,
-            y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
+            x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding * 3,
+            y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
             radius: {
-                x: AddButtonSize.Radius,
-                y: AddButtonSize.Radius
+                x: Const.AddButtonSize.Radius,
+                y: Const.AddButtonSize.Radius
             },
             fill: "#FFA500",
         });
@@ -80,11 +77,11 @@ var drawShapes = (function () {
 
     function drawRemoveChapterButton(chapter, onRemoveChapterClick) {
         var removeBlock = new Konva.Ellipse({
-            x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2 + AddButtonSize.Radius + AddButtonSize.Padding * 3,
-            y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
+            x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 + Const.AddButtonSize.Radius + Const.AddButtonSize.Padding * 3,
+            y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
             radius: {
-                x: AddButtonSize.Radius,
-                y: AddButtonSize.Radius
+                x: Const.AddButtonSize.Radius,
+                y: Const.AddButtonSize.Radius
             },
             fill: "#f00",
         });
@@ -97,11 +94,11 @@ var drawShapes = (function () {
 
     function drawAddLinkButton(chapter, onAddLinkClick) {
         var addLink = new Konva.Ellipse({
-            x: ChapterSize.Width / 2 - AddButtonSize.Radius / 2 + (AddButtonSize.Radius + AddButtonSize.Padding) * 3 + AddButtonSize.Padding,
-            y: ChapterSize.Height - AddButtonSize.Radius - AddButtonSize.Padding,
+            x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 + (Const.AddButtonSize.Radius + Const.AddButtonSize.Padding) * 3 + Const.AddButtonSize.Padding,
+            y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
             radius: {
-                x: AddButtonSize.Radius,
-                y: AddButtonSize.Radius
+                x: Const.AddButtonSize.Radius,
+                y: Const.AddButtonSize.Radius
             },
             fill: "#F0F",
         });
@@ -114,12 +111,11 @@ var drawShapes = (function () {
 
     function drawText(chapter) {
         var text = chapter.Name;
-        var fontSize = FontSize;// * scale;
         var textItem = new Konva.Text({
             x: 3,// regarding the group coordinate 
             y: 3,
-            width: ChapterSize.Width - ChapterSize.Padding,
-            fontSize: fontSize,
+            width: Const.ChapterSize.Width - Const.ChapterSize.Padding,
+            FontSize: Const.FontSize,
             fontFamily: "sans-serif",
             text: text,
             fill: "#0aa",
@@ -140,19 +136,19 @@ var drawShapes = (function () {
     }
 
     function drawArrow(parent, child, onArrowClick) {
-        parent.drawChildCount++;
-        child.drawParentCount++;
+        var parentIndex = fillDrawnForParent(parent, child);
+        var childIndex = fillDrawnForChild(parent, child);
 
         var links = child.chapter.LinksToThisEvent;
         var linkId = links.find(x=>x.FromId == parent.chapter.Id).Id;
 
-        var parentShift = parent.drawChildCount - (parent.chapter.LinksFromThisEvent.length - 1) / 2;
-        var childShift = child.drawParentCount - (child.chapter.LinksToThisEvent.length - 1) / 2;
+        var parentShift = parentIndex - (parent.chapter.LinksFromThisEvent.length - 1) / 2;
+        var childShift = childIndex - (child.chapter.LinksToThisEvent.length - 1) / 2;
 
-        var parentX = parent.attrs.x + ChapterSize.Width / 2;
-        var parentY = parent.attrs.y + ChapterSize.Height;
+        var parentX = parent.attrs.x + Const.ChapterSize.Width / 2;
+        var parentY = parent.attrs.y + Const.ChapterSize.Height;
 
-        var childX = child.attrs.x + ChapterSize.Width / 2;
+        var childX = child.attrs.x + Const.ChapterSize.Width / 2;
         var childY = child.attrs.y;
 
         var specialArrow = Math.abs(parentY - childY) > BlockSize.Height && parentX === childX;
@@ -167,29 +163,29 @@ var drawShapes = (function () {
             //   |__lv2__|    |
             //   |__lv3__|<-- |
 
-            var point1X = parentX + ChapterSize.Width / 2;
-            var point1Y = parentY - ChapterSize.Height / 3;
+            var point1X = parentX + Const.ChapterSize.Width / 2;
+            var point1Y = parentY - Const.ChapterSize.Height / 3;
             points.push(point1X);
             points.push(point1Y);
 
-            points.push(point1X + ChapterSize.Padding / 2);
+            points.push(point1X + Const.ChapterSize.Padding / 2);
             points.push(point1Y);
 
-            points.push(point1X + ChapterSize.Padding / 2);
-            points.push(childY + ChapterSize.Height / 3);
+            points.push(point1X + Const.ChapterSize.Padding / 2);
+            points.push(childY + Const.ChapterSize.Height / 3);
 
             points.push(point1X);
-            points.push(childY + ChapterSize.Height / 3);
+            points.push(childY + Const.ChapterSize.Height / 3);
 
         } else {
             points.push(parentX);
             points.push(parentY);
 
             points.push(parentX);
-            points.push(childY - ChapterSize.Padding / 2 + childShift * 4);
+            points.push(childY - Const.ChapterSize.Padding / 2 + childShift * 4);
 
             points.push(childX);
-            points.push(childY - ChapterSize.Padding / 2 + childShift * 4);
+            points.push(childY - Const.ChapterSize.Padding / 2 + childShift * 4);
 
             points.push(childX);
             points.push(childY);
@@ -251,6 +247,24 @@ var drawShapes = (function () {
             childId: child.chapter.Id
         };
         layer.add(arrow);
+    }
+
+    function fillDrawnForParent(parent, child) {
+         for (var i = 0; i < parent.drawnChildren.length + 1; i++) {
+            if (!parent.drawnChildren[i]) {
+                parent.drawnChildren[i] = child.chapter.Id;
+                return i;
+            }
+        }
+    }
+
+    function fillDrawnForChild(parent, child) {
+        for (var i = 0; i < child.drawnParents.length + 1; i++) {
+            if (!child.drawnParents[i]) {
+                child.drawnParents[i] = parent.chapter.Id;
+                return i;
+            }
+        }
     }
 
     return {

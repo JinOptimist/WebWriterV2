@@ -116,12 +116,26 @@ namespace WebWriterV2.Controllers
         public bool Remove(long id)
         {
             var chapter = ChapterRepository.Get(id);
-            if (chapter.LinksToThisChapter.Count == 0 || 
-                chapter.LinksFromThisChapter.Any(link => link.To.LinksToThisChapter.Count == 1))
+
+            var existForbidenLink = chapter.LinksFromThisChapter.Any(link => {
+                if (link.To.LinksToThisChapter.Count > 1) {
+                    return false;
+                }
+
+                var ch = link.To.LinksToThisChapter.Single().To;
+                if (ch.ForRootBook == null) {
+                    return true;
+                }
+
+                return false;
+            });
+
+            if (chapter.ForRootBook != null || existForbidenLink)
             {
                 // if curent chapter is root chapter
                 // OR there is at least one child who has only one parent 
                 // we shouldn't remove chapter because the action create isolated chapter
+
                 return false;
             }
 

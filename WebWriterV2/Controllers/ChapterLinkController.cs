@@ -71,13 +71,16 @@ namespace WebWriterV2.Controllers
         [AcceptVerbs("GET")]
         public bool Remove(long id)
         {
-            var link = ChapterLinkItemRepository.Get(id);
-            if (link.To.LinksToThisChapter.Count == 1)
+            var links = ChapterLinkItemRepository.Get(id);            
+            if (links.To.LinksToThisChapter.Count == 1)
             {
-                return false;
+                var link = links.To.LinksToThisChapter.Single();
+                if (link.To.ForRootBook == null) {
+                    return false;
+                }
             }
 
-            ChapterLinkItemRepository.Remove(link);
+            ChapterLinkItemRepository.Remove(links);
             return true;
         }
 
