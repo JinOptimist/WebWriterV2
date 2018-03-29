@@ -135,7 +135,7 @@ var drawShapes = (function () {
         return arrows;
     }
 
-    function drawArrow(parent, child, onArrowClick) {
+    function drawArrow(parent, child, onArrowClick, isHighlight) {
         var parentIndex = fillDrawnForParent(parent, child);
         var childIndex = fillDrawnForChild(parent, child);
 
@@ -193,7 +193,7 @@ var drawShapes = (function () {
 
         var arrow = new Konva.Arrow({
             points: points,
-            stroke: "#0aa",
+            stroke: isHighlight ? "#a0a" : "#0aa",
             strokeWidth: 2,
             lineCap: "round",
             fill: 'black',
@@ -205,6 +205,7 @@ var drawShapes = (function () {
             childId: child.chapter.Id
         };
         arrow.linkId = linkId;
+        arrow.isHighlight = isHighlight;
 
         arrow.on('click', onArrowClick);
 

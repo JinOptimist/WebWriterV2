@@ -12,7 +12,7 @@ var bookMap = (function () {
 
     var useDirectArrow = false;
 
-    /* events */
+    /* ******************************* events ******************************* */
     function onChapterClick(obj) {
         console.log('bookMap onChapterClick. chapter.Id - ' + this.chapter.Id);
 
@@ -20,10 +20,17 @@ var bookMap = (function () {
         if (newArrow) {
             finishCreatingNewLink(newArrow, this.chapter.Id)
         } else {
+            var oldHighlightArrow = getHighlightArrow();
+
+            oldHighlightArrow.forEach(ar => redrawArrow(ar.twoSides.parentId, ar.twoSides.childId, false));
+
             var from = this.chapter.LinksFromThisEvent;
             var to = this.chapter.LinksToThisEvent;
 
-            from.forEach(l => highlightArrow(this.chapter.Id, l.ToId));
+            from.forEach(l => redrawArrow(this.chapter.Id, l.ToId, true));
+            to.forEach(l => redrawArrow(l.FromId, this.chapter.Id, true));
+
+            layer.draw();
         }
     }
 
@@ -45,7 +52,7 @@ var bookMap = (function () {
     function onAddLinkClick(obj) {
         var chapterId = this.chapter.Id;
         console.log('bookMap onAddLinkClick. chapter.Id - ' + chapterId);
-        var chapterBlock = stage.find('#chBl' + chapterId)[0];
+        var chapterBlock = getGroupByChapterId(chapterId);
 
         var x1 = chapterBlock.attrs.x;
         var y1 = chapterBlock.attrs.y;
@@ -128,7 +135,7 @@ var bookMap = (function () {
             }
             
             arrow.remove();
-            var child = stage.find('#chBl' + link.ToId)[0];
+            var child = getGroupByChapterId(link.ToId);
             removeArrowDrawnRecord(this, child);
 
             var arrow = useDirectArrow
@@ -162,7 +169,7 @@ var bookMap = (function () {
             stage.container().style.cursor = 'default';
         });
     }
-    /* events END */
+    /* ******************************* END ******************************* */
 
     function removeArrowDrawnRecord(parent, child) {
         var i = parent.drawnChildren.indexOf(child.chapter.Id);
@@ -182,12 +189,19 @@ var bookMap = (function () {
         layer.draw();
     }
 
-    function highlightArrow(fromId, toId) {
+    function redrawArrow(fromId, toId, highlight) {
+        var parent = getGroupByChapterId(fromId);
+        var child = getGroupByChapterId(toId);
         var arrow = getArrowBetweenTwoChater(fromId, toId);
         arrow.destroy();
+        removeArrowDrawnRecord(parent, child);
+
+        arrow = drawShapes.drawArrow(parent, child, onArrowClick, highlight);
+        cursorPointerHelper(arrow);
+        layer.add(arrow);
     }
 
-    function drawChapterBlock(x, y, chapter) {
+    function drawChapterGroup(x, y, chapter) {
         //var centerX = canvas.width / 2;
         var parents = getParentsCanvasObj(chapter.Id);
         var centerX = getCenterByParents(parents);
@@ -208,7 +222,7 @@ var bookMap = (function () {
             x: chapterX,
             y: chapterY,
             dragBoundFunc: onDragChapterGroup,
-            id: 'chBl' + chapter.Id
+            id: 'chGr' + chapter.Id
         });
         group.chapter = chapter;
         group.drawnChildren = [];
@@ -237,7 +251,7 @@ var bookMap = (function () {
         layer.add(group);
 
         var arrows = useDirectArrow
-            ? drawShapes.drawDirectArrows(group, parents)
+            ? drawShapes.drawDirectArrows(group, parents, onArrowClick)
             : drawShapes.drawArrows(group, parents, onArrowClick);
         arrows.forEach(arrow => {
             cursorPointerHelper(arrow);
@@ -266,7 +280,7 @@ var bookMap = (function () {
                 for (var i = 0; i < chapterGroupByParent.length; i++) {
                     var chapter = chapterGroupByParent[i];
                     var x = currentX + chapter.Weight - 1;
-                    drawChapterBlock(x, y - 1, chapter);
+                    drawChapterGroup(x, y - 1, chapter);
                     currentX += chapter.Weight * 2;
                 }
             }
@@ -279,7 +293,7 @@ var bookMap = (function () {
         Const.ChapterSize = Const.ChapterSize;
     }
     
-    /* tools to work with FronModels */
+    /* ******************************* tools to work with FronModels ******************************* */
     function splitByLevels(chapters) {
         var maxWeight = 1;
         var levels = [];
@@ -350,9 +364,9 @@ var bookMap = (function () {
             return chapterContainsLinkToCurrentChapter(chapter, chapterId);
         });
     }
-    /* tools to work with FronModels END */
+    /* ******************************* END ******************************* */
 
-    /* stage helper */
+    /* ******************************* stage helper ******************************* */
     function getCenterByParents(parents) {
         if (!parents || parents.length < 1)
             return canvasSize.width / 2 - BlockSize.Width / 2;
@@ -393,7 +407,17 @@ var bookMap = (function () {
             return chapterContainsLinkToCurrentChapter(chapter, chapterId);
         });
     }
-    /* stage helper END */
+
+    function getHighlightArrow() {
+        return layer.children.filter(function (canvasItem) {
+            return canvasItem.isHighlight;
+        });
+    }
+
+    function getGroupByChapterId(chapterId) {
+        return stage.find('#chGr' + chapterId)[0];
+    }
+    /* ******************************* END ******************************* */
 
     /* public functions */
     function start(chapters, newScale, _actions, _canvasSize) {
