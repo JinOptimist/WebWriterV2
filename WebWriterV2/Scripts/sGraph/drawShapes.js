@@ -2,6 +2,13 @@ var drawShapes = (function () {
     console.log('drawShapes is load');
     var BlockSize = { Width: Const.ChapterSize.Width + Const.ChapterSize.Padding, Height: Const.ChapterSize.Height + Const.ChapterSize.Padding };
 
+    var shapeLogicType = {
+        ChapterBorder: 'ChapterBorder',
+        ChapterGroup: 'ChapterGroup',
+        ChapterButton: 'ChapterButton',
+        Arrow: 'Arrow',
+    };
+
     function drawChapter(chapter) {
         var chapterBlock = new Konva.Rect({
             x: 0,// regarding the group coordinate 
@@ -18,6 +25,7 @@ var drawShapes = (function () {
         });
 
         chapterBlock.chapter = chapter;
+        chapterBlock.logicType = shapeLogicType.ChapterBorder;
 
         //chapterBlock.on('mouseover', function (chap) {
         //    var box = chap.target;
@@ -53,6 +61,7 @@ var drawShapes = (function () {
         addBlock.relatedAdd = {};
         addBlock.relatedAdd.chapter = chapter;
 
+        addBlock.logicType = shapeLogicType.ChapterButton;
         addBlock.on("click", onAddChapterClick);
         return addBlock;
     }
@@ -71,6 +80,7 @@ var drawShapes = (function () {
         editButton.relatedEdit = {};
         editButton.relatedEdit.chapter = chapter;
 
+        editButton.logicType = shapeLogicType.ChapterButton;
         editButton.on("click", onEditChapterClick);
         return editButton;
     }
@@ -88,6 +98,7 @@ var drawShapes = (function () {
         removeBlock.relatedRemove = {};
         removeBlock.relatedRemove.chapter = chapter;
 
+        removeBlock.logicType = shapeLogicType.ChapterButton;
         removeBlock.on("click", onRemoveChapterClick);
         return removeBlock;
     }
@@ -105,6 +116,7 @@ var drawShapes = (function () {
 
         addLink.chapter = chapter;
 
+        addLink.logicType = shapeLogicType.ChapterButton;
         addLink.on("click", onAddLinkClick);
         return addLink;
     }
@@ -206,6 +218,7 @@ var drawShapes = (function () {
         };
         arrow.linkId = linkId;
         arrow.isHighlight = isHighlight;
+        arrow.logicType = shapeLogicType.Arrow;
 
         arrow.on('click', onArrowClick);
 
@@ -247,7 +260,11 @@ var drawShapes = (function () {
             parentId: parent.chapter.Id,
             childId: child.chapter.Id
         };
-        layer.add(arrow);
+        arrow.linkId = linkId;
+        arrow.isHighlight = isHighlight;
+        arrow.logicType = shapeLogicType.Arrow;
+
+        return arrow;
     }
 
     function fillDrawnForParent(parent, child) {
@@ -279,5 +296,6 @@ var drawShapes = (function () {
         drawArrow: drawArrow,
         drawDirectArrows: drawDirectArrows,
         drawDirectArrow: drawDirectArrow,
+        shapeLogicType: shapeLogicType
     };
 })();

@@ -13,27 +13,6 @@ var bookMap = (function () {
     var useDirectArrow = false;
 
     /* ******************************* events ******************************* */
-    function onChapterClick(obj) {
-        console.log('bookMap onChapterClick. chapter.Id - ' + this.chapter.Id);
-
-        var newArrow = stage.find('#newArrow')[0];
-        if (newArrow) {
-            finishCreatingNewLink(newArrow, this.chapter.Id)
-        } else {
-            var oldHighlightArrow = getHighlightArrow();
-
-            oldHighlightArrow.forEach(ar => redrawArrow(ar.twoSides.parentId, ar.twoSides.childId, false));
-
-            var from = this.chapter.LinksFromThisEvent;
-            var to = this.chapter.LinksToThisEvent;
-
-            from.forEach(l => redrawArrow(this.chapter.Id, l.ToId, true));
-            to.forEach(l => redrawArrow(l.FromId, this.chapter.Id, true));
-
-            layer.draw();
-        }
-    }
-
     function onAddChapterClick(obj) {
         console.log('bookMap onAddChapterClick. chapter.Id - ' + this.relatedAdd.chapter.Id);
         actions.addChapter(this.relatedAdd.chapter.Id);
@@ -169,6 +148,38 @@ var bookMap = (function () {
             stage.container().style.cursor = 'default';
         });
     }
+
+    function onGroupClick(obj) {
+        console.log('bookMap onChapterClick. chapter.Id - ' + this.chapter.Id);
+
+        var newArrow = stage.find('#newArrow')[0];
+        if (newArrow) {
+            finishCreatingNewLink(newArrow, this.chapter.Id)
+        } else {
+            var oldHighlightArrow = getHighlightArrow();
+            oldHighlightArrow.forEach(ar => redrawArrow(ar.twoSides.parentId, ar.twoSides.childId, false));
+
+            var from = this.chapter.LinksFromThisEvent;
+            var to = this.chapter.LinksToThisEvent;
+
+            from.forEach(l => redrawArrow(this.chapter.Id, l.ToId, true));
+            to.forEach(l => redrawArrow(l.FromId, this.chapter.Id, true));
+
+            layer.draw();
+        }
+    }
+
+    function onGroupMouseEnter(obj) {
+        var group = obj.currentTarget;
+        console.log('onGroupMouseEnter ' + group.chapter.id);
+        drawButtonForGroup(group, group.chapter);
+    }
+
+    function onGroupMouseLeave(obj) {
+        var group = obj.currentTarget;
+        console.log('onGroupMouseLeave ' + group.chapter.id);
+        removeButtonForGroup(group);
+    }
     /* ******************************* END ******************************* */
 
     function removeArrowDrawnRecord(parent, child) {
@@ -177,28 +188,6 @@ var bookMap = (function () {
 
         i = child.drawnParents.indexOf(parent.chapter.Id);
         child.drawnParents[i] = undefined;
-    }
-
-    function finishCreatingNewLink(newArrow, chapterId) {
-        if (newArrow.fromChapterId !== chapterId) {
-            actions.createLink(newArrow.fromChapterId, chapterId);
-        }
-
-        stage.off('mousemove');
-        newArrow.destroy();
-        layer.draw();
-    }
-
-    function redrawArrow(fromId, toId, highlight) {
-        var parent = getGroupByChapterId(fromId);
-        var child = getGroupByChapterId(toId);
-        var arrow = getArrowBetweenTwoChater(fromId, toId);
-        arrow.destroy();
-        removeArrowDrawnRecord(parent, child);
-
-        arrow = drawShapes.drawArrow(parent, child, onArrowClick, highlight);
-        cursorPointerHelper(arrow);
-        layer.add(arrow);
     }
 
     function drawChapterGroup(x, y, chapter) {
@@ -222,28 +211,21 @@ var bookMap = (function () {
             x: chapterX,
             y: chapterY,
             dragBoundFunc: onDragChapterGroup,
-            id: 'chGr' + chapter.Id
+            id: 'chGr' + chapter.Id,
+            chapterIndexX: x,
+            chapterIndexY: y
         });
         group.chapter = chapter;
         group.drawnChildren = [];
         group.drawnParents = [];
-        group.on('click', onChapterClick);
+        group.on('click', onGroupClick);
+        group.on('mouseenter', onGroupMouseEnter);
+        group.on('mouseleave', onGroupMouseLeave);
 
         var chapterBox = drawShapes.drawChapter(chapter);
         group.add(chapterBox);
 
-        var addButton = drawShapes.drawAddChapterButton(chapter, onAddChapterClick);
-        cursorPointerHelper(addButton);
-        group.add(addButton);
-        var editButton = drawShapes.drawEditChapterButton(chapter, onEditChapterClick);
-        cursorPointerHelper(editButton);
-        group.add(editButton);
-        var removeButton = drawShapes.drawRemoveChapterButton(chapter, onRemoveChapterClick);
-        cursorPointerHelper(removeButton);
-        group.add(removeButton);
-        var addLinkButton = drawShapes.drawAddLinkButton(chapter, onAddLinkClick);
-        cursorPointerHelper(addLinkButton);
-        group.add(addLinkButton);
+        //drawButtonForGroup(group, chapter);
 
         var textShape = drawShapes.drawText(chapter);
         group.add(textShape);
@@ -367,6 +349,39 @@ var bookMap = (function () {
     /* ******************************* END ******************************* */
 
     /* ******************************* stage helper ******************************* */
+    function drawButtonForGroup(group, chapter) {
+        var addButton = drawShapes.drawAddChapterButton(chapter, onAddChapterClick);
+        cursorPointerHelper(addButton);
+        group.add(addButton);
+        var editButton = drawShapes.drawEditChapterButton(chapter, onEditChapterClick);
+        cursorPointerHelper(editButton);
+        group.add(editButton);
+        var removeButton = drawShapes.drawRemoveChapterButton(chapter, onRemoveChapterClick);
+        cursorPointerHelper(removeButton);
+        group.add(removeButton);
+        var addLinkButton = drawShapes.drawAddLinkButton(chapter, onAddLinkClick);
+        cursorPointerHelper(addLinkButton);
+        group.add(addLinkButton);
+
+        layer.draw();
+    }
+    
+    function removeButtonForGroup(group) {
+        //for (var i = 0; i < group.children.length; i++) {
+        //    group.children[i];
+        //}
+        var itemToDestroy = [];
+        group.children.forEach(function (item) {
+            if (item.logicType == drawShapes.shapeLogicType.ChapterButton) {
+                itemToDestroy.push(item);
+            }
+        });
+
+        itemToDestroy.forEach(x => x.destroy());
+
+        layer.draw();
+    }
+
     function getCenterByParents(parents) {
         if (!parents || parents.length < 1)
             return canvasSize.width / 2 - BlockSize.Width / 2;
@@ -410,12 +425,42 @@ var bookMap = (function () {
 
     function getHighlightArrow() {
         return layer.children.filter(function (canvasItem) {
-            return canvasItem.isHighlight;
+            return canvasItem.logicType == drawShapes.shapeLogicType.Arrow
+                && canvasItem.isHighlight;
+        });
+    }
+
+    function getHighlightGroup() {
+        return layer.children.filter(function (canvasItem) {
+            return canvasItem.logicType == drawShapes.shapeLogicType.ChapterGroup
+                && canvasItem.isHighlight;
         });
     }
 
     function getGroupByChapterId(chapterId) {
         return stage.find('#chGr' + chapterId)[0];
+    }
+
+    function redrawArrow(fromId, toId, highlight) {
+        var parent = getGroupByChapterId(fromId);
+        var child = getGroupByChapterId(toId);
+        var arrow = getArrowBetweenTwoChater(fromId, toId);
+        arrow.destroy();
+        removeArrowDrawnRecord(parent, child);
+
+        arrow = drawShapes.drawArrow(parent, child, onArrowClick, highlight);
+        cursorPointerHelper(arrow);
+        layer.add(arrow);
+    }
+
+    function finishCreatingNewLink(newArrow, chapterId) {
+        if (newArrow.fromChapterId !== chapterId) {
+            actions.createLink(newArrow.fromChapterId, chapterId);
+        }
+
+        stage.off('mousemove');
+        newArrow.destroy();
+        layer.draw();
     }
     /* ******************************* END ******************************* */
 
