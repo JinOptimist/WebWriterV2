@@ -103,6 +103,23 @@ var drawShapes = (function () {
         return removeBlock;
     }
 
+    /* for future */
+    function drawRemoveChapterImage(chapter, onRemoveChapterClick) {
+        var imageObj = new Image();
+        imageObj.src = '/Content/icon/close.png';
+        var removeBlock = new Konva.Image({
+            x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 + Const.AddButtonSize.Radius + Const.AddButtonSize.Padding * 3,
+            y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
+            image: imageObj
+        });
+        removeBlock.relatedRemove = {};
+        removeBlock.relatedRemove.chapter = chapter;
+
+        removeBlock.logicType = shapeLogicType.ChapterButton;
+        removeBlock.on("click", onRemoveChapterClick);
+        return removeBlock;
+    }
+
     function drawAddLinkButton(chapter, onAddLinkClick) {
         var addLink = new Konva.Ellipse({
             x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 + (Const.AddButtonSize.Radius + Const.AddButtonSize.Padding) * 3 + Const.AddButtonSize.Padding,
@@ -290,6 +307,7 @@ var drawShapes = (function () {
         drawAddChapterButton: drawAddChapterButton,
         drawEditChapterButton: drawEditChapterButton,
         drawRemoveChapterButton: drawRemoveChapterButton,
+        drawRemoveChapterImage: drawRemoveChapterImage,
         drawAddLinkButton: drawAddLinkButton,
         drawText: drawText,
         drawArrows: drawArrows,

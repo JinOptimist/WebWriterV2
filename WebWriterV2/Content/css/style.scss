@@ -18,7 +18,6 @@ html, body, textarea, input, p, ul {
     margin: 0;
     padding: 0;
 }
-
 html, body {
     font-family: Lato;
     font-size: 14px;
@@ -32,6 +31,8 @@ a {
 
 body {
     background-color: $light-gray;
+    max-width: 1560px;
+    min-width: 1020px;
 }
 
 ul {
@@ -42,9 +43,9 @@ ul {
 }
 
 .content {
-    max-width: 1560px;
+    /*max-width: 1560px;
     min-width: 1020px;
-    margin: auto;
+    margin: auto;*/
 }
 
 /* Header */
@@ -79,6 +80,7 @@ ul {
 
             a {
                 color: $gray-middle;
+                text-transform: uppercase;
             }
 
             ul {
@@ -106,9 +108,11 @@ ul {
             color: $dark-gray;
             vertical-align: text-top;
             margin-left: 35px;
+            text-transform: uppercase;
 
             a {
                 color: $gray-middle;
+                text-transform: lowercase;
             }
 
             ul {
@@ -296,8 +300,6 @@ ul {
         color: $gray-middle;
         font-size: 12px;
         line-height: 15px;
-        height: 40px;
-        margin-bottom: 20px;
 
         .user-avatar-block {
             display: inline-block;
@@ -562,10 +564,10 @@ ul {
                 margin: 10px 0;
             }
 
-            .error {
+            .error{
                 color: $red;
             }
-
+            
             .row {
                 margin: 15px 0;
             }
@@ -605,13 +607,11 @@ ul {
     padding: 5px 12px;
     cursor: pointer;
 }
-
 .button-medium-gray {
     color: $gray-middle;
     background-color: $white;
     border: 2px solid $gray-middle;
 }
-
 .button-medium-blue {
     color: $white;
     background-color: $blue1;
