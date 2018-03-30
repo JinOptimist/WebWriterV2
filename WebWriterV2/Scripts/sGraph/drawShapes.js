@@ -9,7 +9,7 @@ var drawShapes = (function () {
         Arrow: 'Arrow',
     };
 
-    function drawChapter(chapter) {
+    function drawChapter(chapter, isHighlight) {
         var chapterBlock = new Konva.Rect({
             x: 0,// regarding the group coordinate 
             y: 0,
@@ -18,7 +18,7 @@ var drawShapes = (function () {
             fill: "#fff",
             stroke: "#000",
             strokeWidth: 1,
-            shadowColor: '#000',
+            shadowColor: isHighlight ? '#F00' : '#000',
             shadowBlur: 2,
             shadowOffset: { x: 2, y: 2 },
             shadowOpacity: 1,

@@ -54,37 +54,9 @@ var bookMap = (function () {
         layer.add(arrow);
         layer.draw();
 
-        stage.on('mousemove', redrawActiveArrow);
+        stage.on('mousemove', redrawActiveNewArrow);
 
         obj.cancelBubble = true;
-    }
-
-    function redrawActiveArrow() {
-        var newArrow = stage.find('#newArrow')[0];
-        var points = newArrow.points();
-        var x1 = points[0];
-        var y1 = points[1];
-        var fromChapterId = newArrow.fromChapterId;
-        newArrow.destroy();
-
-        var mousePosition = stage.getPointerPosition();
-        var x2 = mousePosition.x;
-        var y2 = mousePosition.y - 5;
-
-        var arrow = new Konva.Arrow({
-            points: [x1, y1, x2, y2],
-            stroke: "#0aa",
-            strokeWidth: 2,
-            lineCap: "round",
-            fill: 'black',
-            pointerLength: 8,
-            pointerWidth: 12,
-            id: 'newArrow'
-        });
-        arrow.fromChapterId = fromChapterId;
-
-        layer.add(arrow);
-        layer.draw();
     }
 
     function onArrowClick(obj) {
@@ -156,14 +128,19 @@ var bookMap = (function () {
         if (newArrow) {
             finishCreatingNewLink(newArrow, this.chapter.Id)
         } else {
+            var oldHighlightGroups = getHighlightGroup();
+            oldHighlightGroups.forEach(x => redrawGroup(x, false));
+
             var oldHighlightArrow = getHighlightArrow();
             oldHighlightArrow.forEach(ar => redrawArrow(ar.twoSides.parentId, ar.twoSides.childId, false));
 
-            var from = this.chapter.LinksFromThisEvent;
-            var to = this.chapter.LinksToThisEvent;
+            var highlightNewElement = !obj.currentTarget.isHighlight;
+            if (highlightNewElement) {
+                redrawGroup(obj.currentTarget, highlightNewElement);
 
-            from.forEach(l => redrawArrow(this.chapter.Id, l.ToId, true));
-            to.forEach(l => redrawArrow(l.FromId, this.chapter.Id, true));
+                this.chapter.LinksFromThisEvent.forEach(l => redrawArrow(this.chapter.Id, l.ToId, highlightNewElement));
+                this.chapter.LinksToThisEvent.forEach(l => redrawArrow(l.FromId, this.chapter.Id, highlightNewElement));
+            }
 
             layer.draw();
         }
@@ -190,7 +167,7 @@ var bookMap = (function () {
         child.drawnParents[i] = undefined;
     }
 
-    function drawChapterGroup(x, y, chapter) {
+    function drawChapterGroup(x, y, chapter, isHighlight) {
         //var centerX = canvas.width / 2;
         var parents = getParentsCanvasObj(chapter.Id);
         var centerX = getCenterByParents(parents);
@@ -207,25 +184,29 @@ var bookMap = (function () {
         }
 
         var group = new Konva.Group({
-            draggable: true,
+            //draggable: true,
             x: chapterX,
             y: chapterY,
             dragBoundFunc: onDragChapterGroup,
             id: 'chGr' + chapter.Id,
-            chapterIndexX: x,
-            chapterIndexY: y
         });
         group.chapter = chapter;
         group.drawnChildren = [];
         group.drawnParents = [];
+        group.chapterIndexX =  x;
+        group.chapterIndexY = y;
+        group.logicType = drawShapes.shapeLogicType.ChapterGroup;
+        group.isHighlight = isHighlight;
         group.on('click', onGroupClick);
         group.on('mouseenter', onGroupMouseEnter);
         group.on('mouseleave', onGroupMouseLeave);
 
-        var chapterBox = drawShapes.drawChapter(chapter);
+        var chapterBox = drawShapes.drawChapter(chapter, isHighlight);
         group.add(chapterBox);
 
-        //drawButtonForGroup(group, chapter);
+        if (isHighlight) {
+            drawButtonForGroup(group, chapter);
+        }
 
         var textShape = drawShapes.drawText(chapter);
         group.add(textShape);
@@ -398,8 +379,11 @@ var bookMap = (function () {
         var chapterWichAreCrossed = layer.children.filter(function (canvasItem) {
             if (!canvasItem.chapter)
                 return false;
-            var existItemX = canvasItem.attrs.x;
-            return canvasItem.attrs.y === y && existItemX > x - BlockSize.Width && existItemX < x + BlockSize.Width;
+            var existItemX = Math.round(canvasItem.attrs.x);
+            
+            return canvasItem.attrs.y === y
+                && existItemX > Math.round(x - BlockSize.Width)
+                && existItemX < Math.round(x + BlockSize.Width);
         });
 
         return chapterWichAreCrossed.length > 0;
@@ -441,6 +425,16 @@ var bookMap = (function () {
         return stage.find('#chGr' + chapterId)[0];
     }
 
+    function finishCreatingNewLink(newArrow, chapterId) {
+        if (newArrow.fromChapterId !== chapterId) {
+            actions.createLink(newArrow.fromChapterId, chapterId);
+        }
+
+        stage.off('mousemove');
+        newArrow.destroy();
+        layer.draw();
+    }
+
     function redrawArrow(fromId, toId, highlight) {
         var parent = getGroupByChapterId(fromId);
         var child = getGroupByChapterId(toId);
@@ -453,14 +447,48 @@ var bookMap = (function () {
         layer.add(arrow);
     }
 
-    function finishCreatingNewLink(newArrow, chapterId) {
-        if (newArrow.fromChapterId !== chapterId) {
-            actions.createLink(newArrow.fromChapterId, chapterId);
-        }
-
-        stage.off('mousemove');
+    function redrawActiveNewArrow() {
+        var newArrow = stage.find('#newArrow')[0];
+        var points = newArrow.points();
+        var x1 = points[0];
+        var y1 = points[1];
+        var fromChapterId = newArrow.fromChapterId;
         newArrow.destroy();
+
+        var mousePosition = stage.getPointerPosition();
+        var x2 = mousePosition.x;
+        var y2 = mousePosition.y - 5;
+
+        var arrow = new Konva.Arrow({
+            points: [x1, y1, x2, y2],
+            stroke: "#0aa",
+            strokeWidth: 2,
+            lineCap: "round",
+            fill: 'black',
+            pointerLength: 8,
+            pointerWidth: 12,
+            id: 'newArrow'
+        });
+        arrow.fromChapterId = fromChapterId;
+
+        layer.add(arrow);
         layer.draw();
+    }
+
+    function redrawGroup(group, isHighlight) {
+        var x = group.chapterIndexX;
+        var y = group.chapterIndexY;
+        var chapter = group.chapter;
+
+        group.drawnParents.forEach(function (parentId) {
+            var parent = getGroupByChapterId(parentId);
+            var indexOfCurrentChapter = parent.drawnChildren.indexOf(chapter.Id);
+            parent.drawnChildren[indexOfCurrentChapter] = undefined;
+        });
+
+        group.destroy();
+
+        drawChapterGroup(x, y, chapter, isHighlight);
     }
     /* ******************************* END ******************************* */
 
