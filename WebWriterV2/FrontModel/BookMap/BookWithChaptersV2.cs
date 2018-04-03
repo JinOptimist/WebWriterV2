@@ -68,7 +68,7 @@ namespace WebWriterV2.FrontModels
             var branch = new Branch() {
                 RootChapter = rootChapter,
                 Chapters = new List<Chapter>(),
-                Width = rootChapter.LinksFromThisChapter.Count
+                Width = LinkToDown(rootChapter).Count
             };
             var currentDepth = rootChapter.Level + 1;
             var childChapters = rootChapter.LinksFromThisChapter.Select(x => x.To);
@@ -80,7 +80,7 @@ namespace WebWriterV2.FrontModels
 
         private Branch RecursiveProcessedBranch(Branch branch, List<Chapter> currentDepthChapters, int currentDepth, List<Chapter> notProcessedChapters, int currentWidth)
         {
-            currentDepthChapters.ForEach(x => currentWidth += x.LinksFromThisChapter.Count - x.LinksToThisChapter.Count);
+            currentDepthChapters.ForEach(x => currentWidth += LinkToDown(x).Count - x.LinksToThisChapter.Count);
             branch.Chapters.AddRange(currentDepthChapters);
             if (currentWidth > branch.Width) {
                 branch.Width = currentWidth;
@@ -94,7 +94,7 @@ namespace WebWriterV2.FrontModels
 
             var nextDepthChapters = currentDepthChapters.SelectMany(ch => ch.LinksFromThisChapter.Select(link => link.To)).Distinct();
             currentDepthChapters = nextDepthChapters.Where(x => x.Level == currentDepth).ToList();
-            notProcessedChapters.AddRange(nextDepthChapters.Where(x => x.Level != currentDepth));
+            notProcessedChapters.AddRange(nextDepthChapters.Where(x => x.Level > currentDepth));
             var additionalChaptersFromPreviusLevels = notProcessedChapters.Where(x => x.Level == currentDepth).ToList();
             currentDepthChapters.AddRange(additionalChaptersFromPreviusLevels);
             additionalChaptersFromPreviusLevels.ForEach(x => notProcessedChapters.Remove(x));
@@ -103,6 +103,10 @@ namespace WebWriterV2.FrontModels
             notProcessedChapters = notProcessedChapters.Distinct().ToList();
 
             return RecursiveProcessedBranch(branch, currentDepthChapters, currentDepth, notProcessedChapters, currentWidth);
+        }
+
+        private List<ChapterLinkItem> LinkToDown(Chapter chapter){
+            return chapter.LinksFromThisChapter.Where(l => l.To.Level > chapter.Level).ToList();
         }
 
         public override Book ToDbModel() {

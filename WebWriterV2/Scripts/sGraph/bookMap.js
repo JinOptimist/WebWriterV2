@@ -64,6 +64,13 @@ var bookMap = (function () {
         actions.removeLink(arrow.linkId);
     }
 
+    function onRightClick() {
+        var newArrow = stage.find('#newArrow')[0];
+        stage.off('mousemove');
+        newArrow.destroy();
+        layer.draw();
+    }
+
     function onDragChapterGroup(pos) {
         var parentsGroup = getParentsCanvasObj(this.chapter);
 
@@ -524,5 +531,6 @@ var bookMap = (function () {
     return {
         start: start,
         redraw: redraw,
+        rightClick: onRightClick
     };
 })();
