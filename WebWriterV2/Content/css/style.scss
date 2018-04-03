@@ -532,6 +532,7 @@ ul {
     background-color: rgba(255, 255, 255, 0.9);
     text-align: center;
     font-size: 48px;
+    z-index: 400;
 
     input {
         margin-top: 70px;
@@ -564,10 +565,10 @@ ul {
                 margin: 10px 0;
             }
 
-            .error{
+            .error {
                 color: $red;
             }
-            
+
             .row {
                 margin: 15px 0;
             }
