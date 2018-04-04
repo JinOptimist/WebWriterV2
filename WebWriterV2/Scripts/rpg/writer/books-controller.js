@@ -9,6 +9,7 @@ angular.module('rpg')
             $scope.newBook = null;
             $scope.listOfFilters = [];
             $scope.filter = {};
+            $scope.resources = resources;
 
             init();
 
@@ -29,7 +30,7 @@ angular.module('rpg')
                 $scope.newBook.showBook = !$scope.newBook.showBook;
                 var book = {
                     Name: $scope.newBook.name,
-                    Desc: $scope.newBook.name
+                    Desc: $scope.newBook.desc
                 };
                 bookService.saveBook(book).then(function (newBook) {
                     $scope.books.push(newBook);
@@ -69,8 +70,12 @@ angular.module('rpg')
             $scope.documentKeyPressed = function (e) {
                 // 'esc'.which == 27
                 if (e.which === 27) {
-                    $scope.newBook = null;
+                    $scope.cancelCreationNewBook();
                 }
+            }
+
+            $scope.cancelCreationNewBook = function () {
+                $scope.newBook = null;
             }
 
             $scope.tagAdd = function (e, book) {

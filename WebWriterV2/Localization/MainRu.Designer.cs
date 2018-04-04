@@ -61,6 +61,105 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Продолжить путешествие &gt;.
+        /// </summary>
+        internal static string ContinueTavel {
+            get {
+                return ResourceManager.GetString("ContinueTavel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Электронная почта.
+        /// </summary>
+        internal static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите описание книги.
+        /// </summary>
+        internal static string EnterBookDesc {
+            get {
+                return ResourceManager.GetString("EnterBookDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите имя книги.
+        /// </summary>
+        internal static string EnterBookName {
+            get {
+                return ResourceManager.GetString("EnterBookName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите тэг. Нажмите Enter.
+        /// </summary>
+        internal static string EnterTag {
+            get {
+                return ResourceManager.GetString("EnterTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выйти.
+        /// </summary>
+        internal static string Exit {
+            get {
+                return ResourceManager.GetString("Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Помощь.
+        /// </summary>
+        internal static string Help {
+            get {
+                return ResourceManager.GetString("Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неправильный логин или пароль.
+        /// </summary>
+        internal static string IncorrectUsernameOrPassword {
+            get {
+                return ResourceManager.GetString("IncorrectUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Логин.
+        /// </summary>
+        internal static string Login {
+            get {
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароль.
+        /// </summary>
+        internal static string Password {
+            get {
+                return ResourceManager.GetString("Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Регистрация.
+        /// </summary>
+        internal static string Registration {
+            get {
+                return ResourceManager.GetString("Registration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вы уверены что хотите удалить главу &quot;{0}&quot;?.
         /// </summary>
         internal static string RemoveChapterConfirmation {
@@ -84,6 +183,51 @@ namespace WebWriterV2.Localization {
         internal static string RemoveLinkImpossibleAlert {
             get {
                 return ResourceManager.GetString("RemoveLinkImpossibleAlert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Начать путешествие &gt;.
+        /// </summary>
+        internal static string StartTravel {
+            get {
+                return ResourceManager.GetString("StartTravel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Тэги.
+        /// </summary>
+        internal static string Tags {
+            get {
+                return ResourceManager.GetString("Tags", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сделать выбор.
+        /// </summary>
+        internal static string Travel_GetChosen {
+            get {
+                return ResourceManager.GetString("Travel_GetChosen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Далее.
+        /// </summary>
+        internal static string Travel_Next {
+            get {
+                return ResourceManager.GetString("Travel_Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Проекты.
+        /// </summary>
+        internal static string Writer_Projects {
+            get {
+                return ResourceManager.GetString("Writer_Projects", resourceCulture);
             }
         }
     }

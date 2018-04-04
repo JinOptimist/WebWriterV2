@@ -117,6 +117,39 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ContinueTavel" xml:space="preserve">
+    <value>Продолжить путешествие &gt;</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Электронная почта</value>
+  </data>
+  <data name="EnterBookDesc" xml:space="preserve">
+    <value>Введите описание книги</value>
+  </data>
+  <data name="EnterBookName" xml:space="preserve">
+    <value>Введите имя книги</value>
+  </data>
+  <data name="EnterTag" xml:space="preserve">
+    <value>Введите тэг. Нажмите Enter</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="Help" xml:space="preserve">
+    <value>Помощь</value>
+  </data>
+  <data name="IncorrectUsernameOrPassword" xml:space="preserve">
+    <value>Неправильный логин или пароль</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Логин</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Пароль</value>
+  </data>
+  <data name="Registration" xml:space="preserve">
+    <value>Регистрация</value>
+  </data>
   <data name="RemoveChapterConfirmation" xml:space="preserve">
     <value>Вы уверены что хотите удалить главу "{0}"?</value>
   </data>
@@ -125,5 +158,20 @@
   </data>
   <data name="RemoveLinkImpossibleAlert" xml:space="preserve">
     <value>Удаление связи невозможно. Это приведёт к появлению изолированных глав</value>
+  </data>
+  <data name="StartTravel" xml:space="preserve">
+    <value>Начать путешествие &gt;</value>
+  </data>
+  <data name="Tags" xml:space="preserve">
+    <value>Тэги</value>
+  </data>
+  <data name="Travel_GetChosen" xml:space="preserve">
+    <value>Сделать выбор</value>
+  </data>
+  <data name="Travel_Next" xml:space="preserve">
+    <value>Далее</value>
+  </data>
+  <data name="Writer_Projects" xml:space="preserve">
+    <value>Проекты</value>
   </data>
 </root>

@@ -33,12 +33,12 @@
 <div class="content">
     <div class="book" ng-repeat="book in books  | filter: filter ">
         <p>
-            Тэги:
+            {{resources.Tags}}:
             <span ng-repeat="tag in book.Tags" class="tag fantastic" data-tag-id="{{tag.Id}}">
                 {{tag.Name}}
                 <span class="icon close" ng-click="removeTag(book, tag, $index)"></span>
             </span>
-            <input class="newTag" ng-model="book.newTag.Name" ng-keypress="tagAdd($event, book)" placeholder="Введите тэг. Нажмите Enter" />
+            <input class="newTag" ng-model="book.newTag.Name" ng-keypress="tagAdd($event, book)" placeholder="{{resources.EnterTag}}" />
             <a href="#" ng-show="!book.isEdit" ng-click="book.isEdit = true">Edit&nbsp;Name&nbsp;&&nbsp;Desc</a>
             <a href="#" ng-show="book.isEdit" ng-click="updateBookNameAndDesc(book)">Confirm</a>
         </p>
@@ -48,7 +48,7 @@
         </div>
         <div class="desc">
             <p ng-show="!book.isEdit">{{book.Desc}}</p>
-            <textarea res ng-model="book.Desc" ng-show="book.isEdit" class="no-border"></textarea>
+            <textarea ng-model="book.Desc" ng-show="book.isEdit" class="no-border"></textarea>
         </div>
         <div>
             <a href="/ar/writer/book/{{book.Id}}">edit chapter</a> |
@@ -64,5 +64,11 @@
 </div>
 
 <div class="fullscreen-div" ng-if="newBook">
-    <input class="no-border" placeholder='Введите имя книги' ng-model="newBook.name" ng-keypress="createBook($event)" />
+    <div>
+        <input class="no-border" placeholder='{{resources.EnterBookName}}' ng-model="newBook.name" ng-keypress="createBook($event)" />
+        <span class="pointer" ng-click="cancelCreationNewBook()">X</span>
+    </div>
+    <div>
+        <textarea ng-model="newBook.desc" placeholder='{{resources.EnterBookName}}' class="no-border"></textarea>
+    </div>
 </div>

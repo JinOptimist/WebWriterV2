@@ -7,6 +7,7 @@ angular.module('rpg')
             $scope.waiting = false;
             $scope.popupOpen = { main: false };
             $scope.error = '';
+            $scope.resources = resources;
 
             init();
 
@@ -66,7 +67,7 @@ angular.module('rpg')
                         $cookies.put(ConstCookies.userId, $scope.user.Id);
                         $scope.close();
                     } else {
-                        $scope.error = 'Incorrect username or password';
+                        $scope.error = resources.IncorrectUsernameOrPassword;
                     }
                     $scope.waiting = false;
                     init();
@@ -91,7 +92,7 @@ angular.module('rpg')
                         }
                     })
                     .catch(function (e) {
-                        $scope.error = 'Nope';
+                        $scope.error = resources.IncorrectUsernameOrPassword;
                     })
                     .finally(function () {
                         $scope.waiting = false;

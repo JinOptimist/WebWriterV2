@@ -8,16 +8,16 @@
                 </a>
             </div>
             <div class="header-item" ng-if="user">
-                <a href="/ar/writer/books">Проекты</a>
+                <a href="/ar/writer/books">{{resources.Writer_Projects}}</a>
             </div>
             <div class="header-item" ng-if="user">
-                <a href="/ar/writer/generalDefinition">Помощь</a>
+                <a href="/ar/writer/generalDefinition">{{resources.Help}}</a>
             </div>
             <!--<div class="header-item" ng-if="user">
                 <a href="/ar/writer/graph">график</a>
             </div>-->
             <div class="header-item" ng-if="!user">
-                <a href="#" ng-click="openRegistration()">Регистрация</a>
+                <a href="#" ng-click="openRegistration()">{{resources.Registration}}</a>
             </div>
         </div>
 
@@ -32,10 +32,10 @@
                 <span class="icon" ng-class="{'bell-active': active, 'bell': !active}" ng-click="active = !active"></span>
             </div>
             <div class="header-item" ng-if="!user">
-                <a href="#" ng-click="openLogin()">Логин</a>
+                <a href="#" ng-click="openLogin()">{{resources.Login}}</a>
             </div>
             <div class="header-item" ng-if="user">
-                {{::user.Name}} <a href="#" ng-click="exit()">Выйти</a>
+                {{::user.Name}} <a href="#" ng-click="exit()">{{resources.Exit}}</a>
             </div>
             <div class="header-item">
                 <a href="/ar/reader/profile/{{user.Id}}"><img ng-src="{{user.AvatarUrl}}" ng-show="user" title="{{user.Name}}" class="user-avatar" /></a>
@@ -48,50 +48,44 @@
                     <a href="#" ng-click="close()"><span class="icon close"></span></a>
                 </p>
                 <div class="content" ng-if="popupOpen.isLogin">
-                    <div class="title">
-                        Логин
-                    </div>
                     <div class="error">
                         {{error}}
                     </div>
                     <div class="row">
-                        <input placeholder='Email' type="text"
+                        <input placeholder='{{resources.Login}}/{{resources.Email}}' type="text"
                                ng-model="loginObj.Name" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
                     </div>
                     <div class="row">
-                        <input placeholder='Password' type="password"
+                        <input placeholder='{{resources.Password}}' type="password"
                                ng-model="loginObj.Password" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
                     </div>
                     <div>
                         <span ng-class="{'button-medium-blue': loginObj.Name && loginObj.Password, 'button-medium-gray': !loginObj.Name || !loginObj.Password}"
                               ng-click="login()">
-                            Логин
+                            {{resources.Login}}
                         </span>
                     </div>
                 </div>
 
                 <div class="content" ng-if="popupOpen.isRegistration">
-                    <div class="title">
-                        Регистрация
-                    </div>
                     <div class="error">
                         {{error}}
                     </div>
                     <div class="row">
-                        <input placeholder='Login' type="text"
+                        <input placeholder='{{resources.Login}}' type="text"
                                ng-model="loginObj.Name" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
                     </div>
                     <div class="row">
-                        <input placeholder='Email' type="text"
+                        <input placeholder='{{resources.Email}}' type="text"
                                ng-model="loginObj.Email" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
                     </div>
                     <div class="row">
-                        <input placeholder='Password' type="password"
+                        <input placeholder='{{resources.Password}}' type="password"
                                ng-model="loginObj.Password" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
                     </div>
                     <div>
                         <span ng-class="{'button-medium-blue': isUserValid(), 'button-medium-gray': !isUserValid()}"
-                              ng-click="register()">Регистрация</span>
+                              ng-click="register()">{{resources.Registration}}</span>
                     </div>
                 </div>
             </div>
