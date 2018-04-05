@@ -247,6 +247,12 @@
     <Content Include="Content\icon\bell.png" />
     <Content Include="Content\icon\close.png" />
     <Content Include="Content\icon\eye.png" />
+    <Content Include="Content\icon\map-add-empty.png" />
+    <Content Include="Content\icon\map-add.png" />
+    <Content Include="Content\icon\map-link-available.png" />
+    <Content Include="Content\icon\map-link-child.png" />
+    <Content Include="Content\icon\map-link-parent.png" />
+    <Content Include="Content\icon\map-remove.png" />
     <Content Include="Content\icon\spritesheet.png" />
     <Content Include="Content\icon\time.png" />
     <Content Include="Content\rpg-img\dragon.jpg" />

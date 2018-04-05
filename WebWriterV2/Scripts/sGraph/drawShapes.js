@@ -66,6 +66,25 @@ var drawShapes = (function () {
         return addBlock;
     }
 
+    function drawMainButton(chapter, onMainButtonClick, reloadLayer) {
+        var imageObj = new Image();
+        imageObj.src = '/Content/icon/map-add.png';
+        imageObj.onload = function () {
+            reloadLayer();
+        }
+        var addBlock = new Konva.Image({
+            x: 30,
+            y: (Const.ChapterSize.Height - 40) / 2,
+            image: imageObj
+        });
+        addBlock.relatedAdd = {};
+        addBlock.relatedAdd.chapter = chapter;
+
+        addBlock.logicType = shapeLogicType.ChapterButton;
+        addBlock.on("click", onMainButtonClick);
+        return addBlock;
+    }
+
     function drawEditChapterButton(chapter, onEditChapterClick) {
         var editButton = new Konva.Ellipse({
             x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding * 3,
@@ -147,7 +166,7 @@ var drawShapes = (function () {
             FontSize: Const.FontSize,
             fontFamily: "sans-serif",
             text: text,
-            fill: "#0aa",
+            fill: Const.FontColor,
             align: 'center'
 
         });
@@ -182,8 +201,8 @@ var drawShapes = (function () {
 
         var specialArrow = Math.abs(parentY - childY) > BlockSize.Height && parentX === childX;
 
-        parentX += (parentShift * 5);
-        childX += (childShift * 15);
+        parentX += (parentShift * Const.ArrowShiftX);
+        childX += (childShift * Const.ArrowShiftX);
 
         var points = [];
 
@@ -211,10 +230,10 @@ var drawShapes = (function () {
             points.push(parentY);
 
             points.push(parentX);
-            points.push(childY - Const.ChapterSize.Padding / 2 + childShift * 4);
+            points.push(childY - Const.ChapterSize.Padding / 2 + childShift * Const.ArrowShiftY);
 
             points.push(childX);
-            points.push(childY - Const.ChapterSize.Padding / 2 + childShift * 4);
+            points.push(childY - Const.ChapterSize.Padding / 2 + childShift * Const.ArrowShiftY);
 
             points.push(childX);
             points.push(childY);
@@ -222,7 +241,7 @@ var drawShapes = (function () {
 
         var arrow = new Konva.Arrow({
             points: points,
-            stroke: isHighlight ? "#a0a" : "#0aa",
+            stroke: isHighlight ? Const.ArrowHighlightColor : Const.ArrowColor,
             strokeWidth: 2,
             lineCap: "round",
             fill: 'black',
@@ -305,6 +324,7 @@ var drawShapes = (function () {
     return {
         drawChapter: drawChapter,
         drawAddChapterButton: drawAddChapterButton,
+        drawMainButton: drawMainButton,
         drawEditChapterButton: drawEditChapterButton,
         drawRemoveChapterButton: drawRemoveChapterButton,
         drawRemoveChapterImage: drawRemoveChapterImage,

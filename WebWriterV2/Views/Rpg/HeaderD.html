@@ -37,7 +37,7 @@
             <div class="header-item" ng-if="user">
                 {{::user.Name}} <a href="#" ng-click="exit()">{{resources.Exit}}</a>
             </div>
-            <div class="header-item">
+            <div class="header-item avatar-container">
                 <a href="/ar/reader/profile/{{user.Id}}"><img ng-src="{{user.AvatarUrl}}" ng-show="user" title="{{user.Name}}" class="user-avatar" /></a>
             </div>
         </div>

@@ -28,6 +28,10 @@ var bookMap = (function () {
         actions.remove(this.relatedRemove.chapter);
     }
 
+    function onMainButtonClick() {
+
+    }
+
     function onAddLinkClick(obj) {
         var chapterId = this.chapter.Id;
         console.log('bookMap onAddLinkClick. chapter.Id - ' + chapterId);
@@ -157,12 +161,19 @@ var bookMap = (function () {
         var group = obj.currentTarget;
         console.log('onGroupMouseEnter ' + group.chapter.id);
         drawButtonForGroup(group, group.chapter);
+        layer.draw();
     }
 
     function onGroupMouseLeave(obj) {
         var group = obj.currentTarget;
         console.log('onGroupMouseLeave ' + group.chapter.id);
         removeButtonForGroup(group);
+
+        var mainButton = drawShapes.drawMainButton(group.chapter, onMainButtonClick, reloadLayer);
+        cursorPointerHelper(mainButton);
+        group.add(mainButton);
+
+        layer.draw();
     }
     /* ******************************* END ******************************* */
 
@@ -214,6 +225,10 @@ var bookMap = (function () {
         if (isHighlight) {
             drawButtonForGroup(group, chapter);
         }
+
+        var mainButton = drawShapes.drawMainButton(chapter, onMainButtonClick, reloadLayer);
+        cursorPointerHelper(mainButton);
+        group.add(mainButton);
 
         var textShape = drawShapes.drawText(chapter);
         group.add(textShape);
@@ -341,9 +356,6 @@ var bookMap = (function () {
 
     /* ******************************* stage helper ******************************* */
     function drawButtonForGroup(group, chapter) {
-        var addButton = drawShapes.drawAddChapterButton(chapter, onAddChapterClick);
-        cursorPointerHelper(addButton);
-        group.add(addButton);
         var editButton = drawShapes.drawEditChapterButton(chapter, onEditChapterClick);
         cursorPointerHelper(editButton);
         group.add(editButton);
@@ -353,14 +365,9 @@ var bookMap = (function () {
         var addLinkButton = drawShapes.drawAddLinkButton(chapter, onAddLinkClick);
         cursorPointerHelper(addLinkButton);
         group.add(addLinkButton);
-
-        layer.draw();
     }
     
     function removeButtonForGroup(group) {
-        //for (var i = 0; i < group.children.length; i++) {
-        //    group.children[i];
-        //}
         var itemToDestroy = [];
         group.children.forEach(function (item) {
             if (item.logicType == drawShapes.shapeLogicType.ChapterButton) {
@@ -369,8 +376,6 @@ var bookMap = (function () {
         });
 
         itemToDestroy.forEach(x => x.destroy());
-
-        layer.draw();
     }
 
     function getCenterByParents(parents) {
@@ -505,6 +510,10 @@ var bookMap = (function () {
         drawChapterGroup(x, y, chapter, isHighlight);
     }
     /* ******************************* END ******************************* */
+
+    function reloadLayer(){
+        layer.draw();
+    }
 
     /* public functions */
     function start(chapters, newScale, _actions, _canvasSize) {
