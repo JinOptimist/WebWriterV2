@@ -22,6 +22,10 @@ angular.module('rpg')
 
         init();
 
+        $scope.rightClick = function (e) {
+            bookMap.rightClick();
+        }
+
         function addChapter(parentId) {
             chapterService.createChild(parentId).then(function (savedChapter) {
                 moveToEditChapter(savedChapter.Id, true);
@@ -77,7 +81,7 @@ angular.module('rpg')
             bookService.getWithChaptersV2(bookId).then(function (book) {
                 $scope.book = book;
                 var maxDepth = Math.max.apply(Math, book.Chapters.map(x => x.Level));
-                $scope.canvas.height = maxDepth * 70 + 100
+                $scope.canvas.height = maxDepth * (Const.ChapterSize.Height + Const.ChapterSize.Padding) + 100
                 setTimeout(function () { bookMap.start(book.Chapters, 1, actions, $scope.canvas) }, 0);
                 $scope.wait = false;
             });

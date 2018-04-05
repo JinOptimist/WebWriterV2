@@ -29,7 +29,6 @@
             <div class="tags-block">
                 <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
             </div>
-
         </div>
 
         <p class="name">
@@ -41,7 +40,7 @@
         <div class="actions">
             <a href="#" ng-click="goToTravel(book.Id)">
                 <span class="button-medium-gray">
-                    {{book.IsReaded ? 'Продолжить' : 'Отправится в' }} путешествие >
+                    {{book.IsReaded ? resources.ContinueTavel : resources.StartTravel }}
                 </span>
             </a>
         </div>

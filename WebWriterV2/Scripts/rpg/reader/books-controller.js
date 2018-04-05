@@ -9,6 +9,8 @@ angular.module('rpg')
             $scope.filterObj = {};
             $scope.listOfFilters = [];
             $scope.wait = true;
+            $scope.resources = resources;
+
             init();
 
             $scope.goToTravel = function (bookId) {

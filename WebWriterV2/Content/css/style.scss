@@ -532,14 +532,24 @@ ul {
     background-color: rgba(255, 255, 255, 0.9);
     text-align: center;
     font-size: 48px;
+    z-index: 400;
 
     input {
         margin-top: 70px;
         font-size: 48px;
         background: rgba(0,0,0,0);
         /*&::placeholder{
-
         }*/
+    }
+
+    textarea {
+        width: 630px;
+        height: 300px;
+        margin-top: 10px;
+        font-family: Lato;
+        font-size: 14px;
+        line-height: 30px;
+        resize: none;
     }
 
     .login-block {
@@ -553,9 +563,6 @@ ul {
         padding: 10px;
 
         .content {
-            width: 200px;
-            min-width: auto;
-            max-width: none;
             padding-top: 70px;
 
             .title {
@@ -564,10 +571,10 @@ ul {
                 margin: 10px 0;
             }
 
-            .error{
+            .error {
                 color: $red;
             }
-            
+
             .row {
                 margin: 15px 0;
             }
@@ -650,6 +657,10 @@ ul {
 footer {
     clear: both;
 }
+
+.pointer{
+    cursor: pointer;
+}
 /* Common style End*/
 /* ng-form */
 textarea.ng-dirty,
@@ -657,7 +668,6 @@ input.ng-dirty {
     background-color: $light-gray;
 }
 /* ng-form End  */
-
 /*Graph*/
 #nicePic {
     margin: 30px;

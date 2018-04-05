@@ -64,8 +64,15 @@ var bookMap = (function () {
         actions.removeLink(arrow.linkId);
     }
 
+    function onRightClick() {
+        var newArrow = stage.find('#newArrow')[0];
+        stage.off('mousemove');
+        newArrow.destroy();
+        layer.draw();
+    }
+
     function onDragChapterGroup(pos) {
-        var parentsGroup = getParentsCanvasObj(this.chapter.Id);
+        var parentsGroup = getParentsCanvasObj(this.chapter);
 
         // Remove arrow from parents to curent
         for (var i = 0; i < parentsGroup.length; i++) {
@@ -169,7 +176,7 @@ var bookMap = (function () {
 
     function drawChapterGroup(x, y, chapter, isHighlight) {
         //var centerX = canvas.width / 2;
-        var parents = getParentsCanvasObj(chapter.Id);
+        var parents = getParentsCanvasObj(chapter);
         var centerX = getCenterByParents(parents);
 
         var chapterX = (x / 2) * BlockSize.Width + Const.ChapterSize.Padding + centerX;
@@ -285,10 +292,12 @@ var bookMap = (function () {
         return levels;
     }
 
-    function chapterContainsLinkToCurrentChapter(curentChapter, destinationChapterId) {
+    function chapterContainsLinkToCurrentChapter(curentChapter, destinationChapter) {
         if (!curentChapter.LinksFromThisEvent || curentChapter.LinksFromThisEvent.length === 0)
             return false;
-        return curentChapter.LinksFromThisEvent.filter(link => link.ToId === destinationChapterId).length > 0;
+        if (curentChapter.Level > destinationChapter.Level)
+            return false;
+        return curentChapter.LinksFromThisEvent.filter(link => link.ToId === destinationChapter.Id).length > 0;
     }
     
     function groupByParent(chapters) {
@@ -323,8 +332,9 @@ var bookMap = (function () {
     }
 
     function findParents(chapters, chapterId) {
+        var currentChapter = chapters.find(x=>x.Id === chapterId);
         return chapters.filter(function (chapter) {
-            return chapterContainsLinkToCurrentChapter(chapter, chapterId);
+            return chapterContainsLinkToCurrentChapter(chapter, currentChapter);
         });
     }
     /* ******************************* END ******************************* */
@@ -398,12 +408,12 @@ var bookMap = (function () {
         })[0];
     }
 
-    function getParentsCanvasObj(chapterId) {
+    function getParentsCanvasObj(selectedChapter) {
         return layer.children.filter(function (canvasItem) {
             if (!canvasItem.chapter)
                 return false;
             var chapter = canvasItem.chapter;
-            return chapterContainsLinkToCurrentChapter(chapter, chapterId);
+            return chapterContainsLinkToCurrentChapter(chapter, selectedChapter);
         });
     }
 
@@ -436,9 +446,13 @@ var bookMap = (function () {
     }
 
     function redrawArrow(fromId, toId, highlight) {
+        var arrow = getArrowBetweenTwoChater(fromId, toId);
+        if (!arrow)
+            return;
+
         var parent = getGroupByChapterId(fromId);
         var child = getGroupByChapterId(toId);
-        var arrow = getArrowBetweenTwoChater(fromId, toId);
+        
         arrow.destroy();
         removeArrowDrawnRecord(parent, child);
 
@@ -517,5 +531,6 @@ var bookMap = (function () {
     return {
         start: start,
         redraw: redraw,
+        rightClick: onRightClick
     };
 })();

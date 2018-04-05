@@ -6,8 +6,8 @@ angular.module('rpg')
         function ($scope, $routeParams, $location, $cookies, $window, bookService, chapterService,
             eventService, CKEditorService, userService, genreService, travelService) {
 
+            $scope.resources = resources;
             $scope.travel = null;
-
             $scope.wait = true;
             init();
 
