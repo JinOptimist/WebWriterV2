@@ -4,7 +4,9 @@ angular.module('rpg')
     '$scope', '$routeParams', '$location', '$window', 'bookService', 'chapterService',
     function ($scope, $routeParams, $location, $window, bookService, chapterService) {
 
-        $scope.scale = 1.0;
+        var step = 0.1;
+        var scale = 1.0;
+        var minScale = 0.1;
         $scope.book = null;
         $scope.wait = false;
 
@@ -24,6 +26,13 @@ angular.module('rpg')
 
         $scope.rightClick = function (e) {
             bookMap.rightClick();
+        }
+
+        $scope.onResize = function (direction) {
+            scale += step * direction;
+            if (scale < minScale)
+                scale = minScale;
+            bookMap.resize(scale);
         }
 
         function addChapter(parentId) {

@@ -245,13 +245,11 @@ var bookMap = (function () {
     }
 
     function draw(chapters, newScale) {
-        splitByLevels(chapters);
-
-        levels = splitByLevels(chapters);
+        levels = chapterProcessing.splitByLevels(chapters);
         //group chapters by parents.
         for (var y = 1; y < levels.length; y++) {
             var level = levels[y];
-            chaptersGroupByParent = groupByParent(level);
+            chaptersGroupByParent = chapterProcessing.groupByParent(level);
 
             for (var gr = 0; gr < chaptersGroupByParent.length; gr++) {
                 var chapterGroupByParent = chaptersGroupByParent[gr];
@@ -271,88 +269,6 @@ var bookMap = (function () {
             }
         }
     }
-
-    function updateChapterSize(maxWeight) {
-        Const.ChapterSize.Width = canvasSize.width / (maxWeight + 2);
-        BlockSize.Width = Const.ChapterSize.Width + Const.ChapterSize.Padding;
-        Const.ChapterSize = Const.ChapterSize;
-    }
-    
-    /* ******************************* tools to work with FronModels ******************************* */
-    function splitByLevels(chapters) {
-        var maxWeight = 1;
-        var levels = [];
-        for (var i = 0; i < chapters.length; i++) {
-            var chapter = chapters[i];
-            chapter.parents = findParents(chapters, chapter.Id);
-            var depth = chapter.Level;
-            if (depth === 0) {
-                //chapters without parent are ignored
-                continue;
-            }
-
-            if (chapter.Weight > maxWeight) {
-                maxWeight = chapter.Weight;
-            }
-
-            var level = levels[depth];
-            if (!level) {
-                levels[depth] = [];
-            }
-            levels[depth].push(chapter);
-        }
-
-        updateChapterSize(maxWeight);
-
-        return levels;
-    }
-
-    function chapterContainsLinkToCurrentChapter(curentChapter, destinationChapter) {
-        if (!curentChapter.LinksFromThisEvent || curentChapter.LinksFromThisEvent.length === 0)
-            return false;
-        if (curentChapter.Level > destinationChapter.Level)
-            return false;
-        return curentChapter.LinksFromThisEvent.filter(link => link.ToId === destinationChapter.Id).length > 0;
-    }
-    
-    function groupByParent(chapters) {
-        if (chapters.length === 1)
-            return [chapters];
-
-        chapters = chapters.sort(function (a, b) {
-            if (!a.parents)
-                return -1;
-            if (!b.parents)
-                return 1;
-
-            return a.parents[0].Id - b.parents[0].Id;
-        });
-
-        var result = [];
-        var activeGroup = [];
-        var groupByParentId = chapters[0].parents[0].Id;
-        for (var i = 0; i < chapters.length; i++) {
-            var ch = chapters[i];
-            if (ch.parents[0].Id !== groupByParentId) {
-                groupByParentId = ch.parents[0].Id;
-                if (activeGroup.length > 0)
-                    result.push(activeGroup);
-                activeGroup = [];
-            }
-            activeGroup.push(ch);
-        }
-        result.push(activeGroup);
-
-        return result;
-    }
-
-    function findParents(chapters, chapterId) {
-        var currentChapter = chapters.find(x=>x.Id === chapterId);
-        return chapters.filter(function (chapter) {
-            return chapterContainsLinkToCurrentChapter(chapter, currentChapter);
-        });
-    }
-    /* ******************************* END ******************************* */
 
     /* ******************************* stage helper ******************************* */
     function drawButtonForGroup(group, chapter) {
@@ -418,7 +334,7 @@ var bookMap = (function () {
             if (!canvasItem.chapter)
                 return false;
             var chapter = canvasItem.chapter;
-            return chapterContainsLinkToCurrentChapter(chapter, selectedChapter);
+            return chapterProcessing.chaptersAreLinked(chapter, selectedChapter);
         });
     }
 
@@ -522,7 +438,8 @@ var bookMap = (function () {
         stage = new Konva.Stage({
             container: 'nicePic',
             width: canvasSize.width,
-            height: canvasSize.height
+            height: canvasSize.height,
+            draggable: true
         });
         layer = new Konva.Layer();
 
@@ -531,15 +448,22 @@ var bookMap = (function () {
         stage.add(layer);
     }
 
-    function redraw(chapters, newScale) {
-        if (canvas)
-            canvas.destroy();
-        start(chapters, newScale);
+    //function redraw(chapters, newScale) {
+    //    if (canvas)
+    //        canvas.destroy();
+    //    start(chapters, newScale);
+    //}
+
+    function resize(scale) {
+        stage.scale({ x: scale, y: scale });
+        stage.draw();
     }
 
     return {
         start: start,
-        redraw: redraw,
-        rightClick: onRightClick
+        rightClick: onRightClick,
+        resize: resize,
+
+        //redraw: redraw,
     };
 })();

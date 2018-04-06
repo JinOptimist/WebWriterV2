@@ -5,86 +5,6 @@ underscore.factory('_', ['$window', function ($window) {
 }]);
 
 angular.module('directives', ['services', 'underscore', 'ngSanitize']) //, ['common', 'search', 'masha', 'ui.ace']
-    .directive('ngBookInfo', [
-        function () {
-            return {
-                restrict: 'E',
-                replace: true,
-                templateUrl: '/views/rpg/directives/ngBookInfo.html',
-                scope: { book: '=' },
-                link: function (scope, element, attrs) {
-                    scope.$watch(attrs.book, function (v) {
-                        console.log('Book value changed, new value is: ' + v);
-                    });
-                }
-            }
-        }
-    ])
-    .directive('ngHeroCard', [
-        function () {
-            return {
-                restrict: 'E',
-                replace: true,
-                templateUrl: '/views/rpg/directives/ngHeroCard.html',
-                scope: { hero: '=' },
-                controller: ['$scope', function ($scope) {
-                    var maxHpStateName = "MaxHp";
-                    var maxMpStateName = "MaxMp";
-                    var hpStateName = "Hp";
-                    var mpStateName = "Mp";
-
-                    //TODO Find way to watch by hero
-                    $scope.recalc = function () {
-                        $scope.recalculateState($scope.hero);
-                        return '';
-                    };
-
-                    function getState(stateName) {
-                        if (!$scope.hero || !$scope.hero.State)
-                            return -1;
-                        var currentState = _.find($scope.hero.State, function(state) {
-                            return state.StateType.Name == stateName;
-                        });
-                        return currentState ? currentState.Number : -1;
-                    }
-
-                    $scope.Hp = function () {
-                        return getState(hpStateName);
-                    }
-                    $scope.MaxHp = function () {
-                        return getState(maxHpStateName);
-                    }
-                    $scope.Mp = function () {
-                        return getState(mpStateName);
-                    }
-                    $scope.MaxMp = function () {
-                        return getState(maxMpStateName);
-                    }
-
-                    $scope.recalculateState = function () {
-                        if (!$scope.hero || !$scope.hero.State)
-                            return;
-
-                        var hpPercent = Math.round(100 * $scope.Hp() / $scope.MaxHp());
-                        var mpPercent = Math.round(100 * $scope.Mp() / $scope.MaxMp());
-
-                        $scope.hero.healthWidth = { 'width': hpPercent + '%' };
-                        $scope.hero.manaWidth = { 'width': mpPercent + '%' };
-                    }
-
-                    $scope.recalculateState($scope.hero);
-
-                    $scope.$watch(function () { return $scope.hero; }, function (v) {
-                        $scope.recalculateState($scope.hero);
-                    });
-
-                }],
-                link: function (scope, element, attrs) {
-
-                }
-            }
-        }
-    ])
     .directive("fileread", [function () {
         return {
             scope: {
@@ -111,6 +31,54 @@ angular.module('directives', ['services', 'underscore', 'ngSanitize']) //, ['com
                     event.preventDefault();
                     fn(scope, {$event:event});
                 });
+            });
+        };
+    })
+    .directive('ngMouseWheelUp', function () {
+        return function (scope, element, attrs) {
+            element.bind("DOMMouseScroll mousewheel onmousewheel", function (event) {
+
+                // cross-browser wheel delta
+                var event = window.event || event; // old IE support
+                var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
+
+                if (delta > 0) {
+                    scope.$apply(function () {
+                        scope.$eval(attrs.ngMouseWheelUp);
+                    });
+
+                    // for IE
+                    event.returnValue = false;
+                    // for Chrome and Firefox
+                    if (event.preventDefault) {
+                        event.preventDefault();
+                    }
+
+                }
+            });
+        };
+    })
+    .directive('ngMouseWheelDown', function () {
+        return function (scope, element, attrs) {
+            element.bind("DOMMouseScroll mousewheel onmousewheel", function (event) {
+
+                // cross-browser wheel delta
+                var event = window.event || event; // old IE support
+                var delta = Math.max(-1, Math.min(1, (event.wheelDelta || -event.detail)));
+
+                if (delta < 0) {
+                    scope.$apply(function () {
+                        scope.$eval(attrs.ngMouseWheelDown);
+                    });
+
+                    // for IE
+                    event.returnValue = false;
+                    // for Chrome and Firefox
+                    if (event.preventDefault) {
+                        event.preventDefault();
+                    }
+
+                }
             });
         };
     })

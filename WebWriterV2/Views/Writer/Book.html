@@ -5,13 +5,14 @@
                 {{book.Name}}
             </div>
             <!--<div class="header-item">
-                <input type="range" ng-model="scale" ng-change="updateStyleForAllLevel()" min="0.4" max="2" step="0.05" /> {{scale * 100 | number : '.0'}}%
+                <input type="range" ng-model="scale" ng-change="onResize()" min="0.2" max="1.8" step="0.1"  />
+                | {{scale * 100 | number : '.0'}}%
             </div>-->
             <div class="right"></div>
         </div>
     </div>
 
-    <div class="content" id="book-writer">
+    <div class="content" id="book-writer" ng-mouse-wheel-down="onResize(-1)" ng-mouse-wheel-up="onResize(1)">
         <div ng-if="wait" class="center">
             <img src="/Content/icon/wait.gif" />
         </div>

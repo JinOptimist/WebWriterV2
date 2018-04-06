@@ -698,6 +698,7 @@
     <Content Include="Scripts\rpg\services.js" />
     <Content Include="Scripts\rpg\directives.js" />
     <Content Include="Scripts\rpg\module.js" />
+    <Content Include="Scripts\sGraph\chapterProcessing.js" />
     <Content Include="Scripts\sGraph\drawShapes.js" />
     <Content Include="Scripts\sGraph\bookMap.js" />
     <Content Include="Scripts\sGraph\konva.min.js" />
