@@ -272,15 +272,15 @@ var bookMap = (function () {
 
     /* ******************************* stage helper ******************************* */
     function drawButtonForGroup(group, chapter) {
-        var editButton = drawShapes.drawEditChapterButton(chapter, onEditChapterClick);
-        cursorPointerHelper(editButton);
-        group.add(editButton);
-        var removeButton = drawShapes.drawRemoveChapterButton(chapter, onRemoveChapterClick);
-        cursorPointerHelper(removeButton);
-        group.add(removeButton);
-        var addLinkButton = drawShapes.drawAddLinkButton(chapter, onAddLinkClick);
-        cursorPointerHelper(addLinkButton);
-        group.add(addLinkButton);
+        //var editButton = drawShapes.drawEditChapterButton(chapter, onEditChapterClick);
+        //cursorPointerHelper(editButton);
+        //group.add(editButton);
+        //var removeButton = drawShapes.drawRemoveChapterButton(chapter, onRemoveChapterClick);
+        //cursorPointerHelper(removeButton);
+        //group.add(removeButton);
+        //var addLinkButton = drawShapes.drawAddLinkButton(chapter, onAddLinkClick);
+        //cursorPointerHelper(addLinkButton);
+        //group.add(addLinkButton);
     }
     
     function removeButtonForGroup(group) {

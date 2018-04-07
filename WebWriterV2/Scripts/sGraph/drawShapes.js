@@ -48,23 +48,23 @@ var drawShapes = (function () {
         return chapterBlock;
     }
 
-    function drawAddChapterButton(chapter, onAddChapterClick) {
-        var addBlock = new Konva.Ellipse({
-            x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2,
-            y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
-            radius: {
-                x: Const.AddButtonSize.Radius,
-                y: Const.AddButtonSize.Radius
-            },
-            fill: "#0f0",
-        });
-        addBlock.relatedAdd = {};
-        addBlock.relatedAdd.chapter = chapter;
+    //function drawAddChapterButton(chapter, onAddChapterClick) {
+    //    var addBlock = new Konva.Ellipse({
+    //        x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2,
+    //        y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
+    //        radius: {
+    //            x: Const.AddButtonSize.Radius,
+    //            y: Const.AddButtonSize.Radius
+    //        },
+    //        fill: "#0f0",
+    //    });
+    //    addBlock.relatedAdd = {};
+    //    addBlock.relatedAdd.chapter = chapter;
 
-        addBlock.logicType = shapeLogicType.ChapterButton;
-        addBlock.on("click", onAddChapterClick);
-        return addBlock;
-    }
+    //    addBlock.logicType = shapeLogicType.ChapterButton;
+    //    addBlock.on("click", onAddChapterClick);
+    //    return addBlock;
+    //}
 
     function drawMainButton(chapter, onMainButtonClick, reloadLayer) {
         var imageObj = new Image();
@@ -75,7 +75,10 @@ var drawShapes = (function () {
         var addBlock = new Konva.Image({
             x: 30,
             y: (Const.ChapterSize.Height - 40) / 2,
-            image: imageObj
+            image: imageObj,
+            width: Const.ButtonSize.Radius,
+            height: Const.ButtonSize.Radius
+
         });
         addBlock.relatedAdd = {};
         addBlock.relatedAdd.chapter = chapter;
@@ -85,90 +88,89 @@ var drawShapes = (function () {
         return addBlock;
     }
 
-    function drawEditChapterButton(chapter, onEditChapterClick) {
-        var editButton = new Konva.Ellipse({
-            x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding * 3,
-            y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
-            radius: {
-                x: Const.AddButtonSize.Radius,
-                y: Const.AddButtonSize.Radius
-            },
-            fill: "#FFA500",
-        });
+    //function drawEditChapterButton(chapter, onEditChapterClick) {
+    //    var editButton = new Konva.Ellipse({
+    //        x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding * 3,
+    //        y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
+    //        radius: {
+    //            x: Const.AddButtonSize.Radius,
+    //            y: Const.AddButtonSize.Radius
+    //        },
+    //        fill: "#FFA500",
+    //    });
 
-        editButton.relatedEdit = {};
-        editButton.relatedEdit.chapter = chapter;
+    //    editButton.relatedEdit = {};
+    //    editButton.relatedEdit.chapter = chapter;
 
-        editButton.logicType = shapeLogicType.ChapterButton;
-        editButton.on("click", onEditChapterClick);
-        return editButton;
-    }
+    //    editButton.logicType = shapeLogicType.ChapterButton;
+    //    editButton.on("click", onEditChapterClick);
+    //    return editButton;
+    //}
 
-    function drawRemoveChapterButton(chapter, onRemoveChapterClick) {
-        var removeBlock = new Konva.Ellipse({
-            x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 + Const.AddButtonSize.Radius + Const.AddButtonSize.Padding * 3,
-            y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
-            radius: {
-                x: Const.AddButtonSize.Radius,
-                y: Const.AddButtonSize.Radius
-            },
-            fill: "#f00",
-        });
-        removeBlock.relatedRemove = {};
-        removeBlock.relatedRemove.chapter = chapter;
+    //function drawRemoveChapterButton(chapter, onRemoveChapterClick) {
+    //    var removeBlock = new Konva.Ellipse({
+    //        x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 + Const.AddButtonSize.Radius + Const.AddButtonSize.Padding * 3,
+    //        y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
+    //        radius: {
+    //            x: Const.AddButtonSize.Radius,
+    //            y: Const.AddButtonSize.Radius
+    //        },
+    //        fill: "#f00",
+    //    });
+    //    removeBlock.relatedRemove = {};
+    //    removeBlock.relatedRemove.chapter = chapter;
 
-        removeBlock.logicType = shapeLogicType.ChapterButton;
-        removeBlock.on("click", onRemoveChapterClick);
-        return removeBlock;
-    }
+    //    removeBlock.logicType = shapeLogicType.ChapterButton;
+    //    removeBlock.on("click", onRemoveChapterClick);
+    //    return removeBlock;
+    //}
 
     /* for future */
-    function drawRemoveChapterImage(chapter, onRemoveChapterClick) {
-        var imageObj = new Image();
-        imageObj.src = '/Content/icon/close.png';
-        var removeBlock = new Konva.Image({
-            x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 + Const.AddButtonSize.Radius + Const.AddButtonSize.Padding * 3,
-            y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
-            image: imageObj
-        });
-        removeBlock.relatedRemove = {};
-        removeBlock.relatedRemove.chapter = chapter;
+    //function drawRemoveChapterImage(chapter, onRemoveChapterClick) {
+    //    var imageObj = new Image();
+    //    imageObj.src = '/Content/icon/close.png';
+    //    var removeBlock = new Konva.Image({
+    //        x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 + Const.AddButtonSize.Radius + Const.AddButtonSize.Padding * 3,
+    //        y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
+    //        image: imageObj
+    //    });
+    //    removeBlock.relatedRemove = {};
+    //    removeBlock.relatedRemove.chapter = chapter;
 
-        removeBlock.logicType = shapeLogicType.ChapterButton;
-        removeBlock.on("click", onRemoveChapterClick);
-        return removeBlock;
-    }
+    //    removeBlock.logicType = shapeLogicType.ChapterButton;
+    //    removeBlock.on("click", onRemoveChapterClick);
+    //    return removeBlock;
+    //}
 
-    function drawAddLinkButton(chapter, onAddLinkClick) {
-        var addLink = new Konva.Ellipse({
-            x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 + (Const.AddButtonSize.Radius + Const.AddButtonSize.Padding) * 3 + Const.AddButtonSize.Padding,
-            y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
-            radius: {
-                x: Const.AddButtonSize.Radius,
-                y: Const.AddButtonSize.Radius
-            },
-            fill: "#F0F",
-        });
+    //function drawAddLinkButton(chapter, onAddLinkClick) {
+    //    var addLink = new Konva.Ellipse({
+    //        x: Const.ChapterSize.Width / 2 - Const.AddButtonSize.Radius / 2 + (Const.AddButtonSize.Radius + Const.AddButtonSize.Padding) * 3 + Const.AddButtonSize.Padding,
+    //        y: Const.ChapterSize.Height - Const.AddButtonSize.Radius - Const.AddButtonSize.Padding,
+    //        radius: {
+    //            x: Const.AddButtonSize.Radius,
+    //            y: Const.AddButtonSize.Radius
+    //        },
+    //        fill: "#F0F",
+    //    });
 
-        addLink.chapter = chapter;
+    //    addLink.chapter = chapter;
 
-        addLink.logicType = shapeLogicType.ChapterButton;
-        addLink.on("click", onAddLinkClick);
-        return addLink;
-    }
+    //    addLink.logicType = shapeLogicType.ChapterButton;
+    //    addLink.on("click", onAddLinkClick);
+    //    return addLink;
+    //}
 
     function drawText(chapter) {
         var text = chapter.Name;
         var textItem = new Konva.Text({
-            x: 3,// regarding the group coordinate 
-            y: 3,
-            width: Const.ChapterSize.Width - Const.ChapterSize.Padding,
+            x: Const.ButtonSize.Padding * 2 + Const.ButtonSize.Radius,// regarding the group coordinate 
+            y: Const.ButtonSize.Padding,
+            width: Const.ChapterSize.Width - Const.ChapterSize.Padding - 2 * Const.ButtonSize.Padding - Const.ButtonSize.Radius,
             FontSize: Const.FontSize,
-            fontFamily: "sans-serif",
+            fontFamily: "Lato",
             text: text,
             fill: Const.FontColor,
-            align: 'center'
-
+            align: 'left'
         });
         return textItem;
     }
@@ -322,13 +324,13 @@ var drawShapes = (function () {
     }
 
     return {
+        //drawAddChapterButton: drawAddChapterButton,
+        //drawEditChapterButton: drawEditChapterButton,
+        //drawRemoveChapterButton: drawRemoveChapterButton,
+        //drawRemoveChapterImage: drawRemoveChapterImage,
+        //drawAddLinkButton: drawAddLinkButton,
         drawChapter: drawChapter,
-        drawAddChapterButton: drawAddChapterButton,
         drawMainButton: drawMainButton,
-        drawEditChapterButton: drawEditChapterButton,
-        drawRemoveChapterButton: drawRemoveChapterButton,
-        drawRemoveChapterImage: drawRemoveChapterImage,
-        drawAddLinkButton: drawAddLinkButton,
         drawText: drawText,
         drawArrows: drawArrows,
         drawArrow: drawArrow,
