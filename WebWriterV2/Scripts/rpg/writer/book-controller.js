@@ -50,7 +50,9 @@ angular.module('rpg')
                         alert(resources.RemoveChapterImpossibleAlert.format(chapter.Name));
                     }
                 });
+                return true;
             }
+            return false;
         }
 
         function createLink(fromId, toId) {
