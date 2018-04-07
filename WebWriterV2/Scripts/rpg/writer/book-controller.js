@@ -91,7 +91,7 @@ angular.module('rpg')
                 $scope.book = book;
                 var maxDepth = Math.max.apply(Math, book.Chapters.map(x => x.Level));
                 $scope.canvas.height = maxDepth * (Const.ChapterSize.Height + Const.ChapterSize.Padding) + 100
-                setTimeout(function () { bookMap.start(book.Chapters, 1, actions, $scope.canvas) }, 0);
+                setTimeout(function () { bookMap.start(book.Chapters, actions, $scope.canvas) }, 0);
                 $scope.wait = false;
             });
         }
