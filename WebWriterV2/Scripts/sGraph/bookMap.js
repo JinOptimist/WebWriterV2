@@ -189,7 +189,7 @@ var bookMap = (function () {
 
     function onCreatingNewLink(obj) {
         actions.createLink(selectedChapter.Id, obj.currentTarget.chapter.Id);
-        layer.draw();
+        onRightClick();
     }
     /* ******************************* END ******************************* */
 
