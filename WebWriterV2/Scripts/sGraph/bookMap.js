@@ -12,6 +12,8 @@ var bookMap = (function () {
 
     var useDirectArrow = false;
 
+    var frontChapters = [];
+
     /* ******************************* events ******************************* */
     function onAddChapterClick(obj) {
         console.log('bookMap onAddChapterClick. chapter.Id - ' + this.relatedAdd.chapter.Id);
@@ -19,8 +21,9 @@ var bookMap = (function () {
     }
 
     function onEditChapterClick(obj) {
-        console.log('bookMap onEditChapterClick. chapter.Id - ' + this.relatedEdit.chapter.Id);
-        actions.moveToEditChapter(this.relatedEdit.chapter.Id);
+        var chapter = obj.currentTarget.chapter;
+        console.log('bookMap onEditChapterClick. chapter.Id - ' + chapter.Id);
+        actions.moveToEditChapter(chapter.Id);
     }
 
     function onRemoveChapterClick(obj) {
@@ -28,8 +31,25 @@ var bookMap = (function () {
         actions.remove(this.relatedRemove.chapter);
     }
 
-    function onMainButtonClick() {
+    function onMainButtonClick(obj) {
+        var current = obj.currentTarget.parent.chapter;
+        var link = {
+            FromId: current.Id,
+            ToId: -1,
+        };
+        current.LinksFromThisEvent.push(link);
 
+        var fakeChapter = {
+            Id: -1,
+            Name: '',
+            Desc: '',
+            LinksFromThisEvent: [],
+            LinksToThisEvent: [link],
+            Level: current.Level + 1,
+            Weight: 1
+        };
+        frontChapters.push(fakeChapter);
+        redraw();
     }
 
     function onAddLinkClick(obj) {
@@ -215,7 +235,9 @@ var bookMap = (function () {
         group.chapterIndexY = y;
         group.logicType = drawShapes.shapeLogicType.ChapterGroup;
         group.isHighlight = isHighlight;
-        group.on('click', onGroupClick);
+        //group.on('click', onGroupClick);
+        group.on('dblclick', onEditChapterClick)
+        
         group.on('mouseenter', onGroupMouseEnter);
         group.on('mouseleave', onGroupMouseLeave);
 
@@ -244,7 +266,7 @@ var bookMap = (function () {
         });
     }
 
-    function draw(chapters, newScale) {
+    function draw(chapters) {
         levels = chapterProcessing.splitByLevels(chapters);
         //group chapters by parents.
         for (var y = 1; y < levels.length; y++) {
@@ -431,8 +453,19 @@ var bookMap = (function () {
         layer.draw();
     }
 
+    function redraw(chapters) {
+        //stage.clear();
+        //clearCache
+        layer.destroyChildren();
+        //layer.clearCache();
+        reloadLayer();
+        draw(frontChapters);
+        reloadLayer();
+    }
+
     /* public functions */
-    function start(chapters, newScale, _actions, _canvasSize) {
+    function start(chapters, _actions, _canvasSize) {
+        frontChapters = chapters;
         actions = _actions;
         canvasSize = _canvasSize;
         stage = new Konva.Stage({
@@ -442,17 +475,9 @@ var bookMap = (function () {
             draggable: true
         });
         layer = new Konva.Layer();
-
-        draw(chapters, newScale);
-
+        draw(chapters);
         stage.add(layer);
     }
-
-    //function redraw(chapters, newScale) {
-    //    if (canvas)
-    //        canvas.destroy();
-    //    start(chapters, newScale);
-    //}
 
     function resize(scale) {
         stage.scale({ x: scale, y: scale });
@@ -463,7 +488,5 @@ var bookMap = (function () {
         start: start,
         rightClick: onRightClick,
         resize: resize,
-
-        //redraw: redraw,
     };
 })();

@@ -10,16 +10,17 @@ var drawShapes = (function () {
     };
 
     function drawChapter(chapter, isHighlight) {
+        var isFakeChapter = chapter.Id < 0;
         var chapterBlock = new Konva.Rect({
             x: 0,// regarding the group coordinate 
             y: 0,
             width: Const.ChapterSize.Width,
             height: Const.ChapterSize.Height,
-            fill: "#fff",
+            fill: isFakeChapter ? '' : "#fff",
             stroke: "#000",
             strokeWidth: 1,
             shadowColor: isHighlight ? '#F00' : '#000',
-            shadowBlur: 2,
+            shadowBlur: isFakeChapter ? 0 : 2,
             shadowOffset: { x: 2, y: 2 },
             shadowOpacity: 1,
         });
