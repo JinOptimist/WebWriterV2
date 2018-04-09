@@ -35,6 +35,22 @@ angular.module('rpg')
             bookMap.resize(scale);
         }
 
+        $scope.showAdvanced = function ($event) {
+            $mdDialog.show({
+                controller: chapterController,
+                templateUrl: '/views/writer/Chapter.html',
+                parent: angular.element(document.body),
+                targetEvent: $event,
+                clickOutsideToClose: true,
+                fullscreen: true // Only for -xs, -sm breakpoints.
+            })
+            .then(function (answer) {
+                $scope.status = 'You said the information was "' + answer + '".';
+            }, function () {
+                $scope.status = 'You cancelled the dialog.';
+            });
+        };
+
         function addChapter(parentId) {
             chapterService.createChild(parentId).then(function (savedChapter) {
                 moveToEditChapter(savedChapter.Id, true);

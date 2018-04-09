@@ -21,9 +21,9 @@ namespace Dao.Repository
             return Entity.FirstOrDefault(x => x.Name == username);
         }
 
-        public User Login(string username, string password)
+        public User Login(string loginOrEmail, string password)
         {
-            return Entity.FirstOrDefault(x => x.Name == username && x.Password == password);
+            return Entity.FirstOrDefault(x => (x.Name == loginOrEmail || x.Email == loginOrEmail) && x.Password == password);
         }
     }
 }
