@@ -73,9 +73,29 @@ var chapterProcessing = (function () {
         });
     }
 
+    function calcState(current, selected) {
+        //drawShapes.chapterStateType
+        if (!selected) {
+            return drawShapes.chapterStateType.Initial;
+        } else if (current.Id === selected.Id) {
+            return drawShapes.chapterStateType.Selected;
+        } else if (current.Id < 0) {
+            return drawShapes.chapterStateType.FakeNew;
+        } else if (chaptersAreLinked(selected, current)) {
+            return drawShapes.chapterStateType.Child;
+        } else if (chaptersAreLinked(current, selected)) {
+            return drawShapes.chapterStateType.Parent;
+        } else if (current.Level < selected.Level) {
+            return drawShapes.chapterStateType.ForbiddenToLink;
+        } else {
+            return drawShapes.chapterStateType.AvailableToLink;
+        }
+    }
+
     return {
         splitByLevels: splitByLevels,
         chaptersAreLinked: chaptersAreLinked,
-        groupByParent: groupByParent
+        groupByParent: groupByParent,
+        calcState: calcState
     };
 })();
