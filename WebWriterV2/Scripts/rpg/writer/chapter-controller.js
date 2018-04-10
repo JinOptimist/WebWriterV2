@@ -1,8 +1,8 @@
 angular.module('rpg')
 
     .controller('chapterController', [
-        '$scope', '$routeParams', '$location', '$cookies', '$q', 'chapterService', 'userService',
-        function ($scope, $routeParams, $location, $cookies, $q, chapterService, userService) {
+        '$scope', '$routeParams', '$location', '$cookies', '$q', 'chapterService', 'userService', '$mdDialog', 'chapterId',
+        function ($scope, $routeParams, $location, $cookies, $q, chapterService, userService, $mdDialog, chapterId) {
 
             $scope.chaptersBottom = [];
             $scope.chapterLinks = [];
@@ -23,9 +23,14 @@ angular.module('rpg')
                     }
 
                     if (saveAndClose) {
-                        $location.path('/ar/writer/book/' + chapter.BookId);
+                        //$location.path('/ar/writer/book/' + chapter.BookId);
+                        $mdDialog.hide(chapter);
                     }
                 });
+            }
+
+            $scope.close = function () {
+                $mdDialog.hide();
             }
 
             $scope.createNextChapter = function () {
@@ -96,7 +101,10 @@ angular.module('rpg')
             }
 
             function init() {
-                var chapterId = $routeParams.chapterId;
+                // get chapter id from scope if we open popup
+                //var chapterId = $scope.chapterId
+                //    ? $scope.chapterId
+                //    : $routeParams.chapterId;
 
                 var userPromise = userService.getCurrentUser();
                 var chapterPromise = chapterService.get(chapterId);

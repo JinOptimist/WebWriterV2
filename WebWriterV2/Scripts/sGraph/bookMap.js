@@ -18,13 +18,13 @@ var bookMap = (function () {
         selectedChapter = undefined;
         var chapterId = obj.currentTarget.parent.chapter.LinksToThisEvent[0].FromId;
         console.log('bookMap onAddChapterClick. chapter.Id - ' + chapterId);
-        actions.addChapter(chapterId);
+        actions.addChapter(chapterId, afterUpdateChapter);
     }
 
     function onEditChapterClick(obj) {
         var chapter = obj.currentTarget.chapter;
         console.log('bookMap onEditChapterClick. chapter.Id - ' + chapter.Id);
-        actions.moveToEditChapter(chapter.Id);
+        actions.moveToEditChapter(chapter.Id, afterUpdateChapter);
     }
 
     function onRemoveChapterClick(obj) {
@@ -32,6 +32,9 @@ var bookMap = (function () {
         console.log('bookMap onRemoveChapterClick. chapter.Id - ' + chapter.Id);
         if (actions.remove(chapter)) {
             selectedChapter = undefined;
+            removeDrawnChapter(fakeChapterId);
+            removeDrawnChapter(chapter.Id);
+            redraw();
         }
     }
 
@@ -63,28 +66,43 @@ var bookMap = (function () {
     function onRemoveLink(obj, isSelectedChapterParent) {
         var selectedChapterId = selectedChapter.Id;
         var clickedChapterId = obj.currentTarget.chapter.Id;
-        var arrow = isSelectedChapterParent
-            ? getArrowBetweenTwoChater(selectedChapterId, clickedChapterId)
-            : getArrowBetweenTwoChater(clickedChapterId, selectedChapterId);
+        var arrow;
+        if (isSelectedChapterParent){
+            arrow = getArrowBetweenTwoChater(selectedChapterId, clickedChapterId);
+            //removeArrowDrawnRecord(selectedChapter, obj.currentTarget.chapter);
+        }else{
+            getArrowBetweenTwoChater(clickedChapterId, selectedChapterId);
+            //removeArrowDrawnRecord(obj.currentTarget.chapter, selectedChapter);
+        }
         actions.removeLink(arrow.linkId);
+
+        onRightClick();
+    }
+
+    function onCreatingNewLink(obj) {
+        actions.createLink(selectedChapter.Id, obj.currentTarget.chapter.Id);
         onRightClick();
     }
 
     function onRightClick() {
         if (selectedChapter) {
-            var index = frontChapters.findIndex(x => x.Id === fakeChapterId);
-            var oldOwnerIdFakeChapter = frontChapters[index].LinksToThisEvent[0].FromId;
-            frontChapters.splice(index, 1);
-            var gr = getGroupByChapterId(fakeChapterId);
-            gr.destroy();
-
-            index = frontChapters.findIndex(x => x.Id === oldOwnerIdFakeChapter);
-            var oldOwnerFakeChapter = frontChapters[index];
-            index = oldOwnerFakeChapter.LinksFromThisEvent.findIndex(x => x.ToId === fakeChapterId);
-            oldOwnerFakeChapter.LinksFromThisEvent.splice(index, 1);
+            removeDrawnChapter(fakeChapterId);
         }
         selectedChapter = undefined;
         redraw();
+    }
+
+    function removeDrawnChapter(chapterId) {
+        var indexOfFakeChapter = frontChapters.findIndex(x => x.Id === chapterId);
+        var oldOwnerIdFakeChapter = frontChapters[indexOfFakeChapter].LinksToThisEvent[0].FromId;
+        frontChapters.splice(indexOfFakeChapter, 1);
+        var gr = getGroupByChapterId(chapterId);
+        gr.destroy();
+
+        var index = frontChapters.findIndex(x => x.Id === oldOwnerIdFakeChapter);
+        var oldOwnerFakeChapter = frontChapters[index];
+        index = oldOwnerFakeChapter.LinksFromThisEvent.findIndex(x => x.ToId === chapterId);
+        oldOwnerFakeChapter.LinksFromThisEvent.splice(index, 1);
     }
 
     function onDragChapterGroup(pos) {
@@ -107,7 +125,7 @@ var bookMap = (function () {
             if (!arrow) {
                 continue;
             }
-            
+
             arrow.remove();
             var child = getGroupByChapterId(link.ToId);
             removeArrowDrawnRecord(this, child);
@@ -186,12 +204,25 @@ var bookMap = (function () {
         frontChapters.push(fakeChapter);
         redraw();
     }
-
-    function onCreatingNewLink(obj) {
-        actions.createLink(selectedChapter.Id, obj.currentTarget.chapter.Id);
-        onRightClick();
-    }
     /* ******************************* END ******************************* */
+
+    function afterUpdateChapter(newChapter) {
+        var chapter = frontChapters.find(x => x.Id == newChapter.Id);
+        if (chapter) {
+            chapter.Name = newChapter.Name;
+        } else {
+            // if we update not exist chapter, we add new one
+            frontChapters.push(newChapter);
+            var parentOfNewChapterId = newChapter.LinksToThisEvent[0].FromId;
+            var parentOfNewChapter = frontChapters.find(x => x.Id == parentOfNewChapterId);
+            var link = newChapter.LinksToThisEvent[0];
+            parentOfNewChapter.LinksFromThisEvent.push(link);
+
+            removeDrawnChapter(fakeChapterId);
+        }
+
+        redraw();
+    }
 
     function removeArrowDrawnRecord(parent, child) {
         var i = parent.drawnChildren.indexOf(child.chapter.Id);
@@ -227,13 +258,13 @@ var bookMap = (function () {
         group.chapter = chapter;
         group.drawnChildren = [];
         group.drawnParents = [];
-        group.chapterIndexX =  x;
+        group.chapterIndexX = x;
         group.chapterIndexY = y;
         group.logicType = drawShapes.shapeLogicType.ChapterGroup;
         group.isHighlight = isHighlight;
         //group.on('click', onGroupClick);
         group.on('dblclick', onEditChapterClick)
-        
+
         var chapterBox = drawShapes.drawChapter(chapter, isHighlight);
         group.add(chapterBox);
 
@@ -309,7 +340,7 @@ var bookMap = (function () {
             if (!canvasItem.chapter)
                 return false;
             var existItemX = Math.round(canvasItem.attrs.x);
-            
+
             return canvasItem.attrs.y === y
                 && existItemX > Math.round(x - BlockSize.Width)
                 && existItemX < Math.round(x + BlockSize.Width);
@@ -361,7 +392,7 @@ var bookMap = (function () {
 
         var parent = getGroupByChapterId(fromId);
         var child = getGroupByChapterId(toId);
-        
+
         arrow.destroy();
         removeArrowDrawnRecord(parent, child);
 
@@ -415,15 +446,12 @@ var bookMap = (function () {
     }
     /* ******************************* END ******************************* */
 
-    function reloadLayer(){
+    function reloadLayer() {
         layer.draw();
     }
 
     function redraw(chapters) {
-        //stage.clear();
-        //clearCache
         layer.destroyChildren();
-        //layer.clearCache();
         reloadLayer();
         draw(frontChapters);
         reloadLayer();
@@ -454,6 +482,7 @@ var bookMap = (function () {
         start: start,
         rightClick: onRightClick,
         resize: resize,
+        // for debug
         frontChapters: () => frontChapters
     };
 })();

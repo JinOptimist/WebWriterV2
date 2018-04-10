@@ -1,8 +1,10 @@
 
 angular.module('rpg')
 .controller('writerBookController', [
-    '$scope', '$routeParams', '$location', '$window', 'bookService', 'chapterService',
-    function ($scope, $routeParams, $location, $window, bookService, chapterService) {
+    '$scope', '$routeParams', '$location', '$window', '$mdDialog', '$controller',
+    'bookService', 'chapterService',
+    function ($scope, $routeParams, $location, $window, $mdDialog, $controller,
+        bookService, chapterService) {
 
         var step = 0.1;
         var scale = 1.0;
@@ -35,25 +37,30 @@ angular.module('rpg')
             bookMap.resize(scale);
         }
 
-        $scope.showAdvanced = function ($event) {
-            $mdDialog.show({
-                controller: chapterController,
+        function moveToEditChapter(chapterId, updateDrawnChapter) {
+            var dialogModel = {
+                controller: 'chapterController',
                 templateUrl: '/views/writer/Chapter.html',
                 parent: angular.element(document.body),
-                targetEvent: $event,
-                clickOutsideToClose: true,
-                fullscreen: true // Only for -xs, -sm breakpoints.
-            })
-            .then(function (answer) {
-                $scope.status = 'You said the information was "' + answer + '".';
-            }, function () {
-                $scope.status = 'You cancelled the dialog.';
-            });
+                //targetEvent: ev,
+                clickOutsideToClose: false,
+                fullscreen: $scope.customFullscreen, // Only for -xs, -sm breakpoints.
+                locals: { chapterId: chapterId },
+            };
+            
+            $mdDialog.show(dialogModel)
+                .then(function (chapter) {
+                    if (chapter) {
+                        updateDrawnChapter(chapter);
+                    }
+                }, function (problem) {
+                    $scope.status = 'You cancelled the dialog.';
+                });
         };
 
-        function addChapter(parentId) {
+        function addChapter(parentId, updateDrawnChapter) {
             chapterService.createChild(parentId).then(function (savedChapter) {
-                moveToEditChapter(savedChapter.Id, true);
+                moveToEditChapter(savedChapter.Id, updateDrawnChapter);
             });
         }
 
@@ -61,7 +68,7 @@ angular.module('rpg')
             if (confirm(resources.RemoveChapterConfirmation.format(chapter.Name))) {
                 chapterService.remove(chapter.Id).then(function (result) {
                     if (result) {
-                        init();
+                        //init();
                     } else {
                         alert(resources.RemoveChapterImpossibleAlert.format(chapter.Name));
                     }
@@ -80,18 +87,11 @@ angular.module('rpg')
         function removeLink(linkId) {
             chapterService.removeLink(linkId).then(function (result) {
                 if (result) {
-                    init();
+                    //init();
                 } else {
                     alert(resources.RemoveLinkImpossibleAlert);
                 }
             });
-        }
-
-        function moveToEditChapter(chapterId, avoidApply) {
-            $location.path('/ar/writer/chapter/' + chapterId);
-            if (!avoidApply) {
-                $scope.$apply();
-            }
         }
 
         function loadChaptersV2(bookId) {
