@@ -64,17 +64,21 @@ var bookMap = (function () {
     }
 
     function onRemoveLink(obj, isSelectedChapterParent) {
+        var parentGroup, childGroup;
         var selectedChapterId = selectedChapter.Id;
         var clickedChapterId = obj.currentTarget.chapter.Id;
-        var arrow;
         if (isSelectedChapterParent){
-            arrow = getArrowBetweenTwoChater(selectedChapterId, clickedChapterId);
-            //removeArrowDrawnRecord(selectedChapter, obj.currentTarget.chapter);
-        }else{
-            getArrowBetweenTwoChater(clickedChapterId, selectedChapterId);
-            //removeArrowDrawnRecord(obj.currentTarget.chapter, selectedChapter);
+            parentGroup = getGroupByChapterId(selectedChapterId);
+            childGroup = getGroupByChapterId(clickedChapterId);
+        } else {
+            parentGroup = getGroupByChapterId(clickedChapterId);
+            childGroup = getGroupByChapterId(selectedChapterId);
         }
-        actions.removeLink(arrow.linkId);
+        
+        var linkId = removeArrow(parentGroup, childGroup);
+        actions.removeLink(linkId);
+
+        removeFromAndToRecord(parentGroup.chapter.Id, childGroup.chapter.Id);
 
         onRightClick();
     }
@@ -92,19 +96,6 @@ var bookMap = (function () {
         redraw();
     }
 
-    function removeDrawnChapter(chapterId) {
-        var indexOfFakeChapter = frontChapters.findIndex(x => x.Id === chapterId);
-        var oldOwnerIdFakeChapter = frontChapters[indexOfFakeChapter].LinksToThisEvent[0].FromId;
-        frontChapters.splice(indexOfFakeChapter, 1);
-        var gr = getGroupByChapterId(chapterId);
-        gr.destroy();
-
-        var index = frontChapters.findIndex(x => x.Id === oldOwnerIdFakeChapter);
-        var oldOwnerFakeChapter = frontChapters[index];
-        index = oldOwnerFakeChapter.LinksFromThisEvent.findIndex(x => x.ToId === chapterId);
-        oldOwnerFakeChapter.LinksFromThisEvent.splice(index, 1);
-    }
-
     function onDragChapterGroup(pos) {
         var parentsGroup = getParentsCanvasObj(this.chapter);
 
@@ -113,8 +104,7 @@ var bookMap = (function () {
             var parent = parentsGroup[i];
             var arrow = getArrowBetweenTwoChater(parent.chapter.Id, this.chapter.Id);
             if (arrow) {
-                arrow.remove();
-                removeArrowDrawnRecord(parent, this);
+                removeArrow(parent, this);
             }
         }
 
@@ -126,11 +116,10 @@ var bookMap = (function () {
                 continue;
             }
 
-            arrow.remove();
             var child = getGroupByChapterId(link.ToId);
-            removeArrowDrawnRecord(this, child);
+            removeArrow(this, child)
 
-            var arrow = drawShapes.drawArrow(this, child);
+            arrow = drawShapes.drawArrow(this, child);
             cursorPointerHelper(arrow);
             layer.add(arrow);
         }
@@ -206,6 +195,32 @@ var bookMap = (function () {
     }
     /* ******************************* END ******************************* */
 
+    function removeDrawnChapter(chapterId) {
+        var indexOfChapter = frontChapters.findIndex(x => x.Id === chapterId);
+        var ownerChapterId = frontChapters[indexOfChapter].LinksToThisEvent[0].FromId;
+        frontChapters.splice(indexOfChapter, 1);
+        var gr = getGroupByChapterId(chapterId);
+        gr.destroy();
+
+        removeFromAndToRecord(ownerChapterId, chapterId);
+    }
+
+    function removeFromAndToRecord(fromId, toId) {
+        var fromIndex = frontChapters.findIndex(x => x.Id === fromId);
+        var fromChapter = frontChapters[fromIndex];
+        var index = fromChapter.LinksFromThisEvent.findIndex(x => x.ToId === toId);
+        fromChapter.LinksFromThisEvent.splice(index, 1);
+
+        var toIndex = frontChapters.findIndex(x => x.Id === toId);
+        if (toIndex < 0) {
+            return;
+        }
+
+        var toChapter = frontChapters[toIndex];
+        index = toChapter.LinksToThisEvent.findIndex(x => x.FromId === fromId);
+        toChapter.LinksToThisEvent.splice(index, 1);
+    }
+
     function afterUpdateChapter(newChapter) {
         var chapter = frontChapters.find(x => x.Id == newChapter.Id);
         if (chapter) {
@@ -224,12 +239,18 @@ var bookMap = (function () {
         redraw();
     }
 
-    function removeArrowDrawnRecord(parent, child) {
-        var i = parent.drawnChildren.indexOf(child.chapter.Id);
-        parent.drawnChildren[i] = undefined;
+    function removeArrow(parentGroup, childGroup) {
+        var arrow = getArrowBetweenTwoChater(parentGroup.chapter.Id, childGroup.chapter.Id);
+        var linkId = arrow.linkId;
+        arrow.destroy();
 
-        i = child.drawnParents.indexOf(parent.chapter.Id);
-        child.drawnParents[i] = undefined;
+        var i = parentGroup.drawnChildren.indexOf(childGroup.chapter.Id);
+        parentGroup.drawnChildren[i] = undefined;
+
+        i = childGroup.drawnParents.indexOf(parentGroup.chapter.Id);
+        childGroup.drawnParents[i] = undefined;
+
+        return linkId;
     }
 
     function drawChapterGroup(x, y, chapter, isHighlight) {
@@ -393,8 +414,7 @@ var bookMap = (function () {
         var parent = getGroupByChapterId(fromId);
         var child = getGroupByChapterId(toId);
 
-        arrow.destroy();
-        removeArrowDrawnRecord(parent, child);
+        removeArrow(parent, child)
 
         arrow = drawShapes.drawArrow(parent, child, highlight);
         cursorPointerHelper(arrow);
