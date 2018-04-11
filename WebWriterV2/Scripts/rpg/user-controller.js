@@ -236,7 +236,7 @@
             function chooseEventWithHero(eventId) {
                 $scope.wait = true;
                 eventService.getEventForTravel(eventId, $scope.hero.Id).then(function(result) {
-                    $scope.ways = result.LinksFromThisEvent;
+                    $scope.ways = result.LinksFromThisChapter;
                     $scope.book.Effective += result.ProgressChanging;
                     $scope.currentEvent = result;
                     $scope.wait = false;
@@ -264,7 +264,7 @@
                     var event = result.frontChapter;
                     $scope.hero = result.frontHero;
 
-                    $scope.ways = event.LinksFromThisEvent;
+                    $scope.ways = event.LinksFromThisChapter;
                     $scope.book.Effective += event.ProgressChanging;
                     $scope.currentEvent = event;
                     $scope.wait = false;

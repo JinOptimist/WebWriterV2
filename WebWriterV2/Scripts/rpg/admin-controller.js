@@ -484,20 +484,20 @@ angular.module('rpg')
                     ToId: $scope.selectedEvent.Id
                 };
 
-                $scope.event.LinksFromThisEvent.push(newEventLink);
+                $scope.event.LinksFromThisChapter.push(newEventLink);
             }
 
             $scope.removeEventLink = function (event, eventLink, index) {
                 if (confirm('Are you sure? You try delete event link: ' + eventLink.Text))
                     eventService.removeEventLink(eventLink.Id).then(function (result) {
-                        event.LinksFromThisEvent.splice(index, 1);
+                        event.LinksFromThisChapter.splice(index, 1);
                     });
             }
 
             $scope.removeEventLinkParent = function (event, eventLink, index) {
                 if (confirm('Are you sure? You try delete event link: ' + eventLink.Text))
                     eventService.removeEventLink(eventLink.Id).then(function (result) {
-                        event.LinksToThisEvent.splice(index, 1);
+                        event.LinksToThisChapter.splice(index, 1);
                     });
             }
 
@@ -509,7 +509,7 @@ angular.module('rpg')
                     ToId: $scope.event.Id
                 };
 
-                $scope.event.LinksToThisEvent.push(newEventLink);
+                $scope.event.LinksToThisChapter.push(newEventLink);
             }
 
             $scope.goToBook = function () {

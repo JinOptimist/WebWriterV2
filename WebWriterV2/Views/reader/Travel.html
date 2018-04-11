@@ -5,7 +5,7 @@
     </div>
     <div class="body" ng-bind-html="travel.Chapter.Desc" ng-show="travel.Chapter"></div>
     <div class="chapter-links-block" ng-show="travel.Chapter">
-        <div class="chapter-link" ng-repeat="chapterLink in travel.Chapter.LinksFromThisEvent">
+        <div class="chapter-link" ng-repeat="chapterLink in travel.Chapter.LinksFromThisChapter">
             <div class="text" ng-if="chapterLink.Text">
                 {{chapterLink.Text}}
             </div>
@@ -17,7 +17,7 @@
                 </a>
             </div>
         </div>
-        <div ng-show="!travel.Chapter.LinksFromThisEvent || travel.Chapter.LinksFromThisEvent.length == 0">
+        <div ng-show="!travel.Chapter.LinksFromThisChapter || travel.Chapter.LinksFromThisChapter.length == 0">
             <a href="#" ng-click="travelIsEnd(travel.Id)">
                 <span class="button-medium-blue">
                     Перейти к статистики

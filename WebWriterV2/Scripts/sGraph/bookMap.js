@@ -16,7 +16,7 @@ var bookMap = (function () {
     /* ******************************* events ******************************* */
     function onAddChapterClick(obj) {
         selectedChapter = undefined;
-        var chapterId = obj.currentTarget.parent.chapter.LinksToThisEvent[0].FromId;
+        var chapterId = obj.currentTarget.parent.chapter.LinksToThisChapter[0].FromId;
         console.log('bookMap onAddChapterClick. chapter.Id - ' + chapterId);
         actions.addChapter(chapterId, afterUpdateChapter);
     }
@@ -84,7 +84,20 @@ var bookMap = (function () {
     }
 
     function onCreatingNewLink(obj) {
-        actions.createLink(selectedChapter.Id, obj.currentTarget.chapter.Id);
+        var fromId = selectedChapter.Id;
+        var toId = obj.currentTarget.chapter.Id
+        actions.createLink(fromId, toId, onSuccessedLinkCreate);
+    }
+
+    function onSuccessedLinkCreate(link) {
+        var fromId = link.FromId;
+        var toId = link.ToId;
+        var fromChapter = frontChapters.find(x => x.Id === fromId);
+        fromChapter.LinksFromThisChapter.push(link);
+
+        var toChapter = frontChapters.find(x => x.Id === toId);
+        toChapter.LinksToThisChapter.push(link);
+
         onRightClick();
     }
 
@@ -109,8 +122,8 @@ var bookMap = (function () {
         }
 
         // Redraw arrow from current to children
-        for (var i = 0; i < this.chapter.LinksFromThisEvent.length; i++) {
-            var link = this.chapter.LinksFromThisEvent[i];
+        for (var i = 0; i < this.chapter.LinksFromThisChapter.length; i++) {
+            var link = this.chapter.LinksFromThisChapter[i];
             var arrow = getArrowBetweenTwoChater(this.chapter.Id, link.ToId);
             if (!arrow) {
                 continue;
@@ -164,8 +177,8 @@ var bookMap = (function () {
             if (highlightNewElement) {
                 redrawGroup(obj.currentTarget, highlightNewElement);
 
-                this.chapter.LinksFromThisEvent.forEach(l => redrawArrow(this.chapter.Id, l.ToId, highlightNewElement));
-                this.chapter.LinksToThisEvent.forEach(l => redrawArrow(l.FromId, this.chapter.Id, highlightNewElement));
+                this.chapter.LinksFromThisChapter.forEach(l => redrawArrow(this.chapter.Id, l.ToId, highlightNewElement));
+                this.chapter.LinksToThisChapter.forEach(l => redrawArrow(l.FromId, this.chapter.Id, highlightNewElement));
             }
 
             layer.draw();
@@ -179,14 +192,14 @@ var bookMap = (function () {
             FromId: current.Id,
             ToId: fakeChapterId,
         };
-        current.LinksFromThisEvent.push(link);
+        current.LinksFromThisChapter.push(link);
 
         var fakeChapter = {
             Id: fakeChapterId,
             Name: '',
             Desc: '',
-            LinksFromThisEvent: [],
-            LinksToThisEvent: [link],
+            LinksFromThisChapter: [],
+            LinksToThisChapter: [link],
             Level: current.Level + 1,
             Weight: 1
         };
@@ -195,9 +208,11 @@ var bookMap = (function () {
     }
     /* ******************************* END ******************************* */
 
+    
+
     function removeDrawnChapter(chapterId) {
         var indexOfChapter = frontChapters.findIndex(x => x.Id === chapterId);
-        var ownerChapterId = frontChapters[indexOfChapter].LinksToThisEvent[0].FromId;
+        var ownerChapterId = frontChapters[indexOfChapter].LinksToThisChapter[0].FromId;
         frontChapters.splice(indexOfChapter, 1);
         var gr = getGroupByChapterId(chapterId);
         gr.destroy();
@@ -206,19 +221,17 @@ var bookMap = (function () {
     }
 
     function removeFromAndToRecord(fromId, toId) {
-        var fromIndex = frontChapters.findIndex(x => x.Id === fromId);
-        var fromChapter = frontChapters[fromIndex];
-        var index = fromChapter.LinksFromThisEvent.findIndex(x => x.ToId === toId);
-        fromChapter.LinksFromThisEvent.splice(index, 1);
+        var fromChapter = frontChapters.find(x => x.Id === fromId);
+        var index = fromChapter.LinksFromThisChapter.findIndex(x => x.ToId === toId);
+        fromChapter.LinksFromThisChapter.splice(index, 1);
 
-        var toIndex = frontChapters.findIndex(x => x.Id === toId);
-        if (toIndex < 0) {
+        var toChapter = frontChapters.find(x => x.Id === toId);
+        if (!toChapter) {
             return;
         }
 
-        var toChapter = frontChapters[toIndex];
-        index = toChapter.LinksToThisEvent.findIndex(x => x.FromId === fromId);
-        toChapter.LinksToThisEvent.splice(index, 1);
+        index = toChapter.LinksToThisChapter.findIndex(x => x.FromId === fromId);
+        toChapter.LinksToThisChapter.splice(index, 1);
     }
 
     function afterUpdateChapter(newChapter) {
@@ -228,10 +241,10 @@ var bookMap = (function () {
         } else {
             // if we update not exist chapter, we add new one
             frontChapters.push(newChapter);
-            var parentOfNewChapterId = newChapter.LinksToThisEvent[0].FromId;
+            var parentOfNewChapterId = newChapter.LinksToThisChapter[0].FromId;
             var parentOfNewChapter = frontChapters.find(x => x.Id == parentOfNewChapterId);
-            var link = newChapter.LinksToThisEvent[0];
-            parentOfNewChapter.LinksFromThisEvent.push(link);
+            var link = newChapter.LinksToThisChapter[0];
+            parentOfNewChapter.LinksFromThisChapter.push(link);
 
             removeDrawnChapter(fakeChapterId);
         }

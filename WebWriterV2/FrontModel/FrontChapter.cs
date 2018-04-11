@@ -18,11 +18,11 @@ namespace WebWriterV2.FrontModels
             Desc = travel != null ? GenerateHtmlForDesc(chapter.Desc) : chapter.Desc;
             Level = chapter.Level;
 
-            LinksFromThisEvent = travel == null
+            LinksFromThisChapter = travel == null
                 ? chapter.LinksFromThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList()
                 : travel.FilterLink(chapter.LinksFromThisChapter).Select(x => new FrontChapterLinkItem(x)).ToList();
 
-            LinksToThisEvent = chapter.LinksToThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
+            LinksToThisChapter = chapter.LinksToThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
             BookId = chapter.Book.Id;
             IsRootChapter = chapter.Book.RootChapter?.Id == chapter.Id;
         }
@@ -42,8 +42,8 @@ namespace WebWriterV2.FrontModels
         public string Name { get; set; }
         public string Desc { get; set; }
         public int Level { get; set; }
-        public List<FrontChapterLinkItem> LinksFromThisEvent { get; set; }
-        public List<FrontChapterLinkItem> LinksToThisEvent { get; set; }
+        public List<FrontChapterLinkItem> LinksFromThisChapter { get; set; }
+        public List<FrontChapterLinkItem> LinksToThisChapter { get; set; }
         public bool IsRootChapter { get; set; }
         public long BookId { get; set; }
 
@@ -59,8 +59,8 @@ namespace WebWriterV2.FrontModels
                 Name = Name,
                 Desc = Desc,
                 Level = Level,
-                LinksFromThisChapter = LinksFromThisEvent?.Select(x => x.ToDbModel()).ToList(),
-                LinksToThisChapter = LinksToThisEvent?.Select(x => x.ToDbModel()).ToList(),
+                LinksFromThisChapter = LinksFromThisChapter?.Select(x => x.ToDbModel()).ToList(),
+                LinksToThisChapter = LinksToThisChapter?.Select(x => x.ToDbModel()).ToList(),
                 NumberOfWords = WordHelper.GetWordCount(Desc),
                 Book = book,
             };

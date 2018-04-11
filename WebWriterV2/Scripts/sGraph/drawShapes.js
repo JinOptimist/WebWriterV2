@@ -117,11 +117,11 @@ var drawShapes = (function () {
         var parentIndex = fillDrawnForParent(parent, child);
         var childIndex = fillDrawnForChild(parent, child);
 
-        var links = child.chapter.LinksToThisEvent;
+        var links = child.chapter.LinksToThisChapter;
         var linkId = links.find(x=>x.FromId == parent.chapter.Id).Id;
 
-        var parentShift = parentIndex - (parent.chapter.LinksFromThisEvent.length - 1) / 2;
-        var childShift = childIndex - (child.chapter.LinksToThisEvent.length - 1) / 2;
+        var parentShift = parentIndex - (parent.chapter.LinksFromThisChapter.length - 1) / 2;
+        var childShift = childIndex - (child.chapter.LinksToThisChapter.length - 1) / 2;
 
         var parentX = parent.attrs.x + Const.ChapterSize.Width / 2;
         var parentY = parent.attrs.y + Const.ChapterSize.Height;

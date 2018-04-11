@@ -71,6 +71,7 @@ angular.module('rpg')
                         //init();
                     } else {
                         alert(resources.RemoveChapterImpossibleAlert.format(chapter.Name));
+                        init();
                     }
                 });
                 return true;
@@ -78,9 +79,9 @@ angular.module('rpg')
             return false;
         }
 
-        function createLink(fromId, toId) {
-            chapterService.createLink(fromId, toId).then(function () {
-                init();
+        function createLink(fromId, toId, onSuccessedLinkCreate) {
+            chapterService.createLink(fromId, toId).then(function (link) {
+                onSuccessedLinkCreate(link);
             });
         }
 
@@ -90,6 +91,7 @@ angular.module('rpg')
                     //init();
                 } else {
                     alert(resources.RemoveLinkImpossibleAlert);
+                    init();
                 }
             });
         }

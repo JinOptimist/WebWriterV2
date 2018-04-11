@@ -28,11 +28,11 @@ var chapterProcessing = (function () {
     }
 
     function chaptersAreLinked(parent, child) {
-        if (!parent.LinksFromThisEvent || parent.LinksFromThisEvent.length === 0)
+        if (!parent.LinksFromThisChapter || parent.LinksFromThisChapter.length === 0)
             return false;
         if (parent.Level > child.Level)
             return false;
-        return parent.LinksFromThisEvent.filter(link => link.ToId === child.Id).length > 0;
+        return parent.LinksFromThisChapter.filter(link => link.ToId === child.Id).length > 0;
     }
 
     function groupByParent(chapters) {
