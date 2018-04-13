@@ -672,7 +672,12 @@ footer {
 .pointer {
     cursor: pointer;
 }
+
+.right{
+    float: right;
+}
 /* Common style End*/
+
 /* ng-form */
 textarea.ng-dirty,
 input.ng-dirty {
@@ -683,5 +688,4 @@ input.ng-dirty {
 /*Graph*/
 #nicePic {
     border: 1px solid red;
-}
-/* Graph End */
+}/* Graph End */

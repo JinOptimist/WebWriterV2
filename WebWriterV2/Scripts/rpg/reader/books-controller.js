@@ -20,7 +20,7 @@ angular.module('rpg')
             }
 
             $scope.chooseFilter = function (filter) {
-                $scope.listOfFilters.forEach(x => x.active = false);
+                $scope.listOfFilters.forEach(function (x) { x.active = false; });//x => x.active = false
                 filter.active = true;
                 $scope.filterObj = filter.filterObj;
             }
