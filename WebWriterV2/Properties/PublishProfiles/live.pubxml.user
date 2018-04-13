@@ -49,13 +49,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/12/2017 06:47:46</publishTime>
     </File>
     <File Include="bin/Dal.dll">
-      <publishTime>04/05/2018 13:21:25</publishTime>
+      <publishTime>04/11/2018 16:34:51</publishTime>
     </File>
     <File Include="bin/Dal.dll.config">
       <publishTime>09/08/2016 15:40:34</publishTime>
     </File>
     <File Include="bin/Dal.pdb">
-      <publishTime>04/05/2018 13:21:25</publishTime>
+      <publishTime>04/11/2018 16:34:51</publishTime>
     </File>
     <File Include="bin/Dao.dll">
       <publishTime>09/04/2017 15:10:05</publishTime>
@@ -145,19 +145,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2015 04:04:30</publishTime>
     </File>
     <File Include="bin/VkApi.dll">
-      <publishTime>03/23/2018 10:10:59</publishTime>
+      <publishTime>04/11/2018 16:34:51</publishTime>
     </File>
     <File Include="bin/VkApi.pdb">
-      <publishTime>03/23/2018 10:10:59</publishTime>
+      <publishTime>04/11/2018 16:34:51</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>07/17/2013 17:03:52</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>04/05/2018 13:21:28</publishTime>
+      <publishTime>04/12/2018 12:27:38</publishTime>
     </File>
     <File Include="bin/WebWriterV2.pdb">
-      <publishTime>04/05/2018 13:21:28</publishTime>
+      <publishTime>04/12/2018 12:27:38</publishTime>
     </File>
     <File Include="bin/x64/libsass.dll">
       <publishTime>11/15/2017 20:18:30</publishTime>
@@ -185,6 +185,27 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="Content/add.png">
       <publishTime>12/21/2016 15:04:13</publishTime>
+    </File>
+    <File Include="Content/angular-material.css">
+      <publishTime>04/09/2018 12:51:59</publishTime>
+    </File>
+    <File Include="Content/angular-material.layout-attributes.css">
+      <publishTime>04/09/2018 12:51:58</publishTime>
+    </File>
+    <File Include="Content/angular-material.layout-attributes.min.css">
+      <publishTime>04/09/2018 12:51:58</publishTime>
+    </File>
+    <File Include="Content/angular-material.layouts.css">
+      <publishTime>04/09/2018 12:51:58</publishTime>
+    </File>
+    <File Include="Content/angular-material.layouts.ie_fixes.css">
+      <publishTime>04/09/2018 12:51:58</publishTime>
+    </File>
+    <File Include="Content/angular-material.layouts.min.css">
+      <publishTime>04/09/2018 12:51:58</publishTime>
+    </File>
+    <File Include="Content/angular-material.min.css">
+      <publishTime>04/09/2018 12:51:58</publishTime>
     </File>
     <File Include="Content/avatar/1.jpeg">
       <publishTime>02/19/2018 10:56:46</publishTime>
@@ -247,7 +268,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/10/2018 12:07:19</publishTime>
     </File>
     <File Include="Content/css/style.scss">
-      <publishTime>04/05/2018 13:16:48</publishTime>
+      <publishTime>04/09/2018 16:12:51</publishTime>
     </File>
     <File Include="Content/defenitionExample/01.png">
       <publishTime>05/15/2017 16:16:23</publishTime>
@@ -802,7 +823,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/09/2016 23:31:26</publishTime>
     </File>
     <File Include="packages.config">
-      <publishTime>02/06/2018 13:31:20</publishTime>
+      <publishTime>04/09/2018 12:53:03</publishTime>
     </File>
     <File Include="Properties/Settings.Designer.cs">
       <publishTime>05/18/2017 17:21:00</publishTime>
@@ -811,43 +832,61 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/18/2017 17:21:00</publishTime>
     </File>
     <File Include="Scripts/angular-animate.js">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:02</publishTime>
     </File>
     <File Include="Scripts/angular-animate.min.js">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:02</publishTime>
     </File>
     <File Include="Scripts/angular-animate.min.js.map">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:02</publishTime>
+    </File>
+    <File Include="Scripts/angular-aria.js">
+      <publishTime>04/09/2018 12:53:03</publishTime>
+    </File>
+    <File Include="Scripts/angular-aria.min.js">
+      <publishTime>04/09/2018 12:53:03</publishTime>
+    </File>
+    <File Include="Scripts/angular-aria.min.js.map">
+      <publishTime>04/09/2018 12:53:02</publishTime>
     </File>
     <File Include="Scripts/angular-cookies.js">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:03</publishTime>
     </File>
     <File Include="Scripts/angular-cookies.min.js">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:03</publishTime>
     </File>
     <File Include="Scripts/angular-cookies.min.js.map">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:03</publishTime>
+    </File>
+    <File Include="Scripts/angular-material-mocks.js">
+      <publishTime>04/09/2018 12:51:58</publishTime>
+    </File>
+    <File Include="Scripts/angular-material.js">
+      <publishTime>04/09/2018 12:51:58</publishTime>
+    </File>
+    <File Include="Scripts/angular-material.min.js">
+      <publishTime>04/09/2018 12:51:58</publishTime>
     </File>
     <File Include="Scripts/angular-mocks.js">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:02</publishTime>
     </File>
     <File Include="Scripts/angular-route.js">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:03</publishTime>
     </File>
     <File Include="Scripts/angular-route.min.js">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:03</publishTime>
     </File>
     <File Include="Scripts/angular-route.min.js.map">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:03</publishTime>
     </File>
     <File Include="Scripts/angular-sanitize.js">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:03</publishTime>
     </File>
     <File Include="Scripts/angular-sanitize.min.js">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:03</publishTime>
     </File>
     <File Include="Scripts/angular-sanitize.min.js.map">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:03</publishTime>
     </File>
     <File Include="Scripts/angular-ui/ui-bootstrap-tpls.js">
       <publishTime>03/06/2017 08:54:11</publishTime>
@@ -862,13 +901,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/06/2017 08:54:12</publishTime>
     </File>
     <File Include="Scripts/angular.js">
-      <publishTime>09/04/2017 15:20:08</publishTime>
+      <publishTime>04/09/2018 12:53:02</publishTime>
     </File>
     <File Include="Scripts/angular.min.js">
-      <publishTime>09/04/2017 15:20:07</publishTime>
+      <publishTime>04/09/2018 12:53:02</publishTime>
     </File>
     <File Include="Scripts/angular.min.js.map">
-      <publishTime>09/04/2017 15:20:07</publishTime>
+      <publishTime>04/09/2018 12:53:02</publishTime>
     </File>
     <File Include="Scripts/angular/angular-animate.js">
       <publishTime>08/21/2016 20:22:06</publishTime>
@@ -2011,13 +2050,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/29/2016 12:57:25</publishTime>
     </File>
     <File Include="Scripts/rpg/admin-controller.js">
-      <publishTime>09/19/2017 12:52:34</publishTime>
+      <publishTime>04/11/2018 14:34:53</publishTime>
     </File>
     <File Include="Scripts/rpg/constant.js">
       <publishTime>02/06/2017 14:00:47</publishTime>
     </File>
     <File Include="Scripts/rpg/directives.js">
-      <publishTime>04/03/2018 14:30:23</publishTime>
+      <publishTime>04/06/2018 13:07:04</publishTime>
     </File>
     <File Include="Scripts/rpg/graph.js">
       <publishTime>04/20/2017 10:56:22</publishTime>
@@ -2026,7 +2065,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 16:12:07</publishTime>
     </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>03/26/2018 10:26:18</publishTime>
+      <publishTime>04/09/2018 10:54:41</publishTime>
     </File>
     <File Include="Scripts/rpg/reader/access-controller.js">
       <publishTime>04/04/2018 14:01:54</publishTime>
@@ -2065,28 +2104,31 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/28/2018 14:51:12</publishTime>
     </File>
     <File Include="Scripts/rpg/user-controller.js">
-      <publishTime>02/16/2018 10:30:14</publishTime>
+      <publishTime>04/11/2018 14:34:35</publishTime>
     </File>
     <File Include="Scripts/rpg/writer/book-controller.js">
-      <publishTime>04/03/2018 15:08:22</publishTime>
+      <publishTime>04/11/2018 14:39:54</publishTime>
     </File>
     <File Include="Scripts/rpg/writer/books-controller.js">
       <publishTime>04/04/2018 13:39:46</publishTime>
     </File>
     <File Include="Scripts/rpg/writer/chapter-controller.js">
-      <publishTime>03/01/2018 19:37:13</publishTime>
+      <publishTime>04/09/2018 14:24:48</publishTime>
     </File>
     <File Include="Scripts/rpg/writer/graph-controller.js">
       <publishTime>03/15/2018 11:22:26</publishTime>
     </File>
     <File Include="Scripts/sGraph/bookMap.js">
-      <publishTime>04/05/2018 12:58:03</publishTime>
+      <publishTime>04/11/2018 17:23:21</publishTime>
+    </File>
+    <File Include="Scripts/sGraph/chapterProcessing.js">
+      <publishTime>04/11/2018 14:34:56</publishTime>
     </File>
     <File Include="Scripts/sGraph/draw.js">
       <publishTime>03/23/2018 16:21:38</publishTime>
     </File>
     <File Include="Scripts/sGraph/drawShapes.js">
-      <publishTime>04/05/2018 13:20:59</publishTime>
+      <publishTime>04/11/2018 14:34:56</publishTime>
     </File>
     <File Include="Scripts/sGraph/konva.min.js">
       <publishTime>03/22/2018 15:58:42</publishTime>
@@ -2137,7 +2179,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/15/2015 15:02:58</publishTime>
     </File>
     <File Include="Views/reader/Books.html">
-      <publishTime>04/05/2018 13:17:38</publishTime>
+      <publishTime>04/09/2018 12:55:53</publishTime>
     </File>
     <File Include="Views/reader/Login.html">
       <publishTime>01/12/2018 14:56:02</publishTime>
@@ -2149,7 +2191,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/12/2018 12:23:08</publishTime>
     </File>
     <File Include="Views/reader/Travel.html">
-      <publishTime>04/04/2018 13:45:36</publishTime>
+      <publishTime>04/11/2018 14:34:35</publishTime>
     </File>
     <File Include="Views/Rpg/AboutUs.html">
       <publishTime>05/15/2017 17:22:46</publishTime>
@@ -2227,13 +2269,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2017 17:48:08</publishTime>
     </File>
     <File Include="Views/Rpg/HeaderD.html">
-      <publishTime>04/05/2018 13:19:02</publishTime>
+      <publishTime>04/12/2018 12:22:00</publishTime>
     </File>
     <File Include="Views/Rpg/HeaderOld.html">
       <publishTime>12/06/2017 12:11:56</publishTime>
     </File>
     <File Include="Views/Rpg/Index.cshtml">
-      <publishTime>04/05/2018 11:24:46</publishTime>
+      <publishTime>04/09/2018 13:31:25</publishTime>
     </File>
     <File Include="Views/Rpg/ListBook.html">
       <publishTime>07/24/2017 11:48:16</publishTime>
@@ -2314,19 +2356,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/09/2018 15:17:33</publishTime>
     </File>
     <File Include="Views/Writer/Book.html">
-      <publishTime>04/04/2018 13:25:31</publishTime>
+      <publishTime>04/06/2018 13:09:30</publishTime>
     </File>
     <File Include="Views/Writer/Books.html">
-      <publishTime>04/04/2018 13:37:16</publishTime>
+      <publishTime>04/09/2018 12:55:53</publishTime>
     </File>
     <File Include="Views/Writer/Chapter.html">
-      <publishTime>03/28/2018 09:21:53</publishTime>
+      <publishTime>04/12/2018 12:23:37</publishTime>
     </File>
     <File Include="Views/Writer/Graph.html">
       <publishTime>03/11/2018 12:47:36</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/29/2018 14:52:30</publishTime>
+      <publishTime>04/11/2018 16:34:53</publishTime>
     </File>
   </ItemGroup>
 </Project>

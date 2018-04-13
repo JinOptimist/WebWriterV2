@@ -19,6 +19,7 @@ angular.module('rpg')
             : $window.innerWidth < 1020 
                 ? 1020
                 : $window.innerWidth
+        var minHeight = 700;
         $scope.canvas = {
             width: width,
             height: 500
@@ -110,7 +111,11 @@ angular.module('rpg')
             bookService.getWithChaptersV2(bookId).then(function (book) {
                 $scope.book = book;
                 var maxDepth = Math.max.apply(Math, book.Chapters.map(x => x.Level));
-                $scope.canvas.height = maxDepth * (Const.ChapterSize.Height + Const.ChapterSize.Padding) + 100
+                var height = maxDepth * (Const.ChapterSize.Height + Const.ChapterSize.Padding) + 100;
+                if (height < minHeight)
+                    height = minHeight;
+                $scope.canvas.height = height;
+                
                 setTimeout(function () { bookMap.start(book.Chapters, actions, $scope.canvas) }, 0);
                 $scope.wait = false;
             });

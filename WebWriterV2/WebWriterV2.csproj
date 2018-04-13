@@ -688,6 +688,7 @@
     <Content Include="Content\css\icon.scss" />
     <Content Include="Scripts\polyfill.js" />
     <Content Include="Scripts\rpg\reader\access-controller.js" />
+    <Content Include="Scripts\rpg\writer\about-controller.js" />
     <Content Include="Scripts\rpg\reader\profile-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-controller.js" />
     <Content Include="Scripts\rpg\reader\books-controller.js" />
@@ -700,8 +701,6 @@
     <Content Include="Scripts\rpg\writer\books-controller.js" />
     <Content Include="Scripts\rpg\writer\book-controller.js" />
     <Content Include="Scripts\rpg\constant.js" />
-    <Content Include="Scripts\rpg\admin-controller.js" />
-    <Content Include="Scripts\rpg\user-controller.js" />
     <Content Include="Scripts\rpg\services.js" />
     <Content Include="Scripts\rpg\directives.js" />
     <Content Include="Scripts\rpg\module.js" />

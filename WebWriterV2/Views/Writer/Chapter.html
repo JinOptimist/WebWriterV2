@@ -15,7 +15,7 @@
             <span class="button-medium-blue" ng-click="save(true)">Сохранить и закрыть</span>
         </div>
     </form>
-    <!--<div class="chapter-links-block" ng-show="chapterLinks.length > 0">
+    <div class="chapter-links-block" ng-show="chapterLinks.length > 0">
         <form name="chapterLinkBlockForm">
             <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
                 <span class="icon close" ng-click="deleteLink(chapterLink.Id, $index)"></span>
@@ -50,7 +50,7 @@
                         </p>
                     </div>
 
-                    <div class="decision">
+                    <!--<div class="decision">
                         <p>
                             <label>
                                 Запомнить решение
@@ -64,11 +64,11 @@
                             <input type="text" ng-model="chapterLink.Decision" placeholder="Метка решения" />
                             <span class="button-medium-blue" ng-click="saveDecision(chapterLink)">Сохранить</span>
                         </p>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </form>
-    </div>-->
+    </div>
     <!--<div class="chapter-link">
         <form name="chapterLinkForm" novalidate>
             <textarea class="no-border" ng-model="newChapterLink.Text" placeholder='Текст для ссылки на следующую главу. По умолчанию ссылка будет с текстом "Далее"'></textarea>
