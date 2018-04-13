@@ -240,9 +240,10 @@ var bookMap = (function () {
             chapter.Name = newChapter.Name;
         } else {
             // if we update not exist chapter, we add new one
-            frontChapters.push(newChapter);
             var parentOfNewChapterId = newChapter.LinksToThisChapter[0].FromId;
             var parentOfNewChapter = frontChapters.find(x => x.Id == parentOfNewChapterId);
+            newChapter.Level = parentOfNewChapter.Level + 1;
+            frontChapters.push(newChapter);
             var link = newChapter.LinksToThisChapter[0];
             parentOfNewChapter.LinksFromThisChapter.push(link);
 
