@@ -197,3 +197,5 @@ FakesAssemblies/
 *.opt
 *.cache
 /WebWriterV2/obj/Release/*.cache
+/WebWriterV2/Properties/PublishProfiles/*.user
+/WebWriterV2/*.user
