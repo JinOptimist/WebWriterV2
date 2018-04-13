@@ -11,7 +11,7 @@ namespace WebWriterV2.FrontModels
         {
         }
 
-        public FrontTravel(Travel travel)
+        public FrontTravel(Travel travel, long chapterId = -1)
         {
             Id = travel.Id;
             if (travel.Book != null) {
@@ -21,12 +21,24 @@ namespace WebWriterV2.FrontModels
                 Chapter = new FrontChapter(travel.CurrentChapter, travel);
             }
 
+            var stepFromWhichReaderCame = travel.Steps?.SingleOrDefault(x => x.Choice.To.Id == chapterId);
+            PrevChapterId = stepFromWhichReaderCame?.Choice.From.Id;
+            var currentStep = travel.Steps?.SingleOrDefault(x => x.Choice.From.Id == chapterId);
+
+            if (currentStep != null) {
+                NextChapterId = currentStep.Choice.To.Id;
+                Chapter = new FrontChapter(currentStep.Choice.From, travel);
+            }
+
             AllStates = travel.State == null ? "" : string.Join(", ", travel.State);
         }
 
         public FrontBook Book { get; set; }
         public FrontChapter Chapter { get; set; }
         public string AllStates { get; set; }
+
+        public long? PrevChapterId { get; set; }
+        public long? NextChapterId { get; set; }
 
         public override Travel ToDbModel()
         {

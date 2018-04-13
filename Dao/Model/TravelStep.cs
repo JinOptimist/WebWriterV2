@@ -10,6 +10,6 @@ namespace Dao.Model
 
         public virtual DateTime DateTime { get; set; }
 
-        public virtual ChapterLinkItem Сhoice { get; set; }
+        public virtual ChapterLinkItem Choice { get; set; }
     }
 }

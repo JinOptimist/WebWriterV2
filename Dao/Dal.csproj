@@ -126,6 +126,10 @@
     <Compile Include="Migrations\201803011236210_RenameAFewField.Designer.cs">
       <DependentUpon>201803011236210_RenameAFewField.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804131010530_RenameChoice.cs" />
+    <Compile Include="Migrations\201804131010530_RenameChoice.Designer.cs">
+      <DependentUpon>201804131010530_RenameChoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Tag.cs" />
@@ -204,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803011236210_RenameAFewField.resx">
       <DependentUpon>201803011236210_RenameAFewField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804131010530_RenameChoice.resx">
+      <DependentUpon>201804131010530_RenameChoice.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

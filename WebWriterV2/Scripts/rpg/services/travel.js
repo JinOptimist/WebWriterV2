@@ -9,10 +9,11 @@
             travelIsEnd: travelIsEnd
         };
 
-        function get(id) {
+        function get(id, chapterId) {
             var url = '/api/travel/get';
             var data = {
-                id: id
+                id: id,
+                chapterId: chapterId
             };
             return httpHelper.get(url, data);
         }

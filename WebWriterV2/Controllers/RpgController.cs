@@ -85,7 +85,7 @@ namespace WebWriterV2.Controllers
                 var chapters = new List<Chapter> {
                     travel.Book.RootChapter
                 };
-                chapters.AddRange(travel.Steps.Select(x => x.Сhoice.To));
+                chapters.AddRange(travel.Steps.Select(x => x.Choice.To));
 
                 if (System.IO.File.Exists(path)) {
                     System.IO.File.Delete(path);

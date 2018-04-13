@@ -508,6 +508,14 @@ ul {
 
         &.onlyNext .close {
         }
+
+        &.lost-choice {
+            a, 
+            .button-medium-gray, 
+            .button-medium-blue {
+                cursor: not-allowed;
+            }
+        }
     }
 }
 /* Reader End */

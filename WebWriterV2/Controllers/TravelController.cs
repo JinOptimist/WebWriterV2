@@ -14,13 +14,14 @@ namespace WebWriterV2.Controllers
 {
     public class TravelController : BaseApiController
     {
-        public TravelController(ITravelRepository travelRepository, ITravelStepRepository travelStepRepository, IBookRepository bookRepository, IChapterLinkItemRepository chapterLinkItemRepository, IStateTypeRepository stateTypeRepository)
+        public TravelController(ITravelRepository travelRepository, ITravelStepRepository travelStepRepository, IBookRepository bookRepository, IChapterLinkItemRepository chapterLinkItemRepository, IStateTypeRepository stateTypeRepository, IChapterRepository chapterRepository)
         {
             TravelRepository = travelRepository;
             TravelStepRepository = travelStepRepository;
             BookRepository = bookRepository;
             ChapterLinkItemRepository = chapterLinkItemRepository;
             StateTypeRepository = stateTypeRepository;
+            ChapterRepository = chapterRepository;
         }
 
         private ITravelRepository TravelRepository { get; }
@@ -28,12 +29,22 @@ namespace WebWriterV2.Controllers
         private IBookRepository BookRepository { get; }
         private IChapterLinkItemRepository ChapterLinkItemRepository { get; }
         private IStateTypeRepository StateTypeRepository { get; }
+        private IChapterRepository ChapterRepository { get; }
+
 
         [AcceptVerbs("GET")]
-        public FrontTravel Get(long id)
+        public FrontTravel Get(long id, long chapterId)
         {
-            var travel = TravelRepository.Get(id);
-            return new FrontTravel(travel);
+            if (User != null) {
+                var travel = TravelRepository.Get(id);
+                return new FrontTravel(travel, chapterId);
+            }
+
+            // Guest can read but cann't go to prev on next chapter
+            var chapter = ChapterRepository.Get(chapterId);
+            FrontTravel frontTravel = new FrontTravel();
+            frontTravel.Chapter = new FrontChapter(chapter);
+            return frontTravel;
         }
 
         [AcceptVerbs("GET")]
@@ -47,7 +58,7 @@ namespace WebWriterV2.Controllers
                     Id = -1
                 };
             } else {
-                
+
                 travel = TravelRepository.GetByBookAndUser(bookId, User.Id);
                 if (travel == null) {
 
@@ -74,8 +85,11 @@ namespace WebWriterV2.Controllers
                 var step = new TravelStep {
                     DateTime = DateTime.Now,
                     Travel = travel,
-                    Сhoice = link
+                    Choice = link
                 };
+                if (travel.Steps.Any(x => x.Choice.From.Id == link.From.Id)) {
+                    throw new Exception($"Try to change past. User {User.Id}. Travel {travel.Id}. Step from passed chapted ch.Id {link.From.Id}");
+                }
                 travel.CurrentChapter = link.To;
                 TravelStepRepository.Save(step);
 
@@ -96,7 +110,7 @@ namespace WebWriterV2.Controllers
 
                 TravelRepository.Save(travel);
             }
-            
+
             return new FrontChapter(link.To, travel);
         }
 

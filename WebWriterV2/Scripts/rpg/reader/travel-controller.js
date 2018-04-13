@@ -29,29 +29,8 @@ angular.module('rpg')
                 
             }
 
-            function loadChapter(chapterId) {
-                chapterService.getForTravel(chapterId).then(function (chapter) {
-                    $scope.travel = {
-                        Id: -1,
-                        Chapter: chapter
-                    };
-                });
-            }
-
-            //function loadBook(bookId) {
-            //    //bookService.getRoot(bookId).then(function (books) {
-            //    //    $scope.books = books;
-            //    //});
-            //}
-
-            //function loadChapterLinks(chapterId) {
-            //    chapterService.getLinksFromChapter(chapterId).then(function (chapterLinks) {
-            //        $scope.chapterLinks = chapterLinks;
-            //    });
-            //}
-
-            function loadTravel(travelId) {
-                travelService.get(travelId).then(function (travel) {
+            function loadTravel(travelId, chapterId) {
+                travelService.get(travelId, chapterId).then(function (travel) {
                     $scope.travel = travel;
                 });
             }
@@ -59,11 +38,7 @@ angular.module('rpg')
             function init() {
                 var travelId = $routeParams.travelId;
                 var chapterId = $routeParams.chapterId;
-                if (travelId > 0) {
-                    loadTravel(travelId);
-                } else {
-                    loadChapter(chapterId);
-                }
+                loadTravel(travelId, chapterId);
 
                 //var chapterId = $routeParams.chapterId;
                 //if (chapterId) {
