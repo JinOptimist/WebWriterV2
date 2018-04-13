@@ -4,11 +4,9 @@ angular.module('rpg')
         '$scope', '$routeParams', '$location', '$cookies', '$q', 'chapterService', 'userService', '$mdDialog', 'chapterId',
         function ($scope, $routeParams, $location, $cookies, $q, chapterService, userService, $mdDialog, chapterId) {
 
-            $scope.chaptersBottom = [];
             $scope.chapterLinks = [];
             $scope.availableDecision = [];
             $scope.chapter = null;
-            $scope.newChapterLink = { FromId: -1 };
             $scope.wait = true;
             init();
 
@@ -30,7 +28,7 @@ angular.module('rpg')
             }
 
             $scope.close = function () {
-                $mdDialog.hide();
+                $mdDialog.hide($scope.chapter);
             }
 
             $scope.createNextChapter = function () {
@@ -39,18 +37,8 @@ angular.module('rpg')
                 });
             }
 
-            $scope.saveChapterLink = function () {
-                saveChapterLinkAndResetForm($scope.newChapterLink, $scope.chapterLinkForm);
-            }
-
             $scope.updateChpaterLink = function (chapterLink) {
                 saveChapterLinkAndResetForm(chapterLink, $scope.chapterLinkBlockForm);
-            }
-
-            $scope.deleteLink = function (chapterLinkId, index) {
-                chapterService.removeChapterLink(chapterLinkId).then(function () {
-                    $scope.chapterLinks.splice(index, 1);
-                });
             }
 
             $scope.saveDecision = function (chapterLink) {
@@ -84,46 +72,20 @@ angular.module('rpg')
 
             function loadChapter(chapter) {
                 $scope.chapter = chapter;
-                $scope.newChapterLink.FromId = chapter.Id;
                 $scope.wait = false;
             }
 
-            function loadBottomChapters(chapter) {
-                chapterService.getBottomChapters(chapter).then(function (chaptersBottom) {
-                    $scope.chaptersBottom = chaptersBottom;
-                });
-            }
-
-            function loadAllChapters(bookId) {
-                chapterService.getAllChapters(bookId).then(function (chapters) {
-                    $scope.chaptersBottom = chapters;
-                });
-            }
-
             function init() {
-                // get chapter id from scope if we open popup
-                //var chapterId = $scope.chapterId
-                //    ? $scope.chapterId
-                //    : $routeParams.chapterId;
-
-                var userPromise = userService.getCurrentUser();
                 var chapterPromise = chapterService.get(chapterId);
                 var linksPromise = chapterService.getLinksFromChapter(chapterId);
                 var availableDecisionPromise = chapterService.getAvailableDecision(chapterId);
                 
-                $q.all([userPromise, chapterPromise, linksPromise, availableDecisionPromise]).then(function (data) {
-                    $scope.user = data[0];
-                    $scope.chapterLinks = data[2];
-                    $scope.availableDecision = data[3];
+                $q.all([chapterPromise, linksPromise, availableDecisionPromise]).then(function (data) {
+                    $scope.chapterLinks = data[1];
+                    $scope.availableDecision = data[2];
 
-                    var chapter = data[1];
+                    var chapter = data[0];
                     loadChapter(chapter);
-                    if ($scope.user.IsAdmin) {
-                        //use experemental functionality
-                        loadAllChapters(chapter.BookId);
-                    } else {
-                        loadBottomChapters(chapter);
-                    }
                 });
             }
         }

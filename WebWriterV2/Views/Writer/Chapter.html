@@ -2,9 +2,9 @@
     <form name="chapterForm" novalidate>
         <div class="header">
             <input type="text" ng-model="chapter.Name" class="no-border" />
-            <div class="right">
+            <!--<div class="right">
                 <a href="#" ng-click="close()">close</a>
-            </div>
+            </div>-->
         </div>
         <div class="body">
             <textarea ng-model="chapter.Desc" class="no-border"></textarea>
@@ -18,7 +18,7 @@
     <div class="chapter-links-block" ng-show="chapterLinks.length > 0">
         <form name="chapterLinkBlockForm">
             <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
-                <span class="icon close" ng-click="deleteLink(chapterLink.Id, $index)"></span>
+                <!--<span class="icon close" ng-click="deleteLink(chapterLink.Id, $index)"></span>-->
                 <div class="text">
                     <input ng-model="chapterLink.Text" class="no-border" ng-blur="updateChpaterLink(chapterLink)" />
                 </div>
@@ -30,7 +30,7 @@
                             </span>
                         </a>
                     </p>
-                    <div class="condition">
+                    <!--<div class="condition">
                         <p>
                             <label>
                                 Добавить условие
@@ -48,7 +48,7 @@
                             </select>
                             <span class="button-medium-blue" ng-click="saveCondition(chapterLink)">Сохранить</span>
                         </p>
-                    </div>
+                    </div>-->
 
                     <!--<div class="decision">
                         <p>
@@ -69,15 +69,7 @@
             </div>
         </form>
     </div>
-    <!--<div class="chapter-link">
-        <form name="chapterLinkForm" novalidate>
-            <textarea class="no-border" ng-model="newChapterLink.Text" placeholder='Текст для ссылки на следующую главу. По умолчанию ссылка будет с текстом "Далее"'></textarea>
-            <select ng-options="chapter.Id as chapter.Name for chapter in chaptersBottom track by chapter.Id"
-                    ng-model="newChapterLink.ToId"></select>
-            <span class="button-medium-blue" ng-click="saveChapterLink()">Создать ссылку</span>
-        </form>
-    </div>
-    <div>
+    <!--<div>
         <span class="button-medium-blue" ng-click="createNextChapter()">создать следующую главу</span>
     </div>-->
 
