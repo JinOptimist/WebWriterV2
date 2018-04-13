@@ -1,4 +1,4 @@
-﻿<div id="travel" class="content" ng-class="!travel ? 'wait' : ''">
+﻿<div id="travel" class="content" ng-class="!travel ? 'wait' : 'ready'">
     <div class="header" ng-show="travel">
         {{travel.Chapter.Name}}
         <span ng-show="false">*{{travel.State}}</span>
@@ -26,7 +26,7 @@
         <div ng-show="!travel.Chapter.LinksFromThisChapter || travel.Chapter.LinksFromThisChapter.length == 0">
             <a href="#" ng-click="travelIsEnd(travel.Id)">
                 <span class="button-medium-blue">
-                    Перейти к статистики
+                    {{resources.Travel_GoToStatistics}}
                 </span>
             </a>
         </div>

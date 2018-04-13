@@ -223,6 +223,15 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Перейти к статистики.
+        /// </summary>
+        internal static string Travel_GoToStatistics {
+            get {
+                return ResourceManager.GetString("Travel_GoToStatistics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Далее.
         /// </summary>
         internal static string Travel_Next {

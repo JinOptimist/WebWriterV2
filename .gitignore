@@ -196,3 +196,4 @@ FakesAssemblies/
 # Visual Studio 6 workspace options file
 *.opt
 *.cache
+/WebWriterV2/obj/Release/*.cache

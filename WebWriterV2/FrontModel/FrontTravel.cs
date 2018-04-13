@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dao.Model;
+using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.FrontModels
 {
@@ -21,16 +22,16 @@ namespace WebWriterV2.FrontModels
             }
             Chapter = new FrontChapter(chapter, travel);
 
+            AllStates = travel.State == null ? "" : string.Join(", ", travel.State);
+
+            var hasCycle = new GraphHelper(travel.Book).HasCycle();
+            if (hasCycle) {
+                return;
+            }
             var stepFromWhichReaderCame = travel.Steps?.SingleOrDefault(x => x.Choice.To.Id == chapter.Id);
             PrevChapterId = stepFromWhichReaderCame?.Choice.From.Id;
             var currentStep = travel.Steps?.SingleOrDefault(x => x.Choice.From.Id == chapter.Id);
-
-            if (currentStep != null) {
-                NextChapterId = currentStep.Choice.To.Id;
-                Chapter = new FrontChapter(currentStep.Choice.From, travel);
-            }
-
-            AllStates = travel.State == null ? "" : string.Join(", ", travel.State);
+            NextChapterId = currentStep?.Choice.To.Id;
         }
 
         public FrontBook Book { get; set; }

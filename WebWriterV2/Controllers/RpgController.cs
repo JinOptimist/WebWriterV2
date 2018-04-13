@@ -118,6 +118,7 @@ namespace WebWriterV2.Controllers
             return JavaScript("var resources = " + json + ";");
         }
 
+        /* OLD */
         public ActionResult RegisterVkComplete(string code)
         {
             var redirectUri = "http://localhost:52079/rpg/RegisterVkComplete";

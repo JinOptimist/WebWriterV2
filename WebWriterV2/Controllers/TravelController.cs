@@ -91,7 +91,8 @@ namespace WebWriterV2.Controllers
                 return new FrontTravel(travel, link.To);
             }
 
-            if (travel.Steps.Any(x => x.Choice.From.Id == link.From.Id)) {
+            var hasCycle = new GraphHelper(travel.Book).HasCycle();
+            if (!hasCycle && travel.Steps.Any(x => x.Choice.From.Id == link.From.Id)) {
                 throw new Exception($"Try to change past. User {User.Id}. Travel {travel.Id}. Step from passed chapted ch.Id {link.From.Id}");
             }
 

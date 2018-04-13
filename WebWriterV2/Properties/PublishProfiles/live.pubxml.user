@@ -49,13 +49,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/12/2017 06:47:46</publishTime>
     </File>
     <File Include="bin/Dal.dll">
-      <publishTime>04/11/2018 16:34:51</publishTime>
+      <publishTime>04/13/2018 14:45:15</publishTime>
     </File>
     <File Include="bin/Dal.dll.config">
       <publishTime>09/08/2016 15:40:34</publishTime>
     </File>
     <File Include="bin/Dal.pdb">
-      <publishTime>04/11/2018 16:34:51</publishTime>
+      <publishTime>04/13/2018 14:45:15</publishTime>
     </File>
     <File Include="bin/Dao.dll">
       <publishTime>09/04/2017 15:10:05</publishTime>
@@ -154,10 +154,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/17/2013 17:03:52</publishTime>
     </File>
     <File Include="bin/WebWriterV2.dll">
-      <publishTime>04/12/2018 12:27:38</publishTime>
+      <publishTime>04/13/2018 15:30:53</publishTime>
     </File>
     <File Include="bin/WebWriterV2.pdb">
-      <publishTime>04/12/2018 12:27:38</publishTime>
+      <publishTime>04/13/2018 15:30:53</publishTime>
     </File>
     <File Include="bin/x64/libsass.dll">
       <publishTime>11/15/2017 20:18:30</publishTime>
@@ -268,7 +268,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/10/2018 12:07:19</publishTime>
     </File>
     <File Include="Content/css/style.scss">
-      <publishTime>04/09/2018 16:12:51</publishTime>
+      <publishTime>04/13/2018 15:29:52</publishTime>
     </File>
     <File Include="Content/defenitionExample/01.png">
       <publishTime>05/15/2017 16:16:23</publishTime>
@@ -2065,25 +2065,25 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/15/2017 16:12:07</publishTime>
     </File>
     <File Include="Scripts/rpg/module.js">
-      <publishTime>04/09/2018 10:54:41</publishTime>
+      <publishTime>04/13/2018 12:56:27</publishTime>
     </File>
     <File Include="Scripts/rpg/reader/access-controller.js">
-      <publishTime>04/04/2018 14:01:54</publishTime>
+      <publishTime>04/13/2018 14:13:32</publishTime>
     </File>
     <File Include="Scripts/rpg/reader/books-controller.js">
-      <publishTime>04/04/2018 13:40:10</publishTime>
+      <publishTime>04/13/2018 12:13:41</publishTime>
     </File>
     <File Include="Scripts/rpg/reader/login-controller.js">
       <publishTime>02/16/2018 11:55:57</publishTime>
     </File>
     <File Include="Scripts/rpg/reader/profile-controller.js">
-      <publishTime>02/16/2018 13:44:02</publishTime>
+      <publishTime>04/13/2018 14:13:58</publishTime>
     </File>
     <File Include="Scripts/rpg/reader/register-controller.js">
       <publishTime>01/12/2018 12:24:42</publishTime>
     </File>
     <File Include="Scripts/rpg/reader/travel-controller.js">
-      <publishTime>04/04/2018 13:47:33</publishTime>
+      <publishTime>04/13/2018 14:38:54</publishTime>
     </File>
     <File Include="Scripts/rpg/services.js">
       <publishTime>02/08/2018 13:14:09</publishTime>
@@ -2098,7 +2098,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/16/2018 16:22:31</publishTime>
     </File>
     <File Include="Scripts/rpg/services/travel.js">
-      <publishTime>02/09/2018 13:59:55</publishTime>
+      <publishTime>04/13/2018 13:21:41</publishTime>
     </File>
     <File Include="Scripts/rpg/services/user.js">
       <publishTime>02/28/2018 14:51:12</publishTime>
@@ -2106,20 +2106,23 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Scripts/rpg/user-controller.js">
       <publishTime>04/11/2018 14:34:35</publishTime>
     </File>
+    <File Include="Scripts/rpg/writer/about-controller.js">
+      <publishTime>04/13/2018 11:52:34</publishTime>
+    </File>
     <File Include="Scripts/rpg/writer/book-controller.js">
-      <publishTime>04/11/2018 14:39:54</publishTime>
+      <publishTime>04/13/2018 11:56:51</publishTime>
     </File>
     <File Include="Scripts/rpg/writer/books-controller.js">
       <publishTime>04/04/2018 13:39:46</publishTime>
     </File>
     <File Include="Scripts/rpg/writer/chapter-controller.js">
-      <publishTime>04/09/2018 14:24:48</publishTime>
+      <publishTime>04/13/2018 12:23:27</publishTime>
     </File>
     <File Include="Scripts/rpg/writer/graph-controller.js">
       <publishTime>03/15/2018 11:22:26</publishTime>
     </File>
     <File Include="Scripts/sGraph/bookMap.js">
-      <publishTime>04/11/2018 17:23:21</publishTime>
+      <publishTime>04/13/2018 12:36:36</publishTime>
     </File>
     <File Include="Scripts/sGraph/chapterProcessing.js">
       <publishTime>04/11/2018 14:34:56</publishTime>
@@ -2191,7 +2194,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/12/2018 12:23:08</publishTime>
     </File>
     <File Include="Views/reader/Travel.html">
-      <publishTime>04/11/2018 14:34:35</publishTime>
+      <publishTime>04/13/2018 15:29:55</publishTime>
     </File>
     <File Include="Views/Rpg/AboutUs.html">
       <publishTime>05/15/2017 17:22:46</publishTime>
@@ -2269,13 +2272,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2017 17:48:08</publishTime>
     </File>
     <File Include="Views/Rpg/HeaderD.html">
-      <publishTime>04/12/2018 12:22:00</publishTime>
+      <publishTime>04/13/2018 12:07:34</publishTime>
     </File>
     <File Include="Views/Rpg/HeaderOld.html">
       <publishTime>12/06/2017 12:11:56</publishTime>
     </File>
     <File Include="Views/Rpg/Index.cshtml">
-      <publishTime>04/09/2018 13:31:25</publishTime>
+      <publishTime>04/13/2018 11:52:49</publishTime>
     </File>
     <File Include="Views/Rpg/ListBook.html">
       <publishTime>07/24/2017 11:48:16</publishTime>
@@ -2356,13 +2359,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/09/2018 15:17:33</publishTime>
     </File>
     <File Include="Views/Writer/Book.html">
-      <publishTime>04/06/2018 13:09:30</publishTime>
+      <publishTime>04/13/2018 12:37:53</publishTime>
     </File>
     <File Include="Views/Writer/Books.html">
-      <publishTime>04/09/2018 12:55:53</publishTime>
+      <publishTime>04/13/2018 12:14:54</publishTime>
     </File>
     <File Include="Views/Writer/Chapter.html">
-      <publishTime>04/12/2018 12:23:37</publishTime>
+      <publishTime>04/13/2018 12:24:52</publishTime>
     </File>
     <File Include="Views/Writer/Graph.html">
       <publishTime>03/11/2018 12:47:36</publishTime>

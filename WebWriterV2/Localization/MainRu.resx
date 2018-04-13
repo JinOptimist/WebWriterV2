@@ -171,6 +171,9 @@
   <data name="Travel_GetChosen" xml:space="preserve">
     <value>Сделать выбор</value>
   </data>
+  <data name="Travel_GoToStatistics" xml:space="preserve">
+    <value>Перейти к статистики</value>
+  </data>
   <data name="Travel_Next" xml:space="preserve">
     <value>Далее</value>
   </data>
