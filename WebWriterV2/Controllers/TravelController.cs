@@ -35,13 +35,13 @@ namespace WebWriterV2.Controllers
         [AcceptVerbs("GET")]
         public FrontTravel Get(long id, long chapterId)
         {
+            var chapter = ChapterRepository.Get(chapterId);
             if (User != null) {
                 var travel = TravelRepository.Get(id);
-                return new FrontTravel(travel, chapterId);
+                return new FrontTravel(travel, chapter);
             }
 
-            // Guest can read but cann't go to prev on next chapter
-            var chapter = ChapterRepository.Get(chapterId);
+            // Guest can read, but cann't go to prev on next chapter
             FrontTravel frontTravel = new FrontTravel();
             frontTravel.Chapter = new FrontChapter(chapter);
             return frontTravel;
@@ -72,46 +72,54 @@ namespace WebWriterV2.Controllers
                 }
             }
 
-            return new FrontTravel(travel);
+            return new FrontTravel(travel, book.RootChapter);
         }
 
         [AcceptVerbs("GET")]
-        public FrontChapter Choice(long travelId, long linkItemId)
+        public FrontTravel Choice(long travelId, long linkItemId)
         {
             var link = ChapterLinkItemRepository.Get(linkItemId);
-            var travel = new Travel();
-            if (travelId > 0) {
-                travel = TravelRepository.Get(travelId);
-                var step = new TravelStep {
-                    DateTime = DateTime.Now,
-                    Travel = travel,
-                    Choice = link
-                };
-                if (travel.Steps.Any(x => x.Choice.From.Id == link.From.Id)) {
-                    throw new Exception($"Try to change past. User {User.Id}. Travel {travel.Id}. Step from passed chapted ch.Id {link.From.Id}");
-                }
-                travel.CurrentChapter = link.To;
-                TravelStepRepository.Save(step);
-
-                var changes = link.StateChanging.SingleOrDefault();
-                if (changes != null) {
-
-                    if (changes.Text == "УДАЛИТЬ") {
-                        travel.State.Clear();
-                    } else {
-                        var defaultStateType = StateTypeRepository.GetDefault();
-                        travel.State.Add(new StateValue() {
-                            Travel = travel,
-                            Text = changes.Text,
-                            StateType = defaultStateType
-                        });
-                    }
-                }
-
-                TravelRepository.Save(travel);
+            if (travelId < 1) {
+                var fakeTravel = new Travel();
+                fakeTravel.CurrentChapter = link.To;
+                return new FrontTravel(fakeTravel, link.To);
             }
 
-            return new FrontChapter(link.To, travel);
+            var travel = TravelRepository.Get(travelId);
+            travel.CurrentChapter = link.To;
+            if (travel.Steps.Any(x => x.Choice.Id == link.Id)){
+                return new FrontTravel(travel, link.To);
+            }
+
+            if (travel.Steps.Any(x => x.Choice.From.Id == link.From.Id)) {
+                throw new Exception($"Try to change past. User {User.Id}. Travel {travel.Id}. Step from passed chapted ch.Id {link.From.Id}");
+            }
+
+            var step = new TravelStep {
+                DateTime = DateTime.Now,
+                Travel = travel,
+                Choice = link
+            };
+            TravelStepRepository.Save(step);
+
+            var changes = link.StateChanging.SingleOrDefault();
+            if (changes != null) {
+
+                if (changes.Text == "УДАЛИТЬ") {
+                    travel.State.Clear();
+                } else {
+                    var defaultStateType = StateTypeRepository.GetDefault();
+                    travel.State.Add(new StateValue() {
+                        Travel = travel,
+                        Text = changes.Text,
+                        StateType = defaultStateType
+                    });
+                }
+            }
+
+            TravelRepository.Save(travel);
+
+            return new FrontTravel(travel, link.To);
         }
 
         [AcceptVerbs("GET")]

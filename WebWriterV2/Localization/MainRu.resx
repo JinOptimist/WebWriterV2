@@ -165,6 +165,9 @@
   <data name="Tags" xml:space="preserve">
     <value>Тэги</value>
   </data>
+  <data name="Travel_Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
   <data name="Travel_GetChosen" xml:space="preserve">
     <value>Сделать выбор</value>
   </data>

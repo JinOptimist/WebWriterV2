@@ -11,19 +11,19 @@ namespace WebWriterV2.FrontModels
         {
         }
 
-        public FrontTravel(Travel travel, long chapterId = -1)
+        public FrontTravel(Travel travel) : this(travel, travel.Steps?.LastOrDefault()?.Choice?.To ?? travel.Book.RootChapter) { }
+
+        public FrontTravel(Travel travel, Chapter chapter)
         {
             Id = travel.Id;
             if (travel.Book != null) {
                 Book = new FrontBook(travel.Book);
             }
-            if (travel.CurrentChapter != null) {
-                Chapter = new FrontChapter(travel.CurrentChapter, travel);
-            }
+            Chapter = new FrontChapter(chapter, travel);
 
-            var stepFromWhichReaderCame = travel.Steps?.SingleOrDefault(x => x.Choice.To.Id == chapterId);
+            var stepFromWhichReaderCame = travel.Steps?.SingleOrDefault(x => x.Choice.To.Id == chapter.Id);
             PrevChapterId = stepFromWhichReaderCame?.Choice.From.Id;
-            var currentStep = travel.Steps?.SingleOrDefault(x => x.Choice.From.Id == chapterId);
+            var currentStep = travel.Steps?.SingleOrDefault(x => x.Choice.From.Id == chapter.Id);
 
             if (currentStep != null) {
                 NextChapterId = currentStep.Choice.To.Id;

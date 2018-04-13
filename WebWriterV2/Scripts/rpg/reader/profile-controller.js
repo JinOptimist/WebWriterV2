@@ -9,14 +9,14 @@ angular.module('rpg')
 
             init();
 
-            $scope.becomeWriter = function () {
-                userService.becomeWriter().then(function () {
-                    init();
-                    $scope.$emit('UpdateUserEvent');
-                    var url = '/AngularRoute/admin/book/';
-                    $location.path(url);
-                });
-            }
+            //$scope.becomeWriter = function () {
+            //    userService.becomeWriter().then(function () {
+            //        init();
+            //        $scope.$emit('UpdateUserEvent');
+            //        var url = '/AngularRoute/admin/book/';
+            //        $location.path(url);
+            //    });
+            //}
 
             $scope.uploadAvatar = function (event) {
                 userService.uploadAvatar($scope.user.newAvatarData).then(function (response) {

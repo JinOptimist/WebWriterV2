@@ -11,10 +11,16 @@ angular.module('rpg')
             $scope.wait = true;
             init();
 
-            $scope.choice = function (linkItemId) {
-                travelService.choice($scope.travel.Id, linkItemId).then(function (chapter) {
-                    $scope.travel.Chapter = chapter;
+            $scope.choice = function (chapterLink) {
+                if ($scope.travel.NextChapterId && $scope.travel.NextChapterId != chapterLink.ToId) {
+                    return;
+                }
+
+                travelService.choice($scope.travel.Id, chapterLink.Id).then(function (travel) {
                     $window.scrollTo(0, document.getElementById('travel'));
+                    var url = '/ar/reader/travel/' + travel.Id + '/' + travel.Chapter.Id;
+                    $location.path(url);
+
                 });
             }
 

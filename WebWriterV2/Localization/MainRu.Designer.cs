@@ -205,6 +205,15 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Назад.
+        /// </summary>
+        internal static string Travel_Back {
+            get {
+                return ResourceManager.GetString("Travel_Back", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сделать выбор.
         /// </summary>
         internal static string Travel_GetChosen {
