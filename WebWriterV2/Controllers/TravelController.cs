@@ -138,13 +138,13 @@ namespace WebWriterV2.Controllers
         }
 
         [AcceptVerbs("GET")]
-        public bool TravelIsEnd(long id)
+        public FrontTravelIsEnded TravelIsEnded(long id)
         {
             var travel = TravelRepository.Get(id);
             travel.IsTravelEnd = true;
             travel.FinishTime = DateTime.Now;
             TravelRepository.Save(travel);
-            return true;
+            return new FrontTravelIsEnded(travel);
         }
     }
 }

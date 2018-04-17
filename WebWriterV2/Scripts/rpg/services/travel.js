@@ -6,7 +6,7 @@
             getByBook: getByBook,
             choice: choice,
             getByUserId: getByUserId,
-            travelIsEnd: travelIsEnd
+            travelIsEnded: travelIsEnded
         };
 
         function get(id, chapterId) {
@@ -51,8 +51,8 @@
             return httpHelper.get(url, data);
         }
 
-        function travelIsEnd(id) {
-            var url = '/api/travel/travelIsEnd';
+        function travelIsEnded(id) {
+            var url = '/api/travel/travelIsEnded';
             var data = {
                 id: id
             };

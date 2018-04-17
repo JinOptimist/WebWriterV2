@@ -188,6 +188,8 @@
     <Compile Include="FrontModel\FrontBookWithChapters.cs" />
     <Compile Include="FrontModel\FrontChapterLinkItem.cs" />
     <Compile Include="FrontModel\FrontTag.cs" />
+    <Compile Include="FrontModel\FrontTravelStep.cs" />
+    <Compile Include="FrontModel\FrontTravelIsEnded.cs" />
     <Compile Include="FrontModel\FrontTravel.cs" />
     <Compile Include="FrontModel\FrontGenre.cs" />
     <Compile Include="FrontModel\FrontChapterLevel.cs" />
@@ -688,6 +690,7 @@
     <Content Include="Content\css\icon.scss" />
     <Content Include="Scripts\polyfill.js" />
     <Content Include="Scripts\rpg\reader\access-controller.js" />
+    <Content Include="Scripts\rpg\reader\travel-end-controller.js" />
     <Content Include="Scripts\rpg\writer\about-controller.js" />
     <Content Include="Scripts\rpg\reader\profile-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-controller.js" />
@@ -718,6 +721,7 @@
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\reader\EndOfTravel.html" />
     <Content Include="Views\reader\Travel.html" />
     <Content Include="Views\reader\Books.html" />
     <Content Include="Views\Rpg\GeneralDefinition.html" />

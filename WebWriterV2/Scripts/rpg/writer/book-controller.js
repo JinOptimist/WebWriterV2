@@ -2,7 +2,7 @@
 angular.module('rpg')
 .controller('writerBookController', [
     '$scope', '$routeParams', '$location', '$window', '$mdDialog', '$controller',
-    'bookService', 'chapterService',
+        'bookService', 'chapterService',
     function ($scope, $routeParams, $location, $window, $mdDialog, $controller,
         bookService, chapterService) {
 
@@ -12,17 +12,11 @@ angular.module('rpg')
         $scope.book = null;
         $scope.wait = false;
 
-        //max 1560
-        //min 1020
-        var width = $window.innerWidth > 1560
-            ? 1560
-            : $window.innerWidth < 1020 
-                ? 1020
-                : $window.innerWidth
-        var minHeight = 700;
+        var width = $window.innerWidth - 20;
+        var height = $window.innerHeight - 150;
         $scope.canvas = {
             width: width,
-            height: 500
+            height: height
         };
 
         init();
@@ -110,11 +104,11 @@ angular.module('rpg')
 
             bookService.getWithChaptersV2(bookId).then(function (book) {
                 $scope.book = book;
-                var maxDepth = Math.max.apply(Math, book.Chapters.map(x => x.Level));
-                var height = maxDepth * (Const.ChapterSize.Height + Const.ChapterSize.Padding) + 100;
-                if (height < minHeight)
-                    height = minHeight;
-                $scope.canvas.height = height;
+                //var maxDepth = Math.max.apply(Math, book.Chapters.map(x => x.Level));
+                //var height = maxDepth * (Const.ChapterSize.Height + Const.ChapterSize.Padding) + 100;
+                //if (height < minHeight)
+                //    height = minHeight;
+                //$scope.canvas.height = height;
                 
                 setTimeout(function () { bookMap.start(book.Chapters, actions, $scope.canvas) }, 0);
                 $scope.wait = false;

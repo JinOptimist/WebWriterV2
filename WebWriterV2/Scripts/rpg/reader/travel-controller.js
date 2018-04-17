@@ -1,10 +1,8 @@
 angular.module('rpg')
 
     .controller('travelController', [
-        '$scope', '$routeParams', '$location', '$cookies', '$window', 'bookService', 'chapterService',
-        'eventService', 'CKEditorService', 'userService', 'genreService', 'travelService',
-        function ($scope, $routeParams, $location, $cookies, $window, bookService, chapterService,
-            eventService, CKEditorService, userService, genreService, travelService) {
+        '$scope', '$routeParams', '$location', '$cookies', '$window', 'bookService', 'chapterService', 'travelService',
+        function ($scope, $routeParams, $location, $cookies, $window, bookService, chapterService, travelService) {
 
             $scope.resources = resources;
             $scope.travel = null;
@@ -24,17 +22,6 @@ angular.module('rpg')
                 });
             }
 
-            $scope.travelIsEnd = function () {
-                if ($scope.travel.Id > 0) {
-                    travelService.travelIsEnd($scope.travel.Id).then(function () {
-                        // go to profile or MainPage or BookEndPage
-                    });
-                } else {
-                    // go to MainPage or BookEndPage
-                }
-                
-            }
-
             function loadTravel(travelId, chapterId) {
                 travelService.get(travelId, chapterId).then(function (travel) {
                     $scope.travel = travel;
@@ -45,14 +32,6 @@ angular.module('rpg')
                 var travelId = $routeParams.travelId;
                 var chapterId = $routeParams.chapterId;
                 loadTravel(travelId, chapterId);
-
-                //var chapterId = $routeParams.chapterId;
-                //if (chapterId) {
-                //    loadChapter(chapterId);
-                //} else {
-                //    var bookId = $routeParams.bookId;
-                //    loadBook(bookId);
-                //}
             }
         }
     ]);

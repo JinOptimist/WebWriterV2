@@ -38,9 +38,14 @@ angular.module('rpg', ['directives', 'services', 'AppConst', 'underscore', 'ui.b
                     templateUrl: '/views/reader/Travel.html',
                     controller: 'travelController'
                 })
-                .when('/ar/reader/step/:travelId/:chapterId?', { // ! Most important page !
-                    templateUrl: '/views/reader/Travel.html',
-                    controller: 'travelController'
+                // Route for future
+                //.when('/ar/reader/travel-guest/:chapterId?', { // ! Most important page !
+                //    templateUrl: '/views/reader/Travel.html',
+                //    controller: 'travelController'
+                //})
+                .when('/ar/reader/travel-end/:travelId', {
+                    templateUrl: '/views/reader/EndOfTravel.html',
+                    controller: 'travelEndController'
                 })
                 .when('/ar/reader/books', {
                     templateUrl: '/views/reader/Books.html',
