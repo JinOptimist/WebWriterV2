@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ContinueTavel" xml:space="preserve">
-    <value>Продолжить путешествие &gt;</value>
-  </data>
   <data name="Email" xml:space="preserve">
     <value>Электронная почта</value>
   </data>
@@ -147,6 +144,15 @@
   <data name="Password" xml:space="preserve">
     <value>Пароль</value>
   </data>
+  <data name="ReaderBooks_ContinueTavel" xml:space="preserve">
+    <value>Продолжить путешествие &gt;</value>
+  </data>
+  <data name="ReaderBooks_StartTravel" xml:space="preserve">
+    <value>Начать путешествие &gt;</value>
+  </data>
+  <data name="ReaderBooks_TheBookIsReaded" xml:space="preserve">
+    <value>Прочитана</value>
+  </data>
   <data name="Registration" xml:space="preserve">
     <value>Регистрация</value>
   </data>
@@ -159,9 +165,6 @@
   <data name="RemoveLinkImpossibleAlert" xml:space="preserve">
     <value>Удаление связи невозможно. Это приведёт к появлению изолированных глав</value>
   </data>
-  <data name="StartTravel" xml:space="preserve">
-    <value>Начать путешествие &gt;</value>
-  </data>
   <data name="Tags" xml:space="preserve">
     <value>Тэги</value>
   </data>
@@ -170,6 +173,9 @@
   </data>
   <data name="Travel_GetChosen" xml:space="preserve">
     <value>Сделать выбор</value>
+  </data>
+  <data name="Travel_GoToListOfBook" xml:space="preserve">
+    <value>Вернуться в списку книг</value>
   </data>
   <data name="Travel_GoToStatistics" xml:space="preserve">
     <value>Перейти к статистики</value>

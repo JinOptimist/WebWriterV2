@@ -24,10 +24,10 @@ namespace WebWriterV2.FrontModels
 
             AllStates = travel.State == null ? "" : string.Join(", ", travel.State);
 
-            var hasCycle = new GraphHelper(travel.Book).HasCycle();
-            if (hasCycle) {
+            if (travel.Book == null || new GraphHelper(travel.Book).HasCycle()) {
                 return;
             }
+
             var stepFromWhichReaderCame = travel.Steps?.SingleOrDefault(x => x.Choice.To.Id == chapter.Id);
             PrevChapterId = stepFromWhichReaderCame?.Choice.From.Id;
             var currentStep = travel.Steps?.SingleOrDefault(x => x.Choice.From.Id == chapter.Id);

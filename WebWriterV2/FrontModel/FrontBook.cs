@@ -8,10 +8,12 @@ namespace WebWriterV2.FrontModels
 {
     public class FrontBook : BaseFront<Book>
     {
-        public FrontBook() {
+        public FrontBook()
+        {
         }
 
-        public FrontBook(Book book, bool forWriter = false, User user = null) {
+        public FrontBook(Book book, bool forWriter = false, User user = null)
+        {
             Id = book.Id;
             Name = book.Name;
             Desc = book.Desc;
@@ -22,21 +24,28 @@ namespace WebWriterV2.FrontModels
             NumberOfWords = book.AllChapters?.Sum(x => x.NumberOfWords) ?? 0; //book.NumberOfWords;
             Views = book.Travels?.Count() ?? 0;
 
-            if (book.PublicationDate.HasValue) {
+            if (book.PublicationDate.HasValue)
+            {
                 PublicationDate = book.PublicationDate.Value.ToShortDateString();
             }
 
             AuthorFullName = book.Owner.Name;
             AuthorAvatar = book.Owner.AvatarUrl;
 
-            if (forWriter) {
+            if (forWriter)
+            {
                 ContainsCycle = new GraphHelper(book).HasCycle();
-                IsReaded = false;
-            } else {
+            }
+            else
+            {
                 ContainsCycle = true;
-                IsReaded = user == null
-                    ? false
-                    : book.Travels.Any(x => x.Reader.Id == user.Id);
+
+                if (user != null)
+                {
+                    var myTravel = book.Travels.SingleOrDefault(x => x.Reader.Id == user.Id);
+                    IsReaded = myTravel != null;
+                    IsReadedEnd = myTravel?.IsTravelEnd == true;
+                }
             }
 
             //Genre = book.Genre != null ? new FrontGenre(book.Genre) : null;
@@ -57,6 +66,7 @@ namespace WebWriterV2.FrontModels
         public long Views { get; set; }
 
         public bool IsReaded { get; set; }
+        public bool IsReadedEnd { get; set; }
 
         public string AuthorFullName { get; set; }
         public string AuthorAvatar { get; set; }
@@ -68,8 +78,10 @@ namespace WebWriterV2.FrontModels
 
         public List<FrontTag> Tags { get; set; }
 
-        public override Book ToDbModel() {
-            return new Book {
+        public override Book ToDbModel()
+        {
+            return new Book
+            {
                 Id = Id,
                 Name = Name,
                 Desc = Desc,
