@@ -61,15 +61,6 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Продолжить путешествие &gt;.
-        /// </summary>
-        internal static string ContinueTavel {
-            get {
-                return ResourceManager.GetString("ContinueTavel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Электронная почта.
         /// </summary>
         internal static string Email {
@@ -151,6 +142,33 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Продолжить путешествие &gt;.
+        /// </summary>
+        internal static string ReaderBooks_ContinueTavel {
+            get {
+                return ResourceManager.GetString("ReaderBooks_ContinueTavel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Начать путешествие &gt;.
+        /// </summary>
+        internal static string ReaderBooks_StartTravel {
+            get {
+                return ResourceManager.GetString("ReaderBooks_StartTravel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Прочитана.
+        /// </summary>
+        internal static string ReaderBooks_TheBookIsReaded {
+            get {
+                return ResourceManager.GetString("ReaderBooks_TheBookIsReaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Регистрация.
         /// </summary>
         internal static string Registration {
@@ -187,15 +205,6 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Начать путешествие &gt;.
-        /// </summary>
-        internal static string StartTravel {
-            get {
-                return ResourceManager.GetString("StartTravel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Тэги.
         /// </summary>
         internal static string Tags {
@@ -219,6 +228,15 @@ namespace WebWriterV2.Localization {
         internal static string Travel_GetChosen {
             get {
                 return ResourceManager.GetString("Travel_GetChosen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вернуться в списку книг.
+        /// </summary>
+        internal static string Travel_GoToListOfBook {
+            get {
+                return ResourceManager.GetString("Travel_GoToListOfBook", resourceCulture);
             }
         }
         

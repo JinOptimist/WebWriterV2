@@ -42,11 +42,15 @@
             {{book.Desc}}
         </p>
         <div class="actions">
-            <a href="#" ng-click="goToTravel(book.Id)">
+            <a href="#" ng-click="goToTravel(book.Id)" ng-if="!book.IsReadedEnd">
                 <span class="button-medium-gray">
-                    {{book.IsReaded ? resources.ContinueTavel : resources.StartTravel }}
+                    {{book.IsReaded ? resources.ReaderBooks_ContinueTavel : resources.ReaderBooks_StartTravel }}
                 </span>
             </a>
+            
+            <span class="button-medium-gray disabled" ng-if="book.IsReadedEnd">
+                {{resources.ReaderBooks_TheBookIsReaded}}
+            </span>
         </div>
     </div>
 </div>

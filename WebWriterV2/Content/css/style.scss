@@ -642,6 +642,10 @@ ul {
     color: $white;
     background-color: $blue1;
 }
+.button-medium-gray.disabled,
+.button-medium-blue.disabled {
+    cursor: no-drop;
+}
 
 .user-avatar {
     width: 36px;
