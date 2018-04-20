@@ -54,9 +54,9 @@ angular.module('rpg')
                 filter.active = true;
             }
 
-            $scope.publish = function (book) {
-                bookService.publishBook(book.Id).then(function () {
-                    book.IsPublished = true;
+            $scope.togglePublish = function (book) {
+                bookService.publishBook(book.Id, !book.IsPublished).then(function () {
+                    book.IsPublished = !book.IsPublished;
                 });
             }
 

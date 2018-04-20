@@ -34,7 +34,7 @@
     <div ng-if="!books" class="wait-block">
         <img src="/Content/icon/wait.gif" />
     </div>
-    <div class="book" ng-repeat="book in books  | filter: filter ">
+    <div class="book" ng-repeat="book in books  | filter: filter " ng-class="book.IsPublished ? 'published' : 'draft'">
         <p>
             {{resources.Tags}}:
             <span ng-repeat="tag in book.Tags" class="tag fantastic" data-tag-id="{{tag.Id}}">
@@ -58,9 +58,9 @@
             <a href="#" ng-click="remove(book, $index)">Remove</a>
         </div>
         <div>
-            {{book.IsPublished}} *
-
-            <a href="#" ng-click="publish(book)">опубликовать</a>
+            <!--<p ng-if="book.IsPublished">{{resources.Writer_StatePublished}}</p>
+            <p ng-if="!book.IsPublished">{{resources.Writer_StateUnPublished}}</p>-->
+            <a href="#" ng-click="togglePublish(book)">{{book.IsPublished ? resources.Writer_UnPublish : resources.Writer_Publish}}</a>
         </div>
 
     </div>

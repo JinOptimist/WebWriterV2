@@ -301,6 +301,14 @@ ul {
     padding: 30px 30px 60px 30px;
     position: relative;
 
+    &.published {
+        border: 1px $green solid;
+    }
+
+    &.draft {
+        border: 1px $orange solid;
+    }
+
     .header {
         color: $gray-middle;
         font-size: 12px;

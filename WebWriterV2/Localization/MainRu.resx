@@ -186,4 +186,16 @@
   <data name="Writer_Projects" xml:space="preserve">
     <value>Проекты</value>
   </data>
+  <data name="Writer_Publish" xml:space="preserve">
+    <value>Публиковать</value>
+  </data>
+  <data name="Writer_StatePublished" xml:space="preserve">
+    <value>Опубликована</value>
+  </data>
+  <data name="Writer_StateUnPublished" xml:space="preserve">
+    <value>Черновик</value>
+  </data>
+  <data name="Writer_UnPublish" xml:space="preserve">
+    <value>Отменить публикацию</value>
+  </data>
 </root>

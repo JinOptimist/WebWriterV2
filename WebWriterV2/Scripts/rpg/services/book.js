@@ -59,11 +59,11 @@
             return httpHelper.get(url);
         }
 
-        function publishBook(bookId) {
+        function publishBook(bookId, newValue) {
             var url = '/api/book/PublishBook';
             var data = {
                 bookId: bookId,
-                newValue: true
+                newValue: newValue
             };
             return httpHelper.get(url, data);
         }

@@ -266,5 +266,41 @@ namespace WebWriterV2.Localization {
                 return ResourceManager.GetString("Writer_Projects", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Публиковать.
+        /// </summary>
+        internal static string Writer_Publish {
+            get {
+                return ResourceManager.GetString("Writer_Publish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Опубликована.
+        /// </summary>
+        internal static string Writer_StatePublished {
+            get {
+                return ResourceManager.GetString("Writer_StatePublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Черновик.
+        /// </summary>
+        internal static string Writer_StateUnPublished {
+            get {
+                return ResourceManager.GetString("Writer_StateUnPublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отменить публикацию.
+        /// </summary>
+        internal static string Writer_UnPublish {
+            get {
+                return ResourceManager.GetString("Writer_UnPublish", resourceCulture);
+            }
+        }
     }
 }
