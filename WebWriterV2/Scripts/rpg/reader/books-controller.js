@@ -8,7 +8,6 @@ angular.module('rpg')
             $scope.books = null;
             $scope.filterObj = {};
             $scope.listOfFilters = [];
-            $scope.wait = true;
             $scope.resources = resources;
 
             init();

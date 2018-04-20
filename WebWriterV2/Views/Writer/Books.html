@@ -1,4 +1,4 @@
-﻿<div class="wide-header" ng-class="!books ? 'wait' : ''">
+﻿<div class="wide-header">
     <div class="content sub-header" id="sub-header">
         <div class="project-list">
             <ul>
@@ -31,6 +31,9 @@
 </div>
 
 <div class="content content-books">
+    <div ng-if="!books" class="wait-block">
+        <img src="/Content/icon/wait.gif" />
+    </div>
     <div class="book" ng-repeat="book in books  | filter: filter ">
         <p>
             {{resources.Tags}}:

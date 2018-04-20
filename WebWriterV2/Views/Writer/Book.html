@@ -1,4 +1,4 @@
-﻿<div id="book-writer" ng-class="!book ? 'wait' : ''">
+﻿<div id="book-writer">
     <div class="wide-header">
         <div class="content" id="sub-header">
             <div class="logo header-item">
@@ -12,7 +12,7 @@
     </div>
 
     <div class="content" id="book-writer" ng-mouse-wheel-down="onResize(-1)" ng-mouse-wheel-up="onResize(1)">
-        <div ng-if="wait" class="center">
+        <div ng-if="!book" class="wait-block">
             <img src="/Content/icon/wait.gif" />
         </div>
         <div ng-right-click="rightClick($event)" id="nicePic"></div>

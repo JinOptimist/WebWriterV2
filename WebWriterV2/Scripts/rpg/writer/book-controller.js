@@ -10,7 +10,6 @@ angular.module('rpg')
         var scale = 1.0;
         var minScale = 0.1;
         $scope.book = null;
-        $scope.wait = false;
 
         var width = $window.innerWidth - 20;
         var height = $window.innerHeight - 150;
@@ -92,8 +91,6 @@ angular.module('rpg')
         }
 
         function loadChaptersV2(bookId) {
-            $scope.wait = true;
-
             var actions = {
                 moveToEditChapter: moveToEditChapter,
                 addChapter: addChapter,
@@ -111,7 +108,6 @@ angular.module('rpg')
                 //$scope.canvas.height = height;
                 
                 setTimeout(function () { bookMap.start(book.Chapters, actions, $scope.canvas) }, 0);
-                $scope.wait = false;
             });
         }
 

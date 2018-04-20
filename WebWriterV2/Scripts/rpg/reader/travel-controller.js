@@ -6,7 +6,6 @@ angular.module('rpg')
 
             $scope.resources = resources;
             $scope.travel = null;
-            $scope.wait = true;
             init();
 
             $scope.choice = function (chapterLink) {

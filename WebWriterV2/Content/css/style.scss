@@ -621,10 +621,11 @@ ul {
     color: $gray-middle;
 }
 
-.wait {
-    background-image: url(../icon/wait.gif);
+.wait-block {
+    /*background-image: url(../icon/wait.gif);
     width: 42px;
-    height: 42px;
+    height: 42px;*/
+    text-align: center;
 }
 
 .button-medium-gray,

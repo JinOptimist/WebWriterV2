@@ -4,8 +4,7 @@ angular.module('rpg')
         '$scope', '$routeParams', '$location', '$cookies', 'bookService', 'tagService',
         function ($scope, $routeParams, $location, $cookies, bookService, tagService) {
 
-            $scope.books = [];
-            $scope.wait = true;
+            $scope.books = null;
             $scope.newBook = null;
             $scope.listOfFilters = [];
             $scope.filter = {};
