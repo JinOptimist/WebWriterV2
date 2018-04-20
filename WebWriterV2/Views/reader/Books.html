@@ -1,4 +1,4 @@
-﻿<div class="wide-header" ng-class="!books ? 'wait' : ''">
+﻿<div class="wide-header">
 	<div class="content content-books" id="sub-header">
         <div class="book-menu r-reg">
             <ul>
@@ -10,7 +10,11 @@
     </div>
 </div>
 
-<div class="content content-books" ng-class="!books ? 'wait' : ''">
+<div class="content content-books">
+    <div ng-if="!books">
+        <img src="/Content/icon/wait.gif" />
+    </div>
+
     <div class="book" ng-repeat="book in books | filter : filterObj " ng-click="readBook(book.Id)">
         <div class="header">
             <div class="user-avatar-block">

@@ -452,12 +452,6 @@ ul {
 /* Writer End */
 /* Reader */
 #travel {
-    display: none;
-
-    &.ready {
-        display: block;
-    }
-
     .header {
         background-color: $white;
         font-size: 18px;

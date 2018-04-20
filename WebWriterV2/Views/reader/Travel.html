@@ -1,4 +1,7 @@
-﻿<div id="travel" class="content" ng-class="!travel ? 'wait' : 'ready'">
+﻿<div id="travel" class="content">
+    <div ng-if="!travel">
+        <img src="/Content/icon/wait.gif" />
+    </div>
     <div class="header" ng-show="travel">
         {{travel.Chapter.Name}}
         <span ng-show="false">*{{travel.State}}</span>
