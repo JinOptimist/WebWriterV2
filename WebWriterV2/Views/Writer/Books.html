@@ -35,16 +35,16 @@
         <img src="/Content/icon/wait.gif" />
     </div>
     <div class="book" ng-repeat="book in books  | filter: filter " ng-class="book.IsPublished ? 'published' : 'draft'">
-        <p>
-            {{resources.Tags}}:
-            <span ng-repeat="tag in book.Tags" class="tag fantastic" data-tag-id="{{tag.Id}}">
-                {{tag.Name}}
-                <span class="icon close" ng-click="removeTag(book, tag, $index)"></span>
-            </span>
-            <input class="newTag" ng-model="book.newTag.Name" ng-keypress="tagAdd($event, book)" placeholder="{{resources.EnterTag}}" />
-            <a href="#" ng-show="!book.isEdit" ng-click="book.isEdit = true">Edit&nbsp;Name&nbsp;&&nbsp;Desc</a>
-            <a href="#" ng-show="book.isEdit" ng-click="updateBookNameAndDesc(book)">Confirm</a>
-        </p>
+        <a class="writer-actions-toggle" ng-click="toggleActionsBlock($event, book)">...</a>
+        <div class="writer-actions-menu" ng-show="book.actionsActive">
+            <a href="#" ng-click="switchToEditModeBookForNameOrDesc(book)">{{resources.Writer_EditNameOrDesc}}</a>
+            <a href="#" ng-click="remove(book, $index)">{{resources.Writer_RemoveBook}}</a>
+            <a href="#" ng-click="togglePublish(book)">{{book.IsPublished ? resources.Writer_UnPublish : resources.Writer_Publish}}</a>
+            <!--<p ng-if="book.IsPublished">{{resources.Writer_StatePublished}}</p>
+            <p ng-if="!book.IsPublished">{{resources.Writer_StateUnPublished}}</p>-->
+        </div>
+
+
         <div class="name">
             <span ng-show="!book.isEdit">{{book.Name}}</span>
             <input ng-show="book.isEdit" ng-model="book.Name" />
@@ -53,16 +53,22 @@
             <p ng-show="!book.isEdit">{{book.Desc}}</p>
             <textarea ng-model="book.Desc" ng-show="book.isEdit" class="no-border"></textarea>
         </div>
-        <div>
-            <a href="/ar/writer/book/{{book.Id}}">edit chapter</a> |
-            <a href="#" ng-click="remove(book, $index)">Remove</a>
+        <div ng-show="book.isEdit">
+            <a href="#" ng-click="updateBookNameAndDesc(book)"><span class="button-medium-blue">{{resources.Writer_Confirm}}</span></a>
         </div>
         <div>
-            <!--<p ng-if="book.IsPublished">{{resources.Writer_StatePublished}}</p>
-            <p ng-if="!book.IsPublished">{{resources.Writer_StateUnPublished}}</p>-->
-            <a href="#" ng-click="togglePublish(book)">{{book.IsPublished ? resources.Writer_UnPublish : resources.Writer_Publish}}</a>
+            <span ng-show="book.Tags && book.Tags.length > 0">{{resources.Tags}}:</span>
+            <span ng-repeat="tag in book.Tags" class="tag" data-tag-id="{{tag.Id}}">
+                {{tag.Name}}
+                <span class="icon close" ng-click="removeTag(book, tag, $index)"></span>
+            </span>
         </div>
-
+        <div>
+            <input class="newTag" ng-model="book.newTag.Name" ng-keypress="tagAdd($event, book)" placeholder="{{resources.Writer_EnterTag}}" />
+        </div>
+        <div>
+            <a href="/ar/writer/book/{{book.Id}}"><span class="button-medium-blue">{{resources.Writer_WorkOnProject}}</span></a>
+        </div>
     </div>
 </div>
 

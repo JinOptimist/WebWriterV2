@@ -381,8 +381,34 @@ ul {
         left: 58px;
     }
 
+    .writer-actions-menu {
+        position: fixed;
+        background: $gray-middle;
+        width: 200px;
+        border: 1px #ccc solid;
+        border-radius: 5px;
+
+        a {
+            display: block;
+            background: $white;
+            border-radius: 5px;
+            margin: 3px;
+        }
+    }
+
+    .writer-actions-toggle {
+        text-align: left;
+        display: block;
+        position: relative;
+        height: 0;
+        top: -25px;
+        left: -15px;
+        cursor: pointer;
+    }
+
     .newTag {
         width: 180px;
+        margin: 10px 0;
     }
 }
 

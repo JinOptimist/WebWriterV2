@@ -16,6 +16,16 @@ angular.module('rpg')
                 $scope.newBook = {};
             }
 
+            $scope.switchToEditModeBookForNameOrDesc = function (book) {
+                book.actionsActive = false;
+                book.isEdit = true;
+            }
+
+            $scope.toggleActionsBlock = function ($event, book) {
+                book.actionsActive = !book.actionsActive;
+                $event.stopPropagation();
+            }
+
             $scope.createBook = function ($event) {
                 if ($event.which !== 13) { // 'Enter'.keyEvent === 13
                     return false;
@@ -119,6 +129,10 @@ angular.module('rpg')
                 document.onkeydown = function (e) {
                     $scope.$apply($scope.documentKeyPressed(e));
                 };
+
+                document.onclick = function () {
+                    $scope.$apply($scope.books.forEach(x => x.actionsActive = false));
+                }
             }
         }
     ]);

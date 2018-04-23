@@ -88,15 +88,6 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Введите тэг. Нажмите Enter.
-        /// </summary>
-        internal static string EnterTag {
-            get {
-                return ResourceManager.GetString("EnterTag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Выйти.
         /// </summary>
         internal static string Exit {
@@ -259,6 +250,33 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Подтвердить.
+        /// </summary>
+        internal static string Writer_Confirm {
+            get {
+                return ResourceManager.GetString("Writer_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Изменить имя или описание.
+        /// </summary>
+        internal static string Writer_EditNameOrDesc {
+            get {
+                return ResourceManager.GetString("Writer_EditNameOrDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите тэг. Нажмите Enter.
+        /// </summary>
+        internal static string Writer_EnterTag {
+            get {
+                return ResourceManager.GetString("Writer_EnterTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Проекты.
         /// </summary>
         internal static string Writer_Projects {
@@ -273,6 +291,15 @@ namespace WebWriterV2.Localization {
         internal static string Writer_Publish {
             get {
                 return ResourceManager.GetString("Writer_Publish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удалить книгу.
+        /// </summary>
+        internal static string Writer_RemoveBook {
+            get {
+                return ResourceManager.GetString("Writer_RemoveBook", resourceCulture);
             }
         }
         
@@ -300,6 +327,15 @@ namespace WebWriterV2.Localization {
         internal static string Writer_UnPublish {
             get {
                 return ResourceManager.GetString("Writer_UnPublish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Работать на произведением.
+        /// </summary>
+        internal static string Writer_WorkOnProject {
+            get {
+                return ResourceManager.GetString("Writer_WorkOnProject", resourceCulture);
             }
         }
     }
