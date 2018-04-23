@@ -206,6 +206,23 @@ ul {
             }
         }
     }
+
+    .header-item {
+        display: inline-block;
+        margin-top: 17px;
+        color: $dark-gray;
+        vertical-align: text-top;
+        margin-right: 35px;
+
+        a {
+            color: $gray-middle;
+            text-transform: uppercase;
+        }
+    }
+
+    .error{
+        color: $red;
+    }
 }
 /* Header End */
 

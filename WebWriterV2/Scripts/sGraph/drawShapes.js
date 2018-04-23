@@ -21,6 +21,7 @@ var drawShapes = (function () {
 
     function drawChapter(chapter, isHighlight) {
         var isFakeChapter = chapter.Id < 0;
+        var validChapter = chapterProcessing.validateChapter(chapter);
         var chapterBlock = new Konva.Rect({
             x: 0,// regarding the group coordinate 
             y: 0,
@@ -29,12 +30,17 @@ var drawShapes = (function () {
             fill: "#fff",
             stroke: "#000",
             strokeWidth: 1,
-            shadowColor: isHighlight ? '#F00' : '#000',
+            shadowColor: '#000',
             shadowBlur: 2,
             shadowOffset: { x: 2, y: 2 },
             shadowOpacity: 1,
             cornerRadius: 5
         });
+
+        if (!validChapter) {
+            chapterBlock.dash([15, 2]);
+            chapterBlock.shadowColor('#F00');
+        }
 
         if (isFakeChapter) {
             chapterBlock.dash([5, 5]);
@@ -86,7 +92,7 @@ var drawShapes = (function () {
         imageItem.on("click", onMainButtonClick);
         return imageItem;
     }
-    
+
     function drawText(chapter) {
         var text = chapter.Name;
         var textItem = new Konva.Text({
@@ -118,8 +124,9 @@ var drawShapes = (function () {
         var childIndex = fillDrawnForChild(parent, child);
 
         var links = child.chapter.LinksToThisChapter;
-        var linkId = links.find(x=>x.FromId == parent.chapter.Id).Id;
-
+        var link = links.find(x => x.FromId == parent.chapter.Id);
+        var hasText = !!link.Text;
+        
         var parentShift = parentIndex - (parent.chapter.LinksFromThisChapter.length - 1) / 2;
         var childShift = childIndex - (child.chapter.LinksToThisChapter.length - 1) / 2;
 
@@ -172,9 +179,11 @@ var drawShapes = (function () {
             points.push(childY);
         }
 
+        var color = hasText ? Const.ArrowHighlightColor : Const.ArrowColor;
+
         var arrow = new Konva.Arrow({
             points: points,
-            stroke: isHighlight ? Const.ArrowHighlightColor : Const.ArrowColor,
+            stroke: color,// isHighlight ? Const.ArrowHighlightColor : Const.ArrowColor,
             strokeWidth: 2,
             lineCap: "round",
             fill: 'black',
@@ -188,7 +197,7 @@ var drawShapes = (function () {
             parentId: parent.chapter.Id,
             childId: child.chapter.Id
         };
-        arrow.linkId = linkId;
+        arrow.linkId = link.Id;
         arrow.isHighlight = isHighlight;
         arrow.logicType = shapeLogicType.Arrow;
 
@@ -198,7 +207,7 @@ var drawShapes = (function () {
     }
 
     function fillDrawnForParent(parent, child) {
-         for (var i = 0; i < parent.drawnChildren.length + 1; i++) {
+        for (var i = 0; i < parent.drawnChildren.length + 1; i++) {
             if (!parent.drawnChildren[i]) {
                 parent.drawnChildren[i] = child.chapter.Id;
                 return i;

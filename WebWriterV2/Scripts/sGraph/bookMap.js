@@ -208,8 +208,6 @@ var bookMap = (function () {
     }
     /* ******************************* END ******************************* */
 
-    
-
     function removeDrawnChapter(chapterId) {
         var indexOfChapter = frontChapters.findIndex(x => x.Id === chapterId);
         var ownerChapterId = frontChapters[indexOfChapter].LinksToThisChapter[0].FromId;
@@ -238,6 +236,8 @@ var bookMap = (function () {
         var chapter = frontChapters.find(x => x.Id == newChapter.Id);
         if (chapter) {
             chapter.Name = newChapter.Name;
+            updateTextForLinks(newChapter.LinksFromThisChapter);
+            updateTextForLinks(newChapter.LinksToThisChapter);
         } else {
             // if we update not exist chapter, we add new one
             var parentOfNewChapterId = newChapter.LinksToThisChapter[0].FromId;
@@ -251,6 +251,21 @@ var bookMap = (function () {
         }
 
         redraw();
+    }
+
+    function updateTextForLinks(links) {
+        if (!links){
+            return;
+        }
+
+        for (var i = 0; i < links.length; i++) {
+            var link = links[i];
+            var from = frontChapters.find(x => x.Id == link.FromId);
+            var to = frontChapters.find(x => x.Id == link.ToId);
+
+            from.LinksFromThisChapter.find(x => x.Id == link.Id).Text = link.Text;
+            to.LinksToThisChapter.find(x => x.Id == link.Id).Text = link.Text;
+        }
     }
 
     function removeArrow(parentGroup, childGroup) {
@@ -320,8 +335,8 @@ var bookMap = (function () {
         });
     }
 
-    function draw(chapters) {
-        levels = chapterProcessing.splitByLevels(chapters);
+    function draw() {
+        levels = chapterProcessing.splitByLevels(frontChapters);
         //group chapters by parents.
         for (var y = 1; y < levels.length; y++) {
             var level = levels[y];
@@ -344,6 +359,8 @@ var bookMap = (function () {
                 }
             }
         }
+
+        actions.validate(frontChapters);
     }
 
     /* ******************************* stage helper ******************************* */
@@ -487,7 +504,7 @@ var bookMap = (function () {
     function redraw(chapters) {
         layer.destroyChildren();
         reloadLayer();
-        draw(frontChapters);
+        draw();
         reloadLayer();
     }
 
@@ -503,7 +520,7 @@ var bookMap = (function () {
             draggable: true
         });
         layer = new Konva.Layer();
-        draw(chapters);
+        draw();
         stage.add(layer);
     }
 

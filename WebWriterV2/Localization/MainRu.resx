@@ -189,6 +189,9 @@
   <data name="Writer_EnterTag" xml:space="preserve">
     <value>Введите тэг. Нажмите Enter</value>
   </data>
+  <data name="Writer_InvalidBranchLinkText" xml:space="preserve">
+    <value>Не все развилки имеют текст</value>
+  </data>
   <data name="Writer_Projects" xml:space="preserve">
     <value>Проекты</value>
   </data>

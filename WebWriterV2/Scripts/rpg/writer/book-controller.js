@@ -10,6 +10,7 @@ angular.module('rpg')
         var scale = 1.0;
         var minScale = 0.1;
         $scope.book = null;
+        $scope.resources = resources;
 
         var width = $window.innerWidth - 20;
         var height = $window.innerHeight - 150;
@@ -90,24 +91,27 @@ angular.module('rpg')
             });
         }
 
+        function validate(chapters) {
+            $scope.valid = true;
+            
+            chapters.forEach(x => $scope.valid = $scope.valid && chapterProcessing.validateChapter(x));
+
+            setTimeout(function () { $scope.$apply(); }, 1);
+        }
+
         function loadChaptersV2(bookId) {
             var actions = {
                 moveToEditChapter: moveToEditChapter,
                 addChapter: addChapter,
                 remove: remove,
                 createLink: createLink,
-                removeLink: removeLink
+                removeLink: removeLink,
+                validate: validate
             };
 
             bookService.getWithChaptersV2(bookId).then(function (book) {
                 $scope.book = book;
-                //var maxDepth = Math.max.apply(Math, book.Chapters.map(x => x.Level));
-                //var height = maxDepth * (Const.ChapterSize.Height + Const.ChapterSize.Padding) + 100;
-                //if (height < minHeight)
-                //    height = minHeight;
-                //$scope.canvas.height = height;
-                
-                setTimeout(function () { bookMap.start(book.Chapters, actions, $scope.canvas) }, 0);
+                bookMap.start(book.Chapters, actions, $scope.canvas)
             });
         }
 

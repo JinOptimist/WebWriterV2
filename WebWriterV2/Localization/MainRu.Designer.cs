@@ -277,6 +277,15 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Не все развилки имеют текст.
+        /// </summary>
+        internal static string Writer_InvalidBranchLinkText {
+            get {
+                return ResourceManager.GetString("Writer_InvalidBranchLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Проекты.
         /// </summary>
         internal static string Writer_Projects {

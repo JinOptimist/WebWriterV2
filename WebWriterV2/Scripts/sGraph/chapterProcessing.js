@@ -92,10 +92,26 @@ var chapterProcessing = (function () {
         }
     }
 
+    function validateChapter(chapter) {
+        if (!chapter) {
+            return false;
+        }
+
+        if (chapter.LinksFromThisChapter.length > 1) {
+            var linkWithoutText = chapter.LinksFromThisChapter.find(x => !x.Text);
+            if (linkWithoutText) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+
     return {
         splitByLevels: splitByLevels,
         chaptersAreLinked: chaptersAreLinked,
         groupByParent: groupByParent,
-        calcState: calcState
+        calcState: calcState,
+        validateChapter: validateChapter
     };
 })();
