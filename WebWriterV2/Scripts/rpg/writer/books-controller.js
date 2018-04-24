@@ -131,7 +131,7 @@ angular.module('rpg')
                 };
 
                 document.onclick = function () {
-                    $scope.$apply($scope.books.forEach(x => x.actionsActive = false));
+                    $scope.$apply($scope.books && $scope.books.forEach(x => x.actionsActive = false));
                 }
             }
         }

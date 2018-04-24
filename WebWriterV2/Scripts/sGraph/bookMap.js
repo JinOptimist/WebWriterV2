@@ -525,7 +525,15 @@ var bookMap = (function () {
     }
 
     function resize(scale) {
+        var oldScaleValue = stage.scale();
         stage.scale({ x: scale, y: scale });
+        var pos = stage.getAbsolutePosition();
+
+        var pointer = stage.getPointerPosition();
+        pos.x += pointer.x * (oldScaleValue.x - scale);
+        pos.y += pointer.y * (oldScaleValue.y - scale);
+
+        stage.setAbsolutePosition(pos);
         stage.draw();
     }
 
