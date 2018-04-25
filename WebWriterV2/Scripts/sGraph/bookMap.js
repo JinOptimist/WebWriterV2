@@ -524,16 +524,23 @@ var bookMap = (function () {
         stage.add(layer);
     }
 
-    function resize(scale) {
-        var oldScaleValue = stage.scale();
-        stage.scale({ x: scale, y: scale });
-        var pos = stage.getAbsolutePosition();
+    function resize(newScale) {
+        var oldScale = stage.scaleX();
 
         var pointer = stage.getPointerPosition();
-        pos.x += pointer.x * (oldScaleValue.x - scale);
-        pos.y += pointer.y * (oldScaleValue.y - scale);
+        var mousePointTo = {
+            x: pointer.x / oldScale - stage.x() / oldScale,
+            y: pointer.y / oldScale - stage.y() / oldScale,
+        };
 
-        stage.setAbsolutePosition(pos);
+        stage.scale({ x: newScale, y: newScale });
+        pointer = stage.getPointerPosition();
+        var newPos = {
+            x: -(mousePointTo.x - pointer.x / newScale) * newScale,
+            y: -(mousePointTo.y - pointer.y / newScale) * newScale
+        };
+
+        stage.position(newPos);
         stage.draw();
     }
 
