@@ -63,6 +63,7 @@ namespace WebWriterV2.Controllers
         {
             var book = frontBook.ToDbModel();
             book.Owner = User;
+            book.Desc = book.Desc ?? book.Name;
             book = BookRepository.Save(book);
 
             if (!book.AllChapters?.Any() ?? true) {
