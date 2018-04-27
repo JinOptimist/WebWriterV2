@@ -327,15 +327,21 @@ var bookMap = (function () {
         group.add(textShape);
 
         layer.add(group);
+}
 
-        var arrows = drawShapes.drawArrows(group, parents);
-        arrows.forEach(arrow => {
-            cursorPointerHelper(arrow);
-            layer.add(arrow);
-        });
+    function drawArrows(arrows) {
+        for (var i = 0 ; i < arrows.length; i++) {
+            var arrow = arrows[i];
+            var child = getGroupByChapterId(arrow.FromId);
+            var parent = getGroupByChapterId(arrow.ToId);
+
+            var arrowShape = drawShapes.drawArrow(child, parent);
+            layer.add(arrowShape);
+        }
     }
 
     function draw() {
+        var links = [];
         levels = chapterProcessing.splitByLevels(frontChapters);
         //group chapters by parents.
         for (var y = 1; y < levels.length; y++) {
@@ -356,10 +362,14 @@ var bookMap = (function () {
                     var x = currentX + chapter.Weight - 1;
                     drawChapterGroup(x, y - 1, chapter);
                     currentX += chapter.Weight * 2;
+
+                    chapter.LinksFromThisChapter.forEach(x => links.push(x));
                 }
             }
         }
 
+        reloadLayer();
+        drawArrows(links);
         actions.validate(frontChapters);
     }
 
@@ -520,8 +530,9 @@ var bookMap = (function () {
             draggable: true
         });
         layer = new Konva.Layer();
-        draw();
         stage.add(layer);
+        draw();
+        reloadLayer();
     }
 
     function resize(newScale) {
