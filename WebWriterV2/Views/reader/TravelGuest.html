@@ -1,0 +1,30 @@
+﻿<div id="travel" class="content">
+    <div ng-if="!chapter" class="wait-block">
+        <img src="/Content/icon/wait.gif" />
+    </div>
+    <div class="header" ng-show="chapter">
+        {{chapter.Name}}
+    </div>
+    <div class="body" ng-bind-html="chapter.Desc"></div>
+    <div class="chapter-links-block">
+        <div class="chapter-link" ng-repeat="chapterLink in chapter.LinksFromThisChapter">
+            <div class="text" ng-if="chapterLink.Text">
+                {{chapterLink.Text}}
+            </div>
+            <div class="action-button">
+                <a href="#" ng-click="nextChapter(chapterLink)">
+                    <span class="button-medium-blue">
+                        {{chapterLink.Text ? resources.Travel_GetChosen : resources.Travel_Next}}
+                    </span>
+                </a>
+            </div>
+        </div>
+        <div ng-show="!chapter.LinksFromThisChapter || chapter.LinksFromThisChapter.length == 0">
+            <a href="ar/reader/books">
+                <span class="button-medium-blue">
+                    {{resources.Travel_GoToListOfBook}}
+                </span>
+            </a>
+        </div>
+    </div>
+</div>

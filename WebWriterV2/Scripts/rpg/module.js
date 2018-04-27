@@ -34,15 +34,14 @@ angular.module('rpg', ['directives', 'services', 'AppConst', 'underscore', 'ui.b
                     controller: 'aboutUsController'
                 })
                 /* reader */
-                .when('/ar/reader/travel/:travelId/:chapterId?', { // ! Most important page !
+                .when('/ar/reader/travel/:travelId/:stepId', { // ! Most important page !
                     templateUrl: '/views/reader/Travel.html',
                     controller: 'travelController'
                 })
-                // Route for future
-                //.when('/ar/reader/travel-guest/:chapterId?', { // ! Most important page !
-                //    templateUrl: '/views/reader/Travel.html',
-                //    controller: 'travelController'
-                //})
+                .when('/ar/reader/travel-guest/:chapterId?', { // ! Most important page !
+                    templateUrl: '/views/reader/TravelGuest.html',
+                    controller: 'travelGuestController'
+                })
                 .when('/ar/reader/travel-end/:travelId', {
                     templateUrl: '/views/reader/EndOfTravel.html',
                     controller: 'travelEndController'

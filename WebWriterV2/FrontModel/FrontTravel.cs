@@ -12,34 +12,31 @@ namespace WebWriterV2.FrontModels
         {
         }
 
-        public FrontTravel(Travel travel) : this(travel, travel.Steps?.LastOrDefault()?.Choice?.To ?? travel.Book.RootChapter) { }
+        public FrontTravel(Travel travel) : this(travel, travel.CurrentStep) { }
 
-        public FrontTravel(Travel travel, Chapter chapter)
+        public FrontTravel(Travel travel, TravelStep step)
         {
             Id = travel.Id;
             if (travel.Book != null) {
                 Book = new FrontBook(travel.Book);
             }
-            Chapter = new FrontChapter(chapter, travel);
+
+            Chapter = new FrontChapter(step.CurrentChapter, travel);
+            PrevStepId = step.PrevStep?.Id;
+            NextStepId = step.NextStep?.Id;
+            CurrentStepId = travel.CurrentStep.Id;
 
             AllStates = travel.State == null ? "" : string.Join(", ", travel.State);
-
-            if (travel.Book == null || new GraphHelper(travel.Book).HasCycle()) {
-                return;
-            }
-
-            var stepFromWhichReaderCame = travel.Steps?.SingleOrDefault(x => x.Choice.To.Id == chapter.Id);
-            PrevChapterId = stepFromWhichReaderCame?.Choice.From.Id;
-            var currentStep = travel.Steps?.SingleOrDefault(x => x.Choice.From.Id == chapter.Id);
-            NextChapterId = currentStep?.Choice.To.Id;
         }
 
         public FrontBook Book { get; set; }
+        
         public FrontChapter Chapter { get; set; }
         public string AllStates { get; set; }
 
-        public long? PrevChapterId { get; set; }
-        public long? NextChapterId { get; set; }
+        public long CurrentStepId { get; set; }
+        public long? PrevStepId { get; set; }
+        public long? NextStepId { get; set; }
 
         public override Travel ToDbModel()
         {

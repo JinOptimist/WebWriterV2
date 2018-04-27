@@ -110,21 +110,22 @@ var bookMap = (function () {
     }
 
     function onDragChapterGroup(pos) {
+        var arrow;
         var parentsGroup = getParentsCanvasObj(this.chapter);
 
         // Remove arrow from parents to curent
         for (var i = 0; i < parentsGroup.length; i++) {
             var parent = parentsGroup[i];
-            var arrow = getArrowBetweenTwoChater(parent.chapter.Id, this.chapter.Id);
+            arrow = getArrowBetweenTwoChater(parent.chapter.Id, this.chapter.Id);
             if (arrow) {
                 removeArrow(parent, this);
             }
         }
 
         // Redraw arrow from current to children
-        for (var i = 0; i < this.chapter.LinksFromThisChapter.length; i++) {
+        for (i = 0; i < this.chapter.LinksFromThisChapter.length; i++) {
             var link = this.chapter.LinksFromThisChapter[i];
-            var arrow = getArrowBetweenTwoChater(this.chapter.Id, link.ToId);
+            arrow = getArrowBetweenTwoChater(this.chapter.Id, link.ToId);
             if (!arrow) {
                 continue;
             }

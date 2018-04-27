@@ -130,6 +130,14 @@
     <Compile Include="Migrations\201804131010530_RenameChoice.Designer.cs">
       <DependentUpon>201804131010530_RenameChoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201804271406399_travelHasCurrentStep.cs" />
+    <Compile Include="Migrations\201804271406399_travelHasCurrentStep.Designer.cs">
+      <DependentUpon>201804271406399_travelHasCurrentStep.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201804271543077_TravelStepHasNextAndPrevStep.cs" />
+    <Compile Include="Migrations\201804271543077_TravelStepHasNextAndPrevStep.Designer.cs">
+      <DependentUpon>201804271543077_TravelStepHasNextAndPrevStep.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Tag.cs" />
@@ -211,6 +219,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804131010530_RenameChoice.resx">
       <DependentUpon>201804131010530_RenameChoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804271406399_travelHasCurrentStep.resx">
+      <DependentUpon>201804271406399_travelHasCurrentStep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201804271543077_TravelStepHasNextAndPrevStep.resx">
+      <DependentUpon>201804271543077_TravelStepHasNextAndPrevStep.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

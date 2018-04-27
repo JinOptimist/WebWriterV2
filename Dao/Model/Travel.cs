@@ -13,7 +13,7 @@ namespace Dao.Model
         public virtual User Reader { get; set; }
         public virtual Book Book { get; set; }
 
-        public virtual Chapter CurrentChapter { get; set; }
+        public virtual TravelStep CurrentStep { get; set; }
 
         public virtual List<TravelStep> Steps { get; set; }
 

@@ -1,9 +1,8 @@
 angular.module('rpg')
 
     .controller('readerBooksController', [
-        '$scope', '$routeParams', '$location', '$cookies', 'bookService', 'travelService',
-        function ($scope, $routeParams, $location, $cookies, bookService, travelService,
-            eventService, CKEditorService, userService, genreService) {
+        '$scope', '$routeParams', '$location', '$cookies', 'bookService', 'travelService', 'userService',
+        function ($scope, $routeParams, $location, $cookies, bookService, travelService, userService) {
 
             $scope.books = null;
             $scope.filterObj = {};
@@ -12,10 +11,16 @@ angular.module('rpg')
 
             init();
 
-            $scope.goToTravel = function (bookId) {
-                travelService.getByBook(bookId).then(function (travel) {
-                    $location.path('/ar/reader/travel/' + travel.Id + '/' + travel.Chapter.Id);
-                });
+            $scope.goToTravel = function (book) {
+                var userId = userService.getCurrentUserId();
+                if (userId) {
+                    travelService.getByBook(book.Id).then(function (travel) {
+                        $location.path('/ar/reader/travel/' + travel.Id + '/' + travel.CurrentStepId);
+                    });
+                } else {
+                    $location.path('/ar/reader/travel-guest/' + book.RootChapterId);
+                }
+                
             }
 
             $scope.chooseFilter = function (filter) {

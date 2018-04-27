@@ -105,7 +105,7 @@ angular.module('rpg')
             }
 
             function init() {
-                var userId = $cookies.get(ConstCookies.userId);
+                var userId = userService.getCurrentUserId();
                 if (userId) {
                     userService.getById(userId).then(function (data) {
                         $scope.user = data;

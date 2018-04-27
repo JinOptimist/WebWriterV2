@@ -16,7 +16,7 @@ namespace WebWriterV2.FrontModels
         {
             Id = travel.Id;
             Book = new FrontBook(travel.Book);
-            Steps = travel.Steps.Where(x => !string.IsNullOrWhiteSpace(x.Choice.Text))
+            Steps = travel.Steps.Where(x => !string.IsNullOrWhiteSpace(x.Choice?.Text))
                 .Select(x => new FrontTravelStep(x)).ToList();
             StartTime = travel.StartTime;
             FinishTime = travel.FinishTime.Value;

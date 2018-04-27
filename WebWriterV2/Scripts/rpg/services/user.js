@@ -8,6 +8,7 @@
             register: register,
             nameIsAvailable: nameIsAvailable,
             uploadAvatar: uploadAvatar,
+            getCurrentUserId: getCurrentUserId,
 
             /* may be old */
             getById: getById,
@@ -17,6 +18,10 @@
             getCurrentUser: getCurrentUser,
         };
 
+        function getCurrentUserId() {
+            return $cookies.get(ConstCookies.userId);
+        }
+        
         function login(user) {
             var url = '/api/user/Login';
             var data = {

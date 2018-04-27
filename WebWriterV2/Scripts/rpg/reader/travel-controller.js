@@ -1,8 +1,8 @@
 angular.module('rpg')
 
     .controller('travelController', [
-        '$scope', '$routeParams', '$location', '$cookies', '$window', 'bookService', 'chapterService', 'travelService',
-        function ($scope, $routeParams, $location, $cookies, $window, bookService, chapterService, travelService) {
+        '$scope', '$routeParams', '$location', '$window', 'travelService',
+        function ($scope, $routeParams, $location, $window, travelService) {
 
             $scope.resources = resources;
             $scope.travel = null;
@@ -15,22 +15,21 @@ angular.module('rpg')
 
                 travelService.choice($scope.travel.Id, chapterLink.Id).then(function (travel) {
                     $window.scrollTo(0, document.getElementById('travel'));
-                    var url = '/ar/reader/travel/' + travel.Id + '/' + travel.Chapter.Id;
+                    var url = '/ar/reader/travel/' + travel.Id + '/' + travel.CurrentStepId;
                     $location.path(url);
-
                 });
             }
 
-            function loadTravel(travelId, chapterId) {
-                travelService.get(travelId, chapterId).then(function (travel) {
+            function loadTravel(travelId, stepId) {
+                travelService.get(travelId, stepId).then(function (travel) {
                     $scope.travel = travel;
                 });
             }
 
             function init() {
                 var travelId = $routeParams.travelId;
-                var chapterId = $routeParams.chapterId;
-                loadTravel(travelId, chapterId);
+                var stepId = $routeParams.stepId;
+                loadTravel(travelId, stepId);
             }
         }
     ]);

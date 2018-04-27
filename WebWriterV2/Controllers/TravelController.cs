@@ -33,18 +33,15 @@ namespace WebWriterV2.Controllers
 
 
         [AcceptVerbs("GET")]
-        public FrontTravel Get(long id, long chapterId)
+        public FrontTravel Get(long id, long stepId)
         {
-            var chapter = ChapterRepository.Get(chapterId);
-            if (User != null) {
-                var travel = TravelRepository.Get(id);
-                return new FrontTravel(travel, chapter);
+            if (User == null) {
+                throw new Exception("Only login user can user travel");
             }
 
-            // Guest can read, but cann't go to prev on next chapter
-            FrontTravel frontTravel = new FrontTravel();
-            frontTravel.Chapter = new FrontChapter(chapter);
-            return frontTravel;
+            var step = TravelStepRepository.Get(stepId);
+            var travel = TravelRepository.Get(id);
+            return new FrontTravel(travel, step);
         }
 
         [AcceptVerbs("GET")]
@@ -53,55 +50,50 @@ namespace WebWriterV2.Controllers
             Travel travel;
             var book = BookRepository.Get(bookId);
             if (User == null) {
-                travel = new Travel() {
-                    CurrentChapter = book.RootChapter,
-                    Id = -1
-                };
-            } else {
-
-                travel = TravelRepository.GetByBookAndUser(bookId, User.Id);
-                if (travel == null) {
-
-                    travel = new Travel {
-                        Reader = User,
-                        StartTime = DateTime.Now,
-                        Book = book,
-                        CurrentChapter = book.RootChapter
-                    };
-                    travel = TravelRepository.Save(travel);
-                }
+                throw new Exception("Unxpected using of method. Only login user must use this method");
             }
 
-            return new FrontTravel(travel, book.RootChapter);
+            travel = TravelRepository.GetByBookAndUser(bookId, User.Id);
+            if (travel == null) {
+                travel = new Travel {
+                    Reader = User,
+                    StartTime = DateTime.Now,
+                    Book = book,
+                };
+                travel = TravelRepository.Save(travel);
+
+                var step = new TravelStep {
+                    DateTime = DateTime.Now,
+                    Travel = travel,
+                    CurrentChapter = book.RootChapter
+                };
+                travel.CurrentStep = step;
+                TravelRepository.Save(travel);
+            }
+
+            return new FrontTravel(travel);
         }
 
         [AcceptVerbs("GET")]
         public FrontTravel Choice(long travelId, long linkItemId)
         {
-            var link = ChapterLinkItemRepository.Get(linkItemId);
-            if (travelId < 1) {
-                var fakeTravel = new Travel();
-                fakeTravel.CurrentChapter = link.To;
-                return new FrontTravel(fakeTravel, link.To);
-            }
-
             var travel = TravelRepository.Get(travelId);
-            travel.CurrentChapter = link.To;
-            if (travel.Steps.Any(x => x.Choice.Id == link.Id)){
-                return new FrontTravel(travel, link.To);
-            }
-
-            var hasCycle = new GraphHelper(travel.Book).HasCycle();
-            if (!hasCycle && travel.Steps.Any(x => x.Choice.From.Id == link.From.Id)) {
+            var link = ChapterLinkItemRepository.Get(linkItemId);
+            var fromCurrentStepWeCanDoStep = travel.CurrentStep.CurrentChapter.LinksFromThisChapter.Any(x => x.Id == linkItemId);
+            if (!fromCurrentStepWeCanDoStep) {
                 throw new Exception($"Try to change past. User {User.Id}. Travel {travel.Id}. Step from passed chapted ch.Id {link.From.Id}");
             }
 
-            var step = new TravelStep {
+            var newStep = new TravelStep {
                 DateTime = DateTime.Now,
                 Travel = travel,
-                Choice = link
+                Choice = link,
+                CurrentChapter = link.To,
+                PrevStep = travel.CurrentStep
             };
-            TravelStepRepository.Save(step);
+            TravelStepRepository.Save(newStep);
+
+            travel.CurrentStep = newStep;
 
             var changes = link.StateChanging.SingleOrDefault();
             if (changes != null) {
@@ -120,7 +112,7 @@ namespace WebWriterV2.Controllers
 
             TravelRepository.Save(travel);
 
-            return new FrontTravel(travel, link.To);
+            return new FrontTravel(travel, newStep);
         }
 
         [AcceptVerbs("GET")]
@@ -145,6 +137,24 @@ namespace WebWriterV2.Controllers
             travel.FinishTime = DateTime.Now;
             TravelRepository.Save(travel);
             return new FrontTravelIsEnded(travel);
+        }
+
+        /// <summary>
+        /// Temp method to remove all travels
+        /// </summary>
+        /// <returns></returns>
+        [AcceptVerbs("GET")]
+        public string RemoveAllTravel(string key)
+        {
+            if (User?.UserType != UserType.Admin || key != "32167") {
+                return $"No";
+            }
+
+            var travels = TravelRepository.GetAll();
+            var count = travels.Count;
+            var stepCount = travels.SelectMany(x => x.Steps).Count();
+            TravelRepository.Remove(travels);
+            return $"We remove {count} travels and {stepCount} steps";
         }
     }
 }

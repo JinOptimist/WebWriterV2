@@ -9,11 +9,11 @@
             travelIsEnded: travelIsEnded
         };
 
-        function get(id, chapterId) {
+        function get(id, stepId) {
             var url = '/api/travel/get';
             var data = {
                 id: id,
-                chapterId: chapterId
+                stepId: stepId
             };
             return httpHelper.get(url, data);
         }
