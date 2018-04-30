@@ -1,0 +1,25 @@
+﻿<div class="content content-books">
+    <div ng-if="!books">
+        <img src="/Content/icon/wait.gif" />
+    </div>
+
+    <div >
+        Name: {{book.Name}}
+    </div>
+    <table>
+        <tr>
+            <td>Имя</td>
+            <td>Автор</td>
+            <td>Число слов</td>
+            <td>Действия</td>
+        </tr>
+        <tr ng-repeat="book in books">
+            <td>{{book.Name}}</td>
+            <td>{{book.AuthorFullName}}</td>
+            <td>{{book.NumberOfWords}}</td>
+            <td>
+                <a href="#" ng-click="remove(book, $index)">Удалить</a>
+            </td>
+        </tr>
+    </table>
+</div>

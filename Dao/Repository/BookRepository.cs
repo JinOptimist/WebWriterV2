@@ -12,12 +12,14 @@ namespace Dao.Repository
         private readonly ChapterRepository _eventRepository;
         private readonly ChapterLinkItemRepository _eventLinkItemRepository;
         private readonly EvaluationRepository _evaluationRepository;
+        private readonly TravelRepository _travelRepository;
 
         public BookRepository(WriterContext db) : base(db)
         {
             _eventRepository = new ChapterRepository(db);
             _eventLinkItemRepository = new ChapterLinkItemRepository(db);
             _evaluationRepository = new EvaluationRepository(db);
+            _travelRepository = new TravelRepository(db);
         }
 
         public List<Book> GetAllWithRootEvent()
@@ -32,9 +34,11 @@ namespace Dao.Repository
 
         public override void Remove(Book book)
         {
-            if (book == null)
+            if (book == null){
                 return;
+            }
 
+            _travelRepository.Remove(book.Travels);
             _evaluationRepository.Remove(book.Evaluations);
 
             foreach (var @event in book.AllChapters)

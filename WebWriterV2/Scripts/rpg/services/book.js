@@ -6,6 +6,7 @@
             getWithChaptersV2: getWithChaptersV2,
             getAll: getAll,
             getAllForWriter: getAllForWriter,
+            getAllForAdmin: getAllForAdmin,
             getWithChaptersRoadmap: getWithChaptersRoadmap,
             saveBook: saveBook,
             getRootChapter: getRootChapter,
@@ -51,6 +52,11 @@
 
         function getAllForWriter() {
             var url = '/api/book/GetAllForWriter';
+            return httpHelper.get(url);
+        }
+
+        function getAllForAdmin() {
+            var url = '/api/book/getAllForAdmin';
             return httpHelper.get(url);
         }
 

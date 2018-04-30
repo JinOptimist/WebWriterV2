@@ -139,6 +139,19 @@ namespace WebWriterV2.Controllers
             return true;
         }
 
+        [AcceptVerbs("GET")]
+        public List<FrontBook> GetAllForAdmin()
+        {
+            if (User.UserType != UserType.Admin)
+            {
+                throw new Exception("Как ты узнал об этом урле? -_-");
+            }
+
+            var books = BookRepository.GetAll(false);
+            var frontBooks = books.Select(x => new FrontBook(x)).ToList();
+
+            return frontBooks;
+        }
 
         //EXPEREMENAL
         [AcceptVerbs("GET")]
