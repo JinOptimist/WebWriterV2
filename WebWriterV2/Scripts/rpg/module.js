@@ -54,7 +54,14 @@ angular.module('rpg', ['directives', 'services', 'AppConst', 'underscore', 'ui.b
                     templateUrl: '/views/reader/Profile.html',
                     controller: 'profileController'
                 })
-                
+
+
+                /* admin */
+                .when('/ar/admin/books', {
+                    templateUrl: '/views/admin/Books.html',
+                    controller: 'adminBooksController'
+                })
+
                 .otherwise({
                     redirectTo: '/ar/reader/books'
                 });

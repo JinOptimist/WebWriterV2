@@ -37,8 +37,9 @@ namespace WebWriterV2.Controllers
         [AcceptVerbs("GET")]
         public List<FrontBook> GetAll()
         {
-            var getOnlyPublished = User == null || User.UserType != UserType.Admin;
-            var books = BookRepository.GetAll(getOnlyPublished);
+            var books = BookRepository.GetAll(true);
+            // Guest can't read books with Statment
+            // Remove for guest books with Statment
             books = books.Where(book => User != null 
                     || !book.AllChapters
                         .SelectMany(chapter => chapter.LinksFromThisChapter)
@@ -139,6 +140,19 @@ namespace WebWriterV2.Controllers
             return true;
         }
 
+        [AcceptVerbs("GET")]
+        public List<FrontBook> GetAllForAdmin()
+        {
+            if (User.UserType != UserType.Admin)
+            {
+                throw new Exception("Как ты узнал об этом урле? -_-");
+            }
+
+            var books = BookRepository.GetAll(false);
+            var frontBooks = books.Select(x => new FrontBook(x)).ToList();
+
+            return frontBooks;
+        }
 
         //EXPEREMENAL
         [AcceptVerbs("GET")]

@@ -49,7 +49,7 @@ angular.module('rpg')
             }
 
             $scope.remove = function (book, index) {
-                if (!confirm('You try delete "' + book.Name + '". Are you sure?')) {
+                if (!confirm(resources.Writer_ConfirmRemovingBook.format(book.Name))) {
                     return false;
                 }
                 bookService.remove(book.Id)

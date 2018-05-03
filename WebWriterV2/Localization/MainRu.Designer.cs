@@ -61,6 +61,15 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Все проекты портала.
+        /// </summary>
+        internal static string Admin_Books {
+            get {
+                return ResourceManager.GetString("Admin_Books", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Электронная почта.
         /// </summary>
         internal static string Email {
@@ -255,6 +264,15 @@ namespace WebWriterV2.Localization {
         internal static string Writer_Confirm {
             get {
                 return ResourceManager.GetString("Writer_Confirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы уверены что хотите удалить произведение &quot;{0}&quot;?.
+        /// </summary>
+        internal static string Writer_ConfirmRemovingBook {
+            get {
+                return ResourceManager.GetString("Writer_ConfirmRemovingBook", resourceCulture);
             }
         }
         

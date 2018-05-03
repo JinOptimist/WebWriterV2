@@ -690,6 +690,7 @@
     <Content Include="Scripts\rpg\reader\access-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-guest-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-end-controller.js" />
+    <Content Include="Scripts\rpg\admin\books-controller.js" />
     <Content Include="Scripts\rpg\writer\about-controller.js" />
     <Content Include="Scripts\rpg\reader\profile-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-controller.js" />
@@ -720,6 +721,7 @@
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\admin\Books.html" />
     <Content Include="Views\reader\EndOfTravel.html" />
     <Content Include="Views\reader\TravelGuest.html" />
     <Content Include="Views\reader\Travel.html" />
