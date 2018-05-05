@@ -510,6 +510,10 @@ ul {
         border-bottom: 2px solid $light-gray;
         padding: 30px 150px;
         text-align: center;
+        
+        .percent{
+            color: $gray-middle;
+        }
     }
 
     .body {

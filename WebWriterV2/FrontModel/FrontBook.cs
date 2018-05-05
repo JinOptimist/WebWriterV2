@@ -23,6 +23,7 @@ namespace WebWriterV2.FrontModels
             NumberOfChapters = book.AllChapters?.Sum(x => x.Desc.Length) ?? 0; //book.NumberOfChapters;
             NumberOfWords = book.AllChapters?.Sum(x => x.NumberOfWords) ?? 0; //book.NumberOfWords;
             Views = book.Travels?.Count() ?? 0;
+            CountOfChapter = book.AllChapters.Count;
 
             if (book.PublicationDate.HasValue)
             {
@@ -63,6 +64,7 @@ namespace WebWriterV2.FrontModels
         public long NumberOfWords { get; set; }
         public string PublicationDate { get; set; }
 
+        public long CountOfChapter { get; set; }
         public long Views { get; set; }
 
         public bool IsReaded { get; set; }

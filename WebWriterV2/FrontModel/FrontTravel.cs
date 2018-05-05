@@ -27,6 +27,8 @@ namespace WebWriterV2.FrontModels
             CurrentStepId = travel.CurrentStep.Id;
 
             AllStates = travel.State == null ? "" : string.Join(", ", travel.State);
+
+            CountOfUniqVisitedChapter = travel.Steps.Select(x => x.CurrentChapter.Id).Distinct().Count();
         }
 
         public FrontBook Book { get; set; }
@@ -37,6 +39,8 @@ namespace WebWriterV2.FrontModels
         public long CurrentStepId { get; set; }
         public long? PrevStepId { get; set; }
         public long? NextStepId { get; set; }
+
+        public int CountOfUniqVisitedChapter { get; set; }
 
         public override Travel ToDbModel()
         {
