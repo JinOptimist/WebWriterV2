@@ -18,6 +18,7 @@ html, body, textarea, input, p, ul {
     margin: 0;
     padding: 0;
 }
+
 html, body {
     font-family: Lato;
     font-size: 14px;
@@ -112,7 +113,7 @@ ul {
             text-transform: uppercase;
 
             &.avatar-container {
-            	margin-top: 12px;
+                margin-top: 12px;
             }
 
             a {
@@ -220,7 +221,7 @@ ul {
         }
     }
 
-    .error{
+    .error {
         color: $red;
     }
 }
@@ -561,8 +562,8 @@ ul {
         }
 
         &.lost-choice {
-            a, 
-            .button-medium-gray, 
+            a,
+            .button-medium-gray,
             .button-medium-blue {
                 cursor: not-allowed;
             }
@@ -597,7 +598,6 @@ ul {
     left: 0;
     background-color: rgba(255, 255, 255, 0.9);
     text-align: center;
-    font-size: 48px;
     z-index: 400;
 
     input {
@@ -666,6 +666,20 @@ ul {
             }
         }
     }
+
+    .create-book {
+        width: 650px;
+        margin: 0 auto;
+    }
+
+    .footer {
+        text-align: right;
+        margin-top: 30px;
+    }
+
+    .close {
+        font-size: 48px;
+    }
 }
 
 .gray-text {
@@ -685,15 +699,18 @@ ul {
     padding: 5px 12px;
     cursor: pointer;
 }
+
 .button-medium-gray {
     color: $gray-middle;
     background-color: $white;
     border: 2px solid $gray-middle;
 }
+
 .button-medium-blue {
     color: $white;
     background-color: $blue1;
 }
+
 .button-medium-gray.disabled,
 .button-medium-blue.disabled {
     cursor: no-drop;
@@ -737,7 +754,7 @@ footer {
     cursor: pointer;
 }
 
-.right{
+.right {
     float: right;
 }
 /* Common style End*/
@@ -752,4 +769,5 @@ input.ng-dirty {
 /*Graph*/
 #nicePic {
     border: 1px solid red;
-}/* Graph End */
+}
+/* Graph End */

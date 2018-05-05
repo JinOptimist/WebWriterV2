@@ -181,7 +181,7 @@
     <value>Перейти к статистики</value>
   </data>
   <data name="Travel_Next" xml:space="preserve">
-    <value>Далее</value>
+    <value>Следующая глава</value>
   </data>
   <data name="Writer_Confirm" xml:space="preserve">
     <value>Подтвердить</value>
@@ -196,7 +196,7 @@
     <value>Введите тэг. Нажмите Enter</value>
   </data>
   <data name="Writer_InvalidBranchLinkText" xml:space="preserve">
-    <value>Не все развилки имеют текст</value>
+    <value>Не все условия выбора заполнены</value>
   </data>
   <data name="Writer_Projects" xml:space="preserve">
     <value>Проекты</value>

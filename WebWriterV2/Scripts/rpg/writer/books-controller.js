@@ -26,26 +26,12 @@ angular.module('rpg')
                 $event.stopPropagation();
             }
 
-            $scope.createBook = function ($event) {
+            $scope.bookNameTyped = function ($event) {
                 if ($event.which !== 13) { // 'Enter'.keyEvent === 13
                     return false;
                 }
 
-                if (!$scope.newBook.name) {
-                    $scope.newBook = null;
-                    return false;
-                }
-
-                $scope.newBook.showBook = !$scope.newBook.showBook;
-                var book = {
-                    Name: $scope.newBook.name,
-                    Desc: $scope.newBook.desc
-                };
-                bookService.saveBook(book).then(function (newBook) {
-                    $scope.books.push(newBook);
-                });
-
-                $scope.newBook = null;
+                $scope.createBook();
             }
 
             $scope.remove = function (book, index) {
@@ -108,6 +94,24 @@ angular.module('rpg')
                 tagService.removeTagFromBook(book.Id, tag.Id).then(function () {
                     book.Tags.splice(tagIndex, 1);
                 });
+            }
+
+            $scope.createBook = function() {
+                if (!$scope.newBook.name) {
+                    $scope.newBook = null;
+                    return false;
+                }
+
+                $scope.newBook.showBook = !$scope.newBook.showBook;
+                var book = {
+                    Name: $scope.newBook.name,
+                    Desc: $scope.newBook.desc
+                };
+                bookService.saveBook(book).then(function (newBook) {
+                    $scope.books.push(newBook);
+                });
+
+                $scope.newBook = null;
             }
 
             function loadBooks() {

@@ -250,7 +250,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Далее.
+        ///   Looks up a localized string similar to Следующая глава.
         /// </summary>
         internal static string Travel_Next {
             get {
@@ -295,7 +295,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Не все развилки имеют текст.
+        ///   Looks up a localized string similar to Не все условия выбора заполнены.
         /// </summary>
         internal static string Writer_InvalidBranchLinkText {
             get {
