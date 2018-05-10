@@ -3,8 +3,9 @@
         <img src="/Content/icon/wait.gif" />
     </div>
     <div class="header" ng-show="travel">
-        {{travel.Chapter.Name}} <span class="percent">{{100 * travel.CountOfUniqVisitedChapter / travel.Book.CountOfChapter | number : 0}}%</span>
-        <span ng-show="false">*{{travel.State}}</span>
+        {{travel.Chapter.Name}}
+        <span ng-show="false" class="percent">{{100 * travel.CountOfUniqVisitedChapter / travel.Book.CountOfChapter | number : 0}}%</span>
+        <span ng-show="false">{{travel.State}}</span>
     </div>
     <div class="body" ng-bind-html="travel.Chapter.Desc" ng-show="travel.Chapter"></div>
     <div class="chapter-links-block" ng-show="travel.Chapter">

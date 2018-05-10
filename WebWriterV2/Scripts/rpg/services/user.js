@@ -9,9 +9,9 @@
             nameIsAvailable: nameIsAvailable,
             uploadAvatar: uploadAvatar,
             getCurrentUserId: getCurrentUserId,
+            getById: getById,
 
             /* may be old */
-            getById: getById,
             addBookmark: addBookmark,
             removeAccount: removeAccount,
             becomeWriter: becomeWriter,

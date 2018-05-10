@@ -21,6 +21,8 @@ namespace WebWriterV2.FrontModels
             StartTime = travel.StartTime;
             FinishTime = travel.FinishTime.Value;
             TimeToRead = FinishTime - StartTime;
+
+            CountOfUniqVisitedChapter = travel.Steps.Select(x => x.CurrentChapter.Id).Distinct().Count();
         }
 
         public FrontBook Book { get; set; }
@@ -28,6 +30,8 @@ namespace WebWriterV2.FrontModels
         public DateTime StartTime { get; set; }
         public DateTime FinishTime { get; set; }
         public TimeSpan TimeToRead { get; set; }
+
+        public int CountOfUniqVisitedChapter { get; set; }
 
         public override Travel ToDbModel()
         {
