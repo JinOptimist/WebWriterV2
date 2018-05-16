@@ -79,24 +79,6 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Введите описание книги.
-        /// </summary>
-        internal static string EnterBookDesc {
-            get {
-                return ResourceManager.GetString("EnterBookDesc", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Введите имя книги.
-        /// </summary>
-        internal static string EnterBookName {
-            get {
-                return ResourceManager.GetString("EnterBookName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Выйти.
         /// </summary>
         internal static string Exit {
@@ -282,6 +264,24 @@ namespace WebWriterV2.Localization {
         internal static string Writer_EditNameOrDesc {
             get {
                 return ResourceManager.GetString("Writer_EditNameOrDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите описание книги.
+        /// </summary>
+        internal static string Writer_EnterBookDesc {
+            get {
+                return ResourceManager.GetString("Writer_EnterBookDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите имя книги.
+        /// </summary>
+        internal static string Writer_EnterBookName {
+            get {
+                return ResourceManager.GetString("Writer_EnterBookName", resourceCulture);
             }
         }
         

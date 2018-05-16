@@ -98,7 +98,6 @@ angular.module('rpg')
 
             $scope.createBook = function() {
                 if (!$scope.newBook.name) {
-                    $scope.newBook = null;
                     return false;
                 }
 

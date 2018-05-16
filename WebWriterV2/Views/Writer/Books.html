@@ -75,14 +75,15 @@
 <div class="fullscreen-div" ng-if="newBook">
     <div class="create-book">
         <div>
-            <input class="no-border" placeholder='{{resources.EnterBookName}}' ng-model="newBook.name" ng-keypress="bookNameTyped($event)" />
+            <input class="no-border" placeholder='{{resources.Writer_EnterBookName}}' ng-model="newBook.name" ng-keypress="bookNameTyped($event)" />
             <span class="pointer close" ng-click="cancelCreationNewBook()">X</span>
         </div>
         <div>
-            <textarea ng-model="newBook.desc" placeholder='{{resources.EnterBookName}}' class="no-border"></textarea>
+            <textarea ng-model="newBook.desc" placeholder='{{resources.Writer_EnterBookDesc}}' class="no-border"></textarea>
         </div>
         <div class="footer">
-            <a href="#" ng-click="createBook()"><span class="button-medium-blue">{{resources.Writer_Confirm}}</span></a>
+            <a href="#" 
+               ng-click="createBook()"><span ng-class="newBook.name ? 'button-medium-blue' : 'button-medium-gray'">{{resources.Writer_Confirm}}</span></a>
         </div>
     </div>
 </div>

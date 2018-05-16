@@ -123,12 +123,6 @@
   <data name="Email" xml:space="preserve">
     <value>Электронная почта</value>
   </data>
-  <data name="EnterBookDesc" xml:space="preserve">
-    <value>Введите описание книги</value>
-  </data>
-  <data name="EnterBookName" xml:space="preserve">
-    <value>Введите имя книги</value>
-  </data>
   <data name="Exit" xml:space="preserve">
     <value>Выйти</value>
   </data>
@@ -191,6 +185,12 @@
   </data>
   <data name="Writer_EditNameOrDesc" xml:space="preserve">
     <value>Изменить имя или описание</value>
+  </data>
+  <data name="Writer_EnterBookDesc" xml:space="preserve">
+    <value>Введите описание книги</value>
+  </data>
+  <data name="Writer_EnterBookName" xml:space="preserve">
+    <value>Введите имя книги</value>
   </data>
   <data name="Writer_EnterTag" xml:space="preserve">
     <value>Введите тэг. Нажмите Enter</value>
