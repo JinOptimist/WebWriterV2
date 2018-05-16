@@ -85,7 +85,7 @@ var chapterProcessing = (function () {
             return drawShapes.chapterStateType.Child;
         } else if (chaptersAreLinked(current, selected)) {
             return drawShapes.chapterStateType.Parent;
-        } else if (current.Level < selected.Level) {
+        } else if (selected.ParentsIds.indexOf(current.Id) > -1) {
             return drawShapes.chapterStateType.ForbiddenToLink;
         } else {
             return drawShapes.chapterStateType.AvailableToLink;
@@ -106,6 +106,8 @@ var chapterProcessing = (function () {
         
         return true;
     }
+
+    
 
     return {
         splitByLevels: splitByLevels,

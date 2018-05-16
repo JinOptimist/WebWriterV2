@@ -9,10 +9,12 @@ namespace WebWriterV2.FrontModels
 {
     public class BookWithChaptersV2 : BaseFront<Book>
     {
-        public BookWithChaptersV2() {
+        public BookWithChaptersV2()
+        {
         }
 
-        public BookWithChaptersV2(Book book) {
+        public BookWithChaptersV2(Book book)
+        {
             Id = book.Id;
             Name = book.Name;
             ContainsCycle = new GraphHelper(book).HasCycle();
@@ -21,12 +23,15 @@ namespace WebWriterV2.FrontModels
             var maxDepth = SetDepth(book.RootChapter, 1, new List<Chapter>());
 
             Chapters = new List<FrontChapter>();
-            foreach (var chapter in book.AllChapters.Where(x=>x.Level > 0)) {
+            foreach (var chapter in book.AllChapters.Where(x => x.Level > 0)) {
                 var frontChapter = new FrontChapter(chapter);
                 if (chapter.LinksFromThisChapter.Count > 1) {
                     var branch = CreateBranch(chapter);
                     frontChapter.Weight = branch.Width;
                 }
+
+                frontChapter.ParentsIds = GetParentIds(chapter, new List<long>());
+
                 Chapters.Add(frontChapter);
             }
         }
@@ -105,11 +110,30 @@ namespace WebWriterV2.FrontModels
             return RecursiveProcessedBranch(branch, currentDepthChapters, currentDepth, notProcessedChapters, currentWidth);
         }
 
-        private List<ChapterLinkItem> LinkToDown(Chapter chapter){
+        private List<ChapterLinkItem> LinkToDown(Chapter chapter)
+        {
             return chapter.LinksFromThisChapter.Where(l => l.To.Level > chapter.Level).ToList();
         }
 
-        public override Book ToDbModel() {
+        private List<long> GetParentIds(Chapter chapter, List<long> result)
+        {
+            foreach (var link in chapter.LinksToThisChapter) {
+                if (link.From == null) {
+                    continue;
+                }
+                var fromId = link.From.Id;
+                if (result.Any(x => x == fromId)) {
+                    continue;
+                }
+
+                result.Add(fromId);
+                GetParentIds(link.From, result);
+            }
+            return result;
+        }
+
+        public override Book ToDbModel()
+        {
             throw new NotImplementedException();
         }
     }

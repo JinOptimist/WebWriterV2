@@ -50,6 +50,8 @@ namespace WebWriterV2.FrontModels
         public int Weight { get; set; } = 1;
         public int Depth { get; set; }
 
+        public List<long> ParentsIds { get; set; }
+
         public override Chapter ToDbModel()
         {
             var book = new Book() { Id = BookId };

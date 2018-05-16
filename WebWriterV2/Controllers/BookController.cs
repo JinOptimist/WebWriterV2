@@ -154,6 +154,14 @@ namespace WebWriterV2.Controllers
             return frontBooks;
         }
 
+        [AcceptVerbs("GET")]
+        public BookWithChaptersV2 GetWithChaptersV2(long id)
+        {
+            var book = BookRepository.Get(id);
+            var frontBook = new BookWithChaptersV2(book);
+            return frontBook;
+        }
+
         //EXPEREMENAL
         [AcceptVerbs("GET")]
         public FrontBookWithChapters GetWithChaptersRoadmap(long id)
@@ -163,13 +171,7 @@ namespace WebWriterV2.Controllers
             return frontBook;
         }
 
-        [AcceptVerbs("GET")]
-        public BookWithChaptersV2 GetWithChaptersV2(long id)
-        {
-            var book = BookRepository.Get(id);
-            var frontBook = new BookWithChaptersV2(book);
-            return frontBook;
-        }
+        
 
 
 
