@@ -8,6 +8,7 @@ angular.module('rpg')
             $scope.availableDecision = [];
             $scope.chapter = null;
             $scope.wait = true;
+            $scope.resources = resources;
             init();
 
             $scope.save = function (saveAndClose) {
