@@ -431,7 +431,6 @@ ul {
 }
 
 #chapter {
-    border-top: 3px $light-gray solid;
     background-color: $light-gray;
     width: 800px;
     /*height: 500px;*/
@@ -443,7 +442,6 @@ ul {
         line-height: 30px;
         padding: 10px;
         text-align: center;
-        margin-bottom: 3px;
 
         a {
             vertical-align: -webkit-baseline-middle;
@@ -459,7 +457,6 @@ ul {
 
     .body {
         background-color: $white;
-        margin-bottom: 3px;
         height: 350px;
         font-family: MerriweatherLight;
         padding: 20px;
@@ -471,8 +468,6 @@ ul {
 
     .chapter-link {
         background-color: $white;
-        margin-bottom: 3px;
-        padding: 20px;
 
         textarea {
             height: 150px;
@@ -492,7 +487,11 @@ ul {
 
     .footer {
         background-color: $white;
-        margin-bottom: 3px;
+        padding: 0 20px;
+
+        span:last-child {
+            float: right;
+        }
     }
 
     textarea {
@@ -507,7 +506,6 @@ ul {
     .header {
         background-color: $white;
         font-size: 18px;
-        border-bottom: 2px solid $light-gray;
         padding: 30px 150px;
         text-align: center;
         
@@ -524,8 +522,7 @@ ul {
 }
 /* Also use in chapter editor */
 .chapter-links-block {
-    padding: 30px 150px;
-    margin-top: 2px;
+    padding: 15px 150px 10px;
     margin-bottom: 2px;
     background-color: $white;
 
@@ -713,6 +710,9 @@ ul {
 .button-medium-blue {
     color: $white;
     background-color: $blue1;
+    display: inline-block;
+    height: 18px;
+    line-height: 18px;
 }
 
 .button-medium-gray.disabled,
