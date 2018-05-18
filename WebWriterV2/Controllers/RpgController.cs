@@ -80,12 +80,12 @@ namespace WebWriterV2.Controllers
         {
             var path = PathHelper.PathToBook(travelId);
             var travel = TravelRepository.Get(travelId);
-            
+
             if (!travel.IsTravelEnd || !System.IO.File.Exists(path)) {
                 var chapters = new List<Chapter> {
                     travel.Book.RootChapter
                 };
-                chapters.AddRange(travel.Steps.Select(x => x.Choice.To));
+                chapters.AddRange(travel.Steps.Where(x => x.Choice != null).Select(x => x.Choice.To));
 
                 if (System.IO.File.Exists(path)) {
                     System.IO.File.Delete(path);
@@ -107,13 +107,12 @@ namespace WebWriterV2.Controllers
         {
             var resources = new Dictionary<string, string>();
             var resourceSet = Localization.MainRu.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
-            foreach (DictionaryEntry entry in resourceSet)
-            {
+            foreach (DictionaryEntry entry in resourceSet) {
                 var resourceKey = entry.Key.ToString();
                 var value = entry.Value.ToString();
                 resources.Add(resourceKey, value);
             }
-            
+
             var json = new JavaScriptSerializer().Serialize(resources);
             return JavaScript("var resources = " + json + ";");
         }
@@ -492,11 +491,11 @@ namespace WebWriterV2.Controllers
 
             var state = new StateValue();
             throw new NotImplementedException();
-                //chapterLinkItemDb.HeroStatesChanging.FirstOrDefault(
-                //    x => x.StateType.Id == stateType.Id)
-                //?? new StateValue {
-                //    StateType = stateType
-                //};
+            //chapterLinkItemDb.HeroStatesChanging.FirstOrDefault(
+            //    x => x.StateType.Id == stateType.Id)
+            //?? new StateValue {
+            //    StateType = stateType
+            //};
 
             state.Value = stateValue;
 
@@ -826,8 +825,7 @@ namespace WebWriterV2.Controllers
             return Json(true, JsonRequestBehavior.AllowGet);
         }
 
-        private bool IsCurrentUserAdmin
-        {
+        private bool IsCurrentUserAdmin {
             get
             {
                 return User != null && User.UserType == UserType.Admin;
