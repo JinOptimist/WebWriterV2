@@ -1,25 +1,25 @@
 ﻿<div id="chapter" class="content" ng-class="!chapter ? 'wait' : ''">
     <form name="chapterForm" novalidate>
         <div class="header">
-            <input type="text" ng-model="chapter.Name" class="no-border" />
+            <input type="text" ng-model="chapter.Name" class="no-border" tabindex="1" />
             <!--<div class="right">
                 <a href="#" ng-click="close()">close</a>
             </div>-->
         </div>
         <div class="body">
-            <textarea ng-model="chapter.Desc" class="no-border"></textarea>
+            <textarea ng-model="chapter.Desc" class="no-border" tabindex="2"></textarea>
         </div>
         <div class="footer">
             <img ng-if="!chapter || wait" src="/Content/icon/wait.gif" class="icon20" />
-            <span class="button-medium-blue" ng-click="save(false)">Сохранить</span>
-            <span class="button-medium-blue" ng-click="save(true)">Сохранить и закрыть</span>
+            <span class="button-medium-blue" ng-click="save(false)" tabindex="3">Сохранить</span>
+            <span class="button-medium-blue" ng-click="save(true)" tabindex="4">Сохранить и закрыть</span>
         </div>
     </form>
     <div class="chapter-links-block" ng-show="chapterLinks.length > 0">
         <form name="chapterLinkBlockForm">
             <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
                 <div class="text">
-                    <input ng-model="chapterLink.Text" class="no-border" ng-blur="updateChpaterLink(chapterLink)" />
+                    <input ng-model="chapterLink.Text" class="no-border" ng-blur="updateChpaterLink(chapterLink)" tabindex="{{ 6 + $index}}"/>
                 </div>
                 <div class="action-button">
                     <p>
