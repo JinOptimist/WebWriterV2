@@ -115,10 +115,21 @@ angular.module('rpg')
             });
         }
 
+        function documentKeyPressed(e) {
+            // 'esc'.which == 27
+            if (e.which === 27) {
+                bookMap.rightClick();
+            }
+        }
+
         function init() {
             var bookId = $routeParams.bookId;
 
             loadChaptersV2(bookId);
+
+            document.onkeydown = function (e) {
+                $scope.$apply(documentKeyPressed(e));
+            };
         }
     }
 ]);
