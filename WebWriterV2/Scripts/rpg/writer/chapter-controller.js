@@ -28,6 +28,13 @@ angular.module('rpg')
                 });
             }
 
+            $scope.chapterTitleKeyPressed = function (e) {
+                // 'enter'.keyEvent === 13
+                if (e.which === 13) {
+                    $scope.save(true);
+                }
+            }
+
             $scope.close = function () {
                 $mdDialog.hide($scope.chapter);
             }

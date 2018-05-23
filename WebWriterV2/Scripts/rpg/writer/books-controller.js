@@ -27,7 +27,8 @@ angular.module('rpg')
             }
 
             $scope.bookNameTyped = function ($event) {
-                if ($event.which !== 13) { // 'Enter'.keyEvent === 13
+                // 'enter'.keyEvent === 13
+                if ($event.which !== 13) { 
                     return false;
                 }
 

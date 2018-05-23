@@ -1,7 +1,7 @@
 ﻿<div id="chapter" class="content" ng-class="!chapter ? 'wait' : ''">
     <form name="chapterForm" novalidate>
         <div class="header">
-            <input type="text" ng-model="chapter.Name" class="no-border" tabindex="1" />
+            <input type="text" ng-model="chapter.Name" ng-keydown="chapterTitleKeyPressed($event)" class="no-border" tabindex="1" />
             <!--<div class="right">
                 <a href="#" ng-click="close()">close</a>
             </div>-->
