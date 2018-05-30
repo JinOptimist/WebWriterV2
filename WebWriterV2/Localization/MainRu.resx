@@ -139,10 +139,10 @@
     <value>Пароль</value>
   </data>
   <data name="ReaderBooks_ContinueTavel" xml:space="preserve">
-    <value>Продолжить путешествие &gt;</value>
+    <value>Продолжить путь &gt;</value>
   </data>
   <data name="ReaderBooks_StartTravel" xml:space="preserve">
-    <value>Начать путешествие &gt;</value>
+    <value>Начать путь &gt;</value>
   </data>
   <data name="ReaderBooks_TheBookIsReaded" xml:space="preserve">
     <value>Прочитана</value>
@@ -154,10 +154,10 @@
     <value>Вы уверены что хотите удалить главу "{0}"?</value>
   </data>
   <data name="RemoveChapterImpossibleAlert" xml:space="preserve">
-    <value>Удаление главы "{0}" невозможно. Это приведёт к появлению изолированных глав</value>
+    <value>Удаление главы "{0}" невозможно. Это приведет к появлению изолированных глав</value>
   </data>
   <data name="RemoveLinkImpossibleAlert" xml:space="preserve">
-    <value>Удаление связи невозможно. Это приведёт к появлению изолированных глав</value>
+    <value>Удаление связи невозможно. Это приведет к появлению изолированных глав</value>
   </data>
   <data name="Tags" xml:space="preserve">
     <value>Тэги</value>
@@ -166,13 +166,13 @@
     <value>Назад</value>
   </data>
   <data name="Travel_GetChosen" xml:space="preserve">
-    <value>Сделать выбор</value>
+    <value>Выбрать</value>
   </data>
   <data name="Travel_GoToListOfBook" xml:space="preserve">
     <value>Вернуться в списку книг</value>
   </data>
   <data name="Travel_GoToStatistics" xml:space="preserve">
-    <value>Перейти к статистики</value>
+    <value>Перейти к статистике</value>
   </data>
   <data name="Travel_Next" xml:space="preserve">
     <value>Следующая глава</value>

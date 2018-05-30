@@ -1,11 +1,11 @@
 ﻿<div id="travel-end" class="content">
     <div>
-        <h2>Конец путушествия:</h2>
+        <h2>Конец пути:</h2>
     </div>
     <div>
-        <p>Начало путушествия: {{travelIsEnded.StartTime | date: 'yyyy.MM.dd HH:mm:ss'}}</p>
-        <p>Конец путушествия: {{travelIsEnded.FinishTime | date: 'yyyy.MM.dd HH:mm:ss'}}</p>
-        <p>Процент посещённых глав: {{100 * travelIsEnded.CountOfUniqVisitedChapter / travelIsEnded.Book.CountOfChapter | number : 0}}%</p>
+        <p>Начало пути: {{travelIsEnded.StartTime | date: 'yyyy.MM.dd HH:mm:ss'}}</p>
+        <p>Конец пути: {{travelIsEnded.FinishTime | date: 'yyyy.MM.dd HH:mm:ss'}}</p>
+        <p>Процент посещенных глав: {{100 * travelIsEnded.CountOfUniqVisitedChapter / travelIsEnded.Book.CountOfChapter | number : 0}}%</p>
     </div>
     <div>
         <h2>Принятые решения:</h2>

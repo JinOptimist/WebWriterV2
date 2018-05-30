@@ -223,7 +223,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Перейти к статистики.
+        ///   Looks up a localized string similar to Перейти к статистике.
         /// </summary>
         internal static string Travel_GoToStatistics {
             get {

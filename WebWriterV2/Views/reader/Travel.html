@@ -10,7 +10,7 @@
     <div class="body" ng-bind-html="travel.Chapter.Desc" ng-show="travel.Chapter"></div>
     <div class="chapter-links-block" ng-show="travel.Chapter">
         <div>
-            <a href="ar/reader/travel/{{travel.Id}}/{{travel.PrevStepId}}" ng-if="travel.PrevStepId">{{resources.Travel_Back}}</a>
+            <a href="ar/reader/travel/{{travel.Id}}/{{travel.PrevStepId}}" ng-if="travel.PrevStepId" class="back-link">{{resources.Travel_Back}}</a>
             <a href="ar/reader/travel/{{travel.Id}}/{{travel.NextStepId}}" ng-if="travel.NextStepId">{{resources.Travel_Next}}</a>
         </div>
         <div class="chapter-link" ng-repeat="chapterLink in travel.Chapter.LinksFromThisChapter"
