@@ -84,9 +84,14 @@ var bookMap = (function () {
     }
 
     function onCreatingNewLink(obj) {
-        var fromId = selectedChapter.Id;
-        var toId = obj.currentTarget.chapter.Id
-        actions.createLink(fromId, toId, onSuccessedLinkCreate);
+        var from = selectedChapter;
+        var to = obj.currentTarget.chapter;
+        actions.createLink(from.Id, to.Id, onSuccessedLinkCreate);
+        //if (from.Level >= to.Level) {
+        //    layer.destroyChildren();
+        //    reloadLayer();
+        //    redraw();
+        //}
     }
 
     function onSuccessedLinkCreate(link) {
@@ -512,7 +517,7 @@ var bookMap = (function () {
         layer.draw();
     }
 
-    function redraw(chapters) {
+    function redraw() {
         layer.destroyChildren();
         reloadLayer();
         draw();
