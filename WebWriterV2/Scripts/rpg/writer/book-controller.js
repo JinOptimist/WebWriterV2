@@ -12,8 +12,8 @@ angular.module('rpg')
         $scope.book = null;
         $scope.resources = resources;
 
-        var width = $window.innerWidth - 20;
-        var height = $window.innerHeight - 150;
+        var width = $window.innerWidth;
+        var height = $window.innerHeight - 70;
         $scope.canvas = {
             width: width,
             height: height

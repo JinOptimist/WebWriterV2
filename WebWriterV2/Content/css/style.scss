@@ -309,12 +309,12 @@ ul {
     background-color: $white;
     display: inline-block;
     width: 270px;
-    //width: calc(100% / 3 - 50px);
     height: 250px;
     margin-top: 32px;
     margin-left: 30px;
     border-radius: 5px;
-    box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    /*box-shadow: 2px 2px 5px rgba(0,0,0,0.1);*/
+    box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.15);
     vertical-align: top;
     padding: 30px 30px 60px 30px;
     position: relative;
