@@ -149,10 +149,10 @@ ul {
 
 #sub-header {
     background-color: $white;
-    height: 70px;
+    height: 50px;
     position: relative;
     padding: 0 35px;
-    display: none;
+    text-align: center;
 
     .project-list {
         position: absolute;
@@ -160,8 +160,8 @@ ul {
         top: 0;
 
         li {
-            line-height: 70px;
-            height: 70px;
+            line-height: 50px;
+            height: 50px;
             vertical-align: top;
             padding-right: 10px;
         }
@@ -180,8 +180,8 @@ ul {
 
         .action-list-item {
             display: inline-block;
-            line-height: 70px;
-            height: 70px;
+            line-height: 50px;
+            height: 50px;
             padding-left: 10px;
 
             .add-icon {
@@ -208,8 +208,8 @@ ul {
                 display: inline-block;
                 margin: 0 6px;
                 cursor: pointer;
-                height: 70px;
-                line-height: 70px;
+                height: 50px;
+                line-height: 50px;
                 border-bottom: 3px transparent solid;
 
                 &.active {
@@ -221,10 +221,11 @@ ul {
 
     .header-item {
         display: inline-block;
-        margin-top: 17px;
+        margin-top: 4px;
         color: $dark-gray;
         vertical-align: text-top;
-        margin-right: 35px;
+        /*margin-right: 35px;*/
+        font-size: 18px;
 
         a {
             color: $gray-middle;
@@ -234,6 +235,9 @@ ul {
 
     .error {
         color: $red;
+        padding-left: 10px;
+        font-style: italic;
+        display: none;
     }
 }
 /* Header End */
@@ -498,7 +502,7 @@ ul {
 
     .footer {
         background-color: $white;
-        padding: 0 20px;
+        padding: 20px;
 
         span:last-child {
             float: right;
