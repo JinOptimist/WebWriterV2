@@ -3,9 +3,7 @@
 
         <div class="menu-panel">
             <div class="logo header-item">
-                <a href="/ar/reader/books">
-                    Naractivity
-                </a>
+                <a href="/ar/reader/books" alt="К списку книг"></a>
             </div>
             <div class="header-item" ng-if="user">
                 <a href="/ar/writer/books">{{resources.Writer_Projects}}</a>
@@ -13,7 +11,7 @@
             <div class="header-item" ng-if="user">
                 <a href="/ar/writer/generalDefinition">{{resources.Help}}</a>
             </div>
-            <div class="header-item" ng-if="user && user.IsAdmin">
+            <div class="header-item" ng-if="user && user.IsAdmin" style="display: none;">
                 <a href="/ar/admin/books">{{resources.Admin_Books}}</a>
                 
             </div>

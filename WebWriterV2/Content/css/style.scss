@@ -70,7 +70,17 @@ ul {
         .logo {
             font-family: LatoBold;
             font-size: 20px;
-            //display: none !important;
+                
+
+            a {
+                    width: 250px;
+                    height: 25px;
+                    background-size: 100%;
+                    display: inline-block;
+                    background-image: url(../icon/naractivity.png);
+                    background-repeat: no-repeat;
+                    margin-top: 2px;
+            }
         }
 
         .header-item {
@@ -83,6 +93,7 @@ ul {
             a {
                 color: $gray-middle;
                 text-transform: uppercase;
+                display: inline-block;
             }
 
             ul {
@@ -113,7 +124,7 @@ ul {
             text-transform: uppercase;
 
             &.avatar-container {
-                margin-top: 12px;
+                margin-top: 15px;
             }
 
             a {
