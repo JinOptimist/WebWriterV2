@@ -85,6 +85,8 @@ var chapterProcessing = (function () {
             return drawShapes.chapterStateType.Child;
         } else if (chaptersAreLinked(current, selected)) {
             return drawShapes.chapterStateType.Parent;
+        //TODO: replace hot fix to normal code
+        //} else if (selected.ParentsIds.indexOf(current.Id) > -1) {
         } else if (selected.parents.map(x => x.Id).indexOf(current.Id) > -1) {
             return drawShapes.chapterStateType.ForbiddenToLink;
         } else {
