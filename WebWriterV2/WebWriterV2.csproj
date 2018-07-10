@@ -720,6 +720,8 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
+    <None Include="Properties\PublishProfiles\narativity - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\narativity - Web Deploy.pubxml" />
     <None Include="Scripts\_references.js" />
     <Content Include="Views\admin\Books.html" />
     <Content Include="Views\reader\EndOfTravel.html" />
