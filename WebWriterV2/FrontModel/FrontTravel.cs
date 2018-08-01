@@ -26,13 +26,14 @@ namespace WebWriterV2.FrontModels
             NextStepId = step.NextStep?.Id;
             CurrentStepId = travel.CurrentStep.Id;
 
-            AllStates = travel.State == null ? "" : string.Join(", ", travel.State);
+
+            AllStates = travel.State == null ? "" : string.Join(", ", travel.State.Select(x => x.ToString()));
 
             CountOfUniqVisitedChapter = travel.Steps.Select(x => x.CurrentChapter.Id).Distinct().Count();
         }
 
         public FrontBook Book { get; set; }
-        
+
         public FrontChapter Chapter { get; set; }
         public string AllStates { get; set; }
 

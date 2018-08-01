@@ -13,5 +13,10 @@ namespace Dao.Model
         public long? Value { get; set; }
 
         public string Text { get; set; }
+
+        public override string ToString()
+        {
+            return $"{StateType.Name}: {Text}{(Value.HasValue ? " | " + Value : string.Empty)}";
+        }
     }
 }
