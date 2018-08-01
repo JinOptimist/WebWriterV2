@@ -5,6 +5,7 @@ var bookMap = (function () {
     var FontSize = Const.FontSize;
     var stage = {};
     var layer = {};
+    var globalVariableLayer = {};
     var actions = {};
 
     var selectedChapter;
@@ -12,6 +13,7 @@ var bookMap = (function () {
     var levels = [];
     var frontChapters = [];
     var fakeChapterId = -1;
+    var fronBook = {};
 
     /* ******************************* events ******************************* */
     function onAddChapterClick(obj) {
@@ -67,14 +69,14 @@ var bookMap = (function () {
         var parentGroup, childGroup;
         var selectedChapterId = selectedChapter.Id;
         var clickedChapterId = obj.currentTarget.chapter.Id;
-        if (isSelectedChapterParent){
+        if (isSelectedChapterParent) {
             parentGroup = getGroupByChapterId(selectedChapterId);
             childGroup = getGroupByChapterId(clickedChapterId);
         } else {
             parentGroup = getGroupByChapterId(clickedChapterId);
             childGroup = getGroupByChapterId(selectedChapterId);
         }
-        
+
         var linkId = removeArrow(parentGroup, childGroup);
         actions.removeLink(linkId);
 
@@ -260,7 +262,7 @@ var bookMap = (function () {
     }
 
     function updateTextForLinks(links) {
-        if (!links){
+        if (!links) {
             return;
         }
 
@@ -333,7 +335,7 @@ var bookMap = (function () {
         group.add(textShape);
 
         layer.add(group);
-}
+    }
 
     function drawArrows(arrows) {
         for (var i = 0 ; i < arrows.length; i++) {
@@ -374,9 +376,30 @@ var bookMap = (function () {
             }
         }
 
+        drawGlobalVariableGroup();
         reloadLayer();
         drawArrows(links);
         actions.validate(frontChapters);
+    }
+
+    function drawGlobalVariableGroup() {
+        var y = 10;
+        fronBook.NameOfState.forEach(function (stateName) {
+            var textShape = new Konva.Text({
+                x: 10,
+                y: y,
+                width: 200,
+                FontSize: Const.FontSize,
+                fontFamily: "Lato",
+                text: stateName,
+                fill: Const.FontColor,
+                align: 'left'
+            });
+            globalVariableLayer.add(textShape);
+
+            y += 20;
+        });
+        
     }
 
     /* ******************************* stage helper ******************************* */
@@ -515,50 +538,56 @@ var bookMap = (function () {
 
     function reloadLayer() {
         layer.draw();
+        globalVariableLayer.draw();
     }
 
     function redraw() {
         layer.destroyChildren();
+        globalVariableLayer.destroyChildren();
         reloadLayer();
         draw();
         reloadLayer();
     }
 
     /* public functions */
-    function start(chapters, _actions, _canvasSize) {
-        frontChapters = chapters;
+    function start(book, _actions, _canvasSize) {
+        fronBook = book;
+        frontChapters = book.Chapters;
         actions = _actions;
         CanvasSize = _canvasSize;
         stage = new Konva.Stage({
             container: 'nicePic',
             width: CanvasSize.width,
             height: CanvasSize.height,
+            //draggable: true
+        });
+        layer = new Konva.Layer({
             draggable: true
         });
-        layer = new Konva.Layer();
-        stage.add(layer);
+        globalVariableLayer = new Konva.Layer();
+        stage.add(layer, globalVariableLayer);
         draw();
         reloadLayer();
     }
 
     function resize(newScale) {
-        var oldScale = stage.scaleX();
+        var oldScale = layer.scaleX();
 
         var pointer = stage.getPointerPosition();
         var mousePointTo = {
-            x: pointer.x / oldScale - stage.x() / oldScale,
-            y: pointer.y / oldScale - stage.y() / oldScale,
+            x: pointer.x / oldScale - layer.x() / oldScale,
+            y: pointer.y / oldScale - layer.y() / oldScale,
         };
 
-        stage.scale({ x: newScale, y: newScale });
+        layer.scale({ x: newScale, y: newScale });
         pointer = stage.getPointerPosition();
         var newPos = {
             x: -(mousePointTo.x - pointer.x / newScale) * newScale,
             y: -(mousePointTo.y - pointer.y / newScale) * newScale
         };
 
-        stage.position(newPos);
-        stage.draw();
+        layer.position(newPos);
+        layer.draw();
     }
 
     return {

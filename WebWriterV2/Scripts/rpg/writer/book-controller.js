@@ -111,7 +111,7 @@ angular.module('rpg')
 
             bookService.getWithChaptersV2(bookId).then(function (book) {
                 $scope.book = book;
-                bookMap.start(book.Chapters, actions, $scope.canvas)
+                bookMap.start(book, actions, $scope.canvas)
             });
         }
 

@@ -34,14 +34,34 @@ namespace WebWriterV2.FrontModels
 
                 Chapters.Add(frontChapter);
             }
+
+            NameOfState = new List<string>();
+            var states = book.AllChapters
+                .SelectMany(x => x.LinksFromThisChapter)
+                .SelectMany(x => x.StateChanging)
+                .Select(x => x.StateType).Distinct();
+            foreach (var state in states) {
+                var values = book.AllChapters
+                    .SelectMany(x => x.LinksFromThisChapter)
+                    .SelectMany(x => x.StateChanging)
+                    .Select(x => x.Text).Distinct();
+                var valuesStr = string.Join(", ", values);
+                NameOfState.Add($"{state.Name}: {valuesStr}");
+            }
+
         }
 
         public string Name { get; set; }
 
         public bool ContainsCycle { get; set; }
+
         public List<FrontChapter> Chapters { get; set; }
 
         public List<FrontBranch> Branches { get; set; }
+
+        public List<string> NameOfState { get; set; }
+
+
 
         private int SetDepth(Chapter chapter, int depth, List<Chapter> visitedChapters)
         {
