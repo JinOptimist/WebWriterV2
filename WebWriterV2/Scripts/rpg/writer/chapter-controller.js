@@ -63,6 +63,45 @@ angular.module('rpg')
                 //TODO Direct update decision
             }
 
+            $scope.updateChangeType = function (chapterLink) {
+                //number = 1
+                if (chapterLink.newChange.StateType.BasicType == 1) {
+                    //copy array
+                    chapterLink.ChangeTypes = $scope.chapter.ChangeTypes.slice();
+                }
+                //text = 2, boolean = 3,
+                if (chapterLink.newChange.StateType.BasicType == 2
+                    || chapterLink.newChange.StateType.BasicType == 3) {
+                    chapterLink.ChangeTypes = $scope.chapter.ChangeTypes.filter(function (changeTypeEnum) {
+                        //Remove = 4, Set = 5,
+                        return changeTypeEnum.Value == 4 || changeTypeEnum.Value == 5;
+                    });
+                }
+            }
+
+            $scope.updateRequirementType = function (chapterLink) {
+                //number = 1
+                if (chapterLink.newRequirement.StateType.BasicType == 1) {
+                    //copy array
+                    chapterLink.RequirementTypes = $scope.chapter.RequirementTypes.slice();
+                }
+                //text = 2, boolean = 3,
+                if (chapterLink.newRequirement.StateType.BasicType == 2
+                    || chapterLink.newRequirement.StateType.BasicType == 3) {
+                    chapterLink.RequirementTypes = $scope.chapter.RequirementTypes.filter(function (requirementTypeEnum) {
+                        //Exist = 5, NotExist = 6, Equals = 7, NotEquals = 8
+                        return requirementTypeEnum.Value == 5
+                            || requirementTypeEnum.Value == 6
+                            || requirementTypeEnum.Value == 7
+                            || requirementTypeEnum.Value == 8;
+                    });
+                }
+            }
+
+            $scope.saveNewRequirement = function (chapterLink) {
+                chapterLink.newRequirement;
+            }
+
             function saveChapterLinkAndResetForm(chapterLink, form) {
                 chapterService.saveChapterLink(chapterLink).then(function (savedChapterLink) {
                     if (chapterLink.Id > 0) {
@@ -81,6 +120,9 @@ angular.module('rpg')
             function loadChapter(chapter) {
                 $scope.chapter = chapter;
                 $scope.wait = false;
+
+                $scope.chapter.RequirementTypes;
+                $scope.chapter.ChangeTypes;
             }
 
             function init() {

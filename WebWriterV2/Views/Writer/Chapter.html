@@ -19,7 +19,35 @@
         <form name="chapterLinkBlockForm">
             <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
                 <div class="text">
-                    <input ng-model="chapterLink.Text" class="no-border" ng-blur="updateChpaterLink(chapterLink)" tabindex="{{ 6 + $index}}"/>
+                    <input ng-model="chapterLink.Text" class="no-border" ng-blur="updateChpaterLink(chapterLink)" tabindex="{{ 6 + $index}}" />
+                    <p class="variable-action">
+                        Requirement
+                        <select ng-model="chapterLink.newRequirement.StateType"
+                                ng-options="stateType as stateType.Name for stateType in chapter.StateTypes"
+                                ng-change="updateRequirementType(chapterLink)"></select>
+
+                        <select ng-model="chapterLink.newRequirement.RequirementType"
+                                ng-options="requirementType.Value as requirementType.Name for requirementType in chapterLink.RequirementTypes"></select>
+
+                        <input type="text" ng-model="chapterLink.newRequirement.Value"
+                               ng-show="chapterLink.newRequirement.RequirementType != 5 
+                                    && chapterLink.newRequirement.RequirementType != 6"/>
+                        <input type="button" value="do" ng-click="saveNewRequirement(chapterLink)" />
+                    </p>
+
+                    <p class="variable-action">
+                        Change
+                        <select ng-model="chapterLink.newChange.StateType"
+                                ng-options="stateType as stateType.Name for stateType in chapter.StateTypes"
+                                ng-change="updateChangeType(chapterLink)"></select>
+
+                        <select ng-model="chapterLink.newChange.ChangeType"
+                                ng-options="changeType.Value as changeType.Name for changeType in chapterLink.ChangeTypes"></select>
+
+                        <input type="text" ng-model="chapterLink.newChange.Value"
+                               ng-show="chapterLink.newChange.ChangeType != 4"/>
+                        <input type="button" value="do" />
+                    </p>
                 </div>
                 <div class="action-button">
                     <p>

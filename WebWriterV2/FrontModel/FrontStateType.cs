@@ -15,22 +15,27 @@ namespace WebWriterV2.FrontModels
             Id = stateType.Id;
             Name = stateType.Name;
             Desc = stateType.Desc;
+            BasicType = stateType.BasicType;
             HideFromReader = stateType.HideFromReader;
             OwnerId = stateType.Owner?.Id;
+            BookId = stateType.Book.Id;
         }
 
         public string Name { get; set; }
         public string Desc { get; set; }
+        public StateBasicType BasicType { get; set; }
         public bool HideFromReader { get; set; }
         public long? OwnerId { get; set; }
+        public long BookId { get; set; }
 
         public override StateType ToDbModel()
         {
-            return new StateType
-            {
+            return new StateType {
                 Id = Id,
                 Name = Name,
                 Desc = Desc,
+                Book = new Book { Id = BookId },
+                BasicType = BasicType,
                 HideFromReader = HideFromReader,
                 Owner = OwnerId.HasValue ? new User { Id = OwnerId.Value } : null
             };

@@ -147,6 +147,10 @@
     <Compile Include="Migrations\201804271543077_TravelStepHasNextAndPrevStep.Designer.cs">
       <DependentUpon>201804271543077_TravelStepHasNextAndPrevStep.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809200831377_BookHasStates.cs" />
+    <Compile Include="Migrations\201809200831377_BookHasStates.Designer.cs">
+      <DependentUpon>201809200831377_BookHasStates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Tag.cs" />
@@ -234,6 +238,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201804271543077_TravelStepHasNextAndPrevStep.resx">
       <DependentUpon>201804271543077_TravelStepHasNextAndPrevStep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809200831377_BookHasStates.resx">
+      <DependentUpon>201809200831377_BookHasStates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

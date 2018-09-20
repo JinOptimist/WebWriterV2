@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Dao.IRepository;
 using Dao.Model;
 using System.Linq;
+using Dal.Repository;
 
 namespace Dao.Repository
 {
@@ -10,6 +11,13 @@ namespace Dao.Repository
     {
         public StateTypeRepository(WriterContext db) : base(db)
         {
+        }
+
+        public override StateType Save(StateType model)
+        {
+            model.Book = model.Book.AttachIfNot(Db);
+            model.Owner = model.Owner.AttachIfNot(Db);
+            return base.Save(model);
         }
 
         public List<StateType> AvailableForUse(long userId)

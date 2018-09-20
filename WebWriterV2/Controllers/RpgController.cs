@@ -313,7 +313,7 @@ namespace WebWriterV2.Controllers
             var fake = state.StateType;
             StateRepository.Save(state);
 
-            var frontHero = new FrontState(state);
+            var frontHero = new FrontStateValue(state);
             return new JsonResult {
                 Data = SerializeHelper.Serialize(frontHero),
                 JsonRequestBehavior = JsonRequestBehavior.AllowGet
@@ -504,7 +504,7 @@ namespace WebWriterV2.Controllers
             //    chapterLinkItemDb.HeroStatesChanging.Add(state);
             StateRepository.Save(state);
             ChapterLinkItemRepository.Save(chapterLinkItemDb);
-            var frontState = new FrontState(state);
+            var frontState = new FrontStateValue(state);
 
             return new JsonResult {
                 Data = JsonConvert.SerializeObject(frontState),

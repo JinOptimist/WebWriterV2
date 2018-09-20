@@ -25,8 +25,15 @@
     {
         Add = 1,
         Reduce = 2,
-        Create = 3,
+        //Create = 3,
         Remove = 4,
         Set = 5,
+    }
+
+    public enum StateBasicType
+    {
+        number = 1,
+        text = 2,
+        boolean = 3,
     }
 }

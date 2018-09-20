@@ -4,13 +4,13 @@ using Dao.Model;
 
 namespace WebWriterV2.FrontModels
 {
-    public class FrontState : BaseFront<StateValue>
+    public class FrontStateValue : BaseFront<StateValue>
     {
-        public FrontState()
+        public FrontStateValue()
         {
         }
 
-        public FrontState(StateValue state)
+        public FrontStateValue(StateValue state)
         {
             Id = state.Id;
             Value = state.Value;

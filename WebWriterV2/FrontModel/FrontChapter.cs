@@ -1,4 +1,5 @@
 ﻿using Dao.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using WebWriterV2.RpgUtility;
@@ -25,6 +26,10 @@ namespace WebWriterV2.FrontModels
             LinksToThisChapter = chapter.LinksToThisChapter?.Select(x => new FrontChapterLinkItem(x)).ToList();
             BookId = chapter.Book.Id;
             IsRootChapter = chapter.Book.RootChapter?.Id == chapter.Id;
+            StateTypes = chapter.Book.States.Select(x => new FrontStateType(x)).ToList();
+
+            RequirementTypes = EnumHelper.GetFrontEnumList(typeof(RequirementType));
+            ChangeTypes = EnumHelper.GetFrontEnumList(typeof(ChangeType));
         }
 
         private string GenerateHtmlForDesc(string desc)
@@ -49,6 +54,10 @@ namespace WebWriterV2.FrontModels
 
         public int Weight { get; set; } = 1;
         public int Depth { get; set; }
+
+        public List<FrontStateType> StateTypes { get; set; }
+        public List<FrontEnum> RequirementTypes { get; set; }
+        public List<FrontEnum> ChangeTypes { get; set; }
 
         public List<long> ParentsIds { get; set; }
 

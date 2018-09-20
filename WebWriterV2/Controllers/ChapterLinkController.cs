@@ -105,7 +105,8 @@ namespace WebWriterV2.Controllers
             chapterLink.StateChanging.Add(new StateChange() {
                 ChapterLink = chapterLink,
                 Text = decision,
-                ChangeType = ChangeType.Create,
+                //ChangeType = ChangeType.Create,
+                ChangeType = ChangeType.Set,
                 StateType = defaultStateType
             });
 

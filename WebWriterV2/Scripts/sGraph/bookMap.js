@@ -384,14 +384,14 @@ var bookMap = (function () {
 
     function drawGlobalVariableGroup() {
         var y = 10;
-        fronBook.NameOfState.forEach(function (stateName) {
+        fronBook.States.forEach(function (state) {
             var textShape = new Konva.Text({
                 x: 10,
                 y: y,
                 width: 200,
                 FontSize: Const.FontSize,
                 fontFamily: "Lato",
-                text: stateName,
+                text: state.Name,
                 fill: Const.FontColor,
                 align: 'left'
             });
@@ -559,13 +559,14 @@ var bookMap = (function () {
             container: 'nicePic',
             width: CanvasSize.width,
             height: CanvasSize.height,
-            //draggable: true
+            draggable: true
         });
         layer = new Konva.Layer({
             draggable: true
         });
         globalVariableLayer = new Konva.Layer();
-        stage.add(layer, globalVariableLayer);
+        //stage.add(layer, globalVariableLayer);
+        stage.add(layer);
         draw();
         reloadLayer();
     }

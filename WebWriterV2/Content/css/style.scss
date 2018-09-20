@@ -553,6 +553,17 @@ ul {
                 text-align: center;
                 width: 400px;
             }
+
+
+            .variable-action {
+                input {
+                    width: 100px;
+                }
+
+                input[type=button]{
+                    width: 20px;
+                }
+            }
         }
 
         .action-button {

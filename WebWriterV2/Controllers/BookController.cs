@@ -15,13 +15,14 @@ namespace WebWriterV2.Controllers
 {
     public class BookController : BaseApiController
     {
-        public BookController(IBookRepository bookRepository, IChapterRepository chapterRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IStateValueRepository stateRepository, ITagRepository tagRepository, IUserRepository userRepository)
+        public BookController(IBookRepository bookRepository, IChapterRepository chapterRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IStateValueRepository stateValueRepository, IStateTypeRepository stateTypeRepository, ITagRepository tagRepository, IUserRepository userRepository)
         {
             BookRepository = bookRepository;
             ChapterRepository = chapterRepository;
             EvaluationRepository = evaluationRepository;
             EventLinkItemRepository = eventLinkItemRepository;
-            StateRepository = stateRepository;
+            StateValueRepository = stateValueRepository;
+            StateTypeRepository = stateTypeRepository;
             TagRepository = tagRepository;
             UserRepository = userRepository;
         }
@@ -30,7 +31,8 @@ namespace WebWriterV2.Controllers
         private IChapterRepository ChapterRepository { get; }
         private IEvaluationRepository EvaluationRepository { get; }
         private IChapterLinkItemRepository EventLinkItemRepository { get; }
-        private IStateValueRepository StateRepository { get; }
+        private IStateValueRepository StateValueRepository { get; }
+        private IStateTypeRepository StateTypeRepository { get; }
         private ITagRepository TagRepository { get; }
         private IUserRepository UserRepository { get; }
 
@@ -161,7 +163,7 @@ namespace WebWriterV2.Controllers
             var frontBook = new BookWithChaptersV2(book);
             return frontBook;
         }
-
+        
         //EXPEREMENAL
         [AcceptVerbs("GET")]
         public FrontBookWithChapters GetWithChaptersRoadmap(long id)
@@ -171,7 +173,24 @@ namespace WebWriterV2.Controllers
             return frontBook;
         }
 
+        [AcceptVerbs("POST")]
+        public FrontStateType AddState(FrontStateType fontStateType) 
+        {
+            var stateType = fontStateType.ToDbModel();
+            //stateType
+            stateType = StateTypeRepository.Save(stateType);
+            fontStateType = new FrontStateType(stateType);
+            return fontStateType;
+        }
+
+        [AcceptVerbs("GET")]
+        public bool RemoveState(long stateTypeId)
+        {
+            StateTypeRepository.Remove(stateTypeId);
+            return true;
+        }
         
+
 
 
 
@@ -227,7 +246,7 @@ namespace WebWriterV2.Controllers
                     state.StateType.Owner = User;
                 }
 
-                states.ForEach(StateRepository.CheckAndSave);
+                states.ForEach(StateValueRepository.CheckAndSave);
 
                 foreach (var @event in book.AllChapters) {
                     @event.LinksFromThisChapter = new List<ChapterLinkItem>();

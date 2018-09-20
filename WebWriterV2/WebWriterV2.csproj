@@ -205,13 +205,13 @@
     </Compile>
     <Compile Include="RpgUtility\Dto\VkAccess.cs" />
     <Compile Include="RpgUtility\EmailHelper.cs" />
+    <Compile Include="RpgUtility\EnumHelper.cs" />
     <Compile Include="RpgUtility\StateHelper.cs" />
     <Compile Include="RpgUtility\WordHelper.cs" />
     <Compile Include="RpgUtility\GraphHelper.cs" />
     <Compile Include="RpgUtility\JsonResponseReader.cs" />
     <Compile Include="RpgUtility\PathHelper.cs" />
     <Compile Include="RpgUtility\RandomHelper.cs" />
-    <Compile Include="RpgUtility\EnumHelper.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -693,6 +693,7 @@
     <Content Include="Scripts\rpg\reader\travel-guest-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-end-controller.js" />
     <Content Include="Scripts\rpg\admin\books-controller.js" />
+    <Content Include="Scripts\rpg\services\stateType.js" />
     <Content Include="Scripts\rpg\writer\about-controller.js" />
     <Content Include="Scripts\rpg\reader\profile-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-controller.js" />

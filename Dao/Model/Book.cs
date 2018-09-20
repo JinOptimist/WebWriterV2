@@ -16,6 +16,7 @@ namespace Dao.Model
         public virtual Chapter RootChapter { get; set; }
 
         public virtual User Owner { get; set; }
+        public virtual List<StateType> States { get; set; }
         public virtual List<Chapter> AllChapters { get; set; }
         public virtual List<Evaluation> Evaluations { get; set; }
         public virtual List<UserWhoReadBook> Readers { get; set; }

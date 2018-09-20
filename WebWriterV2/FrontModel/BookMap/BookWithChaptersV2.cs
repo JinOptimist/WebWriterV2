@@ -17,6 +17,7 @@ namespace WebWriterV2.FrontModels
         {
             Id = book.Id;
             Name = book.Name;
+            States = book.States.Select(x => new FrontStateType(x)).ToList();
             ContainsCycle = new GraphHelper(book).HasCycle();
 
             book.AllChapters.ForEach(x => x.Level = 0);
@@ -35,20 +36,7 @@ namespace WebWriterV2.FrontModels
                 Chapters.Add(frontChapter);
             }
 
-            NameOfState = new List<string>();
-            var states = book.AllChapters
-                .SelectMany(x => x.LinksFromThisChapter)
-                .SelectMany(x => x.StateChanging)
-                .Select(x => x.StateType).Distinct();
-            foreach (var state in states) {
-                var values = book.AllChapters
-                    .SelectMany(x => x.LinksFromThisChapter)
-                    .SelectMany(x => x.StateChanging)
-                    .Select(x => x.Text).Distinct();
-                var valuesStr = string.Join(", ", values);
-                NameOfState.Add($"{state.Name}: {valuesStr}");
-            }
-
+            StateBasicTypes = EnumHelper.GetFrontEnumList(typeof(StateBasicType));
         }
 
         public string Name { get; set; }
@@ -59,7 +47,8 @@ namespace WebWriterV2.FrontModels
 
         public List<FrontBranch> Branches { get; set; }
 
-        public List<string> NameOfState { get; set; }
+        public List<FrontStateType> States { get; set; }
+        public List<FrontEnum> StateBasicTypes { get; set; }
 
 
 

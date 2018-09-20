@@ -16,9 +16,71 @@ namespace WebWriterV2.RpgUtility
         //    return listNameValue.ToList();
         //}
 
-        public static string GetEnumName(Type type, object value)
+        public static List<FrontEnum> GetFrontEnumList(Type type)
         {
-            return Enum.GetName(type, value);
+            if (!type.IsEnum)
+                throw new ArgumentException("For a Enum only");
+
+            var list = new List<FrontEnum>();
+            foreach (var requirementType in Enum.GetValues(type)) {
+                list.Add(new FrontEnum(requirementType));
+            }
+
+            return list;
+        }
+
+        public static List<ChangeType> FilterChangeTypeByBasicType(StateBasicType basicType)
+        {
+            var result = new List<ChangeType>();
+            var types = Enum.GetValues(typeof(ChangeType));
+
+            foreach (ChangeType changeType in types) {
+                switch (changeType) {
+                    case ChangeType.Add:
+                    case ChangeType.Reduce: {
+                            if (basicType == StateBasicType.number) {
+                                result.Add(changeType);
+                            }
+                            break;
+                        }
+                    case ChangeType.Remove:
+                    case ChangeType.Set: {
+                            result.Add(changeType);
+                            break;
+                        }
+                }
+            }
+
+            return result;
+        }
+
+        public static List<RequirementType> FilterRequirementTypeByBasicType(StateBasicType basicType)
+        {
+            var result = new List<RequirementType>();
+            var types = Enum.GetValues(typeof(RequirementType));
+
+            foreach (RequirementType changeType in types) {
+                switch (changeType) {
+                    case RequirementType.More:
+                    case RequirementType.MoreOrEquals:
+                    case RequirementType.Less:
+                    case RequirementType.LessOrEquals: {
+                            if (basicType == StateBasicType.number) {
+                                result.Add(changeType);
+                            }
+                            break;
+                        }
+                    case RequirementType.Exist:
+                    case RequirementType.NotExist:
+                    case RequirementType.Equals:
+                    case RequirementType.NotEquals: {
+                            result.Add(changeType);
+                            break;
+                        }
+                }
+            }
+
+            return result;
         }
     }
 }

@@ -13,6 +13,8 @@ namespace Dao.Model
 
         public string Desc { get; set; }
 
+        public virtual StateBasicType BasicType { get; set; }
+        public virtual Book Book { get; set; }
         public virtual List<StateChange> Changes { get; set; }
         public virtual List<StateRequirement> Requirements { get; set; }
         public virtual List<StateValue> Values { get; set; }
