@@ -20,7 +20,6 @@ angular.module('rpg')
                 } else {
                     $location.path('/ar/reader/travel-guest/' + book.RootChapterId);
                 }
-                
             }
 
             $scope.chooseFilter = function (filter) {

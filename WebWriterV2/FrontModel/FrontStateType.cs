@@ -16,6 +16,7 @@ namespace WebWriterV2.FrontModels
             Name = stateType.Name;
             Desc = stateType.Desc;
             BasicType = stateType.BasicType;
+            BasicTypeName = stateType.BasicType.ToString();
             HideFromReader = stateType.HideFromReader;
             OwnerId = stateType.Owner?.Id;
             BookId = stateType.Book.Id;
@@ -24,6 +25,7 @@ namespace WebWriterV2.FrontModels
         public string Name { get; set; }
         public string Desc { get; set; }
         public StateBasicType BasicType { get; set; }
+        public string BasicTypeName { get; set; }
         public bool HideFromReader { get; set; }
         public long? OwnerId { get; set; }
         public long BookId { get; set; }

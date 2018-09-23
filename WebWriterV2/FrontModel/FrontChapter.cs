@@ -28,8 +28,9 @@ namespace WebWriterV2.FrontModels
             IsRootChapter = chapter.Book.RootChapter?.Id == chapter.Id;
             StateTypes = chapter.Book.States.Select(x => new FrontStateType(x)).ToList();
 
-            RequirementTypes = EnumHelper.GetFrontEnumList(typeof(RequirementType));
-            ChangeTypes = EnumHelper.GetFrontEnumList(typeof(ChangeType));
+            RequirementTypes = EnumHelper.GetFrontEnumList<FrontEnumRequirementType>(typeof(RequirementType));
+            //RequirementTypes = RequirementTypes.Where(x => x.Value != (int)RequirementType.Exist && x.Value != (int)RequirementType.NotExist).ToList();
+            ChangeTypes = EnumHelper.GetFrontEnumList<FrontEnumChangeType>(typeof(ChangeType));
         }
 
         private string GenerateHtmlForDesc(string desc)

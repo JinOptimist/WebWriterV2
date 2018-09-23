@@ -12,20 +12,18 @@ namespace WebWriterV2.RpgUtility
         {
             var result = new List<ChapterLinkItem>();
 
-            foreach (var linkItem in linkItems) {
-                if (!linkItem.StateRequirement.Any()) {
+            foreach (var linkItem in linkItems)
+            {
+                if (!linkItem.StateRequirement.Any())
+                {
                     result.Add(linkItem);
                     continue;
                 }
 
-                //var condition = linkItem.StateRequirement.SingleOrDefault()?.Text;
-                //if (travel.State?.Any(x => x.Text == condition) ?? false) {
-                //    result.Add(linkItem);
-                //}
-
                 var requirements = linkItem.StateRequirement;
-                var linkIsAcceptable = CheckLink(linkItem, travel.State);
-                if (linkIsAcceptable) {
+                var linkIsAcceptable = CheckIsLinkAcceptable(linkItem, travel.State);
+                if (linkIsAcceptable)
+                {
                     result.Add(linkItem);
                 }
             }
@@ -37,23 +35,29 @@ namespace WebWriterV2.RpgUtility
         {
             var states = travel.State;
 
-            foreach (var change in stateChanges) {
+            foreach (var change in stateChanges)
+            {
                 var state = states.SingleOrDefault(x => x.StateType.Id == change.StateType.Id);
-                if (state == null) {
-                    state = new StateValue() {
+                if (state == null)
+                {
+                    state = new StateValue()
+                    {
                         StateType = change.StateType,
                         Travel = travel
                     };
                     states.Add(state);
                 }
 
-                switch (change.StateType.BasicType) {
-                    case StateBasicType.number: {
+                switch (change.StateType.BasicType)
+                {
+                    case StateBasicType.number:
+                        {
                             ApplyNumberChnage(travel, state, change);
                             break;
                         }
                     case StateBasicType.boolean:
-                    case StateBasicType.text: {
+                    case StateBasicType.text:
+                        {
                             ApplyTextChnage(travel, state, change);
                             break;
                         }
@@ -68,20 +72,25 @@ namespace WebWriterV2.RpgUtility
             if (!stateValue.Value.HasValue)
                 stateValue.Value = 0;
 
-            switch (change.ChangeType) {
-                case ChangeType.Add: {
+            switch (change.ChangeType)
+            {
+                case ChangeType.Add:
+                    {
                         stateValue.Value += change.Number;
                         break;
                     }
-                case ChangeType.Reduce: {
+                case ChangeType.Reduce:
+                    {
                         stateValue.Value -= change.Number;
                         break;
                     }
-                case ChangeType.Remove: {
+                case ChangeType.Remove:
+                    {
                         travel.State.Remove(stateValue);
                         break;
                     }
-                case ChangeType.Set: {
+                case ChangeType.Set:
+                    {
                         stateValue.Value = change.Number;
                         break;
                     }
@@ -94,27 +103,167 @@ namespace WebWriterV2.RpgUtility
                 && change.StateType.BasicType != StateBasicType.boolean)
                 throw new Exception("Use this method only for StateBasicType.text");
 
-            switch (change.ChangeType) {
-                case ChangeType.Add: 
-                case ChangeType.Reduce: {
+            switch (change.ChangeType)
+            {
+                case ChangeType.Add:
+                case ChangeType.Reduce:
+                    {
                         throw new Exception("We have a problem. Some how we try add/reduce text. it's impossible");
                     }
 
-                case ChangeType.Remove: {
+                case ChangeType.Remove:
+                    {
                         travel.State.Remove(stateValue);
                         break;
                     }
-                case ChangeType.Set: {
+                case ChangeType.Set:
+                    {
                         stateValue.Text = change.Text;
                         break;
                     }
             }
         }
 
-        private static bool CheckLink(ChapterLinkItem linkItem, List<StateValue> stateValues)
+        private static bool CheckIsLinkAcceptable(ChapterLinkItem linkItem, List<StateValue> travelStateValues)
         {
+            foreach (var requirement in linkItem.StateRequirement)
+            {
+                var actualStateValue = travelStateValues.SingleOrDefault(x => x.StateType.Id == requirement.StateType.Id);
 
-            return false;
+                if (actualStateValue == null)
+                {
+                    if (requirement.RequirementType == RequirementType.NotExist)
+                        continue;
+                    else
+                        return false;
+                }
+
+                if (!CheckIsLinkAcceptable(actualStateValue, requirement))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private static bool CheckIsLinkAcceptable(StateValue actualStateValue, StateRequirement requirement)
+        {
+            switch (requirement.StateType.BasicType)
+            {
+                case StateBasicType.number:
+                    {
+                        return CheckNumberIsLinkAcceptable(actualStateValue, requirement);
+                    }
+                case StateBasicType.text:
+                case StateBasicType.boolean:
+                    {
+                        return CheckTextOrBoolIsLinkAcceptable(actualStateValue, requirement);
+                    }
+            }
+            throw new Exception($"Uknow type of StateRequirement. StateType.Id = {requirement.StateType.Id} \r\n BasicType = {requirement.StateType.BasicType}");
+        }
+
+        private static bool CheckNumberIsLinkAcceptable(StateValue actualStateValue, StateRequirement requirement)
+        {
+            if (requirement.StateType.BasicType != StateBasicType.number)
+                throw new Exception("CheckNumberIsLinkAcceptable get not number requirement");
+
+            switch (requirement.RequirementType)
+            {
+                case RequirementType.More:
+                    {
+                        if (actualStateValue?.Value <= requirement.Number.Value)
+                            return false;
+                        break;
+                    }
+                case RequirementType.MoreOrEquals:
+                    {
+                        if (actualStateValue?.Value < requirement.Number.Value)
+                            return false;
+                        break;
+                    }
+
+                case RequirementType.Less:
+                    {
+                        if (actualStateValue?.Value >= requirement.Number.Value)
+                            return false;
+                        break;
+                    }
+                case RequirementType.LessOrEquals:
+                    {
+                        if (actualStateValue?.Value > requirement.Number.Value)
+                            return false;
+                        break;
+                    }
+                case RequirementType.Exist:
+                    {
+                        if (actualStateValue == null)
+                            return false;
+                        break;
+                    }
+                case RequirementType.NotExist:
+                    {
+                        if (actualStateValue != null)
+                            return false;
+                        break;
+                    }
+                case RequirementType.Equals:
+                    {
+                        if (actualStateValue?.Value != requirement.Number.Value)
+                            return false;
+                        break;
+                    }
+                case RequirementType.NotEquals:
+                    {
+                        if (actualStateValue?.Value == requirement.Number.Value)
+                            return false;
+                        break;
+                    }
+            }
+
+            return true;
+        }
+
+        private static bool CheckTextOrBoolIsLinkAcceptable(StateValue actualStateValue, StateRequirement requirement)
+        {
+            if (requirement.StateType.BasicType != StateBasicType.text
+                && requirement.StateType.BasicType != StateBasicType.boolean)
+                throw new Exception("CheckTextOrBoolIsLinkAcceptable get not text and not boolean requirement");
+
+            switch (requirement.RequirementType)
+            {
+                case RequirementType.Exist:
+                    {
+                        if (actualStateValue == null)
+                            return false;
+                        break;
+                    }
+                case RequirementType.NotExist:
+                    {
+                        if (actualStateValue != null)
+                            return false;
+                        break;
+                    }
+                case RequirementType.Equals:
+                    {
+                        if (actualStateValue == null || actualStateValue.Text != requirement.Text)
+                            return false;
+                        break;
+                    }
+                case RequirementType.NotEquals:
+                    {
+                        if (actualStateValue?.Text == requirement.Text)
+                            return false;
+                        break;
+                    }
+                default:
+                    {
+                        throw new Exception($"Unkown or forbidden RequirementType {requirement.RequirementType}");
+                    }
+            }
+
+            return true;
         }
     }
 }

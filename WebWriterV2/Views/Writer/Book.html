@@ -16,17 +16,17 @@
 
     <div class="content" id="book-writer" ng-mouse-wheel-down="onResize(-1)" ng-mouse-wheel-up="onResize(1)">
         <div class="states-type">
-            <p>
-                States type
-            </p>
-            <p ng-repeat="stateType in book.States">
-                {{stateType.Name}}: {{stateType.BasicType}} <a href="#" ng-click="removeStateType(stateType.Id, $index)">Remove</a>
-            </p>
+            <span>
+                {{resources.Writer_StateTypeTitle}}
+            </span>
+            <span ng-repeat="stateType in book.States">
+                | {{stateType.Name}}: {{stateType.BasicTypeName}} <a href="#" ng-click="removeStateType(stateType.Id, $index)">X</a>
+            </span>
 
             <p>
                 <input type="text" ng-model="newStateType.Name" />
                 <select ng-model="newStateType.BasicType" ng-options="basicType.Value as basicType.Name for basicType in book.StateBasicTypes"></select>
-                <input type="button" value="Создать" ng-click="createNewStateType()" />
+                <input type="button" value="{{resources.Writer_AddStateType}}" ng-click="createNewStateType()" />
             </p>
         </div>
 

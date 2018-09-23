@@ -124,7 +124,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Продолжить путешествие &gt;.
+        ///   Looks up a localized string similar to Продолжить путь &gt;.
         /// </summary>
         internal static string ReaderBooks_ContinueTavel {
             get {
@@ -133,7 +133,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Начать путешествие &gt;.
+        ///   Looks up a localized string similar to Начать путь &gt;.
         /// </summary>
         internal static string ReaderBooks_StartTravel {
             get {
@@ -169,7 +169,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Удаление главы &quot;{0}&quot; невозможно. Это приведёт к появлению изолированных глав.
+        ///   Looks up a localized string similar to Удаление главы &quot;{0}&quot; невозможно. Это приведет к появлению изолированных глав.
         /// </summary>
         internal static string RemoveChapterImpossibleAlert {
             get {
@@ -178,7 +178,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Удаление связи невозможно. Это приведёт к появлению изолированных глав.
+        ///   Looks up a localized string similar to Удаление связи невозможно. Это приведет к появлению изолированных глав.
         /// </summary>
         internal static string RemoveLinkImpossibleAlert {
             get {
@@ -205,7 +205,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Сделать выбор.
+        ///   Looks up a localized string similar to Выбрать.
         /// </summary>
         internal static string Travel_GetChosen {
             get {
@@ -237,6 +237,78 @@ namespace WebWriterV2.Localization {
         internal static string Travel_Next {
             get {
                 return ResourceManager.GetString("Travel_Next", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавить тип.
+        /// </summary>
+        internal static string Writer_AddStateType {
+            get {
+                return ResourceManager.GetString("Writer_AddStateType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Нет.
+        /// </summary>
+        internal static string Writer_BooleanFalse {
+            get {
+                return ResourceManager.GetString("Writer_BooleanFalse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Да.
+        /// </summary>
+        internal static string Writer_BooleanTrue {
+            get {
+                return ResourceManager.GetString("Writer_BooleanTrue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Изменения состояния в случае выбора.
+        /// </summary>
+        internal static string Writer_ChangeTitle {
+            get {
+                return ResourceManager.GetString("Writer_ChangeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавить.
+        /// </summary>
+        internal static string Writer_ChangeType_Add {
+            get {
+                return ResourceManager.GetString("Writer_ChangeType_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отнять.
+        /// </summary>
+        internal static string Writer_ChangeType_Reduce {
+            get {
+                return ResourceManager.GetString("Writer_ChangeType_Reduce", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удалить.
+        /// </summary>
+        internal static string Writer_ChangeType_Remove {
+            get {
+                return ResourceManager.GetString("Writer_ChangeType_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Задать.
+        /// </summary>
+        internal static string Writer_ChangeType_Set {
+            get {
+                return ResourceManager.GetString("Writer_ChangeType_Set", resourceCulture);
             }
         }
         
@@ -331,11 +403,119 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Условий для видимости данно выбора.
+        /// </summary>
+        internal static string Writer_RequirementTitle {
+            get {
+                return ResourceManager.GetString("Writer_RequirementTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to =.
+        /// </summary>
+        internal static string Writer_RequirementType_Equals {
+            get {
+                return ResourceManager.GetString("Writer_RequirementType_Equals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ∃.
+        /// </summary>
+        internal static string Writer_RequirementType_Exist {
+            get {
+                return ResourceManager.GetString("Writer_RequirementType_Exist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;.
+        /// </summary>
+        internal static string Writer_RequirementType_Less {
+            get {
+                return ResourceManager.GetString("Writer_RequirementType_Less", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ≤.
+        /// </summary>
+        internal static string Writer_RequirementType_LessOrEquals {
+            get {
+                return ResourceManager.GetString("Writer_RequirementType_LessOrEquals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &gt;.
+        /// </summary>
+        internal static string Writer_RequirementType_More {
+            get {
+                return ResourceManager.GetString("Writer_RequirementType_More", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ≥.
+        /// </summary>
+        internal static string Writer_RequirementType_MoreOrEquals {
+            get {
+                return ResourceManager.GetString("Writer_RequirementType_MoreOrEquals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ≠.
+        /// </summary>
+        internal static string Writer_RequirementType_NotEquals {
+            get {
+                return ResourceManager.GetString("Writer_RequirementType_NotEquals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ∄.
+        /// </summary>
+        internal static string Writer_RequirementType_NotExist {
+            get {
+                return ResourceManager.GetString("Writer_RequirementType_NotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сохранить.
+        /// </summary>
+        internal static string Writer_Save {
+            get {
+                return ResourceManager.GetString("Writer_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сохранить и закрыть.
+        /// </summary>
+        internal static string Writer_SaveAndClose {
+            get {
+                return ResourceManager.GetString("Writer_SaveAndClose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Опубликована.
         /// </summary>
         internal static string Writer_StatePublished {
             get {
                 return ResourceManager.GetString("Writer_StatePublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Переменные доступные в книге.
+        /// </summary>
+        internal static string Writer_StateTypeTitle {
+            get {
+                return ResourceManager.GetString("Writer_StateTypeTitle", resourceCulture);
             }
         }
         

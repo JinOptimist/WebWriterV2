@@ -15,7 +15,7 @@ namespace WebWriterV2.FrontModels
             Id = stateRequirement.Id;
             ChapterLinkId = stateRequirement.ChapterLink.Id;
             Value = stateRequirement.Number?.ToString() ?? stateRequirement.Text;
-            RequirementType = new FrontEnum(stateRequirement.RequirementType);
+            RequirementType = new FrontEnumRequirementType(stateRequirement.RequirementType);
             StateType = new FrontStateType(stateRequirement.StateType);
         }
 

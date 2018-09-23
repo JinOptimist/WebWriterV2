@@ -15,7 +15,7 @@ namespace WebWriterV2.FrontModels
             Id = stateChange.Id;
             ChapterLinkId = stateChange.ChapterLink.Id;
             Value = stateChange.Number?.ToString() ?? stateChange.Text;
-            ChangeType = new FrontEnum(stateChange.ChangeType);
+            ChangeType = new FrontEnumChangeType(stateChange.ChangeType);
             StateType = new FrontStateType(stateChange.StateType);
         }
 

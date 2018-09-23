@@ -9,15 +9,17 @@
             getBottomChapters: getBottomChapters,
             getAllChapters: getAllChapters,
             createNextChapter: createNextChapter,
-            linkDecisionToChapterLink: linkDecisionToChapterLink,
+            
 
             createLink: createLink,
             removeLink: removeLink,
             saveChapterLink: saveChapterLink,
             getLinksFromChapter: getLinksFromChapter,
             removeChapterLink: removeChapterLink,
+            // TO REMOVE
             linkConditionToChapterLink: linkConditionToChapterLink,
-            getAvailableDecision: getAvailableDecision
+            getAvailableDecision: getAvailableDecision,
+            linkDecisionToChapterLink: linkDecisionToChapterLink,
         };
 
         function save(chapter) {

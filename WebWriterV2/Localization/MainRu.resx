@@ -177,6 +177,30 @@
   <data name="Travel_Next" xml:space="preserve">
     <value>Следующая глава</value>
   </data>
+  <data name="Writer_AddStateType" xml:space="preserve">
+    <value>Добавить тип</value>
+  </data>
+  <data name="Writer_BooleanFalse" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Writer_BooleanTrue" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="Writer_ChangeTitle" xml:space="preserve">
+    <value>Изменения состояния в случае выбора</value>
+  </data>
+  <data name="Writer_ChangeType_Add" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Writer_ChangeType_Reduce" xml:space="preserve">
+    <value>Отнять</value>
+  </data>
+  <data name="Writer_ChangeType_Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Writer_ChangeType_Set" xml:space="preserve">
+    <value>Задать</value>
+  </data>
   <data name="Writer_Confirm" xml:space="preserve">
     <value>Подтвердить</value>
   </data>
@@ -207,8 +231,44 @@
   <data name="Writer_RemoveBook" xml:space="preserve">
     <value>Удалить книгу</value>
   </data>
+  <data name="Writer_RequirementTitle" xml:space="preserve">
+    <value>Условий для видимости данно выбора</value>
+  </data>
+  <data name="Writer_RequirementType_Equals" xml:space="preserve">
+    <value>=</value>
+  </data>
+  <data name="Writer_RequirementType_Exist" xml:space="preserve">
+    <value>∃</value>
+  </data>
+  <data name="Writer_RequirementType_Less" xml:space="preserve">
+    <value>&lt;</value>
+  </data>
+  <data name="Writer_RequirementType_LessOrEquals" xml:space="preserve">
+    <value>≤</value>
+  </data>
+  <data name="Writer_RequirementType_More" xml:space="preserve">
+    <value>&gt;</value>
+  </data>
+  <data name="Writer_RequirementType_MoreOrEquals" xml:space="preserve">
+    <value>≥</value>
+  </data>
+  <data name="Writer_RequirementType_NotEquals" xml:space="preserve">
+    <value>≠</value>
+  </data>
+  <data name="Writer_RequirementType_NotExist" xml:space="preserve">
+    <value>∄</value>
+  </data>
+  <data name="Writer_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Writer_SaveAndClose" xml:space="preserve">
+    <value>Сохранить и закрыть</value>
+  </data>
   <data name="Writer_StatePublished" xml:space="preserve">
     <value>Опубликована</value>
+  </data>
+  <data name="Writer_StateTypeTitle" xml:space="preserve">
+    <value>Переменные доступные в книге</value>
   </data>
   <data name="Writer_StateUnPublished" xml:space="preserve">
     <value>Черновик</value>

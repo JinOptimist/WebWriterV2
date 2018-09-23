@@ -29,6 +29,21 @@ namespace WebWriterV2.RpgUtility
             return list;
         }
 
+        public static List<FrontEnum> GetFrontEnumList<T>(Type type) where T: FrontEnum
+        {
+            if (!type.IsEnum)
+                throw new ArgumentException("For a Enum only");
+
+            var list = new List<FrontEnum>();
+            foreach (var requirementType in Enum.GetValues(type))
+            {
+                var frontEnum = (T)Activator.CreateInstance(typeof(T), requirementType);
+                list.Add(frontEnum);
+            }
+
+            return list;
+        }
+
         public static List<ChangeType> FilterChangeTypeByBasicType(StateBasicType basicType)
         {
             var result = new List<ChangeType>();

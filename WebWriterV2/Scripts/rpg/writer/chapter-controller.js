@@ -7,7 +7,6 @@ angular.module('rpg')
             userService, $mdDialog, chapterId) {
 
             $scope.chapterLinks = [];
-            $scope.availableDecision = [];
             $scope.chapter = null;
             $scope.wait = true;
             $scope.resources = resources;
@@ -51,38 +50,6 @@ angular.module('rpg')
                 saveChapterLinkAndResetForm(chapterLink, $scope.chapterLinkBlockForm);
             }
 
-            $scope.saveDecision = function (chapterLink) {
-                chapterService.linkDecisionToChapterLink(chapterLink.Id, chapterLink.Decision).then(function () {
-                    init();
-                });
-                //TODO Direct update decision
-            }
-
-            $scope.saveCondition = function (chapterLink) {
-                chapterService.linkConditionToChapterLink(chapterLink.Id, chapterLink.Condition).then(function () {
-                    init();
-                });
-                //TODO Direct update decision
-            }
-
-            $scope.updateChangeType = function (chapterLink) {
-                //number = 1
-                if (chapterLink.newChange.StateType.BasicType == 1) {
-                    //copy array
-                    chapterLink.ChangeTypes = $scope.chapter.ChangeTypes.slice();
-                }
-                //text = 2, boolean = 3,
-                if (chapterLink.newChange.StateType.BasicType == 2
-                    || chapterLink.newChange.StateType.BasicType == 3) {
-                    chapterLink.ChangeTypes = $scope.chapter.ChangeTypes.filter(function (changeTypeEnum) {
-                        //Remove = 4, Set = 5,
-                        return changeTypeEnum.Value == 4 || changeTypeEnum.Value == 5;
-                    });
-                }
-
-                chapterLink.newChange.ChapterLinkId = chapterLink.Id;
-            }
-
             $scope.updateRequirementType = function (chapterLink) {
                 //number = 1
                 if (chapterLink.newRequirement.StateType.BasicType == 1) {
@@ -107,6 +74,7 @@ angular.module('rpg')
             $scope.saveNewRequirement = function (chapterLink) {
                 stateService.addStateRequirement(chapterLink.newRequirement).then(function (requirement) {
                     chapterLink.Requirements.push(requirement);
+                    chapterLink.newRequirement = {};
                 });
             }
 
@@ -116,9 +84,32 @@ angular.module('rpg')
                 });
             }
 
+            $scope.updateChangeType = function (chapterLink) {
+                //number = 1
+                if (chapterLink.newChange.StateType.BasicType == 1) {
+                    //copy array
+                    chapterLink.ChangeTypes = $scope.chapter.ChangeTypes.slice();
+                }
+                //text = 2, boolean = 3,
+                if (chapterLink.newChange.StateType.BasicType == 2
+                    || chapterLink.newChange.StateType.BasicType == 3) {
+                    chapterLink.ChangeTypes = $scope.chapter.ChangeTypes.filter(function (changeTypeEnum) {
+                        //Remove = 4, Set = 5,
+                        return changeTypeEnum.Value == 4 || changeTypeEnum.Value == 5;
+                    });
+                }
+
+                chapterLink.newChange.ChapterLinkId = chapterLink.Id;
+            }
+
             $scope.saveNewChange = function (chapterLink) {
+                if (!validateNewChange()) {
+                    return false;
+                }
+
                 stateService.addStateChange(chapterLink.newChange).then(function (savedChange) {
                     chapterLink.Changes.push(savedChange);
+                    chapterLink.newChange = {};
                 });
             }
 
@@ -154,12 +145,10 @@ angular.module('rpg')
             function init() {
                 var chapterPromise = chapterService.get(chapterId);
                 var linksPromise = chapterService.getLinksFromChapter(chapterId);
-                var availableDecisionPromise = chapterService.getAvailableDecision(chapterId);
                 
-                $q.all([chapterPromise, linksPromise, availableDecisionPromise]).then(function (data) {
+                $q.all([chapterPromise, linksPromise]).then(function (data) {
                     $scope.chapterLinks = data[1];
-                    $scope.availableDecision = data[2];
-
+                    
                     var chapter = data[0];
                     loadChapter(chapter);
                 });
