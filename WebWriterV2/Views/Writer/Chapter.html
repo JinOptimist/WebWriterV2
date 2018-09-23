@@ -20,33 +20,46 @@
             <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
                 <div class="text">
                     <input ng-model="chapterLink.Text" class="no-border" ng-blur="updateChpaterLink(chapterLink)" tabindex="{{ 6 + $index}}" />
+                    <hr />
+                    <p>
+                        Условий для видимости данно выбора:
+                    </p>
+                    <p ng-repeat="requirement in chapterLink.Requirements">
+                        {{requirement.StateType.Name}} <span class="changeType">{{requirement.RequirementType.Name}}</span> {{requirement.Value}}
+                        <a href="#" ng-click="removeRequirement(chapterLink, requirement.Id, $index)">X</a>
+                    </p>
                     <p class="variable-action">
-                        Requirement
                         <select ng-model="chapterLink.newRequirement.StateType"
                                 ng-options="stateType as stateType.Name for stateType in chapter.StateTypes"
                                 ng-change="updateRequirementType(chapterLink)"></select>
 
-                        <select ng-model="chapterLink.newRequirement.RequirementType"
+                        <select ng-model="chapterLink.newRequirement.RequirementType.Value"
                                 ng-options="requirementType.Value as requirementType.Name for requirementType in chapterLink.RequirementTypes"></select>
 
                         <input type="text" ng-model="chapterLink.newRequirement.Value"
-                               ng-show="chapterLink.newRequirement.RequirementType != 5 
-                                    && chapterLink.newRequirement.RequirementType != 6"/>
-                        <input type="button" value="do" ng-click="saveNewRequirement(chapterLink)" />
+                               ng-show="chapterLink.newRequirement.RequirementType.Value != 5
+                                    && chapterLink.newRequirement.RequirementType.Value != 6" />
+                        <input type="button" value="+" ng-click="saveNewRequirement(chapterLink)" />
                     </p>
-
+                    <hr />
+                    <p>
+                        Изменения состояния в случае выбора:
+                    </p>
+                    <p ng-repeat="change in chapterLink.Changes">
+                        {{change.StateType.Name}} <span class="changeType">{{change.ChangeType.Name}}</span> {{change.Value}}
+                        <a href="#" ng-click="removeChange(chapterLink, change.Id, $index)">X</a>
+                    </p>
                     <p class="variable-action">
-                        Change
                         <select ng-model="chapterLink.newChange.StateType"
                                 ng-options="stateType as stateType.Name for stateType in chapter.StateTypes"
                                 ng-change="updateChangeType(chapterLink)"></select>
 
-                        <select ng-model="chapterLink.newChange.ChangeType"
+                        <select ng-model="chapterLink.newChange.ChangeType.Value"
                                 ng-options="changeType.Value as changeType.Name for changeType in chapterLink.ChangeTypes"></select>
 
                         <input type="text" ng-model="chapterLink.newChange.Value"
-                               ng-show="chapterLink.newChange.ChangeType != 4"/>
-                        <input type="button" value="do" />
+                               ng-show="chapterLink.newChange.ChangeType.Value != 4" />
+                        <input type="button" value="+" ng-click="saveNewChange(chapterLink)" />
                     </p>
                 </div>
                 <div class="action-button">

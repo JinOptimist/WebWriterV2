@@ -2,9 +2,9 @@
 angular.module('rpg')
 .controller('writerBookController', [
     '$scope', '$routeParams', '$location', '$window', '$cookies', '$mdDialog', 'ConstCookies',
-        'bookService', 'chapterService', 'stateTypeService',
+        'bookService', 'chapterService', 'stateService',
     function ($scope, $routeParams, $location, $window, $cookies, $mdDialog, ConstCookies,
-        bookService, chapterService, stateTypeService) {
+        bookService, chapterService, stateService) {
 
         var step = 0.1;
         var scale = 1.0;
@@ -37,7 +37,7 @@ angular.module('rpg')
             $scope.newStateType.BookId = $scope.book.Id;
             $scope.newStateType.OwnerId = $cookies.get(ConstCookies.userId);
 
-            stateTypeService.add($scope.newStateType, $scope.book.Id).then(function (newState) {
+            stateService.addStateType($scope.newStateType).then(function (newState) {
                 if (!$scope.book.States)
                     $scope.book.States = [];
                 $scope.book.States.push(newState);
@@ -46,7 +46,7 @@ angular.module('rpg')
         }
 
         $scope.removeStateType = function (stateTypeId, index) {
-            stateTypeService.remove(stateTypeId).then(function () {
+            stateService.removeStateType(stateTypeId).then(function () {
                 $scope.book.States.splice(index, 1);
             });
         }

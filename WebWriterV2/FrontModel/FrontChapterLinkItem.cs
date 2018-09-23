@@ -20,9 +20,12 @@ namespace WebWriterV2.FrontModels
             ToId = chapterLinkItem.To.Id;
             ToChapterName = chapterLinkItem.To.Name;
 
+            Changes = chapterLinkItem.StateChanging?.Select(x => new FrontStateChange(x)).ToList() ?? new List<FrontStateChange>();
+            Requirements = chapterLinkItem.StateRequirement?.Select(x => new FrontStateRequirement(x)).ToList() ?? new List<FrontStateRequirement>();
+
+            // TODO Remove old code
             Decision = chapterLinkItem.StateChanging?.FirstOrDefault()?.Text;
             Condition = chapterLinkItem.StateRequirement?.FirstOrDefault()?.Text;
-            //RequirementStates = eventLinkItemDb.RequirementStates?.Select(x => new FrontState(x)).ToList();
         }
 
         public string Text { get; set; }
@@ -31,6 +34,10 @@ namespace WebWriterV2.FrontModels
         public long ToId { get; set; }
         public string ToChapterName { get; set; }
 
+        public List<FrontStateChange> Changes { get; set; }
+        public List<FrontStateRequirement> Requirements { get; set; }
+
+        // TODO Remove old code
         public string Condition { get; set; }
         public string Decision { get; set; }
 

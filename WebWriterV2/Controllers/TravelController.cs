@@ -81,7 +81,7 @@ namespace WebWriterV2.Controllers
             var link = ChapterLinkItemRepository.Get(linkItemId);
             var fromCurrentStepWeCanDoStep = travel.CurrentStep.CurrentChapter.LinksFromThisChapter.Any(x => x.Id == linkItemId);
             if (!fromCurrentStepWeCanDoStep) {
-                throw new Exception($"Try to change past. User {User.Id}. Travel {travel.Id}. Step from passed chapted ch.Id {link.From.Id}");
+                throw new Exception($"You try to change the past. User {User.Id}. Travel {travel.Id}. Step from passed chapted ch.Id {link.From.Id}");
             }
 
             var newStep = new TravelStep {
@@ -95,20 +95,21 @@ namespace WebWriterV2.Controllers
 
             travel.CurrentStep = newStep;
 
-            var changes = link.StateChanging.SingleOrDefault();
-            if (changes != null) {
+            //var changes = link.StateChanging.SingleOrDefault();
+            //if (changes != null) {
 
-                if (changes.Text == "УДАЛИТЬ") {
-                    travel.State.Clear();
-                } else {
-                    var defaultStateType = StateTypeRepository.GetDefault();
-                    travel.State.Add(new StateValue() {
-                        Travel = travel,
-                        Text = changes.Text,
-                        StateType = defaultStateType
-                    });
-                }
-            }
+            //    if (changes.Text == "УДАЛИТЬ") {
+            //        travel.State.Clear();
+            //    } else {
+            //        var defaultStateType = StateTypeRepository.GetDefault();
+            //        travel.State.Add(new StateValue() {
+            //            Travel = travel,
+            //            Text = changes.Text,
+            //            StateType = defaultStateType
+            //        });
+            //    }
+            //}
+            StateHelper.ApplyChangeToTravel(travel, link.StateChanging);
 
             TravelRepository.Save(travel);
 

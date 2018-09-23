@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Dal.Repository;
 using Dao.IRepository;
 using Dao.Model;
 
@@ -8,6 +9,14 @@ namespace Dao.Repository
     {
         public StateChangeRepository(WriterContext db) : base(db)
         {
+        }
+
+        public override StateChange Save(StateChange model)
+        {
+            model.StateType = model.StateType.AttachIfNot(Db);
+            model.ChapterLink = model.ChapterLink.AttachIfNot(Db);
+
+            return base.Save(model);
         }
 
         public void RemoveDecision(string decision, long bookId)

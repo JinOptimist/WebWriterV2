@@ -1,8 +1,10 @@
 angular.module('rpg')
 
     .controller('chapterController', [
-        '$scope', '$routeParams', '$location', '$cookies', '$q', 'chapterService', 'userService', '$mdDialog', 'chapterId',
-        function ($scope, $routeParams, $location, $cookies, $q, chapterService, userService, $mdDialog, chapterId) {
+        '$scope', '$routeParams', '$location', '$cookies', '$q', 'chapterService', 'stateService',
+        'userService', '$mdDialog', 'chapterId',
+        function ($scope, $routeParams, $location, $cookies, $q, chapterService, stateService,
+            userService, $mdDialog, chapterId) {
 
             $scope.chapterLinks = [];
             $scope.availableDecision = [];
@@ -77,6 +79,8 @@ angular.module('rpg')
                         return changeTypeEnum.Value == 4 || changeTypeEnum.Value == 5;
                     });
                 }
+
+                chapterLink.newChange.ChapterLinkId = chapterLink.Id;
             }
 
             $scope.updateRequirementType = function (chapterLink) {
@@ -96,10 +100,32 @@ angular.module('rpg')
                             || requirementTypeEnum.Value == 8;
                     });
                 }
+
+                chapterLink.newRequirement.ChapterLinkId = chapterLink.Id;
             }
 
             $scope.saveNewRequirement = function (chapterLink) {
-                chapterLink.newRequirement;
+                stateService.addStateRequirement(chapterLink.newRequirement).then(function (requirement) {
+                    chapterLink.Requirements.push(requirement);
+                });
+            }
+
+            $scope.removeRequirement = function (chapterLink, requirementId, index) {
+                stateService.removeStateRequirement(requirementId).then(function () {
+                    chapterLink.Requirements.splice(index, 1);
+                });
+            }
+
+            $scope.saveNewChange = function (chapterLink) {
+                stateService.addStateChange(chapterLink.newChange).then(function (savedChange) {
+                    chapterLink.Changes.push(savedChange);
+                });
+            }
+
+            $scope.removeChange = function (chapterLink, changeId, index) {
+                stateService.removeStateChange(changeId).then(function () {
+                    chapterLink.Changes.splice(index, 1);
+                });
             }
 
             function saveChapterLinkAndResetForm(chapterLink, form) {

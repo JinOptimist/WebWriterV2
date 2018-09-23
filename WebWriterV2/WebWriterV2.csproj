@@ -185,6 +185,8 @@
     <Compile Include="FrontModel\FrontChaptersBlock.cs" />
     <Compile Include="FrontModel\FrontBookWithChapters.cs" />
     <Compile Include="FrontModel\FrontChapterLinkItem.cs" />
+    <Compile Include="FrontModel\FrontStateRequirement.cs" />
+    <Compile Include="FrontModel\FrontStateChange.cs" />
     <Compile Include="FrontModel\FrontTag.cs" />
     <Compile Include="FrontModel\FrontTravelStep.cs" />
     <Compile Include="FrontModel\FrontTravelIsEnded.cs" />
@@ -693,7 +695,7 @@
     <Content Include="Scripts\rpg\reader\travel-guest-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-end-controller.js" />
     <Content Include="Scripts\rpg\admin\books-controller.js" />
-    <Content Include="Scripts\rpg\services\stateType.js" />
+    <Content Include="Scripts\rpg\services\state.js" />
     <Content Include="Scripts\rpg\writer\about-controller.js" />
     <Content Include="Scripts\rpg\reader\profile-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-controller.js" />

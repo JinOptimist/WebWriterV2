@@ -163,21 +163,11 @@ namespace WebWriterV2.Controllers
             var frontBook = new BookWithChaptersV2(book);
             return frontBook;
         }
-        
-        //EXPEREMENAL
-        [AcceptVerbs("GET")]
-        public FrontBookWithChapters GetWithChaptersRoadmap(long id)
-        {
-            var book = BookRepository.Get(id);
-            var frontBook = new FrontBookWithChapters(book, true, true);
-            return frontBook;
-        }
 
         [AcceptVerbs("POST")]
-        public FrontStateType AddState(FrontStateType fontStateType) 
+        public FrontStateType AddState(FrontStateType fontStateType)
         {
             var stateType = fontStateType.ToDbModel();
-            //stateType
             stateType = StateTypeRepository.Save(stateType);
             fontStateType = new FrontStateType(stateType);
             return fontStateType;
@@ -189,6 +179,17 @@ namespace WebWriterV2.Controllers
             StateTypeRepository.Remove(stateTypeId);
             return true;
         }
+
+        //EXPEREMENAL
+        [AcceptVerbs("GET")]
+        public FrontBookWithChapters GetWithChaptersRoadmap(long id)
+        {
+            var book = BookRepository.Get(id);
+            var frontBook = new FrontBookWithChapters(book, true, true);
+            return frontBook;
+        }
+
+        
         
 
 

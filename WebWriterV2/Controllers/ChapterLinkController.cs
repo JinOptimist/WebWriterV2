@@ -73,8 +73,7 @@ namespace WebWriterV2.Controllers
         {
             var link = ChapterLinkItemRepository.Get(id);
             // If we try to remove link to chapter which has only the single link.
-            if (link.To.LinksToThisChapter.Count == 1)
-            {
+            if (link.To.LinksToThisChapter.Count == 1) {
                 var linkToTheSameChapter = link.To.LinksToThisChapter.Single();
                 // If we try remove link to root chapter it's normal
                 // Another way, say No.
@@ -84,6 +83,77 @@ namespace WebWriterV2.Controllers
             }
 
             ChapterLinkItemRepository.Remove(link);
+            return true;
+        }
+
+
+       
+
+        [AcceptVerbs("POST")]
+        public FrontStateChange AddStateChange(FrontStateChange frontStateChange)
+        {
+            var stateChange = frontStateChange.ToDbModel();
+            StateChangeRepository.Save(stateChange);
+            return new FrontStateChange(stateChange);
+        }
+
+        [AcceptVerbs("GET")]
+        public bool RemoveStateChange(long stateChangeId)
+        {
+            StateChangeRepository.Remove(stateChangeId);
+            return true;
+        }
+
+        [AcceptVerbs("POST")]
+        public FrontStateRequirement AddStateRequirement(FrontStateRequirement frontStateRequirement)
+        {
+            var stateRequirement = frontStateRequirement.ToDbModel();
+            StateRequirementRepository.Save(stateRequirement);
+            return new FrontStateRequirement(stateRequirement);
+        }
+
+        [AcceptVerbs("GET")]
+        public bool RemoveStateRequirement(long stateRequirementId)
+        {
+            StateRequirementRepository.Remove(stateRequirementId);
+            return true;
+        }
+
+
+
+
+        // REMOVE IT
+        [AcceptVerbs("GET")]
+        public List<string> GetAvailableDecision(long chapterId)
+        {
+            var chapter = ChapterRepository.Get(chapterId);
+            var allLinks = chapter.Book.AllChapters.SelectMany(x => x.LinksToThisChapter);
+            var stateChanges = allLinks.SelectMany(x => x.StateChanging);
+            var solutions = stateChanges.Select(x => x.Text);
+            return solutions.ToList();
+        }
+        [AcceptVerbs("GET")]
+        public bool LinkConditionToChapterLink(long chapterId, string condition)
+        {
+            var chapterLink = ChapterLinkItemRepository.Get(chapterId);
+            if (chapterLink.StateRequirement == null) {
+                chapterLink.StateRequirement = new List<StateRequirement>();
+            }
+
+            var oldValue = chapterLink.StateRequirement.SingleOrDefault()?.Text;
+            if (oldValue != condition) {
+                StateRequirementRepository.RemoveDecision(oldValue, chapterLink.From.Book.Id);
+            }
+
+            var defaultStateType = StateTypeRepository.GetDefault();
+            chapterLink.StateRequirement.Add(new StateRequirement() {
+                ChapterLink = chapterLink,
+                Text = condition,
+                StateType = defaultStateType,
+                RequirementType = RequirementType.Exist,
+            });
+            ChapterLinkItemRepository.Save(chapterLink);
+
             return true;
         }
 
@@ -115,39 +185,6 @@ namespace WebWriterV2.Controllers
             return true;
         }
 
-        [AcceptVerbs("GET")]
-        public bool LinkConditionToChapterLink(long chapterId, string condition)
-        {
-            var chapterLink = ChapterLinkItemRepository.Get(chapterId);
-            if (chapterLink.StateRequirement == null) {
-                chapterLink.StateRequirement = new List<StateRequirement>();
-            }
 
-            var oldValue = chapterLink.StateRequirement.SingleOrDefault()?.Text;
-            if (oldValue != condition) {
-                StateRequirementRepository.RemoveDecision(oldValue, chapterLink.From.Book.Id);
-            }
-
-            var defaultStateType = StateTypeRepository.GetDefault();
-            chapterLink.StateRequirement.Add(new StateRequirement() {
-                ChapterLink = chapterLink,
-                Text = condition,
-                StateType = defaultStateType,
-                RequirementType = RequirementType.Exist,
-            });
-            ChapterLinkItemRepository.Save(chapterLink);
-
-            return true;
-        }
-
-        [AcceptVerbs("GET")]
-        public List<string> GetAvailableDecision(long chapterId)
-        {
-            var chapter = ChapterRepository.Get(chapterId);
-            var allLinks = chapter.Book.AllChapters.SelectMany(x => x.LinksToThisChapter);
-            var stateChanges = allLinks.SelectMany(x => x.StateChanging);
-            var solutions = stateChanges.Select(x => x.Text);
-            return solutions.ToList();
-        }
     }
 }

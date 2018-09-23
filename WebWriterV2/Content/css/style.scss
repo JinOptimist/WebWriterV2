@@ -560,9 +560,13 @@ ul {
                     width: 100px;
                 }
 
-                input[type=button]{
+                input[type=button] {
                     width: 20px;
                 }
+            }
+
+            .changeType {
+                color: $orange;
             }
         }
 
