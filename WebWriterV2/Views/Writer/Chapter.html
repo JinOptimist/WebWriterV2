@@ -29,10 +29,14 @@
                         <span class="changeType">{{requirement.RequirementType.Name}}</span>
 
                         <!-- BasicType.boolean == 3 -->
-                        <span ng-show="requirement.StateType.BasicType != 3">
+                        <span ng-show="requirement.RequirementType.Value != 5
+                                    && requirement.RequirementType.Value != 6
+                                    && requirement.StateType.BasicType != 3">
                             {{requirement.Value}}
                         </span>
-                        <span ng-show="requirement.StateType.BasicType == 3">
+                        <span ng-show="requirement.RequirementType.Value != 5
+                                    && requirement.RequirementType.Value != 6
+                                    && requirement.StateType.BasicType == 3">
                             {{requirement.Value == 'True' ? resources.Writer_BooleanTrue : resources.Writer_BooleanFalse }}
                         </span>
 
@@ -74,10 +78,12 @@
                         </span>
                         <span class="changeType">{{change.ChangeType.Name}}</span>
                         <!-- BasicType.boolean == 3 -->
-                        <span ng-show="change.StateType.BasicType != 3">
+                        <span ng-show="change.ChangeType.Value != 4
+                                    && change.StateType.BasicType != 3">
                             {{change.Value}}
                         </span>
-                        <span ng-show="change.StateType.BasicType == 3">
+                        <span ng-show="change.ChangeType.Value != 4
+                                    && change.StateType.BasicType == 3">
                             {{change.Value == 'True' ? resources.Writer_BooleanTrue : resources.Writer_BooleanFalse }}
                         </span>
                         <a href="#" ng-click="removeChange(chapterLink, change.Id, $index)">X</a>
