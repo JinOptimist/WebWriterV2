@@ -403,6 +403,24 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Выберите переменную и тип действия.
+        /// </summary>
+        internal static string Writer_InvalidChange {
+            get {
+                return ResourceManager.GetString("Writer_InvalidChange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выберите переменную и тип сравнения.
+        /// </summary>
+        internal static string Writer_InvalidRequirement {
+            get {
+                return ResourceManager.GetString("Writer_InvalidRequirement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Проекты.
         /// </summary>
         internal static string Writer_Projects {

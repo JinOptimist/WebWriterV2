@@ -72,6 +72,11 @@ angular.module('rpg')
             }
 
             $scope.saveNewRequirement = function (chapterLink) {
+                if (!validateNewRequirement(chapterLink)) {
+                    alert(resources.Writer_InvalidRequirement);
+                    return false;
+                }
+
                 stateService.addStateRequirement(chapterLink.newRequirement).then(function (requirement) {
                     chapterLink.Requirements.push(requirement);
                     chapterLink.newRequirement = {};
@@ -103,7 +108,8 @@ angular.module('rpg')
             }
 
             $scope.saveNewChange = function (chapterLink) {
-                if (!validateNewChange()) {
+                if (!validateNewChange(chapterLink)) {
+                    alert(resources.Writer_InvalidChange);
                     return false;
                 }
 
@@ -117,6 +123,18 @@ angular.module('rpg')
                 stateService.removeStateChange(changeId).then(function () {
                     chapterLink.Changes.splice(index, 1);
                 });
+            }
+
+            function validateNewChange(chapterLink) {
+                return chapterLink.newChange
+                    && chapterLink.newChange.StateType
+                    && chapterLink.newChange.ChangeType;
+            }
+
+            function validateNewRequirement(chapterLink) {
+                return chapterLink.newRequirement
+                    && chapterLink.newRequirement.StateType
+                    && chapterLink.newRequirement.RequirementType;
             }
 
             function saveChapterLinkAndResetForm(chapterLink, form) {

@@ -231,6 +231,12 @@
   <data name="Writer_InvalidBranchLinkText" xml:space="preserve">
     <value>Не все условия выбора заполнены</value>
   </data>
+  <data name="Writer_InvalidChange" xml:space="preserve">
+    <value>Выберите переменную и тип действия</value>
+  </data>
+  <data name="Writer_InvalidRequirement" xml:space="preserve">
+    <value>Выберите переменную и тип сравнения</value>
+  </data>
   <data name="Writer_Projects" xml:space="preserve">
     <value>Проекты</value>
   </data>

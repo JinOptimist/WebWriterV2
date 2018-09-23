@@ -32,6 +32,9 @@ namespace WebWriterV2.FrontModels
                 StateType = StateType.ToDbModel(),
                 ChangeType = (ChangeType)ChangeType.Value
             };
+            if (Value == null)
+                return stateChange;
+
             switch (StateType.BasicType) {
                 case StateBasicType.Boolean: {
                         // convert to single format
