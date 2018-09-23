@@ -125,4 +125,38 @@ namespace WebWriterV2.FrontModels
             throw new Exception($"Unkow changeType {changeType}");
         }
     }
+
+    public class FrontEnumStateBasicType : FrontEnum
+    {
+        public FrontEnumStateBasicType() { }
+
+        public FrontEnumStateBasicType(object enumValue) : base(enumValue)
+        {
+            if (EnumType != typeof(StateBasicType).FullName)
+                throw new Exception("FrontEnumStateBasicType only for StateBasicType enum");
+            Name = ApplyLocalizationForName();
+        }
+
+        public string ApplyLocalizationForName()
+        {
+            StateBasicType basicType = (StateBasicType)Value;
+            switch (basicType)
+            {
+                case StateBasicType.Number:
+                    {
+                        return Localization.MainRu.Writer_BasicType_Number;
+                    }
+                case StateBasicType.Text:
+                    {
+                        return Localization.MainRu.Writer_BasicType_Text;
+                    }
+                case StateBasicType.Boolean:
+                    {
+                        return Localization.MainRu.Writer_BasicType_Boolean;
+                    }
+            }
+
+            throw new Exception($"Unkow changeType {basicType}");
+        }
+    }
 }

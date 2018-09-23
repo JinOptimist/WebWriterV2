@@ -250,6 +250,33 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Да/Нет.
+        /// </summary>
+        internal static string Writer_BasicType_Boolean {
+            get {
+                return ResourceManager.GetString("Writer_BasicType_Boolean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Число.
+        /// </summary>
+        internal static string Writer_BasicType_Number {
+            get {
+                return ResourceManager.GetString("Writer_BasicType_Number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Текст.
+        /// </summary>
+        internal static string Writer_BasicType_Text {
+            get {
+                return ResourceManager.GetString("Writer_BasicType_Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Нет.
         /// </summary>
         internal static string Writer_BooleanFalse {

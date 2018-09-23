@@ -36,7 +36,7 @@ namespace WebWriterV2.FrontModels
                 Chapters.Add(frontChapter);
             }
 
-            StateBasicTypes = EnumHelper.GetFrontEnumList(typeof(StateBasicType));
+            StateBasicTypes = EnumHelper.GetFrontEnumList<FrontEnumStateBasicType>(typeof(StateBasicType));
         }
 
         public string Name { get; set; }

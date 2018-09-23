@@ -180,6 +180,15 @@
   <data name="Writer_AddStateType" xml:space="preserve">
     <value>Добавить тип</value>
   </data>
+  <data name="Writer_BasicType_Boolean" xml:space="preserve">
+    <value>Да/Нет</value>
+  </data>
+  <data name="Writer_BasicType_Number" xml:space="preserve">
+    <value>Число</value>
+  </data>
+  <data name="Writer_BasicType_Text" xml:space="preserve">
+    <value>Текст</value>
+  </data>
   <data name="Writer_BooleanFalse" xml:space="preserve">
     <value>Нет</value>
   </data>

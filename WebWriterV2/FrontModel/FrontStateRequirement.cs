@@ -33,16 +33,16 @@ namespace WebWriterV2.FrontModels
                 RequirementType = (RequirementType)RequirementType.Value
             };
             switch (StateType.BasicType) {
-                case StateBasicType.boolean: {
+                case StateBasicType.Boolean: {
                         // convert to single format
                         stateRequirement.Text = bool.Parse(Value).ToString();
                         break;
                     }
-                case StateBasicType.number: {
+                case StateBasicType.Number: {
                         stateRequirement.Number = int.Parse(Value);
                         break;
                     }
-                case StateBasicType.text: {
+                case StateBasicType.Text: {
                         stateRequirement.Text = Value;
                         break;
                     }

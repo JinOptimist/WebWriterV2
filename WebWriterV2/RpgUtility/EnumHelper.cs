@@ -18,15 +18,7 @@ namespace WebWriterV2.RpgUtility
 
         public static List<FrontEnum> GetFrontEnumList(Type type)
         {
-            if (!type.IsEnum)
-                throw new ArgumentException("For a Enum only");
-
-            var list = new List<FrontEnum>();
-            foreach (var requirementType in Enum.GetValues(type)) {
-                list.Add(new FrontEnum(requirementType));
-            }
-
-            return list;
+            return GetFrontEnumList<FrontEnum>(type);
         }
 
         public static List<FrontEnum> GetFrontEnumList<T>(Type type) where T: FrontEnum
@@ -53,7 +45,7 @@ namespace WebWriterV2.RpgUtility
                 switch (changeType) {
                     case ChangeType.Add:
                     case ChangeType.Reduce: {
-                            if (basicType == StateBasicType.number) {
+                            if (basicType == StateBasicType.Number) {
                                 result.Add(changeType);
                             }
                             break;
@@ -80,7 +72,7 @@ namespace WebWriterV2.RpgUtility
                     case RequirementType.MoreOrEquals:
                     case RequirementType.Less:
                     case RequirementType.LessOrEquals: {
-                            if (basicType == StateBasicType.number) {
+                            if (basicType == StateBasicType.Number) {
                                 result.Add(changeType);
                             }
                             break;

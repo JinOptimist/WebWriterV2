@@ -33,16 +33,16 @@ namespace WebWriterV2.FrontModels
                 ChangeType = (ChangeType)ChangeType.Value
             };
             switch (StateType.BasicType) {
-                case StateBasicType.boolean: {
+                case StateBasicType.Boolean: {
                         // convert to single format
                         stateChange.Text = bool.Parse(Value).ToString();
                         break;
                     }
-                case StateBasicType.number: {
+                case StateBasicType.Number: {
                         stateChange.Number = int.Parse(Value);
                         break;
                     }
-                case StateBasicType.text: {
+                case StateBasicType.Text: {
                         stateChange.Text = Value;
                         break;
                     }

@@ -50,13 +50,13 @@ namespace WebWriterV2.RpgUtility
 
                 switch (change.StateType.BasicType)
                 {
-                    case StateBasicType.number:
+                    case StateBasicType.Number:
                         {
                             ApplyNumberChnage(travel, state, change);
                             break;
                         }
-                    case StateBasicType.boolean:
-                    case StateBasicType.text:
+                    case StateBasicType.Boolean:
+                    case StateBasicType.Text:
                         {
                             ApplyTextChnage(travel, state, change);
                             break;
@@ -67,7 +67,7 @@ namespace WebWriterV2.RpgUtility
 
         private static void ApplyNumberChnage(Travel travel, StateValue stateValue, StateChange change)
         {
-            if (change.StateType.BasicType != StateBasicType.number)
+            if (change.StateType.BasicType != StateBasicType.Number)
                 throw new Exception("Use this method only for StateBasicType.number");
             if (!stateValue.Value.HasValue)
                 stateValue.Value = 0;
@@ -99,8 +99,8 @@ namespace WebWriterV2.RpgUtility
 
         private static void ApplyTextChnage(Travel travel, StateValue stateValue, StateChange change)
         {
-            if (change.StateType.BasicType != StateBasicType.text
-                && change.StateType.BasicType != StateBasicType.boolean)
+            if (change.StateType.BasicType != StateBasicType.Text
+                && change.StateType.BasicType != StateBasicType.Boolean)
                 throw new Exception("Use this method only for StateBasicType.text");
 
             switch (change.ChangeType)
@@ -151,12 +151,12 @@ namespace WebWriterV2.RpgUtility
         {
             switch (requirement.StateType.BasicType)
             {
-                case StateBasicType.number:
+                case StateBasicType.Number:
                     {
                         return CheckNumberIsLinkAcceptable(actualStateValue, requirement);
                     }
-                case StateBasicType.text:
-                case StateBasicType.boolean:
+                case StateBasicType.Text:
+                case StateBasicType.Boolean:
                     {
                         return CheckTextOrBoolIsLinkAcceptable(actualStateValue, requirement);
                     }
@@ -166,7 +166,7 @@ namespace WebWriterV2.RpgUtility
 
         private static bool CheckNumberIsLinkAcceptable(StateValue actualStateValue, StateRequirement requirement)
         {
-            if (requirement.StateType.BasicType != StateBasicType.number)
+            if (requirement.StateType.BasicType != StateBasicType.Number)
                 throw new Exception("CheckNumberIsLinkAcceptable get not number requirement");
 
             switch (requirement.RequirementType)
@@ -227,8 +227,8 @@ namespace WebWriterV2.RpgUtility
 
         private static bool CheckTextOrBoolIsLinkAcceptable(StateValue actualStateValue, StateRequirement requirement)
         {
-            if (requirement.StateType.BasicType != StateBasicType.text
-                && requirement.StateType.BasicType != StateBasicType.boolean)
+            if (requirement.StateType.BasicType != StateBasicType.Text
+                && requirement.StateType.BasicType != StateBasicType.Boolean)
                 throw new Exception("CheckTextOrBoolIsLinkAcceptable get not text and not boolean requirement");
 
             switch (requirement.RequirementType)

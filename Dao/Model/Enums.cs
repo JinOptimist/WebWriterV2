@@ -32,8 +32,8 @@
 
     public enum StateBasicType
     {
-        number = 1,
-        text = 2,
-        boolean = 3,
+        Number = 1,
+        Text = 2,
+        Boolean = 3,
     }
 }
