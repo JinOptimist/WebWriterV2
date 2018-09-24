@@ -1,12 +1,13 @@
 angular.module('rpg')
 
     .controller('chapterController', [
-        '$scope', '$routeParams', '$location', '$cookies', '$q', 'chapterService', 'stateService',
-        'userService', '$mdDialog', 'chapterId',
-        function ($scope, $routeParams, $location, $cookies, $q, chapterService, stateService,
-            userService, $mdDialog, chapterId) {
+        '$scope', '$routeParams', '$location', '$cookies', '$q', '$mdDialog', 'ConstCookies',
+            'chapterService', 'stateService', 'userService', 'chapterId',
+        function ($scope, $routeParams, $location, $cookies, $q, $mdDialog, ConstCookies,
+            chapterService, stateService, userService, chapterId) {
 
             $scope.chapterLinks = [];
+            $scope.user = {};
             $scope.chapter = null;
             $scope.wait = true;
             $scope.resources = resources;
@@ -144,7 +145,7 @@ angular.module('rpg')
                     } else {
                         $scope.chapterLinks.push(savedChapterLink);
                     }
-                    
+
                     if (form) {
                         form.$setPristine();
                         form.$setUntouched();
@@ -163,13 +164,20 @@ angular.module('rpg')
             function init() {
                 var chapterPromise = chapterService.get(chapterId);
                 var linksPromise = chapterService.getLinksFromChapter(chapterId);
-                
+
                 $q.all([chapterPromise, linksPromise]).then(function (data) {
                     $scope.chapterLinks = data[1];
-                    
+
                     var chapter = data[0];
                     loadChapter(chapter);
                 });
+
+                var userId = $cookies.get(ConstCookies.userId);
+                if (userId) {
+                    userService.getById(userId).then(function (user) {
+                        $scope.user = user;
+                    });
+                }
             }
         }
     ]);

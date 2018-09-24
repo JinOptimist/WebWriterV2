@@ -21,6 +21,8 @@ namespace Dao.Model
 
         public UserType UserType { get; set; } = UserType.Reader;
 
+        public bool ShowExtendedFunctionality { get; set; }
+
         public string AvatarUrl { get; set; }
 
         public virtual List<Travel> MyTravels { get; set; }

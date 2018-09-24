@@ -1,7 +1,9 @@
 angular.module('rpg')
 
-    .controller('profileController', ['$scope', '$cookies', '$location', '$uibModal', 'ConstCookies', 'bookService', 'userService', 'travelService',
-        function ($scope, $cookies, $location, $uibModal, ConstCookies, bookService, userService, travelService) {
+    .controller('profileController', ['$scope', '$cookies', '$location', '$uibModal',
+        'ConstCookies', 'bookService', 'userService', 'travelService',
+        function ($scope, $cookies, $location, $uibModal,
+            ConstCookies, bookService, userService, travelService) {
 
             $scope.user = {};
             $scope.travels = [];
@@ -29,6 +31,13 @@ angular.module('rpg')
                 travelService.remove(travelId).then(function () {
                     $scope.travels.splice(index, 1);
                 });
+            }
+
+            $scope.updateShowExtendedFunctionality = function () {
+                userService.updateShowExtendedFunctionality($scope.user.Id, $scope.user.ShowExtendedFunctionality)
+                    .then(function (showExtendedFunctionality) {
+                        $scope.user.ShowExtendedFunctionality = showExtendedFunctionality;
+                    });
             }
 
             function init() {

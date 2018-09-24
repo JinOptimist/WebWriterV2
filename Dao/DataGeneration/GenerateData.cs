@@ -314,61 +314,61 @@ namespace Dao.DataGeneration
             return list;
         }
 
-        public static List<StateType> GenerateStateTypes()
-        {
-            var stateTypes = new List<StateType>();
+        //public static List<StateType> GenerateStateTypes()
+        //{
+        //    var stateTypes = new List<StateType>();
 
-            stateTypes.Add(new StateType
-            {
-                Name = MaxHp,
-                Desc = "Сколько куриц не ешь, больше жизней в тебя просто не вместится",
-            });
+        //    stateTypes.Add(new StateType
+        //    {
+        //        Name = MaxHp,
+        //        Desc = "Сколько куриц не ешь, больше жизней в тебя просто не вместится",
+        //    });
 
-            stateTypes.Add(new StateType
-            {
-                Name = MaxMp,
-                Desc = "Сколько зелей не пей, больше маны в тебя просто не вместится",
-            });
+        //    stateTypes.Add(new StateType
+        //    {
+        //        Name = MaxMp,
+        //        Desc = "Сколько зелей не пей, больше маны в тебя просто не вместится",
+        //    });
 
-            stateTypes.Add(new StateType
-            {
-                Name = Hp,
-                Desc = "Опустить до нуля и ты труп",
-            });
+        //    stateTypes.Add(new StateType
+        //    {
+        //        Name = Hp,
+        //        Desc = "Опустить до нуля и ты труп",
+        //    });
 
-            stateTypes.Add(new StateType
-            {
-                Name = Mp,
-                Desc = "Нет маны, нет заклинаний",
-            });
+        //    stateTypes.Add(new StateType
+        //    {
+        //        Name = Mp,
+        //        Desc = "Нет маны, нет заклинаний",
+        //    });
 
-            stateTypes.Add(new StateType
-            {
-                Name = Gold,
-                Desc = "Все любят золото, однако некоторые просто сходят по нему с ума",
-            });
+        //    stateTypes.Add(new StateType
+        //    {
+        //        Name = Gold,
+        //        Desc = "Все любят золото, однако некоторые просто сходят по нему с ума",
+        //    });
 
-            stateTypes.Add(new StateType {
-                Name = Strength,
-                Desc = "Сила есть ума не надо",
-            });
-            stateTypes.Add(new StateType {
-                Name = Agility,
-                Desc = "А ты сможешь удержать яйцо на иголке?",
-            });
-            stateTypes.Add(new StateType {
-                Name = Charism,
-                Desc = "Красота страшная сила",
-            });
+        //    stateTypes.Add(new StateType {
+        //        Name = Strength,
+        //        Desc = "Сила есть ума не надо",
+        //    });
+        //    stateTypes.Add(new StateType {
+        //        Name = Agility,
+        //        Desc = "А ты сможешь удержать яйцо на иголке?",
+        //    });
+        //    stateTypes.Add(new StateType {
+        //        Name = Charism,
+        //        Desc = "Красота страшная сила",
+        //    });
 
-            stateTypes.Add(new StateType {
-                Name = DefaultStateTypeName,
-                Desc = "Заглушка. Используется для пометки пройденных глав",
-                HideFromReader = true
-            });
+        //    stateTypes.Add(new StateType {
+        //        Name = DefaultStateTypeName,
+        //        Desc = "Заглушка. Используется для пометки пройденных глав",
+        //        HideFromReader = true
+        //    });
 
-            return stateTypes;
-        }
+        //    return stateTypes;
+        //}
 
         public static List<Genre> GenerateGenres()
         {

@@ -96,5 +96,13 @@ namespace WebWriterV2.Controllers
             return new { User.AvatarUrl };
         }
 
+        [AcceptVerbs("GET")]
+        public bool UpdateShowExtendedFunctionality(int userId, bool showExtendedFunctionality)
+        {
+            var user = UserRepository.Get(userId);
+            user.ShowExtendedFunctionality = showExtendedFunctionality;
+            UserRepository.Save(user);
+            return showExtendedFunctionality;
+        }
     }
 }

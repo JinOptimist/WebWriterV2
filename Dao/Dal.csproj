@@ -151,6 +151,10 @@
     <Compile Include="Migrations\201809200831377_BookHasStates.Designer.cs">
       <DependentUpon>201809200831377_BookHasStates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201809241139197_AddShowExtendedFunctionality.cs" />
+    <Compile Include="Migrations\201809241139197_AddShowExtendedFunctionality.Designer.cs">
+      <DependentUpon>201809241139197_AddShowExtendedFunctionality.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Tag.cs" />
@@ -241,6 +245,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809200831377_BookHasStates.resx">
       <DependentUpon>201809200831377_BookHasStates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201809241139197_AddShowExtendedFunctionality.resx">
+      <DependentUpon>201809241139197_AddShowExtendedFunctionality.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

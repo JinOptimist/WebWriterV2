@@ -24,11 +24,11 @@ namespace Dao.Migrations
 
             context.SaveChanges();
 
-            admin = context.Users.Single(x => x.Name == admin.Name);
+            //admin = context.Users.Single(x => x.Name == admin.Name);
 
-            var stateTypes = GenerateData.GenerateStateTypes();
-            stateTypes.ForEach(x => x.Owner = admin);
-            context.StateTypes.AddOrUpdate(x => x.Name, stateTypes.ToArray());
+            //var stateTypes = GenerateData.GenerateStateTypes();
+            //stateTypes.ForEach(x => x.Owner = admin);
+            //context.StateTypes.AddOrUpdate(x => x.Name, stateTypes.ToArray());
 
             var genres = GenerateData.GenerateGenres();
             context.Genres.AddOrUpdate(x => x.Name, genres.ToArray());

@@ -10,6 +10,7 @@
             uploadAvatar: uploadAvatar,
             getCurrentUserId: getCurrentUserId,
             getById: getById,
+            updateShowExtendedFunctionality: updateShowExtendedFunctionality,
 
             /* may be old */
             addBookmark: addBookmark,
@@ -60,6 +61,15 @@
                 userId: userId
             };
             return httpHelper.post(url, data);
+        }
+
+        function updateShowExtendedFunctionality(userId, showExtendedFunctionality) {
+            var url = '/api/user/UpdateShowExtendedFunctionality';
+            var data = {
+                userId: userId,
+                showExtendedFunctionality: showExtendedFunctionality
+            };
+            return httpHelper.get(url, data);
         }
 
         function addBookmark(eventId, heroJson) {

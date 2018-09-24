@@ -20,98 +20,100 @@
             <div class="chapter-link" ng-repeat="chapterLink in chapterLinks">
                 <div class="text">
                     <input ng-model="chapterLink.Text" class="no-border" ng-blur="updateChpaterLink(chapterLink)" tabindex="{{ 6 + $index}}" />
-                    <hr />
-                    <p>
-                        {{resources.Writer_RequirementTitle}}:
-                    </p>
-                    <p ng-repeat="requirement in chapterLink.Requirements">
-                        <span>{{requirement.StateType.Name}}</span>
-                        <span class="changeType">{{requirement.RequirementType.Name}}</span>
+                    <div ng-if="user && user.ShowExtendedFunctionality">
+                        <hr />
+                        <p>
+                            {{resources.Writer_RequirementTitle}}:
+                        </p>
+                        <p ng-repeat="requirement in chapterLink.Requirements">
+                            <span>{{requirement.StateType.Name}}</span>
+                            <span class="changeType">{{requirement.RequirementType.Name}}</span>
 
-                        <!-- BasicType.boolean == 3 -->
-                        <span ng-show="requirement.RequirementType.Value != 5
+                            <!-- BasicType.boolean == 3 -->
+                            <span ng-show="requirement.RequirementType.Value != 5
                                     && requirement.RequirementType.Value != 6
                                     && requirement.StateType.BasicType != 3">
-                            {{requirement.Value}}
-                        </span>
-                        <span ng-show="requirement.RequirementType.Value != 5
+                                {{requirement.Value}}
+                            </span>
+                            <span ng-show="requirement.RequirementType.Value != 5
                                     && requirement.RequirementType.Value != 6
                                     && requirement.StateType.BasicType == 3">
-                            {{requirement.Value == 'True' ? resources.Writer_BooleanTrue : resources.Writer_BooleanFalse }}
-                        </span>
+                                {{requirement.Value == 'True' ? resources.Writer_BooleanTrue : resources.Writer_BooleanFalse }}
+                            </span>
 
-                        <a href="#" ng-click="removeRequirement(chapterLink, requirement.Id, $index)">X</a>
-                    </p>
-                    <p class="variable-action">
-                        <select ng-model="chapterLink.newRequirement.StateType"
-                                ng-options="stateType as stateType.Name for stateType in chapter.StateTypes"
-                                ng-change="updateRequirementType(chapterLink)"></select>
+                            <a href="#" ng-click="removeRequirement(chapterLink, requirement.Id, $index)">X</a>
+                        </p>
+                        <p class="variable-action">
+                            <select ng-model="chapterLink.newRequirement.StateType"
+                                    ng-options="stateType as stateType.Name for stateType in chapter.StateTypes"
+                                    ng-change="updateRequirementType(chapterLink)"></select>
 
-                        <select ng-model="chapterLink.newRequirement.RequirementType.Value"
-                                ng-options="requirementType.Value as requirementType.Name for requirementType in chapterLink.RequirementTypes"></select>
+                            <select ng-model="chapterLink.newRequirement.RequirementType.Value"
+                                    ng-options="requirementType.Value as requirementType.Name for requirementType in chapterLink.RequirementTypes"></select>
 
-                        <!-- RequirementType.Exist == 5 -->
-                        <!-- RequirementType.NotExist == 6 -->
-                        <!-- BasicType.number == 1 -->
-                        <!-- BasicType.boolean == 3 -->
-                        <input type="{{ chapterLink.newRequirement.StateType.BasicType ==  1 ? 'number' : 'text' }}"
-                               ng-model="chapterLink.newRequirement.Value"
-                               ng-if="chapterLink.newRequirement.RequirementType.Value != 5
+                            <!-- RequirementType.Exist == 5 -->
+                            <!-- RequirementType.NotExist == 6 -->
+                            <!-- BasicType.number == 1 -->
+                            <!-- BasicType.boolean == 3 -->
+                            <input type="{{ chapterLink.newRequirement.StateType.BasicType ==  1 ? 'number' : 'text' }}"
+                                   ng-model="chapterLink.newRequirement.Value"
+                                   ng-if="chapterLink.newRequirement.RequirementType.Value != 5
                                     && chapterLink.newRequirement.RequirementType.Value != 6
                                     && chapterLink.newRequirement.StateType.BasicType != 3" />
-                        <select ng-model="chapterLink.newRequirement.Value"
-                                ng-if="chapterLink.newRequirement.RequirementType.Value != 5
+                            <select ng-model="chapterLink.newRequirement.Value"
+                                    ng-if="chapterLink.newRequirement.RequirementType.Value != 5
                                     && chapterLink.newRequirement.RequirementType.Value != 6
                                     && chapterLink.newRequirement.StateType.BasicType == 3">
-                            <option value="True">{{resources.Writer_BooleanTrue}}</option>
-                            <option value="False">{{resources.Writer_BooleanFalse}}</option>
-                        </select>
-                        <input type="button" value="+" ng-click="saveNewRequirement(chapterLink)" />
-                    </p>
-                    <hr />
-                    <p>
-                        {{resources.Writer_ChangeTitle}}:
-                    </p>
-                    <p ng-repeat="change in chapterLink.Changes">
-                        <span>
-                            {{change.StateType.Name}}
-                        </span>
-                        <span class="changeType">{{change.ChangeType.Name}}</span>
-                        <!-- BasicType.boolean == 3 -->
-                        <span ng-show="change.ChangeType.Value != 4
+                                <option value="True">{{resources.Writer_BooleanTrue}}</option>
+                                <option value="False">{{resources.Writer_BooleanFalse}}</option>
+                            </select>
+                            <input type="button" value="+" ng-click="saveNewRequirement(chapterLink)" />
+                        </p>
+                        <hr />
+                        <p>
+                            {{resources.Writer_ChangeTitle}}:
+                        </p>
+                        <p ng-repeat="change in chapterLink.Changes">
+                            <span>
+                                {{change.StateType.Name}}
+                            </span>
+                            <span class="changeType">{{change.ChangeType.Name}}</span>
+                            <!-- BasicType.boolean == 3 -->
+                            <span ng-show="change.ChangeType.Value != 4
                                     && change.StateType.BasicType != 3">
-                            {{change.Value}}
-                        </span>
-                        <span ng-show="change.ChangeType.Value != 4
+                                {{change.Value}}
+                            </span>
+                            <span ng-show="change.ChangeType.Value != 4
                                     && change.StateType.BasicType == 3">
-                            {{change.Value == 'True' ? resources.Writer_BooleanTrue : resources.Writer_BooleanFalse }}
-                        </span>
-                        <a href="#" ng-click="removeChange(chapterLink, change.Id, $index)">X</a>
-                    </p>
-                    <p class="variable-action">
-                        <select ng-model="chapterLink.newChange.StateType"
-                                ng-options="stateType as stateType.Name for stateType in chapter.StateTypes"
-                                ng-change="updateChangeType(chapterLink)"></select>
+                                {{change.Value == 'True' ? resources.Writer_BooleanTrue : resources.Writer_BooleanFalse }}
+                            </span>
+                            <a href="#" ng-click="removeChange(chapterLink, change.Id, $index)">X</a>
+                        </p>
+                        <p class="variable-action">
+                            <select ng-model="chapterLink.newChange.StateType"
+                                    ng-options="stateType as stateType.Name for stateType in chapter.StateTypes"
+                                    ng-change="updateChangeType(chapterLink)"></select>
 
-                        <select ng-model="chapterLink.newChange.ChangeType.Value"
-                                ng-options="changeType.Value as changeType.Name for changeType in chapterLink.ChangeTypes"></select>
+                            <select ng-model="chapterLink.newChange.ChangeType.Value"
+                                    ng-options="changeType.Value as changeType.Name for changeType in chapterLink.ChangeTypes"></select>
 
-                        <!-- ChangeType.Remove == 4 -->
-                        <!-- BasicType.number == 1 -->
-                        <!-- BasicType.boolean == 3 -->
-                        <input type="{{ chapterLink.newChange.StateType.BasicType ==  1 ? 'number' : 'text' }}"
-                               ng-model="chapterLink.newChange.Value"
-                               ng-if="chapterLink.newChange.ChangeType.Value != 4
+                            <!-- ChangeType.Remove == 4 -->
+                            <!-- BasicType.number == 1 -->
+                            <!-- BasicType.boolean == 3 -->
+                            <input type="{{ chapterLink.newChange.StateType.BasicType ==  1 ? 'number' : 'text' }}"
+                                   ng-model="chapterLink.newChange.Value"
+                                   ng-if="chapterLink.newChange.ChangeType.Value != 4
                                     && chapterLink.newChange.StateType.BasicType != 3" />
-                        <select ng-model="chapterLink.newChange.Value"
-                                ng-if="chapterLink.newChange.ChangeType.Value != 4
+                            <select ng-model="chapterLink.newChange.Value"
+                                    ng-if="chapterLink.newChange.ChangeType.Value != 4
                                     && chapterLink.newChange.StateType.BasicType == 3">
-                            <option value="True">{{resources.Writer_BooleanTrue}}</option>
-                            <option value="False">{{resources.Writer_BooleanFalse}}</option>
-                        </select>
+                                <option value="True">{{resources.Writer_BooleanTrue}}</option>
+                                <option value="False">{{resources.Writer_BooleanFalse}}</option>
+                            </select>
 
-                        <input type="button" value="+" ng-click="saveNewChange(chapterLink)" />
-                    </p>
+                            <input type="button" value="+" ng-click="saveNewChange(chapterLink)" />
+                        </p>
+                    </div>
                 </div>
                 <div class="action-button">
                     <p>

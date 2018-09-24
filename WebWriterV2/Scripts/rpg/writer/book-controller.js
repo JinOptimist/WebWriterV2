@@ -2,9 +2,9 @@
 angular.module('rpg')
 .controller('writerBookController', [
     '$scope', '$routeParams', '$location', '$window', '$cookies', '$mdDialog', 'ConstCookies',
-        'bookService', 'chapterService', 'stateService',
+        'bookService', 'chapterService', 'stateService', 'userService',
     function ($scope, $routeParams, $location, $window, $cookies, $mdDialog, ConstCookies,
-        bookService, chapterService, stateService) {
+        bookService, chapterService, stateService, userService) {
 
         var step = 0.1;
         var scale = 1.0;
@@ -12,6 +12,7 @@ angular.module('rpg')
         $scope.book = null;
         $scope.resources = resources;
         $scope.newStateType = {};
+        $scope.user = {};
 
         var width = $window.innerWidth;
         var height = $window.innerHeight - 70;
@@ -145,6 +146,13 @@ angular.module('rpg')
             var bookId = $routeParams.bookId;
 
             loadChaptersV2(bookId);
+
+            var userId = $cookies.get(ConstCookies.userId);
+            if (userId) {
+                userService.getById(userId).then(function (user) {
+                    $scope.user = user;
+                });
+            }
 
             document.onkeydown = function (e) {
                 $scope.$apply(documentKeyPressed(e));

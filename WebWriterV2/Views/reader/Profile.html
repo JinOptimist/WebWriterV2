@@ -9,6 +9,14 @@
             <input type="button" ng-click="uploadAvatar()" value="upload new avatar" />
         </p>
     </div>
+    <!--ng-if="user.IsWriter"-->
+    <div>
+        Как автор я хочу видеть рассширенную функциональность:
+        <input type="checkbox"
+               ng-model="user.ShowExtendedFunctionality"
+               ng-change="updateShowExtendedFunctionality()"/>
+        
+    </div>
     <div>
         <h2>Мои путешествия</h2>
         <div ng-repeat="travel in travels">
