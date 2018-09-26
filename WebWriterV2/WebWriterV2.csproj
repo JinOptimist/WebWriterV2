@@ -206,6 +206,7 @@
       <DependentUpon>MainRu.resx</DependentUpon>
     </Compile>
     <Compile Include="RpgUtility\Dto\VkAccess.cs" />
+    <Compile Include="RpgUtility\ElChel.cs" />
     <Compile Include="RpgUtility\EmailHelper.cs" />
     <Compile Include="RpgUtility\EnumHelper.cs" />
     <Compile Include="RpgUtility\StateHelper.cs" />

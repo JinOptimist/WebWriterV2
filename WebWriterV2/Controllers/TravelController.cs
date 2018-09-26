@@ -55,10 +55,10 @@ namespace WebWriterV2.Controllers
 
             travel = TravelRepository.GetByBookAndUser(bookId, User.Id);
             if (travel == null) {
-                travel = new Travel {
+                travel = new Travel() {
                     Reader = User,
                     StartTime = DateTime.Now,
-                    Book = book,
+                    Book = book
                 };
                 travel = TravelRepository.Save(travel);
 
@@ -92,27 +92,10 @@ namespace WebWriterV2.Controllers
                 PrevStep = travel.CurrentStep
             };
             TravelStepRepository.Save(newStep);
-
             travel.CurrentStep = newStep;
 
-            //var changes = link.StateChanging.SingleOrDefault();
-            //if (changes != null) {
-
-            //    if (changes.Text == "УДАЛИТЬ") {
-            //        travel.State.Clear();
-            //    } else {
-            //        var defaultStateType = StateTypeRepository.GetDefault();
-            //        travel.State.Add(new StateValue() {
-            //            Travel = travel,
-            //            Text = changes.Text,
-            //            StateType = defaultStateType
-            //        });
-            //    }
-            //}
             StateHelper.ApplyChangeToTravel(travel, link.StateChanging);
-
             TravelRepository.Save(travel);
-
             return new FrontTravel(travel, newStep);
         }
 

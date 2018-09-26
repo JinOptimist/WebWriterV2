@@ -93,8 +93,14 @@ var drawShapes = (function () {
         return imageItem;
     }
 
-    function drawText(chapter) {
-        var text = chapter.Name;
+    function drawText(chapter, user) {
+        var text = chapter.Name 
+            ? chapter.Name +
+                 (user.ShowExtendedFunctionality
+                     ? ' (' + chapter.StatisticOfVisiting + '%)'
+                     : '')
+            : '';
+
         var textItem = new Konva.Text({
             x: Const.ButtonSize.Padding * 2 + Const.ButtonSize.Radius,// regarding the group coordinate 
             y: Const.ButtonSize.Padding,

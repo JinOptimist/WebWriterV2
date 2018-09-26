@@ -14,6 +14,7 @@ var bookMap = (function () {
     var frontChapters = [];
     var fakeChapterId = -1;
     var fronBook = {};
+    var user = {};
 
     /* ******************************* events ******************************* */
     function onAddChapterClick(obj) {
@@ -331,7 +332,7 @@ var bookMap = (function () {
         cursorPointerHelper(mainButton);
         group.add(mainButton);
 
-        var textShape = drawShapes.drawText(chapter);
+        var textShape = drawShapes.drawText(chapter, user);
         group.add(textShape);
 
         layer.add(group);
@@ -550,7 +551,8 @@ var bookMap = (function () {
     }
 
     /* public functions */
-    function start(book, _actions, _canvasSize) {
+    function start(book, _actions, _canvasSize, _user) {
+        user = _user;
         fronBook = book;
         frontChapters = book.Chapters;
         actions = _actions;

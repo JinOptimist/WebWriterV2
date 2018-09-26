@@ -62,6 +62,8 @@ namespace WebWriterV2.FrontModels
 
         public List<long> ParentsIds { get; set; }
 
+        public int StatisticOfVisiting { get; set; }
+
         public override Chapter ToDbModel()
         {
             var book = new Book() { Id = BookId };

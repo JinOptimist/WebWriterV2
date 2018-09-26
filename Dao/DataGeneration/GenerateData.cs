@@ -386,7 +386,8 @@ namespace Dao.DataGeneration
                 Password = "admin",
                 Email = "88jin@mail.ru",
                 AvatarUrl = "/Content/avatar/1.jpeg",
-                UserType = UserType.Admin
+                UserType = UserType.Admin,
+                ShowExtendedFunctionality = true
             };
         }
     }

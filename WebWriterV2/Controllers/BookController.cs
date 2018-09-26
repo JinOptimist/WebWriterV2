@@ -9,6 +9,7 @@ using System.Net;
 using System.Web.Http;
 using WebWriterV2.DI;
 using WebWriterV2.FrontModels;
+using WebWriterV2.RpgUtility;
 using WebWriterV2.VkUtility;
 
 namespace WebWriterV2.Controllers
@@ -198,8 +199,17 @@ namespace WebWriterV2.Controllers
             return frontBook;
         }
 
-        
-        
+
+		//Just for test
+        [AcceptVerbs("GET")]
+        public List<FrontChapter> StatisticOfVisiting(long bookId)
+        {
+            var book = BookRepository.Get(bookId);
+            var elChel = new ElChel(book);
+            return elChel.StatisticOfVisitingAllWay();
+        }
+
+
 
 
 

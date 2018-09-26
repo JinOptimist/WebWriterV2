@@ -1,9 +1,9 @@
 
 angular.module('rpg')
 .controller('writerBookController', [
-    '$scope', '$routeParams', '$location', '$window', '$cookies', '$mdDialog', 'ConstCookies',
+    '$scope', '$routeParams', '$location', '$window', '$cookies', '$mdDialog', '$q', 'ConstCookies',
         'bookService', 'chapterService', 'stateService', 'userService',
-    function ($scope, $routeParams, $location, $window, $cookies, $mdDialog, ConstCookies,
+    function ($scope, $routeParams, $location, $window, $cookies, $mdDialog, $q, ConstCookies,
         bookService, chapterService, stateService, userService) {
 
         var step = 0.1;
@@ -14,11 +14,9 @@ angular.module('rpg')
         $scope.newStateType = {};
         $scope.user = {};
 
-        var width = $window.innerWidth;
-        var height = $window.innerHeight - 70;
         $scope.canvas = {
-            width: width,
-            height: height
+            width: $window.innerWidth,
+            height: $window.innerHeight
         };
 
         init();
@@ -119,8 +117,8 @@ angular.module('rpg')
             setTimeout(function () { $scope.$apply(); }, 1);
         }
 
-        function loadChaptersV2(bookId) {
-            var actions = {
+        function getActions() {
+            return {
                 moveToEditChapter: moveToEditChapter,
                 addChapter: addChapter,
                 remove: remove,
@@ -128,11 +126,6 @@ angular.module('rpg')
                 removeLink: removeLink,
                 validate: validate
             };
-
-            bookService.getWithChaptersV2(bookId).then(function (book) {
-                $scope.book = book;
-                bookMap.start(book, actions, $scope.canvas)
-            });
         }
 
         function documentKeyPressed(e) {
@@ -143,16 +136,21 @@ angular.module('rpg')
         }
 
         function init() {
-            var bookId = $routeParams.bookId;
-
-            loadChaptersV2(bookId);
-
             var userId = $cookies.get(ConstCookies.userId);
-            if (userId) {
-                userService.getById(userId).then(function (user) {
-                    $scope.user = user;
-                });
-            }
+            var userPromise = userService.getById(userId);
+
+            var bookId = $routeParams.bookId;
+            var actions = getActions();
+            var bookPromise = bookService.getWithChaptersV2(bookId);
+
+            $q.all([bookPromise, userPromise]).then(function (data) {
+                $scope.user = data[1];
+
+                $scope.canvas.height -= ($scope.user.ShowExtendedFunctionality ? 180 : 120);
+
+                $scope.book = data[0];
+                bookMap.start(data[0], actions, $scope.canvas, $scope.user);
+            });
 
             document.onkeydown = function (e) {
                 $scope.$apply(documentKeyPressed(e));

@@ -23,6 +23,10 @@ namespace WebWriterV2.FrontModels
             book.AllChapters.ForEach(x => x.Level = 0);
             var maxDepth = SetDepth(book.RootChapter, 1, new List<Chapter>());
 
+            var elChel = new ElChel(book);
+            //var elChapters = elChel.StatisticOfVisitingAllWay();
+            var elChapters = elChel.StatisticOfVisiting100Random();
+
             Chapters = new List<FrontChapter>();
             foreach (var chapter in book.AllChapters.Where(x => x.Level > 0)) {
                 var frontChapter = new FrontChapter(chapter);
@@ -32,7 +36,7 @@ namespace WebWriterV2.FrontModels
                 }
 
                 frontChapter.ParentsIds = GetParentIds(chapter, new List<long>());
-
+                frontChapter.StatisticOfVisiting = elChapters.Single(x => x.Id == frontChapter.Id).StatisticOfVisiting;
                 Chapters.Add(frontChapter);
             }
 
