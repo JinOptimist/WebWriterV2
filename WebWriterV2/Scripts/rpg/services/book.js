@@ -11,7 +11,8 @@
             saveBook: saveBook,
             getRootChapter: getRootChapter,
             remove: remove,
-            publishBook: publishBook
+            publishBook: publishBook,
+            addView: addView
         };
 
         function saveBook(book) {
@@ -70,6 +71,14 @@
             var data = {
                 bookId: bookId,
                 newValue: newValue
+            };
+            return httpHelper.get(url, data);
+        }
+
+        function addView(bookId) {
+            var url = '/api/book/addView';
+            var data = {
+                bookId: bookId
             };
             return httpHelper.get(url, data);
         }

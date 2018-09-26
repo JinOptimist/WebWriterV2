@@ -13,6 +13,11 @@ angular.module('rpg')
 
             $scope.goToTravel = function (book) {
                 var userId = userService.getCurrentUserId();
+                // if guest try read book or user start book from the very begining add one view for book
+                if (!userId || !book.IsReaded) {
+                    bookService.addView(book.Id);
+                }
+
                 if (userId) {
                     travelService.getByBook(book.Id).then(function (travel) {
                         $location.path('/ar/reader/travel/' + travel.Id + '/' + travel.CurrentStepId);

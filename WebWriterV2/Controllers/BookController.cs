@@ -180,6 +180,15 @@ namespace WebWriterV2.Controllers
             return true;
         }
 
+        [AcceptVerbs("GET")]
+        public int AddView(long bookId)
+        {
+            var book = BookRepository.Get(bookId);
+            book.Views++;
+            BookRepository.Save(book);
+            return book.Views;
+        }
+
         //EXPEREMENAL
         [AcceptVerbs("GET")]
         public FrontBookWithChapters GetWithChaptersRoadmap(long id)
