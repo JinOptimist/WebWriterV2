@@ -44,8 +44,11 @@ angular.module('rpg')
             });
         }
 
-        $scope.removeStateType = function (stateTypeId, index) {
-            stateService.removeStateType(stateTypeId).then(function () {
+        $scope.removeStateType = function (stateType, index) {
+            if (!confirm(resources.Writer_StateTypeRemoveConfirm.format(stateType.Name))) {
+                return false;
+            }
+            stateService.removeStateType(stateType.Id).then(function () {
                 $scope.book.States.splice(index, 1);
             });
         }

@@ -85,6 +85,10 @@ angular.module('rpg')
             }
 
             $scope.removeRequirement = function (chapterLink, requirementId, index) {
+                if (!confirm(resources.Writer_RequirementRemoveConfirm)) {
+                    return false;
+                }
+
                 stateService.removeStateRequirement(requirementId).then(function () {
                     chapterLink.Requirements.splice(index, 1);
                 });
@@ -121,6 +125,10 @@ angular.module('rpg')
             }
 
             $scope.removeChange = function (chapterLink, changeId, index) {
+                if (!confirm(resources.Writer_ChangeRemoveConfirm)) {
+                    return false;
+                }
+
                 stateService.removeStateChange(changeId).then(function () {
                     chapterLink.Changes.splice(index, 1);
                 });

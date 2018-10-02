@@ -295,6 +295,15 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вы уверены что хотите удалить изменения состояния?.
+        /// </summary>
+        internal static string Writer_ChangeRemoveConfirm {
+            get {
+                return ResourceManager.GetString("Writer_ChangeRemoveConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Изменения состояния в случае выбора.
         /// </summary>
         internal static string Writer_ChangeTitle {
@@ -448,6 +457,15 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вы уверены что хотите удалить условия видимости?.
+        /// </summary>
+        internal static string Writer_RequirementRemoveConfirm {
+            get {
+                return ResourceManager.GetString("Writer_RequirementRemoveConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Условий для видимости данно выбора.
         /// </summary>
         internal static string Writer_RequirementTitle {
@@ -552,6 +570,15 @@ namespace WebWriterV2.Localization {
         internal static string Writer_StatePublished {
             get {
                 return ResourceManager.GetString("Writer_StatePublished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы уверены что хотите удалить переменную &quot;{0}&quot; и все связанные с ней условия видимости, а так же изменения состояния?.
+        /// </summary>
+        internal static string Writer_StateTypeRemoveConfirm {
+            get {
+                return ResourceManager.GetString("Writer_StateTypeRemoveConfirm", resourceCulture);
             }
         }
         

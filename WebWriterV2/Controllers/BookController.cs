@@ -169,6 +169,7 @@ namespace WebWriterV2.Controllers
         public FrontStateType AddState(FrontStateType fontStateType)
         {
             var stateType = fontStateType.ToDbModel();
+
             stateType = StateTypeRepository.Save(stateType);
             fontStateType = new FrontStateType(stateType);
             return fontStateType;
@@ -210,8 +211,14 @@ namespace WebWriterV2.Controllers
         }
 
 
-
-
+        [AcceptVerbs("GET")]
+        public string ClearFakeStateType()
+        {
+            var states = StateTypeRepository.GetAll().Where(x => x.BasicType == 0);
+            var count = states.Count();
+            StateTypeRepository.Remove(states);
+            return $"Good job. I remove {count} states";
+        }
 
 
 

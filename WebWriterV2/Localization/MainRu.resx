@@ -195,6 +195,9 @@
   <data name="Writer_BooleanTrue" xml:space="preserve">
     <value>Да</value>
   </data>
+  <data name="Writer_ChangeRemoveConfirm" xml:space="preserve">
+    <value>Вы уверены что хотите удалить изменения состояния?</value>
+  </data>
   <data name="Writer_ChangeTitle" xml:space="preserve">
     <value>Изменения состояния в случае выбора</value>
   </data>
@@ -246,6 +249,9 @@
   <data name="Writer_RemoveBook" xml:space="preserve">
     <value>Удалить книгу</value>
   </data>
+  <data name="Writer_RequirementRemoveConfirm" xml:space="preserve">
+    <value>Вы уверены что хотите удалить условия видимости?</value>
+  </data>
   <data name="Writer_RequirementTitle" xml:space="preserve">
     <value>Условий для видимости данно выбора</value>
   </data>
@@ -281,6 +287,9 @@
   </data>
   <data name="Writer_StatePublished" xml:space="preserve">
     <value>Опубликована</value>
+  </data>
+  <data name="Writer_StateTypeRemoveConfirm" xml:space="preserve">
+    <value>Вы уверены что хотите удалить переменную "{0}" и все связанные с ней условия видимости, а так же изменения состояния?</value>
   </data>
   <data name="Writer_StateTypeTitle" xml:space="preserve">
     <value>Переменные доступные в книге</value>

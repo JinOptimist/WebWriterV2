@@ -32,6 +32,8 @@ namespace WebWriterV2.FrontModels
 
         public override StateType ToDbModel()
         {
+            if (BasicType == 0)
+                throw new System.Exception("BasicType == 0. Impossible!");
             return new StateType {
                 Id = Id,
                 Name = Name,

@@ -20,7 +20,7 @@
                 {{resources.Writer_StateTypeTitle}}
             </span>
             <span ng-repeat="stateType in book.States">
-                | {{stateType.Name}}: {{stateType.FrontEnumBasicType.Name}} <a href="#" ng-click="removeStateType(stateType.Id, $index)">X</a>
+                | {{stateType.Name}}: {{stateType.FrontEnumBasicType.Name}} <a href="#" ng-click="removeStateType(stateType, $index)">X</a>
             </span>
             <p>
                 <input type="text" ng-model="newStateType.Name" />
