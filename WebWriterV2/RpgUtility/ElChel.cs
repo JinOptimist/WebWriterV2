@@ -27,14 +27,16 @@ namespace WebWriterV2.RpgUtility
             Travels = new List<Travel>();
 
             var links = Book.RootChapter.LinksFromThisChapter;
-            for (int i = 0; i < 1000; i++) {
-                var travel = CreateTravel();
-                RandStep(travel, links[random.Next(links.Count)]);
+            if (links.Any()) {
+                for (int i = 0; i < 1000; i++) {
+                    var travel = CreateTravel();
+                    RandStep(travel, links[random.Next(links.Count)]);
+                }
             }
 
             var result = new List<FrontChapter>();
 
-            var allTravelsCount = Travels.Count;
+            var allTravelsCount = Travels.Count > 0 ? Travels.Count : 1;
             foreach (var chapter in Book.AllChapters) {
                 var countOfTravelBeHere = Travels.Count(tr => tr.Steps.Any(step => step.Choice.To.Id == chapter.Id));
                 var percentOfUserBeHere = countOfTravelBeHere * 100 / allTravelsCount;
