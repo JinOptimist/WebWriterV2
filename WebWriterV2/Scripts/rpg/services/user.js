@@ -11,10 +11,11 @@
             getCurrentUserId: getCurrentUserId,
             getById: getById,
             updateShowExtendedFunctionality: updateShowExtendedFunctionality,
+            getAll:getAll,
+            remove: remove,
 
             /* may be old */
             addBookmark: addBookmark,
-            removeAccount: removeAccount,
             becomeWriter: becomeWriter,
             getCurrentUser: getCurrentUser,
         };
@@ -63,6 +64,11 @@
             return httpHelper.post(url, data);
         }
 
+        function getAll() {
+            var url = '/Rpg/GetAllUsers';
+            return httpHelper.get(url);
+        }
+
         function updateShowExtendedFunctionality(userId, showExtendedFunctionality) {
             var url = '/api/user/UpdateShowExtendedFunctionality';
             var data = {
@@ -81,7 +87,7 @@
             return httpHelper.post(url, data);
         }
 
-        function removeAccount(userId) {
+        function remove(userId) {
             var url = '/Rpg/RemoveUser';
             var data = {
                 userId: userId

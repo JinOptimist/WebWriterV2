@@ -1,0 +1,23 @@
+﻿<div class="content content-books">
+    <div ng-if="!users">
+        <img src="/Content/icon/wait.gif" />
+    </div>
+    <table>
+        <tr>
+            <td>Имя</td>
+            <td>Почта</td>
+            <td>Пароль</td>
+            <td>Тип пользователя</td>
+            <td>Действия</td>
+        </tr>
+        <tr ng-repeat="user in users">
+            <td>{{user.Name}}</td>
+            <td>{{user.Email}}</td>
+            <td>{{user.Password}}</td>
+            <td>{{user.UserType.Name}}</td>
+            <td>
+                <a href="#" ng-click="remove(user, $index)">Удалить</a>
+            </td>
+        </tr>
+    </table>
+</div>

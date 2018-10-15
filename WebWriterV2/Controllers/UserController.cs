@@ -55,7 +55,11 @@ namespace WebWriterV2.Controllers
             user = UserRepository.Save(user);
 
             var relativeUrl = Url.Link("ConfirmRegister", new { userId = user.Id, confirmCode = user.ConfirmCode });
-            EmailHelper.SendConfirmRegistrationEmail(relativeUrl, user.Email);
+            try {
+                EmailHelper.SendConfirmRegistrationEmail(relativeUrl, user.Email);
+            } catch {
+                //ignore. It's not import for now
+            }
 
             frontUser = new FrontUser(user);
             return frontUser;

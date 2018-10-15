@@ -61,6 +61,10 @@ angular.module('rpg', ['directives', 'services', 'AppConst', 'underscore', 'ui.b
                     templateUrl: '/views/admin/Books.html',
                     controller: 'adminBooksController'
                 })
+                .when('/ar/admin/users', {
+                    templateUrl: '/views/admin/Users.html',
+                    controller: 'adminUsersController'
+                })
 
                 .otherwise({
                     redirectTo: '/ar/reader/books'

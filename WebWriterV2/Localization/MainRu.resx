@@ -219,6 +219,9 @@
   <data name="Writer_ConfirmRemovingBook" xml:space="preserve">
     <value>Вы уверены что хотите удалить произведение "{0}"?</value>
   </data>
+  <data name="Writer_ConfirmRemovingUser" xml:space="preserve">
+    <value>Вы уверены что хотите удалить пользователя "{0}"?</value>
+  </data>
   <data name="Writer_EditNameOrDesc" xml:space="preserve">
     <value>Изменить имя или описание</value>
   </data>

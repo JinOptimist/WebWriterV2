@@ -367,6 +367,15 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вы уверены что хотите удалить пользователя &quot;{0}&quot;?.
+        /// </summary>
+        internal static string Writer_ConfirmRemovingUser {
+            get {
+                return ResourceManager.GetString("Writer_ConfirmRemovingUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Изменить имя или описание.
         /// </summary>
         internal static string Writer_EditNameOrDesc {

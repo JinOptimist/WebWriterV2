@@ -25,7 +25,7 @@ namespace WebWriterV2.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("NoReplay@martin-s.by")]
+        [global::System.Configuration.DefaultSettingValueAttribute("NoReplay@naractivity.com")]
         public string NoReplayEmailName {
             get {
                 return ((string)(this["NoReplayEmailName"]));
@@ -43,7 +43,7 @@ namespace WebWriterV2.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("mail.martin-s.by")]
+        [global::System.Configuration.DefaultSettingValueAttribute("mail.naractivity.com")]
         public string EmailHost {
             get {
                 return ((string)(this["EmailHost"]));
