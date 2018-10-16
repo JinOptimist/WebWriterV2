@@ -16,6 +16,8 @@ var bookMap = (function () {
     var fronBook = {};
     var user = {};
 
+    var debug = false;
+
     /* ******************************* events ******************************* */
     function onAddChapterClick(obj) {
         selectedChapter = undefined;
@@ -381,6 +383,10 @@ var bookMap = (function () {
         reloadLayer();
         drawArrows(links);
         actions.validate(frontChapters);
+
+        if (debug) {
+            drawScaleDot();
+        }
     }
 
     function drawGlobalVariableGroup() {
@@ -577,20 +583,46 @@ var bookMap = (function () {
         var oldScale = layer.scaleX();
 
         var pointer = stage.getPointerPosition();
+
         var mousePointTo = {
-            x: pointer.x / oldScale - layer.x() / oldScale,
-            y: pointer.y / oldScale - layer.y() / oldScale,
+            x: pointer.x / oldScale - layer.getAbsolutePosition().x / oldScale,
+            y: pointer.y / oldScale - layer.getAbsolutePosition().y / oldScale,
         };
 
         layer.scale({ x: newScale, y: newScale });
         pointer = stage.getPointerPosition();
         var newPos = {
-            x: -(mousePointTo.x - pointer.x / newScale) * newScale,
-            y: -(mousePointTo.y - pointer.y / newScale) * newScale
+            x: -(mousePointTo.x - pointer.x / newScale) * newScale - stage.position().x,
+            y: -(mousePointTo.y - pointer.y / newScale) * newScale - stage.position().y
         };
 
         layer.position(newPos);
         layer.draw();
+    }
+
+    function drawScaleDot() {
+        var mult = 100;
+        for (var x = 0; x < 30; x++) {
+            for (var y = 0; y < 30; y++) {
+                var circle = new Konva.Circle({
+                    x: x * mult,
+                    y: y * mult,
+                    radius: 2,
+                    fill: '',
+                    stroke: (x+y)%2 == 1 ? 'black' : 'red',
+                    strokeWidth: 1
+                });
+                var text = new Konva.Text({
+                    x: x * mult + 5,
+                    y: y * mult - 5,
+                    text: 'x:' + (x * mult) + ' y:' + (y * mult),
+                    fontSize: 10,
+                });
+
+                layer.add(text);
+                layer.add(circle);
+            }
+        }
     }
 
     return {

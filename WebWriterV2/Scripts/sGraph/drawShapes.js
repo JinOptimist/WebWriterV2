@@ -1,6 +1,9 @@
 var drawShapes = (function () {
     console.log('drawShapes is load');
     var BlockSize = { Width: Const.ChapterSize.Width + Const.ChapterSize.Padding, Height: Const.ChapterSize.Height + Const.ChapterSize.Padding };
+    var Radius = Const.ButtonSize.Radius / 2;
+
+    var useImageForButton = false;
 
     var shapeLogicType = {
         ChapterBorder: 'ChapterBorder',
@@ -74,18 +77,25 @@ var drawShapes = (function () {
     }
 
     function drawMainButton(chapter, onMainButtonClick, state, reloadLayer) {
-        var imageObj = new Image();
-        imageObj.src = getSrcByChapterState(state);
-        imageObj.onload = function () {
-            reloadLayer();
+        var imageItem = {};
+
+        if (useImageForButton) {
+            var imageObj = new Image();
+            imageObj.src = getSrcByChapterState(state);
+            imageObj.onload = function () {
+                reloadLayer();
+            }
+            imageItem = new Konva.Image({
+                x: Const.ButtonSize.Padding,
+                y: Const.ButtonSize.Padding,
+                image: imageObj,
+                width: Const.ButtonSize.Radius,
+                height: Const.ButtonSize.Radius
+            });
+        }  else {
+            imageItem = getButtonByState(state);
         }
-        var imageItem = new Konva.Image({
-            x: Const.ButtonSize.Padding,
-            y: Const.ButtonSize.Padding,
-            image: imageObj,
-            width: Const.ButtonSize.Radius,
-            height: Const.ButtonSize.Radius
-        });
+
         imageItem.state = state;
         imageItem.chapter = chapter;
         imageItem.logicType = shapeLogicType.ChapterButton;
@@ -247,6 +257,242 @@ var drawShapes = (function () {
             default:
                 return '';
         }
+    }
+
+    function getButtonByState(state) {
+        switch (state) {
+            case chapterStateType.Initial:
+                return generateInitialButton(false);
+            case chapterStateType.FakeNew:
+                return generateInitialButton(true);
+            case chapterStateType.Selected:
+                return generateRemoveButton();
+            case chapterStateType.AvailableToLink:
+                return generateAvailableButton();
+
+
+            case chapterStateType.Parent:
+                return generateParentButton();
+            case chapterStateType.Child:
+                return generateChildButton();
+            default:
+                return '';
+        }
+    }
+
+    function generateInitialButton(isFake){
+        var group = new Konva.Group({
+            x: Const.ButtonSize.Padding + Radius,
+            y: Const.ButtonSize.Padding + Radius,
+        });
+
+        var lineColor = isFake ? '#71787e' : '#f5f5f5';
+        var circleColor = isFake ? '' : '#00aeef';
+        var circleStrokeColor = isFake ? '#71787e' : '';
+
+        var circle = new Konva.Circle({
+            x: 0,
+            y: 0,
+            radius: Radius,
+            fill: circleColor,
+            stroke: circleStrokeColor,
+            strokeWidth: 2
+        });
+
+        var halfRadius = Radius / 4;
+        var lineX = new Konva.Line({
+            points: [-halfRadius, 0, halfRadius, 0],
+            stroke: lineColor,
+            strokeWidth: 3,
+            lineCap: 'round',
+            lineJoin: 'round'
+        });
+        var lineY = new Konva.Line({
+            points: [0, -halfRadius, 0, halfRadius],
+            stroke: lineColor,
+            strokeWidth: 3,
+            lineCap: 'round',
+            lineJoin: 'round'
+        });
+
+        group.add(circle);
+        group.add(lineX);
+        group.add(lineY);
+        return group;
+    }
+
+    function generateRemoveButton() {
+        var group = new Konva.Group({
+            x: Const.ButtonSize.Padding + Radius,
+            y: Const.ButtonSize.Padding + Radius,
+        });
+
+        var circle = new Konva.Circle({
+            x: 0,
+            y: 0,
+            radius: Radius,
+            fill: '#f13a30',
+        });
+
+        var halfRadius = Radius / 4;
+        var lineX = new Konva.Line({
+            points: [-halfRadius, -halfRadius, halfRadius, halfRadius],
+            stroke: '#fafafa',
+            strokeWidth: 3,
+            lineCap: 'round',
+            lineJoin: 'round'
+        });
+        var lineY = new Konva.Line({
+            points: [halfRadius, -halfRadius, -halfRadius, halfRadius],
+            stroke: '#fafafa',
+            strokeWidth: 3,
+            lineCap: 'round',
+            lineJoin: 'round'
+        });
+
+        group.add(circle);
+        group.add(lineX);
+        group.add(lineY);
+        return group;
+    }
+
+    function generateAvailableButton() {
+        var group = new Konva.Group({
+            x: Const.ButtonSize.Padding + Radius,
+            y: Const.ButtonSize.Padding + Radius,
+        });
+
+        var circle = new Konva.Circle({
+            x: 0,
+            y: 0,
+            radius: Radius,
+            fill: '#00aeef',
+        });
+
+        var x1 = -1 / 2 * Radius;
+        var y1 = 1 / 6 * Radius;
+        var x2 = -1 / 6 * Radius;
+        var y2 = -1 / 6 * Radius;
+        var x3 = 1 / 6 * Radius;
+        var y3 = 1 / 6 * Radius;
+        var x4 = 1 / 2 * Radius;
+        var y4 = -1 / 6 * Radius;
+        var line = new Konva.Line({
+            points: [
+                x1, y1,
+                x2, y2,
+                x3, y3,
+                x4, y4],
+            stroke: '#f5f5f5',
+            strokeWidth: 2,
+            lineCap: 'round',
+            lineJoin: 'round'
+        });
+
+        var lineCircle1 = new Konva.Circle({
+            x: x1,
+            y: y1,
+            radius: 2,
+            fill: '#f5f5f5',
+        });
+        var lineCircle2 = new Konva.Circle({
+            x: x2,
+            y: y2,
+            radius: 2,
+            fill: '#f5f5f5',
+        });
+        var lineCircle3 = new Konva.Circle({
+            x: x3,
+            y: y3,
+            radius: 2,
+            fill: '#f5f5f5',
+        });
+        var lineCircle4 = new Konva.Circle({
+            x: x4,
+            y: y4,
+            radius: 2,
+            fill: '#f5f5f5',
+        });
+
+
+        group.add(circle);
+        group.add(line);
+        group.add(lineCircle1);
+        group.add(lineCircle2);
+        group.add(lineCircle3);
+        group.add(lineCircle4);
+
+        return group;
+    }
+
+    function generateParentButton() {
+        var group = new Konva.Group({
+            x: Const.ButtonSize.Padding + Radius,
+            y: Const.ButtonSize.Padding + Radius,
+        });
+
+        var circle = new Konva.Circle({
+            x: 0,
+            y: 0,
+            radius: Radius,
+            fill: '#50d166',
+        });
+
+        var halfRadius = Radius / 4;
+        var lineX = new Konva.Line({
+            points: [-halfRadius, -halfRadius, halfRadius, halfRadius],
+            stroke: '#fafafa',
+            strokeWidth: 3,
+            lineCap: 'round',
+            lineJoin: 'round'
+        });
+        var lineY = new Konva.Line({
+            points: [halfRadius, -halfRadius, -halfRadius, halfRadius],
+            stroke: '#fafafa',
+            strokeWidth: 3,
+            lineCap: 'round',
+            lineJoin: 'round'
+        });
+
+        group.add(circle);
+        group.add(lineX);
+        group.add(lineY);
+        return group;
+    }
+
+    function generateChildButton() {
+        var group = new Konva.Group({
+            x: Const.ButtonSize.Padding + Radius,
+            y: Const.ButtonSize.Padding + Radius,
+        });
+
+        var circle = new Konva.Circle({
+            x: 0,
+            y: 0,
+            radius: Radius,
+            fill: '#f18f1c',
+        });
+
+        var halfRadius = Radius / 4;
+        var lineX = new Konva.Line({
+            points: [-halfRadius, -halfRadius, halfRadius, halfRadius],
+            stroke: '#fafafa',
+            strokeWidth: 3,
+            lineCap: 'round',
+            lineJoin: 'round'
+        });
+        var lineY = new Konva.Line({
+            points: [halfRadius, -halfRadius, -halfRadius, halfRadius],
+            stroke: '#fafafa',
+            strokeWidth: 3,
+            lineCap: 'round',
+            lineJoin: 'round'
+        });
+
+        group.add(circle);
+        group.add(lineX);
+        group.add(lineY);
+        return group;
     }
 
     return {
