@@ -57,7 +57,11 @@ namespace WebWriterV2
         {
             Exception exception = Server.GetLastError();
             Server.ClearError();
-            RpgUtility.EmailHelper.SendError(exception);
+            if (exception.Source == "System.Web.Mvc") {
+                RpgUtility.EmailHelper.SendUnexpectedRequest(exception, Request);
+            } else {
+                RpgUtility.EmailHelper.SendError(exception);
+            }
             
             //Response.Redirect("/Home/Error");
         }

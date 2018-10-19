@@ -24,6 +24,15 @@ namespace WebWriterV2.RpgUtility
             Send(Properties.Settings.Default.AdminEmail, "На сайте проблемы!", e.ToString());
         }
 
+        public static void SendUnexpectedRequest(Exception e, HttpRequest request)
+        {
+            var body = $@"Request.Url = {request.Url}
+                        QueryString - {request.QueryString}
+                        Headers - {request.Headers.ToString()}
+                        {e.ToString()}";
+            Send(Properties.Settings.Default.AdminEmail, "Опять странный запрос", body);
+        }
+
         public static void Send(string to, string title, string body)
         {
             var smtp = new SmtpClient();
