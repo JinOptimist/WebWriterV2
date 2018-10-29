@@ -272,7 +272,7 @@ var drawShapes = (function () {
 
 
             case chapterStateType.Parent:
-                return generateParentButton();
+                return generateChildButton();
             case chapterStateType.Child:
                 return generateChildButton();
             default:
@@ -425,41 +425,6 @@ var drawShapes = (function () {
         return group;
     }
 
-    function generateParentButton() {
-        var group = new Konva.Group({
-            x: Const.ButtonSize.Padding + Radius,
-            y: Const.ButtonSize.Padding + Radius,
-        });
-
-        var circle = new Konva.Circle({
-            x: 0,
-            y: 0,
-            radius: Radius,
-            fill: '#50d166',
-        });
-
-        var halfRadius = Radius / 4;
-        var lineX = new Konva.Line({
-            points: [-halfRadius, -halfRadius, halfRadius, halfRadius],
-            stroke: '#fafafa',
-            strokeWidth: 3,
-            lineCap: 'round',
-            lineJoin: 'round'
-        });
-        var lineY = new Konva.Line({
-            points: [halfRadius, -halfRadius, -halfRadius, halfRadius],
-            stroke: '#fafafa',
-            strokeWidth: 3,
-            lineCap: 'round',
-            lineJoin: 'round'
-        });
-
-        group.add(circle);
-        group.add(lineX);
-        group.add(lineY);
-        return group;
-    }
-
     function generateChildButton() {
         var group = new Konva.Group({
             x: Const.ButtonSize.Padding + Radius,
@@ -473,25 +438,37 @@ var drawShapes = (function () {
             fill: '#f18f1c',
         });
 
-        var halfRadius = Radius / 4;
-        var lineX = new Konva.Line({
-            points: [-halfRadius, -halfRadius, halfRadius, halfRadius],
+        var radiusDiv2 = Radius / 2;
+        var radiusDiv6 = Radius / 6;
+        var line1 = new Konva.Line({
+            points: [-(Radius - radiusDiv6), 0, -radiusDiv2, 0],
             stroke: '#fafafa',
-            strokeWidth: 3,
+            strokeWidth: 2,
             lineCap: 'round',
             lineJoin: 'round'
         });
-        var lineY = new Konva.Line({
-            points: [halfRadius, -halfRadius, -halfRadius, halfRadius],
+        var line2 = new Konva.Line({
+            points: [0, -radiusDiv2,
+                -radiusDiv6, 0,
+                radiusDiv6, 0,
+                0, radiusDiv2],
             stroke: '#fafafa',
-            strokeWidth: 3,
+            strokeWidth: 2,
+            lineCap: 'round',
+            lineJoin: 'round'
+        });
+        var line3 = new Konva.Line({
+            points: [Radius - radiusDiv6, 0, radiusDiv2, 0],
+            stroke: '#fafafa',
+            strokeWidth: 2,
             lineCap: 'round',
             lineJoin: 'round'
         });
 
         group.add(circle);
-        group.add(lineX);
-        group.add(lineY);
+        group.add(line1);
+        group.add(line2);
+        group.add(line3);
         return group;
     }
 
