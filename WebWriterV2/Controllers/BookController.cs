@@ -144,7 +144,7 @@ namespace WebWriterV2.Controllers
         }
 
         [AcceptVerbs("GET")]
-        public List<FrontBook> GetAllForAdmin()
+        public List<FrontBookFullStatistic> GetAllForAdmin()
         {
             if (User.UserType != UserType.Admin)
             {
@@ -152,7 +152,7 @@ namespace WebWriterV2.Controllers
             }
 
             var books = BookRepository.GetAll(false);
-            var frontBooks = books.Select(x => new FrontBook(x)).ToList();
+            var frontBooks = books.Select(x => new FrontBookFullStatistic(x)).ToList();
 
             return frontBooks;
         }
@@ -203,7 +203,7 @@ namespace WebWriterV2.Controllers
 
 		//Just for test
         [AcceptVerbs("GET")]
-        public List<FrontChapter> StatisticOfVisiting(long bookId)
+        public int StatisticOfVisiting(long bookId)
         {
             var book = BookRepository.Get(bookId);
             var elChel = new ElChel(book);

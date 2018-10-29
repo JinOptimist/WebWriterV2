@@ -1,21 +1,37 @@
-﻿<div class="content content-books">
+﻿<div id="admin-info" class="content content-books">
     <div ng-if="!books">
         <img src="/Content/icon/wait.gif" />
     </div>
-    <div>
+    <div ng-show="false">
         Удалить все Путешествия <a href="/api/travel/RemoveAllTravel?key=32167">Боньк</a>
     </div>
     <table>
         <tr>
-            <td>Имя</td>
-            <td>Автор</td>
-            <td>Число слов</td>
-            <td>Действия</td>
+            <th>Id</th>
+            <th>Имя</th>
+            <th>Автор</th>
+            <th>Главы</th>
+            <th>Количество путей</th>
+            <th>Главы с выбором</th>
+            <th>Главы с выбором (+доп функционал)</th>
+
+
+            <th>Число слов</th>
+            <th>Число символов</th>
+            <th>Действия</th>
         </tr>
         <tr ng-repeat="book in books">
+            <td>{{book.Id}}</td>
             <td>{{book.Name}}</td>
             <td>{{book.AuthorFullName}}</td>
+            <td>{{book.CountOfChapters}}</td>
+            <td>{{book.CountOfWays}}</td>
+            <td>{{book.CountOfChoices}} ({{book.CountOfChoices / book.CountOfChapters * 100 | number : 0}}%)</td>
+            <td>{{book.CountOfChoicesWithCondition}} ({{book.CountOfChoicesWithCondition / book.CountOfChapters * 100 | number : 0}}%)</td>
+
+
             <td>{{book.NumberOfWords}}</td>
+            <td>{{book.NumberOfChapters}}</td>
             <td>
                 <a href="#" ng-click="remove(book, $index)">Удалить</a>
             </td>

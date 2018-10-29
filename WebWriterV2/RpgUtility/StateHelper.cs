@@ -8,7 +8,7 @@ namespace WebWriterV2.RpgUtility
 {
     public static class StateHelper
     {
-        public static List<ChapterLinkItem> FilterLink(this Travel travel, List<ChapterLinkItem> linkItems)
+        public static List<ChapterLinkItem> FilterLink(this Travel travel, IEnumerable<ChapterLinkItem> linkItems)
         {
             var result = new List<ChapterLinkItem>();
 

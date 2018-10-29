@@ -14,7 +14,8 @@ namespace WebWriterV2.RpgUtility
         private Book Book { get; set; }
         private List<Travel> Travels { get; set; }
         private Random random = new Random();
-        
+
+        private int CountOfRandomElChel = 1000;
 
         public ElChel(Book book)
         {
@@ -28,7 +29,7 @@ namespace WebWriterV2.RpgUtility
 
             var links = Book.RootChapter.LinksFromThisChapter;
             if (links.Any()) {
-                for (int i = 0; i < 1000; i++) {
+                for (int i = 0; i < CountOfRandomElChel; i++) {
                     var travel = CreateTravel();
                     RandStep(travel, links[random.Next(links.Count)]);
                 }
@@ -64,13 +65,14 @@ namespace WebWriterV2.RpgUtility
             var links = travel.FilterLink(currentChapter.LinksFromThisChapter);
 
             if (!links.Any() || travel.Steps.Count > 100) {
+                Travels.Add(travel);
                 return;
             }
 
             RandStep(travel, links[random.Next(links.Count)]);
         }
 
-        public List<FrontChapter> StatisticOfVisitingAllWay()
+        public int StatisticOfVisitingAllWay()
         {
             Travels = new List<Travel>();
             foreach (var link in Book.RootChapter.LinksFromThisChapter) {
@@ -78,19 +80,7 @@ namespace WebWriterV2.RpgUtility
                 Step(travel, link);
             }
 
-            var result = new List<FrontChapter>();
-
-            var allTravelsCount = Travels.Count;
-            foreach (var chapter in Book.AllChapters) {
-                var countOfTravelBeHere = Travels.Count(tr => tr.Steps.Any(step => step.Choice.To.Id == chapter.Id));
-                var percentOfUserBeHere = countOfTravelBeHere * 100 / allTravelsCount;
-
-                var frontChapter = new FrontChapter(chapter);
-                frontChapter.StatisticOfVisiting = Book.RootChapter.Id == chapter.Id ? 100 : percentOfUserBeHere;
-                result.Add(frontChapter);
-            }
-
-            return result;
+            return Travels.Count;
         }
 
         private void Step(Travel travel, ChapterLinkItem linkItem)
@@ -105,31 +95,39 @@ namespace WebWriterV2.RpgUtility
             travel.Steps.Add(step);
 
             // 3) Fillter Links
-            var links =  travel.FilterLink(currentChapter.LinksFromThisChapter);
+            var alreadyVisitedLinks = travel.Steps.Select(st => st.Choice.Id);
+            var currentChapterLinks = currentChapter.LinksFromThisChapter.Where(x => !alreadyVisitedLinks.Contains(x.Id));
+            if (!currentChapterLinks.Any() && currentChapter.LinksFromThisChapter.Any()) {
+                currentChapterLinks = currentChapter.LinksFromThisChapter;
+            }
+            var links = travel.FilterLink(currentChapterLinks);
 
             if (!links.Any()) {
+                Travels.Add(travel);
                 return;
             }
 
             //first link use already exist travel
+            Travel travelDuplication = null;
+            if (links.Count > 1) {
+                travelDuplication = CopyTravel(travel);
+            }
             Step(travel, links[0]);
             //all following links create new travel
             for (var i = 1; i < links.Count; i++) {
                 var link = links[i];
-                var newTravel = CopyTravel(travel);
+                var newTravel = CopyTravel(travelDuplication);
                 Step(newTravel, link);
             }
         }
 
         private Travel CreateTravel()
         {
-            var travel = new Travel {
+            return new Travel {
                 Book = Book,
                 State = new List<StateValue>(),
                 Steps = new List<TravelStep>()
             };
-            Travels.Add(travel);
-            return travel;
         }
 
         private Travel CopyTravel(Travel originTravel)

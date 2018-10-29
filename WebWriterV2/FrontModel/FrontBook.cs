@@ -22,7 +22,6 @@ namespace WebWriterV2.FrontModels
             IsPublished = book.IsPublished;
             NumberOfChapters = book.AllChapters?.Sum(x => x.Desc.Length) ?? 0; //book.NumberOfChapters;
             NumberOfWords = book.AllChapters?.Sum(x => x.NumberOfWords) ?? 0; //book.NumberOfWords;
-            //Views = book.Travels?.Count() ?? 0;
             Views = book.Views;
             CountOfChapter = book.AllChapters.Count;
 
@@ -51,7 +50,6 @@ namespace WebWriterV2.FrontModels
             }
 
             //Genre = book.Genre != null ? new FrontGenre(book.Genre) : null;
-            //AllEvents = book.AllChapters?.Select(x => new FrontChapter(x)).ToList();
             //Evaluations = book.Evaluations?.Select(x => new FrontEvaluation(x)).ToList();
             Tags = book.Tags?.Select(x => new FrontTag(x)).ToList();
         }
