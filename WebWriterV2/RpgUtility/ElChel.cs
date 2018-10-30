@@ -72,15 +72,42 @@ namespace WebWriterV2.RpgUtility
             RandStep(travel, links[random.Next(links.Count)]);
         }
 
-        public int StatisticOfVisitingAllWay()
+        public List<Travel> StatisticOfVisitingAllWay()
         {
             Travels = new List<Travel>();
             foreach (var link in Book.RootChapter.LinksFromThisChapter) {
                 var travel = CreateTravel();
                 Step(travel, link);
             }
+            // we get all possible travels
 
-            return Travels.Count;
+            //var chapterLinkIds = Travels.SelectMany(x => x.Steps.Select(s => s.Choice.Id)).Distinct().ToList();
+            //var steps = Travels.SelectMany(x => x.Steps);
+            //var uniqChoices = new List<ChapterLinkItem>();
+            //foreach(var step in steps) {
+            //    if (chapterLinkIds.Contains(step.Choice.Id)) {
+            //        uniqChoices.Add(step.Choice);
+            //        chapterLinkIds.Remove(step.Choice.Id);
+            //    }
+            //}
+
+            //foreach(var ch in uniqChoices) {
+            //    var travelsWhichDidTheChoice = Travels.Where(x => x.Steps.Any(s => s.Choice.Id == ch.Id));
+            //    var travelsWhichDidNotTheChoice = Travels.Where(x => !x.Steps.Any(s => s.Choice.Id == ch.Id));
+            //}
+            
+
+            return Travels;
+        }
+
+        private int DiffChaptersBetweenListOfTravels(IEnumerable<Travel> travels1, IEnumerable<Travel> travels2)
+        {
+            var chaptes1 = travels1.SelectMany(x => x.Steps.Select(st => st.Choice.To));
+            var chaptes2 = travels2.SelectMany(x => x.Steps.Select(st => st.Choice.To));
+
+            //chaptes1.ToList().RemoveAll(x=>x.);
+
+            return 0;
         }
 
         private void Step(Travel travel, ChapterLinkItem linkItem)
@@ -133,7 +160,7 @@ namespace WebWriterV2.RpgUtility
         private Travel CopyTravel(Travel originTravel)
         {
             var travel = CreateTravel();
-            foreach(var originStep in originTravel.Steps) {
+            foreach (var originStep in originTravel.Steps) {
                 var step = new TravelStep {
                     Choice = originStep.Choice
                 };

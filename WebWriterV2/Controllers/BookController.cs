@@ -207,7 +207,7 @@ namespace WebWriterV2.Controllers
         {
             var book = BookRepository.Get(bookId);
             var elChel = new ElChel(book);
-            return elChel.StatisticOfVisitingAllWay();
+            return elChel.StatisticOfVisitingAllWay().Count;
         }
 
 

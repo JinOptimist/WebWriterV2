@@ -13,6 +13,8 @@ namespace Dao.Repository
         private readonly ChapterLinkItemRepository _eventLinkItemRepository;
         private readonly EvaluationRepository _evaluationRepository;
         private readonly TravelRepository _travelRepository;
+        private readonly StateTypeRepository _stateTypeRepository;
+        
 
         public BookRepository(WriterContext db) : base(db)
         {
@@ -20,6 +22,8 @@ namespace Dao.Repository
             _eventLinkItemRepository = new ChapterLinkItemRepository(db);
             _evaluationRepository = new EvaluationRepository(db);
             _travelRepository = new TravelRepository(db);
+
+            _stateTypeRepository = new StateTypeRepository(db);
         }
 
         public List<Book> GetAllWithRootEvent()
@@ -50,6 +54,10 @@ namespace Dao.Repository
             if (book.AllChapters.Count > 0)
             {
                 _eventRepository.Remove(book.AllChapters);
+            }
+
+            if (book.States.Any()) {
+                _stateTypeRepository.Remove(book.States);
             }
 
             book = Get(book.Id);
