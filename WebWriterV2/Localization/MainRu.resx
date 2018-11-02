@@ -147,6 +147,30 @@
   <data name="ReaderBooks_TheBookIsReaded" xml:space="preserve">
     <value>Прочитана</value>
   </data>
+  <data name="Reader_Articles" xml:space="preserve">
+    <value>Статьи</value>
+  </data>
+  <data name="Reader_Articles_Add" xml:space="preserve">
+    <value>Добавить статью</value>
+  </data>
+  <data name="Reader_Articles_Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="Reader_Articles_Publish" xml:space="preserve">
+    <value>Публиковать</value>
+  </data>
+  <data name="Reader_Articles_Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Reader_Articles_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
+  <data name="Reader_Article_DefaultDesc" xml:space="preserve">
+    <value>Текст статьи</value>
+  </data>
+  <data name="Reader_Article_DefaultName" xml:space="preserve">
+    <value>Название статьи</value>
+  </data>
   <data name="Registration" xml:space="preserve">
     <value>Регистрация</value>
   </data>
@@ -305,5 +329,26 @@
   </data>
   <data name="Writer_WorkOnProject" xml:space="preserve">
     <value>Работать на произведением</value>
+  </data>
+  <data name="Reader_Articles_ConfirmRemovingArticle" xml:space="preserve">
+    <value>Вы уверены что хотите удалить статью "{0}"?</value>
+  </data>
+  <data name="Reader_Articles_Expand" xml:space="preserve">
+    <value>Развернуть</value>
+  </data>
+  <data name="Reader_Articles_NamePlaceholder" xml:space="preserve">
+    <value>Введите название статьи</value>
+  </data>
+  <data name="Reader_Articles_ShortDescPlaceholder" xml:space="preserve">
+    <value>Введите краткое описание статьи</value>
+  </data>
+  <data name="Reader_Articles_UnExpand" xml:space="preserve">
+    <value>Свернуть</value>
+  </data>
+  <data name="Reader_Articles_UnPublish" xml:space="preserve">
+    <value>Отменить публикацию</value>
+  </data>
+  <data name="Reader_Article_DefaultShortDesc" xml:space="preserve">
+    <value>Краткое описание статьи</value>
   </data>
 </root>

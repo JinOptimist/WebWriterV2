@@ -44,13 +44,6 @@ ul {
     }
 }
 
-.content-books {
-    /*max-width: 1560px;
-    min-width: 1020px;
-    margin: auto;*/
-    /*text-align: center;*/
-}
-
 /* Header */
 .wide-header {
     background: $white;
@@ -627,6 +620,45 @@ ul {
             .button-medium-blue {
                 cursor: not-allowed;
             }
+        }
+    }
+}
+
+#articles {
+    .article {
+        background-color: $white;
+        padding: 0 150px;
+        margin-top: 10px;
+        margin-bottom: 5px;
+
+        &.published {
+            border: 1px $green solid;
+        }
+
+        &.draft {
+            border: 1px $orange solid;
+        }
+
+        .header {
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        input {
+            width: 100%;
+        }
+
+        .body {
+            font-family: MerriweatherLight;
+
+            textarea {
+                width: 100%;
+                height: 100px;
+            }
+        }
+
+        .actions {
+            margin-top: 20px;
         }
     }
 }

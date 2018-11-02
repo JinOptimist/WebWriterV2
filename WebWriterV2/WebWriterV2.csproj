@@ -164,6 +164,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ArticleController.cs" />
     <Compile Include="Controllers\ChapterLinkController.cs" />
     <Compile Include="Controllers\TravelController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -188,6 +189,7 @@
     <Compile Include="FrontModel\FrontChapterLinkItem.cs" />
     <Compile Include="FrontModel\FrontStateRequirement.cs" />
     <Compile Include="FrontModel\FrontStateChange.cs" />
+    <Compile Include="FrontModel\FrontArticle.cs" />
     <Compile Include="FrontModel\FrontTag.cs" />
     <Compile Include="FrontModel\FrontTravelStep.cs" />
     <Compile Include="FrontModel\FrontTravelIsEnded.cs" />
@@ -698,7 +700,9 @@
     <Content Include="Scripts\rpg\reader\travel-guest-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-end-controller.js" />
     <Content Include="Scripts\rpg\admin\books-controller.js" />
+    <Content Include="Scripts\rpg\reader\articles-controller.js" />
     <Content Include="Scripts\rpg\services\state.js" />
+    <Content Include="Scripts\rpg\services\article.js" />
     <Content Include="Scripts\rpg\writer\about-controller.js" />
     <Content Include="Scripts\rpg\reader\profile-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-controller.js" />
@@ -737,6 +741,7 @@
     <Content Include="Views\reader\TravelGuest.html" />
     <Content Include="Views\reader\Travel.html" />
     <Content Include="Views\reader\Books.html" />
+    <Content Include="Views\reader\Articles.html" />
     <Content Include="Views\Rpg\GeneralDefinition.html" />
     <Content Include="Views\Writer\Chapter.html" />
     <Content Include="Views\Writer\Books.html" />

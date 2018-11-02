@@ -1,4 +1,4 @@
-﻿<div id="admin-info" class="content content-books">
+﻿<div id="admin-info" class="content">
     <div ng-if="!books">
         <img src="/Content/icon/wait.gif" />
     </div>
@@ -15,7 +15,8 @@
             <th>Главы с выбором</th>
             <th>Главы с выбором +доп функционал</th>
 
-            <th>Среднее кол-во шагов при прочтении (с выбором)</th>
+            <th>Среднее кол-во переходов при прочтении (с выбором)</th>
+            <th>Упущенные главы при одном прочтении</th>
 
             <th>Число слов</th>
             <th>Число символов</th>
@@ -28,10 +29,13 @@
             <td>{{book.CountOfWays}}</td>
             <td>{{book.CountOfChapters}}</td>
             <td>{{book.CountOfChoices}} ({{book.CountOfChoices / book.CountOfChapters * 100 | number : 0}}%)</td>
-            <td>{{book.CountOfChoicesWithCondition}} ({{book.CountOfChoicesWithCondition / book.CountOfChapters * 100 | number : 0}}%)</td>
+            <td>{{book.CountOfChoicesWithCondition}} ({{book.CountOfChoicesWithCondition / book.CountOfChoices * 100 | number : 0}}%)</td>
 
             <td>{{book.AvgCountOfStepsForReader | number : 1}} ({{book.PercentOfStepsWithCoiceForReader | number : 0}}%)</td>
-
+            <td>
+                {{book.CountOfChapters - book.AvgCountOfStepsForReader  | number : 1}}
+                ({{100.0 * (book.CountOfChapters - book.AvgCountOfStepsForReader) / book.CountOfChapters | number : 0}}%)
+            </td>
 
             <td>{{book.NumberOfWords}}</td>
             <td>{{book.NumberOfChapters}}</td>

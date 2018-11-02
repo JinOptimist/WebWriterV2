@@ -1,10 +1,11 @@
-﻿<div class="content content-books">
+﻿<div id="admin-info" class="content">
     <div ng-if="!users">
         <img src="/Content/icon/wait.gif" />
     </div>
     <table>
         <tr>
             <td>Имя</td>
+            <td>Использует доп функционал</td>
             <td>Почта</td>
             <td>Пароль</td>
             <td>Тип пользователя</td>
@@ -12,6 +13,7 @@
         </tr>
         <tr ng-repeat="user in users">
             <td>{{user.Name}}</td>
+            <td>{{user.ShowExtendedFunctionality ? '+' : '-'}}</td>
             <td>{{user.Email}}</td>
             <td>{{user.Password}}</td>
             <td>{{user.UserType.Name}}</td>

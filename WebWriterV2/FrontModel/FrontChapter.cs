@@ -16,7 +16,7 @@ namespace WebWriterV2.FrontModels
         {
             Id = chapter.Id;
             Name = chapter.Name;
-            Desc = travel != null ? GenerateHtmlForDesc(chapter.Desc) : chapter.Desc;
+            Desc = travel != null ? WordHelper.GenerateHtmlForDesc(chapter.Desc) : chapter.Desc;
             Level = chapter.Level;
 
             LinksFromThisChapter = travel == null
@@ -31,18 +31,6 @@ namespace WebWriterV2.FrontModels
             RequirementTypes = EnumHelper.GetFrontEnumList<FrontEnumRequirementType>(typeof(RequirementType));
             //RequirementTypes = RequirementTypes.Where(x => x.Value != (int)RequirementType.Exist && x.Value != (int)RequirementType.NotExist).ToList();
             ChangeTypes = EnumHelper.GetFrontEnumList<FrontEnumChangeType>(typeof(ChangeType));
-        }
-
-        private string GenerateHtmlForDesc(string desc)
-        {
-            var listOfParagraph = desc.Split('\n');
-            for (var i = 0; i < listOfParagraph.Length; i++) {
-                if (string.IsNullOrWhiteSpace(listOfParagraph[i])) {
-                    listOfParagraph[i] = "&nbsp;";
-                }
-                listOfParagraph[i] = $"<p>{listOfParagraph[i]}</p>";
-            }
-            return string.Join("\r\n", listOfParagraph);
         }
 
         public string Name { get; set; }

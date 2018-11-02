@@ -54,6 +54,10 @@ angular.module('rpg', ['directives', 'services', 'AppConst', 'underscore', 'ui.b
                     templateUrl: '/views/reader/Profile.html',
                     controller: 'profileController'
                 })
+                .when('/ar/reader/articles', {
+                    templateUrl: '/views/reader/Articles.html',
+                    controller: 'articlesController'
+                })
 
 
                 /* admin */

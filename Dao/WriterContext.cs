@@ -29,6 +29,7 @@ namespace Dao
         public virtual DbSet<Evaluation> Evaluations { get; set; }
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<Article> Articles { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

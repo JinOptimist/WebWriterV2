@@ -1,5 +1,5 @@
 ﻿<div class="wide-header">
-	<div class="content content-books" id="sub-header">
+	<div class="content" id="sub-header">
         <div class="book-menu r-reg">
             <ul>
                 <li ng-repeat="filter in listOfFilters" ng-click="chooseFilter(filter)" ng-class="{active: filter.active}">
@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div class="content content-books">
+<div class="content">
     <div ng-if="!books">
         <img src="/Content/icon/wait.gif" />
     </div>

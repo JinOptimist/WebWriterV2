@@ -77,6 +77,7 @@
     <Compile Include="IRepository\IChapterRepository.cs" />
     <Compile Include="IRepository\IChapterLinkItemRepository.cs" />
     <Compile Include="IRepository\IEvaluationRepository.cs" />
+    <Compile Include="IRepository\IArticleRepository.cs" />
     <Compile Include="IRepository\ITagRepository.cs" />
     <Compile Include="IRepository\ITravelStepRepository.cs" />
     <Compile Include="IRepository\ITravelRepository.cs" />
@@ -155,7 +156,20 @@
     <Compile Include="Migrations\201809241139197_AddShowExtendedFunctionality.Designer.cs">
       <DependentUpon>201809241139197_AddShowExtendedFunctionality.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201810311114158_AddArticle.cs" />
+    <Compile Include="Migrations\201810311114158_AddArticle.Designer.cs">
+      <DependentUpon>201810311114158_AddArticle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201810311157181_AddIsPublishedForArticle.cs" />
+    <Compile Include="Migrations\201810311157181_AddIsPublishedForArticle.Designer.cs">
+      <DependentUpon>201810311157181_AddIsPublishedForArticle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811021120418_addShortDescForArticle.cs" />
+    <Compile Include="Migrations\201811021120418_addShortDescForArticle.Designer.cs">
+      <DependentUpon>201811021120418_addShortDescForArticle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\Article.cs" />
     <Compile Include="Model\BaseModel.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\TravelStep.cs" />
@@ -179,6 +193,7 @@
     <Compile Include="Repository\ChapterRepository.cs" />
     <Compile Include="Repository\ChapterLinkItemRepository.cs" />
     <Compile Include="Repository\EvaluationRepository.cs" />
+    <Compile Include="Repository\ArticleRepository.cs" />
     <Compile Include="Repository\TagRepository.cs" />
     <Compile Include="Repository\TravelStepRepository.cs" />
     <Compile Include="Repository\TravelRepository.cs" />
@@ -248,6 +263,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201809241139197_AddShowExtendedFunctionality.resx">
       <DependentUpon>201809241139197_AddShowExtendedFunctionality.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810311114158_AddArticle.resx">
+      <DependentUpon>201810311114158_AddArticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201810311157181_AddIsPublishedForArticle.resx">
+      <DependentUpon>201810311157181_AddIsPublishedForArticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021120418_addShortDescForArticle.resx">
+      <DependentUpon>201811021120418_addShortDescForArticle.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

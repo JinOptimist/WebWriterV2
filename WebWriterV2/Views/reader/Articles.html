@@ -1,0 +1,65 @@
+﻿<div id="articles" class="content content-article">
+    <div ng-if="!articles">
+        <img src="/Content/icon/wait.gif" />
+    </div>
+
+    <div class="article" ng-repeat="article in articles"
+         ng-if="article.IsPublished || user.IsAdmin"
+         ng-class="{'published': article.IsPublished && user.IsAdmin, 'draft': !article.IsPublished && user.IsAdmin}">
+
+        <h3 ng-show="!article.isEdit" class="header">{{article.Name}}</h3>
+        <div class="body" ng-bind-html="article.ShortDesc" ng-show="!article.isEdit && !article.isExpand"></div>
+
+        <p ng-show="!article.isEdit">
+            <a href="#" ng-click="article.isExpand = !article.isExpand">
+                <span class="button-medium-gray">
+                    {{article.isExpand ? resources.Reader_Articles_UnExpand : resources.Reader_Articles_Expand}}
+                </span>
+            </a>
+        </p>
+
+        <p ng-show="article.isEdit">
+            <input ng-model="article.Name" placeholder="{{resources.Reader_Articles_NamePlaceholder}}" />
+        </p>
+        <p ng-show="article.isEdit">
+            <input ng-model="article.ShortDesc" placeholder="{{resources.Reader_Articles_ShortDescPlaceholder}}" maxlength="299"/>
+        </p>
+
+        <div class="body" ng-bind-html="article.HtmlDesc" ng-show="!article.isEdit && article.isExpand"></div>
+        <div class="body" ng-show="article.isEdit">
+            <textarea ng-model="article.Desc"></textarea>
+        </div>
+        <p ng-if="user.IsAdmin" class="actions">
+            <a href="#" ng-show="!article.isEdit" ng-click="togglePublish(article)">
+                <span class="button-medium-blue">
+                    {{article.IsPublished ? resources.Reader_Articles_UnPublish : resources.Reader_Articles_Publish}}
+                </span>
+            </a>
+            <a href="#" ng-show="!article.isEdit" ng-click="toggleEdit(article, true)">
+                <span class="button-medium-blue">
+                    {{resources.Reader_Articles_Edit}}
+                </span>
+            </a>
+            <a href="#" ng-show="!article.isEdit" ng-click="remove(article, $index)">
+                <span class="button-medium-blue">
+                    {{resources.Reader_Articles_Remove}}
+                </span>
+            </a>
+
+            <a href="#" ng-show="article.isEdit" ng-click="save(article, $index)">
+                <span class="button-medium-blue">
+                    {{resources.Reader_Articles_Save}}
+                </span>
+            </a>
+        </p>
+    </div>
+
+    <p ng-if="user.IsAdmin">
+        <a href="#" ng-click="add()">
+            <span class="button-medium-blue">
+                {{resources.Reader_Articles_Add}}
+            </span>
+        </a>
+    </p>
+
+</div>

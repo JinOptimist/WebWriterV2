@@ -124,6 +124,141 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Текст статьи.
+        /// </summary>
+        internal static string Reader_Article_DefaultDesc {
+            get {
+                return ResourceManager.GetString("Reader_Article_DefaultDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Название статьи.
+        /// </summary>
+        internal static string Reader_Article_DefaultName {
+            get {
+                return ResourceManager.GetString("Reader_Article_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Краткое описание статьи.
+        /// </summary>
+        internal static string Reader_Article_DefaultShortDesc {
+            get {
+                return ResourceManager.GetString("Reader_Article_DefaultShortDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Статьи.
+        /// </summary>
+        internal static string Reader_Articles {
+            get {
+                return ResourceManager.GetString("Reader_Articles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавить статью.
+        /// </summary>
+        internal static string Reader_Articles_Add {
+            get {
+                return ResourceManager.GetString("Reader_Articles_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы уверены что хотите удалить статью &quot;{0}&quot;?.
+        /// </summary>
+        internal static string Reader_Articles_ConfirmRemovingArticle {
+            get {
+                return ResourceManager.GetString("Reader_Articles_ConfirmRemovingArticle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Редактировать.
+        /// </summary>
+        internal static string Reader_Articles_Edit {
+            get {
+                return ResourceManager.GetString("Reader_Articles_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Развернуть.
+        /// </summary>
+        internal static string Reader_Articles_Expand {
+            get {
+                return ResourceManager.GetString("Reader_Articles_Expand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите название статьи.
+        /// </summary>
+        internal static string Reader_Articles_NamePlaceholder {
+            get {
+                return ResourceManager.GetString("Reader_Articles_NamePlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Публиковать.
+        /// </summary>
+        internal static string Reader_Articles_Publish {
+            get {
+                return ResourceManager.GetString("Reader_Articles_Publish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удалить.
+        /// </summary>
+        internal static string Reader_Articles_Remove {
+            get {
+                return ResourceManager.GetString("Reader_Articles_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сохранить.
+        /// </summary>
+        internal static string Reader_Articles_Save {
+            get {
+                return ResourceManager.GetString("Reader_Articles_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Введите краткое описание статьи.
+        /// </summary>
+        internal static string Reader_Articles_ShortDescPlaceholder {
+            get {
+                return ResourceManager.GetString("Reader_Articles_ShortDescPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Свернуть.
+        /// </summary>
+        internal static string Reader_Articles_UnExpand {
+            get {
+                return ResourceManager.GetString("Reader_Articles_UnExpand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Отменить публикацию.
+        /// </summary>
+        internal static string Reader_Articles_UnPublish {
+            get {
+                return ResourceManager.GetString("Reader_Articles_UnPublish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Продолжить путь &gt;.
         /// </summary>
         internal static string ReaderBooks_ContinueTavel {
