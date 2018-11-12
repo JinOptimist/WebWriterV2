@@ -19,9 +19,10 @@
             <div class="header-item" ng-if="user && user.IsAdmin" style="display: none;">
                 <a href="/ar/admin/books">{{resources.Admin_Books}}</a>
             </div>
-            <!--<div class="header-item" ng-if="user">
-                <a href="/ar/writer/graph">график</a>
-            </div>-->
+            <div class="header-item" ng-if="user && user.IsAdmin">
+                <a href="/ar/reader/questionnaires">{{resources.Reader_Questionnaires}}</a>
+            </div>
+            
             <div class="header-item" ng-if="!user">
                 <a href="#" ng-click="openRegistration()">{{resources.Registration}}</a>
             </div>

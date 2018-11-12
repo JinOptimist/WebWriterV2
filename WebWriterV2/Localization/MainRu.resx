@@ -351,4 +351,25 @@
   <data name="Reader_Article_DefaultShortDesc" xml:space="preserve">
     <value>Краткое описание статьи</value>
   </data>
+  <data name="Reader_Questionnaires" xml:space="preserve">
+    <value>Опросники</value>
+  </data>
+  <data name="Reader_Questionnaire_Add" xml:space="preserve">
+    <value>Добавить опросник</value>
+  </data>
+  <data name="Reader_Questionnaire_AddQuestion" xml:space="preserve">
+    <value>Добавить вопрос</value>
+  </data>
+  <data name="Reader_Questionnaire_AddQuestionAnswer" xml:space="preserve">
+    <value>Добавить вариант ответа</value>
+  </data>
+  <data name="Reader_Questionnaire_DefaultName" xml:space="preserve">
+    <value>Название опросника</value>
+  </data>
+  <data name="Reader_Questionnaire_QuestionAnswer_DefaultName" xml:space="preserve">
+    <value>Ответ</value>
+  </data>
+  <data name="Reader_Questionnaire_Question_DefaultName" xml:space="preserve">
+    <value>Вопрос</value>
+  </data>
 </root>

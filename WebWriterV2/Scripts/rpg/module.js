@@ -58,6 +58,10 @@ angular.module('rpg', ['directives', 'services', 'AppConst', 'underscore', 'ui.b
                     templateUrl: '/views/reader/Articles.html',
                     controller: 'articlesController'
                 })
+                .when('/ar/reader/questionnaires', {
+                    templateUrl: '/views/reader/Questionnaires.html',
+                    controller: 'questionnairesController'
+                })
 
 
                 /* admin */

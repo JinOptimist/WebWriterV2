@@ -44,5 +44,11 @@ namespace Dao.Model
         //public virtual List<Hero> Bookmarks { get; set; }
 
         public virtual List<Evaluation> Evaluations { get; set; }
+
+        /// <summary>
+        /// List of questionnaires which user has already finished
+        /// </summary>
+        public virtual List<Questionnaire> Questionnaires { get; set; }
+        public virtual List<QuestionnaireResult> QuestionnaireResults { get; set; }
     }
 }

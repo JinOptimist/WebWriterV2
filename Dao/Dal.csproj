@@ -73,6 +73,10 @@
   <ItemGroup>
     <Compile Include="ContextForRepository.cs" />
     <Compile Include="DataGeneration\GenerateData.cs" />
+    <Compile Include="IRepository\IQuestionAnswerRepository.cs" />
+    <Compile Include="IRepository\IQuestionRepository.cs" />
+    <Compile Include="IRepository\IQuestionnaireResultRepository.cs" />
+    <Compile Include="IRepository\IQuestionnaireRepository.cs" />
     <Compile Include="IRepository\IBaseRepository.cs" />
     <Compile Include="IRepository\IChapterRepository.cs" />
     <Compile Include="IRepository\IChapterLinkItemRepository.cs" />
@@ -168,9 +172,25 @@
     <Compile Include="Migrations\201811021120418_addShortDescForArticle.Designer.cs">
       <DependentUpon>201811021120418_addShortDescForArticle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811061226518_AddQuestionnaire.cs" />
+    <Compile Include="Migrations\201811061226518_AddQuestionnaire.Designer.cs">
+      <DependentUpon>201811061226518_AddQuestionnaire.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811061229188_AddCreationDateForQuestionnaireResult.cs" />
+    <Compile Include="Migrations\201811061229188_AddCreationDateForQuestionnaireResult.Designer.cs">
+      <DependentUpon>201811061229188_AddCreationDateForQuestionnaireResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811061304493_AddOrderForAnswer.cs" />
+    <Compile Include="Migrations\201811061304493_AddOrderForAnswer.Designer.cs">
+      <DependentUpon>201811061304493_AddOrderForAnswer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Article.cs" />
     <Compile Include="Model\BaseModel.cs" />
+    <Compile Include="Model\QuestionAnswer.cs" />
+    <Compile Include="Model\Question.cs" />
+    <Compile Include="Model\QuestionnaireResult.cs" />
+    <Compile Include="Model\Questionnaire.cs" />
     <Compile Include="Model\Tag.cs" />
     <Compile Include="Model\TravelStep.cs" />
     <Compile Include="Model\Travel.cs" />
@@ -188,6 +208,10 @@
     <Compile Include="Model\Chapter.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\QuestionRepository.cs" />
+    <Compile Include="Repository\QuestionnaireResultRepository.cs" />
+    <Compile Include="Repository\QuestionnaireRepository.cs" />
+    <Compile Include="Repository\QuestionAnswerRepository.cs" />
     <Compile Include="Repository\AttachHelper.cs" />
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\ChapterRepository.cs" />
@@ -272,6 +296,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811021120418_addShortDescForArticle.resx">
       <DependentUpon>201811021120418_addShortDescForArticle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811061226518_AddQuestionnaire.resx">
+      <DependentUpon>201811061226518_AddQuestionnaire.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811061229188_AddCreationDateForQuestionnaireResult.resx">
+      <DependentUpon>201811061229188_AddCreationDateForQuestionnaireResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811061304493_AddOrderForAnswer.resx">
+      <DependentUpon>201811061304493_AddOrderForAnswer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

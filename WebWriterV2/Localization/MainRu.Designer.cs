@@ -259,6 +259,69 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Добавить опросник.
+        /// </summary>
+        internal static string Reader_Questionnaire_Add {
+            get {
+                return ResourceManager.GetString("Reader_Questionnaire_Add", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавить вопрос.
+        /// </summary>
+        internal static string Reader_Questionnaire_AddQuestion {
+            get {
+                return ResourceManager.GetString("Reader_Questionnaire_AddQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Добавить вариант ответа.
+        /// </summary>
+        internal static string Reader_Questionnaire_AddQuestionAnswer {
+            get {
+                return ResourceManager.GetString("Reader_Questionnaire_AddQuestionAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Название опросника.
+        /// </summary>
+        internal static string Reader_Questionnaire_DefaultName {
+            get {
+                return ResourceManager.GetString("Reader_Questionnaire_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вопрос.
+        /// </summary>
+        internal static string Reader_Questionnaire_Question_DefaultName {
+            get {
+                return ResourceManager.GetString("Reader_Questionnaire_Question_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ответ.
+        /// </summary>
+        internal static string Reader_Questionnaire_QuestionAnswer_DefaultName {
+            get {
+                return ResourceManager.GetString("Reader_Questionnaire_QuestionAnswer_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Опросники.
+        /// </summary>
+        internal static string Reader_Questionnaires {
+            get {
+                return ResourceManager.GetString("Reader_Questionnaires", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Продолжить путь &gt;.
         /// </summary>
         internal static string ReaderBooks_ContinueTavel {

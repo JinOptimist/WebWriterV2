@@ -31,6 +31,11 @@ namespace Dao
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Article> Articles { get; set; }
 
+        public virtual DbSet<Questionnaire> Questionnaires { get; set; }
+        public virtual DbSet<QuestionnaireResult> QuestionnaireResults { get; set; }
+        public virtual DbSet<Question> Questions { get; set; }
+        public virtual DbSet<QuestionAnswer> QuestionAnswers { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -43,6 +48,8 @@ namespace Dao
             //modelBuilder.Entity<User>().HasMany(x => x.Bookmarks).WithRequired(x => x.Owner);
             modelBuilder.Entity<User>().HasMany(x => x.MyTravels).WithOptional(x => x.Reader);
             modelBuilder.Entity<User>().HasMany(x => x.Evaluations).WithRequired(x => x.Owner).WillCascadeOnDelete(false);
+            modelBuilder.Entity<User>().HasMany(x => x.Questionnaires).WithMany(x => x.Users);
+            modelBuilder.Entity<User>().HasMany(x => x.QuestionnaireResults).WithOptional(x => x.User);
 
             modelBuilder.Entity<Book>().HasMany(x => x.AllChapters).WithRequired(x => x.Book);
             modelBuilder.Entity<Book>().HasMany(x => x.Travels).WithOptional(x => x.Book);
@@ -70,7 +77,15 @@ namespace Dao
             modelBuilder.Entity<StateType>().HasMany(x => x.Values).WithRequired(x => x.StateType);
 
             modelBuilder.Entity<Tag>().HasMany(x => x.Books).WithMany(x => x.Tags);
-            //.WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Questionnaire>().HasMany(x => x.Questions).WithRequired(x => x.Questionnaire);
+            modelBuilder.Entity<Questionnaire>().HasMany(x => x.QuestionnaireResults).WithRequired(x => x.Questionnaire);
+            modelBuilder.Entity<Questionnaire>().HasMany(x => x.Users).WithMany(x => x.Questionnaires);
+
+            modelBuilder.Entity<Question>().HasMany(x => x.Answers).WithOptional(x => x.Question);
+            modelBuilder.Entity<Question>().HasMany(x => x.VisibleIf).WithMany(x => x.AffectVisibilityOfQuestions);
+
+            modelBuilder.Entity<QuestionnaireResult>().HasMany(x => x.QuestionAnswers).WithMany(x => x.QuestionnaireResults);
         }
 
         public static void SetInitializer()
