@@ -10,22 +10,6 @@ angular.module('rpg')
 
             init();
 
-            //$scope.remove = function (questionnaire, index) {
-            //    if (!confirm(resources.Admin_Questionnaires_ConfirmRemovingQuestionnaire.format(questionnaire.Name))) {
-            //        return false;
-            //    }
-            //    questionnaireService.remove(questionnaire.Id)
-            //        .then(function () {
-            //            $scope.questionnaires.splice(index, 1);
-            //        });
-            //}
-
-            function loadQuestionnaires() {
-                questionnaireService.getAllQuestionnaire().then(function (questionnaires) {
-                    $scope.questionnaires = questionnaires;
-                });
-            }
-
             $scope.addQuestionnaire = function () {
                 if (!$scope.questionnaires) {
                     $scope.questionnaires = [];
@@ -97,6 +81,22 @@ angular.module('rpg')
                 }
                 questionnaireService.removeQuestionAnswer(questionAnswer.Id).then(function () {
                     question.QuestionAnswers.splice(index, 1);
+                });
+            }
+
+            function loadQuestionnaires() {
+                questionnaireService.getAllQuestionnaire().then(function (questionnaires) {
+
+
+                    questionnaires.forEach(function (questionnaire) {
+                        for (var i = 1; i < questionnaire.Questions.length; i++) {
+                            var question = questionnaire.Questions[i];
+                            var questionPrev = questionnaire.Questions[i - 1];
+                            question.answerFromPrevQuestion = questionPrev.QuestionAnswers;
+                        }
+                    });
+
+                    $scope.questionnaires = questionnaires;
                 });
             }
 

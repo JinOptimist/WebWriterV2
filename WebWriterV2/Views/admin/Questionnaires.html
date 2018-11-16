@@ -21,15 +21,27 @@
                 <input value="edit" type="button" ng-click="question.isEdit = !question.isEdit" />
                 <input value="remove" type="button" ng-click="removeQuestion(questionnaire, question, $index)" />
             </p>
-            <p ng-if="question.isEdit">
-                {{question.Order}})
-                <input ng-model="question.Text" />
-                <label>
-                    {{resources.Admin_Questionnaire_AllowMultipleAnswers}}
-                    <input type="checkbox" ng-model="question.AllowMultipleAnswers" />
-                </label>
-                <input type="button" value="ok" ng-click="saveQuestion(questionnaire, question, $index)" />
-            </p>
+            <div ng-if="question.isEdit">
+                <p>
+                    {{question.Order}})
+                    <input ng-model="question.Text" />
+                </p>
+                <p>
+                    <label>
+                        {{resources.Admin_Questionnaire_AllowMultipleAnswers}}
+                        <input type="checkbox" ng-model="question.AllowMultipleAnswers" />
+                    </label>
+                </p>
+                <p>
+                    Данный вопрос будет видет только если в предыдущем вопросе был выбран ответ
+                    <select ng-options="ans.Text for ans in question.answerFromPrevQuestion"
+                            ng-model="question.requiredAnswer"></select>
+                    
+                </p>
+                <p>
+                    <input type="button" value="ok" ng-click="saveQuestion(questionnaire, question, $index)" />
+                </p>
+            </div>
             <div ng-repeat="questionAnswer in question.QuestionAnswers" class="question-answers">
                 <p ng-show="!questionAnswer.isEdit">
                     <span class="statistics">
@@ -39,7 +51,6 @@
                     </span>
                     {{questionAnswer.Order}}.
                     {{questionAnswer.Text}}
-
                     <input value="edit" type="button" ng-click="questionAnswer.isEdit = !questionAnswer.isEdit" />
                     <input value="remove" type="button" ng-click="removeQuestionAnswer(question, questionAnswer, $index)" />
                 </p>
