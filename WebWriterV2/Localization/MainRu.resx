@@ -375,4 +375,19 @@
   <data name="Reader_Questionnaire_Finish" xml:space="preserve">
     <value>Отправить ответы</value>
   </data>
+  <data name="Admin_Questionnaire_AllowMultipleAnswers" xml:space="preserve">
+    <value>Возможно выбрать несколько ответов</value>
+  </data>
+  <data name="Admin_Questionnaire_ConfirmRemovingQuestion" xml:space="preserve">
+    <value>Вы уверены что хотите удалить вопрос №{0}?</value>
+  </data>
+  <data name="Admin_Questionnaire_ConfirmRemovingQuestionAnswer" xml:space="preserve">
+    <value>Вы уверены что хотите удалить ответ №{0} на вопрос №{1}?</value>
+  </data>
+  <data name="Admin_Questionnaire_ConfirmRemovingQuestionnaire" xml:space="preserve">
+    <value>Вы уверены что хотите удалить опросник с названием: "{0}"?</value>
+  </data>
+  <data name="Reader_Questionnaire_Thanks" xml:space="preserve">
+    <value>Спасибо за ваши ответы</value>
+  </data>
 </root>

@@ -24,6 +24,10 @@
             <p ng-if="question.isEdit">
                 {{question.Order}})
                 <input ng-model="question.Text" />
+                <label>
+                    {{resources.Admin_Questionnaire_AllowMultipleAnswers}}
+                    <input type="checkbox" ng-model="question.AllowMultipleAnswers" />
+                </label>
                 <input type="button" value="ok" ng-click="saveQuestion(questionnaire, question, $index)" />
             </p>
             <div ng-repeat="questionAnswer in question.QuestionAnswers" class="question-answers">

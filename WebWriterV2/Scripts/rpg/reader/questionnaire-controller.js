@@ -8,11 +8,20 @@ angular.module('rpg')
             $scope.userId = null;
             $scope.resources = resources;
             $scope.answer = {};
+            $scope.questionnaireAreDone = false;
 
             init();
 
             $scope.saveAnswers = function () {
-                var answers = $scope.questionnaire.Questions.map(function (q) { return { Id: q.AnswerId }; });
+
+                var answers = [];
+                $scope.questionnaire.Questions.forEach(function (q) {
+                    if (q.AllowMultipleAnswers) {
+                        q.Answers.forEach(function (a) { answers.push({ Id: a }) });
+                    } else {
+                        answers.push({ Id: q.AnswerId });
+                    }
+                });
 
                 var questionnaireResult = {
                     QuestionnaireId: $scope.questionnaire.Id,
@@ -25,7 +34,21 @@ angular.module('rpg')
                         answers: answers,
                         result: 'good'
                     };
+                    $scope.questionnaireAreDone = true;
                 });
+            }
+
+            $scope.toggleSelection = function (question, answerId) {
+                if (!question.Answers) {
+                    question.Answers = [];
+                }
+
+                var idx = question.Answers.indexOf(answerId);
+                if (idx > -1) {
+                    question.Answers.splice(idx, 1);
+                } else {
+                    question.Answers.push(answerId);
+                }
             }
 
             function loadQuestionnaire(questionnaireId) {

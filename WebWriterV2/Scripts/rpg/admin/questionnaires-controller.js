@@ -44,6 +44,9 @@ angular.module('rpg')
                 });
             }
             $scope.removeQuestionnaire = function (questionnaire, index) {
+                if (!confirm(resources.Admin_Questionnaire_ConfirmRemovingQuestionnaire.format(questionnaire.Name))) {
+                    return false;
+                }
                 questionnaireService.removeQuestionnaire(questionnaire.Id).then(function () {
                     $scope.questionnaires.splice(index, 1);
                 });
@@ -66,6 +69,9 @@ angular.module('rpg')
                 });
             }
             $scope.removeQuestion = function (questionnaire, question, index) {
+                if (!confirm(resources.Admin_Questionnaire_ConfirmRemovingQuestion.format(question.Order))) {
+                    return false;
+                }
                 questionnaireService.removeQuestion(question.Id).then(function () {
                     questionnaire.Questions.splice(index, 1);
                 });
@@ -86,6 +92,9 @@ angular.module('rpg')
                 });
             }
             $scope.removeQuestionAnswer = function (question, questionAnswer, index) {
+                if (!confirm(resources.Admin_Questionnaire_ConfirmRemovingQuestionAnswer.format(questionAnswer.Order, question.Order))) {
+                    return false;
+                }
                 questionnaireService.removeQuestionAnswer(questionAnswer.Id).then(function () {
                     question.QuestionAnswers.splice(index, 1);
                 });

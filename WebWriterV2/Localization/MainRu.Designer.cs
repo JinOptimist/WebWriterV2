@@ -97,6 +97,42 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Возможно выбрать несколько ответов.
+        /// </summary>
+        internal static string Admin_Questionnaire_AllowMultipleAnswers {
+            get {
+                return ResourceManager.GetString("Admin_Questionnaire_AllowMultipleAnswers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы уверены что хотите удалить вопрос №{0}?.
+        /// </summary>
+        internal static string Admin_Questionnaire_ConfirmRemovingQuestion {
+            get {
+                return ResourceManager.GetString("Admin_Questionnaire_ConfirmRemovingQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы уверены что хотите удалить ответ №{0} на вопрос №{1}?.
+        /// </summary>
+        internal static string Admin_Questionnaire_ConfirmRemovingQuestionAnswer {
+            get {
+                return ResourceManager.GetString("Admin_Questionnaire_ConfirmRemovingQuestionAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вы уверены что хотите удалить опросник с названием: &quot;{0}&quot;?.
+        /// </summary>
+        internal static string Admin_Questionnaire_ConfirmRemovingQuestionnaire {
+            get {
+                return ResourceManager.GetString("Admin_Questionnaire_ConfirmRemovingQuestionnaire", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Название опросника.
         /// </summary>
         internal static string Admin_Questionnaire_DefaultName {
@@ -327,6 +363,15 @@ namespace WebWriterV2.Localization {
         internal static string Reader_Questionnaire_Finish {
             get {
                 return ResourceManager.GetString("Reader_Questionnaire_Finish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Спасибо за ваши ответы.
+        /// </summary>
+        internal static string Reader_Questionnaire_Thanks {
+            get {
+                return ResourceManager.GetString("Reader_Questionnaire_Thanks", resourceCulture);
             }
         }
         
