@@ -184,6 +184,7 @@
     <Compile Include="FrontModel\BookMap\Branch.cs" />
     <Compile Include="FrontModel\FakeModelString.cs" />
     <Compile Include="FrontModel\BookMap\BookWithChaptersV2.cs" />
+    <Compile Include="FrontModel\FrontQuestionnaireResult.cs" />
     <Compile Include="FrontModel\FrontQuestionAnswer.cs" />
     <Compile Include="FrontModel\FrontQuestion.cs" />
     <Compile Include="FrontModel\FrontQuestionnaire.cs" />
@@ -701,8 +702,9 @@
     <Content Include="Scripts\polyfill.js" />
     <Content Include="Scripts\rpg\admin\users-controller.js" />
     <Content Include="Scripts\rpg\reader\access-controller.js" />
+    <Content Include="Scripts\rpg\reader\questionnaire-controller.js" />
     <Content Include="Scripts\rpg\services\questionnaire.js" />
-    <Content Include="Scripts\rpg\reader\questionnaires-controller.js" />
+    <Content Include="Scripts\rpg\admin\questionnaires-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-guest-controller.js" />
     <Content Include="Scripts\rpg\reader\travel-end-controller.js" />
     <Content Include="Scripts\rpg\admin\books-controller.js" />
@@ -744,12 +746,13 @@
     <Content Include="Views\admin\Users.html" />
     <Content Include="Views\admin\Books.html" />
     <Content Include="Views\reader\EndOfTravel.html" />
+    <Content Include="Views\reader\Questionnaire.html" />
     <Content Include="Views\reader\TravelGuest.html" />
     <Content Include="Views\reader\Travel.html" />
     <Content Include="Views\reader\Books.html" />
     <Content Include="Views\reader\Articles.html" />
     <Content Include="Views\Rpg\GeneralDefinition.html" />
-    <Content Include="Views\reader\Questionnaires.html" />
+    <Content Include="Views\admin\Questionnaires.html" />
     <Content Include="Views\Writer\Chapter.html" />
     <Content Include="Views\Writer\Books.html" />
     <Content Include="Views\Rpg\HeaderD.html" />

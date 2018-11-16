@@ -1,0 +1,31 @@
+﻿<div class="content" id="questionnaires">
+    <div ng-if="!questionnaire" class="wait-block">
+        <img src="/Content/icon/wait.gif" />
+    </div>
+    <div class="questionnaire">
+        <h3>
+            {{questionnaire.Name}}
+        </h3>
+        <div ng-repeat="question in questionnaire.Questions" class="question">
+            <p>
+                {{question.Order}}) {{question.Text}}
+            </p>
+            <div ng-repeat="questionAnswer in question.QuestionAnswers" class="question-answers">
+                <p>
+                    <label>
+                        <input type="radio"  ng-model="question.AnswerId" ng-value="questionAnswer.Id" />
+                        {{questionAnswer.Order}}. {{questionAnswer.Text}}
+                    </label>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a href="#" ng-click="saveAnswers()">
+            <span class="button-medium-blue">
+                {{resources.Reader_Questionnaire_Finish}}
+            </span>
+        </a>
+    </div>
+    {{answer}}
+</div>

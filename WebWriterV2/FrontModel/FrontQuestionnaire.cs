@@ -17,10 +17,12 @@ namespace WebWriterV2.FrontModels
             Id = questionnaire.Id;
             Name = questionnaire.Name;
             Questions = questionnaire.Questions.Select(x => new FrontQuestion(x)).ToList();
+            HowManyTimesUserAnswerToTheQuestionnaire = questionnaire.QuestionnaireResults?.Count ?? 0;
         }
 
         public string Name { get; set; }
         public List<FrontQuestion> Questions { get; set; }
+        public int HowManyTimesUserAnswerToTheQuestionnaire { get; set; }
 
         public override Questionnaire ToDbModel()
         {

@@ -1,6 +1,6 @@
 angular.module('rpg')
 
-    .controller('questionnairesController', [
+    .controller('adminQuestionnairesController', [
         '$scope', '$routeParams', '$location', '$cookies', 'questionnaireService', 'userService',
         function ($scope, $routeParams, $location, $cookies, questionnaireService, userService) {
 
@@ -11,7 +11,7 @@ angular.module('rpg')
             init();
 
             //$scope.remove = function (questionnaire, index) {
-            //    if (!confirm(resources.Reader_Questionnaires_ConfirmRemovingQuestionnaire.format(questionnaire.Name))) {
+            //    if (!confirm(resources.Admin_Questionnaires_ConfirmRemovingQuestionnaire.format(questionnaire.Name))) {
             //        return false;
             //    }
             //    questionnaireService.remove(questionnaire.Id)
@@ -21,7 +21,7 @@ angular.module('rpg')
             //}
 
             function loadQuestionnaires() {
-                questionnaireService.getAll().then(function (questionnaires) {
+                questionnaireService.getAllQuestionnaire().then(function (questionnaires) {
                     $scope.questionnaires = questionnaires;
                 });
             }
@@ -32,7 +32,7 @@ angular.module('rpg')
                 }
 
                 $scope.questionnaires.push({
-                    Name: resources.Reader_Questionnaire_DefaultName,
+                    Name: resources.Admin_Questionnaire_DefaultName,
                     isEdit: true,
                     Questions: []
                 });
@@ -43,10 +43,15 @@ angular.module('rpg')
                     savedQuestionnaire.isEdit = false;
                 });
             }
+            $scope.removeQuestionnaire = function (questionnaire, index) {
+                questionnaireService.removeQuestionnaire(questionnaire.Id).then(function () {
+                    $scope.questionnaires.splice(index, 1);
+                });
+            }
 
             $scope.addQuestion = function (questionnaire) {
                 questionnaire.Questions.push({
-                    Text: resources.Reader_Questionnaire_Question_DefaultName,
+                    Text: resources.Admin_Questionnaire_Question_DefaultName,
                     Order: questionnaire.Questions.length + 1,
                     QuestionnaireId: questionnaire.Id,
                     VisibleIf: [],
@@ -60,25 +65,31 @@ angular.module('rpg')
                     savedQuestion.isEdit = false;
                 });
             }
-
-            $scope.addQuestionAnswers = function (question) {
-                question.QuestionAnswers.push({
-                    Text: resources.Reader_Questionnaire_QuestionAnswer_DefaultName,
-                    Order: question.QuestionAnswers.length + 1,
+            $scope.removeQuestion = function (questionnaire, question, index) {
+                questionnaireService.removeQuestion(question.Id).then(function () {
+                    questionnaire.Questions.splice(index, 1);
                 });
             }
 
-            //Text = question.Text;
-            //Order = question.Order;
-            //VisibleIf = question.VisibleIf.Select(x => x.Id).ToList();
-            //QuestionAnswers
-
-
-            //$scope.save = function (questionnaire, index) {
-            //    questionnaireService.save(questionnaire).then(function (savedQuestionnaire) {
-            //        $scope.questionnaires[index] = savedQuestionnaire;
-            //    });
-            //}
+            $scope.addQuestionAnswers = function (question) {
+                question.QuestionAnswers.push({
+                    Text: resources.Admin_Questionnaire_QuestionAnswer_DefaultName,
+                    Order: question.QuestionAnswers.length + 1,
+                    QuestionId: question.Id,
+                    isEdit: true
+                });
+            }
+            $scope.saveQuestionAnswer = function (questionAnswer, index, question) {
+                questionnaireService.saveQuestionAnswer(questionAnswer).then(function (savedQuestionAnswer) {
+                    question.QuestionAnswers[index] = savedQuestionAnswer;
+                    savedQuestionAnswer.isEdit = false;
+                });
+            }
+            $scope.removeQuestionAnswer = function (question, questionAnswer, index) {
+                questionnaireService.removeQuestionAnswer(questionAnswer.Id).then(function () {
+                    question.QuestionAnswers.splice(index, 1);
+                });
+            }
 
             function init() {
                 loadQuestionnaires();

@@ -673,6 +673,9 @@ ul {
 
             .question-answers {
                 margin-left: 20px;
+                .statistics{
+                    color: $gray-middle;
+                }
             }
         }
     }

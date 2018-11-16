@@ -58,9 +58,9 @@ angular.module('rpg', ['directives', 'services', 'AppConst', 'underscore', 'ui.b
                     templateUrl: '/views/reader/Articles.html',
                     controller: 'articlesController'
                 })
-                .when('/ar/reader/questionnaires', {
-                    templateUrl: '/views/reader/Questionnaires.html',
-                    controller: 'questionnairesController'
+                .when('/ar/reader/questionnaire/:questionnaireId', {
+                    templateUrl: '/views/reader/Questionnaire.html',
+                    controller: 'questionnaireController'
                 })
 
 
@@ -72,6 +72,10 @@ angular.module('rpg', ['directives', 'services', 'AppConst', 'underscore', 'ui.b
                 .when('/ar/admin/users', {
                     templateUrl: '/views/admin/Users.html',
                     controller: 'adminUsersController'
+                })
+                .when('/ar/admin/questionnaires', {
+                    templateUrl: '/views/admin/Questionnaires.html',
+                    controller: 'adminQuestionnairesController'
                 })
 
                 .otherwise({

@@ -18,11 +18,13 @@ namespace WebWriterV2.FrontModels
             QuestionId = questionAnswer.Question.Id;
             Text = questionAnswer.Text;
             Order = questionAnswer.Order;
+            HowManyTimesWasChoosen = questionAnswer.QuestionnaireResults?.Count ?? 0;
         }
 
         public long QuestionId { get; set; }
         public string Text { get; set; }
         public int Order { get; set; }
+        public int HowManyTimesWasChoosen { get; set; }
 
         public override QuestionAnswer ToDbModel()
         {

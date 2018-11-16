@@ -15,15 +15,18 @@ namespace WebWriterV2.Controllers
 {
     public class QuestionnaireController : BaseApiController
     {
-        public QuestionnaireController(IQuestionnaireRepository questionnaireRepository, IQuestionRepository questionRepository)
+        public QuestionnaireController(IQuestionnaireRepository questionnaireRepository, IQuestionRepository questionRepository, IQuestionAnswerRepository questionAnswerRepository, IQuestionnaireResultRepository questionnaireResultRepository)
         {
             QuestionnaireRepository = questionnaireRepository;
             QuestionRepository = questionRepository;
+            QuestionAnswerRepository = questionAnswerRepository;
+            QuestionnaireResultRepository = questionnaireResultRepository;
         }
 
         private IQuestionnaireRepository QuestionnaireRepository { get; set; }
         private IQuestionRepository QuestionRepository { get; set; }
-        
+        private IQuestionAnswerRepository QuestionAnswerRepository { get; set; }
+        private IQuestionnaireResultRepository QuestionnaireResultRepository { get; set; }
 
         [AcceptVerbs("POST")]
         public FrontQuestionnaire Save(FrontQuestionnaire FrontQuestionnaire)
@@ -39,6 +42,14 @@ namespace WebWriterV2.Controllers
             var question = frontQuestion.ToDbModel();
             question = QuestionRepository.Save(question);
             return new FrontQuestion(question);
+        }
+
+        [AcceptVerbs("POST")]
+        public FrontQuestionAnswer SaveQuestionAnswer(FrontQuestionAnswer frontQuestionAnswer)
+        {
+            var questionAnswer = frontQuestionAnswer.ToDbModel();
+            questionAnswer = QuestionAnswerRepository.Save(questionAnswer);
+            return new FrontQuestionAnswer(questionAnswer);
         }
 
         [AcceptVerbs("GET")]
@@ -61,10 +72,40 @@ namespace WebWriterV2.Controllers
         public bool Remove(long id)
         {
             if (User.UserType != UserType.Admin) {
-                throw new UnauthorizedAccessException($"userId-{User.Id} try to remove article");
+                throw new UnauthorizedAccessException($"userId-{User.Id} try to remove Questionnaire");
             }
             QuestionnaireRepository.Remove(id);
 
+            return true;
+        }
+
+        [AcceptVerbs("GET")]
+        public bool RemoveQuestion(long id)
+        {
+            if (User.UserType != UserType.Admin) {
+                throw new UnauthorizedAccessException($"userId-{User.Id} try to remove Question");
+            }
+            QuestionRepository.Remove(id);
+
+            return true;
+        }
+
+        [AcceptVerbs("GET")]
+        public bool RemoveQuestionAnswer(long id)
+        {
+            if (User.UserType != UserType.Admin) {
+                throw new UnauthorizedAccessException($"userId-{User.Id} try to remove QuestionAnswer");
+            }
+            QuestionAnswerRepository.Remove(id);
+
+            return true;
+        }
+
+        [AcceptVerbs("POST")]
+        public bool SaveQuestionnaireResult(FrontQuestionnaireResult fontQuestionnaireResult)
+        {
+            var questionnaireResult = fontQuestionnaireResult.ToDbModel();
+            QuestionnaireResultRepository.Save(questionnaireResult);
             return true;
         }
     }
