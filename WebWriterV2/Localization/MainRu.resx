@@ -390,4 +390,13 @@
   <data name="Reader_Questionnaire_Thanks" xml:space="preserve">
     <value>Спасибо за ваши ответы</value>
   </data>
+  <data name="Admin_Questionnaire_Edit" xml:space="preserve">
+    <value>Редактировать</value>
+  </data>
+  <data name="Admin_Questionnaire_Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Admin_Questionnaire_Save" xml:space="preserve">
+    <value>Сохранить</value>
+  </data>
 </root>

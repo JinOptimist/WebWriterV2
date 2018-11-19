@@ -142,6 +142,15 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Редактировать.
+        /// </summary>
+        internal static string Admin_Questionnaire_Edit {
+            get {
+                return ResourceManager.GetString("Admin_Questionnaire_Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вопрос.
         /// </summary>
         internal static string Admin_Questionnaire_Question_DefaultName {
@@ -156,6 +165,24 @@ namespace WebWriterV2.Localization {
         internal static string Admin_Questionnaire_QuestionAnswer_DefaultName {
             get {
                 return ResourceManager.GetString("Admin_Questionnaire_QuestionAnswer_DefaultName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удалить.
+        /// </summary>
+        internal static string Admin_Questionnaire_Remove {
+            get {
+                return ResourceManager.GetString("Admin_Questionnaire_Remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Сохранить.
+        /// </summary>
+        internal static string Admin_Questionnaire_Save {
+            get {
+                return ResourceManager.GetString("Admin_Questionnaire_Save", resourceCulture);
             }
         }
         

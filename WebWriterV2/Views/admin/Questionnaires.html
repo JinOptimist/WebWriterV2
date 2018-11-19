@@ -3,28 +3,36 @@
         <img src="/Content/icon/wait.gif" />
     </div>
     <div ng-repeat="questionnaire in questionnaires" class="questionnaire">
-        <h3 ng-show="!questionnaire.isEdit">
+        <h3 ng-show="!questionnaire.isEdit" ng-mouseover="questionnaire.isHover = true" ng-mouseleave="questionnaire.isHover = false">
             {{questionnaire.Name}}
-            <input value="edit" type="button" ng-click="questionnaire.isEdit = !questionnaire.isEdit" />
-            <input value="remove" type="button" ng-click="removeQuestionnaire(questionnaire, $index)" />
+            <input value="{{resources.Admin_Questionnaire_Edit}}" type="button" 
+                   ng-click="questionnaire.isEdit = !questionnaire.isEdit"
+                   ng-show="questionnaire.isHover" />
+            <input value="{{resources.Admin_Questionnaire_Remove}}" type="button" 
+                   ng-click="removeQuestionnaire(questionnaire, $index)" 
+                   ng-show="questionnaire.isHover" />
         </h3>
         <h3 ng-show="questionnaire.isEdit">
             <input ng-model="questionnaire.Name" />
-            <input type="button" value="ok" ng-click="saveQuestionnaire(questionnaire, $index)" />
+            <input type="button" value="{{resources.Admin_Questionnaire_Save}}" ng-click="saveQuestionnaire(questionnaire, $index)" />
         </h3>
         
         <p><a href="/ar/reader/questionnaire/{{questionnaire.Id}}" target="_blank">Ссылка на опрос</a></p>
 
         <div ng-repeat="question in questionnaire.Questions" class="question">
-            <p ng-if="!question.isEdit">
+            <p ng-if="!question.isEdit" ng-mouseover="question.isHover = true" ng-mouseleave="question.isHover = false">
                 {{question.Order}}) {{question.Text}}
-                <input value="edit" type="button" ng-click="question.isEdit = !question.isEdit" />
-                <input value="remove" type="button" ng-click="removeQuestion(questionnaire, question, $index)" />
+                <input value="{{resources.Admin_Questionnaire_Edit}}" type="button" 
+                       ng-click="question.isEdit = !question.isEdit"
+                       ng-show="question.isHover" />
+                <input value="{{resources.Admin_Questionnaire_Remove}}" type="button" 
+                       ng-click="removeQuestion(questionnaire, question, $index)"
+                       ng-show="question.isHover" />
             </p>
             <div ng-if="question.isEdit">
                 <p>
                     {{question.Order}})
-                    <input ng-model="question.Text" />
+                    <input ng-model="question.Text" class="question-text" />
                 </p>
                 <p>
                     <label>
@@ -36,14 +44,16 @@
                     Данный вопрос будет видет только если в предыдущем вопросе был выбран ответ
                     <select ng-options="ans.Text for ans in question.answerFromPrevQuestion"
                             ng-model="question.requiredAnswer"></select>
-                    
                 </p>
                 <p>
-                    <input type="button" value="ok" ng-click="saveQuestion(questionnaire, question, $index)" />
+                    <input type="button" value="{{resources.Admin_Questionnaire_Save}}" ng-click="saveQuestion(questionnaire, question, $index)" />
                 </p>
             </div>
             <div ng-repeat="questionAnswer in question.QuestionAnswers" class="question-answers">
-                <p ng-show="!questionAnswer.isEdit">
+                <p ng-show="!questionAnswer.isEdit" ng-mouseover="questionAnswer.isHover = true" ng-mouseleave="questionAnswer.isHover = false">
+                    <input type="checkbox" disabled="disabled" ng-show="question.AllowMultipleAnswers"/>
+                    <input type="radio" disabled="disabled" ng-show="!question.AllowMultipleAnswers"/>
+
                     <span class="statistics">
                         ({{questionAnswer.HowManyTimesWasChoosen}}/{{questionnaire.HowManyTimesUserAnswerToTheQuestionnaire}}
                         ~
@@ -51,13 +61,17 @@
                     </span>
                     {{questionAnswer.Order}}.
                     {{questionAnswer.Text}}
-                    <input value="edit" type="button" ng-click="questionAnswer.isEdit = !questionAnswer.isEdit" />
-                    <input value="remove" type="button" ng-click="removeQuestionAnswer(question, questionAnswer, $index)" />
+                    <input value="{{resources.Admin_Questionnaire_Edit}}" type="button"
+                           ng-click="questionAnswer.isEdit = !questionAnswer.isEdit"
+                           ng-show="questionAnswer.isHover" />
+                    <input value="{{resources.Admin_Questionnaire_Remove}}" type="button"
+                           ng-click="removeQuestionAnswer(question, questionAnswer, $index)"
+                           ng-show="questionAnswer.isHover" />
                 </p>
                 <p ng-show="questionAnswer.isEdit">
                     {{questionAnswer.Order}}.
                     <input ng-model="questionAnswer.Text" />
-                    <input type="button" value="ok" ng-click="saveQuestionAnswer(questionAnswer, $index, question)" />
+                    <input type="button" value="{{resources.Admin_Questionnaire_Save}}" ng-click="saveQuestionAnswer(questionAnswer, $index, question)" />
                 </p>
             </div>
             <p ng-show="!question.isEdit">

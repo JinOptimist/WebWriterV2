@@ -669,11 +669,17 @@ ul {
         margin-left: 20px;
 
         .question {
-            margin-left: 20px;
+            margin-top: 20px;
+            margin-left: 40px;
+
+            .question-text {
+                width: calc( 100% - 50px );
+            }
 
             .question-answers {
                 margin-left: 20px;
-                .statistics{
+
+                .statistics {
                     color: $gray-middle;
                 }
             }
