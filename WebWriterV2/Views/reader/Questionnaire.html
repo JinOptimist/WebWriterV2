@@ -11,6 +11,7 @@
             </h3>
             <div ng-repeat="question in questionnaire.Questions" class="question">
                 <p>
+                    <span ng-show="question.withoutAnswer" class="error-mark">*</span>
                     {{question.Order}}) {{question.Text}}
                 </p>
                 <div ng-repeat="questionAnswer in question.QuestionAnswers" class="question-answers">

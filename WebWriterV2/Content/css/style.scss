@@ -672,6 +672,10 @@ ul {
             margin-top: 20px;
             margin-left: 40px;
 
+            .error-mark {
+                color: $red;
+            }
+
             .question-text {
                 width: calc( 100% - 50px );
             }

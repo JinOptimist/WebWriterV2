@@ -13,7 +13,7 @@
                    ng-show="questionnaire.isHover" />
         </h3>
         <h3 ng-show="questionnaire.isEdit">
-            <input ng-model="questionnaire.Name" />
+            <input ng-model="questionnaire.Name" ng-keypress="typedQuestionnaire($event, questionnaire, $index)"/>
             <input type="button" value="{{resources.Admin_Questionnaire_Save}}" ng-click="saveQuestionnaire(questionnaire, $index)" />
         </h3>
         
@@ -32,7 +32,7 @@
             <div ng-if="question.isEdit">
                 <p>
                     {{question.Order}})
-                    <input ng-model="question.Text" class="question-text" />
+                    <input ng-model="question.Text" class="question-text" ng-keypress="typedQuestion($event, questionnaire, question, $index)"/>
                 </p>
                 <p>
                     <label>
@@ -70,8 +70,8 @@
                 </p>
                 <p ng-show="questionAnswer.isEdit">
                     {{questionAnswer.Order}}.
-                    <input ng-model="questionAnswer.Text" />
-                    <input type="button" value="{{resources.Admin_Questionnaire_Save}}" ng-click="saveQuestionAnswer(questionAnswer, $index, question)" />
+                    <input ng-model="questionAnswer.Text" ng-keypress="typedQuestionAnswer($event, questionAnswer, question, $index)" />
+                    <input type="button" value="{{resources.Admin_Questionnaire_Save}}" ng-click="saveQuestionAnswer(questionAnswer, question, $index)" />
                 </p>
             </div>
             <p ng-show="!question.isEdit">

@@ -25,6 +25,7 @@ angular.module('rpg')
                 questionnaireService.saveQuestionnaire(questionnaire).then(function (savedQuestionnaire) {
                     $scope.questionnaires[index] = savedQuestionnaire;
                     savedQuestionnaire.isEdit = false;
+                    fillAnswerFromPrevQuestion();
                 });
             }
             $scope.removeQuestionnaire = function (questionnaire, index) {
@@ -34,6 +35,14 @@ angular.module('rpg')
                 questionnaireService.removeQuestionnaire(questionnaire.Id).then(function () {
                     $scope.questionnaires.splice(index, 1);
                 });
+            }
+            $scope.typedQuestionnaire = function ($event, questionnaire, index) {
+                // 'enter'.keyEvent === 13
+                if ($event.which !== 13) {
+                    return false;
+                }
+
+                $scope.saveQuestionnaire(questionnaire, index);
             }
 
             $scope.addQuestion = function (questionnaire) {
@@ -50,6 +59,7 @@ angular.module('rpg')
                 questionnaireService.saveQuestion(question).then(function (savedQuestion) {
                     questionnaire.Questions[index] = savedQuestion;
                     savedQuestion.isEdit = false;
+                    fillAnswerFromPrevQuestion();
                 });
             }
             $scope.removeQuestion = function (questionnaire, question, index) {
@@ -58,7 +68,16 @@ angular.module('rpg')
                 }
                 questionnaireService.removeQuestion(question.Id).then(function () {
                     questionnaire.Questions.splice(index, 1);
+                    fillAnswerFromPrevQuestion();
                 });
+            }
+            $scope.typedQuestion = function ($event, questionnaire, question, index) {
+                // 'enter'.keyEvent === 13
+                if ($event.which !== 13) {
+                    return false;
+                }
+
+                $scope.saveQuestion(questionnaire, question, index);
             }
 
             $scope.addQuestionAnswers = function (question) {
@@ -69,10 +88,11 @@ angular.module('rpg')
                     isEdit: true
                 });
             }
-            $scope.saveQuestionAnswer = function (questionAnswer, index, question) {
+            $scope.saveQuestionAnswer = function (questionAnswer, question, index) {
                 questionnaireService.saveQuestionAnswer(questionAnswer).then(function (savedQuestionAnswer) {
                     question.QuestionAnswers[index] = savedQuestionAnswer;
                     savedQuestionAnswer.isEdit = false;
+                    fillAnswerFromPrevQuestion();
                 });
             }
             $scope.removeQuestionAnswer = function (question, questionAnswer, index) {
@@ -81,22 +101,36 @@ angular.module('rpg')
                 }
                 questionnaireService.removeQuestionAnswer(questionAnswer.Id).then(function () {
                     question.QuestionAnswers.splice(index, 1);
+                    fillAnswerFromPrevQuestion();
                 });
+            }
+            $scope.typedQuestionAnswer = function ($event, questionAnswer, question, index) {
+                // 'enter'.keyEvent === 13
+                if ($event.which !== 13) {
+                    return false;
+                }
+
+                $scope.saveQuestionAnswer(questionAnswer, question, index);
             }
 
             function loadQuestionnaires() {
                 questionnaireService.getAllQuestionnaire().then(function (questionnaires) {
-
-
-                    questionnaires.forEach(function (questionnaire) {
-                        for (var i = 1; i < questionnaire.Questions.length; i++) {
-                            var question = questionnaire.Questions[i];
-                            var questionPrev = questionnaire.Questions[i - 1];
-                            question.answerFromPrevQuestion = questionPrev.QuestionAnswers;
-                        }
-                    });
-
                     $scope.questionnaires = questionnaires;
+                    fillAnswerFromPrevQuestion();
+                });
+            }
+
+            function fillAnswerFromPrevQuestion() {
+                $scope.questionnaires.forEach(function (questionnaire) {
+                    var answersFromPrevQuestion = [];
+
+                    questionnaire.Questions.forEach(function(question){
+                        var cloneArray = answersFromPrevQuestion.slice(0);
+                        question.answerFromPrevQuestion = cloneArray;
+                        question.QuestionAnswers.forEach(function (qa) {
+                            answersFromPrevQuestion.push(qa);
+                        })
+                    });
                 });
             }
 

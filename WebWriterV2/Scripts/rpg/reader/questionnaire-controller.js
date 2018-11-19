@@ -13,15 +13,28 @@ angular.module('rpg')
             init();
 
             $scope.saveAnswers = function () {
-
                 var answers = [];
+                var thereIsQuestionWithoutAnswers = false;
                 $scope.questionnaire.Questions.forEach(function (q) {
+                    var answersCount = answers.length;
                     if (q.AllowMultipleAnswers) {
                         q.Answers.forEach(function (a) { answers.push({ Id: a }) });
-                    } else {
+                    } else if (q.AnswerId) {
                         answers.push({ Id: q.AnswerId });
                     }
+
+                    if (answersCount == answers.length) {
+                        // if count of answer doesn't change, question doesn't have answer.
+                        q.withoutAnswer = true;
+                        thereIsQuestionWithoutAnswers = true;
+                    } else {
+                        q.withoutAnswer = false;
+                    }
                 });
+
+                if (thereIsQuestionWithoutAnswers) {
+                    return;
+                }
 
                 var questionnaireResult = {
                     QuestionnaireId: $scope.questionnaire.Id,
@@ -39,10 +52,6 @@ angular.module('rpg')
             }
 
             $scope.toggleSelection = function (question, answerId) {
-                if (!question.Answers) {
-                    question.Answers = [];
-                }
-
                 var idx = question.Answers.indexOf(answerId);
                 if (idx > -1) {
                     question.Answers.splice(idx, 1);
@@ -54,6 +63,9 @@ angular.module('rpg')
             function loadQuestionnaire(questionnaireId) {
                 questionnaireService.getQuestionnaire(questionnaireId).then(function (questionnaire) {
                     $scope.questionnaire = questionnaire;
+                    $scope.questionnaire.Questions.forEach(function (q) {
+                        q.Answers = [];
+                    })
                 });
             }
 
