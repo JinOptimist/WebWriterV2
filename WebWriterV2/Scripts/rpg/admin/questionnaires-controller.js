@@ -122,7 +122,11 @@ angular.module('rpg')
 
             function fillAnswerFromPrevQuestion() {
                 $scope.questionnaires.forEach(function (questionnaire) {
-                    var answersFromPrevQuestion = [];
+                    var answersFromPrevQuestion = [{
+                        Id: -1,
+                        QuestionId: -1,
+                        Text: "---"
+                    }];
 
                     questionnaire.Questions.forEach(function(question){
                         var cloneArray = answersFromPrevQuestion.slice(0);
@@ -136,7 +140,6 @@ angular.module('rpg')
 
             function init() {
                 loadQuestionnaires();
-
                 var userId = userService.getCurrentUserId();
                 if (userId) {
                     userService.getById(userId).then(function (data) {

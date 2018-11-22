@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Dal.Repository;
 using Dao.IRepository;
 using Dao.Model;
@@ -9,6 +10,11 @@ namespace Dao.Repository
     {
         public QuestionAnswerRepository(WriterContext db) : base(db)
         {
+        }
+
+        public List<QuestionAnswer> GetByQuestionVisibleIf(Question question)
+        {
+            return Entity.Where(qa => qa.AffectVisibilityOfQuestions.Any(q => q.Id == question.Id)).ToList();
         }
 
         public override QuestionAnswer Save(QuestionAnswer model)

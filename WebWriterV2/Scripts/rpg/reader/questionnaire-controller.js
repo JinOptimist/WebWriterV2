@@ -13,26 +13,9 @@ angular.module('rpg')
             init();
 
             $scope.saveAnswers = function () {
-                var answers = [];
-                var thereIsQuestionWithoutAnswers = false;
-                $scope.questionnaire.Questions.forEach(function (q) {
-                    var answersCount = answers.length;
-                    if (q.AllowMultipleAnswers) {
-                        q.Answers.forEach(function (a) { answers.push({ Id: a }) });
-                    } else if (q.AnswerId) {
-                        answers.push({ Id: q.AnswerId });
-                    }
+                var answers = getAnswers();
 
-                    if (answersCount == answers.length) {
-                        // if count of answer doesn't change, question doesn't have answer.
-                        q.withoutAnswer = true;
-                        thereIsQuestionWithoutAnswers = true;
-                    } else {
-                        q.withoutAnswer = false;
-                    }
-                });
-
-                if (thereIsQuestionWithoutAnswers) {
+                if ($scope.questionnaire.Questions.some(a => a.withoutAnswer)) {
                     return;
                 }
 
@@ -58,6 +41,37 @@ angular.module('rpg')
                 } else {
                     question.Answers.push(answerId);
                 }
+            }
+
+            $scope.requiredAnswersWasChecked = function (question) {
+                var answers = getAnswers();
+                return requiredAnswersWasChecked(question, answers);
+            }
+
+            function requiredAnswersWasChecked(question, answers) {
+                var visibleIf = question.VisibleIf[0];
+                return answers.some(a => a.Id == visibleIf);
+            }
+
+            function getAnswers() {
+                var answers = [];
+                $scope.questionnaire.Questions.forEach(function (question) {
+                    // Check do we can see the question. If we can't, skip the question
+                    if (question.VisibleIf && question.VisibleIf.length > 0 && !requiredAnswersWasChecked(question, answers)){
+                        return;
+                    }
+
+                    var answersCount = answers.length;
+                    if (question.AllowMultipleAnswers) {
+                        question.Answers.forEach(function (a) { answers.push({ Id: a }) });
+                    } else if (question.AnswerId) {
+                        answers.push({ Id: question.AnswerId });
+                    }
+
+                    // if count of answer doesn't change, question doesn't have answer.
+                    question.withoutAnswer = answersCount == answers.length;
+                });
+                return answers;
             }
 
             function loadQuestionnaire(questionnaireId) {

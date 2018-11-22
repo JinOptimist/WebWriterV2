@@ -36,7 +36,8 @@ namespace WebWriterV2.FrontModels
                 Id = Id,
                 Text = Text,
                 Order = Order,
-                VisibleIf = VisibleIf?.Select(x => new QuestionAnswer { Id = x }).ToList(),
+                //VisibleIf = VisibleIf?.Select(x => new QuestionAnswer { Id = x }).ToList(),
+                VisibleIf = new List<QuestionAnswer>(),
                 Answers = QuestionAnswers?.Select(x => x.ToDbModel()).ToList(),
                 Questionnaire = new Questionnaire { Id = QuestionnaireId },
                 AllowMultipleAnswers = AllowMultipleAnswers

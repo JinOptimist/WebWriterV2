@@ -6,5 +6,6 @@ namespace Dao.IRepository
 {
     public interface IQuestionAnswerRepository : IBaseRepository<QuestionAnswer>
     {
+        List<QuestionAnswer> GetByQuestionVisibleIf(Question question);
     }
 }

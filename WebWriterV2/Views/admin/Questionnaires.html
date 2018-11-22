@@ -22,17 +22,17 @@
         <div ng-repeat="question in questionnaire.Questions" class="question">
             <p ng-if="!question.isEdit" ng-mouseover="question.isHover = true" ng-mouseleave="question.isHover = false">
                 {{question.Order}}) {{question.Text}}
-                <input value="{{resources.Admin_Questionnaire_Edit}}" type="button" 
+                <input value="{{resources.Admin_Questionnaire_Edit}}" type="button"
                        ng-click="question.isEdit = !question.isEdit"
                        ng-show="question.isHover" />
-                <input value="{{resources.Admin_Questionnaire_Remove}}" type="button" 
+                <input value="{{resources.Admin_Questionnaire_Remove}}" type="button"
                        ng-click="removeQuestion(questionnaire, question, $index)"
                        ng-show="question.isHover" />
             </p>
             <div ng-if="question.isEdit">
                 <p>
                     {{question.Order}})
-                    <input ng-model="question.Text" class="question-text" ng-keypress="typedQuestion($event, questionnaire, question, $index)"/>
+                    <input ng-model="question.Text" class="question-text" ng-keypress="typedQuestion($event, questionnaire, question, $index)" />
                 </p>
                 <p>
                     <label>
@@ -42,8 +42,8 @@
                 </p>
                 <p>
                     Данный вопрос будет видет только если в предыдущем вопросе был выбран ответ
-                    <select ng-options="ans.Text for ans in question.answerFromPrevQuestion"
-                            ng-model="question.requiredAnswer"></select>
+                    <select ng-options="answerFromPrev.Id as answerFromPrev.Text for answerFromPrev in question.answerFromPrevQuestion"
+                            ng-model="question.VisibleIf[0]"></select>
                 </p>
                 <p>
                     <input type="button" value="{{resources.Admin_Questionnaire_Save}}" ng-click="saveQuestion(questionnaire, question, $index)" />
@@ -51,8 +51,8 @@
             </div>
             <div ng-repeat="questionAnswer in question.QuestionAnswers" class="question-answers">
                 <p ng-show="!questionAnswer.isEdit" ng-mouseover="questionAnswer.isHover = true" ng-mouseleave="questionAnswer.isHover = false">
-                    <input type="checkbox" disabled="disabled" ng-show="question.AllowMultipleAnswers"/>
-                    <input type="radio" disabled="disabled" ng-show="!question.AllowMultipleAnswers"/>
+                    <input type="checkbox" disabled="disabled" ng-show="question.AllowMultipleAnswers" />
+                    <input type="radio" disabled="disabled" ng-show="!question.AllowMultipleAnswers" />
 
                     <span class="statistics">
                         ({{questionAnswer.HowManyTimesWasChoosen}}/{{questionnaire.HowManyTimesUserAnswerToTheQuestionnaire}}

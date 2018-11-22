@@ -41,6 +41,18 @@ namespace WebWriterV2.Controllers
         {
             var question = frontQuestion.ToDbModel();
             question = QuestionRepository.Save(question);
+
+            var questionAnswers = QuestionAnswerRepository.GetByQuestionVisibleIf(question);
+            questionAnswers.ForEach(x => x.AffectVisibilityOfQuestions.RemoveAll(q => q.Id == question.Id));
+            QuestionAnswerRepository.Save(questionAnswers);
+            // dirty hack. I can't save question and add relation between existing item by one step
+            long? visibleIf = frontQuestion.VisibleIf.FirstOrDefault();
+            if (visibleIf.HasValue && visibleIf > 0) {
+                var questionAnswer = QuestionAnswerRepository.Get(visibleIf.Value);
+                questionAnswer.AffectVisibilityOfQuestions.Add(question);
+                QuestionAnswerRepository.Save(questionAnswer);
+            }
+
             return new FrontQuestion(question);
         }
 

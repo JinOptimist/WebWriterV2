@@ -18,6 +18,7 @@ namespace Dao.Repository
         {
             model.Questionnaire = model.Questionnaire.AttachIfNot(Db);
             model.Answers = model.Answers.Select(x => x.AttachIfNot(Db)).ToList();
+            model.VisibleIf = model.VisibleIf.Select(x => x.AttachIfNot(Db)).ToList();
             return base.Save(model);
         }
 

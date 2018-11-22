@@ -9,7 +9,9 @@
             <h3>
                 {{questionnaire.Name}}
             </h3>
-            <div ng-repeat="question in questionnaire.Questions" class="question">
+            <div ng-repeat="question in questionnaire.Questions" 
+                 ng-show="!question.VisibleIf || question.VisibleIf.length < 1 || requiredAnswersWasChecked(question)"
+                 class="question">
                 <p>
                     <span ng-show="question.withoutAnswer" class="error-mark">*</span>
                     {{question.Order}}) {{question.Text}}
