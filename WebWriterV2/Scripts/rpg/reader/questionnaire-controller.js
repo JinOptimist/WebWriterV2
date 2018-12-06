@@ -57,7 +57,8 @@ angular.module('rpg')
                 var answers = [];
                 $scope.questionnaire.Questions.forEach(function (question) {
                     // Check do we can see the question. If we can't, skip the question
-                    if (question.VisibleIf && question.VisibleIf.length > 0 && !requiredAnswersWasChecked(question, answers)){
+                    if (question.VisibleIf && question.VisibleIf.length > 0 && !requiredAnswersWasChecked(question, answers)) {
+                        question.withoutAnswer = false;
                         return;
                     }
 
