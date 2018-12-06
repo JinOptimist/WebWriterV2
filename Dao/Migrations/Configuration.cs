@@ -1,19 +1,19 @@
-namespace Dao.Migrations
+namespace Dal.Migrations
 {
-    using Dao.DataGeneration;
-    using Dao.Model;
+    using Dal.DataGeneration;
+    using Dal.Model;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    public sealed class Configuration : DbMigrationsConfiguration<Dao.WriterContext>
+    public sealed class Configuration : DbMigrationsConfiguration<Dal.WriterContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
 
-            ContextKey = "Dao.WriterContext";
+            ContextKey = "Dal.WriterContext";
         }
 
         protected override void Seed(WriterContext context)

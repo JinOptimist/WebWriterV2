@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dao.IRepository;
-using Dao.Model;
+using Dal.IRepository;
+using Dal.Model;
 using System.Linq;
 using Dal.Repository;
 
-namespace Dao.Repository
+namespace Dal.Repository
 {
     public class StateTypeRepository : BaseRepository<StateType>, IStateTypeRepository
     {

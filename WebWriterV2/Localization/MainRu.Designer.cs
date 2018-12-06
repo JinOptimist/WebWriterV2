@@ -151,6 +151,24 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Доступен свой вариант ответа.
+        /// </summary>
+        internal static string Admin_Questionnaire_EnableOtherAnswer {
+            get {
+                return ResourceManager.GetString("Admin_Questionnaire_EnableOtherAnswer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Дополнительный текст перед полем для своего ответа (не обязательно).
+        /// </summary>
+        internal static string Admin_Questionnaire_OtherLabel {
+            get {
+                return ResourceManager.GetString("Admin_Questionnaire_OtherLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Вопрос.
         /// </summary>
         internal static string Admin_Questionnaire_Question_DefaultName {

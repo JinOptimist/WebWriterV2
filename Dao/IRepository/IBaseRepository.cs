@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
-using Dao.Model;
+using Dal.Model;
 
-namespace Dao.IRepository
+namespace Dal.IRepository
 {
     public interface IBaseRepository<T> where T : class
     {

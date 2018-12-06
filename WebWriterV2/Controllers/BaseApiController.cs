@@ -1,5 +1,5 @@
-﻿using Dao.IRepository;
-using Dao.Model;
+﻿using Dal.IRepository;
+using Dal.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

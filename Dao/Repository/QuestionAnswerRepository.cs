@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Dal.Repository;
-using Dao.IRepository;
-using Dao.Model;
+using Dal.IRepository;
+using Dal.Model;
 
-namespace Dao.Repository
+namespace Dal.Repository
 {
     public class QuestionAnswerRepository : BaseRepository<QuestionAnswer>, IQuestionAnswerRepository
     {

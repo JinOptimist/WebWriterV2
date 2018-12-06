@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dao.Model
+namespace Dal.Model
 {
     public class StateValue : BaseModel
     {

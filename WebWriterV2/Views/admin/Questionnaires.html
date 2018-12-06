@@ -41,6 +41,17 @@
                     </label>
                 </p>
                 <p>
+                    <label>
+                        {{resources.Admin_Questionnaire_EnableOtherAnswer}}
+                        <input type="checkbox" ng-model="question.EnableOtherAnswer" />
+
+                    </label>
+                </p>
+                <p ng-show="question.EnableOtherAnswer">
+                    {{resources.Admin_Questionnaire_OtherLabel}}
+                    <input ng-model="question.OtherLabel" />
+                </p>
+                <p>
                     Данный вопрос будет видет только если в предыдущем вопросе был выбран ответ
                     <select ng-options="answerFromPrev.Id as answerFromPrev.Text for answerFromPrev in question.answerFromPrevQuestion"
                             ng-model="question.VisibleIf[0]"></select>
@@ -73,6 +84,12 @@
                     <input ng-model="questionAnswer.Text" ng-keypress="typedQuestionAnswer($event, questionAnswer, question, $index)" />
                     <input type="button" value="{{resources.Admin_Questionnaire_Save}}" ng-click="saveQuestionAnswer(questionAnswer, question, $index)" />
                 </p>
+            </div>
+            <div class="question-answers" ng-show="question.EnableOtherAnswer">
+                <p ng-show="question.OtherLabel">
+                    {{question.OtherLabel}}
+                </p>
+                <textarea disabled="disabled"></textarea>
             </div>
             <p ng-show="!question.isEdit">
                 <a href="#" ng-click="addQuestionAnswers(question)">

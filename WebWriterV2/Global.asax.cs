@@ -3,13 +3,13 @@ using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Dao;
-using Dao.Repository;
+using Dal;
+using Dal.Repository;
 using System.Linq;
 using WebWriterV2.DI;
 using Castle.Windsor;
 using Castle.MicroKernel.Registration;
-using Dao.IRepository;
+using Dal.IRepository;
 using WebWriterV2.Controllers;
 
 namespace WebWriterV2

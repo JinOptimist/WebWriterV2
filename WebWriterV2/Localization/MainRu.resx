@@ -399,4 +399,10 @@
   <data name="Admin_Questionnaire_Save" xml:space="preserve">
     <value>Сохранить</value>
   </data>
+  <data name="Admin_Questionnaire_EnableOtherAnswer" xml:space="preserve">
+    <value>Доступен свой вариант ответа</value>
+  </data>
+  <data name="Admin_Questionnaire_OtherLabel" xml:space="preserve">
+    <value>Дополнительный текст перед полем для своего ответа (не обязательно)</value>
+  </data>
 </root>

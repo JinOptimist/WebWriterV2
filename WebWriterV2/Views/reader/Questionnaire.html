@@ -9,7 +9,7 @@
             <h3>
                 {{questionnaire.Name}}
             </h3>
-            <div ng-repeat="question in questionnaire.Questions" 
+            <div ng-repeat="question in questionnaire.Questions"
                  ng-show="!question.VisibleIf || question.VisibleIf.length < 1 || requiredAnswersWasChecked(question)"
                  class="question">
                 <p>
@@ -32,6 +32,12 @@
                             {{questionAnswer.Order}}. {{questionAnswer.Text}}
                         </label>
                     </p>
+                </div>
+                <div class="question-answers" ng-show="question.EnableOtherAnswer">
+                    <p ng-show="question.OtherLabel">
+                        {{question.OtherLabel}}
+                    </p>
+                    <textarea ng-model="question.OtherAnswer"></textarea>
                 </div>
             </div>
         </div>

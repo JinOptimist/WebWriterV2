@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dao
+namespace Dal
 {
     public static class ContextForRepository
     {

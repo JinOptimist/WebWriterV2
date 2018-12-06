@@ -1,5 +1,5 @@
 ﻿using Castle.Windsor;
-using Dao;
+using Dal;
 
 namespace WebWriterV2.DI
 {

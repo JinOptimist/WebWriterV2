@@ -1,11 +1,11 @@
-﻿using Dao.Model;
+﻿using Dal.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 
-namespace Dao.Model
+namespace Dal.Model
 {
     public class Article : BaseModel
     {

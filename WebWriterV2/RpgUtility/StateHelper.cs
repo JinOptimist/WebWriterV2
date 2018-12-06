@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dao.Model;
-using Dao.DataGeneration;
+using Dal.Model;
+using Dal.DataGeneration;
 
 namespace WebWriterV2.RpgUtility
 {

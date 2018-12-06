@@ -1,4 +1,4 @@
-﻿namespace Dao.Model
+﻿namespace Dal.Model
 {
     public enum UserType
     {

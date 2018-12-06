@@ -1,5 +1,5 @@
-﻿using Dao;
-using Dao.Model;
+﻿using Dal;
+using Dal.Model;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;

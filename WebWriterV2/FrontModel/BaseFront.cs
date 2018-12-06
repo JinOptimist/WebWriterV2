@@ -1,4 +1,4 @@
-﻿using Dao.Model;
+﻿using Dal.Model;
 
 namespace WebWriterV2.FrontModels
 {

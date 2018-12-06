@@ -1,4 +1,4 @@
-﻿using Dao.Model;
+﻿using Dal.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

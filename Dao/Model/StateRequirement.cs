@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dao.Model
+namespace Dal.Model
 {
     public class StateRequirement : BaseModel
     {

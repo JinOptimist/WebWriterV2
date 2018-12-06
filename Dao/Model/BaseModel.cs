@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity.Migrations.Model;
 
-namespace Dao.Model
+namespace Dal.Model
 {
     public abstract class BaseModel
     {

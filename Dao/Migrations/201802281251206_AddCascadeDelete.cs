@@ -1,4 +1,4 @@
-namespace Dao.Migrations
+namespace Dal.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

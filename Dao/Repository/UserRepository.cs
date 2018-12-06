@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-using Dao.IRepository;
-using Dao.Model;
+using Dal.IRepository;
+using Dal.Model;
 
-namespace Dao.Repository
+namespace Dal.Repository
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {

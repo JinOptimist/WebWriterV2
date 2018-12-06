@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Dao.Model
+namespace Dal.Model
 {
     public class ChapterLinkItem : BaseModel, IUpdatable<ChapterLinkItem>
     {

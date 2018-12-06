@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dao.Model
+namespace Dal.Model
 {
     public class Book : BaseModel, IUpdatable<Book>
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dao.Model;
+using Dal.Model;
 using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.FrontModels
@@ -21,6 +21,9 @@ namespace WebWriterV2.FrontModels
             AllowMultipleAnswers = question.AllowMultipleAnswers;
             VisibleIf = question.VisibleIf.Select(x => x.Id).ToList();
             QuestionAnswers = question.Answers.Select(x => new FrontQuestionAnswer(x)).ToList();
+
+            EnableOtherAnswer = question.EnableOtherAnswer;
+            OtherLabel = question.OtherLabel;
         }
 
         public long QuestionnaireId { get; set; }
@@ -29,6 +32,10 @@ namespace WebWriterV2.FrontModels
         public bool AllowMultipleAnswers { get; set; }
         public List<long> VisibleIf { get; set; }
         public List<FrontQuestionAnswer> QuestionAnswers { get; set; }
+
+        public bool EnableOtherAnswer { get; set; }
+        public string OtherLabel { get; set; }
+        public string OtherAnswer { get; set; }
 
         public override Question ToDbModel()
         {
@@ -40,7 +47,9 @@ namespace WebWriterV2.FrontModels
                 VisibleIf = new List<QuestionAnswer>(),
                 Answers = QuestionAnswers?.Select(x => x.ToDbModel()).ToList(),
                 Questionnaire = new Questionnaire { Id = QuestionnaireId },
-                AllowMultipleAnswers = AllowMultipleAnswers
+                AllowMultipleAnswers = AllowMultipleAnswers,
+                EnableOtherAnswer = EnableOtherAnswer,
+                OtherLabel = OtherLabel
             };
         }
     }

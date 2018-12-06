@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-using Dao.Model;
+using Dal.Model;
 using WebWriterV2.RpgUtility;
-using DalUserType = Dao.Model.UserType;
+using DalUserType = Dal.Model.UserType;
 
 namespace WebWriterV2.FrontModels
 {

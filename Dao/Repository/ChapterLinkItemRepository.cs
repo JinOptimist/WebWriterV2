@@ -1,12 +1,12 @@
 ﻿using System.Data.Entity;
-using Dao.IRepository;
-using Dao.Model;
+using Dal.IRepository;
+using Dal.Model;
 using System;
 using System.Linq;
 using Dal.Repository;
 using System.Collections.Generic;
 
-namespace Dao.Repository
+namespace Dal.Repository
 {
     public class ChapterLinkItemRepository : BaseRepository<ChapterLinkItem>, IChapterLinkItemRepository
     {

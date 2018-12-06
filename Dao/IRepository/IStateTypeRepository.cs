@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Dao.Model;
+using Dal.Model;
 
-namespace Dao.IRepository
+namespace Dal.IRepository
 {
     public interface IStateTypeRepository : IBaseRepository<StateType>
     {

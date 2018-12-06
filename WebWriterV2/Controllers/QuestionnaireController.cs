@@ -1,7 +1,7 @@
-﻿using Dao;
-using Dao.IRepository;
-using Dao.Model;
-using Dao.Repository;
+﻿using Dal;
+using Dal.IRepository;
+using Dal.Model;
+using Dal.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;

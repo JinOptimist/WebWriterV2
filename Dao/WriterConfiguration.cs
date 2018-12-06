@@ -1,7 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 
-namespace Dao
+namespace Dal
 {
     public class WriterConfiguration : DbConfiguration
     {

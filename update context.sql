@@ -1,0 +1,1 @@
+UPDATE [__MigrationHistory] SET ContextKey = 'Dal.WriterContext'

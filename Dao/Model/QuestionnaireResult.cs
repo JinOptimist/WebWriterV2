@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 
-namespace Dao.Model
+namespace Dal.Model
 {
     public class QuestionnaireResult : BaseModel
     {
@@ -16,6 +16,8 @@ namespace Dao.Model
         public virtual DateTime CreationDate { get; set; }
 
         public virtual List<QuestionAnswer> QuestionAnswers { get; set; }
+
+        public virtual List<QuestionOtherAnswer> QuestionOtherAnswers { get; set; }
 
     }
 }

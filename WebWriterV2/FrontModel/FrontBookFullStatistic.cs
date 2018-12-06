@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Dao.Model;
+using Dal.Model;
 using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.FrontModels

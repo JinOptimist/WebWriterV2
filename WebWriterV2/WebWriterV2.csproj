@@ -192,6 +192,7 @@
     <Compile Include="FrontModel\FrontChaptersBlock.cs" />
     <Compile Include="FrontModel\FrontBookWithChapters.cs" />
     <Compile Include="FrontModel\FrontChapterLinkItem.cs" />
+    <Compile Include="FrontModel\FrontQuestionOtherAnswer.cs" />
     <Compile Include="FrontModel\FrontStateRequirement.cs" />
     <Compile Include="FrontModel\FrontStateChange.cs" />
     <Compile Include="FrontModel\FrontArticle.cs" />

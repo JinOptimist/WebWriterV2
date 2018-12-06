@@ -92,6 +92,7 @@
     <Compile Include="IRepository\IStateTypeRepository.cs" />
     <Compile Include="IRepository\IStateValueRepository.cs" />
     <Compile Include="IRepository\IBookRepository.cs" />
+    <Compile Include="IRepository\IQuestionOtherAnswerRepository.cs" />
     <Compile Include="Migrations\201711221236502_WebWriterInitV3.cs" />
     <Compile Include="Migrations\201711221236502_WebWriterInitV3.Designer.cs">
       <DependentUpon>201711221236502_WebWriterInitV3.cs</DependentUpon>
@@ -184,9 +185,18 @@
     <Compile Include="Migrations\201811061304493_AddOrderForAnswer.Designer.cs">
       <DependentUpon>201811061304493_AddOrderForAnswer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812060840011_AddOtherAnswerForQuestion.cs" />
+    <Compile Include="Migrations\201812060840011_AddOtherAnswerForQuestion.Designer.cs">
+      <DependentUpon>201812060840011_AddOtherAnswerForQuestion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201812060931349_UpdateOtherAnswerForQuestion.cs" />
+    <Compile Include="Migrations\201812060931349_UpdateOtherAnswerForQuestion.Designer.cs">
+      <DependentUpon>201812060931349_UpdateOtherAnswerForQuestion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Article.cs" />
     <Compile Include="Model\BaseModel.cs" />
+    <Compile Include="Model\QuestionOtherAnswer.cs" />
     <Compile Include="Model\QuestionAnswer.cs" />
     <Compile Include="Model\Question.cs" />
     <Compile Include="Model\QuestionnaireResult.cs" />
@@ -219,6 +229,7 @@
     <Compile Include="Repository\EvaluationRepository.cs" />
     <Compile Include="Repository\ArticleRepository.cs" />
     <Compile Include="Repository\TagRepository.cs" />
+    <Compile Include="Repository\QuestionOtherAnswerRepository.cs" />
     <Compile Include="Repository\TravelStepRepository.cs" />
     <Compile Include="Repository\TravelRepository.cs" />
     <Compile Include="Repository\StateRequirementRepository.cs" />
@@ -260,6 +271,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802091054565_AddIsTravelEnd.resx">
       <DependentUpon>201802091054565_AddIsTravelEnd.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802161212344_AddTags.resx">
       <DependentUpon>201802161212344_AddTags.cs</DependentUpon>
@@ -305,6 +317,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811061304493_AddOrderForAnswer.resx">
       <DependentUpon>201811061304493_AddOrderForAnswer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812060840011_AddOtherAnswerForQuestion.resx">
+      <DependentUpon>201812060840011_AddOtherAnswerForQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812060931349_UpdateOtherAnswerForQuestion.resx">
+      <DependentUpon>201812060931349_UpdateOtherAnswerForQuestion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

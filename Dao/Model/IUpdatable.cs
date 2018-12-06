@@ -1,4 +1,4 @@
-﻿namespace Dao.Model
+﻿namespace Dal.Model
 {
     public interface IUpdatable<T> where T: BaseModel
     {

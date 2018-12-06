@@ -1,10 +1,10 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.Core.Metadata.Edm;
 using System.Data.Entity.ModelConfiguration.Conventions;
-using Dao.Migrations;
-using Dao.Model;
+using Dal.Migrations;
+using Dal.Model;
 
-namespace Dao
+namespace Dal
 {
     public class WriterContext : DbContext
     {
@@ -82,9 +82,11 @@ namespace Dao
             modelBuilder.Entity<Questionnaire>().HasMany(x => x.QuestionnaireResults).WithRequired(x => x.Questionnaire);
             modelBuilder.Entity<Questionnaire>().HasMany(x => x.Users).WithMany(x => x.Questionnaires);
 
+            modelBuilder.Entity<Question>().HasMany(x => x.OtherAnswers).WithOptional(x => x.Question); 
             modelBuilder.Entity<Question>().HasMany(x => x.Answers).WithOptional(x => x.Question);
             modelBuilder.Entity<Question>().HasMany(x => x.VisibleIf).WithMany(x => x.AffectVisibilityOfQuestions);
 
+            modelBuilder.Entity<QuestionnaireResult>().HasMany(x => x.QuestionOtherAnswers).WithRequired(x => x.QuestionnaireResult);
             modelBuilder.Entity<QuestionnaireResult>().HasMany(x => x.QuestionAnswers).WithMany(x => x.QuestionnaireResults);
         }
 

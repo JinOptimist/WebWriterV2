@@ -13,7 +13,7 @@ angular.module('rpg')
             init();
 
             $scope.saveAnswers = function () {
-                var answers = getAnswers();
+                var fullAnswers = getFullAnswers();
 
                 if ($scope.questionnaire.Questions.some(a => a.withoutAnswer)) {
                     return;
@@ -22,12 +22,13 @@ angular.module('rpg')
                 var questionnaireResult = {
                     QuestionnaireId: $scope.questionnaire.Id,
                     UserId: $scope.userId,
-                    QuestionAnswers: answers
+                    QuestionAnswers: fullAnswers.baseAnswers,
+                    QuestionOtherAnswers: fullAnswers.otherAnswers,
                 };
 
                 questionnaireService.saveQuestionnaireResult(questionnaireResult).then(function () {
                     $scope.answer = {
-                        answers: answers,
+                        answers: fullAnswers.baseAnswers,
                         result: 'good'
                     };
                     $scope.questionnaireAreDone = true;
@@ -44,8 +45,8 @@ angular.module('rpg')
             }
 
             $scope.requiredAnswersWasChecked = function (question) {
-                var answers = getAnswers();
-                return requiredAnswersWasChecked(question, answers);
+                var fullAnswers = getFullAnswers();
+                return requiredAnswersWasChecked(question, fullAnswers.baseAnswers);
             }
 
             function requiredAnswersWasChecked(question, answers) {
@@ -53,26 +54,39 @@ angular.module('rpg')
                 return answers.some(a => a.Id == visibleIf);
             }
 
-            function getAnswers() {
-                var answers = [];
+            function getFullAnswers() {
+                var baseAnswers = [];
+                var otherAnswers = [];
                 $scope.questionnaire.Questions.forEach(function (question) {
                     // Check do we can see the question. If we can't, skip the question
-                    if (question.VisibleIf && question.VisibleIf.length > 0 && !requiredAnswersWasChecked(question, answers)) {
+                    if (question.VisibleIf && question.VisibleIf.length > 0 && !requiredAnswersWasChecked(question, baseAnswers)) {
                         question.withoutAnswer = false;
                         return;
                     }
 
-                    var answersCount = answers.length;
+                    var baseAnswersCount = baseAnswers.length;
+                    var otherAnswersCount = otherAnswers.length;
                     if (question.AllowMultipleAnswers) {
-                        question.Answers.forEach(function (a) { answers.push({ Id: a }) });
+                        question.Answers.forEach(function (a) { baseAnswers.push({ Id: a }) });
                     } else if (question.AnswerId) {
-                        answers.push({ Id: question.AnswerId });
+                        baseAnswers.push({ Id: question.AnswerId });
+                    }
+
+                    if (question.EnableOtherAnswer && question.OtherAnswer) {
+                        otherAnswers.push({
+                            AnswerText: question.OtherAnswer,
+                            QuestionId: question.Id,
+                        });
                     }
 
                     // if count of answer doesn't change, question doesn't have answer.
-                    question.withoutAnswer = answersCount == answers.length;
+                    question.withoutAnswer = baseAnswersCount == baseAnswers.length
+                        && otherAnswersCount == otherAnswers.length;
                 });
-                return answers;
+                return {
+                    baseAnswers: baseAnswers,
+                    otherAnswers: otherAnswers
+                };
             }
 
             function loadQuestionnaire(questionnaireId) {
