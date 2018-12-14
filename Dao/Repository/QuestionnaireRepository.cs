@@ -2,6 +2,7 @@
 using Dal.Repository;
 using Dal.IRepository;
 using Dal.Model;
+using System.Collections.Generic;
 
 namespace Dal.Repository
 {
@@ -25,6 +26,11 @@ namespace Dal.Repository
         {
             _questionRepository.Remove(baseModel.Questions);
             base.Remove(baseModel);
+        }
+
+        public List<Questionnaire> GetForWriter(long userId)
+        {
+            return Entity.Where(x => x.ShowBeforeFirstBook && !x.Users.Any(u => u.Id == userId)).ToList();
         }
     }
 }

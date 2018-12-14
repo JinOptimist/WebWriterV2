@@ -701,6 +701,7 @@
     <Content Include="Content\font\Merriweather-Regular.ttf" />
     <Content Include="Content\css\icon.scss" />
     <Content Include="Scripts\polyfill.js" />
+    <Content Include="Scripts\rpg\admin\questionnaire-results-controller.js" />
     <Content Include="Scripts\rpg\admin\users-controller.js" />
     <Content Include="Scripts\rpg\reader\access-controller.js" />
     <Content Include="Scripts\rpg\reader\questionnaire-controller.js" />
@@ -744,6 +745,7 @@
     <None Include="Properties\PublishProfiles\narativity - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\narativity - Web Deploy.pubxml" />
     <None Include="Scripts\_references.js" />
+    <Content Include="Views\admin\QuestionnaireResults.html" />
     <Content Include="Views\admin\Users.html" />
     <Content Include="Views\admin\Books.html" />
     <Content Include="Views\reader\EndOfTravel.html" />

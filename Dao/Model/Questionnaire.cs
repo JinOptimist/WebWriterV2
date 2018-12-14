@@ -14,6 +14,11 @@ namespace Dal.Model
         public virtual List<Question> Questions { get; set; }
 
         /// <summary>
+        /// If true we must show the Questionnaire for writer before he start work at first book
+        /// </summary>
+        public bool ShowBeforeFirstBook { get; set; }
+
+        /// <summary>
         /// List of users who has already finished this questionnaire
         /// </summary>
         public virtual List<User> Users { get; set; }

@@ -1,9 +1,14 @@
 angular.module('rpg')
 
     .controller('writerBooksController', [
-        '$scope', '$routeParams', '$location', '$cookies', 'bookService', 'tagService',
-        function ($scope, $routeParams, $location, $cookies, bookService, tagService) {
+        '$scope', '$routeParams', '$location', '$cookies', 'ConstCookies', 'bookService', 'tagService',
+        'questionnaireService',
+        function ($scope, $routeParams, $location, $cookies, ConstCookies, bookService, tagService,
+            questionnaireService) {
 
+            $scope.questionnaires = {
+                skipQuestionnaires: false
+            };
             $scope.books = null;
             $scope.newBook = null;
             $scope.listOfFilters = [];
@@ -120,14 +125,25 @@ angular.module('rpg')
                 });
             }
 
+            function loadQuestionnaires() {
+                var userId = $cookies.get(ConstCookies.userId);
+                questionnaireService.getForWriter(userId).then(function (questionnaires) {
+                    $scope.questionnaires = questionnaires;
+                    $scope.questionnaires.skipQuestionnaires = $scope.questionnaires.length == 0;
+                });
+            }
+
             function initListOfFilters() {
                 $scope.listOfFilters = [
                     { displayName: 'All', active: true, restriction: {} },
-                    { displayName: 'Published', restriction: { IsPublished: true } }];
+                    { displayName: 'Published', restriction: { IsPublished: true } },
+                    { displayName: 'Draft', restriction: { IsPublished: false } }
+                ];
             }
 
             function init() {
                 loadBooks();
+                loadQuestionnaires();
                 initListOfFilters();
 
                 document.onkeydown = function (e) {

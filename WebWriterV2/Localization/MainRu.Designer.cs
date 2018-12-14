@@ -196,11 +196,29 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Результаты опросов.
+        /// </summary>
+        internal static string Admin_Questionnaire_Result {
+            get {
+                return ResourceManager.GetString("Admin_Questionnaire_Result", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Сохранить.
         /// </summary>
         internal static string Admin_Questionnaire_Save {
             get {
                 return ResourceManager.GetString("Admin_Questionnaire_Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Показывать авторам перед началом работы на сайте.
+        /// </summary>
+        internal static string Admin_Questionnaire_ShowBeforeFirstBook {
+            get {
+                return ResourceManager.GetString("Admin_Questionnaire_ShowBeforeFirstBook", resourceCulture);
             }
         }
         
@@ -408,6 +426,15 @@ namespace WebWriterV2.Localization {
         internal static string Reader_Questionnaire_Finish {
             get {
                 return ResourceManager.GetString("Reader_Questionnaire_Finish", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Вернуться к работе.
+        /// </summary>
+        internal static string Reader_Questionnaire_ReturnToWork {
+            get {
+                return ResourceManager.GetString("Reader_Questionnaire_ReturnToWork", resourceCulture);
             }
         }
         

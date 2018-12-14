@@ -6,5 +6,6 @@ namespace Dal.IRepository
 {
     public interface IQuestionnaireRepository : IBaseRepository<Questionnaire>
     {
+        List<Questionnaire> GetForWriter(long userId);
     }
 }

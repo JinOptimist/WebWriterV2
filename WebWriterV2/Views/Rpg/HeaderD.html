@@ -22,7 +22,11 @@
             <div class="header-item" ng-if="user && user.IsAdmin">
                 <a href="/ar/admin/questionnaires">{{resources.Admin_Questionnaires}}</a>
             </div>
-            
+            <div class="header-item" ng-if="user && user.IsAdmin">
+                <a href="/ar/admin/questionnaire-results">{{resources.Admin_Questionnaire_Result}}</a>
+            </div>
+
+
             <div class="header-item" ng-if="!user">
                 <a href="#" ng-click="openRegistration()">{{resources.Registration}}</a>
             </div>

@@ -13,7 +13,11 @@
                    ng-show="questionnaire.isHover" />
         </h3>
         <h3 ng-show="questionnaire.isEdit">
-            <input ng-model="questionnaire.Name" ng-keypress="typedQuestionnaire($event, questionnaire, $index)"/>
+            <input ng-model="questionnaire.Name" ng-keypress="typedQuestionnaire($event, questionnaire, $index)" />
+            <label>
+                {{resources.Admin_Questionnaire_ShowBeforeFirstBook}}
+                <input type="checkbox" ng-model="questionnaire.ShowBeforeFirstBook" />
+            </label>
             <input type="button" value="{{resources.Admin_Questionnaire_Save}}" ng-click="saveQuestionnaire(questionnaire, $index)" />
         </h3>
         

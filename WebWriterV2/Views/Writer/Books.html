@@ -31,10 +31,14 @@
 </div>
 
 <div class="content">
-    <div ng-if="!books" class="wait-block">
+    <div ng-if="!books || !questionnaires" class="wait-block">
         <img src="/Content/icon/wait.gif" />
     </div>
-    <div class="book" ng-repeat="book in books  | filter: filter " ng-class="book.IsPublished ? 'published' : 'draft'">
+    <div class="book" 
+         ng-show="books && questionnaires.skipQuestionnaires"
+         ng-repeat="book in books  | filter: filter " 
+         ng-class="book.IsPublished ? 'published' : 'draft'">
+
         <a class="writer-actions-toggle" ng-click="toggleActionsBlock($event, book)">...</a>
         <div class="writer-actions-menu" ng-show="book.actionsActive">
             <a href="#" ng-click="switchToEditModeBookForNameOrDesc(book)">{{resources.Writer_EditNameOrDesc}}</a>
@@ -68,6 +72,24 @@
         </div>
         <div>
             <a href="/ar/writer/book/{{book.Id}}"><span class="button-medium-blue">{{resources.Writer_WorkOnProject}}</span></a>
+        </div>
+    </div>
+
+    <div ng-if="!questionnaires.skipQuestionnaires"
+         ng-repeat="questionnaire in questionnaires"
+         class="book questionnaire-request">
+        questionnaires.skipQuestionnaires = {{questionnaires.skipQuestionnaires}}
+        <p>
+            Пожалуйста перед началом работы с вашими произведениями пройдите опрос: {{questionnaire.Name}}.
+        </p>
+        <p>
+            Для нас очень важны ваши ожидания от работы с нашим сервисом.
+        </p>
+        <div>
+            <a href="/ar/reader/questionnaire/{{questionnaire.Id}}"><span class="button-medium-blue">Пройти опрос</span></a>
+        </div>
+        <div>
+            <a href="#" ng-click="questionnaires.skipQuestionnaires = true"><span class="button-medium-gray">Позже</span></a>
         </div>
     </div>
 </div>

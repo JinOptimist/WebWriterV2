@@ -405,4 +405,13 @@
   <data name="Admin_Questionnaire_OtherLabel" xml:space="preserve">
     <value>Дополнительный текст перед полем для своего ответа (не обязательно)</value>
   </data>
+  <data name="Admin_Questionnaire_Result" xml:space="preserve">
+    <value>Результаты опросов</value>
+  </data>
+  <data name="Admin_Questionnaire_ShowBeforeFirstBook" xml:space="preserve">
+    <value>Показывать авторам перед началом работы на сайте</value>
+  </data>
+  <data name="Reader_Questionnaire_ReturnToWork" xml:space="preserve">
+    <value>Вернуться к работе</value>
+  </data>
 </root>

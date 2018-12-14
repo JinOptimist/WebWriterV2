@@ -668,6 +668,11 @@ ul {
     .questionnaire {
         margin-left: 20px;
 
+        h3 label {
+            font-size: initial;
+            font-weight: initial;
+        }
+
         .question {
             margin-top: 20px;
             margin-left: 40px;

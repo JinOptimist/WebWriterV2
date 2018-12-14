@@ -193,6 +193,10 @@
     <Compile Include="Migrations\201812060931349_UpdateOtherAnswerForQuestion.Designer.cs">
       <DependentUpon>201812060931349_UpdateOtherAnswerForQuestion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812091031328_AddShowBeforeFirstBook.cs" />
+    <Compile Include="Migrations\201812091031328_AddShowBeforeFirstBook.Designer.cs">
+      <DependentUpon>201812091031328_AddShowBeforeFirstBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Article.cs" />
     <Compile Include="Model\BaseModel.cs" />
@@ -323,6 +327,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812060931349_UpdateOtherAnswerForQuestion.resx">
       <DependentUpon>201812060931349_UpdateOtherAnswerForQuestion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812091031328_AddShowBeforeFirstBook.resx">
+      <DependentUpon>201812091031328_AddShowBeforeFirstBook.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

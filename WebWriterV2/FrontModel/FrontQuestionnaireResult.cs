@@ -19,7 +19,6 @@ namespace WebWriterV2.FrontModels
             UserId = questionnaireResult.User.Id;
             CreationDate = questionnaireResult.CreationDate.ToLongDateString();
             QuestionAnswers = questionnaireResult.QuestionAnswers.Select(x => new FrontQuestionAnswer(x)).ToList();
-
             QuestionOtherAnswers = questionnaireResult.QuestionOtherAnswers.Select(x => new FrontQuestionOtherAnswer(x)).ToList();
         }
 

@@ -68,16 +68,32 @@ namespace WebWriterV2.Controllers
         public FrontQuestionnaire Get(long id)
         {
             var article = QuestionnaireRepository.Get(id);
-            var FrontQuestionnaire = new FrontQuestionnaire(article);
-            return FrontQuestionnaire;
+            var frontQuestionnaire = new FrontQuestionnaire(article);
+            return frontQuestionnaire;
         }
 
         [AcceptVerbs("GET")]
         public List<FrontQuestionnaire> GetAll()
         {
-            var articles = QuestionnaireRepository.GetAll();
-            var FrontQuestionnaire = articles.Select(x => new FrontQuestionnaire(x)).ToList();
-            return FrontQuestionnaire;
+            var questionnaires = QuestionnaireRepository.GetAll();
+            var frontQuestionnaires = questionnaires.Select(x => new FrontQuestionnaire(x)).ToList();
+            return frontQuestionnaires;
+        }
+
+        [AcceptVerbs("GET")]
+        public List<FrontQuestionnaire> GetForWriter(long userId)
+        {
+            var questionnaires = QuestionnaireRepository.GetForWriter(userId);
+            var frontQuestionnaires = questionnaires.Select(x => new FrontQuestionnaire(x)).ToList();
+            return frontQuestionnaires;
+        }
+
+        [AcceptVerbs("GET")]
+        public List<FrontQuestionnaireResult> GetAllQuestionnaireResults()
+        {
+            var questionnaireResults = QuestionnaireResultRepository.GetAll();
+            var frontQuestionnaireResults = questionnaireResults.Select(x => new FrontQuestionnaireResult(x)).ToList();
+            return frontQuestionnaireResults;
         }
 
         [AcceptVerbs("GET")]
@@ -117,7 +133,14 @@ namespace WebWriterV2.Controllers
         public bool SaveQuestionnaireResult(FrontQuestionnaireResult fontQuestionnaireResult)
         {
             var questionnaireResult = fontQuestionnaireResult.ToDbModel();
-            QuestionnaireResultRepository.Save(questionnaireResult);
+            questionnaireResult = QuestionnaireResultRepository.Save(questionnaireResult);
+
+
+            var questionnaire = QuestionnaireRepository.Get(questionnaireResult.Questionnaire.Id);
+            questionnaire.Users.Add(User);
+            QuestionnaireRepository.Save(questionnaire);
+
+
             return true;
         }
     }

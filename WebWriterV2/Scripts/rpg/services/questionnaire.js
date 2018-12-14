@@ -3,6 +3,8 @@
         return {
             getQuestionnaire: getQuestionnaire,
             getAllQuestionnaire: getAllQuestionnaire,
+            getForWriter: getForWriter,
+            getAllQuestionnaireResults: getAllQuestionnaireResults,
             saveQuestionnaire: saveQuestionnaire,
             saveQuestion: saveQuestion,
             saveQuestionAnswer: saveQuestionAnswer,
@@ -19,10 +21,25 @@
             };
             return httpHelper.get(url, data);
         }
+
         function getAllQuestionnaire() {
             var url = '/api/questionnaire/getAll';
             return httpHelper.get(url);
         }
+
+        function getForWriter(userId) {
+            var url = '/api/questionnaire/getForWriter';
+            var data = {
+                userId: userId
+            };
+            return httpHelper.get(url, data);
+        }
+
+        function getAllQuestionnaireResults() {
+            var url = '/api/questionnaire/getAllQuestionnaireResults';
+            return httpHelper.get(url);
+        }
+
         function saveQuestionnaire(questionnaire) {
             var url = '/api/questionnaire/Save';
             var data = angular.toJson(questionnaire);
