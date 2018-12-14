@@ -65,6 +65,7 @@ namespace WebWriterV2.RpgUtility
             smtp.Host = Properties.Settings.Default.EmailHost;
             smtp.Port = Properties.Settings.Default.EmailPort;
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+            smtp.EnableSsl = true;
             smtp.Credentials = new NetworkCredential(
                 Properties.Settings.Default.NoReplayEmailName,
                 Properties.Settings.Default.NoReplayEmailPassword);
