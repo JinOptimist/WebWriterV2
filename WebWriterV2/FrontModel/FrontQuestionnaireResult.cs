@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dal.Model;
+using WebWriterV2.FrontModel.Email;
 using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.FrontModels
@@ -16,15 +17,24 @@ namespace WebWriterV2.FrontModels
         {
             Id = questionnaireResult.Id;
             QuestionnaireId = questionnaireResult.Questionnaire.Id;
+            QuestionnaireName = questionnaireResult.Questionnaire.Name;
             UserId = questionnaireResult.User.Id;
-            CreationDate = questionnaireResult.CreationDate.ToLongDateString();
+            UserName = questionnaireResult.User.Name;
+            CreationDate = questionnaireResult.CreationDate.ToString("yyyy/MM/dd");
             QuestionAnswers = questionnaireResult.QuestionAnswers.Select(x => new FrontQuestionAnswer(x)).ToList();
             QuestionOtherAnswers = questionnaireResult.QuestionOtherAnswers.Select(x => new FrontQuestionOtherAnswer(x)).ToList();
+
+            QuestionnaireResultEmail = new QuestionnaireResultEmail(questionnaireResult);
         }
 
         public long QuestionnaireId { get; set; }
+        public string QuestionnaireName { get; set; }
         public long UserId { get; set; }
+        public string UserName { get; set; }
         public string CreationDate { get; set; }
+
+        public QuestionnaireResultEmail QuestionnaireResultEmail { get; set; }
+
         public List<FrontQuestionAnswer> QuestionAnswers { get; set; }
 
         public List<FrontQuestionOtherAnswer> QuestionOtherAnswers { get; set; }

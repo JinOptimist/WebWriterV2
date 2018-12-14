@@ -1,8 +1,64 @@
-﻿<div class="content" id="questionnaires">
-    <div ng-if="!questionnaires" class="wait-block">
+﻿<div class="content" id="questionnaire-results">
+    <div ng-if="!questionnaireResults" class="wait-block">
         <img src="/Content/icon/wait.gif" />
     </div>
-    <div ng-repeat="questionnaire in questionnaires" class="questionnaire">
-        Test
-    </div>
+    <table>
+        <tr>
+            <th>Опрос</th>
+            <th>Пользователь</th>
+            <th>Дата</th>
+            <th>Письмо</th>
+            <th></th>
+        </tr>
+        <tr ng-repeat="questionnaireResult in questionnaireResults | orderBy: 'CreationDate'" class="questionnaire">
+            <td>
+                {{questionnaireResult.QuestionnaireName}} ({{questionnaireResult.QuestionnaireId}})
+            </td>
+            <td>
+                {{questionnaireResult.UserName}} ({{questionnaireResult.UserId}})
+            </td>
+            <td>
+                {{questionnaireResult.CreationDate | date: 'yyyy-MM-dd'}}
+            </td>
+            <td class="left">
+                <a href="#" ng-click="questionnaireResult.showAnswer = !questionnaireResult.showAnswer">
+                    Покзать/скрыть ответы
+                </a>
+                <div ng-show="questionnaireResult.showAnswer">
+                    <h3>
+                        {{questionnaireResult.QuestionnaireResultEmail.QuestionnaireName}}
+                    </h3>
+                    <p>
+                        Пользователь: {{questionnaireResult.QuestionnaireResultEmail.UserName}}
+                    </p>
+                    <div ng-repeat="questionAnswerPair in questionnaireResult.QuestionnaireResultEmail.QuestionAnswerPairs"
+                         ng-show="questionAnswerPair.OtherAnswerText || questionAnswerPair.AnswersText.length > 0">
+                        <p>
+                            Вопрос. {{questionAnswerPair.QuestionText}}
+                        </p>
+                        <p ng-repeat="answer in questionAnswerPair.AnswersText">
+                            -- Выбранный ответ. {{answer}}
+                        </p>
+                        <p ng-if="questionAnswerPair.OtherAnswerText">
+                            -- Доп ответ: {{questionAnswerPair.OtherAnswerText}}
+                        </p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <a href="#" ng-click="removeQuestionnaireResults(questionnaireResult, $index)">
+                    <span class="button-medium-blue">
+                        Удалить
+                    </span>
+                </a>
+
+                <input placeholder="email" ng-model="email"/>
+                <a href="#" ng-click="sendResult(questionnaireResult, email)">
+                    <span class="button-medium-blue">
+                        Послать письмом
+                    </span>
+                </a>
+            </td>
+        </tr>
+    </table>
 </div>

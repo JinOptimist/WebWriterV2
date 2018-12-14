@@ -182,6 +182,8 @@
     <Compile Include="FrontModel\BookMap\FrontBranch.cs" />
     <Compile Include="FrontModel\BookMap\VisualBlock.cs" />
     <Compile Include="FrontModel\BookMap\Branch.cs" />
+    <Compile Include="FrontModel\Email\QuestionnaireResultEmail.cs" />
+    <Compile Include="FrontModel\Email\QuestionAndAnswer.cs" />
     <Compile Include="FrontModel\FakeModelString.cs" />
     <Compile Include="FrontModel\BookMap\BookWithChaptersV2.cs" />
     <Compile Include="FrontModel\FrontQuestionnaireResult.cs" />

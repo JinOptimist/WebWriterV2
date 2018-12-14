@@ -6,6 +6,8 @@ using Dal.Model;
 using WebWriterV2.FrontModels;
 using System.Net.Mail;
 using System.Net;
+using System.Text;
+using WebWriterV2.FrontModel.Email;
 
 namespace WebWriterV2.RpgUtility
 {
@@ -17,6 +19,30 @@ namespace WebWriterV2.RpgUtility
             var title = "Интерактивная книга. Регистрация";
             var body = $"Пожалуйста подтвердите регистрацию. Для этого достаточно перейти по ссылке {url}";
             Send(userEmail, title, body);
+        }
+
+        public static void SendQuestionnaireResults(string userEmail, QuestionnaireResultEmail questionnaireResult)
+        {
+            var title =$"{Properties.Settings.Default.QuestionnaireResultTitle} '{questionnaireResult.QuestionnaireName}'";
+            var body = new StringBuilder();
+            body.AppendLine(questionnaireResult.QuestionnaireName);
+            body.AppendLine($"Пользователь: {questionnaireResult.UserName}");
+            foreach (var questionAnswerPair in questionnaireResult.QuestionAnswerPairs) {
+                var otherAnswer = questionAnswerPair.OtherAnswerText;
+                if (string.IsNullOrWhiteSpace(otherAnswer) && !questionAnswerPair.AnswersText.Any()) {
+                    // No answer, no need to write a question
+                    continue;
+                }
+                body.AppendLine($"Вопрос. {questionAnswerPair.QuestionText}");
+                foreach (var answer in questionAnswerPair.AnswersText) {
+                    body.AppendLine($" -- Выбранный ответ. {answer}");
+                }
+                if (!string.IsNullOrWhiteSpace(otherAnswer)) {
+                    body.AppendLine($" -- Доп ответ: {otherAnswer}");
+                }
+            }
+
+            Send(userEmail, title, body.ToString());
         }
 
         public static void SendError(Exception e)
@@ -40,9 +66,10 @@ namespace WebWriterV2.RpgUtility
             smtp.Port = Properties.Settings.Default.EmailPort;
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtp.Credentials = new NetworkCredential(
-                Properties.Settings.Default.NoReplayEmailName, 
+                Properties.Settings.Default.NoReplayEmailName,
                 Properties.Settings.Default.NoReplayEmailPassword);
-            smtp.Send(Properties.Settings.Default.NoReplayEmailName, to, title, body);
+            var emails = to.Split(';').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            emails.ForEach(emailTo => smtp.Send(Properties.Settings.Default.NoReplayEmailName, emailTo, title, body));
         }
 
         public static string ToAbsoluteUrl(this string relativeUrl)

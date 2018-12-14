@@ -8,7 +8,9 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using WebWriterV2.DI;
+using WebWriterV2.FrontModel.Email;
 using WebWriterV2.FrontModels;
+using WebWriterV2.RpgUtility;
 using WebWriterV2.VkUtility;
 
 namespace WebWriterV2.Controllers
@@ -138,10 +140,53 @@ namespace WebWriterV2.Controllers
 
             var questionnaire = QuestionnaireRepository.Get(questionnaireResult.Questionnaire.Id);
             questionnaire.Users.Add(User);
-            QuestionnaireRepository.Save(questionnaire);
+            questionnaire = QuestionnaireRepository.Save(questionnaire);
 
+            SendQuestionnaireResultsToEmail(questionnaireResult.Id, WebWriterV2.Properties.Settings.Default.QuestionnaireResultEmailTo);
 
             return true;
+        }
+
+        [AcceptVerbs("GET")]
+        public bool RemoveQuestionnaireResults(long id)
+        {
+            if (User.UserType != UserType.Admin) {
+                throw new UnauthorizedAccessException($"userId-{User.Id} try to remove RemoveQuestionnaireResults");
+            }
+
+            QuestionnaireResultRepository.Remove(id);
+            return true;
+        }
+
+        [AcceptVerbs("GET")]
+        public bool SendQuestionnaireResultsToEmail(long id, string email)
+        {
+            if (User.UserType != UserType.Admin) {
+                throw new UnauthorizedAccessException($"userId-{User.Id} try to remove RemoveQuestionnaireResults");
+            }
+
+            var questionnaireResult = QuestionnaireResultRepository.Get(id);
+            var questionnaireResultEmail = new QuestionnaireResultEmail(questionnaireResult);
+            EmailHelper.SendQuestionnaireResults(email, questionnaireResultEmail);
+            
+            return true;
+        }
+        
+
+
+        [AcceptVerbs("GET")]
+        public string RemoveBroken()
+        {
+            if (User.UserType != UserType.Admin) {
+                return "Your are not admin";
+            }
+
+            var questionnaireResults = QuestionnaireResultRepository.GetAll();
+            var fake = questionnaireResults.Where(x => x.User == null);
+            var fakeCount = fake.Count();
+            QuestionnaireResultRepository.Remove(fake);
+
+            return $"remove {fakeCount} rows";
         }
     }
 }

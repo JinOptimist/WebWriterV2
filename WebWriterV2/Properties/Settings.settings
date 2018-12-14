@@ -17,5 +17,11 @@
     <Setting Name="EmailHost" Type="System.String" Scope="Application">
       <Value Profile="(Default)">mail.naractivity.com</Value>
     </Setting>
+    <Setting Name="QuestionnaireResultEmailTo" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">42test@mail.ru;88jin@mail.ru</Value>
+    </Setting>
+    <Setting Name="QuestionnaireResultTitle" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Интерактивная книга. Результат опроса</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

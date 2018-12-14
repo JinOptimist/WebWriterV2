@@ -12,6 +12,8 @@
             removeQuestionnaire: removeQuestionnaire,
             removeQuestion: removeQuestion,
             removeQuestionAnswer: removeQuestionAnswer,
+            removeQuestionnaireResults: removeQuestionnaireResults,
+            sendQuestionnaireResultsToEmail: sendQuestionnaireResultsToEmail
         };
 
         function getQuestionnaire(id) {
@@ -45,7 +47,6 @@
             var data = angular.toJson(questionnaire);
             return httpHelper.post(url, data);
         }
-
         function saveQuestion(question) {
             var url = '/api/questionnaire/SaveQuestion';
             var data = angular.toJson(question);
@@ -80,6 +81,22 @@
             var url = '/api/questionnaire/removeQuestionAnswer';
             var data = {
                 id: id
+            };
+            return httpHelper.get(url, data);
+        }
+        function removeQuestionnaireResults(id) {
+            var url = '/api/questionnaire/removeQuestionnaireResults';
+            var data = {
+                id: id
+            };
+            return httpHelper.get(url, data);
+        }
+        
+        function sendQuestionnaireResultsToEmail(id, email) {
+            var url = '/api/questionnaire/sendQuestionnaireResultsToEmail';
+            var data = {
+                id: id,
+                email: email
             };
             return httpHelper.get(url, data);
         }
