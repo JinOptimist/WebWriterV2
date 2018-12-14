@@ -70,7 +70,7 @@ namespace WebWriterV2.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("42test@mail.ru;88jin@mail.ru")]
+        [global::System.Configuration.DefaultSettingValueAttribute("alexander.polybinsky@gmail.com;88jin@mail.ru")]
         public string QuestionnaireResultEmailTo {
             get {
                 return ((string)(this["QuestionnaireResultEmailTo"]));

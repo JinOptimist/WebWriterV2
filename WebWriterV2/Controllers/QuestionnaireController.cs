@@ -161,10 +161,6 @@ namespace WebWriterV2.Controllers
         [AcceptVerbs("GET")]
         public bool SendQuestionnaireResultsToEmail(long id, string email)
         {
-            if (User.UserType != UserType.Admin) {
-                throw new UnauthorizedAccessException($"userId-{User.Id} try to remove RemoveQuestionnaireResults");
-            }
-
             var questionnaireResult = QuestionnaireResultRepository.Get(id);
             var questionnaireResultEmail = new QuestionnaireResultEmail(questionnaireResult);
             EmailHelper.SendQuestionnaireResults(email, questionnaireResultEmail);
