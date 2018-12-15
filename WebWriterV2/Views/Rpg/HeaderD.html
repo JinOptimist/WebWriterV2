@@ -14,8 +14,8 @@
                 <a href="/ar/writer/books">{{resources.Writer_Projects}}</a>
             </div>
             <!--<div class="header-item" ng-if="user">
-                <a href="/ar/writer/generalDefinition">{{resources.Help}}</a>
-            </div>-->
+        <a href="/ar/writer/generalDefinition">{{resources.Help}}</a>
+    </div>-->
             <div class="header-item" ng-if="user && user.IsAdmin" style="display: none;">
                 <a href="/ar/admin/books">{{resources.Admin_Books}}</a>
             </div>
@@ -29,6 +29,10 @@
 
             <div class="header-item" ng-if="!user">
                 <a href="#" ng-click="openRegistration()">{{resources.Registration}}</a>
+            </div>
+
+            <div class="header-item alert">
+                Дизайн проекта находиться в разработке. Финальная версия ожидается в начале 2019 года
             </div>
         </div>
 
