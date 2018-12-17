@@ -17,6 +17,7 @@ namespace WebWriterV2.FrontModel.Email
 
             foreach (var question in questionnaireResult.Questionnaire.Questions) {
                 var questionAnswerPair = new QuestionAnswerPairEmail();
+                questionAnswerPair.QuestionOrder = question.Order;
                 questionAnswerPair.QuestionText = question.Text;
                 questionAnswerPair.AnswersText = questionnaireResult
                     .QuestionAnswers.Where(x => x.Question.Id == question.Id)
@@ -24,10 +25,12 @@ namespace WebWriterV2.FrontModel.Email
                 questionAnswerPair.OtherAnswerText = questionnaireResult.QuestionOtherAnswers.FirstOrDefault(x => x.Question.Id == question.Id)?.AnswerText;
                 QuestionAnswerPairs.Add(questionAnswerPair);
             }
+
+            QuestionAnswerPairs = QuestionAnswerPairs.OrderBy(x => x.QuestionOrder).ToList();
         }
 
         public string QuestionnaireName { get; set; }
         public string UserName { get; set; }
-        public List<QuestionAnswerPairEmail> QuestionAnswerPairs { get;set;}
+        public List<QuestionAnswerPairEmail> QuestionAnswerPairs { get; set; }
     }
 }

@@ -34,13 +34,13 @@
                     <div ng-repeat="questionAnswerPair in questionnaireResult.QuestionnaireResultEmail.QuestionAnswerPairs"
                          ng-show="questionAnswerPair.OtherAnswerText || questionAnswerPair.AnswersText.length > 0">
                         <p>
-                            Вопрос. {{questionAnswerPair.QuestionText}}
+                            {{questionAnswerPair.QuestionText}}
                         </p>
                         <p ng-repeat="answer in questionAnswerPair.AnswersText">
-                            -- Выбранный ответ. {{answer}}
+                            -- {{answer}}
                         </p>
                         <p ng-if="questionAnswerPair.OtherAnswerText">
-                            -- Доп ответ: {{questionAnswerPair.OtherAnswerText}}
+                            -доп- {{questionAnswerPair.OtherAnswerText}}
                         </p>
                     </div>
                 </div>
