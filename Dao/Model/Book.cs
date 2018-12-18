@@ -16,6 +16,7 @@ namespace Dal.Model
         public virtual Chapter RootChapter { get; set; }
 
         public virtual User Owner { get; set; }
+        public virtual List<User> InvitedAuthors { get; set; }
         public virtual List<StateType> States { get; set; }
         public virtual List<Chapter> AllChapters { get; set; }
         public virtual List<Evaluation> Evaluations { get; set; }
@@ -34,8 +35,7 @@ namespace Dal.Model
 
         public void UpdateFrom(Book model)
         {
-            if (Id != model.Id)
-            {
+            if (Id != model.Id) {
                 throw new Exception($"You try update Book model with id {Id} from model with id {Id}");
             }
 

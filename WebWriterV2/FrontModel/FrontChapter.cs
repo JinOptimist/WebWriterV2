@@ -51,6 +51,7 @@ namespace WebWriterV2.FrontModels
         public List<long> ParentsIds { get; set; }
 
         public int StatisticOfVisiting { get; set; }
+        public List<long> VisualParentIds { get; set; }
 
         public override Chapter ToDbModel()
         {

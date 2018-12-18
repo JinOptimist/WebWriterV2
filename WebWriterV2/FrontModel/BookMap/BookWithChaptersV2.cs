@@ -9,9 +9,10 @@ namespace WebWriterV2.FrontModels
 {
     public class BookWithChaptersV2 : BaseFront<Book>
     {
-        public BookWithChaptersV2()
-        {
-        }
+        private List<Tuple<long, long>> _mapChapterBranchIds = new List<Tuple<long, long>>();
+        private List<Branch> _branches = new List<Branch>();
+
+        public BookWithChaptersV2() { }
 
         public BookWithChaptersV2(Book book)
         {
@@ -28,9 +29,9 @@ namespace WebWriterV2.FrontModels
             var elChapters = elChel.StatisticOfVisiting100Random();
 
             Chapters = new List<FrontChapter>();
-            foreach (var chapter in book.AllChapters.Where(x => x.Level > 0)) {
+            foreach (var chapter in book.AllChapters.Where(x => x.Level > 0).OrderBy(x => x.Level)) {
                 var frontChapter = new FrontChapter(chapter);
-                if (chapter.LinksFromThisChapter.Count > 1) {
+                if (AvailableChild(chapter).Count > 1) {
                     var branch = CreateBranch(chapter);
                     frontChapter.Weight = branch.Width;
                 }
@@ -39,6 +40,9 @@ namespace WebWriterV2.FrontModels
                 frontChapter.StatisticOfVisiting = elChapters.Single(x => x.Id == frontChapter.Id).StatisticOfVisiting;
                 Chapters.Add(frontChapter);
             }
+
+            UpdateChapterWeightFromEnd();
+            SetVisualParent();
 
             StateBasicTypes = EnumHelper.GetFrontEnumList<FrontEnumStateBasicType>(typeof(StateBasicType));
         }
@@ -49,12 +53,8 @@ namespace WebWriterV2.FrontModels
 
         public List<FrontChapter> Chapters { get; set; }
 
-        public List<FrontBranch> Branches { get; set; }
-
         public List<FrontStateType> States { get; set; }
         public List<FrontEnum> StateBasicTypes { get; set; }
-
-
 
         private int SetDepth(Chapter chapter, int depth, List<Chapter> visitedChapters)
         {
@@ -84,21 +84,28 @@ namespace WebWriterV2.FrontModels
         private Branch CreateBranch(Chapter rootChapter)
         {
             var branch = new Branch() {
+                Id = rootChapter.Id,
                 RootChapter = rootChapter,
-                Chapters = new List<Chapter>(),
-                Width = LinkToDown(rootChapter).Count
+                Chapters = new List<Chapter>() { rootChapter },
             };
+            branch.Width = CountOfLinkOneLevelDown(rootChapter);
+
             var currentDepth = rootChapter.Level + 1;
-            var childChapters = rootChapter.LinksFromThisChapter.Select(x => x.To);
+            var childChapters = AvailableChild(rootChapter)
+                .Where(x => x.Level == currentDepth);
+
             var currentDepthChapters = childChapters.Where(x => x.Level == currentDepth).ToList();
             var notProcessedChapters = childChapters.Where(x => x.Level != currentDepth).ToList();
 
-            return RecursiveProcessedBranch(branch, currentDepthChapters, currentDepth, notProcessedChapters, branch.Width);
+            branch = RecursiveProcessedBranch(branch, currentDepthChapters, currentDepth, notProcessedChapters, branch.Width);
+            _branches.Add(branch);
+            return branch;
         }
 
         private Branch RecursiveProcessedBranch(Branch branch, List<Chapter> currentDepthChapters, int currentDepth, List<Chapter> notProcessedChapters, int currentWidth)
         {
-            currentDepthChapters.ForEach(x => currentWidth += LinkToDown(x).Count - x.LinksToThisChapter.Count);
+            //currentDepthChapters.ForEach(x => currentWidth += CountOfLinkOneLevelDown(x) - x.LinksToThisChapter.Count);
+            currentDepthChapters.ForEach(x => currentWidth += CountOfLinkOneLevelDown(x) - CountOfLinkOneLevelUp(x, branch));
             branch.Chapters.AddRange(currentDepthChapters);
             if (currentWidth > branch.Width) {
                 branch.Width = currentWidth;
@@ -110,9 +117,13 @@ namespace WebWriterV2.FrontModels
 
             currentDepth++;
 
-            var nextDepthChapters = currentDepthChapters.SelectMany(ch => ch.LinksFromThisChapter.Select(link => link.To)).Distinct();
+            //var nextDepthChapters = currentDepthChapters.SelectMany(ch => ch.LinksFromThisChapter.Select(link => link.To)).Distinct();
+            var nextDepthChapters = currentDepthChapters.SelectMany(
+                    currentDepthCh => AvailableChild(currentDepthCh).Where(ch => ch.Level == currentDepth)
+                ).Distinct();
+
             currentDepthChapters = nextDepthChapters.Where(x => x.Level == currentDepth).ToList();
-            notProcessedChapters.AddRange(nextDepthChapters.Where(x => x.Level > currentDepth));
+            notProcessedChapters.AddRange(nextDepthChapters.Where(x => x.Level > currentDepth)); // to be remove
             var additionalChaptersFromPreviusLevels = notProcessedChapters.Where(x => x.Level == currentDepth).ToList();
             currentDepthChapters.AddRange(additionalChaptersFromPreviusLevels);
             additionalChaptersFromPreviusLevels.ForEach(x => notProcessedChapters.Remove(x));
@@ -123,9 +134,51 @@ namespace WebWriterV2.FrontModels
             return RecursiveProcessedBranch(branch, currentDepthChapters, currentDepth, notProcessedChapters, currentWidth);
         }
 
-        private List<ChapterLinkItem> LinkToDown(Chapter chapter)
+        private List<Chapter> AvailableChild(Chapter chapter)
         {
-            return chapter.LinksFromThisChapter.Where(l => l.To.Level > chapter.Level).ToList();
+            var availableChildren = new List<Chapter>();
+
+            var children = chapter.LinksFromThisChapter.Select(x => x.To);
+            var chaptersWasAtLeastInOneBranch = _branches.SelectMany(x => x.Chapters);
+
+            foreach (var child in children) {
+                if (!chaptersWasAtLeastInOneBranch.Contains(child)) {
+                    availableChildren.Add(child);
+                    continue;
+                }
+
+                var childWasInAnotherBranch = _branches
+                    .Where(x => x.Chapters.Contains(child))
+                    .Any(oneOfBranchWhereChildAlreadyWas => {
+                        return !oneOfBranchWhereChildAlreadyWas.Chapters.Select(x => x.Id).Contains(chapter.Id);
+                    });
+
+                if (childWasInAnotherBranch) {
+                    continue;
+                }
+
+                availableChildren.Add(child);
+            }
+
+            return availableChildren;
+        }
+
+        private int CountOfLinkOneLevelDown(Chapter chapter)
+        {
+            //.Where(x => !_processedChapterIds.Contains(x.Id));
+            //_processedChapterIds.AddRange(childChapters.Select(x => x.Id));
+
+            return AvailableChild(chapter).Where(ch => ch.Level == chapter.Level + 1).Count();
+            //return chapter.LinksFromThisChapter.Where(l => l.To.Level > chapter.Level).Count();
+        }
+
+        private int CountOfLinkOneLevelUp(Chapter chapter, Branch branch)
+        {
+            //.Where(x => !_processedChapterIds.Contains(x.Id));
+            //_processedChapterIds.AddRange(childChapters.Select(x => x.Id));
+
+            return chapter.LinksToThisChapter.Select(x=>x.From)
+                .Where(ch => ch.Level == chapter.Level - 1 && branch.Chapters.Contains(ch)).Count();
         }
 
         private List<long> GetParentIds(Chapter chapter, List<long> result)
@@ -143,6 +196,40 @@ namespace WebWriterV2.FrontModels
                 GetParentIds(link.From, result);
             }
             return result;
+        }
+
+        private void UpdateChapterWeightFromEnd()
+        {
+            foreach (var chapter in Chapters.OrderByDescending(x => x.Level)) {
+                //if chapter has only one child
+                if (chapter.LinksFromThisChapter.Count == 1) {
+                    var toId = chapter.LinksFromThisChapter.Single().ToId;
+                    var mySingleChild = Chapters.Single(x => x.Id == toId);
+                    //and chapters shild has only one paren (current chapter)
+                    if (mySingleChild.LinksToThisChapter.Count == 1) {
+                        // current chapter get weight from child
+                        chapter.Weight = mySingleChild.Weight;
+                    }
+                }
+            }
+        }
+
+        private void SetVisualParent()
+        {
+            foreach (var chapter in Chapters) {
+                var allBrachesWichIncludeCurrentChapter = _branches
+                    .Where(x => x.Chapters.Select(ch => ch.Id).Contains(chapter.Id))
+                    .Where(x => x.RootChapter.Id != chapter.Id);
+
+                //just value by default
+                chapter.VisualParentIds = new List<long>();
+
+                foreach (var parentId in chapter.LinksToThisChapter.Select(x=>x.FromId)) {
+                    if (allBrachesWichIncludeCurrentChapter.All(b => b.Chapters.Select(x => x.Id).Contains(parentId))) {
+                        chapter.VisualParentIds.Add(parentId);
+                    }
+                }
+            }
         }
 
         public override Book ToDbModel()

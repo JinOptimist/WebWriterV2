@@ -31,6 +31,7 @@ namespace Dal.Model
         /// Books created by User
         /// </summary>
         public virtual List<Book> Books { get; set; }
+        public virtual List<Book> AvailableButNotMineBooks { get; set; }
 
         public virtual List<UserWhoReadBook> BooksAreReaded { get; set; }
 

@@ -212,7 +212,8 @@ var bookMap = (function () {
             LinksFromThisChapter: [],
             LinksToThisChapter: [link],
             Level: current.Level + 1,
-            Weight: 1
+            Weight: 1,
+            VisualParentIds: [current.Id]
         };
         frontChapters.push(fakeChapter);
         redraw();
@@ -254,6 +255,7 @@ var bookMap = (function () {
             var parentOfNewChapterId = newChapter.LinksToThisChapter[0].FromId;
             var parentOfNewChapter = frontChapters.find(x => x.Id == parentOfNewChapterId);
             newChapter.Level = parentOfNewChapter.Level + 1;
+            newChapter.VisualParentIds = [parentOfNewChapterId];
             frontChapters.push(newChapter);
             var link = newChapter.LinksToThisChapter[0];
             parentOfNewChapter.LinksFromThisChapter.push(link);
@@ -294,8 +296,10 @@ var bookMap = (function () {
     }
 
     function drawChapterGroup(x, y, chapter, isHighlight) {
-        //var centerX = canvas.width / 2;
-        var parents = getParentsCanvasObj(chapter);
+        
+        //var parents = getParentsCanvasObj(chapter);
+        var parents = chapter.VisualParentIds.map(x => getGroupByChapterId(x));
+        parents = parents.filter(x => x);
         var centerX = getCenterByParents(parents);
 
         var chapterX = (x / 2) * BlockSize.Width + Const.ChapterSize.Padding + centerX;
@@ -352,6 +356,7 @@ var bookMap = (function () {
     }
 
     function draw() {
+        reloadLayer();
         var links = [];
         levels = chapterProcessing.splitByLevels(frontChapters);
         //group chapters by parents.
@@ -374,7 +379,7 @@ var bookMap = (function () {
                     drawChapterGroup(x, y - 1, chapter);
                     currentX += chapter.Weight * 2;
 
-                    chapter.LinksFromThisChapter.forEach(x => links.push(x));
+                    chapter.LinksFromThisChapter.forEach(link => links.push(link));
                 }
             }
         }
@@ -460,8 +465,7 @@ var bookMap = (function () {
         return layer.children.filter(function (canvasItem) {
             if (!canvasItem.chapter)
                 return false;
-            var chapter = canvasItem.chapter;
-            return chapterProcessing.chaptersAreLinked(chapter, selectedChapter);
+            return chapterProcessing.chaptersAreLinked(canvasItem.chapter, selectedChapter);
         });
     }
 

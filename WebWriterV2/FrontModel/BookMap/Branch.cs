@@ -7,8 +7,10 @@ using WebWriterV2.FrontModels;
 
 namespace WebWriterV2.FrontModel.BookMap
 {
-    public class Branch: VisualBlock
+    public class Branch : VisualBlock
     {
+        public long Id { get; set; }
+
         public Chapter RootChapter { get; set; }
 
         public List<Chapter> Chapters { get; set; }
