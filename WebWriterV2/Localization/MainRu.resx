@@ -414,4 +414,7 @@
   <data name="Reader_Questionnaire_ReturnToWork" xml:space="preserve">
     <value>Вернуться к работе</value>
   </data>
+  <data name="Writer_CoAuthorRemoveConfirm" xml:space="preserve">
+    <value>Вы уверены что хотите удалить соавтора с email "{0}"?</value>
+  </data>
 </root>

@@ -673,6 +673,15 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вы уверены что хотите удалить соавтора с email &quot;{0}&quot;?.
+        /// </summary>
+        internal static string Writer_CoAuthorRemoveConfirm {
+            get {
+                return ResourceManager.GetString("Writer_CoAuthorRemoveConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Подтвердить.
         /// </summary>
         internal static string Writer_Confirm {

@@ -45,6 +45,7 @@ namespace WebWriterV2.FrontModels
             SetVisualParent();
 
             StateBasicTypes = EnumHelper.GetFrontEnumList<FrontEnumStateBasicType>(typeof(StateBasicType));
+            CoAuthors = book.CoAuthors.Select(x => x.Email).ToList();
         }
 
         public string Name { get; set; }
@@ -55,6 +56,8 @@ namespace WebWriterV2.FrontModels
 
         public List<FrontStateType> States { get; set; }
         public List<FrontEnum> StateBasicTypes { get; set; }
+
+        public List<string> CoAuthors { get; set; }
 
         private int SetDepth(Chapter chapter, int depth, List<Chapter> visitedChapters)
         {

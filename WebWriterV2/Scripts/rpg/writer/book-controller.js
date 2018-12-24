@@ -13,6 +13,7 @@ angular.module('rpg')
         $scope.resources = resources;
         $scope.newStateType = {};
         $scope.user = {};
+        $scope.newCoAuthor = {};
 
         $scope.canvas = {
             width: $window.innerWidth,
@@ -50,6 +51,27 @@ angular.module('rpg')
             }
             stateService.removeStateType(stateType.Id).then(function () {
                 $scope.book.States.splice(index, 1);
+            });
+        }
+
+        $scope.addCoAuthor = function () {
+            bookService.addCoAuthor($scope.newCoAuthor.email, $scope.book.Id).then(function (isSaved) {
+                if (isSaved) {
+                    $scope.book.CoAuthors.push($scope.newCoAuthor.email);
+                    $scope.newCoAuthor.email = '';
+                } else {
+                    $scope.newCoAuthor.notFound = true;
+                }
+            });
+        }
+
+        $scope.removeCoAuthor = function (email, index) {
+            if (!confirm(resources.Writer_CoAuthorRemoveConfirm.format(email))) {
+                return false;
+            }
+
+            bookService.removeCoAuthor(email, $scope.book.Id).then(function (isSaved) {
+                $scope.book.CoAuthors.splice(index, 1);
             });
         }
 
@@ -149,7 +171,7 @@ angular.module('rpg')
             $q.all([bookPromise, userPromise]).then(function (data) {
                 $scope.user = data[1];
 
-                $scope.canvas.height -= ($scope.user.ShowExtendedFunctionality ? 180 : 120);
+                $scope.canvas.height -= ($scope.user.ShowExtendedFunctionality ? 210 : 120);
 
                 $scope.book = data[0];
                 bookMap.start(data[0], actions, $scope.canvas, $scope.user);

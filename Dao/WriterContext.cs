@@ -59,7 +59,7 @@ namespace Dal
             modelBuilder.Entity<Book>().HasOptional(x => x.Genre).WithMany(x => x.Books);
             modelBuilder.Entity<Book>().HasMany(x => x.Readers).WithRequired(x => x.Book);
             modelBuilder.Entity<Book>().HasMany(x => x.Tags).WithMany(x => x.Books);
-            modelBuilder.Entity<Book>().HasMany(x => x.InvitedAuthors).WithMany(x => x.AvailableButNotMineBooks);
+            modelBuilder.Entity<Book>().HasMany(x => x.CoAuthors).WithMany(x => x.AvailableButNotMineBooks);
 
             modelBuilder.Entity<Chapter>().HasMany(x => x.LinksFromThisChapter).WithRequired(x => x.From).WillCascadeOnDelete(false);
             modelBuilder.Entity<Chapter>().HasMany(x => x.LinksToThisChapter).WithRequired(x => x.To);

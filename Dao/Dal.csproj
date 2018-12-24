@@ -201,6 +201,10 @@
     <Compile Include="Migrations\201812181040248_AddInvitedAuthors.Designer.cs">
       <DependentUpon>201812181040248_AddInvitedAuthors.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201812210930165_renameAdCoAuthor.cs" />
+    <Compile Include="Migrations\201812210930165_renameAdCoAuthor.Designer.cs">
+      <DependentUpon>201812210930165_renameAdCoAuthor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Article.cs" />
     <Compile Include="Model\BaseModel.cs" />
@@ -337,6 +341,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201812181040248_AddInvitedAuthors.resx">
       <DependentUpon>201812181040248_AddInvitedAuthors.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201812210930165_renameAdCoAuthor.resx">
+      <DependentUpon>201812210930165_renameAdCoAuthor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

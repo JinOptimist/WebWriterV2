@@ -191,6 +191,37 @@ namespace WebWriterV2.Controllers
             return book.Views;
         }
 
+        [AcceptVerbs("GET")]
+        public bool AddCoAuthor(string email, long bookId)
+        {
+            var book = BookRepository.Get(bookId);
+            var coAuthor = UserRepository.GetByEmail(email);
+            if (coAuthor == null) {
+                return false;
+            }
+
+            book.CoAuthors.Add(coAuthor);
+            BookRepository.Save(book);
+
+            return true;
+        }
+
+        [AcceptVerbs("GET")]
+        public bool RemoveCoAuthor(string email, long bookId)
+        {
+            var book = BookRepository.Get(bookId);
+            var coAuthor = UserRepository.GetByEmail(email);
+            if (coAuthor == null) {
+                return false;
+            }
+
+            book.CoAuthors.Remove(coAuthor);
+            BookRepository.Save(book);
+
+            return true;
+        }
+        
+
         //EXPEREMENAL
         [AcceptVerbs("GET")]
         public FrontBookWithChapters GetWithChaptersRoadmap(long id)
@@ -199,9 +230,9 @@ namespace WebWriterV2.Controllers
             var frontBook = new FrontBookWithChapters(book, true, true);
             return frontBook;
         }
+        
 
-
-		//Just for test
+        //Just for test
         [AcceptVerbs("GET")]
         public int StatisticOfVisiting(long bookId)
         {

@@ -21,6 +21,11 @@ namespace Dal.Repository
             return Entity.FirstOrDefault(x => x.Name == username);
         }
 
+        public User GetByEmail(string email)
+        {
+            return Entity.FirstOrDefault(x => x.Email == email);
+        }
+
         public User Login(string loginOrEmail, string password)
         {
             return Entity.FirstOrDefault(x => (x.Name == loginOrEmail || x.Email == loginOrEmail) && x.Password == password);

@@ -12,7 +12,9 @@
             getRootChapter: getRootChapter,
             remove: remove,
             publishBook: publishBook,
-            addView: addView
+            addView: addView,
+            addCoAuthor: addCoAuthor,
+            removeCoAuthor: removeCoAuthor
         };
 
         function saveBook(book) {
@@ -82,4 +84,23 @@
             };
             return httpHelper.get(url, data);
         }
+
+        function addCoAuthor(email, bookId) {
+            var url = '/api/book/AddCoAuthor';
+            var data = {
+                email: email,
+                bookId: bookId
+            };
+            return httpHelper.get(url, data);
+        }
+
+
+        function removeCoAuthor(email, bookId) {
+            var url = '/api/book/removeCoAuthor';
+            var data = {
+                email: email,
+                bookId: bookId
+            };
+            return httpHelper.get(url, data);
+        } 
     }]);

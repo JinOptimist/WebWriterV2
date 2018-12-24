@@ -16,7 +16,7 @@ namespace Dal.Model
         public virtual Chapter RootChapter { get; set; }
 
         public virtual User Owner { get; set; }
-        public virtual List<User> InvitedAuthors { get; set; }
+        public virtual List<User> CoAuthors { get; set; }
         public virtual List<StateType> States { get; set; }
         public virtual List<Chapter> AllChapters { get; set; }
         public virtual List<Evaluation> Evaluations { get; set; }

@@ -4,17 +4,13 @@
             <div class="logo header-item">
                 {{book.Name}}
             </div>
-            <!--<div class="header-item">
-                <input type="range" ng-model="scale" ng-change="onResize()" min="0.2" max="1.8" step="0.1"  />
-                | {{scale * 100 | number : '.0'}}%
-            </div>-->
             <div class="header-item error" ng-if="!valid">
                 {{resources.Writer_InvalidBranchLinkText}}
             </div>
         </div>
     </div>
 
-    <div class="content" id="book-writer" ng-mouse-wheel-down="onResize(-1)" ng-mouse-wheel-up="onResize(1)">
+    <div class="content" ng-mouse-wheel-down="onResize(-1)" ng-mouse-wheel-up="onResize(1)">
         <div class="states-type" ng-if="user && user.ShowExtendedFunctionality">
             <span>
                 {{resources.Writer_StateTypeTitle}}
@@ -26,6 +22,16 @@
                 <input type="text" ng-model="newStateType.Name" />
                 <select ng-model="newStateType.BasicType" ng-options="basicType.Value as basicType.Name for basicType in book.StateBasicTypes"></select>
                 <input type="button" value="{{resources.Writer_AddStateType}}" ng-click="createNewStateType()" />
+            </p>
+            <p>
+                <input placeholder="email соавтора" ng-model="newCoAuthor.email" ng-change="newCoAuthor.notFound = false" />
+                <input type="button" value="Добавить соавтора" ng-click="addCoAuthor()">
+                <span ng-if="newCoAuthor.notFound">Пользователь с данным email не найден</span>
+                <span ng-if="book.CoAuthors.length > 0">Вашы соавторы:</span>
+                <span ng-repeat="coAuthor in book.CoAuthors">
+                    {{coAuthor}} 
+                    <a href="#" ng-click="removeCoAuthor(coAuthor, $index)">X</a> 
+                </span>
             </p>
         </div>
 

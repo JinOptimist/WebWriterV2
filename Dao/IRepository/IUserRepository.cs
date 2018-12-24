@@ -9,5 +9,7 @@ namespace Dal.IRepository
         User Login(string loginOrEmail, string password);
 
         User GetByName(string username);
+
+        User GetByEmail(string email);
     }
 }
