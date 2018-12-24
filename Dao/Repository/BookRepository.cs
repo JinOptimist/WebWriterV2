@@ -33,7 +33,9 @@ namespace Dal.Repository
 
         public List<Book> GetByUser(long userId)
         {
-            return Entity.Where(x => x.Owner.Id == userId).ToList();
+            return Entity.Where(x => 
+                x.Owner.Id == userId 
+                || x.CoAuthors.Select(a => a.Id).Contains(userId)).ToList();
         }
 
         public override void Remove(Book book)

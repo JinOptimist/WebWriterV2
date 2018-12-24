@@ -92,5 +92,14 @@ namespace WebWriterV2.RpgUtility
             return String.Format("{0}://{1}{2}{3}",
                 url.Scheme, url.Host, port, VirtualPathUtility.ToAbsolute(relativeUrl));
         }
+
+        public static void SendCoAuthorNotification(Book book, string email)
+        {
+            var title = string.Format(WebWriterV2.Localization.MainRu.Email_MultiAuthorNotificationTitle, book.Name);
+            var body = $"Пользователь {book.Owner.Name} поделился с вами возможностью работать над произведением \"{book.Name}\"";
+
+            Send(email, title, body);
+
+        }
     }
 }

@@ -241,6 +241,15 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Вас пригласили как соавтора для работы на произведением &quot;{0}&quot;.
+        /// </summary>
+        internal static string Email_MultiAuthorNotificationTitle {
+            get {
+                return ResourceManager.GetString("Email_MultiAuthorNotificationTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Выйти.
         /// </summary>
         internal static string Exit {

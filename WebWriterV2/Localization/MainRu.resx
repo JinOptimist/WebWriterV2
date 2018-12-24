@@ -414,6 +414,9 @@
   <data name="Reader_Questionnaire_ReturnToWork" xml:space="preserve">
     <value>Вернуться к работе</value>
   </data>
+  <data name="Email_MultiAuthorNotificationTitle" xml:space="preserve">
+    <value>Вас пригласили как соавтора для работы на произведением "{0}"</value>
+  </data>
   <data name="Writer_CoAuthorRemoveConfirm" xml:space="preserve">
     <value>Вы уверены что хотите удалить соавтора с email "{0}"?</value>
   </data>

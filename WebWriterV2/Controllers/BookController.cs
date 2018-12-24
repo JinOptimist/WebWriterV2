@@ -55,7 +55,7 @@ namespace WebWriterV2.Controllers
         [AcceptVerbs("GET")]
         public List<FrontBook> GetAllForWriter()
         {
-            var getOnlyPublished = User == null || User.UserType != UserType.Admin;
+            //var getOnlyPublished = User == null || User.UserType != UserType.Admin;
             var books = BookRepository.GetByUser(User.Id);
 
             var frontBooks = books.Select(x => new FrontBook(x)).ToList();
@@ -202,6 +202,8 @@ namespace WebWriterV2.Controllers
 
             book.CoAuthors.Add(coAuthor);
             BookRepository.Save(book);
+
+            EmailHelper.SendCoAuthorNotification(book, email);
 
             return true;
         }
