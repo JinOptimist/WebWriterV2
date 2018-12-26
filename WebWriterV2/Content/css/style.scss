@@ -66,13 +66,16 @@ ul {
 
 
             a {
-                width: 250px;
-                height: 25px;
                 background-size: 100%;
                 display: inline-block;
-                background-image: url(../icon/naractivity.png);
+                /*background-image: url(../icon/naractivity.png);*/
                 background-repeat: no-repeat;
                 margin-top: 2px;
+
+                img {
+                    width: 250px;
+                    height: 25px;
+                }
             }
         }
 
