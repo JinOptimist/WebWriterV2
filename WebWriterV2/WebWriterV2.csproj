@@ -706,6 +706,7 @@
     <Content Include="Scripts\rpg\admin\questionnaire-results-controller.js" />
     <Content Include="Scripts\rpg\admin\users-controller.js" />
     <Content Include="Scripts\rpg\reader\access-controller.js" />
+    <Content Include="Scripts\rpg\reader\landing-controller.js" />
     <Content Include="Scripts\rpg\reader\questionnaire-controller.js" />
     <Content Include="Scripts\rpg\services\questionnaire.js" />
     <Content Include="Scripts\rpg\admin\questionnaires-controller.js" />
@@ -751,6 +752,7 @@
     <Content Include="Views\admin\Users.html" />
     <Content Include="Views\admin\Books.html" />
     <Content Include="Views\reader\EndOfTravel.html" />
+    <Content Include="Views\reader\Landing.html" />
     <Content Include="Views\reader\Questionnaire.html" />
     <Content Include="Views\reader\TravelGuest.html" />
     <Content Include="Views\reader\Travel.html" />

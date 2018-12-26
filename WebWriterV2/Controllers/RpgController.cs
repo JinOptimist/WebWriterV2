@@ -116,6 +116,8 @@ namespace WebWriterV2.Controllers
             return JavaScript("var resources = " + json + ";");
         }
 
+
+
         /* OLD */
         public ActionResult RegisterVkComplete(string code)
         {

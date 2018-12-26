@@ -9,6 +9,7 @@ angular.module('rpg')
         var step = 0.1;
         var scale = 1.0;
         var minScale = 0.1;
+        var bookMapObj = newOneBookMap();
         $scope.book = null;
         $scope.resources = resources;
         $scope.newStateType = {};
@@ -23,14 +24,14 @@ angular.module('rpg')
         init();
 
         $scope.rightClick = function (e) {
-            bookMap.rightClick();
+            bookMapObj.rightClick();
         }
 
         $scope.onResize = function (direction) {
             scale += step * direction;
             if (scale < minScale)
                 scale = minScale;
-            bookMap.resize(scale);
+            bookMapObj.resize(scale);
         }
 
         $scope.createNewStateType = function () {
@@ -156,11 +157,12 @@ angular.module('rpg')
         function documentKeyPressed(e) {
             // 'esc'.which == 27
             if (e.which === 27) {
-                bookMap.rightClick();
+                bookMapObj.rightClick();
             }
         }
 
         function init() {
+            
             var userId = $cookies.get(ConstCookies.userId);
             var userPromise = userService.getById(userId);
 
@@ -174,7 +176,7 @@ angular.module('rpg')
                 $scope.canvas.height -= ($scope.user.ShowExtendedFunctionality ? 210 : 120);
 
                 $scope.book = data[0];
-                bookMap.start(data[0], actions, $scope.canvas, $scope.user);
+                bookMapObj.start(data[0], actions, $scope.canvas, $scope.user);
             });
 
             document.onkeydown = function (e) {

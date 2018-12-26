@@ -706,6 +706,76 @@ ul {
         }
     }
 }
+
+#landing {
+    h1 {
+        text-align: center;
+
+        .big-shadow {
+            /* color: green; */
+            font-size: 100px;
+            display: block;
+            opacity: 0.06;
+            text-transform: uppercase;
+        }
+
+        .main-text {
+            position: relative;
+            top: -30px;
+            font-size: 35px;
+        }
+    }
+
+    .features {
+        width: 1120px;
+        margin: 5px auto;
+        padding-top: 120px;
+        box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.15);
+
+        .text {
+            padding: 40px 260px;
+
+            p {
+                margin-top: 40px;
+            }
+        }
+    }
+
+    .example {
+        height: 1100px;
+        width: 1600px;
+        margin: 0 auto;
+        margin-top: 100px;
+
+        .chapter-block {
+            box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.15);
+        }
+
+        .side-column {
+            width: 540px;
+            display: inline-block;
+            vertical-align: top;
+
+            .chapter-block {
+                height: 250px;
+                margin-top: 100px;
+                padding: 5px 15px;
+            }
+        }
+
+        .center-column {
+            width: 400px;
+            display: inline-block;
+            margin: 0 50px;
+
+            .chapter-block {
+                width: 400px;
+                height: 100px;
+                margin-top: 50px;
+            }
+        }
+    }
+}
 /* Reader End */
 /* Common style*/
 .left {

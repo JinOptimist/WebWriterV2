@@ -1,12 +1,14 @@
-var bookMap = (function () {
+var newOneBookMap = (function () {
     console.log('bookMap is load');
     var BlockSize = { Width: Const.ChapterSize.Width + Const.ChapterSize.Padding, Height: Const.ChapterSize.Height + Const.ChapterSize.Padding };
+    var fakePadingForLanding = { x: 0, y: 0 };
     var CanvasSize = {};
     var FontSize = Const.FontSize;
     var stage = {};
     var layer = {};
     var globalVariableLayer = {};
     var actions = {};
+    var onMainButtonClickForGroup;
 
     var selectedChapter;
 
@@ -296,14 +298,14 @@ var bookMap = (function () {
     }
 
     function drawChapterGroup(x, y, chapter, isHighlight) {
-        
+
         //var parents = getParentsCanvasObj(chapter);
         var parents = chapter.VisualParentIds.map(x => getGroupByChapterId(x));
         parents = parents.filter(x => x);
         var centerX = getCenterByParents(parents);
 
-        var chapterX = (x / 2) * BlockSize.Width + Const.ChapterSize.Padding + centerX;
-        var chapterY = y * BlockSize.Height + Const.ChapterSize.Padding;
+        var chapterX = (x / 2) * BlockSize.Width + Const.ChapterSize.Padding + centerX + fakePadingForLanding.x;
+        var chapterY = y * BlockSize.Height + Const.ChapterSize.Padding + fakePadingForLanding.y;
         var isCrossed = false;
         while (isCrossOtherChapter(chapterX, chapterY)) {
             chapterX += 10;
@@ -334,7 +336,11 @@ var bookMap = (function () {
         group.add(chapterBox);
 
         var state = chapterProcessing.calcState(chapter, selectedChapter);
-        var mainButton = drawShapes.drawMainButton(chapter, onMainButtonClick, state, reloadLayer);
+        // use for landing page with fake chapter
+        if (chapter.overrideState) {
+            state = chapter.overrideState;
+        }
+        var mainButton = drawShapes.drawMainButton(chapter, onMainButtonClickForGroup, state, reloadLayer);
         cursorPointerHelper(mainButton);
         group.add(mainButton);
 
@@ -411,7 +417,7 @@ var bookMap = (function () {
 
             y += 20;
         });
-        
+
     }
 
     /* ******************************* stage helper ******************************* */
@@ -562,6 +568,7 @@ var bookMap = (function () {
 
     /* public functions */
     function start(book, _actions, _canvasSize, _user) {
+        onMainButtonClickForGroup = onMainButtonClick;
         user = _user;
         fronBook = book;
         frontChapters = book.Chapters;
@@ -581,6 +588,38 @@ var bookMap = (function () {
         stage.add(layer);
         draw();
         reloadLayer();
+    }
+
+    function oneChapterLayer(containerId, _canvasSize, chapter) {
+        onMainButtonClickForGroup = () => { };
+        fakePadingForLanding = {
+            x: Const.ChapterSize.Padding * -1 + 25,
+            y: Const.ChapterSize.Padding * -1 + 5
+        };
+        CanvasSize = _canvasSize;
+        stage = new Konva.Stage({
+            container: containerId,
+            width: CanvasSize.width,
+            height: CanvasSize.height,
+            draggable: false
+        });
+        layer = new Konva.Layer({
+            draggable: false
+        });
+        stage.add(layer);
+
+        drawChapterGroup(0, 0, chapter, false);
+
+        layer.draw();
+
+        /*fake object*/
+        globalVariableLayer = new Konva.Layer();
+        actions = {
+            moveToEditChapter: () => { },
+            validate: () => { }
+        };
+        fronBook.States = [];
+        
     }
 
     function resize(newScale) {
@@ -613,7 +652,7 @@ var bookMap = (function () {
                     y: y * mult,
                     radius: 2,
                     fill: '',
-                    stroke: (x+y)%2 == 1 ? 'black' : 'red',
+                    stroke: (x + y) % 2 == 1 ? 'black' : 'red',
                     strokeWidth: 1
                 });
                 var text = new Konva.Text({
@@ -631,9 +670,11 @@ var bookMap = (function () {
 
     return {
         start: start,
+        oneChapterLayer: oneChapterLayer,
         rightClick: onRightClick,
         resize: resize,
         // for debug
         frontChapters: () => frontChapters
     };
-})();
+});
+var bookMap = newOneBookMap();
