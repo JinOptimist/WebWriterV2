@@ -6,6 +6,9 @@ angular.module('rpg')
             ConstCookies, bookService, userService, travelService) {
 
             $scope.user = {};
+            $scope.visibleBlock = {
+                initButton: false
+            };
             $scope.waiting = false;
 
             init();

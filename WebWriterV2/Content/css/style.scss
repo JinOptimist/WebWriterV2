@@ -745,13 +745,17 @@ ul {
     }
 
     .example {
-        height: 1100px;
+        height: 930px;
         width: 1600px;
         margin: 0 auto;
         margin-top: 100px;
 
         .chapter-block {
             box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.15);
+
+            &.acitve {
+                box-shadow: 1px 1px 7px $green;
+            }
         }
 
         .side-column {
@@ -777,6 +781,42 @@ ul {
                 margin-top: 50px;
             }
         }
+    }
+
+    .team {
+        display: flex;
+        justify-content: center;
+
+        div {
+            display: flex;
+            width: 230px;
+            margin: 75px;
+            flex-direction: column;
+            align-items: center;
+            height: 200px;
+            /*background: $dark-gray;*/
+            p {
+                line-height: 15px;
+            }
+
+            .role {
+                margin: 0;
+                padding: 0;
+                color: $gray-middle;
+                padding-bottom: 10px;
+            }
+
+            img {
+                max-width: 100px;
+                max-height: 100px;
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    footer{
+        background: $blue1;
+        height:500px;
     }
 }
 /* Reader End */

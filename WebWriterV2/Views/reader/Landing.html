@@ -16,41 +16,136 @@
     <div class="example">
         <h1><span class="big-shadow">Возможности</span><span class="main-text">Возможности</span></h1>
         <div class="side-column">
-            <div class="chapter-block">
-                <h3>Решения</h3>
-                <p>
-                    Следующий инструмент, который предоставляет наш портал, является Решения. Способов применения много, но в первую очередь я бы хотел остановиться на двух базовых: Отложенный выбор и Накопление решений.
-                </p>
+            <div class="chapter-block" ng-class="{acitve: visibleBlock.initButton}">
+                <div ng-if="!visibleBlock.initButton">
+                    <h3>Решения</h3>
+                    <p>
+                        Следующий инструмент, который предоставляет наш портал, является Решения. Способов применения много, но в первую очередь я бы хотел остановиться на двух базовых: Отложенный выбор и Накопление решений.
+                    </p>
+                </div>
+                <div ng-if="visibleBlock.initButton">
+                    <h3>Принцип одной кнопки</h3>
+                    <p>
+                        Кликнув на эту кнопку вы активируте главу. Дальнейшие действия будут происходить от имени этой главы. Например создание свзяей или потоков.
+                        Для того что бы отменить активацию вы можете нажать правую клавишу мышки
+                    </p>
+                </div>
             </div>
-            <div class="chapter-block">
-                <h3>Отложенный выбор</h3>
-                <p>
-                    Используя отложенный выбор вы можете, например, дать возможность читателю в начале произведения выбрать, что собираясь утром, положит в нагрудный карман ваш герой: перочинный нож или наручные часы, напоминающие о любимой.
-                    А затем вернуться к этому выбору лишь в конце произведения, в самый напряжённый момент, направив концовку.
-                </p>
-            </div>
-        </div>
-        <div class="center-column">
-            <div class="chapter-block" id="add-chapter"></div>
-            <div class="chapter-block" id="available-chapter"></div>
-            <div class="chapter-block" id="parent-chapter"></div>
-            <div class="chapter-block" id="remove-chapter"></div>
-            <div class="chapter-block" id="fake-chapter"></div>
-        </div>
-        <div class="side-column">
-            <div class="chapter-block">
-                <h3>Накопление решений</h3>
-                <p>
-                    Следующий инструмент, который предоставляет наш портал, является Решения. Способов применения много, но в первую очередь я бы хотел остановиться на двух базовых: Отложенный выбор и Накопление решений
-                </p>
+            <div class="chapter-block" ng-class="{acitve: visibleBlock.parentChapter || visibleBlock.fakeChapter}">
+                <div ng-if="!visibleBlock.parentChapter && !visibleBlock.fakeChapter">
+                    <h3>Отложенный выбор</h3>
+                    <p>
+                        Используя отложенный выбор вы можете, например, дать возможность читателю в начале произведения выбрать, что собираясь утром, положит в нагрудный карман ваш герой: перочинный нож или наручные часы, напоминающие о любимой.
+                        А затем вернуться к этому выбору лишь в конце произведения, в самый напряжённый момент, направив концовку.
+                    </p>
+                </div>
+                <div ng-if="visibleBlock.parentChapter" >
+                    <h3>Разрыв связи</h3>
+                    <p>
+                        Данную кнопку вы увидите на тех главах с которыми уже существует связь. Соотвественно нажав на неё вы разорвёте существующую связь
+                    </p>
+                </div>
+                <div ng-if="visibleBlock.fakeChapter" >
+                    <h3>Создание новой главы</h3>
+                    <p>
+                        Так выглядит виртуальная глава. Нажмите на неё, что бы создать главу.
+                    </p>
+                </div>
             </div>
 
-            <div class="chapter-block">
-                <h3>Произведения с циклическими структурами</h3>
+        </div>
+        <div class="center-column">
+            <div class="chapter-block" id="add-chapter" 
+                 ng-mouseenter="visibleBlock.initButton = true"
+                 ng-mouseleave="visibleBlock.initButton = false"></div>
+            <div class="chapter-block" id="available-chapter"
+                 ng-mouseenter="visibleBlock.availableChapter = true"
+                 ng-mouseleave="visibleBlock.availableChapter = false"></div>
+            <div class="chapter-block" id="parent-chapter"
+                 ng-mouseenter="visibleBlock.parentChapter = true"
+                 ng-mouseleave="visibleBlock.parentChapter = false"></div>
+            <div class="chapter-block" id="remove-chapter"
+                 ng-mouseenter="visibleBlock.removeChapter = true"
+                 ng-mouseleave="visibleBlock.removeChapter = false"></div>
+            <div class="chapter-block" id="fake-chapter"
+                 ng-mouseenter="visibleBlock.fakeChapter = true"
+                 ng-mouseleave="visibleBlock.fakeChapter = false"></div>
+        </div>
+        <div class="side-column">
+            <div class="chapter-block" ng-class="{acitve: visibleBlock.availableChapter}">
+                <div ng-if="!visibleBlock.availableChapter">
+                    <h3>Накопление решений</h3>
+                    <p>
+                        Следующий инструмент, который предоставляет наш портал, является Решения. Способов применения много, но в первую очередь я бы хотел остановиться на двух базовых: Отложенный выбор и Накопление решений
+                    </p>
+                </div>
+                <div ng-if="visibleBlock.availableChapter" >
+                    <h3>Создать связь</h3>
+                    <p>
+                        Данная кнопка даёт возможность установить связь из активной главы в выбранную.
+                    </p>
+                </div>
+            </div>
+
+            <div class="chapter-block" ng-class="{acitve: visibleBlock.removeChapter}">
+                <div  ng-if="!visibleBlock.removeChapter">
+                    <h3>Произведения с циклическими структурами</h3>
+                    <p>
+                        Вот мы и добрались до одной из самой сложных структуры стоящей на грани книги и игры. Многое из того что вы прочитаете дальше будет вызывать у вас ассоциации с компьютерными играми. Это не случайно, ведь там данные структуры расцвели в полной красе. НО! Всегда следует помнить, что ваше произведение в первую очередь книга, в которой есть элементы из других направлений, а не игра в которой много текста
+                    </p>
+                </div>
+                <div ng-if="visibleBlock.removeChapter" >
+                    <h3>Удаление главы</h3>
+                    <p>
+                        Нажмите что бы удалить выбранную главу. Что может быть проще?
+                    </p>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div>
+        <h1><span class="big-shadow">Команда</span><span class="main-text">Команда</span></h1>
+        <div class="team">
+            <div>
+                <img src="/Content/rpg-img/dragon.jpg" />
                 <p>
-                    Вот мы и добрались до одной из самой сложных структуры стоящей на грани книги и игры. Многое из того что вы прочитаете дальше будет вызывать у вас ассоциации с компьютерными играми. Это не случайно, ведь там данные структуры расцвели в полной красе. НО! Всегда следует помнить, что ваше произведение в первую очередь книга, в которой есть элементы из других направлений, а не игра в которой много текста
+                    Dragon
+                </p>
+                <p class="role">
+                    dev
+                </p>
+                <p>
+                    some text about
+                </p>
+            </div>
+            <div>
+                <img src="/Content/rpg-img/elf.jpg" />
+                <p>
+                    Elf
+                </p>
+                <p class="role">
+                    Designed
+                </p>
+                <p>
+                    some text about
+                </p>
+            </div>
+            <div>
+                <img src="/Content/rpg-img/gnom.jpg" />
+                <p>
+                    Gnom
+                </p>
+                <p class="role">
+                    info
+                </p>
+                <p>
+                    some text about
                 </p>
             </div>
         </div>
     </div>
+    <footer>
+
+    </footer>
 </div>
