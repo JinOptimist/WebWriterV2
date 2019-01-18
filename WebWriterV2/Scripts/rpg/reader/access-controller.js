@@ -1,13 +1,17 @@
 angular.module('rpg')
 
-    .controller('accessController', ['$rootScope', '$scope', '$cookies', '$location', 'ConstCookies', 'userService',
-        function ($rootScope, $scope, $cookies, $location, ConstCookies, userService) {
+    .controller('accessController', ['$rootScope', '$scope', '$route', '$cookies', '$location', 'ConstCookies', 'userService',
+        function ($rootScope, $scope, $route, $cookies, $location, ConstCookies, userService) {
             $scope.user = {};
             $scope.loginObj = {};
             $scope.waiting = false;
             $scope.popupOpen = { main: false };
             $scope.error = '';
             $scope.resources = resources;
+            $scope.route = {
+                isTravel: $route.current.controller == 'travelController'
+                    || $route.current.controller == 'travelGuestController'
+            };
 
             init();
 
@@ -15,6 +19,15 @@ angular.module('rpg')
             $rootScope.$on('UpdateUserEvent', function (event, args) {
                 init();
             });
+
+            $scope.$on('$routeChangeStart', function ($event, next, current) {
+                $scope.route.isTravel = next.controller == 'travelController'
+                    || next.controller == 'travelGuestController';
+            });
+
+            $scope.mousemove = function ($event) {
+                $scope.route.isUp = $event.y < 20;
+            }
 
             $scope.goToHomePage = function () {
                 $location.path('/');

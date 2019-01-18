@@ -1,6 +1,8 @@
-﻿<div class="wide-header" ng-controller="accessController">
-    <div class="content" id="header">
+﻿<div class="wide-header" ng-controller="accessController" 
+     ng-class="{travel: route.isTravel, isUp: route.isUp}" 
+     ng-mousemove="mousemove($event)">
 
+    <div class="content" id="header">
         <div class="menu-panel">
             <div class="logo header-item">
                 <a href="/ar/reader/books" alt="К списку книг"><img src="/Content/icon/naractivity.png" title="Интерактивная книга" alt="Интерактивная книга"></a>
@@ -33,7 +35,7 @@
             <div class="header-item" ng-if="user && user.IsAdmin">
                 <a href="ar/reader/landing">Landing</a>
             </div>
-            
+
 
             <div class="header-item alert">
                 Дизайн проекта находиться в разработке. Финальная версия ожидается в начале 2019 года
@@ -42,14 +44,14 @@
 
         <div class="login-panel">
             <!--<div class="header-item" ng-if="user">
-                <a href="/ar/reader/profile/{{user.Id}}">Профиль</a>
-            </div>-->
+            <a href="/ar/reader/profile/{{user.Id}}">Профиль</a>
+        </div>-->
             <!--<div class="header-item ">
-                <input type="text" placeholder="Искать..." />
-            </div>-->
+            <input type="text" placeholder="Искать..." />
+        </div>-->
             <!-- <div class="header-item">
-                <span class="icon" ng-class="{'bell-active': active, 'bell': !active}" ng-click="active = !active"></span>
-            </div> -->
+            <span class="icon" ng-class="{'bell-active': active, 'bell': !active}" ng-click="active = !active"></span>
+        </div> -->
             <div class="header-item" ng-if="!user">
                 <a href="#" ng-click="openLogin()">{{resources.Login}}</a>
             </div>

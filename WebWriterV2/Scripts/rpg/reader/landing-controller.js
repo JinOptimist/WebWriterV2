@@ -5,29 +5,12 @@ angular.module('rpg')
         function ($scope, $cookies, $location, $uibModal,
             ConstCookies, bookService, userService, travelService) {
 
-            $scope.user = {};
+            $scope.user = null;
             $scope.loginObj = {};
             $scope.visibleBlock = {
                 initButton: false
             };
             $scope.waiting = false;
-
-            $scope.login = function () {
-                $scope.waiting = true;
-                $scope.error = '';
-                userService.login($scope.loginObj).then(function (result) {
-                    if (result) {
-                        $scope.user = result;
-                        $cookies.put(ConstCookies.userId, $scope.user.Id);
-                        $scope.close();
-                    } else {
-                        $scope.error = resources.IncorrectUsernameOrPassword;
-                    }
-                    $scope.waiting = false;
-                    init();
-                    $location.path('/');
-                });
-            }
 
             $scope.register = function () {
                 if (!$scope.isUserValid()) {
@@ -41,7 +24,7 @@ angular.module('rpg')
                             $scope.error = result.Error;
                         } else {
                             $cookies.put(ConstCookies.userId, result.Id);
-                            $scope.close();
+                            $location.path('/');
                             init();
                         }
                     })
@@ -54,14 +37,23 @@ angular.module('rpg')
                     });
             }
 
+            $scope.isUserValid = function () {
+                return !!$scope.loginObj.Name && !!$scope.loginObj.Password && !!$scope.loginObj.Email;
+            }
+
             init();
 
             function init() {
-                var userId = $cookies.get(ConstCookies.userId);
+                var userId = userService.getCurrentUserId();
                 if (userId) {
                     userService.getById(userId).then(function (data) {
                         $scope.user = data;
+                        if ($scope.user.AvatarUrl) {
+                            $scope.user.AvatarUrl += "?d=" + new Date().getTime();
+                        }
                     });
+                } else {
+                    $scope.user = null;
                 }
 
                 var canvasSize = {

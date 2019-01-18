@@ -239,8 +239,22 @@ ul {
         font-style: italic;
     }
 }
-/* Header End */
 
+.top-menu {
+    .travel {
+        visibility: hidden;
+        height: 20px;
+        transition: visibility 0s linear 0.33s, height 0.33s linear;
+    }
+
+    &:hover .travel,
+    .isUp.travel {
+        visibility: visible;
+        height: 100px;
+        transition-delay: 0s;
+    }
+}
+/* Header End */
 /* Admin */
 #admin-info,
 #questionnaire-results {
@@ -751,6 +765,36 @@ ul {
         }
     }
 
+    .login-block {
+        margin: 50px 0 140px 0;
+
+        input {
+            padding: 14px 20px;
+            border: 1px solid rgba(113, 130, 138, 0.2);
+
+            &:nth-child(1) {
+                /* email */
+                border-radius: 4px 0 0 4px;
+            }
+
+            &:nth-child(2) {
+                /* password */
+                border-radius: 0;
+            }
+
+            &[type=button] {
+                /* button */
+                border-radius: 0 4px 4px 0;
+                background: #0074E4;
+                font-weight: bold;
+                line-height: 18px;
+                font-size: 14px;
+                color: $white;
+                height: 51px;
+            }
+        }
+    }
+
     .login {
         display: flex;
         justify-content: center;
@@ -770,33 +814,6 @@ ul {
             text-align: center;
             color: #71828A;
             line-height: 32px;
-        }
-
-        .login-block {
-            margin: 50px 0 140px 0;
-
-            input {
-                padding: 14px 20px;
-                border: 1px solid rgba(113, 130, 138, 0.2);
-
-                &:nth-child(1) {
-                    /* email */
-                    border-radius: 4px 0 0 4px;
-                }
-
-                &:nth-child(2) {
-                    /* password */
-                    border-radius: 0;
-                }
-
-                &:nth-child(3) {
-                    /* button */
-                    border-radius: 0 4px 4px 0;
-                    background: #0074E4;
-                    font-size: 14px;
-                    color: $white;
-                }
-            }
         }
     }
 
@@ -912,8 +929,32 @@ ul {
     }
 
     footer {
-        background: $blue1;
-        height: 500px;
+        display: flex;
+        justify-content: space-around;
+        background: url(../landing/blue-bg.png);
+        color: $white;
+        height: 286px;
+        padding-top: 220px;
+
+        p {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        p.small {
+            font-size: 14px;
+        }
+
+        .login-block {
+            input {
+                
+            }
+
+            input[type=button] {
+                background: $white;
+                color: #0174E2;
+            }
+        }
     }
 }
 /* Reader End */

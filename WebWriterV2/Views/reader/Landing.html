@@ -9,10 +9,10 @@
             Some cool text about web site. Some cool text about web site.Some cool text about web site.Some cool text about web site.
         </div>
         <div class="login-block">
-            <input ng-model="loginObj.email" placeholder="email" />
-            <input ng-model="loginObj.password" placeholder="password" />
-            <input type="button" value="Скорее зарегистрироваться" ng-click="register()" />
-            <input type="button" value="Скорее залогиниться" ng-click="login()" ng-show="false" />
+            <input ng-model="loginObj.Name" placeholder="name" />
+            <input ng-model="loginObj.Email" placeholder="email" />
+            <input type="password" ng-model="loginObj.Password" placeholder="password" />
+            <input type="button" value="Скорее зарегистрироваться" ng-click="register()" /><!--ng-show="!user"-->
         </div>
     </div>
     <div class="features">
@@ -180,6 +180,16 @@
         </div>
     </div>
     <footer>
-
+        <div class="left">
+            <p>
+                Вы хотите начать прямо сейчас
+            </p>
+            <p class="small">
+                Вы хотите начать прямо сейчас
+            </p>
+        </div>
+        <div class="login-block">
+            <input ng-model="loginObj.Name" placeholder="name" /><input ng-model="loginObj.Email" placeholder="email" /><input ng-model="loginObj.Password" placeholder="password" /><input type="button" value="Скорее зарегистрироваться" ng-click="register()" /><!--ng-show="!user"-->
+        </div>
     </footer>
 </div>
