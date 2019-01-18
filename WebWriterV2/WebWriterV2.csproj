@@ -278,6 +278,10 @@
     <Content Include="Content\icon\naractivity.svg" />
     <Content Include="Content\icon\spritesheet.png" />
     <Content Include="Content\icon\time.png" />
+    <Content Include="Content\landing\blue-bg.png" />
+    <Content Include="Content\landing\team-design.png" />
+    <Content Include="Content\landing\team-dev.png" />
+    <Content Include="Content\landing\team-info.png" />
     <Content Include="Content\rpg-img\dragon.jpg" />
     <Content Include="Content\rpg-img\icon.png" />
     <Content Include="Content\rpg-img\elf.jpg" />

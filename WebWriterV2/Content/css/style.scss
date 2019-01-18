@@ -711,15 +711,17 @@ ul {
 }
 
 #landing {
+    font-size: 18px;
+
     h1 {
         text-align: center;
 
         .big-shadow {
-            /* color: green; */
             font-size: 100px;
             display: block;
-            opacity: 0.06;
             text-transform: uppercase;
+            /*opacity: 0.06;*/
+            color: #F5F5F5;
         }
 
         .main-text {
@@ -729,14 +731,89 @@ ul {
         }
     }
 
+    .block-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .tag-block {
+            display: flex;
+            justify-content: center;
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
+
+        .line {
+            margin-bottom: 16px;
+            height: 2px;
+            width: 68px;
+            background: #4A90E2;
+        }
+    }
+
+    .login {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+        div {
+            display: flex;
+            justify-content: center;
+        }
+
+        .desc {
+            display: inline-block;
+            margin-top: 20px;
+            margin-bottom: 25px;
+            margin: auto;
+            width: 960px;
+            text-align: center;
+            color: #71828A;
+            line-height: 32px;
+        }
+
+        .login-block {
+            margin: 50px 0 140px 0;
+
+            input {
+                padding: 14px 20px;
+                border: 1px solid rgba(113, 130, 138, 0.2);
+
+                &:nth-child(1) {
+                    /* email */
+                    border-radius: 4px 0 0 4px;
+                }
+
+                &:nth-child(2) {
+                    /* password */
+                    border-radius: 0;
+                }
+
+                &:nth-child(3) {
+                    /* button */
+                    border-radius: 0 4px 4px 0;
+                    background: #0074E4;
+                    font-size: 14px;
+                    color: $white;
+                }
+            }
+        }
+    }
+
     .features {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
         width: 1120px;
         margin: 5px auto;
-        padding-top: 120px;
-        box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.15);
+        padding-top: 82px;
+        box-shadow: 0px 10px 40px rgba(113, 130, 138, 0.2);
+        border-radius: 6px;
 
         .text {
-            padding: 40px 260px;
+            padding: 0px 260px 40px 260px;
+            ;
 
             p {
                 margin-top: 40px;
@@ -745,10 +822,18 @@ ul {
     }
 
     .example {
-        height: 930px;
+        height: 1010px;
         width: 1600px;
         margin: 0 auto;
         margin-top: 100px;
+
+        .tag {
+            background: #0EBAC6;
+        }
+
+        .line {
+            background: #0EBAC6;
+        }
 
         .chapter-block {
             box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.15);
@@ -784,39 +869,51 @@ ul {
     }
 
     .team {
-        display: flex;
-        justify-content: center;
+        .tag {
+            background: #F9583B;
+        }
 
-        div {
+        .line {
+            background: #F9583B;
+        }
+
+        .team-member {
             display: flex;
-            width: 230px;
-            margin: 75px;
-            flex-direction: column;
-            align-items: center;
-            height: 200px;
-            /*background: $dark-gray;*/
-            p {
-                line-height: 15px;
-            }
+            justify-content: center;
 
-            .role {
-                margin: 0;
-                padding: 0;
-                color: $gray-middle;
-                padding-bottom: 10px;
-            }
 
-            img {
-                max-width: 100px;
-                max-height: 100px;
-                margin-bottom: 20px;
+
+            div {
+                display: flex;
+                width: 230px;
+                margin: 75px;
+                flex-direction: column;
+                align-items: center;
+                height: 200px;
+                /*background: $dark-gray;*/
+                p {
+                    line-height: 15px;
+                }
+
+                .role {
+                    margin: 0;
+                    padding: 0;
+                    color: $gray-middle;
+                    padding-bottom: 10px;
+                }
+
+                img {
+                    max-width: 100px;
+                    max-height: 100px;
+                    margin-bottom: 20px;
+                }
             }
         }
     }
 
-    footer{
+    footer {
         background: $blue1;
-        height:500px;
+        height: 500px;
     }
 }
 /* Reader End */

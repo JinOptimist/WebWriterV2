@@ -6,10 +6,53 @@ angular.module('rpg')
             ConstCookies, bookService, userService, travelService) {
 
             $scope.user = {};
+            $scope.loginObj = {};
             $scope.visibleBlock = {
                 initButton: false
             };
             $scope.waiting = false;
+
+            $scope.login = function () {
+                $scope.waiting = true;
+                $scope.error = '';
+                userService.login($scope.loginObj).then(function (result) {
+                    if (result) {
+                        $scope.user = result;
+                        $cookies.put(ConstCookies.userId, $scope.user.Id);
+                        $scope.close();
+                    } else {
+                        $scope.error = resources.IncorrectUsernameOrPassword;
+                    }
+                    $scope.waiting = false;
+                    init();
+                    $location.path('/');
+                });
+            }
+
+            $scope.register = function () {
+                if (!$scope.isUserValid()) {
+                    return;
+                }
+
+                $scope.waiting = true;
+                userService.register($scope.loginObj)
+                    .then(function (result) {
+                        if (!result || result.Error) {
+                            $scope.error = result.Error;
+                        } else {
+                            $cookies.put(ConstCookies.userId, result.Id);
+                            $scope.close();
+                            init();
+                        }
+                    })
+                    .catch(function (e) {
+                        $scope.error = resources.IncorrectUsernameOrPassword;
+                    })
+                    .finally(function () {
+                        $scope.waiting = false;
+                        init();
+                    });
+            }
 
             init();
 

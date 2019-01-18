@@ -1,6 +1,28 @@
 ﻿<div class="content" id="landing">
+    <div class="login">
+        <h1>
+            We have a cool site! Welcome.
+        </h1>
+        <div class="desc">
+            Some cool text about web site. Some cool text about web site.Some cool text about web site.Some cool text about web site.
+            Some cool text about web site. Some cool text about web site.Some cool text about web site.Some cool text about web site.
+            Some cool text about web site. Some cool text about web site.Some cool text about web site.Some cool text about web site.
+        </div>
+        <div class="login-block">
+            <input ng-model="loginObj.email" placeholder="email" />
+            <input ng-model="loginObj.password" placeholder="password" />
+            <input type="button" value="Скорее зарегистрироваться" ng-click="register()" />
+            <input type="button" value="Скорее залогиниться" ng-click="login()" ng-show="false" />
+        </div>
+    </div>
     <div class="features">
-        <h1><span class="big-shadow">Возможности</span><span class="main-text">Возможности</span></h1>
+        <div class="block-header">
+            <div class="tag-block">
+                <span class="tag">about</span>
+            </div>
+            <h1><span class="big-shadow">Возможности</span><span class="main-text">Возможности</span></h1>
+            <div class="line"></div>
+        </div>
         <div class="text">
             <p>
                 Давайте на этом примере введём важную цифру, а именно процент пропущенных глав. Читатель, какой бы путь он не выбрал, прочитает лишь 4 главы, в то время как автору пришлось прописать 15 главы. Иными словами почти 75% глав были пропущены. С увеличением количества выборов предоставляемых читателю данное число растёт по экспоненте. Для решения этой проблемы используются ложные выборы. Автор, даёт на выбор одну или несколько глав, результат которых, так или иначе, приходит в одну точку (главу). Это позволяет избегать излишнего ветвления, снижает процент пропущенных глав, при этом оставляя читателю ощущение постоянного участия в событиях.
@@ -14,7 +36,13 @@
         </div>
     </div>
     <div class="example">
-        <h1><span class="big-shadow">Возможности</span><span class="main-text">Возможности</span></h1>
+        <div class="block-header">
+            <div class="tag-block">
+                <span class="tag">features</span>
+            </div>
+            <h1><span class="big-shadow">Примеры</span><span class="main-text">Примеры</span></h1>
+            <div class="line"></div>
+        </div>
         <div class="side-column">
             <div class="chapter-block" ng-class="{acitve: visibleBlock.initButton}">
                 <div ng-if="!visibleBlock.initButton">
@@ -39,13 +67,13 @@
                         А затем вернуться к этому выбору лишь в конце произведения, в самый напряжённый момент, направив концовку.
                     </p>
                 </div>
-                <div ng-if="visibleBlock.parentChapter" >
+                <div ng-if="visibleBlock.parentChapter">
                     <h3>Разрыв связи</h3>
                     <p>
                         Данную кнопку вы увидите на тех главах с которыми уже существует связь. Соотвественно нажав на неё вы разорвёте существующую связь
                     </p>
                 </div>
-                <div ng-if="visibleBlock.fakeChapter" >
+                <div ng-if="visibleBlock.fakeChapter">
                     <h3>Создание новой главы</h3>
                     <p>
                         Так выглядит виртуальная глава. Нажмите на неё, что бы создать главу.
@@ -55,7 +83,7 @@
 
         </div>
         <div class="center-column">
-            <div class="chapter-block" id="add-chapter" 
+            <div class="chapter-block" id="add-chapter"
                  ng-mouseenter="visibleBlock.initButton = true"
                  ng-mouseleave="visibleBlock.initButton = false"></div>
             <div class="chapter-block" id="available-chapter"
@@ -79,7 +107,7 @@
                         Следующий инструмент, который предоставляет наш портал, является Решения. Способов применения много, но в первую очередь я бы хотел остановиться на двух базовых: Отложенный выбор и Накопление решений
                     </p>
                 </div>
-                <div ng-if="visibleBlock.availableChapter" >
+                <div ng-if="visibleBlock.availableChapter">
                     <h3>Создать связь</h3>
                     <p>
                         Данная кнопка даёт возможность установить связь из активной главы в выбранную.
@@ -88,59 +116,65 @@
             </div>
 
             <div class="chapter-block" ng-class="{acitve: visibleBlock.removeChapter}">
-                <div  ng-if="!visibleBlock.removeChapter">
+                <div ng-if="!visibleBlock.removeChapter">
                     <h3>Произведения с циклическими структурами</h3>
                     <p>
                         Вот мы и добрались до одной из самой сложных структуры стоящей на грани книги и игры. Многое из того что вы прочитаете дальше будет вызывать у вас ассоциации с компьютерными играми. Это не случайно, ведь там данные структуры расцвели в полной красе. НО! Всегда следует помнить, что ваше произведение в первую очередь книга, в которой есть элементы из других направлений, а не игра в которой много текста
                     </p>
                 </div>
-                <div ng-if="visibleBlock.removeChapter" >
+                <div ng-if="visibleBlock.removeChapter">
                     <h3>Удаление главы</h3>
                     <p>
                         Нажмите что бы удалить выбранную главу. Что может быть проще?
                     </p>
                 </div>
             </div>
-            
+
         </div>
     </div>
-    <div>
-        <h1><span class="big-shadow">Команда</span><span class="main-text">Команда</span></h1>
-        <div class="team">
+    <div class="team">
+        <div class="block-header">
+            <div class="tag-block">
+                <span class="tag">features</span>
+            </div>
+            <h1><span class="big-shadow">Команда</span><span class="main-text">Команда</span></h1>
+            <div class="line"></div>
+        </div>
+        <div class="team-member">
             <div>
-                <img src="/Content/rpg-img/dragon.jpg" />
+                <img src="/Content/landing/team-dev.png" />
                 <p>
-                    Dragon
+                    Pavel Optimist
                 </p>
                 <p class="role">
-                    dev
+                    Developer
                 </p>
                 <p>
-                    some text about
+                    Smart
                 </p>
             </div>
             <div>
-                <img src="/Content/rpg-img/elf.jpg" />
+                <img src="/Content/landing/team-design.png" />
                 <p>
-                    Elf
+                    Denis Grinevich
                 </p>
                 <p class="role">
-                    Designed
+                    Designer
                 </p>
                 <p>
-                    some text about
+                    Cool
                 </p>
             </div>
             <div>
-                <img src="/Content/rpg-img/gnom.jpg" />
+                <img src="/Content/landing/team-info.png" />
                 <p>
-                    Gnom
+                    Alex
                 </p>
                 <p class="role">
-                    info
+                    Humanist
                 </p>
                 <p>
-                    some text about
+                    Crusader
                 </p>
             </div>
         </div>
