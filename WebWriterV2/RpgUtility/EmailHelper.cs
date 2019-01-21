@@ -13,6 +13,7 @@ namespace WebWriterV2.RpgUtility
 {
     public static class EmailHelper
     {
+        private static string NoReplayEmail = Properties.Settings.Default.NoReplayEmailName;
         public static void SendConfirmRegistrationEmail(string relativeUrl, string userEmail)
         {
             var url = ToAbsoluteUrl(relativeUrl);
@@ -23,26 +24,35 @@ namespace WebWriterV2.RpgUtility
 
         public static void SendQuestionnaireResults(string userEmail, QuestionnaireResultEmail questionnaireResult)
         {
-            var title =$"{Properties.Settings.Default.QuestionnaireResultTitle} '{questionnaireResult.QuestionnaireName}'";
+            var mailMessage = new MailMessage();
+            mailMessage.Subject = $"{Properties.Settings.Default.QuestionnaireResultTitle} '{questionnaireResult.QuestionnaireName}'";
+            mailMessage.To.Add(userEmail);
+            mailMessage.From = new MailAddress(NoReplayEmail);
+
             var body = new StringBuilder();
-            body.AppendLine(questionnaireResult.QuestionnaireName);
-            body.AppendLine($"Пользователь: {questionnaireResult.UserName}");
+            body.AppendLine($"<h3>Опросник: {questionnaireResult.QuestionnaireName}</h3>");
+            body.AppendLine($"<h4>Пользователь: {questionnaireResult.UserName}</h4>");
             foreach (var questionAnswerPair in questionnaireResult.QuestionAnswerPairs) {
                 var otherAnswer = questionAnswerPair.OtherAnswerText;
                 if (string.IsNullOrWhiteSpace(otherAnswer) && !questionAnswerPair.AnswersText.Any()) {
                     // No answer, no need to write a question
                     continue;
                 }
-                body.AppendLine($"Вопрос. {questionAnswerPair.QuestionText}");
+                body.AppendLine($"<b>{questionAnswerPair.QuestionText}</b>");
+                body.AppendLine("<ul>");
                 foreach (var answer in questionAnswerPair.AnswersText) {
-                    body.AppendLine($" -- Выбранный ответ. {answer}");
+                    body.AppendLine($"<li>{answer}</li>");
                 }
+                body.AppendLine("</ul>");
                 if (!string.IsNullOrWhiteSpace(otherAnswer)) {
-                    body.AppendLine($" -- Доп ответ: {otherAnswer}");
+                    body.AppendLine($"<p><i>{otherAnswer}</i></p>");
                 }
             }
 
-            Send(userEmail, title, body.ToString());
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Body = body.ToString();
+
+            Send(mailMessage);
         }
 
         public static void SendError(Exception e)
@@ -61,16 +71,22 @@ namespace WebWriterV2.RpgUtility
 
         public static void Send(string to, string title, string body)
         {
+            to.Split(';').ToList().ForEach(emailTo => 
+                Send(new MailMessage(NoReplayEmail, to, title, body)));
+        }
+
+        public static void Send(MailMessage mailMessage)
+        {
             var smtp = new SmtpClient();
             smtp.Host = Properties.Settings.Default.EmailHost;
             smtp.Port = Properties.Settings.Default.EmailPort;
             smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
             smtp.EnableSsl = true;
             smtp.Credentials = new NetworkCredential(
-                Properties.Settings.Default.NoReplayEmailName,
+                NoReplayEmail,
                 Properties.Settings.Default.NoReplayEmailPassword);
-            var emails = to.Split(';').Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
-            emails.ForEach(emailTo => smtp.Send(Properties.Settings.Default.NoReplayEmailName, emailTo, title, body));
+
+            smtp.Send(mailMessage);
         }
 
         public static string ToAbsoluteUrl(this string relativeUrl)
