@@ -263,6 +263,7 @@
     <Content Include="Content\download\hack.txt" />
     <Content Include="Content\font\Lato OFL.txt" />
     <Content Include="Content\font\Merriweather OFL.txt" />
+    <Content Include="Content\font\Roboto LICENSE.txt" />
     <Content Include="Content\icon\add-icon.png" />
     <Content Include="Content\icon\bell-active.png" />
     <Content Include="Content\icon\bell.png" />
@@ -278,7 +279,9 @@
     <Content Include="Content\icon\naractivity.svg" />
     <Content Include="Content\icon\spritesheet.png" />
     <Content Include="Content\icon\time.png" />
-    <Content Include="Content\landing\blue-bg.png" />
+    <Content Include="Content\landing\bg-blue.png" />
+    <Content Include="Content\landing\bg-gray-rectagle.png" />
+    <Content Include="Content\landing\bg-gray.png" />
     <Content Include="Content\landing\team-design.png" />
     <Content Include="Content\landing\team-dev.png" />
     <Content Include="Content\landing\team-info.png" />
@@ -749,6 +752,18 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
+    <Content Include="Content\font\Roboto-Black.ttf" />
+    <Content Include="Content\font\Roboto-BlackItalic.ttf" />
+    <Content Include="Content\font\Roboto-Bold.ttf" />
+    <Content Include="Content\font\Roboto-BoldItalic.ttf" />
+    <Content Include="Content\font\Roboto-Italic.ttf" />
+    <Content Include="Content\font\Roboto-Light.ttf" />
+    <Content Include="Content\font\Roboto-LightItalic.ttf" />
+    <Content Include="Content\font\Roboto-Medium.ttf" />
+    <Content Include="Content\font\Roboto-MediumItalic.ttf" />
+    <Content Include="Content\font\Roboto-Regular.ttf" />
+    <Content Include="Content\font\Roboto-Thin.ttf" />
+    <Content Include="Content\font\Roboto-ThinItalic.ttf" />
     <None Include="Properties\PublishProfiles\narativity - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\narativity - Web Deploy.pubxml" />
     <None Include="Scripts\_references.js" />
