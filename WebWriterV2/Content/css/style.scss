@@ -726,6 +726,8 @@ ul {
 
 #landing {
     font-size: 18px;
+    font-family: Roboto;
+    background: url(../landing/bg-gray.png) no-repeat 0 1380px, url(../landing/bg-gray-rectagle.png) no-repeat 0 700px;
 
     h1 {
         text-align: center;
@@ -767,6 +769,9 @@ ul {
 
     .login-block {
         margin: 50px 0 140px 0;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
 
         input {
             padding: 14px 20px;
@@ -790,7 +795,7 @@ ul {
                 line-height: 18px;
                 font-size: 14px;
                 color: $white;
-                height: 51px;
+                height: 52px;
             }
         }
     }
@@ -823,6 +828,7 @@ ul {
         justify-content: center;
         align-items: center;
         width: 1120px;
+        background: $white;
         margin: 5px auto;
         padding-top: 82px;
         box-shadow: 0px 10px 40px rgba(113, 130, 138, 0.2);
@@ -830,10 +836,11 @@ ul {
 
         .text {
             padding: 0px 260px 40px 260px;
-            ;
 
             p {
                 margin-top: 40px;
+                font-size: 16px;
+                color: #4D4D4F;
             }
         }
     }
@@ -853,7 +860,18 @@ ul {
         }
 
         .chapter-block {
+            font-family: Montserrat;
+            background: $white;
             box-shadow: 1px 1px 7px rgba(0, 0, 0, 0.15);
+
+            h3 {
+                font-weight: 500;
+                line-height: 30px;
+            }
+
+            p {
+                color: #B3B3B3;
+            }
 
             &.acitve {
                 box-shadow: 1px 1px 7px $green;
@@ -931,9 +949,9 @@ ul {
     footer {
         display: flex;
         justify-content: space-around;
-        background: url(../landing/blue-bg.png);
+        background: url(../landing/bg-blue.png) no-repeat;
         color: $white;
-        height: 286px;
+        height: 290px;
         padding-top: 220px;
 
         p {
@@ -946,8 +964,9 @@ ul {
         }
 
         .login-block {
+            margin-top: 0;
+
             input {
-                
             }
 
             input[type=button] {
