@@ -102,6 +102,7 @@ angular.module('rpg')
                             $cookies.put(ConstCookies.userId, result.Id);
                             $scope.close();
                             init();
+                            $location.path('/');
                         }
                     })
                     .catch(function (e) {

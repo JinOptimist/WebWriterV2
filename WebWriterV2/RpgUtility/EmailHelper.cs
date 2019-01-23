@@ -71,7 +71,7 @@ namespace WebWriterV2.RpgUtility
 
         public static void Send(string to, string title, string body)
         {
-            to.Split(';').ToList().ForEach(emailTo => 
+            to.Split(';').ToList().ForEach(emailTo =>
                 Send(new MailMessage(NoReplayEmail, to, title, body)));
         }
 
@@ -86,7 +86,9 @@ namespace WebWriterV2.RpgUtility
                 NoReplayEmail,
                 Properties.Settings.Default.NoReplayEmailPassword);
 
-            smtp.Send(mailMessage);
+            #if !DEBUG
+                smtp.Send(mailMessage);
+            #endif
         }
 
         public static string ToAbsoluteUrl(this string relativeUrl)
