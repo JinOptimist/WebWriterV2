@@ -420,4 +420,19 @@
   <data name="Writer_CoAuthorRemoveConfirm" xml:space="preserve">
     <value>Вы уверены что хотите удалить соавтора с email "{0}"?</value>
   </data>
+  <data name="Landing_AvailableToLink" xml:space="preserve">
+    <value>Доступна для связи</value>
+  </data>
+  <data name="Landing_FakeChapter" xml:space="preserve">
+    <value>Создать главу</value>
+  </data>
+  <data name="Landing_InitState" xml:space="preserve">
+    <value>Начальное состояние</value>
+  </data>
+  <data name="Landing_RemoveChapter" xml:space="preserve">
+    <value>Удалить главу</value>
+  </data>
+  <data name="Landing_RemoveLink" xml:space="preserve">
+    <value>Разорвать связь</value>
+  </data>
 </root>

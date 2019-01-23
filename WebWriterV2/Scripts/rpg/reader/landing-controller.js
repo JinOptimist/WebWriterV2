@@ -61,11 +61,11 @@ angular.module('rpg')
                     height: 100
                 };
 
-                newOneBookMap().oneChapterLayer('add-chapter', canvasSize, fakeChapter('base state', drawShapes.chapterStateType.Initial));
-                newOneBookMap().oneChapterLayer('available-chapter', canvasSize, fakeChapter('available to link', drawShapes.chapterStateType.AvailableToLink));
-                newOneBookMap().oneChapterLayer('parent-chapter', canvasSize, fakeChapter('remove link', drawShapes.chapterStateType.Parent));
-                newOneBookMap().oneChapterLayer('remove-chapter', canvasSize, fakeChapter('remove chapter', drawShapes.chapterStateType.Selected));
-                newOneBookMap().oneChapterLayer('fake-chapter', canvasSize, fakeChapter('fake chapter', drawShapes.chapterStateType.FakeNew));
+                newOneBookMap().oneChapterLayer('add-chapter', canvasSize, fakeChapter(resources.Landing_InitState, drawShapes.chapterStateType.Initial));
+                newOneBookMap().oneChapterLayer('available-chapter', canvasSize, fakeChapter(resources.Landing_AvailableToLink, drawShapes.chapterStateType.AvailableToLink));
+                newOneBookMap().oneChapterLayer('parent-chapter', canvasSize, fakeChapter(resources.Landing_RemoveLink, drawShapes.chapterStateType.Parent));
+                newOneBookMap().oneChapterLayer('remove-chapter', canvasSize, fakeChapter(resources.Landing_RemoveChapter, drawShapes.chapterStateType.Selected));
+                newOneBookMap().oneChapterLayer('fake-chapter', canvasSize, fakeChapter(resources.Landing_FakeChapter, drawShapes.chapterStateType.FakeNew));
             }
 
             function fakeChapter(name, state) {

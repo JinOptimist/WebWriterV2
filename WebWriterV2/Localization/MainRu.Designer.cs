@@ -277,6 +277,51 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Доступна для связи.
+        /// </summary>
+        internal static string Landing_AvailableToLink {
+            get {
+                return ResourceManager.GetString("Landing_AvailableToLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Создать главу.
+        /// </summary>
+        internal static string Landing_FakeChapter {
+            get {
+                return ResourceManager.GetString("Landing_FakeChapter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Начальное состояние.
+        /// </summary>
+        internal static string Landing_InitState {
+            get {
+                return ResourceManager.GetString("Landing_InitState", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удалить главу.
+        /// </summary>
+        internal static string Landing_RemoveChapter {
+            get {
+                return ResourceManager.GetString("Landing_RemoveChapter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Разорвать связь.
+        /// </summary>
+        internal static string Landing_RemoveLink {
+            get {
+                return ResourceManager.GetString("Landing_RemoveLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Логин.
         /// </summary>
         internal static string Login {
