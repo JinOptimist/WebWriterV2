@@ -13,12 +13,14 @@ namespace Dal.Repository
         private readonly Lazy<ChapterRepository> _eventRepository;
         private readonly StateRequirementRepository _stateRequirementRepository;
         private readonly StateChangeRepository _stateChangeRepository;
+        private readonly TravelStepRepository _travelStepRepository;
 
         public ChapterLinkItemRepository(WriterContext db) : base(db)
         {
             _eventRepository = new Lazy<ChapterRepository>(() => new ChapterRepository(db));
             _stateRequirementRepository = new StateRequirementRepository(db);
             _stateChangeRepository = new StateChangeRepository(db);
+            _travelStepRepository = new TravelStepRepository(db);
         }
 
         public override ChapterLinkItem Save(ChapterLinkItem model)
@@ -47,6 +49,25 @@ namespace Dal.Repository
         {
             _stateChangeRepository.Remove(chapterLink.StateChanging);
             _stateRequirementRepository.Remove(chapterLink.StateRequirement);
+
+            var stepsToRemove = chapterLink.TravelSteps;
+            foreach(var step in stepsToRemove) {
+                var prev = step.PrevStep;
+                var next = step.NextStep;
+                if (prev != null) {
+                    prev.NextStep = next;
+                }
+                if (next != null) {
+                    next.PrevStep = prev;
+                }
+                if (step.Travel.CurrentStep == step && prev != null) {
+                    step.Travel.CurrentStep = prev;
+                }
+
+                _travelStepRepository.Save(prev);
+            }
+
+            _travelStepRepository.Remove(stepsToRemove);
 
             base.Remove(chapterLink);
         }

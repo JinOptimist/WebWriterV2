@@ -59,7 +59,6 @@ namespace Dal.Repository
             if (currentChapter.LinksToThisChapter?.Any() ?? false) {
                 _chapterLinkItemRepository.Value.Remove(currentChapter.LinksToThisChapter);
             }
-            _travelRepository.Value.Remove(currentChapter.Book.Travels);
 
             base.Remove(currentChapter);
         }
