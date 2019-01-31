@@ -6,7 +6,6 @@
             login: login,
             logout: logout,
             register: register,
-            nameIsAvailable: nameIsAvailable,
             uploadAvatar: uploadAvatar,
             getCurrentUserId: getCurrentUserId,
             getById: getById,
@@ -27,7 +26,7 @@
         function login(user) {
             var url = '/api/user/Login';
             var data = {
-                username: user.Name,
+                email: user.Email,
                 password: user.Password
             };
             return httpHelper.get(url, data);
@@ -44,11 +43,6 @@
             var url = '/api/user/Register';
             var data = angular.toJson(user);
             return httpHelper.post(url, data);
-        }
-
-        function nameIsAvailable(userName) {
-            var url = '/api/user/NameIsAvailable?username=' + userName;
-            return httpHelper.get(url);
         }
 
         function getCurrentUser() {

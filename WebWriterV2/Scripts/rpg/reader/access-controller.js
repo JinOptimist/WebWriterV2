@@ -115,7 +115,7 @@ angular.module('rpg')
             }
 
             $scope.isUserValid = function () {
-                return !!$scope.loginObj.Name && !!$scope.loginObj.Password && !!$scope.loginObj.Email;
+                return !!$scope.loginObj.Password && !!$scope.loginObj.Email;
             }
 
             function init() {

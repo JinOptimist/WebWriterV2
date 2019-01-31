@@ -7,8 +7,7 @@ namespace Dal.Model
     public class User : BaseModel
     {
         [Required]
-        [Index(IsUnique = true)]
-        [MaxLength(120)] //unique constraint can not be big
+        [MaxLength(120)]
         public string Name { get; set; }
 
         public string Email { get; set; }

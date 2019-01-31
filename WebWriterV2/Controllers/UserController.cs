@@ -24,22 +24,20 @@ namespace WebWriterV2.Controllers
         private IUserRepository UserRepository { get; }
 
         [AcceptVerbs("GET")]
-        public FrontUser Login(string username, string password)
+        public FrontUser Login(string email, string password)
         {
-            var user = UserRepository.Login(username, password);
+            //TODO remove this hack
+            if (email == RpgController.AdminName) {
+                email = RpgController.AdminEmail;
+            }
+
+            var user = UserRepository.Login(email, password);
             FrontUser frontUser = null;
             if (user != null) {
                 frontUser = new FrontUser(user);
             }
 
             return frontUser;
-        }
-
-        [AcceptVerbs("GET")]
-        public bool NameIsAvailable(string username)
-        {
-            var user = UserRepository.GetByName(username);
-            return user == null;
         }
 
         [AcceptVerbs("POST")]
@@ -50,7 +48,8 @@ namespace WebWriterV2.Controllers
                 frontUser.Error = "Пользователь с таким именем или емалом уже существует";
                 return frontUser;
             }
-            
+
+            user.Name = user.Email;
             user.ConfirmCode = RandomHelper.RandomString(RandomHelper.RandomInt(10, 20));
             user = UserRepository.Save(user);
 

@@ -25,6 +25,7 @@ angular.module('rpg')
                         } else {
                             $cookies.put(ConstCookies.userId, result.Id);
                             $location.path('/');
+                            $scope.$emit('UpdateUserEvent');
                             init();
                         }
                     })
@@ -38,7 +39,7 @@ angular.module('rpg')
             }
 
             $scope.isUserValid = function () {
-                return !!$scope.loginObj.Name && !!$scope.loginObj.Password && !!$scope.loginObj.Email;
+                return !!$scope.loginObj.Password && !!$scope.loginObj.Email;
             }
 
             init();

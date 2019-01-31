@@ -44,14 +44,14 @@
 
         <div class="login-panel">
             <!--<div class="header-item" ng-if="user">
-            <a href="/ar/reader/profile/{{user.Id}}">Профиль</a>
-        </div>-->
-            <!--<div class="header-item ">
-            <input type="text" placeholder="Искать..." />
-        </div>-->
-            <!-- <div class="header-item">
-            <span class="icon" ng-class="{'bell-active': active, 'bell': !active}" ng-click="active = !active"></span>
-        </div> -->
+                <a href="/ar/reader/profile/{{user.Id}}">Профиль</a>
+            </div>-->
+                <!--<div class="header-item ">
+                <input type="text" placeholder="Искать..." />
+            </div>-->
+                <!-- <div class="header-item">
+                <span class="icon" ng-class="{'bell-active': active, 'bell': !active}" ng-click="active = !active"></span>
+            </div> -->
             <div class="header-item" ng-if="!user">
                 <a href="#" ng-click="openLogin()">{{resources.Login}}</a>
             </div>
@@ -73,15 +73,15 @@
                         {{error}}
                     </div>
                     <div class="row">
-                        <input placeholder='{{resources.Login}}/{{resources.Email}}' type="text"
-                               ng-model="loginObj.Name" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
+                        <input placeholder='{{resources.Email}}' type="text"
+                               ng-model="loginObj.Email" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
                     </div>
                     <div class="row">
                         <input placeholder='{{resources.Password}}' type="password"
                                ng-model="loginObj.Password" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
                     </div>
                     <div>
-                        <span ng-class="{'button-medium-blue': loginObj.Name && loginObj.Password, 'button-medium-gray': !loginObj.Name || !loginObj.Password}"
+                        <span ng-class="{'button-medium-blue': loginObj.Email && loginObj.Password, 'button-medium-gray': !loginObj.Email || !loginObj.Password}"
                               ng-click="login()">
                             {{resources.Login}}
                         </span>
@@ -92,10 +92,10 @@
                     <div class="error">
                         {{error}}
                     </div>
-                    <div class="row">
+                    <!--<div class="row">
                         <input placeholder='{{resources.Login}}' type="text"
                                ng-model="loginObj.Name" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
-                    </div>
+                    </div>-->
                     <div class="row">
                         <input placeholder='{{resources.Email}}' type="text"
                                ng-model="loginObj.Email" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />

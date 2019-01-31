@@ -27,8 +27,9 @@ namespace WebWriterV2.Controllers
 {
     public class RpgController : BaseController
     {
-        private const string AdminName = "admin";
-        private const string AdminPassword = "32167";
+        public const string AdminName = "admin";
+        public const string AdminEmail = "88jin@mail.ru";
+        public const string AdminPassword = "32167";
 
         //private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
@@ -774,7 +775,7 @@ namespace WebWriterV2.Controllers
         public JsonResult AddAdminUser()
         {
             //t
-            var user = UserRepository.GetByName(AdminName);
+            var user = UserRepository.GetByEmail(AdminEmail);
             if (user == null) {
                 user = new User {
                     Name = AdminName,

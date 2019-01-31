@@ -13,12 +13,7 @@ namespace Dal.Repository
 
         public override bool Exist(User baseModel)
         {
-            return Entity.Any(x => x.Name == baseModel.Name || x.Email == baseModel.Email);
-        }
-
-        public User GetByName(string username)
-        {
-            return Entity.FirstOrDefault(x => x.Name == username);
+            return Entity.Any(x => x.Email == baseModel.Email);
         }
 
         public User GetByEmail(string email)
@@ -26,9 +21,9 @@ namespace Dal.Repository
             return Entity.FirstOrDefault(x => x.Email == email);
         }
 
-        public User Login(string loginOrEmail, string password)
+        public User Login(string email, string password)
         {
-            return Entity.FirstOrDefault(x => (x.Name == loginOrEmail || x.Email == loginOrEmail) && x.Password == password);
+            return Entity.FirstOrDefault(x => x.Email == email && x.Password == password);
         }
     }
 }
