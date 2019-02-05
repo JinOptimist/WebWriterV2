@@ -7,7 +7,7 @@ using WebWriterV2.FrontModels;
 
 namespace WebWriterV2.RpgUtility
 {
-    public static class WordHelper
+    public static class TextHelper
     {
         public static long GetWordCount(string text)
         {

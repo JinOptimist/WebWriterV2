@@ -15,7 +15,7 @@ namespace WebWriterV2.RpgUtility
         public static string PathToBook(long travelId)
         {
             var serverPath = HttpContext.Current.Server.MapPath("~");
-            return Path.Combine(serverPath, "Content", "download", $"{travelId}.txt");
+            return Path.Combine(serverPath, "Content", "download", $"{travelId}.docx");
         }
 
         public static string PathToAvatar(long userId, string extension)

@@ -16,7 +16,7 @@ namespace WebWriterV2.FrontModels
         {
             Id = chapter.Id;
             Name = chapter.Name;
-            Desc = travel != null ? WordHelper.GenerateHtmlForDesc(chapter.Desc) : chapter.Desc;
+            Desc = travel != null ? TextHelper.GenerateHtmlForDesc(chapter.Desc) : chapter.Desc;
             Level = chapter.Level;
 
             LinksFromThisChapter = travel == null
@@ -64,7 +64,7 @@ namespace WebWriterV2.FrontModels
                 Level = Level,
                 LinksFromThisChapter = LinksFromThisChapter?.Select(x => x.ToDbModel()).ToList(),
                 LinksToThisChapter = LinksToThisChapter?.Select(x => x.ToDbModel()).ToList(),
-                NumberOfWords = WordHelper.GetWordCount(Desc),
+                NumberOfWords = TextHelper.GetWordCount(Desc),
                 Book = book,
             };
         }

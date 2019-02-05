@@ -78,29 +78,9 @@ namespace WebWriterV2.Controllers
         [AcceptVerbs("GET")]
         public ActionResult Download(long travelId)
         {
-            var path = PathHelper.PathToBook(travelId);
             var travel = TravelRepository.Get(travelId);
-
-            if (!travel.IsTravelEnd || !System.IO.File.Exists(path)) {
-                var chapters = new List<Chapter> {
-                    travel.Book.RootChapter
-                };
-                chapters.AddRange(travel.Steps.Where(x => x.Choice != null).Select(x => x.Choice.To));
-
-                if (System.IO.File.Exists(path)) {
-                    System.IO.File.Delete(path);
-                }
-
-                using (StreamWriter outputFile = new StreamWriter(path)) {
-                    foreach (var chapter in chapters) {
-                        outputFile.WriteLine();
-                        outputFile.WriteLine(chapter.Name);
-                        outputFile.WriteLine(chapter.Desc);
-                    }
-                }
-            }
-
-            return File(path, "application/octet-stream", $"{travel.Book.Name}.txt");
+            var path = new DocXHelper(travel).GenerateDocx();
+            return File(path, "application/octet-stream", $"{travel.Book.Name}.docx");
         }
 
         public ActionResult GetResources()
@@ -435,7 +415,7 @@ namespace WebWriterV2.Controllers
                 oldNumberOfWords = oldEvent.NumberOfWords;
             }
 
-            eventModel.NumberOfWords = WordHelper.GetWordCount(eventModel.Desc);
+            eventModel.NumberOfWords = TextHelper.GetWordCount(eventModel.Desc);
             var eventFromDb = EventRepository.Save(eventModel);
 
             book.NumberOfChapters = book.NumberOfChapters - oldTextLength + eventModel.Desc.Length;
@@ -820,7 +800,7 @@ namespace WebWriterV2.Controllers
             var books = BookRepository.GetAll(false);
             foreach (var book in books) {
                 book.NumberOfChapters = book.AllChapters.Sum(x => x.Desc.Length);
-                book.NumberOfWords = book.AllChapters.Sum(x => WordHelper.GetWordCount(x.Desc));
+                book.NumberOfWords = book.AllChapters.Sum(x => TextHelper.GetWordCount(x.Desc));
             }
 
             BookRepository.Save(books);

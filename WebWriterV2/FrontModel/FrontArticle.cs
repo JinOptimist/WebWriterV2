@@ -18,7 +18,7 @@ namespace WebWriterV2.FrontModels
             Name = article.Name;
             ShortDesc = article.ShortDesc;
             Desc = article.Desc;
-            HtmlDesc = WordHelper.GenerateHtmlForDesc(article.Desc);
+            HtmlDesc = TextHelper.GenerateHtmlForDesc(article.Desc);
             IsPublished = article.IsPublished;
         }
 
