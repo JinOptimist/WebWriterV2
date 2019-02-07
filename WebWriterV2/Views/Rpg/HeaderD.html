@@ -8,7 +8,7 @@
                 <a href="/ar/reader/books" alt="К списку книг"><img src="/Content/icon/naractivity.png" title="Интерактивная книга" alt="Интерактивная книга"></a>
             </div>
 
-            <div class="header-item">
+            <div class="header-item" ng-if="user && user.IsAdmin">
                 <a href="/ar/reader/articles">{{resources.Reader_Articles}}</a>
             </div>
 
@@ -16,7 +16,7 @@
                 <a href="/ar/writer/books">{{resources.Writer_Projects}}</a>
             </div>
             <!--<a href="/ar/writer/generalDefinition">{{resources.Help}}</a>-->
-            <div class="header-item" ng-if="user && user.IsAdmin" style="display: none;">
+            <div class="header-item" ng-if="user && user.IsAdmin">
                 <a href="/ar/admin/books">{{resources.Admin_Books}}</a>
             </div>
             <div class="header-item" ng-if="user && user.IsAdmin">
