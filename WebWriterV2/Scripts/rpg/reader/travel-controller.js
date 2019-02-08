@@ -6,16 +6,21 @@ angular.module('rpg')
 
             $scope.resources = resources;
             $scope.travel = null;
+            $scope.stepInTheWay = false;
             init();
 
             $scope.choice = function (chapterLink) {
-                if ($scope.travel.NextChapterId && $scope.travel.NextChapterId != chapterLink.ToId) {
+                if (($scope.travel.NextChapterId && $scope.travel.NextChapterId != chapterLink.ToId)
+                    || $scope.stepInTheWay) {
                     return;
                 }
+
+                $scope.stepInTheWay = true;
 
                 travelService.choice($scope.travel.Id, chapterLink.Id).then(function (travel) {
                     $window.scrollTo(0, document.getElementById('travel'));
                     var url = '/ar/reader/travel/' + travel.Id + '/' + travel.CurrentStepId;
+                    $scope.stepInTheWay = false;
                     $location.path(url);
                 });
             }
