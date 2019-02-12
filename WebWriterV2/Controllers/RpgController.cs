@@ -86,7 +86,12 @@ namespace WebWriterV2.Controllers
         public ActionResult GetResources()
         {
             var resources = new Dictionary<string, string>();
-            var resourceSet = Localization.MainRu.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
+
+            //CultureInfo.CurrentUICulture
+            //var cultureInfoEng = CultureInfo.GetCultureInfo("en-US");
+            var cultureInfoRu = CultureInfo.GetCultureInfo("ru-RU");
+
+            var resourceSet = Localization.MainRu.ResourceManager.GetResourceSet(cultureInfoRu, true, true);
             foreach (DictionaryEntry entry in resourceSet) {
                 var resourceKey = entry.Key.ToString();
                 var value = entry.Value.ToString();

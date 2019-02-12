@@ -843,6 +843,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Localization\MainRu.en.resx" />
     <EmbeddedResource Include="Localization\MainRu.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MainRu.Designer.cs</LastGenOutput>
