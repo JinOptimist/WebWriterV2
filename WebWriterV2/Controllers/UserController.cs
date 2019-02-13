@@ -44,6 +44,10 @@ namespace WebWriterV2.Controllers
         public FrontUser Register(FrontUser frontUser)
         {
             var user = frontUser.ToDbModel();
+            if (!EmailHelper.IsValidEmail(user.Email)) {
+                frontUser.Error = "Некоректный формат почтового адреса";
+                return frontUser;
+            }
             if (UserRepository.Exist(user)) {
                 frontUser.Error = "Пользователь с таким именем или емалом уже существует";
                 return frontUser;

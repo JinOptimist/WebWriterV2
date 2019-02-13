@@ -769,6 +769,7 @@
     <Content Include="Content\font\Roboto-Regular.ttf" />
     <Content Include="Content\font\Roboto-Thin.ttf" />
     <Content Include="Content\font\Roboto-ThinItalic.ttf" />
+    <Content Include="Content\css\reset.scss" />
     <None Include="Properties\PublishProfiles\narativity - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\narativity - Web Deploy.pubxml" />
     <None Include="Scripts\_references.js" />
