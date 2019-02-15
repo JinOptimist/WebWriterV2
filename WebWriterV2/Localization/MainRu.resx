@@ -435,4 +435,13 @@
   <data name="Landing_RemoveLink" xml:space="preserve">
     <value>Разорвать связь</value>
   </data>
+  <data name="ReaderBooks_AllBooks" xml:space="preserve">
+    <value>Все</value>
+  </data>
+  <data name="ReaderBooks_NewBooks" xml:space="preserve">
+    <value>Новые</value>
+  </data>
+  <data name="ReaderBooks_ReadBooks" xml:space="preserve">
+    <value>Прочитанные</value>
+  </data>
 </root>

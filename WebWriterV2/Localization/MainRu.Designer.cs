@@ -502,11 +502,38 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Все.
+        /// </summary>
+        internal static string ReaderBooks_AllBooks {
+            get {
+                return ResourceManager.GetString("ReaderBooks_AllBooks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Продолжить путь &gt;.
         /// </summary>
         internal static string ReaderBooks_ContinueTavel {
             get {
                 return ResourceManager.GetString("ReaderBooks_ContinueTavel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Новые.
+        /// </summary>
+        internal static string ReaderBooks_NewBooks {
+            get {
+                return ResourceManager.GetString("ReaderBooks_NewBooks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Прочитанные.
+        /// </summary>
+        internal static string ReaderBooks_ReadBooks {
+            get {
+                return ResourceManager.GetString("ReaderBooks_ReadBooks", resourceCulture);
             }
         }
         

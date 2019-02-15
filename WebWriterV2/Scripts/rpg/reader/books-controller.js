@@ -40,9 +40,9 @@ angular.module('rpg')
             }
 
             function initFilters() {
-                $scope.listOfFilters.push(generateFilterItem('All'));
-                $scope.listOfFilters.push(generateFilterItem('Readed', 'IsReaded', true));
-                $scope.listOfFilters.push(generateFilterItem('New', 'IsReaded', false));
+                $scope.listOfFilters.push(generateFilterItem(resources.ReaderBooks_AllBooks));
+                $scope.listOfFilters.push(generateFilterItem(resources.ReaderBooks_ReadBooks, 'IsReaded', true));
+                $scope.listOfFilters.push(generateFilterItem(resources.ReaderBooks_NewBooks, 'IsReaded', false));
                 $scope.listOfFilters[0].active = true;
             }
 
