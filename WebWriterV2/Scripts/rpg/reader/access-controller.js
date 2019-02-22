@@ -57,6 +57,7 @@ angular.module('rpg')
             }
 
             $scope.idle = function ($event) {
+                $scope.error = '';
                 $event.stopPropagation();
             }
 
@@ -80,7 +81,7 @@ angular.module('rpg')
                         $cookies.put(ConstCookies.userId, $scope.user.Id);
                         $scope.close();
                     } else {
-                        $scope.error = resources.IncorrectUsernameOrPassword;
+                        $scope.error = resources.Reader_IncorrectUsernameOrPassword;
                     }
                     $scope.waiting = false;
                     init();
@@ -89,10 +90,6 @@ angular.module('rpg')
             }
 
             $scope.register = function () {
-                if (!$scope.isUserValid()) {
-                    return;
-                }
-
                 $scope.waiting = true;
                 userService.register($scope.loginObj)
                     .then(function (result) {
@@ -106,16 +103,12 @@ angular.module('rpg')
                         }
                     })
                     .catch(function (e) {
-                        $scope.error = resources.IncorrectUsernameOrPassword;
+                        $scope.error = resources.Reader_IncorrectUsernameOrPassword;
                     })
                     .finally(function () {
                         $scope.waiting = false;
                         init();
                     });
-            }
-
-            $scope.isUserValid = function () {
-                return !!$scope.loginObj.Password && !!$scope.loginObj.Email;
             }
 
             function init() {

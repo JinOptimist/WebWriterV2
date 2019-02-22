@@ -52,6 +52,10 @@ namespace WebWriterV2.Controllers
                 frontUser.Error = "Пользователь с таким именем или емалом уже существует";
                 return frontUser;
             }
+            if (user.Password?.Length < 1) {
+                frontUser.Error = "Минимум 1 символ для пароля";
+                return frontUser;
+            }
 
             user.Name = user.Email;
             user.ConfirmCode = RandomHelper.RandomString(RandomHelper.RandomInt(10, 20));

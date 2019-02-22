@@ -30,7 +30,7 @@ angular.module('rpg')
                         }
                     })
                     .catch(function (e) {
-                        $scope.error = resources.IncorrectUsernameOrPassword;
+                        $scope.error = resources.Reader_IncorrectUsernameOrPassword;
                     })
                     .finally(function () {
                         $scope.waiting = false;
