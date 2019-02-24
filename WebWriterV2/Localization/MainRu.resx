@@ -133,7 +133,7 @@
     <value>Неправильный логин или пароль</value>
   </data>
   <data name="Reader_Login" xml:space="preserve">
-    <value>Логин</value>
+    <value>Вход</value>
   </data>
   <data name="Reader_Password" xml:space="preserve">
     <value>Пароль</value>
