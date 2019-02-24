@@ -232,47 +232,11 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Электронная почта.
-        /// </summary>
-        internal static string Email {
-            get {
-                return ResourceManager.GetString("Email", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Вас пригласили как соавтора для работы на произведением &quot;{0}&quot;.
         /// </summary>
         internal static string Email_MultiAuthorNotificationTitle {
             get {
                 return ResourceManager.GetString("Email_MultiAuthorNotificationTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Выйти.
-        /// </summary>
-        internal static string Exit {
-            get {
-                return ResourceManager.GetString("Exit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Помощь.
-        /// </summary>
-        internal static string Help {
-            get {
-                return ResourceManager.GetString("Help", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Неправильный логин или пароль.
-        /// </summary>
-        internal static string IncorrectUsernameOrPassword {
-            get {
-                return ResourceManager.GetString("IncorrectUsernameOrPassword", resourceCulture);
             }
         }
         
@@ -318,24 +282,6 @@ namespace WebWriterV2.Localization {
         internal static string Landing_RemoveLink {
             get {
                 return ResourceManager.GetString("Landing_RemoveLink", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Логин.
-        /// </summary>
-        internal static string Login {
-            get {
-                return ResourceManager.GetString("Login", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Пароль.
-        /// </summary>
-        internal static string Password {
-            get {
-                return ResourceManager.GetString("Password", resourceCulture);
             }
         }
         
@@ -475,6 +421,69 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Электронная почта.
+        /// </summary>
+        internal static string Reader_Email {
+            get {
+                return ResourceManager.GetString("Reader_Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Выйти.
+        /// </summary>
+        internal static string Reader_Exit {
+            get {
+                return ResourceManager.GetString("Reader_Exit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Забыли пароль?.
+        /// </summary>
+        internal static string Reader_ForgotPassword {
+            get {
+                return ResourceManager.GetString("Reader_ForgotPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Помощь.
+        /// </summary>
+        internal static string Reader_Help {
+            get {
+                return ResourceManager.GetString("Reader_Help", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Неправильный логин или пароль.
+        /// </summary>
+        internal static string Reader_IncorrectUsernameOrPassword {
+            get {
+                return ResourceManager.GetString("Reader_IncorrectUsernameOrPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Логин.
+        /// </summary>
+        internal static string Reader_Login {
+            get {
+                return ResourceManager.GetString("Reader_Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Пароль.
+        /// </summary>
+        internal static string Reader_Password {
+            get {
+                return ResourceManager.GetString("Reader_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Отправить ответы.
         /// </summary>
         internal static string Reader_Questionnaire_Finish {
@@ -498,6 +507,15 @@ namespace WebWriterV2.Localization {
         internal static string Reader_Questionnaire_Thanks {
             get {
                 return ResourceManager.GetString("Reader_Questionnaire_Thanks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Регистрация.
+        /// </summary>
+        internal static string Reader_Registration {
+            get {
+                return ResourceManager.GetString("Reader_Registration", resourceCulture);
             }
         }
         
@@ -552,15 +570,6 @@ namespace WebWriterV2.Localization {
         internal static string ReaderBooks_TheBookIsReaded {
             get {
                 return ResourceManager.GetString("ReaderBooks_TheBookIsReaded", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Регистрация.
-        /// </summary>
-        internal static string Registration {
-            get {
-                return ResourceManager.GetString("Registration", resourceCulture);
             }
         }
         

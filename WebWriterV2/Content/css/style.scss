@@ -1027,6 +1027,7 @@ body {
 
         .error {
             color: $orangeV2;
+            height: 30px;
         }
 
         .signInUp {
@@ -1034,7 +1035,7 @@ body {
             justify-content: space-between;
             width: 225px;
             height: 48px;
-            margin: 64px 0 96px 0;
+            margin: 64px 0 66px 0;
 
             .tabName {
                 font-style: normal;
@@ -1060,25 +1061,34 @@ body {
                 border-radius: 0;
             }
         }
-        /* Email and password */
-        input:not([type=checkbox]) {
-            width: 328px;
-            height: 48px;
-            border: 1px solid rgba(0, 0, 0, 0.12);
-            border-radius: 4px;
-            line-height: 20px;
-            letter-spacing: 0.25px;
-            color: rgba(0, 0, 0, 0.87);
-            mix-blend-mode: normal;
-            padding-left: 28px;
-            box-sizing: border-box;
-            margin-bottom: 40px;
-            outline-style: none;
-        }
 
-        input:focus {
-            border: 1px solid #0068FF;
-            border-radius: 4px;
+        .popupContent {
+            display: flex;
+            flex-direction: column;
+            /* Email and password */
+            input:not([type=checkbox]) {
+                width: 328px;
+                height: 48px;
+                border: 1px solid rgba(0, 0, 0, 0.12);
+                border-radius: 4px;
+                line-height: 20px;
+                letter-spacing: 0.25px;
+                color: rgba(0, 0, 0, 0.87);
+                mix-blend-mode: normal;
+                padding-left: 28px;
+                box-sizing: border-box;
+                margin-bottom: 40px;
+                outline-style: none;
+
+                &.ng-dirty {
+                    background: $white;
+                }
+            }
+
+            input:focus {
+                border: 1px solid #0068FF;
+                border-radius: 4px;
+            }
         }
 
         .agreeGroup {
@@ -1087,10 +1097,13 @@ body {
             display: inline-flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 96px;
 
             div {
                 display: flex;
+            }
+
+            .keepMeSignedBlock {
+                visibility: hidden;
             }
 
             .checkbox {
@@ -1148,21 +1161,26 @@ body {
             }
         }
 
-        .btn {
-            width: 328px;
-            height: 48px;
-            outline-style: none;
-            background: $blueV2;
-            border: none;
-            border-radius: 4px;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 16px;
-            text-align: center;
-            letter-spacing: 1.25px;
-            color: $white;
-            padding: 16px 0;
-            box-sizing: border-box;
+        .mainButtonBlock {
+            margin-top: auto;
+            margin-bottom: 48px;
+
+            .btn {
+                width: 328px;
+                height: 48px;
+                outline-style: none;
+                background: $blueV2;
+                border: none;
+                border-radius: 4px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 16px;
+                text-align: center;
+                letter-spacing: 1.25px;
+                color: $white;
+                padding: 16px 0;
+                box-sizing: border-box;
+            }
         }
     }
 }

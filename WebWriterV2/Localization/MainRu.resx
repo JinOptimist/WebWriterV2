@@ -120,22 +120,22 @@
   <data name="Admin_Books" xml:space="preserve">
     <value>Все проекты портала</value>
   </data>
-  <data name="Email" xml:space="preserve">
+  <data name="Reader_Email" xml:space="preserve">
     <value>Электронная почта</value>
   </data>
-  <data name="Exit" xml:space="preserve">
+  <data name="Reader_Exit" xml:space="preserve">
     <value>Выйти</value>
   </data>
-  <data name="Help" xml:space="preserve">
+  <data name="Reader_Help" xml:space="preserve">
     <value>Помощь</value>
   </data>
-  <data name="IncorrectUsernameOrPassword" xml:space="preserve">
+  <data name="Reader_IncorrectUsernameOrPassword" xml:space="preserve">
     <value>Неправильный логин или пароль</value>
   </data>
-  <data name="Login" xml:space="preserve">
+  <data name="Reader_Login" xml:space="preserve">
     <value>Логин</value>
   </data>
-  <data name="Password" xml:space="preserve">
+  <data name="Reader_Password" xml:space="preserve">
     <value>Пароль</value>
   </data>
   <data name="ReaderBooks_ContinueTavel" xml:space="preserve">
@@ -171,7 +171,7 @@
   <data name="Reader_Article_DefaultName" xml:space="preserve">
     <value>Название статьи</value>
   </data>
-  <data name="Registration" xml:space="preserve">
+  <data name="Reader_Registration" xml:space="preserve">
     <value>Регистрация</value>
   </data>
   <data name="RemoveChapterConfirmation" xml:space="preserve">
@@ -443,5 +443,8 @@
   </data>
   <data name="ReaderBooks_ReadBooks" xml:space="preserve">
     <value>Прочитанные</value>
+  </data>
+  <data name="Reader_ForgotPassword" xml:space="preserve">
+    <value>Забыли пароль?</value>
   </data>
 </root>

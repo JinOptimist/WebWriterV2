@@ -28,7 +28,7 @@
 
 
             <div class="header-item" ng-if="!user">
-                <a href="#" ng-click="openRegistration()">{{resources.Registration}}</a>
+                <a href="#" ng-click="openRegistration()">{{resources.Reader_Registration}}</a>
             </div>
 
 
@@ -53,10 +53,10 @@
                 <span class="icon" ng-class="{'bell-active': active, 'bell': !active}" ng-click="active = !active"></span>
             </div> -->
             <div class="header-item" ng-if="!user">
-                <a href="#" ng-click="openLogin()">{{resources.Login}}</a>
+                <a href="#" ng-click="openLogin()">{{resources.Reader_Login}}</a>
             </div>
             <div class="header-item" ng-if="user">
-                {{::user.Name}} <a href="#" ng-click="exit()">{{resources.Exit}}</a>
+                {{::user.Name}} <a href="#" ng-click="exit()">{{resources.Reader_Exit}}</a>
             </div>
             <div class="header-item avatar-container">
                 <a href="/ar/reader/profile/{{user.Id}}"><img ng-src="{{user.AvatarUrl}}" ng-show="user" title="{{user.Name}}" class="user-avatar" /></a>
@@ -64,66 +64,21 @@
         </div>
 
         <div class="fullscreen-div" ng-if="popupOpen.main" ng-click="close()">
-            <div class="login-block" ng-click="idle($event)" style="display: none;">
-                <p class="right">
-                    <a href="#" ng-click="close()"><span class="icon close"></span></a>
-                </p>
-                <div class="content" ng-if="popupOpen.isLogin">
-                    <div class="error">
-                        {{error}}
-                    </div>
-                    <div class="row">
-                        <input placeholder='{{resources.Email}}' type="text"
-                               ng-model="loginObj.Email" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
-                    </div>
-                    <div class="row">
-                        <input placeholder='{{resources.Password}}' type="password"
-                               ng-model="loginObj.Password" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
-                    </div>
-                    <div>
-                        <span ng-class="{'button-medium-blue': loginObj.Email && loginObj.Password, 'button-medium-gray': !loginObj.Email || !loginObj.Password}"
-                              ng-click="login()">
-                            {{resources.Login}}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="content" ng-if="popupOpen.isRegistration">
-                    <div class="error">
-                        {{error}}
-                    </div>
-                    <!--<div class="row">
-                        <input placeholder='{{resources.Login}}' type="text"
-                               ng-model="loginObj.Name" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
-                    </div>-->
-                    <div class="row">
-                        <input placeholder='{{resources.Email}}' type="text"
-                               ng-model="loginObj.Email" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
-                    </div>
-                    <div class="row">
-                        <input placeholder='{{resources.Password}}' type="password"
-                               ng-model="loginObj.Password" ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" />
-                    </div>
-                    <div>
-                        <span ng-class="{'button-medium-blue': isUserValid(), 'button-medium-gray': !isUserValid()}"
-                              ng-click="register()">{{resources.Registration}}</span>
-                    </div>
-                </div>
-            </div>
-
             <div class="registrationForm" ng-click="idle($event)">
                 <div class="signInUp">
-                    <p class="tabName" ng-class="{'active': popupOpen.isLogin}" ng-click="openLogin()">{{resources.Login}}</p>
+                    <p class="tabName" ng-class="{'active': popupOpen.isLogin}" ng-click="openLogin()">{{resources.Reader_Login}}</p>
                     <p class="rectangle"></p>
-                    <p class="tabName" ng-class="{'active': popupOpen.isRegistration}" ng-click="openRegistration()">{{resources.Registration}}</p>
+                    <p class="tabName" ng-class="{'active': popupOpen.isRegistration}" ng-click="openRegistration()">{{resources.Reader_Registration}}</p>
                 </div>
-                <span class="error">{{error}}</span>
-                <input type="text" placeholder="{{resources.Email}}" ng-model="loginObj.Email" 
-                       ng-keypress="passwordKeyPress($event)" ng-disabled="waiting" >
-                <input type="password"  placeholder='{{resources.Password}}' ng-model="loginObj.Password" 
-                       ng-keypress="passwordKeyPress($event)" ng-disabled="waiting">
-                <div class="agreeGroup">
-                    <div>
+                <div class="popupContent">
+                    <span class="error">{{error}}</span>
+                    <input type="text" placeholder="{{resources.Reader_Email}}" ng-model="loginObj.Email"
+                           ng-keypress="passwordKeyPress($event)" ng-disabled="waiting">
+                    <input type="password" placeholder='{{resources.Reader_Password}}' ng-model="loginObj.Password"
+                           ng-keypress="passwordKeyPress($event)" ng-disabled="waiting">
+                </div>
+                <div class="agreeGroup" ng-show="popupOpen.isLogin">
+                    <div class="keepMeSignedBlock">
                         <span class="checkbox">
                             <input type="checkbox" id="keepMeSigned">
                             <label for="keepMeSigned" class="fake-checkbox"></label>
@@ -131,12 +86,12 @@
                         </span>
                     </div>
                     <div>
-                        <span><a href="#">Forgot password?</a></span>
+                        <span><a href="#">{{resources.Reader_ForgotPassword}}</a></span>
                     </div>
                 </div>
-                <div>
-                    <button class="btn" ng-if="popupOpen.isLogin" ng-click="login()">{{resources.Login}}</button>
-                    <button class="btn" ng-if="popupOpen.isRegistration" ng-click="register()">{{resources.Registration}}</button>
+                <div class="mainButtonBlock">
+                    <button class="btn" ng-if="popupOpen.isLogin" ng-click="login()">{{resources.Reader_Login}}</button>
+                    <button class="btn" ng-if="popupOpen.isRegistration" ng-click="register()">{{resources.Reader_Registration}}</button>
                 </div>
             </div>
         </div>
