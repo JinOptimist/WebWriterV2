@@ -79,9 +79,14 @@
                     <input type="password" placeholder='{{resources.Reader_Password}}' ng-model="loginObj.Password"
                            ng-keypress="passwordKeyPress($event)" ng-disabled="waiting">
                 </div>
-                <div class="popupContent">
+                <div class="popupContent" style="display: none;">
                     <input type="email" placeholder="Электронная почта">
                     <span class="instructions">Мы отправим Вам инструкции для смены пароля</span>
+                </div>
+                <div class="popupContent">
+                    <span class="checkEmail">Проверьте свою почту</span>
+                    <span><img src="../content/icon/letter.svg"/></span>
+                    <span class="instructions">Мы отправили Вам инструкции для смены пароля</span>
                 </div>
                 <div class="agreeGroup" ng-show="popupOpen.isLogin">
                     <div class="keepMeSignedBlock">

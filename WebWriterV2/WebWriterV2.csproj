@@ -272,6 +272,7 @@
     <Content Include="Content\icon\bell.png" />
     <Content Include="Content\icon\close.png" />
     <Content Include="Content\icon\eye.png" />
+    <Content Include="Content\icon\letter.svg" />
     <Content Include="Content\icon\map-add-empty.png" />
     <Content Include="Content\icon\map-add.png" />
     <Content Include="Content\icon\map-link-available.png" />
