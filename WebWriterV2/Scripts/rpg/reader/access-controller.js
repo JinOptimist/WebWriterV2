@@ -2,10 +2,18 @@ angular.module('rpg')
 
     .controller('accessController', ['$rootScope', '$scope', '$route', '$cookies', '$location', 'ConstCookies', 'userService',
         function ($rootScope, $scope, $route, $cookies, $location, ConstCookies, userService) {
+            const PopupState = {
+                Login: 'Login',
+                Registration: 'Registration',
+                RecoverPassword: 'RecoverPassword',
+                CheckEmail: 'CheckEmail'
+            };
+
+            $scope.PopupState = PopupState;
             $scope.user = {};
             $scope.loginObj = {};
             $scope.waiting = false;
-            $scope.popupOpen = { main: false };
+            $scope.popupOpen = { main: false, popupState: null };
             $scope.error = '';
             $scope.resources = resources;
             $scope.route = {
@@ -41,31 +49,28 @@ angular.module('rpg')
 
             $scope.openLogin = function () {
                 $scope.popupOpen.main = true;
-                $scope.popupOpen.isLogin = true;
-                $scope.popupOpen.isRegistration = false;
+                $scope.popupOpen.popupState = PopupState.Login;
             }
             $scope.openRegistration = function () {
                 $scope.popupOpen.main = true;
-                $scope.popupOpen.isLogin = false;
-                $scope.popupOpen.isRegistration = true;
+                $scope.popupOpen.popupState = PopupState.Registration;
             }
 
             $scope.close = function () {
                 $scope.popupOpen.main = false;
-                $scope.popupOpen.isLogin = false;
-                $scope.popupOpen.isRegistration = false;
+                $scope.popupOpen.popupState = null;
             }
 
             $scope.idle = function ($event) {
                 $scope.error = '';
-                $event.stopPropagation();
+                //$event.stopPropagation();
             }
 
             $scope.passwordKeyPress = function ($event) {
                 if ($event.which === 13) {// 'Enter'.keyEvent === 13
-                    if ($scope.popupOpen.isLogin) {
+                    if ($scope.popupOpen.popupState == PopupState.Login) {
                         $scope.login();
-                    } else if ($scope.popupOpen.isRegistration) {
+                    } else if ($scope.popupOpen.popupState == PopupState.Registration) {
                         $scope.register();
                     }
                     
@@ -89,6 +94,10 @@ angular.module('rpg')
                 });
             }
 
+            $scope.switchToRecoverPassword = function () {
+                $scope.popupOpen.popupState = PopupState.RecoverPassword;
+            }
+
             $scope.register = function () {
                 $scope.waiting = true;
                 userService.register($scope.loginObj)
@@ -109,6 +118,17 @@ angular.module('rpg')
                         $scope.waiting = false;
                         init();
                     });
+            }
+
+            $scope.recoverPassword = function () {
+                $scope.popupOpen.popupState = PopupState.CheckEmail;
+            }
+
+            $scope.back = function () {
+                if ($scope.popupOpen.popupState == PopupState.RecoverPassword
+                    || $scope.popupOpen.popupState == PopupState.CheckEmail) {
+                    $scope.popupOpen.popupState = PopupState.Login;
+                }
             }
 
             function init() {

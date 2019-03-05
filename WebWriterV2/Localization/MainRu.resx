@@ -447,4 +447,7 @@
   <data name="Reader_ForgotPassword" xml:space="preserve">
     <value>Забыли пароль?</value>
   </data>
+  <data name="Reader_RecoverPassword" xml:space="preserve">
+    <value>Востановить пароль</value>
+  </data>
 </root>

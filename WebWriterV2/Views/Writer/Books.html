@@ -94,16 +94,16 @@
 </div>
 
 <div class="fullscreen-div" ng-if="newBook">
-    <div class="create-book">
+    <div class="gray-background" ng-click="cancelCreationNewBook()"></div>
+    <div class="create-book popupBody">
         <div>
             <input class="no-border" placeholder='{{resources.Writer_EnterBookName}}' ng-model="newBook.name" ng-keypress="bookNameTyped($event)" tabindex="1" />
-            <span class="pointer close" ng-click="cancelCreationNewBook()">X</span>
         </div>
         <div>
             <textarea ng-model="newBook.desc" placeholder='{{resources.Writer_EnterBookDesc}}' class="no-border" tabindex="2"></textarea>
         </div>
         <div class="footer">
-            <a href="#" 
+            <a href="#"
                ng-click="createBook()" tabindex="3"><span ng-class="newBook.name ? 'button-medium-blue' : 'button-medium-gray'">{{resources.Writer_Confirm}}</span></a>
         </div>
     </div>
