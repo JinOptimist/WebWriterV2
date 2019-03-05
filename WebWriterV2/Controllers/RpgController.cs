@@ -102,7 +102,19 @@ namespace WebWriterV2.Controllers
             return JavaScript("var resources = " + json + ";");
         }
 
+        public ActionResult ConfirmRecoverPassword(int userId, string confirmCode)
+        {
+            var user = UserRepository.Get(userId);
+            if (user.ConfirmCode == confirmCode) {
+                user.ConfirmCode = null;
+                UserRepository.Save(user);
 
+                Response.Cookies.Add(new HttpCookie(CookieConst.UserId, user.Id.ToString()));
+                return Redirect($"/ar/reader/profile/{ user.Id }/recover");
+            } else {
+                return null;
+            }
+        }
 
         /* OLD */
         public ActionResult RegisterVkComplete(string code)

@@ -1,5 +1,8 @@
 ﻿<div class="content profile-page" ng-class="!user ? 'wait' : ''">
     <h2>Привет {{user.Name}}</h2>
+    <div ng-if="user.recover" class="recover-password">
+        Ваш пароль "{{user.Password}}". Постарайтесь его больше не забывать
+    </div>
     <div>
         <p ng-if="user.AvatarUrl">
             <img ng-src="{{user.AvatarUrl}}" style="max-width:50px" />

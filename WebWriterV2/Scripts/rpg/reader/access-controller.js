@@ -1,7 +1,7 @@
 angular.module('rpg')
 
-    .controller('accessController', ['$rootScope', '$scope', '$route', '$cookies', '$location', 'ConstCookies', 'userService',
-        function ($rootScope, $scope, $route, $cookies, $location, ConstCookies, userService) {
+    .controller('accessController', ['$rootScope', '$scope', '$route', '$cookies', '$location', 'userService',
+        function ($rootScope, $scope, $route, $cookies, $location, userService) {
             const PopupState = {
                 Login: 'Login',
                 Registration: 'Registration',
@@ -73,7 +73,7 @@ angular.module('rpg')
                     } else if ($scope.popupOpen.popupState == PopupState.Registration) {
                         $scope.register();
                     }
-                    
+
                 }
             }
 
@@ -121,7 +121,10 @@ angular.module('rpg')
             }
 
             $scope.recoverPassword = function () {
-                $scope.popupOpen.popupState = PopupState.CheckEmail;
+                userService.recoverPassword($scope.loginObj.Email)
+                    .then(function (successful) {
+                        $scope.popupOpen.popupState = PopupState.CheckEmail;
+                    });
             }
 
             $scope.back = function () {

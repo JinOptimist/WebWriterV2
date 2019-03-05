@@ -1,5 +1,6 @@
-﻿angular.module('services')
-    .service('userService', ['$cookies', '$q', 'httpHelper', 'ConstCookies', function ($cookies, $q, httpHelper, ConstCookies) {
+﻿angular.module('services').service('userService', ['$cookies', '$q', 'httpHelper',
+    function ($cookies, $q, httpHelper) {
+
         var currentUser = null;
 
         return {
@@ -10,19 +11,20 @@
             getCurrentUserId: getCurrentUserId,
             getById: getById,
             updateShowExtendedFunctionality: updateShowExtendedFunctionality,
-            getAll:getAll,
+            getAll: getAll,
             remove: remove,
+            recoverPassword: recoverPassword,
 
             /* may be old */
             addBookmark: addBookmark,
             becomeWriter: becomeWriter,
-            getCurrentUser: getCurrentUser,
+            getCurrentUser: getCurrentUser
         };
 
         function getCurrentUserId() {
             return $cookies.get(ConstCookies.userId);
         }
-        
+
         function login(user) {
             var url = '/api/user/Login';
             var data = {
@@ -100,5 +102,13 @@
                 Data: imageData
             };
             return httpHelper.post(url, data);
+        }
+
+        function recoverPassword(email) {
+            var url = '/api/user/RecoverPassword';
+            var data = {
+                email: email
+            };
+            return httpHelper.get(url, data);
         }
     }]);

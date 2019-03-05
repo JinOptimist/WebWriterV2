@@ -1,9 +1,7 @@
 angular.module('rpg')
 
-    .controller('profileController', ['$scope', '$cookies', '$location', '$uibModal',
-        'ConstCookies', 'bookService', 'userService', 'travelService',
-        function ($scope, $cookies, $location, $uibModal,
-            ConstCookies, bookService, userService, travelService) {
+    .controller('profileController', ['$scope', '$cookies', '$routeParams', 'bookService', 'userService', 'travelService', 
+        function ($scope, $cookies, $routeParams, bookService, userService, travelService) {
 
             $scope.user = {};
             $scope.travels = [];
@@ -45,12 +43,17 @@ angular.module('rpg')
                 if (userId) {
                     userService.getById(userId).then(function (data) {
                         $scope.user = data;
+                        if ($routeParams.recover) {
+                            $scope.user.recover = true;
+                        }
+                        
                     });
                 }
 
                 travelService.getByUserId(userId).then(function (travels){
                     $scope.travels = travels;
                 });
+
             }
         }
     ]);

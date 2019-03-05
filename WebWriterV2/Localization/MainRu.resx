@@ -447,6 +447,9 @@
   <data name="Reader_ForgotPassword" xml:space="preserve">
     <value>Забыли пароль?</value>
   </data>
+  <data name="Email_RecoverPasswordTitle" xml:space="preserve">
+    <value>Инструкции по востановлению пароля на портал Naractivity.com</value>
+  </data>
   <data name="Reader_RecoverPassword" xml:space="preserve">
     <value>Востановить пароль</value>
   </data>

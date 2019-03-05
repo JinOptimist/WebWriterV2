@@ -1,9 +1,7 @@
 angular.module('rpg')
 
-    .controller('landingController', ['$scope', '$cookies', '$location', '$uibModal',
-        'ConstCookies', 'bookService', 'userService', 'travelService',
-        function ($scope, $cookies, $location, $uibModal,
-            ConstCookies, bookService, userService, travelService) {
+    .controller('landingController', ['$scope', '$cookies', '$location', '$uibModal', 'bookService', 'userService', 'travelService',
+        function ($scope, $cookies, $location, $uibModal, bookService, userService, travelService) {
 
             $scope.user = null;
             $scope.loginObj = {};

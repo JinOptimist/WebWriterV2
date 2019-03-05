@@ -26,6 +26,12 @@ namespace WebWriterV2
             );
 
             routes.MapRoute(
+                name: "ConfirmRecoverPassword",
+                url: "rpg/ConfirmRecoverPassword",
+                defaults: new { controller = "Rpg", action = "ConfirmRecoverPassword", id = UrlParameter.Optional }
+            ); 
+
+            routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Rpg", action = "Index", id = UrlParameter.Optional }

@@ -50,7 +50,7 @@ angular.module('rpg', ['directives', 'services', 'AppConst', 'underscore', 'ui.b
                     templateUrl: '/views/reader/Books.html',
                     controller: 'readerBooksController'
                 })
-                .when('/ar/reader/profile/:userId', {
+                .when('/ar/reader/profile/:userId/:recover?', {
                     templateUrl: '/views/reader/Profile.html',
                     controller: 'profileController'
                 })

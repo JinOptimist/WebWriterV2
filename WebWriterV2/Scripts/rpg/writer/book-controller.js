@@ -1,9 +1,9 @@
 
 angular.module('rpg')
 .controller('writerBookController', [
-    '$scope', '$routeParams', '$location', '$window', '$cookies', '$mdDialog', '$q', 'ConstCookies',
+    '$scope', '$routeParams', '$location', '$window', '$cookies', '$mdDialog', '$q',
         'bookService', 'chapterService', 'stateService', 'userService',
-    function ($scope, $routeParams, $location, $window, $cookies, $mdDialog, $q, ConstCookies,
+    function ($scope, $routeParams, $location, $window, $cookies, $mdDialog, $q,
         bookService, chapterService, stateService, userService) {
 
         var step = 0.1;

@@ -241,6 +241,15 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Инструкции по востановлению пароля на портал Naractivity.com.
+        /// </summary>
+        internal static string Email_RecoverPasswordTitle {
+            get {
+                return ResourceManager.GetString("Email_RecoverPasswordTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Доступна для связи.
         /// </summary>
         internal static string Landing_AvailableToLink {

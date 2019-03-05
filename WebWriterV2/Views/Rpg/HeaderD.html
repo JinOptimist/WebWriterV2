@@ -88,7 +88,7 @@
                            ng-keypress="passwordKeyPress($event)" ng-disabled="waiting">
                 </div>
                 <div class="popupContent" ng-if="popupOpen.popupState == PopupState.RecoverPassword">
-                    <input type="email" placeholder="Электронная почта">
+                    <input type="email" ng-model="loginObj.Email" placeholder="Электронная почта">
                     <span class="instructions">Мы отправим Вам инструкции для смены пароля</span>
                 </div>
                 <div class="popupContent" ng-if="popupOpen.popupState == PopupState.CheckEmail">

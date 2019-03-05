@@ -28,7 +28,7 @@
             </div>
         </div>
         <div ng-show="!travel.Chapter.LinksFromThisChapter || travel.Chapter.LinksFromThisChapter.length == 0">
-            <a ng-if="travel.Id > 0" href="ar/reader/travel-end/{{travel.Id}}">
+            <a ng-if="travel.Id > 0" ng-href="ar/reader/travel-end/{{travel.Id}}">
                 <span class="button-medium-blue">
                     {{resources.Travel_GoToStatistics}}
                 </span>

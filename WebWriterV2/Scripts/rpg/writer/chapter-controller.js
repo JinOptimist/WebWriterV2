@@ -1,9 +1,9 @@
 angular.module('rpg')
 
     .controller('chapterController', [
-        '$scope', '$routeParams', '$location', '$cookies', '$q', '$mdDialog', 'ConstCookies',
+        '$scope', '$routeParams', '$location', '$cookies', '$q', '$mdDialog', 
             'chapterService', 'stateService', 'userService', 'chapterId',
-        function ($scope, $routeParams, $location, $cookies, $q, $mdDialog, ConstCookies,
+        function ($scope, $routeParams, $location, $cookies, $q, $mdDialog, 
             chapterService, stateService, userService, chapterId) {
 
             $scope.chapterLinks = [];

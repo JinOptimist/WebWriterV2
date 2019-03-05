@@ -1,9 +1,9 @@
 angular.module('rpg')
 
     .controller('writerBooksController', [
-        '$scope', '$routeParams', '$location', '$cookies', 'ConstCookies', 'bookService', 'tagService',
+        '$scope', '$routeParams', '$location', '$cookies', 'bookService', 'tagService',
         'questionnaireService',
-        function ($scope, $routeParams, $location, $cookies, ConstCookies, bookService, tagService,
+        function ($scope, $routeParams, $location, $cookies, bookService, tagService,
             questionnaireService) {
 
             $scope.questionnaires = {

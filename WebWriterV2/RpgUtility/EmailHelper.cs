@@ -117,7 +117,14 @@ namespace WebWriterV2.RpgUtility
             var body = $"Пользователь {book.Owner.Name} поделился с вами возможностью работать над произведением \"{book.Name}\"";
 
             Send(email, title, body);
+        }
 
+        public static void SendRecoverPassword(string email, string url)
+        {
+            var title = string.Format(WebWriterV2.Localization.MainRu.Email_RecoverPasswordTitle);
+            var body = $"Вы можете перейти по ссылке {url}, что бы попасть на сайт под своим аккаунтам и увидеть старый пароль";
+
+            Send(email, title, body);
         }
 
         public static bool IsValidEmail(string email)

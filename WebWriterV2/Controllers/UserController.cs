@@ -40,6 +40,24 @@ namespace WebWriterV2.Controllers
             return frontUser;
         }
 
+        [AcceptVerbs("GET")]
+        public bool RecoverPassword(string email)
+        {
+            var user = UserRepository.GetByEmail(email);
+            user.ConfirmCode = RandomHelper.RandomString(RandomHelper.RandomInt(10, 20));
+            UserRepository.Save(user);
+
+            var relativeUrl = Url.Link("ConfirmRecoverPassword", new { userId = user.Id, confirmCode = user.ConfirmCode });
+            try {
+                EmailHelper.SendRecoverPassword(user.Email, relativeUrl);
+            } catch {
+                //ignore. It's not a problem for now
+                return false;
+            }
+
+            return true;
+        }
+
         [AcceptVerbs("POST")]
         public FrontUser Register(FrontUser frontUser)
         {
@@ -65,7 +83,7 @@ namespace WebWriterV2.Controllers
             try {
                 EmailHelper.SendConfirmRegistrationEmail(relativeUrl, user.Email);
             } catch {
-                //ignore. It's not import for now
+                //ignore. It's not a problem for now
             }
 
             frontUser = new FrontUser(user);
