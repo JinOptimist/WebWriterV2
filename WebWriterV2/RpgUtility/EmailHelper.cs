@@ -14,9 +14,8 @@ namespace WebWriterV2.RpgUtility
     public static class EmailHelper
     {
         private static string NoReplayEmail = Properties.Settings.Default.NoReplayEmailName;
-        public static void SendConfirmRegistrationEmail(string relativeUrl, string userEmail)
+        public static void SendConfirmRegistrationEmail(string url, string userEmail)
         {
-            var url = ToAbsoluteUrl(relativeUrl);
             var title = "Интерактивная книга. Регистрация";
             var body = $"Пожалуйста подтвердите регистрацию. Для этого достаточно перейти по ссылке {url}";
             Send(userEmail, title, body);

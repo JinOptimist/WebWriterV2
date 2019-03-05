@@ -47,9 +47,9 @@ namespace WebWriterV2.Controllers
             user.ConfirmCode = RandomHelper.RandomString(RandomHelper.RandomInt(10, 20));
             UserRepository.Save(user);
 
-            var relativeUrl = Url.Link("ConfirmRecoverPassword", new { userId = user.Id, confirmCode = user.ConfirmCode });
+            var url = Url.Link("ConfirmRecoverPassword", new { userId = user.Id, confirmCode = user.ConfirmCode });
             try {
-                EmailHelper.SendRecoverPassword(user.Email, relativeUrl);
+                EmailHelper.SendRecoverPassword(user.Email, url);
             } catch {
                 //ignore. It's not a problem for now
                 return false;
@@ -79,9 +79,9 @@ namespace WebWriterV2.Controllers
             user.ConfirmCode = RandomHelper.RandomString(RandomHelper.RandomInt(10, 20));
             user = UserRepository.Save(user);
 
-            var relativeUrl = Url.Link("ConfirmRegister", new { userId = user.Id, confirmCode = user.ConfirmCode });
+            var url = Url.Link("ConfirmRegister", new { userId = user.Id, confirmCode = user.ConfirmCode });
             try {
-                EmailHelper.SendConfirmRegistrationEmail(relativeUrl, user.Email);
+                EmailHelper.SendConfirmRegistrationEmail(url, user.Email);
             } catch {
                 //ignore. It's not a problem for now
             }
