@@ -11,38 +11,86 @@
     background-position: -5px -5px;
 }
 
+.arrow-back {
+    width: 17px;
+    height: 16px;
+    background-position: -55px -5px;
+}
+
 .bell {
     width: 23px;
     height: 28px;
-    background-position: -55px -5px;
+    background-position: -82px -5px;
 }
 
 .bell-active {
     width: 23px;
     height: 28px;
-    background-position: -55px -43px;
+    background-position: -115px -5px;
 }
 
 .close {
     width: 14px;
     height: 14px;
-    background-position: -5px -81px;
+    background-position: -148px -5px;
 }
 
 .eye {
     width: 22px;
     height: 15px;
-    background-position: -88px -5px;
+    background-position: -55px -43px;
+}
+
+.letter {
+    width: 32px;
+    height: 26px;
+    background-position: -87px -43px;
+}
+
+.map-add {
+    width: 41px;
+    height: 41px;
+    background-position: -5px -79px;
+}
+
+.map-add-empty {
+    width: 41px;
+    height: 41px;
+    background-position: -56px -79px;
+}
+
+.map-link-available {
+    width: 41px;
+    height: 41px;
+    background-position: -107px -79px;
+}
+
+.map-link-child {
+    width: 41px;
+    height: 41px;
+    background-position: -172px -5px;
+}
+
+.map-link-parent {
+    width: 41px;
+    height: 41px;
+    background-position: -158px -56px;
+}
+
+.map-remove {
+    width: 41px;
+    height: 41px;
+    background-position: -158px -107px;
 }
 
 .time {
     width: 16px;
     height: 16px;
-    background-position: -88px -30px;
+    background-position: -5px -158px;
 }
 
 .wait {
     width: 44px;
     height: 44px;
-    background-position: -120px -5px;
+    background-position: -31px -158px;
 }

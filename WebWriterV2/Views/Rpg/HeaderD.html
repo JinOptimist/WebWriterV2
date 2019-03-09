@@ -69,7 +69,7 @@
                 <div class="signInUp">
 
                     <a ng-href="#" ng-click="back()" 
-                       ng-show="popupOpen.popupState == PopupState.RecoverPassword || popupOpen.popupState == PopupState.CheckEmail"><img src="../content/icon/arrowBack.svg"></a>
+                       ng-show="popupOpen.popupState == PopupState.RecoverPassword || popupOpen.popupState == PopupState.CheckEmail"><span class="icon arrow-back"></span></a>
                     <p class="tabName" 
                         ng-class="{'active': popupOpen.popupState == PopupState.Login 
                             || popupOpen.popupState == PopupState.RecoverPassword
@@ -93,7 +93,8 @@
                 </div>
                 <div class="popupContent" ng-if="popupOpen.popupState == PopupState.CheckEmail">
                     <span class="checkEmail">Проверьте свою почту</span>
-                    <span><img src="../content/icon/letter.svg"/></span>
+                    <!--<span><img src="../content/icon/letter.png" /></span>-->
+                    <span class="icon letter"></span>
                     <span class="instructions">Мы отправили Вам инструкции для смены пароля</span>
                 </div>
                 <div class="agreeGroup" ng-show="popupOpen.popupState == PopupState.Login">
