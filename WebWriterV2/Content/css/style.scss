@@ -1039,7 +1039,7 @@ body {
             resize: none;
         }
 
-        input, textarea{
+        input, textarea {
             background: $light-gray;
         }
     }
@@ -1065,6 +1065,7 @@ body {
             a {
                 display: flex;
                 justify-content: center;
+                align-items: center;
                 width: 48px;
                 height: 48px;
                 border: 1px solid rgba(0, 0, 0, 0.12);
@@ -1135,6 +1136,7 @@ body {
                 text-align: center;
                 letter-spacing: 0.25px;
                 color: rgba(0, 0, 0, 0.6);
+                margin-top: 15.4px;
             }
 
             .checkEmail {
