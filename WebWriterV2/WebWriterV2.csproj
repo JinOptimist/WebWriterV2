@@ -268,11 +268,12 @@
     <Content Include="Content\font\Merriweather OFL.txt" />
     <Content Include="Content\font\Roboto LICENSE.txt" />
     <Content Include="Content\icon\add-icon.png" />
-    <Content Include="Content\icon\arrowBack.svg" />
+    <Content Include="Content\icon\arrow-back.png" />
     <Content Include="Content\icon\bell-active.png" />
     <Content Include="Content\icon\bell.png" />
     <Content Include="Content\icon\close.png" />
     <Content Include="Content\icon\eye.png" />
+    <Content Include="Content\icon\letter.png" />
     <Content Include="Content\icon\map-add-empty.png" />
     <Content Include="Content\icon\map-add.png" />
     <Content Include="Content\icon\map-link-available.png" />
@@ -280,8 +281,10 @@
     <Content Include="Content\icon\map-link-parent.png" />
     <Content Include="Content\icon\map-remove.png" />
     <Content Include="Content\icon\naractivity.png" />
-    <Content Include="Content\icon\naractivity.svg" />
     <Content Include="Content\icon\spritesheet.png" />
+    <Content Include="Content\icon\svg\arrow-back.svg" />
+    <Content Include="Content\icon\svg\letter.svg" />
+    <Content Include="Content\icon\svg\naractivity.svg" />
     <Content Include="Content\icon\time.png" />
     <Content Include="Content\landing\bg-blue.png" />
     <Content Include="Content\landing\bg-gray-rectagle.png" />
