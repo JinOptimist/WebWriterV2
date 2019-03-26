@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dal.Model;
+using NLog;
 using WebWriterV2.FrontModel.BookMap;
 using WebWriterV2.RpgUtility;
 
@@ -9,6 +10,8 @@ namespace WebWriterV2.FrontModels
 {
     public class BookWithChaptersV2 : BaseFront<Book>
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private List<Tuple<long, long>> _mapChapterBranchIds = new List<Tuple<long, long>>();
         private List<Branch> _branches = new List<Branch>();
 
@@ -16,17 +19,25 @@ namespace WebWriterV2.FrontModels
 
         public BookWithChaptersV2(Book book)
         {
+            logger.Info("Start constructor BookWithChaptersV2");
+
             Id = book.Id;
             Name = book.Name;
             States = book.States.Select(x => new FrontStateType(x)).ToList();
             ContainsCycle = new GraphHelper(book).HasCycle();
 
+            logger.Info($"Book contains cycle = {ContainsCycle}");
+
             book.AllChapters.ForEach(x => x.Level = 0);
-            var maxDepth = SetDepth(book.RootChapter, 1, new List<Chapter>());
+            var maxDepth = SetDepth(book);
+
+            logger.Info($"maxDepth = {maxDepth}");
 
             var elChel = new ElChel(book);
             //var elChapters = elChel.StatisticOfVisitingAllWay();
             var elChapters = elChel.StatisticOfVisiting100Random();
+
+            logger.Info("elChapters calculated");
 
             Chapters = new List<FrontChapter>();
             foreach (var chapter in book.AllChapters.Where(x => x.Level > 0).OrderBy(x => x.Level)) {
@@ -41,11 +52,17 @@ namespace WebWriterV2.FrontModels
                 Chapters.Add(frontChapter);
             }
 
+            logger.Info("AllChapters processed");
+
             UpdateChapterWeightFromEnd();
             SetVisualParent();
 
+            logger.Info("SetVisualParent");
+
             StateBasicTypes = EnumHelper.GetFrontEnumList<FrontEnumStateBasicType>(typeof(StateBasicType));
             CoAuthors = book.CoAuthors.Select(x => x.Email).ToList();
+
+            logger.Info("We are created BookWithChaptersV2");
         }
 
         public string Name { get; set; }
@@ -59,27 +76,28 @@ namespace WebWriterV2.FrontModels
 
         public List<string> CoAuthors { get; set; }
 
-        private int SetDepth(Chapter chapter, int depth, List<Chapter> visitedChapters)
+        private int SetDepth(Book book)
         {
-            visitedChapters.Add(chapter);
-            var maxDepth = depth;
-            if (chapter.Level < depth) {
-                chapter.Level = depth;
+            var maxDepth = 1;
+            var chaptersOnCurrentLevel = book.RootChapter.LinksFromThisChapter.Select(x => x.To);
+            var visited = new List<Chapter> { book.RootChapter };
+            book.RootChapter.Level = 1;
+
+            while (chaptersOnCurrentLevel.Any()) {
+                maxDepth++;
+                var chaptersOnNextLevel = new List<Chapter>();
+                foreach (var chapter in chaptersOnCurrentLevel) {
+                    visited.Add(chapter);
+                    chapter.Level = maxDepth;
+                    chaptersOnNextLevel.AddRange(chapter.LinksFromThisChapter.Select(x => x.To));
+                }
+
+                chaptersOnCurrentLevel = chaptersOnNextLevel;
+                if (ContainsCycle) {
+                    chaptersOnCurrentLevel = chaptersOnCurrentLevel.Where(x => !visited.Any(v => x.Id == v.Id));
+                }
+                
             }
-
-            chapter.LinksFromThisChapter.ForEach(x => {
-                if (visitedChapters.Any(v => v.Id == x.To.Id)) {
-                    return;
-                }
-
-                var path = new List<Chapter>();
-                path.AddRange(visitedChapters);
-
-                var childDepth = SetDepth(x.To, chapter.Level + 1, path);
-                if (childDepth > maxDepth) {
-                    maxDepth = childDepth;
-                }
-            });
 
             return maxDepth;
         }
@@ -180,7 +198,7 @@ namespace WebWriterV2.FrontModels
             //.Where(x => !_processedChapterIds.Contains(x.Id));
             //_processedChapterIds.AddRange(childChapters.Select(x => x.Id));
 
-            return chapter.LinksToThisChapter.Select(x=>x.From)
+            return chapter.LinksToThisChapter.Select(x => x.From)
                 .Where(ch => ch.Level == chapter.Level - 1 && branch.Chapters.Contains(ch)).Count();
         }
 
@@ -227,7 +245,7 @@ namespace WebWriterV2.FrontModels
                 //just value by default
                 chapter.VisualParentIds = new List<long>();
 
-                foreach (var parentId in chapter.LinksToThisChapter.Select(x=>x.FromId)) {
+                foreach (var parentId in chapter.LinksToThisChapter.Select(x => x.FromId)) {
                     if (allBrachesWichIncludeCurrentChapter.All(b => b.Chapters.Select(x => x.Id).Contains(parentId))) {
                         chapter.VisualParentIds.Add(parentId);
                     }

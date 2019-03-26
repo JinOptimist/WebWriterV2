@@ -79,6 +79,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <HintPath>..\packages\NLog.4.5.11\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -87,6 +90,7 @@
       <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.IO.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.IO.Compression" />
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net40\System.Net.Http.Extensions.dll</HintPath>
       <Private>True</Private>
@@ -107,10 +111,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Threading.Tasks, Version=2.6.10.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.1.1.10\lib\net40\System.Threading.Tasks.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -268,7 +274,6 @@
     <Content Include="Content\font\Merriweather OFL.txt" />
     <Content Include="Content\font\Roboto LICENSE.txt" />
     <Content Include="Content\icon\add-icon.png" />
-    <Content Include="Content\icon\arrowBack.svg" />
     <Content Include="Content\icon\bell-active.png" />
     <Content Include="Content\icon\bell.png" />
     <Content Include="Content\icon\close.png" />
@@ -280,7 +285,6 @@
     <Content Include="Content\icon\map-link-parent.png" />
     <Content Include="Content\icon\map-remove.png" />
     <Content Include="Content\icon\naractivity.png" />
-    <Content Include="Content\icon\naractivity.svg" />
     <Content Include="Content\icon\spritesheet.png" />
     <Content Include="Content\icon\time.png" />
     <Content Include="Content\landing\bg-blue.png" />
@@ -768,6 +772,12 @@
     <Content Include="Content\font\Roboto-Thin.ttf" />
     <Content Include="Content\font\Roboto-ThinItalic.ttf" />
     <Content Include="Content\css\reset.scss" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\narativity - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\narativity - Web Deploy.pubxml" />
     <None Include="Scripts\_references.js" />

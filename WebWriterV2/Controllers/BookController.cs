@@ -2,6 +2,7 @@
 using Dal.IRepository;
 using Dal.Model;
 using Dal.Repository;
+using NLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace WebWriterV2.Controllers
 {
     public class BookController : BaseApiController
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public BookController(IBookRepository bookRepository, IChapterRepository chapterRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IStateValueRepository stateValueRepository, IStateTypeRepository stateTypeRepository, ITagRepository tagRepository, IUserRepository userRepository)
         {
             BookRepository = bookRepository;
@@ -160,8 +163,11 @@ namespace WebWriterV2.Controllers
         [AcceptVerbs("GET")]
         public BookWithChaptersV2 GetWithChaptersV2(long id)
         {
+            logger.Info($"GetWithChaptersV2 id={id}");
             var book = BookRepository.Get(id);
+            logger.Info($"Book was getted book={book.Name}");
             var frontBook = new BookWithChaptersV2(book);
+            logger.Info($"front model done");
             return frontBook;
         }
 

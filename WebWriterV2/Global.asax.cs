@@ -11,6 +11,7 @@ using Castle.Windsor;
 using Castle.MicroKernel.Registration;
 using Dal.IRepository;
 using WebWriterV2.Controllers;
+using NLog;
 
 namespace WebWriterV2
 {
@@ -18,10 +19,13 @@ namespace WebWriterV2
     // visit http://go.microsoft.com/?LinkId=9394801
     public class MvcApplication : HttpApplication
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public static string Repository => "Repository";
 
         protected void Application_Start()
         {
+            logger.Info("Application start");
             AreaRegistration.RegisterAllAreas();
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
@@ -56,6 +60,8 @@ namespace WebWriterV2
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception exception = Server.GetLastError();
+            logger.Error(exception, "Application_Error");
+
             Server.ClearError();
             if (exception.Source == "System.Web.Mvc") {
                 RpgUtility.EmailHelper.SendUnexpectedRequest(exception, Request);

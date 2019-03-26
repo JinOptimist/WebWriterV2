@@ -6,11 +6,14 @@ using Dal.Model;
 using WebWriterV2.FrontModels;
 using System.Net.Mail;
 using System.Net;
+using NLog;
 
 namespace WebWriterV2.RpgUtility
 {
     public class ElChel
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         private Book Book { get; set; }
         private List<Travel> Travels { get; set; }
         private Random random = new Random();
