@@ -1050,7 +1050,7 @@ body {
         font-family: "Roboto", serif;
         font-size: 14px;
 
-        .error {
+        .error-message {
             color: $orangeV2;
             height: 30px;
         }
@@ -1122,6 +1122,10 @@ body {
                 &.ng-dirty {
                     background: $white;
                 }
+            }
+
+            input.error {
+                border-color: $orangeV2;
             }
 
             input:focus {
