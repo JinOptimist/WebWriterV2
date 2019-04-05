@@ -86,6 +86,8 @@
                     <span class="error-message">{{error}}</span>
                     <input class="error" type="password" placeholder='{{resources.Reader_Password}}' ng-model="loginObj.Password"
                            ng-keypress="passwordKeyPress($event)" ng-disabled="waiting">
+                    <span class="error">Пароли не совпадают</span>
+                    <input class="error" type="password" placeholder="Повторите пароль">
                 </div>
                 <div class="popupContent" ng-if="popupOpen.popupState == PopupState.RecoverPassword">
                     <input type="email" ng-model="loginObj.Email" placeholder="Электронная почта">
