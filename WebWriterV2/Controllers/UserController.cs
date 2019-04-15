@@ -23,6 +23,7 @@ namespace WebWriterV2.Controllers
 
         private IUserRepository UserRepository { get; }
 
+//OLD
         [AcceptVerbs("GET")]
         public FrontUser Login(string email, string password)
         {
@@ -34,6 +35,25 @@ namespace WebWriterV2.Controllers
             var user = UserRepository.Login(email, password);
             FrontUser frontUser = null;
             if (user != null) {
+                frontUser = new FrontUser(user);
+            }
+
+            return frontUser;
+        }
+
+        [AcceptVerbs("POST")]
+        public FrontUser LoginPost(FrontUser frontUser)
+        {
+            //TODO remove this hack
+            if (frontUser.Email == RpgController.AdminName)
+            {
+                frontUser.Email = RpgController.AdminEmail;
+            }
+
+            var user = UserRepository.Login(frontUser.Email, frontUser.Password);
+            frontUser = null;
+            if (user != null)
+            {
                 frontUser = new FrontUser(user);
             }
 
