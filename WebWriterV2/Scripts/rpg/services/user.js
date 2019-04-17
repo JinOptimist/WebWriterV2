@@ -26,12 +26,8 @@
         }
 
         function login(user) {
-            var url = '/api/user/Login';
-            var data = {
-                email: user.Email,
-                password: user.Password
-            };
-            return httpHelper.get(url, data);
+            var url = '/api/user/LoginPost';
+            return httpHelper.post(url, user);
         }
 
         function logout() {
