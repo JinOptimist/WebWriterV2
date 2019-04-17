@@ -67,27 +67,28 @@
             <div class="gray-background" ng-click="close()"></div>
             <div class="registrationForm popupBody">
                 <div class="signInUp">
-
-                    <a ng-href="#" ng-click="back()" 
-                       ng-show="popupOpen.popupState == PopupState.RecoverPassword || popupOpen.popupState == PopupState.CheckEmail"><span class="icon arrow-back"></span></a>
+                    <a ng-href="#" ng-show="popupOpen.popupState == PopupState.RecoverPassword || popupOpen.popupState == PopupState.CheckEmail"
+                       ng-click="back()"><span class="icon arrow-back"></span></a>
                     <p class="tabName" 
                         ng-class="{'active': popupOpen.popupState == PopupState.Login 
                             || popupOpen.popupState == PopupState.RecoverPassword
                             || popupOpen.popupState == PopupState.CheckEmail}"
                         ng-click="openLogin()">{{resources.Reader_Login}}</p>
                     <p class="rectangle"></p>
-                    <p class="tabName" ng-class="{'active': popupOpen.popupState == PopupState.Registration}" ng-click="openRegistration()">{{resources.Reader_Registration}}</p>
-                    
+                    <p class="tabName" ng-class="{'active': popupOpen.popupState == PopupState.Registration}" 
+                       ng-click="openRegistration()">{{resources.Reader_Registration}}</p>
                 </div>
                 <div class="popupContent" ng-if="popupOpen.popupState == PopupState.Login || popupOpen.popupState == PopupState.Registration">
                     <span class="error-message">{{error}}</span>
-                    <input class="error" type="text" placeholder="{{resources.Reader_Email}}" ng-model="loginObj.Email"
+                    <input type="text" placeholder="{{resources.Reader_Email}}" 
+                           ng-class="{'error': error.length > 0}" ng-model="loginObj.Email"
                            ng-keypress="passwordKeyPress($event)" ng-disabled="waiting">
-                    <span class="error-message">{{error}}</span>
-                    <input class="error" type="password" placeholder='{{resources.Reader_Password}}' ng-model="loginObj.Password"
+                    <span class="error-message"></span>
+                    <input type="password" placeholder='{{resources.Reader_Password}}' 
+                           ng-class="{'error': error.length > 0}" ng-model="loginObj.Password"
                            ng-keypress="passwordKeyPress($event)" ng-disabled="waiting">
-                    <span class="error">Пароли не совпадают</span>
-                    <input class="error" type="password" placeholder="Повторите пароль">
+                    <!--<span class="error">Пароли не совпадают</span>
+                    <input class="error" type="password" placeholder="Повторите пароль">-->
                 </div>
                 <div class="popupContent" ng-if="popupOpen.popupState == PopupState.RecoverPassword">
                     <input type="email" ng-model="loginObj.Email" placeholder="Электронная почта">
@@ -111,9 +112,12 @@
                     </div>
                 </div>
                 <div class="mainButtonBlock">
-                    <button class="btn" ng-show="popupOpen.popupState == PopupState.Login" ng-click="login()">{{resources.Reader_Login}}</button>
-                    <button class="btn" ng-show="popupOpen.popupState == PopupState.Registration" ng-click="register()">{{resources.Reader_Registration}}</button>
-                    <button class="btn" ng-show="popupOpen.popupState == PopupState.RecoverPassword" ng-click="recoverPassword()">{{resources.Reader_RecoverPassword}}</button>
+                    <button class="btn" ng-if="popupOpen.popupState == PopupState.Login" 
+                            ng-click="login()">{{resources.Reader_Login}}</button>
+                    <button class="btn" ng-if="popupOpen.popupState == PopupState.Registration" 
+                            ng-click="register()">{{resources.Reader_Registration}}</button>
+                    <button class="btn" ng-show="popupOpen.popupState == PopupState.RecoverPassword" 
+                            ng-click="recoverPassword()">{{resources.Reader_RecoverPassword}}</button>
                 </div>
             </div>
         </div>
