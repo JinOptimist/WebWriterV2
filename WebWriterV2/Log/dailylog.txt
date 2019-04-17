@@ -237,3 +237,4 @@
 2019-03-26 11:31:29.8160 | INFO | Book contains cycle = False
 2019-03-26 11:31:29.8160 | INFO | maxDepth = 3
 2019-03-26 11:31:29.8466 | INFO | front model done
+2019-04-17 11:43:04.9597 | INFO | Application start | Application start

@@ -199,3 +199,4 @@ FakesAssemblies/
 /WebWriterV2/obj/Release/*.cache
 /WebWriterV2/Properties/PublishProfiles/*.user
 /WebWriterV2/*.user
+/WebWriterV2/Log/*.txt

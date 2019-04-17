@@ -29,52 +29,100 @@
     background-position: -115px -5px;
 }
 
+.bin {
+    width: 24px;
+    height: 24px;
+    background-position: -148px -5px;
+}
+
+.bookmark {
+    width: 15px;
+    height: 21px;
+    background-position: -55px -39px;
+}
+
+.bookmark-active {
+    width: 15px;
+    height: 21px;
+    background-position: -148px -39px;
+}
+
+.bookmark-hover {
+    width: 15px;
+    height: 21px;
+    background-position: -173px -39px;
+}
+
+.calendar {
+    width: 12px;
+    height: 14px;
+    background-position: -182px -5px;
+}
+
 .close {
     width: 14px;
     height: 14px;
-    background-position: -148px -5px;
+    background-position: -5px -70px;
+}
+
+.comment {
+    width: 21px;
+    height: 22px;
+    background-position: -29px -70px;
 }
 
 .eye {
     width: 22px;
     height: 15px;
-    background-position: -55px -43px;
+    background-position: -60px -70px;
+}
+
+.eye-dark {
+    width: 22px;
+    height: 15px;
+    background-position: -92px -70px;
+}
+
+.eye-light {
+    width: 22px;
+    height: 15px;
+    background-position: -124px -70px;
 }
 
 .letter {
     width: 32px;
     height: 26px;
-    background-position: -87px -43px;
+    background-position: -156px -70px;
 }
 
 .map-add {
     width: 41px;
     height: 41px;
-    background-position: -5px -79px;
+    background-position: -5px -106px;
 }
 
 .map-add-empty {
     width: 41px;
     height: 41px;
-    background-position: -56px -79px;
+    background-position: -56px -106px;
 }
 
 .map-link-available {
     width: 41px;
     height: 41px;
-    background-position: -107px -79px;
+    background-position: -107px -106px;
 }
 
 .map-link-child {
     width: 41px;
     height: 41px;
-    background-position: -172px -5px;
+    background-position: -204px -5px;
 }
 
 .map-link-parent {
     width: 41px;
     height: 41px;
-    background-position: -158px -56px;
+    background-position: -198px -56px;
 }
 
 .map-remove {
@@ -83,14 +131,44 @@
     background-position: -158px -107px;
 }
 
+.preview {
+    width: 18px;
+    height: 18px;
+    background-position: -209px -107px;
+}
+
+.share {
+    width: 22px;
+    height: 21px;
+    background-position: -209px -135px;
+}
+
+.tag-add {
+    width: 20px;
+    height: 24px;
+    background-position: -5px -166px;
+}
+
+.thumb-up-blue {
+    width: 24px;
+    height: 22px;
+    background-position: -35px -166px;
+}
+
+.thumb-up-light {
+    width: 24px;
+    height: 22px;
+    background-position: -69px -166px;
+}
+
 .time {
-    width: 16px;
-    height: 16px;
-    background-position: -5px -158px;
+    width: 15px;
+    height: 15px;
+    background-position: -103px -166px;
 }
 
 .wait {
     width: 44px;
     height: 44px;
-    background-position: -31px -158px;
+    background-position: -128px -158px;
 }
