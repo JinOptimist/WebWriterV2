@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Dal.Model;
+using NLog;
 using WebWriterV2.RpgUtility;
 
 namespace WebWriterV2.FrontModels
 {
     public class FrontBookFullStatistic : FrontBook
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public FrontBookFullStatistic()
         {
         }
@@ -15,7 +18,9 @@ namespace WebWriterV2.FrontModels
         public FrontBookFullStatistic(Book book) : base(book, true)
         {
             var elChel = new ElChel(book);
-            var travels = elChel.StatisticOfVisitingAllWay();
+            logger.Info($"Before elChel.StatisticOfVisitingAllWay. Time {DateTime.Now.ToLongTimeString()}");
+            var travels = elChel.RandomTravels(100);
+            logger.Info($"After elChel.StatisticOfVisitingAllWay. Time {DateTime.Now.ToLongTimeString()}");
             CountOfWays = travels.Count;
             CountOfChapters = book.AllChapters.Count;
             CountOfChoices = book.AllChapters.Count(x => x.LinksFromThisChapter.Count > 1);

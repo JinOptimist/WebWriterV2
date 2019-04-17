@@ -36,9 +36,9 @@ namespace WebWriterV2.FrontModels
             //TODO: It's work to slow. Sad
             var elChel = new ElChel(book);
             //var elChapters = elChel.StatisticOfVisitingAllWay();
-            logger.Info($"Before start elChel.StatisticOfVisitingRandom. Time {DateTime.Now.ToLongTimeString()}");
+            logger.Info($"Before elChel.StatisticOfVisitingRandom. Time {DateTime.Now.ToLongTimeString()}");
             var elChapters = elChel.StatisticOfVisitingRandom(100);
-            logger.Info($"After start elChel.StatisticOfVisitingRandom. Time {DateTime.Now.ToLongTimeString()}");
+            logger.Info($"After elChel.StatisticOfVisitingRandom. Time {DateTime.Now.ToLongTimeString()}");
 
             Chapters = new List<FrontChapter>();
             foreach (var chapter in book.AllChapters.Where(x => x.Level > 0).OrderBy(x => x.Level)) {
