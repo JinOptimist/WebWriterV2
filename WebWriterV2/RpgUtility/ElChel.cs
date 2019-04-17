@@ -18,21 +18,19 @@ namespace WebWriterV2.RpgUtility
         private List<Travel> Travels { get; set; }
         private Random random = new Random();
 
-        private int CountOfRandomElChel = 1000;
-
         public ElChel(Book book)
         {
             Book = book;
             Travels = new List<Travel>();
         }
 
-        public List<FrontChapter> StatisticOfVisiting100Random()
+        public List<FrontChapter> StatisticOfVisitingRandom(int chelCount)
         {
             Travels = new List<Travel>();
 
             var links = Book.RootChapter.LinksFromThisChapter;
             if (links.Any()) {
-                for (int i = 0; i < CountOfRandomElChel; i++) {
+                for (int i = 0; i < chelCount; i++) {
                     var travel = CreateTravel();
                     RandStep(travel, links[random.Next(links.Count)]);
                 }

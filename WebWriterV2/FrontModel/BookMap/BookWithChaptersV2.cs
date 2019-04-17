@@ -33,9 +33,12 @@ namespace WebWriterV2.FrontModels
 
             logger.Info($"maxDepth = {maxDepth}");
 
+            //TODO: It's work to slow. Sad
             var elChel = new ElChel(book);
             //var elChapters = elChel.StatisticOfVisitingAllWay();
-            var elChapters = elChel.StatisticOfVisiting100Random();
+            logger.Info($"Before start elChel.StatisticOfVisitingRandom. Time {DateTime.Now.ToLongTimeString()}");
+            var elChapters = elChel.StatisticOfVisitingRandom(100);
+            logger.Info($"After start elChel.StatisticOfVisitingRandom. Time {DateTime.Now.ToLongTimeString()}");
 
             Chapters = new List<FrontChapter>();
             foreach (var chapter in book.AllChapters.Where(x => x.Level > 0).OrderBy(x => x.Level)) {
@@ -46,7 +49,7 @@ namespace WebWriterV2.FrontModels
                 }
 
                 frontChapter.ParentsIds = GetParentIds(chapter, new List<long>());
-                frontChapter.StatisticOfVisiting = elChapters.Single(x => x.Id == frontChapter.Id).StatisticOfVisiting;
+                //frontChapter.StatisticOfVisiting = elChapters.Single(x => x.Id == frontChapter.Id).StatisticOfVisiting;
                 Chapters.Add(frontChapter);
             }
 

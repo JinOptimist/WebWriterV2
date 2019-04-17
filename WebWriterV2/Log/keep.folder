@@ -1,0 +1,70 @@
+2015-09-15 15:03:22.2797|INFO|WebWriterV2.SecondThread.Mark|Start copy new user. Id 7589, time 3:03:22 PM
+2015-09-15 15:10:17.3942|INFO|WebWriterV2.SecondThread.Mark|Start copy new user. Id 7902, time 3:10:17 PM
+2015-09-15 15:11:07.6652|INFO|WebWriterV2.SecondThread.Mark|Start copy new user. Id 8524, time 3:11:07 PM
+2015-09-15 15:12:14.0489|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-231232. E.InnerException 
+2015-09-15 15:15:42.0927|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-19377908. E.InnerException 
+2015-09-15 15:16:06.1411|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-33224580. E.InnerException 
+2015-09-15 15:16:12.9357|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-33874061. E.InnerException 
+2015-09-15 15:16:29.6664|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-42222907. E.InnerException 
+2015-09-15 15:16:40.0335|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-51218364. E.InnerException 
+2015-09-15 15:16:55.7240|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-65517367. E.InnerException 
+2015-09-15 15:17:47.8222|INFO|WebWriterV2.SecondThread.Mark|Complete copy user. Id 8524, time 3:17:47 PM
+2015-09-15 15:17:49.6684|INFO|WebWriterV2.SecondThread.Mark|Start copy new user. Id 9224, time 3:17:49 PM
+2015-09-15 15:17:54.6849|ERROR|WebWriterV2.SecondThread.Mark|OneStep. Can't save user to my DB id 9224, time 3:17:54 PM
+2015-09-15 15:17:54.6859|INFO|WebWriterV2.SecondThread.Mark|Complete copy user. Id 9224, time 3:17:54 PM
+2015-09-15 15:17:54.6859|INFO|WebWriterV2.SecondThread.Mark|Start copy new user. Id 9224, time 3:17:54 PM
+2015-09-15 15:18:03.6178|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-688. E.InnerException 
+2015-09-15 15:18:47.1642|INFO|WebWriterV2.SecondThread.Mark|Start copy new user. Id 12817, time 3:18:47 PM
+2015-09-15 15:19:04.2549|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-403. E.InnerException 
+2015-09-15 15:19:12.9727|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-9270. E.InnerException 
+2015-09-15 15:19:42.5647|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-309095. E.InnerException 
+2015-09-15 15:19:51.2816|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-392723. E.InnerException 
+2015-09-15 15:19:57.1782|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-487369. E.InnerException 
+2015-09-15 15:20:08.7093|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-577527. E.InnerException 
+2015-09-15 15:20:19.5404|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-805935. E.InnerException 
+2015-09-15 15:20:58.5223|INFO|WebWriterV2.SecondThread.Mark|Start copy new user. Id 19232, time 3:20:58 PM
+2015-09-15 15:21:21.1526|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-8179. E.InnerException 
+2015-09-15 15:21:35.4200|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-18690. E.InnerException 
+2015-09-15 15:21:47.4022|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-30352. E.InnerException 
+2015-09-15 15:21:52.5407|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-31140. E.InnerException 
+2015-09-15 15:22:06.0711|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-43574. E.InnerException 
+2015-09-15 15:22:11.0906|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-50911. E.InnerException 
+2015-09-15 15:22:16.1131|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-50952. E.InnerException 
+2015-09-15 15:22:49.0324|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-77225. E.InnerException 
+2015-09-15 15:23:03.1518|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-96575. E.InnerException 
+2015-09-15 15:23:15.3290|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-102624. E.InnerException 
+2015-09-15 15:23:23.2198|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-106812. E.InnerException 
+2015-09-15 15:23:33.5788|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-118523. E.InnerException 
+2015-09-15 15:23:38.5993|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-126135. E.InnerException 
+2015-09-15 15:23:45.1120|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-140382. E.InnerException 
+2015-09-15 15:24:08.9553|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-183224. E.InnerException 
+2015-09-15 15:24:21.0806|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-189779. E.InnerException 
+2015-09-15 15:24:50.6055|INFO|WebWriterV2.SecondThread.Mark|Start copy new user. Id 30295, time 3:24:50 PM
+2015-09-15 15:25:13.1278|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-3964. E.InnerException 
+2015-09-15 15:25:36.1791|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-41586. E.InnerException 
+2015-09-15 15:25:42.3497|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-46947. E.InnerException 
+2015-09-15 15:25:51.4826|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-56107. E.InnerException 
+2015-09-15 15:25:57.2112|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-62215. E.InnerException 
+2015-09-15 15:26:11.7796|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-109199. E.InnerException 
+2015-09-15 15:26:32.2077|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-137331. E.InnerException 
+2015-09-15 15:26:53.7528|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-170647. E.InnerException 
+2015-09-15 15:27:02.5277|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-194981. E.InnerException 
+2015-09-15 15:28:48.9243|INFO|WebWriterV2.SecondThread.Mark|Start copy new user. Id 31794, time 3:28:48 PM
+2015-09-15 15:29:04.3209|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-396728. E.InnerException 
+2015-09-15 15:29:15.6440|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-871531. E.InnerException 
+2015-09-15 15:29:21.3576|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-926006. E.InnerException 
+2015-09-15 15:29:34.8569|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-1171595. E.InnerException 
+2015-09-15 15:33:58.1263|INFO|WebWriterV2.SecondThread.Mark|Start copy new user. Id 35626, time 3:33:58 PM
+2015-09-15 15:34:21.3126|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-109024. E.InnerException 
+2015-09-15 15:34:27.1622|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-126393. E.InnerException 
+2015-09-15 15:34:40.7645|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-214005. E.InnerException 
+2015-09-15 15:34:45.7840|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-214770. E.InnerException 
+2015-09-15 15:35:09.4144|INFO|WebWriterV2.SecondThread.Mark|Start copy new user. Id 36657, time 3:35:09 PM
+2015-09-15 15:35:24.8229|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-1066. E.InnerException 
+2015-09-15 15:35:29.9774|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-1655. E.InnerException 
+2015-09-15 15:35:40.4485|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-6181. E.InnerException 
+2015-09-15 15:36:00.3655|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-21084. E.InnerException 
+2015-09-15 15:36:18.8873|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-23477. E.InnerException 
+2015-09-15 15:36:30.4615|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-29069. E.InnerException 
+2015-09-15 15:36:36.1731|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-29167. E.InnerException 
+2015-09-15 15:36:44.3309|ERROR|WebWriterV2.SecondThread.Mark|DownloadUser. Can't save or deownload. User Id-32920. E.InnerException 
