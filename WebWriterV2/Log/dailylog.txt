@@ -182,3 +182,58 @@
 2019-03-14 15:29:47.3527 | INFO | SetVisualParent
 2019-03-14 15:29:47.3527 | INFO | We are created BookWithChaptersV2
 2019-03-14 15:29:47.3527 | INFO | front model done
+2019-03-26 10:59:20.4265 | INFO | Application start
+2019-03-26 10:59:42.3846 | INFO | GetWithChaptersV2 id=160004
+2019-03-26 10:59:42.4001 | INFO | Book was getted book=Smil
+2019-03-26 10:59:42.4001 | INFO | Start constructor BookWithChaptersV2
+2019-03-26 10:59:42.4536 | INFO | Book contains cycle = False
+2019-03-26 10:59:42.4536 | INFO | maxDepth = 1
+2019-03-26 10:59:42.4992 | INFO | front model done
+2019-03-26 10:59:46.1257 | INFO | GetWithChaptersV2 id=160003
+2019-03-26 10:59:46.1312 | INFO | Book was getted book=Test book
+2019-03-26 10:59:46.1312 | INFO | Start constructor BookWithChaptersV2
+2019-03-26 10:59:46.1312 | INFO | Book contains cycle = False
+2019-03-26 10:59:46.1312 | INFO | maxDepth = 3
+2019-03-26 10:59:46.2048 | INFO | front model done
+2019-03-26 11:21:29.2745 | INFO | GetWithChaptersV2 id=160003
+2019-03-26 11:21:30.3168 | INFO | Book was getted book=Test book
+2019-03-26 11:21:30.3168 | INFO | Start constructor BookWithChaptersV2
+2019-03-26 11:21:30.4338 | INFO | Book contains cycle = False
+2019-03-26 11:21:30.4338 | INFO | maxDepth = 3
+2019-03-26 11:21:30.6695 | INFO | front model done
+2019-03-26 11:21:40.5604 | INFO | GetWithChaptersV2 id=160003
+2019-03-26 11:21:40.5669 | INFO | Book was getted book=Test book
+2019-03-26 11:21:40.5669 | INFO | Start constructor BookWithChaptersV2
+2019-03-26 11:21:40.5669 | INFO | Book contains cycle = False
+2019-03-26 11:21:40.5669 | INFO | maxDepth = 4
+2019-03-26 11:21:40.6269 | INFO | front model done
+2019-03-26 11:21:51.1759 | INFO | GetWithChaptersV2 id=160003
+2019-03-26 11:21:51.1759 | INFO | Book was getted book=Test book
+2019-03-26 11:21:51.1759 | INFO | Start constructor BookWithChaptersV2
+2019-03-26 11:21:51.1940 | INFO | Book contains cycle = True
+2019-03-26 11:21:51.1940 | INFO | maxDepth = 3
+2019-03-26 11:21:51.7866 | INFO | front model done
+2019-03-26 11:23:04.1529 | INFO | GetWithChaptersV2 id=160003
+2019-03-26 11:23:04.1634 | INFO | Book was getted book=Test book
+2019-03-26 11:23:04.1634 | INFO | Start constructor BookWithChaptersV2
+2019-03-26 11:23:04.1634 | INFO | Book contains cycle = True
+2019-03-26 11:23:04.1634 | INFO | maxDepth = 3
+2019-03-26 11:23:04.6533 | INFO | front model done
+2019-03-26 11:25:13.6312 | INFO | GetWithChaptersV2 id=160003
+2019-03-26 11:25:13.6382 | INFO | Book was getted book=Test book
+2019-03-26 11:25:13.6382 | INFO | Start constructor BookWithChaptersV2
+2019-03-26 11:25:13.6382 | INFO | Book contains cycle = False
+2019-03-26 11:25:13.6382 | INFO | maxDepth = 4
+2019-03-26 11:25:13.6572 | INFO | front model done
+2019-03-26 11:25:29.6611 | INFO | GetWithChaptersV2 id=160003
+2019-03-26 11:25:29.6741 | INFO | Book was getted book=Test book
+2019-03-26 11:25:29.6741 | INFO | Start constructor BookWithChaptersV2
+2019-03-26 11:25:29.7256 | INFO | Book contains cycle = False
+2019-03-26 11:25:29.7256 | INFO | maxDepth = 3
+2019-03-26 11:25:29.7707 | INFO | front model done
+2019-03-26 11:31:29.7640 | INFO | GetWithChaptersV2 id=160003
+2019-03-26 11:31:29.8005 | INFO | Book was getted book=Test book
+2019-03-26 11:31:29.8005 | INFO | Start constructor BookWithChaptersV2
+2019-03-26 11:31:29.8160 | INFO | Book contains cycle = False
+2019-03-26 11:31:29.8160 | INFO | maxDepth = 3
+2019-03-26 11:31:29.8466 | INFO | front model done

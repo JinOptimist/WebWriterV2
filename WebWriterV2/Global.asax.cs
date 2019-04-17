@@ -60,7 +60,7 @@ namespace WebWriterV2
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception exception = Server.GetLastError();
-            logger.Error(exception, "Application_Error");
+            logger.Error($"Application_Error Message {exception.Message}");
 
             Server.ClearError();
             if (exception.Source == "System.Web.Mvc") {

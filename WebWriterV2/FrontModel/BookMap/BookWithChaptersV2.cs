@@ -37,8 +37,6 @@ namespace WebWriterV2.FrontModels
             //var elChapters = elChel.StatisticOfVisitingAllWay();
             var elChapters = elChel.StatisticOfVisiting100Random();
 
-            logger.Info("elChapters calculated");
-
             Chapters = new List<FrontChapter>();
             foreach (var chapter in book.AllChapters.Where(x => x.Level > 0).OrderBy(x => x.Level)) {
                 var frontChapter = new FrontChapter(chapter);
@@ -52,17 +50,11 @@ namespace WebWriterV2.FrontModels
                 Chapters.Add(frontChapter);
             }
 
-            logger.Info("AllChapters processed");
-
             UpdateChapterWeightFromEnd();
             SetVisualParent();
 
-            logger.Info("SetVisualParent");
-
             StateBasicTypes = EnumHelper.GetFrontEnumList<FrontEnumStateBasicType>(typeof(StateBasicType));
             CoAuthors = book.CoAuthors.Select(x => x.Email).ToList();
-
-            logger.Info("We are created BookWithChaptersV2");
         }
 
         public string Name { get; set; }
