@@ -262,6 +262,7 @@
     <Content Include="Content\angular-material.layouts.min.css" />
     <Content Include="Content\angular-material.min.css" />
     <Content Include="Content\avatar\1.jpeg" />
+    <Content Include="Content\avatar\avatarTest.png" />
     <Content Include="Content\avatar\hack.txt" />
     <Content Include="Content\css\icon.scss" />
     <Content Include="Content\defenitionExample\01.png" />

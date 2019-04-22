@@ -18,15 +18,15 @@
     <div class="book" ng-repeat="book in books | filter : filterObj " ng-click="readBook(book.Id)">
         <div class="header">
             <div class="user-avatar-block">
-                <img ng-src="{{book.AuthorAvatar}}" title="{{book.AuthorFullName}}" class="user-avatar" />
+                <img src="../content/avatar/avatarTest.png" title="{{book.AuthorFullName}}" class="user-avatar" />
             </div>
             <div class="detail-block">
                 <p class="line-one">
                     <span class="author-name">{{book.AuthorFullName}}</span>
                 </p>
                 <p class="line-two">
+                    <span class="icon calendar"></span>
                     <span ng-show="book.PublicationDate">{{book.PublicationDate}} </span>
-                    <span class="icon eye"></span> {{book.Views}}
                     <span class="icon time"></span> {{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}}
                 </p>
             </div>
