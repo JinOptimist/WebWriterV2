@@ -300,8 +300,10 @@
     <Content Include="Content\icon\share.png" />
     <Content Include="Content\icon\spritesheet.png" />
     <Content Include="Content\icon\svg\arrow-back.svg" />
+    <Content Include="Content\icon\svg\calendar.svg" />
     <Content Include="Content\icon\svg\letter.svg" />
     <Content Include="Content\icon\svg\naractivity.svg" />
+    <Content Include="Content\icon\svg\time.svg" />
     <Content Include="Content\icon\tag-add.png" />
     <Content Include="Content\icon\thumb-up-blue.png" />
     <Content Include="Content\icon\thumb-up-light.png" />

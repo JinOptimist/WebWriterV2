@@ -393,7 +393,7 @@ body {
         box-sizing: border-box;
 
         .user-avatar-block {
-            display: inline-block;
+            display: flex;
             width: 32px;
             height: 32px;
             margin: 9px 0 8px 24px;
@@ -403,13 +403,39 @@ body {
             width: 238px;
             margin-left: 16px;
 
-            .author-name {
-                color: $black;
-                font-weight: bold;
+            .line-one {
+                display: flex;
+                align-items: center;
+                height: 10px;
+                margin: 10px 0 0 0;
+                /*font-size: 12px;
+                line-height: 16px;*/
+                .author-name {
+                    font-size: 12px;
+                    line-height: 16px;
+                    letter-spacing: 0.4px;
+                    color: $black;
+                    font-weight: bold;
+                }
             }
 
             .line-two {
+                height: 16px;
+                display: flex;
+                align-items: center;
                 color: rgba(0, 0, 0, 0.36);
+                margin: 6px 0 7px 0;
+                font-size: 12px;
+                line-height: 16px;
+                letter-spacing: 0.4px;
+
+                .date {
+                    margin: 0 16px 0 8px;
+                }
+
+                .time {
+                    margin: 0 0 0 8px;
+                }
             }
         }
 

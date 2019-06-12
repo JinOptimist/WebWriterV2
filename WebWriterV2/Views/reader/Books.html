@@ -26,6 +26,45 @@
                 </p>
                 <p class="line-two">
                     <span class="icon calendar"></span>
+                    <span class="date" ng-show="book.PublicationDate">{{book.PublicationDate}} </span>
+                    <span class="icon time"></span> 
+                    <span class="time"></span> {{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}}
+                </p>
+            </div>
+            <div class="tags-block">
+                <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
+            </div>
+        </div>
+
+        <p class="name">
+            {{book.Name}}
+        </p>
+        <p class="desc">
+            {{book.Desc}}
+        </p>
+        <div class="actions">
+            <a href="#" ng-click="goToTravel(book)" ng-if="!book.IsReadedEnd">
+                <span class="button-medium-gray">
+                    {{book.IsReaded ? resources.ReaderBooks_ContinueTavel : resources.ReaderBooks_StartTravel }}
+                </span>
+            </a>
+
+            <span class="button-medium-gray disabled" ng-if="book.IsReadedEnd">
+                {{resources.ReaderBooks_TheBookIsReaded}}
+            </span>
+        </div>
+    </div>
+    <div class="book" ng-repeat="book in books | filter : filterObj " ng-click="readBook(book.Id)">
+        <div class="header">
+            <div class="user-avatar-block">
+                <img src="../content/avatar/avatarTest.png" title="{{book.AuthorFullName}}" class="user-avatar" />
+            </div>
+            <div class="detail-block">
+                <p class="line-one">
+                    <span class="author-name">{{book.AuthorFullName}}</span>
+                </p>
+                <p class="line-two">
+                    <span class="icon calendar"></span>
                     <span ng-show="book.PublicationDate">{{book.PublicationDate}} </span>
                     <span class="icon time"></span> {{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}}
                 </p>
@@ -47,7 +86,45 @@
                     {{book.IsReaded ? resources.ReaderBooks_ContinueTavel : resources.ReaderBooks_StartTravel }}
                 </span>
             </a>
-            
+
+            <span class="button-medium-gray disabled" ng-if="book.IsReadedEnd">
+                {{resources.ReaderBooks_TheBookIsReaded}}
+            </span>
+        </div>
+    </div>
+    <div class="book" ng-repeat="book in books | filter : filterObj " ng-click="readBook(book.Id)">
+        <div class="header">
+            <div class="user-avatar-block">
+                <img src="../content/avatar/avatarTest.png" title="{{book.AuthorFullName}}" class="user-avatar" />
+            </div>
+            <div class="detail-block">
+                <p class="line-one">
+                    <span class="author-name">{{book.AuthorFullName}}</span>
+                </p>
+                <p class="line-two">
+                    <span class="icon calendar"></span>
+                    <span ng-show="book.PublicationDate">{{book.PublicationDate}} </span>
+                    <span class="icon time"></span> {{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}}
+                </p>
+            </div>
+            <div class="tags-block">
+                <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
+            </div>
+        </div>
+
+        <p class="name">
+            {{book.Name}}
+        </p>
+        <p class="desc">
+            {{book.Desc}}
+        </p>
+        <div class="actions">
+            <a href="#" ng-click="goToTravel(book)" ng-if="!book.IsReadedEnd">
+                <span class="button-medium-gray">
+                    {{book.IsReaded ? resources.ReaderBooks_ContinueTavel : resources.ReaderBooks_StartTravel }}
+                </span>
+            </a>
+
             <span class="button-medium-gray disabled" ng-if="book.IsReadedEnd">
                 {{resources.ReaderBooks_TheBookIsReaded}}
             </span>
