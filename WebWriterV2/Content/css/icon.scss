@@ -54,9 +54,15 @@
 }
 
 .calendar {
-    width: 47px;
+    /*width: 47px;
     height: 56px;
-    background-position: -217px -111px;
+    background-position: -217px -111px;*/
+    /*hot fix*/
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-image: url(../icon/calendar.png);
+    background-repeat: no-repeat;
 }
 
 .close {
@@ -156,9 +162,15 @@
 }
 
 .time {
-    width: 57px;
+    /*width: 57px;
     height: 57px;
-    background-position: -5px -391px;
+    background-position: -5px -391px;*/
+    /*hot fix*/
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-image: url(../icon/time.png);
+    background-repeat: no-repeat;
 }
 
 .wait {

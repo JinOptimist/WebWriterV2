@@ -29,6 +29,7 @@ namespace WebWriterV2.FrontModels
             logger.Info($"Book contains cycle = {ContainsCycle}");
 
             book.AllChapters.ForEach(x => x.Level = 0);
+            logger.Info($"Before maxDepth");
             var maxDepth = SetDepth(book);
 
             logger.Info($"maxDepth = {maxDepth}");
@@ -77,7 +78,7 @@ namespace WebWriterV2.FrontModels
             var chaptersOnCurrentLevel = book.RootChapter.LinksFromThisChapter.Select(x => x.To);
             var visited = new List<Chapter> { book.RootChapter };
             book.RootChapter.Level = 1;
-
+            
             while (chaptersOnCurrentLevel.Any()) {
                 maxDepth++;
                 var chaptersOnNextLevel = new List<Chapter>();
@@ -87,12 +88,12 @@ namespace WebWriterV2.FrontModels
                     chaptersOnNextLevel.AddRange(chapter.LinksFromThisChapter.Select(x => x.To));
                 }
 
-                chaptersOnCurrentLevel = chaptersOnNextLevel;
+                chaptersOnCurrentLevel = chaptersOnNextLevel.Distinct();
                 if (ContainsCycle) {
                     chaptersOnCurrentLevel = chaptersOnCurrentLevel.Where(x => !visited.Any(v => x.Id == v.Id));
                 }
-                
             }
+            logger.Info($"SetDepth end. maxDepth = {maxDepth}. chaptersOnCurrentLevel.count == {chaptersOnCurrentLevel.Count()}. visited.count == {visited.Count()}");
 
             return maxDepth;
         }

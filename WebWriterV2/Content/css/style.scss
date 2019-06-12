@@ -358,7 +358,7 @@ body {
 
 .book {
     background-color: $white;
-    display: flex;
+    display: inline-block;
     flex-direction: column;
     width: 328px;
     height: 343px;
