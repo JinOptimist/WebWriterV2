@@ -6,7 +6,7 @@ namespace Dal.Repository
 {
     public class StateValueRepository : BaseRepository<StateValue>, IStateValueRepository
     {
-        private readonly StateTypeRepository _stateTypeRepository;
+        private readonly IStateTypeRepository _stateTypeRepository;
         public StateValueRepository(WriterContext db) : base(db)
         {
             _stateTypeRepository = new StateTypeRepository(db);
