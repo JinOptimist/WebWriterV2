@@ -429,12 +429,8 @@ body {
                 line-height: 16px;
                 letter-spacing: 0.4px;
 
-                .date {
-                    margin: 0 16px 0 8px;
-                }
-
-                .time {
-                    margin: 0 0 0 8px;
+                span {
+                    margin: 0 8px 0 0;
                 }
             }
         }
@@ -1352,7 +1348,8 @@ body {
 
 .profile-page {
     padding: 0 35px;
-    .recover-password{
+
+    .recover-password {
         color: $orangeV2;
     }
 }
