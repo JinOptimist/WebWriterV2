@@ -1,5 +1,5 @@
 ﻿<div class="wide-header">
-	<div class="content" id="sub-header">
+    <div class="content" id="sub-header">
         <div class="book-menu r-reg">
             <ul>
                 <li ng-repeat="filter in listOfFilters" ng-click="chooseFilter(filter)" ng-class="{active: filter.active}">
@@ -17,7 +17,7 @@
 
     <div class="book" ng-repeat="book in books | filter : filterObj " ng-click="readBook(book.Id)">
         <div class="header">
-            
+
             <div class="user-avatar-block">
                 <img ng-src="{{book.AuthorAvatar}}" title="{{book.AuthorFullName}}" class="user-avatar" />
             </div>
@@ -29,7 +29,7 @@
                     <span class="icon calendar"></span>
                     <span class="date" ng-show="book.PublicationDate">{{book.PublicationDate}} </span>
                     <span class="icon time"></span>
-                    <span class="time"></span> {{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}}
+                    <span>{{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}}</span>
                 </p>
             </div>
             <div class="tags-block">
