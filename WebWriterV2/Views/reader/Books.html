@@ -17,7 +17,6 @@
 
     <div class="book" ng-repeat="book in books | filter : filterObj " ng-click="readBook(book.Id)">
         <div class="header">
-
             <div class="user-avatar-block">
                 <img ng-src="{{book.AuthorAvatar}}" title="{{book.AuthorFullName}}" class="user-avatar" />
             </div>
@@ -36,23 +35,26 @@
                 <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
             </div>
         </div>
-
-        <p class="name">
-            {{book.Name}}
-        </p>
-        <p class="desc">
-            {{book.Desc}}
-        </p>
-        <div class="actions">
-            <a href="#" ng-click="goToTravel(book)" ng-if="!book.IsReadedEnd">
-                <span class="button-medium-gray">
-                    {{book.IsReaded ? resources.ReaderBooks_ContinueTavel : resources.ReaderBooks_StartTravel }}
-                </span>
-            </a>
-
-            <span class="button-medium-gray disabled" ng-if="book.IsReadedEnd">
-                {{resources.ReaderBooks_TheBookIsReaded}}
-            </span>
+        <div class="book-content">
+            <input type="button" name="tag" value="КОМЕДИЯ" />
+            <p class="name">
+                {{book.Name}}
+                История о том, зачем орки напали на Русь
+            </p>
+            <p class="desc">
+                {{book.Desc}}
+                Эта история случилась давно, когда не было известно, кто такие орки, что такое Русь, когда были просто люди со своими бедами и радостями.
+            </p>
+            <div class="actions">
+                <a href="#" ng-click="goToTravel(book)" ng-if="!book.IsReadedEnd">
+                    <span class="button-medium-gray">
+                        {{book.IsReaded ? resources.ReaderBooks_ContinueTavel : resources.ReaderBooks_StartTravel }}
+                    </span>
+                </a>
+                <!--<span class="button-medium-gray disabled" ng-if="book.IsReadedEnd">
+                    {{resources.ReaderBooks_TheBookIsReaded}}
+                </span>-->
+            </div>
         </div>
     </div>
 </div>
