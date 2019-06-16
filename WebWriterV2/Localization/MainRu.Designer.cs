@@ -547,7 +547,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Продолжить путь &gt;.
+        ///   Ищет локализованную строку, похожую на ПРОДОЛЖИТЬ ПУТЬ.
         /// </summary>
         internal static string ReaderBooks_ContinueTavel {
             get {
@@ -574,7 +574,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Начать путь &gt;.
+        ///   Ищет локализованную строку, похожую на НАЧАТЬ ПУТЬ.
         /// </summary>
         internal static string ReaderBooks_StartTravel {
             get {
@@ -583,7 +583,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Прочитана.
+        ///   Ищет локализованную строку, похожую на ПРОЧИТАНА.
         /// </summary>
         internal static string ReaderBooks_TheBookIsReaded {
             get {
