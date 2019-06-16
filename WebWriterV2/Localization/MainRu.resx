@@ -139,13 +139,13 @@
     <value>Пароль</value>
   </data>
   <data name="ReaderBooks_ContinueTavel" xml:space="preserve">
-    <value>Продолжить путь &gt;</value>
+    <value>ПРОДОЛЖИТЬ ПУТЬ</value>
   </data>
   <data name="ReaderBooks_StartTravel" xml:space="preserve">
-    <value>Начать путь &gt;</value>
+    <value>НАЧАТЬ ПУТЬ</value>
   </data>
   <data name="ReaderBooks_TheBookIsReaded" xml:space="preserve">
-    <value>Прочитана</value>
+    <value>ПРОЧИТАНА</value>
   </data>
   <data name="Reader_Articles" xml:space="preserve">
     <value>Статьи</value>

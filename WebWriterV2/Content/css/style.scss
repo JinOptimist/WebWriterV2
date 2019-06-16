@@ -482,7 +482,7 @@ body {
         }
 
         .desc {
-            height: 99px;
+            height: 78px;
             overflow: hidden;
             font-family: 'Montserrat', sans-serif;
             font-size: 14px;
@@ -505,9 +505,11 @@ body {
         }
 
         .actions {
-            position: absolute;
-            bottom: 30px;
-            left: 58px;
+            display: flex;
+            align-items: center;
+            height: 20px;
+            margin-bottom: 24px;
+            margin-top: 14px;
         }
     }
 
@@ -1328,15 +1330,21 @@ body {
 
 .button-medium-gray,
 .button-medium-blue {
-    border-radius: 24px;
-    padding: 5px 12px;
+    /*border-radius: 24px;
+    padding: 5px 12px;*/
     cursor: pointer;
 }
 
 .button-medium-gray {
-    color: $gray-middle;
+    /*color: $gray-middle;*/
     background-color: $white;
-    border: 2px solid $gray-middle;
+    /*border: 2px solid $gray-middle;*/
+    font-family: Montserrat;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 1.25px;
+    color: $blueV2;
 }
 
 .button-medium-blue {
