@@ -301,9 +301,16 @@
     <Content Include="Content\icon\spritesheet.png" />
     <Content Include="Content\icon\svg\arrow-back.svg" />
     <Content Include="Content\icon\svg\arrow-forward.svg" />
+    <Content Include="Content\icon\svg\bookmark-active.svg" />
+    <Content Include="Content\icon\svg\bookmark-hover.svg" />
+    <Content Include="Content\icon\svg\bookmark.svg" />
     <Content Include="Content\icon\svg\calendar.svg" />
+    <Content Include="Content\icon\svg\comment.svg" />
     <Content Include="Content\icon\svg\letter.svg" />
     <Content Include="Content\icon\svg\naractivity.svg" />
+    <Content Include="Content\icon\svg\share.svg" />
+    <Content Include="Content\icon\svg\thumb-up-active.svg" />
+    <Content Include="Content\icon\svg\thumb-up.svg" />
     <Content Include="Content\icon\svg\time.svg" />
     <Content Include="Content\icon\tag-add.png" />
     <Content Include="Content\icon\thumb-up-blue.png" />

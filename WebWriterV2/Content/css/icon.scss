@@ -44,21 +44,27 @@
 }
 
 .bookmark {
-    width: 96px;
-    height: 96px;
-    background-position: -254px -5px;
-}
+    width: 16px;
+    height: 20px;
+    background-size: contain;
+    background-image: url(../icon/svg/bookmark.svg);
+    background-repeat: no-repeat;
 
-.bookmark-active {
-    width: 96px;
-    height: 96px;
-    background-position: -5px -111px;
-}
+    &:hover {
+        width: 16px;
+        height: 20px;
+        background-size: contain;
+        background-image: url(../icon/svg/bookmark-hover.svg);
+        background-repeat: no-repeat;
+    }
 
-.bookmark-hover {
-    width: 96px;
-    height: 96px;
-    background-position: -111px -111px;
+    &:active {
+        width: 16px;
+        height: 20px;
+        background-size: contain;
+        background-image: url(../icon/svg/bookmark-active.svg);
+        background-repeat: no-repeat
+    }
 }
 
 .calendar {
@@ -80,9 +86,11 @@
 }
 
 .comment {
-    width: 81px;
-    height: 86px;
-    background-position: -274px -111px;
+    width: 18px;
+    height: 18px;
+    background-size: contain;
+    background-image: url(../icon/svg/comment.svg);
+    background-repeat: no-repeat;
 }
 
 .eye-dark {
@@ -146,9 +154,11 @@
 }
 
 .share {
-    width: 87px;
-    height: 80px;
-    background-position: -384px -5px;
+    width: 21.2px;
+    height: 18px;
+    background-size: contain;
+    background-image: url(../icon/svg/share.svg);
+    background-repeat: no-repeat;
 }
 
 .tag-add {
@@ -157,16 +167,20 @@
     background-position: -365px -95px;
 }
 
-.thumb-up-blue {
-    width: 92px;
-    height: 85px;
-    background-position: -366px -201px;
-}
+.thumb-up {
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-image: url(../icon/svg/thumb-up.svg);
+    background-repeat: no-repeat;
 
-.thumb-up-light {
-    width: 92px;
-    height: 85px;
-    background-position: -338px -296px;
+    &:active {
+        width: 24px;
+        height: 24px;
+        background-size: contain;
+        background-image: url(../icon/svg/thumb-up-active.svg);
+        background-repeat: no-repeat;
+    }
 }
 
 .time {
