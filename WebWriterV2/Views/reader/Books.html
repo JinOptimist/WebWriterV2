@@ -31,11 +31,13 @@
                     <span>{{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}}</span>
                 </p>
             </div>
+        </div>
+        <div class="book-content">
+
             <div class="tags-block">
                 <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
             </div>
-        </div>
-        <div class="book-content">
+
             <input type="button" name="tag" value="КОМЕДИЯ" />
             <p class="name">
                 {{book.Name}}
@@ -53,8 +55,8 @@
                     <span class="icon arrow-forward"></span>
                 </a>
                 <!--<span class="button-medium-gray disabled" ng-if="book.IsReadedEnd">
-                    {{resources.ReaderBooks_TheBookIsReaded}}
-                </span>-->
+            {{resources.ReaderBooks_TheBookIsReaded}}
+        </span>-->
             </div>
         </div>
         <div class="book-footer">

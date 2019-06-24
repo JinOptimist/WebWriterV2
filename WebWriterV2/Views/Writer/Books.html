@@ -3,7 +3,7 @@
         <div class="project-list">
             <ul>
                 <li>Все проекты<span class="gray-text"> | {{books.length}} проектов</span></li>
-                    <!--<li class="size-action"><input type="range" /></li>-->
+                <!--<li class="size-action"><input type="range" /></li>-->
             </ul>
         </div>
 
@@ -34,20 +34,41 @@
     <div ng-if="!books || !questionnaires" class="wait-block">
         <img src="/Content/icon/wait.gif" />
     </div>
-    <div class="book" 
+    <div class="book"
          ng-show="books && questionnaires.skipQuestionnaires"
-         ng-repeat="book in books  | filter: filter " 
+         ng-repeat="book in books  | filter: filter "
          ng-class="book.IsPublished ? 'published' : 'draft'">
-
-        <a class="writer-actions-toggle" ng-click="toggleActionsBlock($event, book)">...</a>
-        <div class="writer-actions-menu" ng-show="book.actionsActive">
-            <a href="#" ng-click="switchToEditModeBookForNameOrDesc(book)">{{resources.Writer_EditNameOrDesc}}</a>
-            <a href="#" ng-click="remove(book, $index)">{{resources.Writer_RemoveBook}}</a>
-            <a href="#" ng-click="togglePublish(book)">{{book.IsPublished ? resources.Writer_UnPublish : resources.Writer_Publish}}</a>
-            <!--<p ng-if="book.IsPublished">{{resources.Writer_StatePublished}}</p>
-            <p ng-if="!book.IsPublished">{{resources.Writer_StateUnPublished}}</p>-->
+        <div class="header">
+            <div class="user-avatar-block">
+                <img ng-src="{{book.AuthorAvatar}}" title="{{book.AuthorFullName}}" class="user-avatar" />
+            </div>
+            <div class="detail-block">
+                <p class="line-one">
+                    <span class="author-name">{{book.AuthorFullName}}</span>
+                </p>
+                <p class="line-two">
+                    <span class="icon calendar"></span>
+                    <span class="date" ng-show="book.PublicationDate">{{book.PublicationDate}} </span>
+                    <span class="icon time"></span>
+                    <span>{{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}}</span>
+                </p>
+            </div>
+            <div>
+                <a class="writer-actions-toggle icon menu-icon" ng-click="toggleActionsBlock($event, book)"></a>
+                <div class="writer-actions-menu" ng-show="book.actionsActive">
+                    <a href="#" ng-click="switchToEditModeBookForNameOrDesc(book)">{{resources.Writer_EditNameOrDesc}}</a>
+                    <a href="#" ng-click="remove(book, $index)">{{resources.Writer_RemoveBook}}</a>
+                    <a href="#" ng-click="togglePublish(book)">{{book.IsPublished ? resources.Writer_UnPublish : resources.Writer_Publish}}</a>
+                    <!--<p ng-if="book.IsPublished">{{resources.Writer_StatePublished}}</p>
+                    <p ng-if="!book.IsPublished">{{resources.Writer_StateUnPublished}}</p>-->
+                </div>
+            </div>
         </div>
 
+
+        <div class="tags-block">
+            <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
+        </div>
 
         <div class="name">
             <span ng-show="!book.isEdit">{{book.Name}}</span>
