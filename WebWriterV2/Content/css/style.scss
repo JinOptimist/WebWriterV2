@@ -474,8 +474,16 @@ body {
 
             input {
                 width: 100%;
+                padding-left: 2px;
+                /*border-left: 2px solid rgba(0, 0, 0, 0.36);*/
                 font-family: 'Montserrat', sans-serif;
+                font-weight: 600;
                 font-size: 20px;
+                line-height: 24px;
+                letter-spacing: 0.15px;
+                color: rgba(0, 0, 0, 0.36);
+                border-radius: 0;
+                background: $white;
             }
         }
 
@@ -491,12 +499,13 @@ body {
 
             textarea {
                 width: 100%;
-                height: 150px;
+                height: 74px;
                 font-family: 'Montserrat', sans-serif;
+                font-weight: normal;
                 font-size: 14px;
                 line-height: 20px;
                 letter-spacing: 0.25px;
-                color: rgba(0, 0, 0, 0.6);
+                color: rgba(0, 0, 0, 0.36);
                 overflow: hidden;
                 resize: none;
             }
@@ -517,6 +526,18 @@ body {
         align-items: center;
         border-top: 1px solid rgba(0, 0, 0, 0.12);
         box-sizing: border-box;
+
+        .publish {
+            width: 163px;
+            height: 46px;
+            border-right: 1px solid rgba(0, 0, 0, 0.12);
+        }
+
+        .preview-block {
+            width: 126px;
+            justify-content: center;
+            margin-right: 24px;
+        }
 
         div {
             margin-left: 16px;
@@ -1360,7 +1381,7 @@ body {
     /*color: $gray-middle;*/
     background-color: $white;
     /*border: 2px solid $gray-middle;*/
-    font-family: Montserrat;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 600;
     font-size: 14px;
     line-height: 16px;
