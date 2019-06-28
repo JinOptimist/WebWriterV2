@@ -306,9 +306,12 @@
     <Content Include="Content\icon\svg\bookmark.svg" />
     <Content Include="Content\icon\svg\calendar.svg" />
     <Content Include="Content\icon\svg\comment.svg" />
+    <Content Include="Content\icon\svg\eye-hover.svg" />
+    <Content Include="Content\icon\svg\eye.svg" />
     <Content Include="Content\icon\svg\letter.svg" />
     <Content Include="Content\icon\svg\menu.svg" />
     <Content Include="Content\icon\svg\naractivity.svg" />
+    <Content Include="Content\icon\svg\preview.svg" />
     <Content Include="Content\icon\svg\share.svg" />
     <Content Include="Content\icon\svg\thumb-up-active.svg" />
     <Content Include="Content\icon\svg\thumb-up.svg" />

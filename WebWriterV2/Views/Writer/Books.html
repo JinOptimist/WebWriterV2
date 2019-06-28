@@ -64,35 +64,53 @@
                 </div>
             </div>
         </div>
+        <div class="book-content">
+            <div class="tags-block">
+                <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
+            </div>
+            <div>
+                <span ng-show="book.Tags && book.Tags.length > 0">{{resources.Tags}}:</span>
+                <span ng-repeat="tag in book.Tags" class="tag" data-tag-id="{{tag.Id}}">
+                    {{tag.Name}}
+                    <span class="icon close" ng-click="removeTag(book, tag, $index)"></span>
+                </span>
+            </div>
+            <div>
+                <input class="newTag" ng-model="book.newTag.Name" ng-keypress="tagAdd($event, book)" placeholder="{{resources.Writer_EnterTag}}" />
+            </div>
 
-
-        <div class="tags-block">
-            <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
+            <div class="name">
+                <!--<span ng-show="!book.isEdit">{{book.Name}}</span>-->
+                <!--<input ng-show="book.isEdit" ng-model="book.Name" />-->
+                <input type="text" name="name" value="| Заголовок" />
+            </div>
+            <div class="desc">
+                <!--<p ng-show="!book.isEdit">{{book.Desc}}</p>
+                <textarea ng-model="book.Desc" ng-show="book.isEdit" class="no-border"></textarea>-->
+                <textarea placeholder="| Описание" class="no-border"></textarea>
+            </div>
+            <div ng-show="book.isEdit">
+                <a href="#" ng-click="updateBookNameAndDesc(book)">
+                    <span class="button-medium-blue">{{resources.Writer_Confirm}}</span>
+                </a>
+            </div>
+            <div>
+                <a href="/ar/writer/book/{{book.Id}}">
+                    <span class="button-medium-gray">РЕДАКТИРОВАТЬ</span>
+                    <span class="icon arrow-forward"></span>
+                    <!--<span class="button-medium-blue">{{resources.Writer_WorkOnProject}}</span>-->
+                </a>
+            </div>
         </div>
-
-        <div class="name">
-            <span ng-show="!book.isEdit">{{book.Name}}</span>
-            <input ng-show="book.isEdit" ng-model="book.Name" />
-        </div>
-        <div class="desc">
-            <p ng-show="!book.isEdit">{{book.Desc}}</p>
-            <textarea ng-model="book.Desc" ng-show="book.isEdit" class="no-border"></textarea>
-        </div>
-        <div ng-show="book.isEdit">
-            <a href="#" ng-click="updateBookNameAndDesc(book)"><span class="button-medium-blue">{{resources.Writer_Confirm}}</span></a>
-        </div>
-        <div>
-            <span ng-show="book.Tags && book.Tags.length > 0">{{resources.Tags}}:</span>
-            <span ng-repeat="tag in book.Tags" class="tag" data-tag-id="{{tag.Id}}">
-                {{tag.Name}}
-                <span class="icon close" ng-click="removeTag(book, tag, $index)"></span>
-            </span>
-        </div>
-        <div>
-            <input class="newTag" ng-model="book.newTag.Name" ng-keypress="tagAdd($event, book)" placeholder="{{resources.Writer_EnterTag}}" />
-        </div>
-        <div>
-            <a href="/ar/writer/book/{{book.Id}}"><span class="button-medium-blue">{{resources.Writer_WorkOnProject}}</span></a>
+        <div class="book-footer">
+            <div class="publish">
+                <span class="icon eye"></span>
+                <span>Опубликовать</span>
+            </div>
+            <div class="preview-block">
+                <span class="icon preview"></span>
+                <span>Превью</span>
+            </div>
         </div>
     </div>
 
