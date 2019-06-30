@@ -5,6 +5,7 @@ angular.module('rpg')
         function ($scope, $routeParams, $location, $cookies, bookService, travelService, userService) {
 
             $scope.books = null;
+            $scope.user = null;
             $scope.filterObj = {};
             $scope.listOfFilters = [];
             $scope.resources = resources;
@@ -25,17 +26,40 @@ angular.module('rpg')
                 } else {
                     $location.path('/ar/reader/travel-guest/' + book.RootChapterId);
                 }
-            }
+            };
 
             $scope.chooseFilter = function (filter) {
                 $scope.listOfFilters.forEach(function (x) { x.active = false; });//x => x.active = false
                 filter.active = true;
                 $scope.filterObj = filter.filterObj;
-            }
+            };
+
+            $scope.like = function (book) {
+                bookService.like(book.Id).then(function () {
+                    console.log('User like book: ' + book.Id);
+                });
+
+                book.UserLikedIt = !book.UserLikedIt;
+                if (book.UserLikedIt) {
+                    book.Likes++;
+                } else {
+                    book.Likes--;
+                }
+            };
 
             function loadBooks() {
                 bookService.getAll().then(function (books) {
                     $scope.books = books;
+                });
+            }
+
+            function loadUser() {
+                var userId = userService.getCurrentUserId();
+                if (!userId)
+                    return;
+
+                userService.getById(userId).then(function (user) {
+                    $scope.user = user;
                 });
             }
 
@@ -58,6 +82,7 @@ angular.module('rpg')
             }
 
             function init() {
+                loadUser();
                 loadBooks();
                 initFilters();
             }

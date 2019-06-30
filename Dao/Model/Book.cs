@@ -22,6 +22,7 @@ namespace Dal.Model
         public virtual List<Evaluation> Evaluations { get; set; }
         public virtual List<UserWhoReadBook> Readers { get; set; }
         public virtual List<Travel> Travels { get; set; }
+        public virtual List<Like> Likes { get; set; }
 
         public virtual Genre Genre { get; set; }
         public virtual List<Tag> Tags { get; set; }
@@ -29,6 +30,7 @@ namespace Dal.Model
         public bool IsPublished { get; set; }
         public virtual DateTime? PublicationDate { get; set; }
         public int Views { get; set; }
+        
 
         public long NumberOfChapters { get; set; }
         public long NumberOfWords { get; set; }

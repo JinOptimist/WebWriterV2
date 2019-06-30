@@ -19,7 +19,7 @@ namespace WebWriterV2.Controllers
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public BookController(IBookRepository bookRepository, IChapterRepository chapterRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IStateValueRepository stateValueRepository, IStateTypeRepository stateTypeRepository, ITagRepository tagRepository, IUserRepository userRepository)
+        public BookController(IBookRepository bookRepository, IChapterRepository chapterRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IStateValueRepository stateValueRepository, IStateTypeRepository stateTypeRepository, ITagRepository tagRepository, IUserRepository userRepository, ILikeRepository likeRepository)
         {
             BookRepository = bookRepository;
             ChapterRepository = chapterRepository;
@@ -29,6 +29,7 @@ namespace WebWriterV2.Controllers
             StateTypeRepository = stateTypeRepository;
             TagRepository = tagRepository;
             UserRepository = userRepository;
+            LikeRepository = likeRepository;
         }
 
         private IBookRepository BookRepository { get; }
@@ -39,7 +40,8 @@ namespace WebWriterV2.Controllers
         private IStateTypeRepository StateTypeRepository { get; }
         private ITagRepository TagRepository { get; }
         private IUserRepository UserRepository { get; }
-
+        private ILikeRepository LikeRepository { get; }
+        
         [AcceptVerbs("GET")]
         public List<FrontBook> GetAll()
         {
@@ -228,7 +230,32 @@ namespace WebWriterV2.Controllers
 
             return true;
         }
-        
+
+        [AcceptVerbs("GET")]
+        public bool Like(long id)
+        {
+            var book = BookRepository.Get(id);
+            var user = User;
+
+            var like = book.Likes?.FirstOrDefault(x => x.User.Id == user.Id);
+            if (like == null)
+            {
+                // if user wasn't like book before, create new like obj
+                LikeRepository.Save(new Like()
+                {
+                    Book = book,
+                    User = user,
+                    Time = DateTime.Now
+                });
+            }
+            else
+            {
+                // if already liked, removed like
+                LikeRepository.Remove(like);
+            }
+
+            return true;
+        }
 
         //EXPEREMENAL
         [AcceptVerbs("GET")]

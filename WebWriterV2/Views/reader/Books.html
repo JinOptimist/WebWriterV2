@@ -59,12 +59,12 @@
                 </span>-->
             </div>
         </div>
-        <div class="book-footer">
+        <div class="book-footer" ng-show="user">
             <div>
-                <span class="icon thumb-up"></span>
-                <span>534</span>
+                <span class="icon thumb-up {{book.UserLikedIt ? 'active' : ''}}" ng-click="like(book)"></span>
+                <span>{{book.Likes}}</span>
             </div>
-            <div>
+            <!--<div>
                 <span class="icon comment"></span>
                 <span>26</span>
             </div>
@@ -74,7 +74,7 @@
             </div>
             <div>
                 <span class="icon bookmark"></span>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>

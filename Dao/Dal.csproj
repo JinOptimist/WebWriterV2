@@ -73,6 +73,7 @@
   <ItemGroup>
     <Compile Include="ContextForRepository.cs" />
     <Compile Include="DataGeneration\GenerateData.cs" />
+    <Compile Include="IRepository\ILikeRepository.cs" />
     <Compile Include="IRepository\IQuestionAnswerRepository.cs" />
     <Compile Include="IRepository\IQuestionRepository.cs" />
     <Compile Include="IRepository\IQuestionnaireResultRepository.cs" />
@@ -209,6 +210,10 @@
     <Compile Include="Migrations\201901311028306_NameNoTUniq.Designer.cs">
       <DependentUpon>201901311028306_NameNoTUniq.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201906301217268_AddLikes.cs" />
+    <Compile Include="Migrations\201906301217268_AddLikes.Designer.cs">
+      <DependentUpon>201906301217268_AddLikes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Article.cs" />
     <Compile Include="Model\BaseModel.cs" />
@@ -218,6 +223,7 @@
     <Compile Include="Model\QuestionnaireResult.cs" />
     <Compile Include="Model\Questionnaire.cs" />
     <Compile Include="Model\Tag.cs" />
+    <Compile Include="Model\Like.cs" />
     <Compile Include="Model\TravelStep.cs" />
     <Compile Include="Model\Travel.cs" />
     <Compile Include="Model\UserWhoReadBook.cs" />
@@ -234,6 +240,7 @@
     <Compile Include="Model\Chapter.cs" />
     <Compile Include="Model\Book.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\LikeRepository.cs" />
     <Compile Include="Repository\QuestionRepository.cs" />
     <Compile Include="Repository\QuestionnaireResultRepository.cs" />
     <Compile Include="Repository\QuestionnaireRepository.cs" />
@@ -351,6 +358,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901311028306_NameNoTUniq.resx">
       <DependentUpon>201901311028306_NameNoTUniq.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201906301217268_AddLikes.resx">
+      <DependentUpon>201906301217268_AddLikes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
