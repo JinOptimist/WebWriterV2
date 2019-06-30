@@ -36,6 +36,8 @@ namespace Dal.Model
 
         public virtual List<StateType> StateTypes { get; set; }
 
+        public virtual List<Like> Likes { get; set; }
+
         //public virtual List<ThingSample> ThingsSample { get; set; }
 
         /// <summary>

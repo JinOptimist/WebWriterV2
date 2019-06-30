@@ -23,6 +23,9 @@ namespace WebWriterV2.FrontModels
             NumberOfChapters = book.AllChapters?.Sum(x => x.Desc.Length) ?? 0; //book.NumberOfChapters;
             NumberOfWords = book.AllChapters?.Sum(x => x.NumberOfWords) ?? 0; //book.NumberOfWords;
             Views = book.Views;
+            Likes = book.Likes?.Count ?? 0;
+            UserLikedIt = book.Likes?.Any(x => x.User.Id == user?.Id) ?? false;
+
             CountOfChapter = book.AllChapters.Count;
 
             if (book.PublicationDate.HasValue)
@@ -65,9 +68,11 @@ namespace WebWriterV2.FrontModels
 
         public long CountOfChapter { get; set; }
         public long Views { get; set; }
+        public long Likes { get; set; }
 
         public bool IsReaded { get; set; }
         public bool IsReadedEnd { get; set; }
+        public bool UserLikedIt { get; set; }
 
         public string AuthorFullName { get; set; }
         public string AuthorAvatar { get; set; }

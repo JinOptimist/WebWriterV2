@@ -14,7 +14,8 @@
             publishBook: publishBook,
             addView: addView,
             addCoAuthor: addCoAuthor,
-            removeCoAuthor: removeCoAuthor
+            removeCoAuthor: removeCoAuthor,
+            like: like
         };
 
         function saveBook(book) {
@@ -102,5 +103,10 @@
                 bookId: bookId
             };
             return httpHelper.get(url, data);
-        } 
+        }
+
+        function like(bookId) {
+            var url = '/api/book/Like?id=' + bookId;
+            return httpHelper.get(url);
+        }
     }]);

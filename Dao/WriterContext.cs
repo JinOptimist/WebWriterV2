@@ -50,6 +50,7 @@ namespace Dal
             modelBuilder.Entity<User>().HasMany(x => x.Evaluations).WithRequired(x => x.Owner).WillCascadeOnDelete(false);
             modelBuilder.Entity<User>().HasMany(x => x.Questionnaires).WithMany(x => x.Users);
             modelBuilder.Entity<User>().HasMany(x => x.QuestionnaireResults).WithOptional(x => x.User);
+            modelBuilder.Entity<User>().HasMany(x => x.Likes).WithRequired(x => x.User).WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Book>().HasMany(x => x.AllChapters).WithRequired(x => x.Book);
             modelBuilder.Entity<Book>().HasMany(x => x.Travels).WithOptional(x => x.Book);
@@ -60,6 +61,7 @@ namespace Dal
             modelBuilder.Entity<Book>().HasMany(x => x.Readers).WithRequired(x => x.Book);
             modelBuilder.Entity<Book>().HasMany(x => x.Tags).WithMany(x => x.Books);
             modelBuilder.Entity<Book>().HasMany(x => x.CoAuthors).WithMany(x => x.AvailableButNotMineBooks);
+            modelBuilder.Entity<Book>().HasMany(x => x.Likes).WithRequired(x => x.Book).WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Chapter>().HasMany(x => x.LinksFromThisChapter).WithRequired(x => x.From).WillCascadeOnDelete(false);
             modelBuilder.Entity<Chapter>().HasMany(x => x.LinksToThisChapter).WithRequired(x => x.To);
