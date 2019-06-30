@@ -14,67 +14,73 @@
     <div ng-if="!books">
         <img src="/Content/icon/wait.gif" />
     </div>
+    <div class="wrapper-book">
+        <div class="book" ng-repeat="book in books | filter : filterObj " ng-click="readBook(book.Id)">
+            <div class="wrapper">
+                <div class="header">
+                    <div class="user-avatar-block">
+                        <img ng-src="{{book.AuthorAvatar}}" title="{{book.AuthorFullName}}" class="user-avatar" />
+                    </div>
+                    <div class="detail-block">
+                        <p class="line-one">
+                            <span class="author-name">{{book.AuthorFullName}}</span>
+                        </p>
+                        <p class="line-two">
+                            <span class="icon calendar"></span>
+                            <span class="date" ng-show="book.PublicationDate">{{book.PublicationDate}} </span>
+                            <span class="icon time"></span>
+                            <span>{{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}}</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="book-content">
 
-    <div class="book" ng-repeat="book in books | filter : filterObj " ng-click="readBook(book.Id)">
-        <div class="header">
-            <div class="user-avatar-block">
-                <img ng-src="{{book.AuthorAvatar}}" title="{{book.AuthorFullName}}" class="user-avatar" />
-            </div>
-            <div class="detail-block">
-                <p class="line-one">
-                    <span class="author-name">{{book.AuthorFullName}}</span>
-                </p>
-                <p class="line-two">
-                    <span class="icon calendar"></span>
-                    <span class="date" ng-show="book.PublicationDate">{{book.PublicationDate}} </span>
-                    <span class="icon time"></span>
-                    <span>{{(book.NumberOfWords / 180 + book.NumberOfChapters / 1500) / 2 | number : 0}}</span>
-                </p>
-            </div>
-        </div>
-        <div class="book-content">
+                    <div class="tags-block">
+                        <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
+                    </div>
 
-            <div class="tags-block">
-                <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
+                    <input type="button" name="tag" value="КОМЕДИЯ" />
+                    <p class="name">
+                        {{book.Name}}
+                        История о том, зачем орки напали на Русь
+                    </p>
+                    <p class="desc">
+                        {{book.Desc}}
+                        Эта история случилась давно, когда не было известно, кто такие орки, что такое Русь, когда были просто люди со своими бедами и радостями.
+                    </p>
+                    <div class="actions">
+                        <a href="#" ng-click="goToTravel(book)" ng-if="!book.IsReadedEnd">
+                            <span class="button-medium-gray">
+                                {{book.IsReaded ? resources.ReaderBooks_ContinueTavel : resources.ReaderBooks_StartTravel }}
+                            </span>
+                            <span class="icon arrow-forward"></span>
+                        </a>
+                        <!--<span class="button-medium-gray disabled" ng-if="book.IsReadedEnd">
+                            {{resources.ReaderBooks_TheBookIsReaded}}
+                        </span>-->
+                    </div>
+                </div>
+                <div class="book-footer">
+                    <div>
+                        <span class="icon thumb-up"></span>
+                        <span>
+                            534
+                        </span>
+                    </div>
+                    <div>
+                        <span class="icon comment"></span>
+                        <span>
+                            26
+                        </span>
+                    </div>
+                    <div>
+                        <span class="icon share"></span>
+                        <span>Поделиться</span>
+                    </div>
+                    <div class="bookmark-margin">
+                        <span class="icon bookmark"></span>
+                    </div>
+                </div>
             </div>
-
-            <input type="button" name="tag" value="КОМЕДИЯ" />
-            <p class="name">
-                {{book.Name}}
-                История о том, зачем орки напали на Русь
-            </p>
-            <p class="desc">
-                {{book.Desc}}
-                Эта история случилась давно, когда не было известно, кто такие орки, что такое Русь, когда были просто люди со своими бедами и радостями.
-            </p>
-            <div class="actions">
-                <a href="#" ng-click="goToTravel(book)" ng-if="!book.IsReadedEnd">
-                    <span class="button-medium-gray">
-                        {{book.IsReaded ? resources.ReaderBooks_ContinueTavel : resources.ReaderBooks_StartTravel }}
-                    </span>
-                    <span class="icon arrow-forward"></span>
-                </a>
-                <!--<span class="button-medium-gray disabled" ng-if="book.IsReadedEnd">
-                    {{resources.ReaderBooks_TheBookIsReaded}}
-                </span>-->
-            </div>
-        </div>
-        <div class="book-footer" ng-show="user">
-            <div>
-                <span class="icon thumb-up {{book.UserLikedIt ? 'active' : ''}}" ng-click="like(book)"></span>
-                <span>{{book.Likes}}</span>
-            </div>
-            <!--<div>
-                <span class="icon comment"></span>
-                <span>26</span>
-            </div>
-            <div>
-                <span class="icon share"></span>
-                <span>Поделиться</span>
-            </div>
-            <div>
-                <span class="icon bookmark"></span>
-            </div>-->
         </div>
     </div>
-</div>
