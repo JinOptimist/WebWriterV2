@@ -188,7 +188,8 @@
     background-image: url(../icon/svg/thumb-up.svg);
     background-repeat: no-repeat;
 
-    &:active {
+    &:active,
+    &.active {
         width: 24px;
         height: 24px;
         background-size: contain;
