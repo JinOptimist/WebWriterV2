@@ -58,9 +58,10 @@
                     <div>
                         <a class="writer-actions-toggle icon menu-icon" ng-click="toggleActionsBlock($event, book)"></a>
                         <div class="writer-actions-menu" ng-show="book.actionsActive">
-                            <a href="#" ng-click="switchToEditModeBookForNameOrDesc(book)">{{resources.Writer_EditNameOrDesc}}</a>
+                            <!--<a href="#" ng-click="switchToEditModeBookForNameOrDesc(book)">{{resources.Writer_EditNameOrDesc}}</a>-->
+                            <span class="icon bin"></span>
                             <a href="#" ng-click="remove(book, $index)">{{resources.Writer_RemoveBook}}</a>
-                            <a href="#" ng-click="togglePublish(book)">{{book.IsPublished ? resources.Writer_UnPublish : resources.Writer_Publish}}</a>
+                            <!--<a href="#" ng-click="togglePublish(book)">{{book.IsPublished ? resources.Writer_UnPublish : resources.Writer_Publish}}</a>-->
                             <!--<p ng-if="book.IsPublished">{{resources.Writer_StatePublished}}</p>
                             <p ng-if="!book.IsPublished">{{resources.Writer_StateUnPublished}}</p>-->
                         </div>
@@ -79,12 +80,12 @@
                     </div>
 
                     <div class="name">
-                        <span ng-show="!book.isEdit">{{book.Name}}</span>
-                        <input ng-show="book.isEdit" ng-model="book.Name" />
+                        <!--<span ng-show="!book.isEdit">{{book.Name}}</span>
+                        <input ng-show="book.isEdit" ng-model="book.Name" />-->
                         <input ng-model="book.Name" type="text" name="name" placeholder="|Заголовок" />
                     </div>
                     <div class="desc">
-                        <p ng-show="!book.isEdit">{{book.Desc}}</p>
+                        <!--<p ng-show="!book.isEdit">{{book.Desc}}</p>-->
                         <textarea ng-model="book.Desc" ng-show="book.isEdit" class="no-border"></textarea>
                         <textarea placeholder="|Описание" class="no-border"></textarea>
                     </div>

@@ -38,9 +38,11 @@
 }
 
 .bin {
-    width: 96px;
-    height: 96px;
-    background-position: -148px -5px;
+    width: 24px;
+    height: 24px;
+    background-size: contain;
+    background-image: url(../icon/svg/bin.svg);
+    background-repeat: no-repeat;
 }
 
 .bookmark {

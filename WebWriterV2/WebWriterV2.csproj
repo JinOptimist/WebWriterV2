@@ -301,6 +301,7 @@
     <Content Include="Content\icon\spritesheet.png" />
     <Content Include="Content\icon\svg\arrow-back.svg" />
     <Content Include="Content\icon\svg\arrow-forward.svg" />
+    <Content Include="Content\icon\svg\bin.svg" />
     <Content Include="Content\icon\svg\bookmark-active.svg" />
     <Content Include="Content\icon\svg\bookmark-hover.svg" />
     <Content Include="Content\icon\svg\bookmark.svg" />
