@@ -489,9 +489,8 @@ body {
                     color: $black;
 
                     input {
-                        width: 100%;
+                        width: 280px;
                         padding-left: 2px;
-                        /*border-left: 2px solid rgba(0, 0, 0, 0.36);*/
                         font-family: 'Montserrat', sans-serif;
                         font-weight: 600;
                         font-size: 20px;
@@ -500,6 +499,11 @@ body {
                         color: rgba(0, 0, 0, 0.36);
                         border-radius: 0;
                         background: $white;
+                    }
+
+                    [placeholder]:focus::-webkit-input-placeholder {
+                        transition: opacity 0.5s 0.5s ease;
+                        opacity: 0;
                     }
                 }
 
@@ -514,7 +518,7 @@ body {
                     text-align: left;
 
                     textarea {
-                        width: 100%;
+                        width: 280px;
                         height: 74px;
                         font-family: 'Montserrat', sans-serif;
                         font-weight: normal;
@@ -524,6 +528,11 @@ body {
                         color: rgba(0, 0, 0, 0.36);
                         overflow: hidden;
                         resize: none;
+                    }
+
+                    [placeholder]:focus::-webkit-input-placeholder {
+                        transition: opacity 0.5s 0.5s ease;
+                        opacity: 0;
                     }
                 }
 
@@ -540,14 +549,14 @@ body {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
-                height: 47px;
+                height: 43px;
                 width: 328px;
                 border-top: 1px solid rgba(0, 0, 0, 0.12);
                 box-sizing: border-box;
 
                 .publish {
                     width: 163px;
-                    height: 46px;
+                    height: 43px;
                     border-right: 1px solid rgba(0, 0, 0, 0.12);
 
                     &:hover {
@@ -566,7 +575,8 @@ body {
                 }
 
                 div {
-                    margin-left: 16px;
+                    /*margin-left: 16px;*/
+                    padding-left: 16px;
                     display: flex;
                     align-items: center;
 
@@ -587,27 +597,39 @@ body {
         }
 
         .writer-actions-menu {
+            display: flex;
+            align-items: center;
+            padding: 0 18px;
             position: absolute;
-            background: $gray-middle;
-            width: 200px;
-            border: 1px #ccc solid;
-            border-radius: 5px;
+            top: 47px;
+            left: 191px;
+            width: 100px;
+            height: 40px;
+            background: $white;
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.05);
+            border-radius: 6px;
+
+            span {
+                margin-right: 8px;
+            }
 
             a {
-                display: block;
+                /*display: block;*/
                 background: $white;
-                border-radius: 5px;
-                margin: 3px;
+                /*border-radius: 5px;
+                margin: 3px;*/
+                font-family: 'Montserrat', sans-serif;
+                font-size: 14px;
+                line-height: 20px;
+                letter-spacing: 0.25px;
+                color: rgba(0, 0, 0, 0.6);
             }
         }
 
         .writer-actions-toggle {
+            position: relative;
             text-align: left;
             display: block;
-            position: relative;
-            /*height: 0;
-        top: -25px;
-        left: -15px;*/
             cursor: pointer;
         }
 

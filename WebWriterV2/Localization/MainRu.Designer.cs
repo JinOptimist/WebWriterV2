@@ -898,7 +898,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Удалить книгу.
+        ///   Ищет локализованную строку, похожую на Удалить.
         /// </summary>
         internal static string Writer_RemoveBook {
             get {

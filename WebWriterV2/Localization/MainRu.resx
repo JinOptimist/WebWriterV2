@@ -274,7 +274,7 @@
     <value>Публиковать</value>
   </data>
   <data name="Writer_RemoveBook" xml:space="preserve">
-    <value>Удалить книгу</value>
+    <value>Удалить</value>
   </data>
   <data name="Writer_RequirementRemoveConfirm" xml:space="preserve">
     <value>Вы уверены что хотите удалить условия видимости?</value>
