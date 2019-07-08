@@ -145,7 +145,7 @@
     <value>НАЧАТЬ ПУТЬ</value>
   </data>
   <data name="ReaderBooks_TheBookIsReaded" xml:space="preserve">
-    <value>ПРОЧИТАНА</value>
+    <value>НАЧАТЬ ЗАНОВО</value>
   </data>
   <data name="Reader_Articles" xml:space="preserve">
     <value>Статьи</value>

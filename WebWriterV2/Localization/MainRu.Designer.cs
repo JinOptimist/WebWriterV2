@@ -583,7 +583,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на ПРОЧИТАНА.
+        ///   Ищет локализованную строку, похожую на НАЧАТЬ ЗАНОВО.
         /// </summary>
         internal static string ReaderBooks_TheBookIsReaded {
             get {
