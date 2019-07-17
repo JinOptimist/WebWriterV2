@@ -550,47 +550,86 @@ body {
                 justify-content: space-between;
                 align-items: center;
                 height: 43px;
-                width: 328px;
+                width: 326px;
                 border-top: 1px solid rgba(0, 0, 0, 0.12);
                 box-sizing: border-box;
+                /*For writer card*/
+                &.writer {
 
-                .publish {
-                    width: 163px;
-                    height: 43px;
-                    border-right: 1px solid rgba(0, 0, 0, 0.12);
+                    button {
+                        display: flex;
+                        justify-content: space-around;
+                        align-items: center;
+                        width: 163px;
+                        height: 42px;
+                        border: none;
+                        border-right: 1px solid rgba(0, 0, 0, 0.12);
+                        outline: none;
+                        background: #fff;
 
-                    &:hover {
-                        background: #FFA800;
+                        &.publish-left-btn {
+                            border-radius: 0 0 0 3px;
+                        }
+
+                        &.preview-right-btn {
+                            border-radius: 0 0 3px 0;
+                            border-right: none;
+
+                            .preview {
+                                margin-left: 20px;
+                            }
+
+                            .preview-block {
+                                padding-right: 20px;
+                            }
+                        }
+
+                        &:hover {
+                            background: #FFA800;
+                            border-right: 1px solid #FFA800;
+
+                            .eye {
+                                background-image: url(../icon/svg/eye-hover.svg);
+                            }
+
+                            .publish {
+                                color: $white;
+                            }
+
+                            .preview {
+                                background-image: url(../icon/svg/preview-hover.svg);
+                            }
+
+                            .preview-block {
+                                color: $white;
+                            }
+                        }
                     }
                 }
+                /*For reader card*/
+                &.reader {
+                    div {
+                        /*margin-left: 16px;*/
+                        padding-left: 16px;
+                        display: flex;
+                        align-items: center;
 
-                .preview-block {
-                    width: 126px;
-                    justify-content: center;
-                    margin-right: 24px;
-                }
+                        .publish-hover:hover {
+                            color: $white;
+                        }
 
-                .bookmark-margin {
-                    margin-right: 18px;
-                }
-
-                div {
-                    /*margin-left: 16px;*/
-                    padding-left: 16px;
-                    display: flex;
-                    align-items: center;
-
-                    .publish-hover:hover {
-                        color: $white;
+                        span {
+                            margin-left: 8px;
+                            font-family: Montserrat;
+                            font-size: 14px;
+                            line-height: 20px;
+                            letter-spacing: 0.25px;
+                            color: rgba(0, 0, 0, 0.6)
+                        }
                     }
 
-                    span {
-                        margin-left: 8px;
-                        font-family: Montserrat;
-                        font-size: 14px;
-                        line-height: 20px;
-                        letter-spacing: 0.25px;
-                        color: rgba(0, 0, 0, 0.6)
+                    .bookmark-margin {
+                        margin-right: 18px;
                     }
                 }
             }
