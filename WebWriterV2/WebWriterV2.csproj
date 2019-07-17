@@ -313,6 +313,7 @@
     <Content Include="Content\icon\svg\letter.svg" />
     <Content Include="Content\icon\svg\menu.svg" />
     <Content Include="Content\icon\svg\naractivity.svg" />
+    <Content Include="Content\icon\svg\preview-hover.svg" />
     <Content Include="Content\icon\svg\preview.svg" />
     <Content Include="Content\icon\svg\share.svg" />
     <Content Include="Content\icon\svg\thumb-up-active.svg" />
