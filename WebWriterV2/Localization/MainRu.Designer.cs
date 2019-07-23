@@ -844,7 +844,7 @@ namespace WebWriterV2.Localization {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на Введите тэг. Нажмите Enter.
+        ///   Ищет локализованную строку, похожую на Добавить жанр.
         /// </summary>
         internal static string Writer_EnterTag {
             get {

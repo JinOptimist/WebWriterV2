@@ -75,7 +75,8 @@
                             <span class="icon close" ng-click="removeTag(book, tag, $index)"></span>
                         </span>
                     </div>
-                    <div>
+                    <div class="newTags-block">
+                        <span class="icon add-genre"></span>
                         <input class="newTag" ng-model="book.newTag.Name" ng-keypress="tagAdd($event, book)" placeholder="{{resources.Writer_EnterTag}}" />
                     </div>
 
