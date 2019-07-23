@@ -256,7 +256,7 @@
     <value>Введите имя книги</value>
   </data>
   <data name="Writer_EnterTag" xml:space="preserve">
-    <value>Введите тэг. Нажмите Enter</value>
+    <value>Добавить жанр</value>
   </data>
   <data name="Writer_InvalidBranchLinkText" xml:space="preserve">
     <value>Не все условия выбора заполнены</value>

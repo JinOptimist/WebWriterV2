@@ -460,11 +460,30 @@ body {
                 display: flex;
                 flex-wrap: wrap;
                 align-content: space-between;
-                /*height: 245px;*/
+                height: 245px;
                 padding: 0 24px 0 24px;
 
-                input {
+                .newTags-block {
+                    display: flex;
                     margin-top: 16px;
+                    align-items: center;
+
+                    .newTag {
+                        display: flex;
+                        align-items: center;
+                        width: 180px;
+                        margin: 10px 0 10px 8px;
+                        font-family: 'Montserrat', sans-serif;
+                        font-size: 12px;
+                        line-height: 16px;
+                        letter-spacing: 0.4px;
+                        color: rgba(0, 0, 0, 0.36);
+                    }
+                }
+
+
+                input {
+                    /*margin-top: 16px;
                     width: 83px;
                     height: 23px;
                     background: #FFA800;
@@ -474,7 +493,7 @@ body {
                     font-size: 10px;
                     line-height: 16px;
                     letter-spacing: 1.5px;
-                    color: $white;
+                    color: $white;*/
                     outline: none;
                     border: none;
                 }
@@ -666,15 +685,10 @@ body {
         }
 
         .writer-actions-toggle {
-            position: relative;
-            text-align: left;
             display: block;
+            padding: 0 10px;
+            position: relative;
             cursor: pointer;
-        }
-
-        .newTag {
-            width: 180px;
-            margin: 10px 0;
         }
     }
 }

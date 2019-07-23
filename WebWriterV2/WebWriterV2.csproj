@@ -299,6 +299,7 @@
     <Content Include="Content\icon\preview.png" />
     <Content Include="Content\icon\share.png" />
     <Content Include="Content\icon\spritesheet.png" />
+    <Content Include="Content\icon\svg\add-genre.svg" />
     <Content Include="Content\icon\svg\arrow-again.svg" />
     <Content Include="Content\icon\svg\arrow-back.svg" />
     <Content Include="Content\icon\svg\arrow-forward.svg" />
