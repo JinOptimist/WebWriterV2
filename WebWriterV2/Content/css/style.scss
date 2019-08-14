@@ -448,17 +448,6 @@ body {
                         }
                     }
                 }
-
-                .tags-block {
-                    display: inline-block;
-                    /*width: 160px;*/
-                    vertical-align: top;
-                    height: 23px;
-
-                    span .tag {
-                        margin-top: 16px;
-                    }
-                }
             }
 
             .book-content {
@@ -467,6 +456,16 @@ body {
                 align-content: space-between;
                 height: 245px;
                 padding: 0 24px 0 24px;
+
+                .tags-block {
+                    display: inline-block;
+                    vertical-align: top;
+                    height: 23px;
+
+                    span.tag {
+                        margin-top: 16px;
+                    }
+                }
 
                 .newTags-block {
                     display: flex;
@@ -504,6 +503,7 @@ body {
                 }
 
                 .name {
+                    margin-top: 16px;
                     padding: 10px 0;
                     font-family: 'Montserrat', sans-serif;
                     font-weight: 600;
@@ -693,6 +693,7 @@ body {
             display: block;
             padding: 0 10px;
             position: relative;
+            background-position-x: 10px;
             cursor: pointer;
         }
     }
