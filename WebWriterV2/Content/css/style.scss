@@ -454,13 +454,13 @@ body {
                 display: flex;
                 flex-wrap: wrap;
                 align-content: space-between;
-                height: 245px;
+                /*height: 245px;*/
+                height: calc(100% - 98px);
                 padding: 0 24px 0 24px;
 
                 .tags-block {
                     display: inline-block;
                     vertical-align: top;
-                    height: 23px;
 
                     span.tag {
                         margin-top: 16px;
@@ -503,7 +503,6 @@ body {
                 }
 
                 .name {
-                    margin-top: 16px;
                     padding: 10px 0;
                     font-family: 'Montserrat', sans-serif;
                     font-weight: 600;
