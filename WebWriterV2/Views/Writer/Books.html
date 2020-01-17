@@ -68,14 +68,14 @@
                     </div>
                 </div>
                 <div class="book-content">
-                    <div>
+                    <div class="hide-beta">
                         <span ng-show="book.Tags && book.Tags.length > 0">{{resources.Tags}}:</span>
                         <span ng-repeat="tag in book.Tags" class="tag" data-tag-id="{{tag.Id}}">
                             {{tag.Name}}
                             <span class="icon close" ng-click="removeTag(book, tag, $index)"></span>
                         </span>
                     </div>
-                    <div class="newTags-block">
+                    <div class="newTags-block hide-beta">
                         <span class="icon add-genre"></span>
                         <input class="newTag" ng-model="book.newTag.Name" ng-keypress="tagAdd($event, book)" placeholder="{{resources.Writer_EnterTag}}" />
                     </div>
