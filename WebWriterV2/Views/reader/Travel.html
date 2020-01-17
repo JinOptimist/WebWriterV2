@@ -11,7 +11,8 @@
     <div class="chapter-links-block" ng-show="travel.Chapter">
 
         <div class="chapter-link" ng-repeat="chapterLink in travel.Chapter.LinksFromThisChapter"
-             ng-class="travel.NextStepId && travel.NextStepId != chapterLink.ToId ? 'lost-choice' : ''">
+             ng-class="travel.NextStepId && travel.NextStepId != chapterLink.ToId ? 'lost-choice' : ''"
+             ng-hide="travel.NextStepId && travel.NextStepId != chapterLink.ToId && !chapterLink.Text">
 
             <div class="text" ng-if="chapterLink.Text">
                 {{chapterLink.Text}}

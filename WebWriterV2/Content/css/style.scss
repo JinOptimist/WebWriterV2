@@ -510,6 +510,7 @@ body {
                     line-height: 24px;
                     letter-spacing: 0.15px;
                     color: $black;
+                    width: 100%;
 
                     input {
                         width: 280px;
@@ -539,6 +540,7 @@ body {
                     letter-spacing: 0.25px;
                     color: rgba(0, 0, 0, 0.6);
                     text-align: left;
+                    width: 100%;
 
                     textarea {
                         width: 280px;
@@ -560,6 +562,7 @@ body {
                 }
 
                 .actions {
+                    width: 100%;
                     display: flex;
                     align-items: center;
                     height: 20px;

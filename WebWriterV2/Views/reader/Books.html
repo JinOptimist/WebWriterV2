@@ -35,18 +35,16 @@
                 </div>
                 <div class="book-content">
 
-                    <div class="tags-block">
+                    <div class="tags-block hide-beta">
                         <span class="tag" ng-repeat="tag in book.Tags" data-tag-id="{{tag.Id}}">{{tag.Name}}</span>
                     </div>
 
                     <!--<input type="button" name="tag" value="КОМЕДИЯ" />-->
                     <p class="name">
                         {{book.Name}}
-                        История о том, зачем орки напали на Русь
                     </p>
                     <p class="desc">
                         {{book.Desc}}
-                        Эта история случилась давно, когда не было известно, кто такие орки, что такое Русь, когда были просто люди со своими бедами и радостями.
                     </p>
                     <div class="actions">
                         <a href="#" ng-click="goToTravel(book)" ng-if="!book.IsReadedEnd">
