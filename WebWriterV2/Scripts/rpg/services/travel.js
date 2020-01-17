@@ -4,6 +4,7 @@
             get: get,
             remove: remove,
             getByBook: getByBook,
+            getByBookAndReset: getByBookAndReset,
             choice: choice,
             getByUserId: getByUserId,
             travelIsEnded: travelIsEnded
@@ -28,6 +29,14 @@
 
         function getByBook(bookId) {
             var url = '/api/travel/getByBook';
+            var data = {
+                bookId: bookId
+            };
+            return httpHelper.get(url, data);
+        }
+
+        function getByBookAndReset(bookId) {
+            var url = '/api/travel/getByBookAndReset';
             var data = {
                 bookId: bookId
             };

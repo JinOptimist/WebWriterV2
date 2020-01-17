@@ -41,6 +41,12 @@ namespace WebWriterV2.Controllers
 
             var step = TravelStepRepository.Get(stepId);
             var travel = TravelRepository.Get(id);
+
+            if (travel.IsTravelEnd)
+            {
+
+            }
+
             return new FrontTravel(travel, step);
         }
 
@@ -72,6 +78,23 @@ namespace WebWriterV2.Controllers
             }
 
             return new FrontTravel(travel);
+        }
+
+        [AcceptVerbs("GET")]
+        public FrontTravel GetByBookAndReset(long bookId)
+        {
+            if (User == null)
+            {
+                throw new Exception("Unxpected using of method. Only login user must use this method");
+            }
+
+            var travel = TravelRepository.GetByBookAndUser(bookId, User.Id);
+            if (travel != null)
+            {
+                TravelRepository.Remove(travel.Id);
+            }
+
+            return GetByBook(bookId);
         }
 
         [AcceptVerbs("GET")]

@@ -13,18 +13,12 @@ angular.module('rpg')
             init();
 
             $scope.goToTravel = function (book) {
-                var userId = userService.getCurrentUserId();
-                // if guest try read book or user start book from the very begining add one view for book
-                if (!userId || !book.IsReaded) {
-                    bookService.addView(book.Id);
-                }
+                goToTravelAndCanReset(book, false);
+            };
 
-                if (userId) {
-                    travelService.getByBook(book.Id).then(function (travel) {
-                        $location.path('/ar/reader/travel/' + travel.Id + '/' + travel.CurrentStepId);
-                    });
-                } else {
-                    $location.path('/ar/reader/travel-guest/' + book.RootChapterId);
+            $scope.resetTravel = function (book) {
+                if (confirm(resources.Writer_ConfirmRemovingTravel.format(book.Name))) {
+                    goToTravelAndCanReset(book, true);
                 }
             };
 
@@ -46,6 +40,28 @@ angular.module('rpg')
                     book.Likes--;
                 }
             };
+
+            function goToTravelAndCanReset(book, isResetTravel) {
+                var userId = userService.getCurrentUserId();
+                // if guest try read book or user start book from the very begining add one view for book
+                if (!userId || !book.IsReaded) {
+                    bookService.addView(book.Id);
+                }
+
+                if (userId) {
+                    var promis;
+                    if (isResetTravel) {
+                        promis = travelService.getByBookAndReset(book.Id);
+                    } else {
+                        promis = travelService.getByBook(book.Id);
+                    }
+                    promis.then(function (travel) {
+                        $location.path('/ar/reader/travel/' + travel.Id + '/' + travel.CurrentStepId);
+                    });
+                } else {
+                    $location.path('/ar/reader/travel-guest/' + book.RootChapterId);
+                }
+            }
 
             function loadBooks() {
                 bookService.getAll().then(function (books) {

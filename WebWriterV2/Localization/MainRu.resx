@@ -453,4 +453,7 @@
   <data name="Reader_RecoverPassword" xml:space="preserve">
     <value>Востановить пароль</value>
   </data>
+  <data name="Writer_ConfirmRemovingTravel" xml:space="preserve">
+    <value>Вы уверены что хотите удалить ваше путешествие по произведению "{0}" и начать всё заново?</value>
+  </data>
 </root>

@@ -55,10 +55,12 @@
                             </span>
                             <span class="icon arrow-forward"></span>
                         </a>
-                        <span class="button-medium-gray" ng-if="book.IsReadedEnd">
-                            {{resources.ReaderBooks_TheBookIsReaded}}
-                            <span class="icon arrow-again"></span>
-                        </span>
+                        <a href="#" ng-click="resetTravel(book)">
+                            <span class="button-medium-gray" ng-if="book.IsReadedEnd">
+                                {{resources.ReaderBooks_TheBookIsReaded}}
+                                <span class="icon arrow-again"></span>
+                            </span>
+                        </a>
                     </div>
                 </div>
                 <div class="book-footer reader" ng-show="user">
@@ -66,17 +68,17 @@
                         <span class="icon thumb-up {{book.UserLikedIt ? 'active' : ''}}" ng-click="like(book)"></span>
                         <span>{{book.Likes}}</span>
                     </div>
-                    <div>
+                    <div class='hide-beta'>
                         <span class="icon comment"></span>
                         <span>
                             26
                         </span>
                     </div>
-                    <div>
+                    <div class='hide-beta'>
                         <span class="icon share"></span>
                         <span>Поделиться</span>
                     </div>
-                    <div class="bookmark-margin">
+                    <div class="bookmark-margin hide-beta">
                         <span class="icon bookmark"></span>
                     </div>
                 </div>
