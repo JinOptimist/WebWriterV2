@@ -787,6 +787,24 @@ body {
         background-color: $white;
         padding: 30px 150px;
     }
+
+    .chapter-links-block {
+        .button-medium-gray, .button-medium-blue {
+            border-radius: 24px;
+            padding: 5px 12px;
+        }
+
+        .button-medium-gray {
+            color: #b3b3b3;
+            background-color: #fff;
+            border: 2px solid #b3b3b3;
+        }
+
+        .prev-next-block{
+            display: flex;
+            justify-content: space-between;
+        }
+    }
 }
 /* Also use in chapter editor */
 .chapter-links-block {
@@ -1587,3 +1605,8 @@ input.ng-dirty {
     padding: 0 35px;
 }
 /* Graph End */
+
+
+.hide-beta{
+    display: none!important;
+}

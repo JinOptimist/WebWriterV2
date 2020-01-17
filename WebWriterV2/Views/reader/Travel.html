@@ -9,10 +9,7 @@
     </div>
     <div class="body" ng-bind-html="travel.Chapter.Desc" ng-show="travel.Chapter"></div>
     <div class="chapter-links-block" ng-show="travel.Chapter">
-        <div>
-            <a href="ar/reader/travel/{{travel.Id}}/{{travel.PrevStepId}}" ng-if="travel.PrevStepId" class="back-link">{{resources.Travel_Back}}</a>
-            <a href="ar/reader/travel/{{travel.Id}}/{{travel.NextStepId}}" ng-if="travel.NextStepId">{{resources.Travel_Next}}</a>
-        </div>
+
         <div class="chapter-link" ng-repeat="chapterLink in travel.Chapter.LinksFromThisChapter"
              ng-class="travel.NextStepId && travel.NextStepId != chapterLink.ToId ? 'lost-choice' : ''">
 
@@ -27,6 +24,18 @@
                 </a>
             </div>
         </div>
+        <div class="prev-next-block">
+            <a href="ar/reader/travel/{{travel.Id}}/{{travel.PrevStepId}}" ng-if="travel.PrevStepId" class="back-link">
+                <span class="button-medium-gray">
+                    {{resources.Travel_Back}}
+                </span>
+            </a>
+            <a href="ar/reader/travel/{{travel.Id}}/{{travel.NextStepId}}" ng-if="travel.NextStepId">
+                <span class="button-medium-gray">
+                    {{resources.Travel_Next}}
+                </span>
+            </a>
+        </div>
         <div ng-show="!travel.Chapter.LinksFromThisChapter || travel.Chapter.LinksFromThisChapter.length == 0">
             <a ng-if="travel.Id > 0" ng-href="ar/reader/travel-end/{{travel.Id}}">
                 <span class="button-medium-blue">
@@ -39,6 +48,6 @@
                 </span>
             </a>
         </div>
-        
+
     </div>
 </div>
