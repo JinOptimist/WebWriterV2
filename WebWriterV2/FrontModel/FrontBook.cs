@@ -25,6 +25,8 @@ namespace WebWriterV2.FrontModels
             Views = book.Views;
             Likes = book.Likes?.Count ?? 0;
             UserLikedIt = book.Likes?.Any(x => x.User.Id == user?.Id) ?? false;
+            CommentsCount = book.BookComments?.Count ?? 0;
+            BookComments = book.BookComments?.Select(x => new FronBookComment(x)).ToList() ?? new List<FronBookComment>();
 
             CountOfChapter = book.AllChapters.Count;
 
@@ -69,6 +71,7 @@ namespace WebWriterV2.FrontModels
         public long CountOfChapter { get; set; }
         public long Views { get; set; }
         public long Likes { get; set; }
+        public long CommentsCount { get; set; }
 
         public bool IsReaded { get; set; }
         public bool IsReadedEnd { get; set; }
@@ -82,6 +85,7 @@ namespace WebWriterV2.FrontModels
         //public List<FrontChapter> AllEvents { get; set; }
         //public List<FrontEvaluation> Evaluations { get; set; }
 
+        public List<FronBookComment> BookComments { get; set; }
         public List<FrontTag> Tags { get; set; }
 
         public override Book ToDbModel()

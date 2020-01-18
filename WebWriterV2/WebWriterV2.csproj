@@ -190,6 +190,7 @@
     <Compile Include="FrontModel\Email\QuestionAndAnswer.cs" />
     <Compile Include="FrontModel\FakeModelString.cs" />
     <Compile Include="FrontModel\BookMap\BookWithChaptersV2.cs" />
+    <Compile Include="FrontModel\FronBookComment.cs" />
     <Compile Include="FrontModel\FrontQuestionnaireResult.cs" />
     <Compile Include="FrontModel\FrontQuestionAnswer.cs" />
     <Compile Include="FrontModel\FrontQuestion.cs" />

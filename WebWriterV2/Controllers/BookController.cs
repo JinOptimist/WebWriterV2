@@ -19,9 +19,10 @@ namespace WebWriterV2.Controllers
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public BookController(IBookRepository bookRepository, IChapterRepository chapterRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IStateValueRepository stateValueRepository, IStateTypeRepository stateTypeRepository, ITagRepository tagRepository, IUserRepository userRepository, ILikeRepository likeRepository)
+        public BookController(IBookRepository bookRepository, IBookCommentRepository bookCommentRepository, IChapterRepository chapterRepository, IEvaluationRepository evaluationRepository, IChapterLinkItemRepository eventLinkItemRepository, IStateValueRepository stateValueRepository, IStateTypeRepository stateTypeRepository, ITagRepository tagRepository, IUserRepository userRepository, ILikeRepository likeRepository)
         {
             BookRepository = bookRepository;
+            BookCommentRepository = bookCommentRepository;
             ChapterRepository = chapterRepository;
             EvaluationRepository = evaluationRepository;
             EventLinkItemRepository = eventLinkItemRepository;
@@ -33,6 +34,7 @@ namespace WebWriterV2.Controllers
         }
 
         private IBookRepository BookRepository { get; }
+        private IBookCommentRepository BookCommentRepository { get; }
         private IChapterRepository ChapterRepository { get; }
         private IEvaluationRepository EvaluationRepository { get; }
         private IChapterLinkItemRepository EventLinkItemRepository { get; }
@@ -257,6 +259,37 @@ namespace WebWriterV2.Controllers
             return true;
         }
 
+        [AcceptVerbs("GET")]
+        public FronBookComment AddComment(long bookId, string text)
+        {
+            var book = BookRepository.Get(bookId);
+            var comment = new BookComment()
+            {
+                Author = User,
+                Book = book,
+                PublicationDate = DateTime.Now,
+                Text = text
+            };
+
+            BookCommentRepository.Save(comment);
+
+            return new FronBookComment(comment);
+        }
+
+        [AcceptVerbs("GET")]
+        public bool RemoveComment(long bookCommentId)
+        {
+            var comment = BookCommentRepository.Get(bookCommentId);
+            if (comment.Author.Id == User.Id)
+            {
+                BookCommentRepository.Remove(comment);
+                return true;
+            }
+
+            return false;
+        }
+        
+
         //EXPEREMENAL
         [AcceptVerbs("GET")]
         public FrontBookWithChapters GetWithChaptersRoadmap(long id)
@@ -378,7 +411,6 @@ namespace WebWriterV2.Controllers
                 UserRepository.Save(User);
             }
         }
-
 
         public bool SaveEvaluation(FrontEvaluation frontEvaluation)
         {

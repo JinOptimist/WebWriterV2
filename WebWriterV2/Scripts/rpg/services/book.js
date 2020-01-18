@@ -14,6 +14,8 @@
             publishBook: publishBook,
             addView: addView,
             addCoAuthor: addCoAuthor,
+            addComment: addComment,
+            removeComment: removeComment,
             removeCoAuthor: removeCoAuthor,
             like: like
         };
@@ -95,6 +97,22 @@
             return httpHelper.get(url, data);
         }
 
+        function addComment(bookId, text) {
+            var url = '/api/book/AddComment';
+            var data = {
+                bookId: bookId,
+                text: text
+            };
+            return httpHelper.get(url, data);
+        }
+
+        function removeComment(bookCommentId) {
+            var url = '/api/book/removeComment';
+            var data = {
+                bookCommentId: bookCommentId
+            };
+            return httpHelper.get(url, data);
+        }
 
         function removeCoAuthor(email, bookId) {
             var url = '/api/book/removeCoAuthor';

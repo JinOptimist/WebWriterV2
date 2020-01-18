@@ -23,6 +23,7 @@ namespace Dal.Model
         public virtual List<UserWhoReadBook> Readers { get; set; }
         public virtual List<Travel> Travels { get; set; }
         public virtual List<Like> Likes { get; set; }
+        public virtual List<BookComment> BookComments { get; set; }
 
         public virtual Genre Genre { get; set; }
         public virtual List<Tag> Tags { get; set; }

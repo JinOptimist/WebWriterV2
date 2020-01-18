@@ -66,10 +66,10 @@
                         <span class="icon thumb-up {{book.UserLikedIt ? 'active' : ''}}" ng-click="like(book)"></span>
                         <span>{{book.Likes}}</span>
                     </div>
-                    <div class='hide-beta'>
-                        <span class="icon comment"></span>
+                    <div>
+                        <span class="icon comment" ng-click="toggleComment(book)"></span>
                         <span>
-                            26
+                            {{book.CommentsCount}}
                         </span>
                     </div>
                     <div class='hide-beta'>
@@ -79,6 +79,21 @@
                     <div class="bookmark-margin hide-beta">
                         <span class="icon bookmark"></span>
                     </div>
+                </div>
+                <div class="comments" ng-show="book.showComments">
+                    <div ng-repeat="comment in book.BookComments" class="comment-block">
+                        <div>{{comment.Text}}</div>
+                        <div class="publication-date">
+                            <span>{{comment.PublicationDate}}</span>
+                            <span ng-show="user.Id == comment.AuthorId" class="icon bin" ng-click="removeComment(book, comment, $index)"></span>
+                        </div>
+                    </div>
+                    <div>
+                        <textarea ng-model="book.newCommentText" class="new-comment-textarea" placeholder="Можете тут написать свой комментарий"></textarea>
+                        <input type="button" value="Комментировать" class="comment-button"
+                               ng-click="addComment(book)"/>
+                    </div>
+
                 </div>
             </div>
         </div>

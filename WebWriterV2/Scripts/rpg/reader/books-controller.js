@@ -41,6 +41,24 @@ angular.module('rpg')
                 }
             };
 
+            $scope.toggleComment = function (book) {
+                book.showComments = !book.showComments;
+            };
+
+            $scope.addComment = function (book) {
+                bookService.addComment(book.Id, book.newCommentText)
+                    .then(function (bookComment) {
+                        book.BookComments.push(bookComment);
+                        book.newCommentText = '';
+                    });
+            };
+
+            $scope.removeComment = function (book, comment, index) {
+                bookService.removeComment(comment.Id).then(function () {
+                    book.BookComments.splice(index, 1);
+                });
+            };
+
             function goToTravelAndCanReset(book, isResetTravel) {
                 var userId = userService.getCurrentUserId();
                 // if guest try read book or user start book from the very begining add one view for book

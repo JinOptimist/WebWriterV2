@@ -30,7 +30,9 @@ namespace Dal
         public virtual DbSet<Genre> Genres { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
         public virtual DbSet<Article> Articles { get; set; }
+        public virtual DbSet<BookComment> BookComments { get; set; }
 
+        /* Questionnaire entities */
         public virtual DbSet<Questionnaire> Questionnaires { get; set; }
         public virtual DbSet<QuestionnaireResult> QuestionnaireResults { get; set; }
         public virtual DbSet<Question> Questions { get; set; }
@@ -62,6 +64,7 @@ namespace Dal
             modelBuilder.Entity<Book>().HasMany(x => x.Tags).WithMany(x => x.Books);
             modelBuilder.Entity<Book>().HasMany(x => x.CoAuthors).WithMany(x => x.AvailableButNotMineBooks);
             modelBuilder.Entity<Book>().HasMany(x => x.Likes).WithRequired(x => x.Book).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Book>().HasMany(x => x.BookComments).WithRequired(x => x.Book);
 
             modelBuilder.Entity<Chapter>().HasMany(x => x.LinksFromThisChapter).WithRequired(x => x.From).WillCascadeOnDelete(false);
             modelBuilder.Entity<Chapter>().HasMany(x => x.LinksToThisChapter).WithRequired(x => x.To);

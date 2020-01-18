@@ -22,8 +22,7 @@ namespace WebWriterV2.Controllers
             {
                 if (_user == null)
                 {
-                    var container = StaticContainer.Container;
-                    var userRepository = container.Resolve<IUserRepository>();
+                    var userRepository = StaticContainer.Container.Resolve<IUserRepository>();
                     string userIdStr = HttpContext.Current.Request.Cookies["userId"]?.Value;
                     var userId = long.Parse(string.IsNullOrEmpty(userIdStr) ? "-1" : userIdStr);
                     _user = userId > 0 ? userRepository.Get(userId) : null;
