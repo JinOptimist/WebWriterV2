@@ -26,6 +26,7 @@ namespace WebWriterV2.FrontModels
         public string PublicationDate { get; set; }
 
         public long AuthorId { get; set; }
+        public string AuthorName { get; set; }
         public long BookId { get; set; }
 
         public override BookComment ToDbModel()

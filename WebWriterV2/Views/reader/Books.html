@@ -69,7 +69,7 @@
                     <div>
                         <span class="icon comment" ng-click="toggleComment(book)"></span>
                         <span>
-                            {{book.CommentsCount}}
+                            {{book.BookComments ? book.BookComments.length : 0}}
                         </span>
                     </div>
                     <div class='hide-beta'>
@@ -84,6 +84,7 @@
                     <div ng-repeat="comment in book.BookComments" class="comment-block">
                         <div>{{comment.Text}}</div>
                         <div class="publication-date">
+                            <span>{{comment.AuthorName}}</span>
                             <span>{{comment.PublicationDate}}</span>
                             <span ng-show="user.Id == comment.AuthorId" class="icon bin" ng-click="removeComment(book, comment, $index)"></span>
                         </div>
