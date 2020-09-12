@@ -1636,6 +1636,15 @@ footer {
 .right {
     float: right;
 }
+
+#questionnaires,
+.questionnaire-request {
+    .button-medium-gray, .button-medium-blue {
+        border-radius: 24px;
+        padding: 5px 12px;
+    }
+}
+
 /* Common style End*/
 
 /* ng-form */

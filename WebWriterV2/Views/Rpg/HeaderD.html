@@ -8,6 +8,10 @@
                 <a href="/ar/reader/books" alt="К списку книг"><img src="/Content/icon/naractivity.png" title="Интерактивная книга" alt="Интерактивная книга"></a>
             </div>
 
+            <div class="header-item" ng-if="!user">
+                <a href="ar/reader/landing">Landing</a>
+            </div>
+
             <div class="header-item" ng-if="user && user.IsAdmin">
                 <a href="/ar/reader/articles">{{resources.Reader_Articles}}</a>
             </div>
@@ -29,11 +33,6 @@
 
             <div class="header-item" ng-if="!user">
                 <a href="#" ng-click="openRegistration()">{{resources.Reader_Registration}}</a>
-            </div>
-
-
-            <div class="header-item" ng-if="user && user.IsAdmin">
-                <a href="ar/reader/landing">Landing</a>
             </div>
 
 

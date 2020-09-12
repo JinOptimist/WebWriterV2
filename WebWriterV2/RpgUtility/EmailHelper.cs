@@ -25,7 +25,7 @@ namespace WebWriterV2.RpgUtility
         {
             var mailMessage = new MailMessage();
             mailMessage.Subject = $"{Properties.Settings.Default.QuestionnaireResultTitle} '{questionnaireResult.QuestionnaireName}'";
-            mailMessage.To.Add(userEmail);
+            userEmail.Split(';').ToList().ForEach(mailMessage.To.Add);
             mailMessage.From = new MailAddress(NoReplayEmail);
 
             var body = new StringBuilder();

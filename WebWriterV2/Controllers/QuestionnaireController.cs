@@ -167,8 +167,6 @@ namespace WebWriterV2.Controllers
             
             return true;
         }
-        
-
 
         [AcceptVerbs("GET")]
         public string RemoveBroken()

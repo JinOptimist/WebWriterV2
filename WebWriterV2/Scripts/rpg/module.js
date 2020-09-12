@@ -88,7 +88,7 @@ angular.module('rpg', ['directives', 'services', 'AppConst', 'underscore', 'ui.b
             
 
                 .otherwise({
-                    redirectTo: '/ar/reader/books'
+                    redirectTo: '/ar/reader/landing'
                 });
 
             // Uses HTLM5 history API for navigation

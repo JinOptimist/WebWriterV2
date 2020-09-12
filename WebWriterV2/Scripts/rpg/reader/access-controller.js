@@ -18,7 +18,8 @@ angular.module('rpg')
             $scope.resources = resources;
             $scope.route = {
                 isTravel: $route.current.controller == 'travelController'
-                    || $route.current.controller == 'travelGuestController'
+                    || $route.current.controller == 'travelGuestController',
+                isLanding: $route.current.controller == 'landingController'
             };
 
             init();
@@ -136,7 +137,13 @@ angular.module('rpg')
 
             function init() {
                 var userId = userService.getCurrentUserId();
+
                 if (userId) {
+                    if ($scope.route.isLanding) {
+                        //redurect logined user to user books
+                        $location.path('/ar/reader/books/');
+                    }
+
                     userService.getById(userId).then(function (data) {
                         $scope.user = data;
                         if ($scope.user.AvatarUrl) {

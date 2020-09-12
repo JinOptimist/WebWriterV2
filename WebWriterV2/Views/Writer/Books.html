@@ -30,7 +30,7 @@
     </div>
 </div>
 
-<div class="content">
+<div class="content books-writer">
     <div ng-if="!books || !questionnaires" class="wait-block">
         <img src="/Content/icon/wait.gif" />
     </div>
@@ -116,20 +116,22 @@
             </div>
         </div>
     </div>
-    <div ng-if="books && !questionnaires.skipQuestionnaires"
-         ng-repeat="questionnaire in questionnaires"
-         class="book questionnaire-request">
-        <p>
-            Пожалуйста перед началом работы с вашими произведениями пройдите опрос: {{questionnaire.Name}}.
-        </p>
-        <p>
-            Для нас очень важны ваши ожидания от работы с нашим сервисом.
-        </p>
-        <div>
-            <a href="/ar/reader/questionnaire/{{questionnaire.Id}}"><span class="button-medium-blue">Пройти опрос</span></a>
-        </div>
-        <div>
-            <a href="#" ng-click="questionnaires.skipQuestionnaires = true"><span class="button-medium-gray">Позже</span></a>
+    <div class="wrapper-book">
+        <div ng-if="books && !questionnaires.skipQuestionnaires"
+             ng-repeat="questionnaire in questionnaires"
+             class="book questionnaire-request">
+            <p>
+                Пожалуйста перед началом работы с вашими произведениями пройдите опрос: {{questionnaire.Name}}.
+            </p>
+            <p>
+                Для нас очень важны ваши ожидания от работы с нашим сервисом.
+            </p>
+            <div>
+                <a href="/ar/reader/questionnaire/{{questionnaire.Id}}"><span class="button-medium-blue">Пройти опрос</span></a>
+            </div>
+            <div>
+                <a href="#" ng-click="questionnaires.skipQuestionnaires = true"><span class="button-medium-gray">Позже</span></a>
+            </div>
         </div>
     </div>
 </div>
