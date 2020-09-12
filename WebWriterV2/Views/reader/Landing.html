@@ -11,7 +11,7 @@
                 Цифровая эпоха открыла перед литераторами множество перспектив повествования –  от использования гипертекстовых структур до индивидуализации художественной формы. Диалог между автором и читателем сегодня перестает быть абстрактным понятием. Благодаря инструментам приложения naractivity у каждого из нас есть возможность принять участие в производстве новой литературной формы. Она основана на повествовательной динамике, способности влиять на сюжет, а также на гибкости границ между автором и потребителем. Отныне чтение – это акт творческого производства.
             </p>
         </div>
-        <div class="login-block">
+        <div class="login-block" ng-if="!user">
             <input ng-model="loginObj.Email" placeholder="email" />
             <input type="password" ng-model="loginObj.Password" placeholder="password" />
             <input type="button" value="Зарегистрироваться" ng-click="register()" /><!--ng-show="!user"-->
@@ -189,7 +189,7 @@
                 Будьте счастливы
             </p>
         </div>
-        <div class="login-block">
+        <div class="login-block" ng-if="!user">
             <input ng-model="loginObj.Email" placeholder="email" /><input ng-model="loginObj.Password" placeholder="password" /><input type="button" value="Зарегистрироваться" ng-click="register()" /><!--ng-show="!user"-->
         </div>
     </footer>

@@ -5,11 +5,11 @@
     <div class="content" id="header">
         <div class="menu-panel">
             <div class="logo header-item">
-                <a href="/ar/reader/books" alt="К списку книг"><img src="/Content/icon/naractivity.png" title="Интерактивная книга" alt="Интерактивная книга"></a>
+                <a ng-href="{{user ? '/ar/reader/books' : '#'}}"  alt="К списку книг"><img src="/Content/icon/naractivity.png" title="Интерактивная книга" alt="Интерактивная книга"></a>
             </div>
 
-            <div class="header-item" ng-if="!user">
-                <a href="ar/reader/landing">Landing</a>
+            <div class="header-item" ng-if="user">
+                <a href="ar/reader/landing">О проекте</a>
             </div>
 
             <div class="header-item" ng-if="user && user.IsAdmin">
